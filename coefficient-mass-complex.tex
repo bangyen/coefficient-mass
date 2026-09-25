@@ -93,10 +93,11 @@ normalized multiple, have been studied for real and complex
 coefficients~\cite{dj,schinzel-complex}, and power series with restricted
 coefficients and a root on a given ray in~\cite{bbbp-ray}; the first row
 below, $b_1(F)\ge|f_D|\prod_j(|\alpha_j|-1)$, is the complex analogue of the
-bound $H(P)\ge|P(1)|$ of~\cite{dj}, proved there for real roots greater
-than one, where the two agree.  At complex roots $|P(1)|$ is not a lower
-bound: for $x^2+\rho^2$ it is $\rho^2+1$, while monic multiples have $b_1$
-arbitrarily close to $\rho^2-1$ (Corollary~\ref{cor:imag}).
+bound $H(P)\ge|P(1)|$ on the reduced height $H(P)$ (the infimum of the
+heights of the multiples $PQ$, $Q$ monic) obtained in~\cite{dj} for real roots
+greater than one under a same-sign hypothesis and proved unconditionally
+in~\cite{coefficient-mass}; the two agree at such roots, but at complex
+roots $|P(1)|$ can exceed $\prod_j(|\alpha_j|-1)$ ($x^2+\rho^2$).
 
 \paragraph{Exact reductions.}  If the prescribed factor has the form
 $R(x^m)$, multisection reduces every multiple to a multiple of $R$ with a
@@ -134,7 +135,9 @@ gives mass at least $\frac{K(K-2)}8\log(\frac R2-1)$ for multiples with
 leading coefficient of modulus at least $1$ and degree at most
 $\pi K/(2E(2\delta))$, where
 $E(2\delta)\le(8\delta/\log2)\log(e\pi/(2\delta))$ (Section~\ref{sec:thin},
-Theorem~\ref{thm:thinsector}).  At distinct Gaussian-integer roots in the
+Theorem~\ref{thm:thinsector}); since the degree is at least $K$, this
+needs $E(2\delta)\le\pi/2$, that is $\delta<0.033$, so the theorem is
+for $\delta\to0$.  At distinct Gaussian-integer roots in the
 upper half-plane, where a carry
 argument charges degree against mass (Theorem~\ref{thm:gausscharge}), every
 integer multiple pays the smaller of this and
@@ -1096,6 +1099,10 @@ $d\,E(2\delta)\le\pi K/2$, then with $m=\lceil K/2\rceil-1$,
 and $\frac{m(m+1)}2\ge\frac{K(K-2)}8$.
 \end{theorem}
 
+Since $d\ge K$, the degree hypothesis can hold only when
+$E(2\delta)\le\pi/2$, that is $\delta<0.033$: the theorem is meant for
+$\delta\to0$, and Section~\ref{sec:widesectors} treats wider sectors.
+
 \begin{proof}
 Choose $\delta'\in(\delta,2\delta]$ such that no zero of $B$ other than $0$ lies on the rays
 $\arg z=\varphi\pm\delta'$; all but finitely many values qualify.  The $K$
@@ -1693,7 +1700,10 @@ at Gaussian roots in a wide sector remains open.
 
 
 \paragraph{Data availability.}
-No datasets were generated or analyzed in this study.
+No datasets were generated or analyzed in this study.  The search of
+Section~\ref{sec:widesectors} is \texttt{tools/levelsets.py} of the
+accompanying repository, and its small cases are rechecked in
+\texttt{tests/test\_complex.py}.
 
 \begin{thebibliography}{99}
 \small
