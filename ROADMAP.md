@@ -96,8 +96,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `prop:longdiagexplicit`): for each `1 < r < 2` there are `alpha`, `K`
   with the prefix identity holding for `k >= max(K, alpha(n-1))`, so every
   diagonal fails in at most finitely many rows (`cor:longdiagfinite`).
-  The second row (`sec:secondrow`): with `mu_sigma(n) = mu_r({sigma}, n+1)`,
-  `V_r(n+1,2) = min(1/nu_1(n), min_(sigma < sigma*) 1/mu_sigma(n))` for an
+  The second row (`sec:secondrow`): with `eta_sigma(n) = mu_r({sigma}, n+1)`,
+  `V_r(n+1,2) = min(1/nu_1(n), min_(sigma < sigma*) 1/eta_sigma(n))` for an
   explicit tail threshold `sigma*` (`thm:secondrow`), each term certified
   exactly by a vertex test (`lem:vertexopt`), and `V_r(L,k)` does not
   increase along a diagonal (`lem:rowmono`).  Exact values
