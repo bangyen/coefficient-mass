@@ -589,6 +589,191 @@ def test_rows_need_n(big_k: int) -> None:
     assert _b(g)[1] * 2 ** (big_k + 1) > (lam * q) ** big_k
 
 
+# The second row at the separation n (lem:trunc, thm:rowstwo, cor:rowstwo).
+
+Cx = tuple[Fraction, Fraction]  # an exact complex number (re, im)
+
+
+def _cmul(z: Cx, w: Cx) -> Cx:
+    return (z[0] * w[0] - z[1] * w[1], z[0] * w[1] + z[1] * w[0])
+
+
+def _unit_points() -> list[Cx]:
+    """Rational points of the unit circle, from Pythagorean triples."""
+    out = set()
+    for m in range(1, 6):
+        for k in range(m):
+            a, b, c = m * m - k * k, 2 * m * k, m * m + k * k
+            for sa, sb in product((1, -1), repeat=2):
+                out.add((Fraction(sa * a, c), Fraction(sb * b, c)))
+                out.add((Fraction(sa * b, c), Fraction(sb * a, c)))
+    return sorted(out)
+
+
+def _truncations(xs: list[Cx], big_m: int) -> list[Cx]:
+    """``sum_(k <= m) h_k(xs)`` for ``m = 0, ..., big_m``."""
+    w: list[Cx] = [(Fraction(1), Fraction(0))] + [(Fraction(0), Fraction(0))] * big_m
+    for x in xs:
+        for k in range(1, big_m + 1):
+            t = _cmul(x, w[k - 1])
+            w[k] = (w[k][0] + t[0], w[k][1] + t[1])
+    sums, acc = [], (Fraction(0), Fraction(0))
+    for z in w:
+        acc = (acc[0] + z[0], acc[1] + z[1])
+        sums.append(acc)
+    return sums
+
+
+def test_truncation_real_part() -> None:
+    """``lem:trunc``, the step for ``n >= 2``: ``Re tau_M(y) >= 1 - n|y|`` on
+    ``|y| <= 1/n``, exactly at rational points of circles, with the convexity
+    identity behind it and its equality at ``M = 1``, ``y = -1/n``.
+
+    Control: for ``n = 1`` the real part alone fails, at
+    ``y = (9/10)(8 - 15i)/17``, ``M = 4``, which is why that case is handled
+    by the modulus."""
+    for n, k in product(range(2, 30), range(1, 30)):
+        value = n * n * (k + 1) * (k + 2) * (
+            1 - Fraction(2 * (n + k), n * (k + 1))
+        ) + Fraction((n + k) * (n + k + 1), 1)
+        assert value == (n - 1) * ((n - 1) * k * (k + 1) - n) >= 0
+    points = _unit_points()
+    for n in range(2, 7):
+        for rho in (Fraction(1, n), Fraction(9, 10 * n), Fraction(1, 3 * n)):
+            for c, s in points:
+                y = (rho * c, rho * s)
+                re = _truncations([y] * n, 9)
+                for big_m in range(1, 10):
+                    assert re[big_m][0] >= 1 - n * rho
+                if (c, s) == (-1, 0):
+                    assert re[1][0] == 1 - n * rho
+    y = (Fraction(9, 10) * Fraction(8, 17), Fraction(9, 10) * Fraction(-15, 17))
+    assert _truncations([y], 4)[4][0] < 0
+
+
+def test_truncation_lemma() -> None:
+    """``lem:trunc``: ``|sum_(k <= M) h_k(x)| >= 1 - n rho`` for ``|x_i| <= rho
+    <= 1/n``, exactly, on seeded points of circles of radius ``rho`` and below.
+
+    Control: ``1 - n rho`` is sharp, so ``1 - (n - 1/2) rho`` is false, at
+    ``M = 1`` and ``x_i = -rho``."""
+    rng = random.Random(SEED + 31)
+    points = _unit_points()
+    for _ in range(300):
+        n = rng.randint(1, 6)
+        rho = Fraction(rng.randint(1, 10), 10 * n)
+        xs = []
+        for _ in range(n):
+            c, s = rng.choice(points)
+            r = rho * rng.choice([1, 1, Fraction(1, 2)])
+            xs.append((r * c, r * s))
+        for z in _truncations(xs, 8):
+            assert z[0] ** 2 + z[1] ** 2 >= (1 - n * rho) ** 2
+    n, rho = 4, Fraction(1, 10)
+    (_, z) = _truncations([(-rho, Fraction(0))] * n, 1)
+    assert z == (1 - n * rho, 0) and z[0] < 1 - (n - Fraction(1, 2)) * rho
+
+
+def _second_row_bound(f: Poly, alpha: int, moduli: list[int]) -> Fraction:
+    """The right side of ``thm:rowstwo``, ``T`` the least of the moduli."""
+    n, a = len(moduli), abs(alpha)
+    lam = 1 - Fraction(n * a, min(moduli))
+    assert 0 < lam <= 1 and a > 1
+    return lam**2 / 2 * (1 - Fraction(1, a)) * abs(f[-1]) * prod(moduli)
+
+
+def test_second_row_at_separation_n() -> None:
+    """``thm:rowstwo`` on seeded integer multiples with ``n`` zeros of modulus
+    at least ``T`` (real of both signs, or Pythagorean pairs) and a zero
+    ``alpha`` with ``1 < |alpha| < T/n``, and on ``(x - q)(x + t)^K`` just past
+    ``t = Kq``, where the ratio ``b_2 / prod |beta|`` is ``lambda`` for large
+    ``q`` (the remark after the theorem).
+
+    Control: without the factor ``lambda^2`` the bound fails, at
+    ``t = Kq + 1``."""
+    rng = random.Random(SEED + 32)
+    for _ in range(300):
+        alpha = rng.choice([-1, 1]) * rng.randint(2, 12)
+        factors, moduli = [], []
+        for _ in range(rng.randint(1, 3)):
+            if rng.random() < 0.5:
+                x, y, rho = rng.choice(PYTHAGOREAN[:5])
+                factors.append(_pair(x, y))
+                moduli += [rho, rho]
+            else:
+                t = rng.randint(1, 40)
+                factors.append([-rng.choice([-1, 1]) * t, 1])
+                moduli.append(t)
+        n = len(moduli)
+        scale = n * abs(alpha) // min(moduli) + rng.randint(1, 3)
+        factors = [
+            [c * scale ** (len(p) - 1 - i) for i, c in enumerate(p)] for p in factors
+        ]
+        moduli = [scale * m for m in moduli]
+        f = _product([[-alpha, 1], _cofactor(rng), *factors])
+        assert all(_divides(p, f) for p in factors)
+        assert _b(f)[1] >= _second_row_bound(f, alpha, moduli)
+    for big_k, q in product((1, 3, 10), (5, 4**10)):
+        for t in (big_k * q + 1, 2 * big_k * q):
+            f = _mul([-q, 1], _product([[t, 1]] * big_k))
+            assert _b(f)[1] >= _second_row_bound(f, q, [t] * big_k)
+    q, big_k, lam = 4**10, 10, Fraction(1, 4)
+    t = big_k * q / (1 - lam)
+    f = _mul([Fraction(-q), Fraction(1)], _product([[t, Fraction(1)]] * big_k))
+    assert f[1] == lam * t**big_k == _b(f)[1]
+    t = big_k * q + 1
+    f = _mul([-q, 1], _product([[t, 1]] * big_k))
+    assert _b(f)[1] < Fraction(1, 2) * (1 - Fraction(1, q)) * t**big_k
+
+
+def test_rows_for_two_annuli() -> None:
+    """``cor:rowstwo`` for ``S = 2``: rows ``k = 1, 2`` and the mass of
+    ``cor:annuli`` item 1 at ``T_2`` just above ``max(9, n_2 + 1) U_1``, on
+    seeded multiples with pairs below and real zeros and pairs above; and the
+    ``C``-form ``b_2 >= (1 - 1/C)^2 / 3 * |f_D| prod |beta|``.
+
+    Control: ``(x - q)(x + Kq)^K`` at ``T_2 = n_2 U_1`` misses the row
+    (``prop:rowsneedn``, ``test_rows_need_n``), while ``T_2 = (K + 1) q + 1``
+    meets it."""
+    assert all((9 - n) ** 2 * 2 ** (n + 1) >= 256 for n in range(1, 9))
+    assert all(2 ** (n + 1) >= 3 * (n + 1) ** 2 for n in range(8, 200))
+    rng = random.Random(SEED + 33)
+    small = [p for p in PYTHAGOREAN if p[2] >= 5]
+    for _ in range(80):
+        lower = [rng.choice(small) for _ in range(rng.randint(1, 2))]
+        upper_u = max(rho for *_, rho in lower)
+        upper: list[tuple[Poly, int]] = []
+        for _ in range(rng.randint(1, 6)):
+            x, y, rho = rng.choice(small)
+            upper.append((_pair(x, y), rho) if rng.random() < 0.5 else ([rho, 1], rho))
+        n_2 = sum(len(p) - 1 for p, _ in upper)
+        scale = max(9, n_2 + 1) * upper_u // min(rho for _, rho in upper) + 1
+        upper = [
+            ([c * scale ** (len(p) - 1 - i) for i, c in enumerate(p)], scale * rho)
+            for p, rho in upper
+        ]
+        big_t2 = min(rho for _, rho in upper)
+        assert big_t2 > max(9, n_2 + 1) * upper_u
+        f = _mul(
+            _product([_pair(x, y) for x, y, _ in lower] + [p for p, _ in upper]),
+            _cofactor(rng),
+        )
+        lead = abs(f[-1])
+        up = [rho for p, rho in upper for _ in range(len(p) - 1)]
+        low = [rho for *_, rho in lower for _ in range(2)]
+        b1 = Fraction(lead, 2) * prod(Fraction(r, 2) for r in low + up)
+        b2 = Fraction(lead, 2) * prod(Fraction(r, 2) for r in up)
+        b = _b(f)
+        assert b[0] > b1 and b[1] > b2
+        assert _mass(f) >= lead * b1 * b2
+        big_c = Fraction(big_t2, n_2 * upper_u)
+        assert b[1] >= (1 - 1 / big_c) ** 2 / 3 * lead * prod(up)
+    for big_k in (10, 11, 12):
+        q = 4**big_k
+        f = _mul([-q, 1], _product([[(big_k + 1) * q + 1, 1]] * big_k))
+        assert _b(f)[1] * 2 ** (big_k + 1) > ((big_k + 1) * q + 1) ** big_k
+
+
 def test_mass_fails_at_separation_two() -> None:
     """``prop:gaptwo``: ``(x - q)(x + t)^2`` with ``t = 2q + 1/(2q + 1)`` has
     ``T_2 > 2 U_1`` and mass below the bound of ``thm:fixedgap``, by the exact
