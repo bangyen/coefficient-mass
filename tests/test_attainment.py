@@ -10,7 +10,8 @@ exact identity (``thm:halfmass``), which pins the infimum at
 ``(r, 3, 5, 7)`` (``thm:family``) and the infimum there in seven pieces down
 to ``r = 1.0745...`` (``thm:familylow``, signs on intervals by Sturm counts),
 and ``inf b_2 - 24`` of order ``(r - 1)^alpha`` as ``r -> 1`` (``lem:threenode``,
-``thm:familyone``); along ``(r, 5, 7)`` it fails for every ``r < 2``
+``thm:familyone``), with an oscillating constant (``lem:eighteen``,
+``thm:familyosc``); along ``(r, 5, 7)`` it fails for every ``r < 2``
 (``prop:cutoffsharp``).
 
 Every tail is exact: a full certificate has used its zero budget, so it keeps
@@ -1273,6 +1274,147 @@ def test_family_near_one() -> None:
     assert _flip_witness(r, 9) is None
     t9 = _at_x(9)[1]
     assert _tail_of([y, *_FAST], [1, 2, 9]) < t9 / (1 + Fraction(1, 3**6))
+
+
+def _gap_ratio(x: int) -> Fraction:
+    """``R(x) = (36/5)(5/3)^x (1/24 - t(x))`` of ``lem:eighteen``."""
+    return Fraction(36, 5) * Fraction(5, 3) ** x * (Fraction(1, 24) - _at_x(x)[1])
+
+
+def _k_ratio(c: int) -> Fraction:
+    """``K_c = ell(c) / (1/24 - t(c))`` of ``lem:eighteen``."""
+    lam, t, _, _ = _at_x(c)
+    return lam[0] / (Fraction(1, 24) - t)
+
+
+def _exact_witness(y: Fraction, x: int, z: int) -> list[Fraction]:
+    """``s_1, s_x, s_z, theta`` of the witness of the full certificate with
+    zero set {1, x, z} on (y, 1/3, 1/5, 1/7): the pattern is ``s_1``, then -1
+    below ``x``, ``s_x``, then +1 below ``z``, ``s_z``, then -1, and
+    ``sum_d rho_d a^d = theta`` at the four nodes (``eq:witness``)."""
+    rows, rhs = [], []
+    for a in [y, *_FAST]:
+        known = (a ** (x + 1) - a**z - a ** (z + 1) - a**2 + a**x) / (1 - a)
+        rows.append([a, a**x, a**z, Fraction(-1)])
+        rhs.append(-known)
+    return _solve(rows, rhs)
+
+
+def _cheap_bound(r: Fraction, c: int, x: int) -> Fraction:
+    """The bound of ``lem:eighteen`` (b) on the cost of the placement ``x``."""
+    lam, t, _, _ = _at_x(c)
+    head = lam[0] / 3**x + lam[2] / 7**x
+    return t + Fraction(35, 24) * head / _h(x - 2, _FAST[1:] + [Fraction(1)]) * (
+        r ** (x - 1) / (r - 1)
+    )
+
+
+def test_family_oscillation() -> None:
+    """``lem:eighteen`` and ``thm:familyosc``: along (r, 3, 5, 7) the excess
+    ``inf b_2 - 24`` is ``(80 + o(1))(3/5)^x*`` off the jumps, ``x*`` the
+    largest integer with ``3^x (r - 1) < 18``, so ``(inf b_2 - 24)(r-1)^-alpha``
+    oscillates between ``80 * 18^-alpha`` and ``(400/3) 18^-alpha``.
+
+    Checked: the solution of the corrected witness and its constants 15, 6,
+    14; the identity behind the start of the path; the closed forms of
+    ``18 * 3^-x s_x``, ``R(x)`` and ``K_c`` and their limits; the sum ``g`` of
+    part (b).  At ``r = 5701/5700`` the infimum is found exactly:
+    ``x* = 10``, the worst placement is {10} with zero set {1, 10, 1335},
+    and every other placement costs less.  Control: ``t(11) > t(10)``, so
+    the placement 11 is beaten only by the node ``1/r`` (part (b)), and the
+    certificate {1, 4, 11} at ``(3, 5, 7)`` alone (``K_4 > 18``) costs more
+    than ``t(10)``; and at ``x = 11``, ``3^11 (r - 1) > 18``, the witness
+    condition of part (a) fails.
+    """
+    # (a) The corrected witness: p, q, theta' solve p a + q a^x - theta' =
+    # delta(a) at the fast nodes, for each unit vector delta.
+    for x in range(4, 13):
+        a3, b5, c7 = Fraction(1, 3**x), Fraction(1, 5**x), Fraction(1, 7**x)
+        d = 3 * a3 - 10 * b5 + 7 * c7
+        assert d >= Fraction(17, 10) * a3
+        for k in range(3):
+            delta = [Fraction(int(i == k)) for i in range(3)]
+            q = (3 * delta[0] - 10 * delta[1] + 7 * delta[2]) / d
+            p = (
+                -Fraction(105, 2)
+                * (delta[0] * (b5 - c7) - delta[1] * (a3 - c7) + delta[2] * (a3 - b5))
+                / d
+            )
+            theta = p / 3 + q * a3 - delta[0]
+            for a in _FAST:
+                assert p * a + q * a**x - theta == delta[_FAST.index(a)]
+    cap_p = Fraction(525, 17) * (
+        3 * Fraction(3, 5) ** 4
+        + Fraction(5, 2) * Fraction(3, 5) ** 7
+        + Fraction(7, 3) * Fraction(3, 7) ** 7
+    )
+    cap_q = Fraction(10, 17) * (9 + Fraction(49, 3) * Fraction(3, 7) ** 7)
+    assert cap_p <= 15 and cap_q <= 6 and 25 * Fraction(3, 5) ** 2 <= 9
+    assert Fraction(15, 3) + 6 + 3 == 14
+    assert Fraction(1, 2) + Fraction(15, 3**7) < 1 and Fraction(6, 27) < 1
+    for yv in (Fraction(1, 2), Fraction(9, 10), Fraction(100, 101)):
+        for x in range(4, 9):
+            lhs = yv**2 + 2 * yv ** (x + 3) - yv**x - yv ** (x + 1)
+            assert lhs == yv**2 - (1 - yv) * yv**x * (2 * yv**2 + 2 * yv + 1)
+    # (c) The closed forms and limits.
+    for x in range(4, 61):
+        _, t, _, sx = _at_x(x)
+        beta, gamma = Fraction(3, 5) ** x, Fraction(3, 7) ** x
+        den = 1 - Fraction(10, 3) * beta + Fraction(7, 3) * gamma
+        a3, c7, q57 = Fraction(1, 3**x), Fraction(1, 7**x), Fraction(5, 7) ** x
+        assert 18 * a3 * sx == (1 - 36 * a3 + Fraction(90, 5**x) - 56 * c7) / den
+        num = 1 - Fraction(7, 5) * q57 - 9 * a3 + Fraction(84, 5) * a3 * q57 - 7 * c7
+        assert _gap_ratio(x) == num / den
+        assert _gap_ratio(x) >= Fraction(9, 20)
+    assert abs(18 * _at_x(60)[3] / 3**60 - 1) < Fraction(1, 10**12)
+    assert abs(_gap_ratio(60) - 1) < Fraction(1, 10**8)
+    for c in range(2, 61):
+        assert _k_ratio(c) > 18
+    assert _k_ratio(60) - 18 < Fraction(1, 10**8)
+    # (b) g_d = (y - 1/5)(y - 1/7) h_{d-2}(1/5, 1/7, y), and its sum.
+    for r in (Fraction(101, 100), Fraction(3, 2)):
+        yv = 1 / r
+        for dd in range(0, 12):
+            g = yv**dd - (35 * yv - 5) / 2 / 5**dd + (35 * yv - 7) / 2 / 7**dd
+            lead = (yv - Fraction(1, 5)) * (yv - Fraction(1, 7))
+            assert g == (lead * _h(dd - 2, [*_FAST[1:], yv]) if dd >= 2 else 0)
+        total = sum(
+            w / (1 - a)
+            for w, a in zip(
+                (1, -(35 * yv - 5) / 2, (35 * yv - 7) / 2),
+                (yv, Fraction(1, 5), Fraction(1, 7)),
+                strict=True,
+            )
+        )
+        assert total == Fraction(35, 24) * lead / (1 - yv)
+    # The exact infimum at r = 5701/5700.
+    r = Fraction(5701, 5700)
+    eps, y = r - 1, 1 / r
+    assert 3**10 * eps < 18 < 3**11 * eps
+    x, z = 10, 1335
+    _, t, s1, sx = _at_x(x)
+    assert y**x * (1 + y) - y**2 >= (1 - y) / 24 and sx + 7 <= 1 / (r * eps)
+    ws1, _, wsz, theta = _exact_witness(y, x, z)
+    assert abs(ws1) <= 1 and abs(wsz) <= 1  # eq:witness: tau({10}) = theta
+    cert = _certificate([y, *_FAST], [1, x, z])
+    tail = sum(
+        li * (a ** (x + 1) - a**z - a ** (z + 1) - a**2 + a**x) / (1 - a)
+        for li, a in zip(cert, [y, *_FAST], strict=True)
+    )
+    assert tail == theta  # the signed sum is the tail (sign pattern of v)
+    assert 0 < t - theta <= 14 * Fraction(1, 3**z) < Fraction(1, 10**600)
+    assert all(_at_x(k)[1] < theta for k in range(4, 10))
+    assert max(Fraction(1, 48), Fraction(31, 1704)) < theta
+    for k in range(11, 20):  # decreasing in x, so x = 11 covers all x >= 11
+        assert _cheap_bound(r, 4, k + 1) < _cheap_bound(r, 4, k)
+    assert _cheap_bound(r, 4, 11) < Fraction(3593, 100000) < theta
+    assert Fraction(2447884, 100000) < 1 / theta < Fraction(2447885, 100000)
+    # Controls: t(11) > t(10), so the trivial bound leaves the placement 11
+    # open; below 18 part (b) is useless (K_c > 18); at x = 11 the witness
+    # condition of part (a) fails.
+    assert _at_x(11)[1] > t
+    assert all(_cheap_bound(r, c, x) > t for c in range(2, x))
+    assert _at_x(11)[3] + 7 > 1 / (r * eps)
 
 
 def test_cutoff_sharp() -> None:
