@@ -139,7 +139,10 @@ separation $n_a$, $(x-q)(x+Kq)^K$ has $b_2$ below the row by a factor that
 tends to $0$ (Proposition~\ref{prop:rowsneedn}), while for two annuli the
 separation $n_2+1$ suffices, as a truncation of $\prod(1-x/\beta)^{-1}$ stays
 away from $0$ below $T/n$ (Lemma~\ref{lem:trunc},
-Theorem~\ref{thm:rowstwo}, Corollary~\ref{cor:rowstwo}).  The mass bound fails at
+Theorem~\ref{thm:rowstwo}, Corollary~\ref{cor:rowstwo}).  For more annuli
+the separation $n_a+9$ suffices (Theorem~\ref{thm:rowsk},
+Corollary~\ref{cor:rowsall}), but the row $3$ needs both separations to grow
+with the number of roots above (Proposition~\ref{prop:rowslower}).  The mass bound fails at
 the separation $2$ (Proposition~\ref{prop:gaptwo}).
 
 \paragraph{Both signs.}  For real roots of both signs, Rolle's theorem on
@@ -809,7 +812,8 @@ number of roots above; by the remark after Lemma~\ref{lem:tropcount}, a
 central index at $r_a$ can have fewer than $n_a$ positions above it when
 $T_a/r_a<n_a$, and the rows themselves fail at $T_a=n_aU_{a-1}$
 (Proposition~\ref{prop:rowsneedn}); for $S=2$ they hold at
-$T_2>(n_2+1)U_1$ (Corollary~\ref{cor:rowstwo}).  Item~2 needs only the factor $9$, but past the first
+$T_2>(n_2+1)U_1$ (Corollary~\ref{cor:rowstwo}), and for every $S$ at
+$T_a>(n_a+9)U_{a-1}$ (Corollary~\ref{cor:rowsall}).  Item~2 needs only the factor $9$, but past the first
 annulus it charges ratios $|\beta|/U_{a-1}$ instead of moduli.  With one root
 per annulus, $k_a=n_a=S-a+1$ at the separation $9$ of the theorem, which then
 gives Corollary~\ref{cor:separated}, item~1, when $\rho_1>3$ (the corollary
@@ -971,7 +975,8 @@ the mass it is proved at the fixed separation $81$
 (Theorem~\ref{thm:fixedgap}), and with ratios in place of moduli at the
 separation $9$ (Corollary~\ref{cor:annuli}, item~2); the rows of item~1 are
 proved at the separation $9n_a$, and the factor $n_a$ cannot be dropped;
-for two annuli $n_2+1$ suffices (Corollary~\ref{cor:rowstwo}).
+for two annuli $n_2+1$ suffices (Corollary~\ref{cor:rowstwo}), and in
+general $n_a+9$ (Corollary~\ref{cor:rowsall}).
 
 \begin{proposition}[Rows need the factor $n_a$]\label{prop:rowsneedn}
 Let $K\ge10$ and $q\ge4^K$ be integers and $F=(x-q)(x+Kq)^K$.  Then
@@ -1033,7 +1038,11 @@ For $M=0$ the sum is $1$.  For $n=1$ and $M\ge1$ it is
 $(1-x_1^{M+1})/(1-x_1)$ (or $M+1$ if $x_1=1$), of modulus at least
 $(1-\rho^{M+1})/(1+\rho)\ge(1-\rho^2)/(1+\rho)=1-\rho$.  Let $n\ge2$, and let
 $u$ be uniform on the simplex $u_i\ge0$, $\sum_iu_i=1$.  Its moments are
-$\mathbb E\prod_iu_i^{a_i}=(n-1)!\prod_ia_i!/(n-1+\sum_ia_i)!$, so expanding
+$\mathbb E\prod_iu_i^{a_i}=(n-1)!\prod_ia_i!/(n-1+\sum_ia_i)!$: for independent
+standard exponential $g_1,\ldots,g_n$, the substitution $g=su$ has
+$dg=s^{n-1}\,ds\,du$, so $s=\sum_ig_i$, with density $s^{n-1}e^{-s}/(n-1)!$,
+and $u=g/s$, uniform, are independent, and
+$\prod_ia_i!=\mathbb E\prod_ig_i^{a_i}=\mathbb E\,s^{\sum_ia_i}\,\mathbb E\prod_iu_i^{a_i}$.  So expanding
 $(u\cdot x)^k$ by the multinomial theorem gives
 $\mathbb E(u\cdot x)^k=h_k(x)/\binom{n+k-1}k$, and
 \[
@@ -1048,7 +1057,11 @@ $c_k=\binom{n+k-1}k\rho'^k$, so $c_0=1$, $c_1=n\rho'$ and
 $c_{k+1}=a_k\rho'c_k$ with $a_k=(n+k)/(k+1)$.  Let
 $D_k=\sum_{i=0}^k\cos i\theta$ and $E_k=\sum_{j=1}^kD_j$; by Fej\'er's
 identity $\sum_{j=0}^kD_j=\frac{k+1}2+\Phi_k$ with
-$\Phi_k=\sin^2\frac{(k+1)\theta}2\big/\bigl(2\sin^2\frac\theta2\bigr)\ge0$, so
+$\Phi_k=\sin^2\frac{(k+1)\theta}2\big/\bigl(2\sin^2\frac\theta2\bigr)\ge0$
+(telescoping $2\sin\frac\theta2\cos i\theta=\sin(i+\frac12)\theta-\sin(i-\frac12)\theta$
+gives $D_j=\frac12+\sin(j+\frac12)\theta/(2\sin\frac\theta2)$, and
+telescoping $2\sin\frac\theta2\sin(j+\frac12)\theta=\cos j\theta-\cos(j+1)\theta$
+sums these), so
 $E_k=\frac{k-1}2+\Phi_k\ge0$ for $k\ge1$.  With $e_k=c_k-c_{k+1}$ for $k<M$,
 $e_M=c_M$ and $e_{M+1}=0$, summation by parts twice gives
 \[
@@ -1077,59 +1090,83 @@ can be negative for $|y|<1$.
 Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $A$ be a sub-multiset of
 the zeros of $F$, counted with multiplicity, with $n=|A|\ge1$ and
 $|\beta|\ge T$ for $\beta\in A$, and let $\alpha$ be a zero of $F$ with
-$1<|\alpha|<T/n$.  Put $\lambda=1-n|\alpha|/T$.  Then
+$1<|\alpha|<T/n$.  Put $\lambda=1-n|\alpha|/T$, and $\gamma=1$ if $n=1$,
+$\gamma=(1-|\alpha|/T)^n$ if $n\ge2$.  Then
 \[
-  b_2(F)\ \ge\ \frac{\lambda^2}2\Bigl(1-\frac1{|\alpha|}\Bigr)|f_D|\prod_{\beta\in A}|\beta| .
+  b_2(F)\ \ge\ \frac{\lambda\gamma}2\Bigl(1-\frac1{|\alpha|}\Bigr)|f_D|\prod_{\beta\in A}|\beta| ,
 \]
+and $\gamma\ge\max(\lambda,\frac14)$, so $b_2(F)$ is at least
+$\frac\lambda8(1-\frac1{|\alpha|})|f_D|\prod_{\beta\in A}|\beta|$ and at least
+$\frac{\lambda^2}2(1-\frac1{|\alpha|})|f_D|\prod_{\beta\in A}|\beta|$.
 \end{theorem}
 
 \begin{proof}
-Divide $F$ by $f_D$, so $f_D=1$.  Let $H=\prod_{\beta\in A}(x-\beta)$,
-$\Pi=|H(0)|=\prod_{\beta\in A}|\beta|$, and $P=F/H$, monic of degree
-$d=D-n<D$; as $|\alpha|<T$, $P(\alpha)=0$.  For $|x|<T$,
+Divide $F$ by $f_D$, so $f_D=1$.  Put $a=|\alpha|$,
+$\Pi=\prod_{\beta\in A}|\beta|$ and
+$\varepsilon=\frac{\lambda\gamma}2(1-\frac1a)$, and suppose
+$b_2(F)<\varepsilon\Pi$.  Then some position $j<D$ has $|f_l|<\varepsilon\Pi$
+for every $l<D$ other than $j$.  For $|z|>1$ the polynomial
+$E=F-f_jx^j-x^D$ has $|E(z)|<\varepsilon\Pi|z|^D/(|z|-1)$.
+
+\emph{The case $n=1$.}  Let $A=\{\beta\}$, $\rho=a/|\beta|$ and
+$z=\alpha/\beta$, so $\Pi=|\beta|>a$ and $1-\rho\ge\lambda$.  Multiplying
+$f_j\beta^j=-\beta^D-E(\beta)$ by $z^j$ and subtracting
+$f_j\alpha^j=-\alpha^D-E(\alpha)$ gives
+$\beta^Dz^j-\alpha^D=E(\alpha)-z^jE(\beta)$.  The left side has modulus
+$|\beta|^D\rho^j|1-z^{D-j}|\ge|\beta|^D\rho^j\lambda$; dividing by
+$|\beta|^D\rho^j$, and as $\rho^{D-j}\Pi\le\rho|\beta|=a$,
+\[
+  \lambda\ <\ \varepsilon\Pi\Bigl(\frac{\rho^{D-j}}{a-1}+\frac1{|\beta|-1}\Bigr)
+  \ \le\ \varepsilon\Bigl(\frac a{a-1}+\frac{|\beta|}{|\beta|-1}\Bigr)
+  \ <\ \frac{2\varepsilon a}{a-1}\ =\ \lambda ,
+\]
+a contradiction.
+
+\emph{The case $n\ge2$.}  Let $H=\prod_{\beta\in A}(x-\beta)$ and $P=F/H$,
+monic of degree $d=D-n<D$; as $|\alpha|<T$, $P(\alpha)=0$.  For $|x|<T$,
 $H(0)/H(x)=\prod_\beta(1-x/\beta)^{-1}=\sum_kw_kx^k$ with
-$w_k=h_k(1/\beta)$, $|w_k|\le\binom{n+k-1}kT^{-k}$.  Put $a=|\alpha|$ and
+$w_k=h_k(1/\beta)$, $|w_k|\le\binom{n+k-1}kT^{-k}$.  Put
 $S_m(x)=\sum_{k\le m}w_kx^k$.  As $H(0)P=F\cdot H(0)/H$ and $P$ has degree
 $d$, comparing coefficients up to $x^d$ gives
 \[
   H(0)P(x)=\sum_{l=0}^df_lx^lS_{d-l}(x).
 \]
 For $|x|\le a$ and every $m$,
-$|S_m(x)|\le\sum_k\binom{n+k-1}k(a/T)^k=(1-a/T)^{-n}\le1/\lambda$, by
-Bernoulli's inequality, and $\sum_k|w_k|\le1/\lambda$ as $a>1$; and
-Lemma~\ref{lem:trunc} with $x_i=\alpha/\beta_i$, $\rho=a/T$, gives
-$|S_m(\alpha)|\ge\lambda$.
-
-Let $\varepsilon=\lambda^2(a-1)/(2a)\le\lambda/2$, and suppose
-$b_2(F)<\varepsilon\Pi$.  Then some position $j<D$ has $|f_l|<\varepsilon\Pi$
-for every $l<D$ other than $j$.  The coefficient of $x^d$ is
-$H(0)=\sum_{l\le d}f_lw_{d-l}$.  If $j>d$, this gives
-$\Pi<\varepsilon\Pi/\lambda<\Pi$; so $j\le d$, and with $M=d-j$,
-$|f_j||w_M|\ge\Pi(1-\varepsilon/\lambda)$, so
-$|f_j|\ge\Pi(1-\varepsilon/\lambda)T^M/\binom{n+M-1}M$.  At $x=\alpha$,
+$|S_m(x)|\le\sum_k\binom{n+k-1}k(a/T)^k=(1-a/T)^{-n}=1/\gamma$, and
+$\sum_k|w_k|\le1/\gamma$ as $a>1$; and Lemma~\ref{lem:trunc} with
+$x_i=\alpha/\beta_i$, $\rho=a/T$, gives $|S_m(\alpha)|\ge\lambda$.
+The coefficient of $x^d$ is $H(0)=\sum_{l\le d}f_lw_{d-l}$, and
+$\varepsilon/\gamma\le\frac12$.  If $j>d$, this gives
+$\Pi<\varepsilon\Pi/\gamma<\Pi$; so $j\le d$, and with $M=d-j$,
+$|f_j||w_M|\ge\Pi(1-\varepsilon/\gamma)$, so
+$|f_j|\ge\Pi(1-\varepsilon/\gamma)T^M/\binom{n+M-1}M$.  At $x=\alpha$,
 $H(0)P(\alpha)=0$ gives
 \[
   |f_j|a^j\lambda\ \le\ |f_j\alpha^jS_M(\alpha)|\ \le\ \sum_{l\le d,\,l\ne j}|f_l|a^l|S_{d-l}(\alpha)|
-  \ <\ \frac{\varepsilon\Pi}\lambda\cdot\frac{a^{d+1}}{a-1} .
+  \ <\ \frac{\varepsilon\Pi}\gamma\cdot\frac{a^{d+1}}{a-1} .
 \]
 Together, as $\binom{n+M-1}M\le n^M$ and $na/T<1$,
 \[
-  \lambda(\lambda-\varepsilon)\ <\ \varepsilon\,\frac a{a-1}\binom{n+M-1}M\Bigl(\frac aT\Bigr)^M
-  \ \le\ \varepsilon\,\frac a{a-1}=\frac{\lambda^2}2 ,
+  \frac\lambda2\ \le\ \lambda\Bigl(1-\frac\varepsilon\gamma\Bigr)
+  \ <\ \frac\varepsilon\gamma\cdot\frac a{a-1}\binom{n+M-1}M\Bigl(\frac aT\Bigr)^M
+  \ \le\ \frac\varepsilon\gamma\cdot\frac a{a-1}=\frac\lambda2 ,
 \]
-while $\lambda(\lambda-\varepsilon)\ge\lambda^2(1-\lambda/2)\ge\lambda^2/2$.
-This contradiction proves $b_2(F)\ge\varepsilon\Pi$.
+a contradiction.  Finally, for $n\ge2$, $(1-a/T)^n\ge1-na/T=\lambda$ by
+Bernoulli's inequality, and $(1-a/T)^n>(1-\frac1n)^n\ge\frac14$ as $a/T<1/n$.
 \end{proof}
 
-Some power of $\lambda$ is needed: $(x-q)(x+t)^K$ with $t=Kq/(1-\lambda)$ has
+The order $\lambda$ is sharp: $(x-q)(x+t)^K$ with $t=Kq/(1-\lambda)$ has
 $f_1=\lambda t^K$, so $b_2(F)=\lambda\prod_{\beta\in A}|\beta|$ once $q$ is
-large, and at $\lambda=0$ this is Proposition~\ref{prop:rowsneedn}.  Whether
-$\lambda^2$ can be replaced by $\lambda$ we do not know.
+large, and at $\lambda=0$ this is Proposition~\ref{prop:rowsneedn}.  The
+best constant $c$ in $b_2(F)\ge c\lambda(1-\frac1{|\alpha|})|f_D|\prod_{\beta\in A}|\beta|$
+lies in $[\frac18,1]$.  For $n=1$ the truncations alone give only
+$\lambda^2$, as $|S_m(\alpha)|$ can be close to $1/\lambda$; the proof uses
+both zeros instead.
 
 \begin{corollary}[Rows for two annuli]\label{cor:rowstwo}
 In the setting of Theorem~\ref{thm:annuli} with $S\ge2$, let $C>1$.  If
-$T_2\ge Cn_2U_1$, then
-$b_2(F)\ge\frac13(1-\frac1C)^2|f_D|\prod_{\beta\in A_{\ge2}}|\beta|$.  If
+$T_2\ge Cn_2U_1$, then $b_2(F)\ge\frac13(1-\frac1C)^2|f_D|\prod_{\beta\in A_{\ge2}}|\beta|$
+and $b_2(F)\ge\frac1{12}(1-\frac1C)|f_D|\prod_{\beta\in A_{\ge2}}|\beta|$.  If
 $T_2>(n_2+1)U_1$, then
 $b_2(F)>\frac{|f_D|}2\prod_{\beta\in A_{\ge2}}\frac{|\beta|}2$; so for $S=2$
 the rows and the mass bound of Corollary~\ref{cor:annuli}, item~1, hold with
@@ -1140,7 +1177,8 @@ $T_2>(n_2+1)U_1$ in place of $T_2>9n_2U_1$.
 Take $\alpha\in A_1$, so $3<T_1\le|\alpha|\le U_1$, and
 Theorem~\ref{thm:rowstwo} with $A=A_{\ge2}$, $n=n_2$ and $T=T_2$ (every $T_a$
 with $a\ge2$ is at least $T_2$).  Then $1-1/|\alpha|>\frac23$ and
-$\lambda\ge1-n_2U_1/T_2$.  If $T_2\ge Cn_2U_1$, $\lambda\ge1-1/C$.  If
+$\lambda\ge1-n_2U_1/T_2$.  If $T_2\ge Cn_2U_1$, $\lambda\ge1-1/C$, and
+the theorem gives $\frac23\cdot\frac{\lambda^2}2$ and $\frac23\cdot\frac\lambda8$.  If
 $T_2>(n_2+1)U_1$, then, as also $T_2>9U_1$, $\lambda>\lambda_0=1-n_2/\max(9,n_2+1)$,
 and $b_2(F)>\frac13\lambda_0^2|f_D|\prod_{A_{\ge2}}|\beta|$; it remains that
 $\lambda_0^2\ge3\cdot2^{-n_2-1}$.  For $n_2\le8$, $\lambda_0=(9-n_2)/9$ and
@@ -1157,9 +1195,175 @@ in the form $b_2(F)\ge\varepsilon|f_D|\prod_{A_{\ge2}}|\beta|$ the least
 constant in a separation $Cn_2U_1$ is $C=1$: every $C>1$ gives
 $\varepsilon=\frac13(1-\frac1C)^2$, independent of $n_2$, and $C=1$ gives no
 $\varepsilon>0$.  With $S=2$ and $n_2\le8$ this also gives the mass bound of
-Theorem~\ref{thm:fixedgap} at the separation $9$.  For $S\ge3$ the rows
-$k\ge3$ need several lower zeros at once, where one truncation no longer
-suffices; whether they hold at the separation $(1+o(1))n_a$ is open.
+Theorem~\ref{thm:fixedgap} at the separation $9$.
+
+For $S\ge3$ the rows $k\ge3$ need several lower zeros at once.  The $k-1$
+positions below the $(k-1)$-st annulus come from central indices, which need
+no factor $n$ there; only the last position needs a truncation.
+
+\begin{lemma}[Positions below]\label{lem:rowsbelow}
+In the setting of Theorem~\ref{thm:annuli}, let $2\le k\le S$, $n=n_k$ and
+$1\le j\le k$.  Let $r_1=1$, let $3U_{a-1}<r_a<T_a/3$ for $2\le a\le j$, and
+suppose $3nr_j\le T_k$.  Then central indices $y_a$ of $F$ at $r_a$ satisfy
+$y_1<\cdots<y_j$ and $D-y_j\ge n$, and
+\[
+  |f_{y_a}|\ >\ \frac{|f_D|}2\prod_{\beta\in A_{\ge k}}\frac{|\beta|}2\qquad(1\le a\le j).
+\]
+In particular, if $T_k>9n_kU_{k-1}$, then
+$b_k(F)>\frac{|f_D|}2\prod_{\beta\in A_{\ge k}}\frac{|\beta|}2$.
+\end{lemma}
+
+\begin{proof}
+The Order step of the proof of Theorem~\ref{thm:annuli} gives
+$y_1<\cdots<y_j<D$.  Lemma~\ref{lem:tropcount} with $A=A_{\ge k}$, whose $n$
+zeros have modulus at least $T_k\ge3nr_j$, gives $D-y_j\ge n$, so $D-y_a\ge
+n$ for every $a\le j$.  As $r_a\ge1$, Lemma~\ref{lem:central} with
+$A=A_{\ge k}$ gives
+$|f_{y_a}|>\frac{|f_D|}2r_a^{D-y_a-n}\prod_{A_{\ge k}}\max(r_a,|\beta|/2)$,
+which is at least the claim.  If $T_k>9n_kU_{k-1}$, take $j=k$ and
+$3U_{k-1}<r_k<T_k/(3n)$; the $k$ positions $y_a$ bound $b_k(F)$.
+\end{proof}
+
+So the row $k$ of Corollary~\ref{cor:annuli}, item~1, needs the factor $9n_k$
+only at the $k$-th separation.  Below it, a truncation at a zero of the
+$(k-1)$-st annulus gives the last position as in Theorem~\ref{thm:rowstwo},
+while the central index at a radius just above $3U_{k-2}$ bounds what the
+lower positions contribute there.
+
+\begin{theorem}[The row $k$ at the separation $n_k+O(1)$]\label{thm:rowsk}
+In the setting of Theorem~\ref{thm:annuli}, let $3\le k\le S$, $n=n_k$,
+$T=T_k$ and $\Pi=\prod_{\beta\in A_{\ge k}}|\beta|$, and let $\alpha\in
+A_{k-1}$ with $|\alpha|<T/n$.  Put $\lambda=1-n|\alpha|/T$,
+$\gamma=(1-|\alpha|/T)^n$, $\xi=3U_{k-2}/T_{k-1}<\frac13$ and
+\[
+  \varepsilon=\frac\gamma2\Bigl(1-\frac1{|\alpha|}\Bigr)
+  \Bigl(\lambda(1-2\xi)-\frac{(1-\lambda)\xi}{1-\xi}\Bigr).
+\]
+Then $b_k(F)\ge\min(2^{-n-1},\varepsilon)|f_D|\Pi$, and if
+$\varepsilon>2^{-n-1}$, then $b_k(F)>\frac{|f_D|}2\prod_{\beta\in A_{\ge k}}\frac{|\beta|}2$.
+\end{theorem}
+
+\begin{proof}
+Divide $F$ by $f_D$, so $f_D=1$, and put $a=|\alpha|$.  For $\xi<x<\frac13$
+let $\varepsilon(x)$ be $\varepsilon$ with $x$ in place of $\xi$; it is
+continuous, and nothing is to be proved if $\varepsilon\le0$.  So it suffices
+that $b_k(F)>\theta\Pi$, with $\theta=\min(2^{-n-1},\varepsilon(x))$, for
+every such $x$ with $\varepsilon(x)>0$; if $\varepsilon>2^{-n-1}$, then
+$\theta=2^{-n-1}$ for $x$ close to $\xi$.
+
+Let $r=xT_{k-1}$, so $3U_{k-2}<r<T_{k-1}/3$, $r\le xa$, and $3nr<na<T$.
+Lemma~\ref{lem:rowsbelow} with $j=k-1$ and $r_{k-1}=r$ gives positions
+$y_1<\cdots<y_{k-1}=y$ with $D-y\ge n$ and $|f_{y_a}|>2^{-n-1}\Pi\ge\theta\Pi$.
+Suppose that every other nonleading position $l$ has $|f_l|\le\theta\Pi$.
+Let $H$, $P$, $d=D-n\ge y$, $w_m$ and $S_m$ be as in the case $n\ge2$ of the
+proof of Theorem~\ref{thm:rowstwo} (they need only $n\ge1$), $M=d-y$ and $W_m=\binom{n+m-1}mT^{-m}$.  Then
+$|w_m|\le W_m$, $W_ma^m\le(na/T)^m=(1-\lambda)^m$ and $W_{m+1}\le(n/T)W_m$;
+$|S_m(\alpha)|\le1/\gamma$ and $\sum_m|w_m|\le1/\gamma$; and
+$|S_M(\alpha)|\ge\lambda$ by Lemma~\ref{lem:trunc}.  As $y$ is a central
+index at $r$, every $l<y$ has $|f_l|a^l\le|f_y|a^yx^{y-l}$ and, as
+$nr/T\le x(1-\lambda)\le x$, $|f_l|W_{d-l}\le|f_y|W_Mx^{y-l}$.  The positions
+$y<l\le d$ are nonleading and none of the $y_a$.
+
+The coefficient of $x^d$ is $H(0)=\sum_{l\le d}f_lw_{d-l}$, so
+$\Pi\le|f_y|W_M\sum_{i\ge0}x^i+\theta\Pi/\gamma$, that is,
+$|f_y|W_M\ge(1-x)(1-\theta/\gamma)\Pi$.  At $x=\alpha$, $H(0)P(\alpha)=0$
+reads
+\[
+  S_M(\alpha)\sum_{l\le y}f_l\alpha^l+\sum_{l<y}f_l\alpha^l\bigl(S_{d-l}(\alpha)-S_M(\alpha)\bigr)
+  +\sum_{y<l\le d}f_l\alpha^lS_{d-l}(\alpha)\ =\ 0 .
+\]
+Here $|\sum_{l\le y}f_l\alpha^l|\ge|f_y|a^y(1-\frac x{1-x})$, and
+$|S_{d-l}(\alpha)-S_M(\alpha)|\le\sum_{m=M+1}^{M+y-l}W_ma^m\le(y-l)(1-\lambda)$,
+so the middle sum is at most $|f_y|a^y(1-\lambda)x/(1-x)^2$; the last is
+below $\theta\Pi\gamma^{-1}a^{d+1}/(a-1)$.  Hence
+\[
+  |f_y|a^y\mu\ <\ \frac{\theta\Pi}\gamma\cdot\frac{a^{d+1}}{a-1},\qquad
+  \mu=\frac{\lambda(1-2x)}{1-x}-\frac{(1-\lambda)x}{(1-x)^2}
+  =\frac{2\varepsilon(x)}{\gamma(1-\frac1a)(1-x)}\ >\ 0 .
+\]
+With the bound on $|f_y|W_M$ and $W_Ma^M\le1$ this gives
+$(1-x)(1-\theta/\gamma)\mu<(\theta/\gamma)a/(a-1)$.  But $\theta\le\varepsilon(x)$
+gives $(\theta/\gamma)a/(a-1)\le(1-x)\mu/2$ and $\theta/\gamma\le(1-x)\mu/2\le\frac12$,
+as $(1-x)\mu\le\lambda$; so the left side is at least $(1-x)\mu/2$, a
+contradiction.  So some nonleading position other than the $y_a$ has
+$|f_l|>\theta\Pi$, and $b_k(F)>\theta\Pi$.
+\end{proof}
+
+\begin{corollary}[Rows at the separation $n_a+9$]\label{cor:rowsall}
+In the setting of Theorem~\ref{thm:annuli}, let $3\le k\le S$.  The row
+$b_k(F)>\frac{|f_D|}2\prod_{\beta\in A_{\ge k}}\frac{|\beta|}2$ holds if
+$T_k>9n_kU_{k-1}$, or if $T_{k-1}>(n_{k-1}+9)U_{k-2}$ and
+$T_k>(n_k+9)U_{k-1}$.  So if $T_a>(n_a+9)U_{a-1}$ for $2\le a\le S$, then
+the rows and the mass bound of Corollary~\ref{cor:annuli}, item~1, hold.
+\end{corollary}
+
+\begin{proof}
+The first case is Lemma~\ref{lem:rowsbelow}, which also covers the second
+when $n_k=1$, as then $T_k>10U_{k-1}$.  Otherwise $n=n_k\ge2$; put $m=n+9$ and take $\alpha\in A_{k-1}$, so
+$T_{k-1}\le|\alpha|\le U_{k-1}<T_k/m$.  In Theorem~\ref{thm:rowsk},
+$\lambda>9/m$, $\gamma>(1-\frac1m)^n$, $1-1/|\alpha|>\frac{26}{27}$ (as
+$|\alpha|\ge T_{k-1}>9U_{k-2}\ge9T_1>27$), and
+$\xi<3/(n_{k-1}+9)\le3/(m+1)$, as $n_{k-1}\ge n+1$.  The bracket in
+$\varepsilon$ increases with $\lambda$ and decreases with $\xi$, so it
+exceeds
+\[
+  V=\frac9m\cdot\frac{m-5}{m+1}-\frac{m-9}m\cdot\frac3{m-2}
+  =\frac{6m^2-39m+117}{m(m+1)(m-2)} ,
+\]
+and $\varepsilon>2^{-n-1}$ once $\gamma V\ge\frac{27}{26}2^{-n}$.  For $n\ge4$,
+$V\ge3/m$ (as $m^2-12m+41>0$) and $\gamma\ge e^{-(m-9)/(m-1)}>e^{-1}$, and
+$3/(e(n+9))\ge\frac{27}{26}2^{-n}$ holds at $n=4$ and so for all $n\ge4$.
+For $n=2,3$, $\gamma V>(\frac{10}{11})^2\frac{23}{66}>0.28>\frac{27}{104}$ and
+$\gamma V>(\frac{11}{12})^3\frac{171}{520}>0.25>\frac{27}{208}$.  So the row
+$k$ holds.  The rows $k=1,2$ hold by Theorem~\ref{thm:annuli} and
+Corollary~\ref{cor:rowstwo}, and the rows give the mass as there.
+\end{proof}
+
+So the rows of Corollary~\ref{cor:annuli}, item~1, need a separation
+$n_a+O(1)$: they fail at $n_aU_{a-1}$ (Proposition~\ref{prop:rowsneedn}) and
+hold at $(n_a+9)U_{a-1}$; for any $c>3$ the same computation gives the row $k$
+at $T_{k-1}>(n_{k-1}+c)U_{k-2}$, $T_k>(n_k+c)U_{k-1}$ once $n_k$ is large.
+Unlike the row $2$, the row $3$ needs more than the separation just below
+it: at $T_3=(n_3+h)U_2$ it fails unless $T_2$ grows with $n_2$, as the zero
+of the second annulus can then cancel the coefficient of $x^2$ together with
+the zero below it.
+
+\begin{proposition}[The row $3$ needs the lower separation]\label{prop:rowslower}
+Let $h\ge1$, $K\ge18h$ and $p\ge2^K$ be integers, $q_1=2h(K+h)p$,
+$q_2=K(K+1+2h)p$, $t=(K+h)q_2$, and $F=(x-q_1)(x-q_2)(x+t)^K$.  Then
+Theorem~\ref{thm:annuli} applies to the monic $F\in\mathbb Z[x]$ with $S=3$,
+$A_1=\{q_1\}$, $A_2=\{q_2\}$ and $A_3$ the $K$-fold zero $-t$, so that
+$T_3=(n_3+h)U_2$ and $T_2<(\frac{n_2}{2h}+1)U_1$, and
+\[
+  f_2=0,\qquad b_3(F)\ \le\ \frac{4t^K}{q_2}\ <\ \frac12\prod_{\beta\in A_3}\frac{|\beta|}2 .
+\]
+So the row $k=3$ of Corollary~\ref{cor:annuli}, item~1, fails; and as
+$T_2/U_1\to\infty$ with $K$ while $b_3(F)/t^K\to0$ as $p\to\infty$, for no
+$h$, $G$ and $\varepsilon>0$ do $T_3\ge(n_3+h)U_2$ and $T_2\ge GU_1$ give
+$b_3(F)\ge\varepsilon|f_D|\prod_{\beta\in A_3}|\beta|$.
+\end{proposition}
+
+\begin{proof}
+Here $n_3=K$ and $n_2=K+1$, $T_3=U_3=t=(K+h)q_2$, and
+$T_2/U_1=q_2/q_1=K(K+1+2h)/(2h(K+h))$, which is below
+$(K+1+2h)/(2h)=\frac{n_2}{2h}+1$ and above $9$, as $K\ge18h$ gives $K^2\ge18hK$
+and $K+2hK>18h^2$; and $T_1=q_1>3$.  With $(x+t)^K=\sum_i\binom Kit^{K-i}x^i$,
+for $2\le i\le K+1$,
+\[
+  f_i=t^{K-i}\Bigl(\binom K{i-2}t^2-(q_1+q_2)\binom K{i-1}t+q_1q_2\binom Ki\Bigr).
+\]
+At $i=2$ the bracket is $t(t-Kq_2)-q_1(Kt-\binom K2q_2)
+=h(K+h)q_2^2-q_1q_2K(K+1+2h)/2=0$.  For $i\ge3$, as $q_1<q_2$,
+$\binom Kj\le K^j$ and $t\ge Kq_2$, the three terms of the bracket are at most
+$t^iq_2^{2-i}$, $2t^iq_2^{2-i}$ and $t^iq_2^{2-i}$, so $|f_i|\le4t^Kq_2^{2-i}\le4t^K/q_2$.
+The positions other than $0$ and $1$ thus have $|f_i|\le4t^K/q_2$, which
+bounds $b_3(F)$, and $4/q_2<2^{-K-1}$ as $q_2\ge18\cdot21\cdot2^K$.
+\end{proof}
+
+In this family $\lambda=1-n_3U_2/T_3=h/(K+h)$ and $\xi=3U_1/T_2$ is about
+$6h/K$, while Theorem~\ref{thm:rowsk} needs about $\lambda>\xi$; so its
+condition is sharp up to a constant factor.  Whether the separation
+$T_a>(n_a+1)U_{a-1}$ for every $a$ gives all the rows is open.
 
 For the mass the cancellation of Proposition~\ref{prop:rowsneedn}, with $K=2$, breaks
 Theorem~\ref{thm:fixedgap} at the separation $2$.
