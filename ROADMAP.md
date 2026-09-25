@@ -18,7 +18,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
 - [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
-  for every `1 < r < 2` (proved for `11/10 <= r <= 139/100`,
+  for every `1 < r < 2` (proved for `21/20 <= r <= 139/100`,
   `thm:failinterval`); closed forms or tree bounds for rows `k >= 3`
   (`sec:finiterows`).
 - [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
@@ -214,9 +214,9 @@ is open; an answer lands in the paper it extends, and the row leaves.
   Failures on an interval (`lem:rootmono`, `prop:failinterval`,
   `thm:failinterval`): every `mu_r(S,L)` decreases with `r`, so
   `eta_sigma(n) > max(nu_1(n), nu_2(n))` at `r_1` (a vertex certificate)
-  against upper bounds at `r_0 < r_1` persists on `[r_0, r_1]`; 37 such
-  certificates (`tests/second_row_cover.json`, `n` from 36 down to 10,
-  always `sigma = 2`) show that for every `r` in `[11/10, 139/100]` the
+  against upper bounds at `r_0 < r_1` persists on `[r_0, r_1]`; 49 such
+  certificates (`tests/second_row_cover.json`, `n` from 68 down to 10,
+  always `sigma = 2`) show that for every `r` in `[21/20, 139/100]` the
   prefix identity fails at `(r, n+1, 2)` for some `n`.  Numerically only,
   the failures continue in narrow windows (`n = 9` on about
   `[1.403, 1.429]`, `n = 8` near `1.466`), and a floating-point search
@@ -237,8 +237,9 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `V_{3/2}(10,3) = beta_{3/2}(8)`, the identity with minimum at `i = 1`.
   Open: a condition on `r` and `n` that gives the identity at `k = 2`;
   whether the worst finite position or set is always small; whether failures
-  occur for every `1 < r < 2`, in particular for `1 < r < 11/10` (where the
-  certificates would need `n > 36`, as `r -> 1+` presumably `n -> oo`) and
+  occur for every `1 < r < 2`, in particular for `1 < r < 21/20` (a
+  failure needs `beta_r(n) > 1`, so `n -> oo` as `r -> 1+` by
+  `thm:onepolyrows` and `lem:topnearone`) and
   for `r` near `1.40` and above `1.43`, where the second row may satisfy the
   identity on every diagonal and a failure would have to come from a row
   `k >= 3`; closed forms, or bounds on the trees, for the
