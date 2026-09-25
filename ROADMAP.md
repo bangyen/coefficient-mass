@@ -14,12 +14,13 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `(inf b_2 - 24)(r-1)**(-alpha)` has a limit as `r -> 1+`
   (`thm:familyone`).
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
-  separation for the mass, between `2 + 1/18915` and 81 (at most 9 for two
-  annuli with `n_2 <= 8`, `cor:rowstwo`), and whether 9 suffices; the least
-  separation for the rows of `cor:annuli`, between `n_a` and
+  separation for the mass, between `2 + 1/18915` and 81 (at most
+  `max(4, n_2 + 1)` for two annuli, `cor:twofixed`), and whether 9
+  suffices, for two annuli with many roots above the gap in particular; the
+  least separation for the rows of `cor:annuli`, between `n_a` and
   `3 rho_(n_a) < 7 n_a` (`cor:fewabove`), and whether `(1 + o(1)) n_a`
-  suffices (`sec:annuli`; for two annuli it lies between `n_2` and
-  `n_2 + 1`, `cor:rowstwo`).
+  suffices (`sec:annuli`; for two annuli it is `n_2 + O(n_2 2**(-n_2))`,
+  `cor:twofixed`).
 - [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
@@ -142,7 +143,24 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `|alpha| < T/n`, and at `T_2 >= C n_2 U_1` the second row holds up to
   `(1 - 1/C)**2/3`, independent of `n_2`, so `C = 1` is the least constant
   in that form.  This also gives row 2 for every `S`, and for `S = 2`,
-  `n_2 <= 8` the mass bound of `thm:fixedgap` at the separation 9.  Closed for the mass at a fixed separation: every
+  `n_2 <= 8` the mass bound of `thm:fixedgap` at the separation 9.
+  Keeping the bound `(1 - |alpha|/T)**(-n)` on the truncations instead of
+  `1/lambda` gives, for every position `j`, a position `l <= D - n`,
+  `l != j`, with `|f_l| >= |f_D| prod |beta| / Gamma`, `Gamma` of order
+  `1/lambda` for `n >= 2`; so `b_2 >= (lambda/8)(1 - 1/|alpha|) |f_D|
+  prod |beta|` for `n >= 2` (`lem:twobelow`), the order `lambda` of
+  `(x - q)(x + t)**K`.  For `S = 2` the rows and the mass then hold at
+  `T_2 > 4 U_1` when `n_2 <= 3` and at `T_2 > n_2 (1 + 3 * 2**(-n_2)) U_1`
+  when `n_2 >= 4`, so at `max(4, n_2 + 1)`, with only `T_1 > 3`
+  (`cor:twofixed`); `(x - q)(x + t)**K`, `t = Kq/(1 - 2**(-K-1))`, misses the
+  second row, so for two annuli the least separation for the rows lies
+  between `n_2/(1 - 2**(-n_2-1))` and `n_2 (1 + 3 * 2**(-n_2))` (`n_2 >= 4`).
+  For the mass, `K_2 = 1` lies in `[32/31, 4]` and `K_2 = 2` in
+  `[2 + 1/18915, 4]`.  At a fixed separation `g` and `n_2 = K >= g`, the
+  same family at `t = Kq/(1 - 2**(-2K-4))`, `q >= 2**(3K+5)`, has
+  `log b_1 + log b_2` below the mass bound, so a proof at a fixed
+  separation for all `n_2` must charge a third nonleading position (there
+  the positions `2, ..., K`).  Closed for the mass at a fixed separation: every
   multiple with `|f_D| >= 1` has mass at least
   `sum_s s K_s log(T_s/2) - S log 2` once `T_1 > 3` and
   `T_a > 81 U_(a-1)` (`thm:fixedgap`: where one central index falls
@@ -183,13 +201,18 @@ is open; an answer lands in the paper it extends, and the row leaves.
   exactly, so the constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
   also for pairs near the imaginary axis (`prop:annulisharp`).  Open: the
   least fixed separation for the mass, between `2 + 1/18915` and 81
-  (whether 9 suffices; for two annuli with `n_2 <= 8` it is at most 9 by
-  `cor:rowstwo`), and the least separation for the rows `k >= 3` when
+  (whether 9 suffices; for two annuli it is at most `max(4, n_2 + 1)` by
+  `cor:twofixed`, and whether a separation below 81 independent of `n_2`
+  suffices there is open: for `n_2 >= g` the first two rows fall short of the
+  mass at the separation `g`, and a third position must be charged; for
+  `K_2 = 2`, whether the least separation is close to 2), and the least
+  separation for the rows `k >= 3` when
   `S >= 3`, between `n_a` and `3 rho_(n_a) < 7 n_a` (several lower zeros
   must be handled at once, and one truncation no longer suffices); in
   particular whether `T_a > (n_a + 1) U_(a-1)` suffices for every row, and
-  whether `lambda**2` in `thm:rowstwo` can be `lambda` (`(x - q)(x + t)**K`
-  attains `lambda`).
+  whether `lambda**2` in `thm:rowstwo` can be `lambda` for `n = 1`
+  (`(x - q)(x + t)**K` attains `lambda`; for `n >= 2` it can, up to the
+  constant, by `lem:twobelow`).
 
 - **Coefficient mass in sectors.**  The paper is
   [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), split out
