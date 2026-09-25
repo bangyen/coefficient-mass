@@ -128,11 +128,13 @@ large zeros, and the mass of multiples of degree $O(K)$ is of order
 $\min(K^2,K/\delta)\log R$ (Theorem~\ref{thm:widesector},
 Corollary~\ref{cor:wideconst}, Proposition~\ref{prop:widesharp}).  Whether
 $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots
-in a wide sector is open.  Its integer imitations of $x^N-\rho^N$ fail: a
-polynomial in $(x-t)^N$ has at most two Gaussian roots in the upper
-half-plane per root of its outer factor (Lemma~\ref{lem:gaussbinom}), and at
-pairwise coprime norms a gap $g$ after the lowest coefficient costs
-$2Kg\log R$ (Proposition~\ref{prop:gausslow}).
+in a wide sector is open.  The integer imitations of $x^N-\rho^N$ give no
+counterexample: $A((x-t)^N)$ has at most two Gaussian roots in the upper
+half-plane per root of $A$ (Lemma~\ref{lem:gaussbinom}), and at odd,
+pairwise coprime norms $|\alpha_j|^2$ with
+$\gcd(\operatorname{Re}\alpha_j,\operatorname{Im}\alpha_j)=1$ a gap $g$ after
+the lowest coefficient costs $2Kg\log\min_j|\alpha_j|$
+(Proposition~\ref{prop:gausslow}).
 
 \paragraph{Conventions.}
 All logarithms are natural.  For $F\in\mathbb C[x]$ of degree $D$ we write
@@ -581,9 +583,9 @@ $|\beta|/2$ only for as many zeros as there are positions above the central
 index.  The next lemma supplies such positions.
 
 \begin{lemma}[Counting at a distance]\label{lem:tropcount}
-Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $n\ge1$ and $u<v$ with
-$v-u>2n\log3$, and suppose that $F$ has at least $n$ zeros, counted with
-multiplicity, of modulus at least $e^v$.  Then every central index $y$ of $F$
+Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $n\ge1$ and $u<w$ with
+$w-u>2n\log3$, and suppose that $F$ has at least $n$ zeros, counted with
+multiplicity, of modulus at least $e^w$.  Then every central index $y$ of $F$
 at $e^u$ satisfies $D-y\ge n$.
 \end{lemma}
 
@@ -595,27 +597,28 @@ $y\le y'$: otherwise $\log|f_y|+yu\ge\log|f_{y'}|+y'u$ and
 $\log|f_{y'}|+y'p\ge\log|f_y|+yp$ add up to $(y-y')(u-p)\ge0$, which is false
 for $y>y'$ and $u<p$.  (b) Every central index $y$ at $e^u$ satisfies
 $D-y\ge\sum_{\sigma_s>u}\ell_s$.  Indeed let $s$ be the largest index with
-$\sigma_s>u$ ($s=0$ if there is none); then $D-v_s=\sum_{t\le s}\ell_t$, and
-for $i>v_s$ the edge of slope $-\sigma_s$ gives
+$\sigma_s>u$ ($s=0$ if there is none, and then $v_0=D$ and there is nothing
+to prove); then $D-v_s=\sum_{t\le s}\ell_t$, and for $i>v_s$ the edge of
+slope $-\sigma_s$ gives
 $\log|f_i|+iu\le\log|f_{v_s}|+v_su-(\sigma_s-u)(i-v_s)<\log|f_{v_s}|+v_su$,
 so $y\le v_s$.
 
-Choose $0<\eta<v-u-2n\log3$ and let $I=[u+\log3+\eta,\,v-\log3]$, an interval
+Choose $0<\eta<w-u-2n\log3$ and let $I=[u+\log3+\eta,\,w-\log3]$, an interval
 of length greater than $2(n-1)\log3\ge0$.  If some $p\in I$ has
 $|p-\sigma_s|>\log3$ for every $s$, then by Theorem~\ref{thm:archnewton},
 item~1, $F$ has exactly $y'$ zeros in $|z|<e^p$ and none on $|z|=e^p$, where
 $y'$ is the vertex active at $p$.  The $n$ zeros of modulus at least
-$e^v>e^p$ lie outside, so $D-y'\ge n$, and $y\le y'$ by (a).  Otherwise the
+$e^w>e^p$ lie outside, so $D-y'\ge n$, and $y\le y'$ by (a).  Otherwise the
 closed intervals $[\sigma_s-\log3,\sigma_s+\log3]$ that meet $I$ cover it, so
 their total length is at least the length of $I$, and there are at least $n$
-of them.  Their centres lie in $[u+\eta,v]$, so at least $n$ tropical roots
+of them.  Their centres lie in $[u+\eta,w]$, so at least $n$ tropical roots
 exceed $u$, and (b) gives $D-y\ge n$.
 \end{proof}
 
 The distance cannot be a constant: $(x-t)^K$ has $K$ zeros of modulus $t$, and
 at $r=t/c$ its terms are $t^K\binom Kic^{-i}$, so for $c<K$ the term $i=1$
 beats the term $i=0$ and the central index is positive.  So
-Lemma~\ref{lem:tropcount} needs $e^{v-u}$ at least about $n$; it asks for
+Lemma~\ref{lem:tropcount} needs $e^{w-u}$ at least about $n$; it asks for
 $9^n$.
 
 \begin{theorem}[Several annuli]\label{thm:annuli}
@@ -652,20 +655,20 @@ $\log(T_j/3)\le\sigma^{(j)}\le\log(3U_j)$.  These intervals are disjoint, as
 $T_{j+1}>9U_j$, so the $\sigma^{(j)}$ are distinct.  For every $a$,
 $\log r_a<\log(T_a/3)\le\sigma^{(a)}$ (for $a=1$ because $T_1>3$), and for
 $a<S$ also $\sigma^{(a)}\le\log(3U_a)<\log r_{a+1}$.  Let
-$\sigma^{(a)}=\sigma_s$ in the numbering of Theorem~\ref{thm:archnewton}.  By
+$\sigma^{(a)}=\sigma_q$ in the numbering of Theorem~\ref{thm:archnewton}.  By
 fact~(b) in the proof of Lemma~\ref{lem:tropcount}, a central index at a
-radius below $e^{\sigma_s}$ is at most the lower vertex $v_s$ of the edge of
-slope $-\sigma_s$; symmetrically, for $i<v_{s-1}$ the same edge gives
-$\log|f_i|+ip<\log|f_{v_{s-1}}|+v_{s-1}p$ when $p>\sigma_s$, so a central
-index at a radius above $e^{\sigma_s}$ is at least the upper vertex
-$v_{s-1}>v_s$.  Hence $y_a\le v_s<v_{s-1}\le y_{a+1}$ for $a<S$, and
-$y_S\le v_s<v_0=D$ for $a=S$.
+radius below $e^{\sigma_q}$ is at most the lower vertex $v_q$ of the edge of
+slope $-\sigma_q$; symmetrically, for $i<v_{q-1}$ the same edge gives
+$\log|f_i|+ip<\log|f_{v_{q-1}}|+v_{q-1}p$ when $p>\sigma_q$, so a central
+index at a radius above $e^{\sigma_q}$ is at least the upper vertex
+$v_{q-1}>v_q$.  Hence $y_a\le v_q<v_{q-1}\le y_{a+1}$ for $a<S$, and
+$y_S\le v_q<v_0=D$ for $a=S$.
 
 \emph{Counts.}  Let $a\ge2$.  The $S-a+1$ distinct tropical roots
 $\sigma^{(a)},\ldots,\sigma^{(S)}$ exceed $\log r_a$, so
 $D-y_a\ge S-a+1$ by fact~(b) in the proof of Lemma~\ref{lem:tropcount}.  If
 $\kappa_a\ge1$, let $n=\min(n_a,\kappa_a)$; Lemma~\ref{lem:tropcount} with
-$u=\log r_a$ and $v=\log T_a$ applies, as $v-u=\log(T_a/r_a)>n\log9$ and the
+$u=\log r_a$ and $w=\log T_a$ applies, as $w-u=\log(T_a/r_a)>n\log9$ and the
 $n_a\ge n$ zeros in $A_{\ge a}$ have modulus at least $T_a$, and gives
 $D-y_a\ge n$.  So $D-y_a\ge k_a$ for every $a\ge2$.
 
@@ -726,9 +729,9 @@ fail.
 \leavevmode
 \begin{enumerate}
 \item Let $N_1,\ldots,N_S\ge1$ and let $2\le t_1<\cdots<t_S$ be integers with
-$t_{a+1}>9t_a$.  Put $y_a=N_1+\cdots+N_a$ ($y_0=0$), $D=y_S$ and
+$t_{a+1}>9t_a$.  Put $p_a=N_1+\cdots+N_a$ ($p_0=0$), $D=p_S$ and
 \[
-  F=\sum_{a=0}^Sc_ax^{y_a},\qquad c_a=\prod_{s>a}t_s^{N_s}.
+  F=\sum_{a=0}^Sc_ax^{p_a},\qquad c_a=\prod_{s>a}t_s^{N_s}.
 \]
 Then $F\in\mathbb Z[x]$ is monic, $F$ has exactly $N_s$ zeros, counted with
 multiplicity, in $t_s/3\le|z|\le3t_s$ for each $s$ and no other zeros, and
@@ -737,7 +740,7 @@ multiplicity, in $t_s/3\le|z|\le3t_s$ for each $s$ and no other zeros, and
 \]
 If moreover $t_1>9$ and $t_a>27\cdot9^{n_a}t_{a-1}$, where
 $n_a=N_a+\cdots+N_S$, then Corollary~\ref{cor:annuli}, item~1, applies to $F$
-with $A_s$ the zeros in $[t_s/3,3t_s]$, and gives
+with $A_s$ the zeros of modulus in $[t_s/3,3t_s]$, and gives
 $\Lambda(F)\ge\sum_ssN_s\log(t_s/6)-S\log2$.
 \item Let $0<\delta<\pi/2$, let $M_1\ne M_2$ be odd integers at least $3$,
 and let $1<t_1<t_2$.  The monic real polynomial
@@ -751,29 +754,31 @@ within $\delta$ of the imaginary axis, and
 \end{enumerate}
 In particular, for no $c>0$ does $\Lambda(F)\ge c\,K_1K_2\log T_2$ hold for
 all monic multiples $F$ of $K_1$ roots with moduli in $[T_1,9T_1]$ and $K_2$
-roots with moduli in $[T_2,9T_2]$, however large $T_2/T_1$ is, nor for such
-roots in conjugate pairs within a fixed angle of the imaginary axis.
+roots with moduli in $[T_2,9T_2]$, however large $T_2/T_1$ is, nor with $K_s$
+counting conjugate pairs within a fixed angle of the imaginary axis, as in
+item~2.
 \end{proposition}
 
 \begin{proof}
 1.  $F$ has the $S+1$ nonzero coefficients $c_a\in\mathbb Z$ at the positions
-$y_a$, and $c_S=1$.  The slope from $(y_{a-1},\log c_{a-1})$ to
-$(y_a,\log c_a)$ is $-\log t_a$, which decreases strictly with $a$, so these
+$p_a$, and $c_S=1$.  The slope from $(p_{a-1},\log c_{a-1})$ to
+$(p_a,\log c_a)$ is $-\log t_a$, which decreases strictly with $a$, so these
 points are the vertices of the least concave majorant, and the tropical roots
-are the $\log t_a$, the edge of $\log t_a$ joining $y_{a-1}$ to $y_a$.  By
+are the $\log t_a$, the edge of $\log t_a$ joining $p_{a-1}$ to $p_a$.  By
 Theorem~\ref{thm:archnewton}, item~2, every zero lies in one of the closed
-annuli $[t_s/3,3t_s]$, which are disjoint as $t_{s+1}>9t_s$.  For $0\le a\le S$
+annuli $t_s/3\le|z|\le3t_s$, which are disjoint as $t_{s+1}>9t_s$.  For $0\le a\le S$
 choose $u_a$ with $3t_a<e^{u_a}<t_{a+1}/3$ (with $t_0=0$ and $t_{S+1}=\infty$).
 It is farther than $\log3$ from every tropical root, and the vertex active at
-$u_a$ is $y_a$; by Theorem~\ref{thm:archnewton}, item~1, $F$ has exactly
-$y_a$ zeros in $|z|<e^{u_a}$, that is, in the first $a$ annuli.  So the
-$a$-th annulus holds $y_a-y_{a-1}=N_a$ zeros.  Every $c_a\ge1$, so
+$u_a$ is $p_a$; by Theorem~\ref{thm:archnewton}, item~1, $F$ has exactly
+$p_a$ zeros in $|z|<e^{u_a}$, that is, in the first $a$ annuli.  So the
+$a$-th annulus holds $p_a-p_{a-1}=N_a$ zeros.  Every $c_a\ge1$, so
 $\Lambda(F)=\sum_{a<S}\log c_a=\sum_{a<S}\sum_{s>a}N_s\log t_s
 =\sum_ssN_s\log t_s$.
 
 For the last claim take $T_s=t_s/3$ and $U_s=3t_s$: then $T_1>3$,
 $T_a>3\cdot9^{n_a}U_{a-1}$ (which implies $T_a>9U_{a-1}$), $|A_s|=N_s$,
-$f_D=1$, and $|\beta|/2\ge t_s/6$ on $A_s$.
+$f_D=1$, and $|\beta|/2\ge t_s/6$ on $A_s$.  The central index $y_a$ of the
+theorem, at $r_a\in(9t_{a-1},t_a/9)$, is the vertex $p_{a-1}$ active there.
 
 2.  By the proof of Proposition~\ref{prop:noangle}, item~1, each factor
 $x^{2M_s}+t_s^{2M_s}$ has $K_s$ conjugate pairs of modulus $t_s$ within
@@ -1244,7 +1249,7 @@ is removed by Theorem~\ref{thm:gausscharge} (Corollary~\ref{cor:widegauss}).
 In wide sectors a bound $\Lambda\ge cK^2\log R$ is therefore false for real
 multiples, the correct order being $\min(K^2,K/\delta)\log R$.  For integer
 multiples at Gaussian roots it is open; the section ends by showing that the
-integer imitations of $x^N-\rho^N$ fail (Lemma~\ref{lem:gaussbinom},
+integer imitations of $x^N-\rho^N$ are not cheap (Lemma~\ref{lem:gaussbinom},
 Proposition~\ref{prop:gausslow}).
 
 For $0<\delta\le\pi/2$ put
@@ -1488,8 +1493,9 @@ $\lambda=\pi/\delta$ and argue as in Corollary~\ref{cor:wideconst}.
 leaves open whether $\Lambda(F)\ge cK^2\log R$ for every integer multiple at
 Gaussian roots in a wide sector.  Over the reals the bound fails because of
 $x^N-\rho^N$, whose mass sits in a single coefficient after a gap of length
-$N$.  Its two integer imitations fail at Gaussian roots: a polynomial in
-$(x-t)^N$ has few Gaussian roots, and at pairwise coprime norms a long gap
+$N$.  Neither of its two integer imitations is cheap at Gaussian roots: a
+polynomial in $(x-t)^N$ has few Gaussian roots, and at pairwise coprime norms
+(under the hypotheses of Proposition~\ref{prop:gausslow}, item~2) a long gap
 after the lowest coefficient is expensive.
 
 \begin{lemma}[Polynomials in $(x-t)^N$]\label{lem:gaussbinom}
@@ -1512,8 +1518,8 @@ positive; since $\operatorname{Im}\alpha=\operatorname{Im}\beta$, each class has
 at most two members.  Finally $x^4+4=(x^2-2x+2)(x^2+2x+2)$.
 \end{proof}
 
-So $x^N-m$, $m\in\mathbb Z$, carries at most two of the prescribed roots
-$\alpha_j$, whatever $N$ and $m$, where Proposition~\ref{prop:widesharp} needs
+So $x^N-b$, $b\in\mathbb Z$, carries at most two of the prescribed roots
+$\alpha_j$, whatever $N$ and $b$, where Proposition~\ref{prop:widesharp} needs
 $K$; more generally $A(x^N)$, whose mass is that of $A$
 (Theorem~\ref{thm:transfer}), carries at most $2\deg A$ of them.
 
@@ -1529,8 +1535,8 @@ In the setting of Section~\ref{sec:gaussian}, let $m\ge1$.
 $F\equiv f\pmod{x^m}$ if and only if $d_m\mid f$; and $d_m\mid P(0)^m$.
 \item If the norms $\rho_j^2=a_j^2+c_j^2$ are odd and pairwise coprime and
 $\gcd(a_j,c_j)=1$ for every $j$, then $d_m=P(0)^m$.  Consequently, if
-$F=x^e(f_e+x^gG)$ with $f_e\ne0$, $g\ge1$ and $G\in\mathbb Z[x]$ is divisible by
-$P$, then $P(0)^g$ divides $f_e$, and
+$F\in\mathbb Z[x]$ is divisible by $P$ and $F=x^e(f_e+x^gG)$ with $f_e\ne0$,
+$g\ge1$ and $G\in\mathbb Z[x]$, then $P(0)^g$ divides $f_e$, and
 \[
   \Lambda(F)\ \ge\ g\log P(0)\ \ge\ 2Kg\log\rho_{\min}.
 \]
@@ -1555,11 +1561,11 @@ and only $k\le l$ contributes to $u_l$, so $P(0)^{l+1}u_l\in\mathbb Z$ and
 $d_m\mid P(0)^m$.
 
 2.  First, the $2K$ Gaussian integers $\alpha_j$, $\bar\alpha_j$ are pairwise
-coprime.  A Gaussian prime $\pi$ dividing $\alpha_j$ and $\bar\alpha_j$ divides
+coprime.  A Gaussian prime $\varpi$ dividing $\alpha_j$ and $\bar\alpha_j$ divides
 $\alpha_j+\bar\alpha_j=2a_j$ and $\alpha_j-\bar\alpha_j=2ic_j$, hence
-$2\gcd(a_j,c_j)=2$, so $\pi$ is an associate of $1+i$ and $2=|\pi|^2$ divides
+$2\gcd(a_j,c_j)=2$, so $\varpi$ is an associate of $1+i$ and $2=|\varpi|^2$ divides
 the odd norm $\rho_j^2$; and a common prime factor of one of $\alpha_j,\bar\alpha_j$
-and one of $\alpha_l,\bar\alpha_l$, $l\ne j$, would give $|\pi|^2>1$ dividing
+and one of $\alpha_l,\bar\alpha_l$, $l\ne j$, would give $|\varpi|^2>1$ dividing
 both $\rho_j^2$ and $\rho_l^2$.  Now let $F\in\mathbb Z[x]$ be divisible by $P$
 with $F\equiv f\pmod{x^m}$, so $F=f+x^mG$ with $G\in\mathbb Z[x]$.  For each $j$,
 $0=F(\alpha_j)=f+\alpha_j^mG(\alpha_j)$ with $G(\alpha_j)\in\mathbb Z[i]$, so
@@ -1591,8 +1597,8 @@ $(2\pi/\delta)K^2\log\rho_{\min}$.  The coprimality cannot be dropped: at a
 common norm $n$, item~3 gives $d_m\le n^{K+m-1}$, far below
 $P(0)^m=n^{Km}$ when $K,m\ge2$ (for $n=5\cdot13\cdot17\cdot29$ there are $32$
 Gaussian integers of norm $n$ in the upper half-plane).  So at a common norm
-the lowest $m=O(K)$ coefficients of a multiple can carry mass at
-most $(K+m-1)\log n$, and no bound that looks only at them gives order
+some multiple has lowest $m=O(K)$ coefficients $(d_m,0,\ldots,0)$, of mass
+$\log d_m\le(K+m-1)\log n$, and no bound that looks only at them gives order
 $K^2\log R$ at every root set.
 
 Nor, numerically, does a single heavy coefficient suffice.  If $F=H(x)-v$ with
