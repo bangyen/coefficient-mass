@@ -144,9 +144,14 @@ $\tfrac{3398808}{96935}=35.06\ldots$, against $1/\tau^*=\tfrac{1704}{31}$
 $u=1$, the escaping placement is the worst one exactly when
 $930r^2-7r-1988\ge0$, that is, $r\ge r_c=1.4658\ldots$; for
 $\tfrac{13}{10}\le r\le r_c$ the infimum is $48(r-1)(15r+71)/(49r-34)$
-(Theorem~\ref{thm:family}).  Both proofs end in a finite exact computation,
-over $\mathbb Q$ and over $\mathbb Q(r)$ respectively, described in the
-paragraph on computer assistance before the appendix.  Along $(r,5,7)$ the
+(Theorem~\ref{thm:family}).  Below $\tfrac{13}{10}$ the zero set minimising the
+cost of the worst placement keeps moving, and the worst placement changes
+from $\{4\}$ to $\{5\}$; on $[1.0745\ldots,\tfrac{13}{10}]$ the infimum is
+a piecewise rational function of $r$ with seven pieces, each proved by a
+multiplier and explicit certificates (Theorem~\ref{thm:familylow}).  These
+proofs end in a finite exact computation, over $\mathbb Q$ and over
+$\mathbb Q(r)$, described in the paragraph on computer assistance before the
+appendix.  Along $(r,5,7)$ the
 escaping placement is not the worst for any $1<r<2$, so the cutoff $2$
 cannot be lowered uniformly (Proposition~\ref{prop:cutoffsharp}).
 
@@ -1612,7 +1617,8 @@ $\tau^*$ and finitely many placements (Theorem~\ref{thm:halfmass}).  This
 gives the exact infimum at $(\tfrac{11}{10},3,5,7)$
 (Theorem~\ref{thm:elevenvalue}) and, along $(r,3,5,7)$, the exact range of
 $r$ at which the escaping placement is extremal
-(Theorem~\ref{thm:family}); at $(r,5,7)$ it fails for every $1<r<2$
+(Theorem~\ref{thm:family}), and the infimum there down to $r=1.0745\ldots$
+(Theorem~\ref{thm:familylow}); at $(r,5,7)$ it fails for every $1<r<2$
 (Proposition~\ref{prop:cutoffsharp}).  Lower bounds on $T$ come from
 multipliers with an exempt position.
 
@@ -1970,6 +1976,177 @@ $\{x\}$ with $x\ge6\ge N$ less than $\tau^*$.  Theorem~\ref{thm:value} turns
 these into the stated infima.
 \end{proof}
 
+Below $\tfrac{13}{10}$ the zero set minimising $\tau(\{4\})$ moves, and the
+lower bound needs one multiplier for each zero set.  They are the
+multipliers of Proposition~\ref{prop:attain}, for one placement.  Let $v$
+be a full certificate on $y_1,\ldots,y_L$ whose zero set $Z$ contains $x$.
+Put $s_d=\sgn(v_d)$ for $d\ge1$ outside $Z$, and let $(s_d)_{d\in Z}$ and
+$\theta$ solve the $L$ linear equations $\sum_{d\ge1}s_dy_i^d=\theta$,
+$1\le i\le L$, where the sum past $\max Z$ is geometric; the solution is
+unique, the matrix $(y_i^d)_{i\le L,\,d\in\{0\}\cup Z}$ being nonsingular by
+the zero bound.  Pairing with $v$
+gives $\theta=\sum_i\lambda_i\sum_{d\ge1}s_dy_i^d=\sum_{d\ge1}s_dv_d=\Tail(v)$,
+since $v$ vanishes on $Z$.  The sequence $w_0=1$, $w_d=-s_d/\theta$ is
+bounded and its series vanishes at every $y_i$, which is all the proof of
+Lemma~\ref{lem:exemptpair} uses (and, as at the end of the proof of
+Proposition~\ref{prop:attain}, $w_d=S_d(PM)$ for a monic $M$).  So
+\begin{equation}\label{eq:witness}
+  \tau(\{x\})=\Tail(v)\qquad\text{whenever }|s_d|\le1\text{ for every }
+  d\in Z\setminus\{x\}.
+\end{equation}
+For the placement $4$ with $Z=\{1,3,4\}$ along $(r,3,5,7)$ this is the
+linear multiplier of the lower bound in the proof of
+Theorem~\ref{thm:family}.
+
+\begin{theorem}[The family below $\tfrac{13}{10}$]\label{thm:familylow}
+Let $P_r=(x-r)(x-3)(x-5)(x-7)$ and $u=1$, and let $\beta$ and $t_5$ be as
+in Theorem~\ref{thm:family} and its proof.  For $z=5,6,7,8$ let
+$\theta_z(r)$ be the tail of the full certificate with zero set $\{1,4,z\}$
+on $(\tfrac1r,\tfrac13,\tfrac15,\tfrac17)$, and put $\theta_3=1/\beta$, the
+tail for $\{1,3,4\}$ (Appendix~\ref{sec:familydata} lists them).  Let
+$\rho_1<\rho_2<\rho'<\rho_3<\cdots<\rho_7$ be the zeros in
+$(1,\tfrac32)$ of the polynomials
+$\gamma_1,\gamma_2,\gamma',\gamma_3,\ldots,\gamma_7$ of
+Appendix~\ref{sec:familydata},
+\begin{gather*}
+  \rho_1=1.07451\ldots,\quad \rho_2=1.09547\ldots,\quad
+  \rho'=1.11142\ldots,\quad \rho_3=1.12444\ldots,\quad
+  \rho_4=1.13392\ldots,\\
+  \rho_5=1.16696\ldots,\quad \rho_6=1.21576\ldots,\quad
+  \rho_7=\tfrac{105\sqrt{4278}-1785}{3989}=1.27417\ldots .
+\end{gather*}
+Then for $\rho_1\le r\le\tfrac{13}{10}$
+\[
+  \inf_Qb_2(QP_r)=\frac1{T(r)},\qquad
+  T(r)=\begin{cases}
+    \theta_5(r), & \rho_1\le r\le\rho_2,\\
+    t_5(r), & \rho_2\le r\le\rho_3,\\
+    \theta_8(r), & \rho_3\le r\le\rho_4,\\
+    \theta_7(r), & \rho_4\le r\le\rho_5,\\
+    \theta_6(r), & \rho_5\le r\le\rho_6,\\
+    \theta_5(r), & \rho_6\le r\le\rho_7,\\
+    1/\beta(r), & \rho_7\le r\le\tfrac{13}{10}.
+  \end{cases}
+\]
+More precisely, on $[\rho_1,\tfrac{13}{10}]$ the placement $\{5\}$ costs
+$\min(\theta_5(r),t_5(r))$, which is $\theta_5(r)$ on $[\rho_1,\rho_2]$ and
+$t_5(r)$ on $[\rho_2,\tfrac{13}{10}]$; on $[\rho',\tfrac{13}{10}]$ the placement
+$\{4\}$ costs $\theta_8$, $\theta_7$, $\theta_6$, $\theta_5$, $1/\beta$ on
+$[\rho',\rho_4]$, $[\rho_4,\rho_5]$, $[\rho_5,\rho_6]$, $[\rho_6,\rho_7]$,
+$[\rho_7,\tfrac{13}{10}]$; the worst placement is $\{5\}$ for $r<\rho_3$,
+$\{4\}$ for $r>\rho_3$, and both at $\rho_3$; and every other placement costs
+less than $T(r)$.
+\end{theorem}
+
+With Theorem~\ref{thm:family} this gives the infimum on $[\rho_1,3)$; in
+particular it is $\beta(r)$ on $[\rho_7,r_c]$, it is
+$1/t_5(\tfrac{11}{10})=\tfrac{3398808}{96935}$ at $r=\tfrac{11}{10}$, as in
+Theorem~\ref{thm:elevenvalue}, and $1/\theta_5(\tfrac54)=\tfrac{314024}{7627}=41.172\ldots$
+at $r=\tfrac54$.  Consecutive pieces agree at the breakpoints: in the
+notation of Appendix~\ref{sec:familydata},
+$\theta_3-\theta_5=-(r+15)\gamma_7(r)/\bigl(96(r-1)(15r+71)Q_5(r)\bigr)$,
+$t_5-\theta_5=-(r+15)\gamma_2(r)/\bigl(96(r-1)q_5(r)Q_5(r)\bigr)$,
+$t_5-\theta_8=-\gamma_3(r)/\bigl(96(r-1)q_5(r)Q_8(r)\bigr)$, and $\theta_z-\theta_{z+1}$
+for $z=5,6,7$ is a positive rational function times $-\gamma_6$, $-\gamma_5$,
+$-\gamma_4$.
+
+\begin{proof}
+Write $Z^*=\{1,3\}$, as in the proof of Theorem~\ref{thm:family}.  Every
+sign of a rational function of $r$ on an interval below is checked by
+counting the real zeros of its numerator and denominator with Sturm
+sequences over $\mathbb Q$ between rational endpoints; together with the
+closed forms, this is the computer-assisted part of the proof, described
+at its end.
+
+\emph{Lower bounds.}  Apply \eqref{eq:witness} to the placement $x=4$ with
+$Z=\{1,3,4\}$ and $Z=\{1,4,z\}$, $z=5,\ldots,8$, and to $x=5$ with
+$Z=\{1,3,5\}$ and $Z=\{1,4,5\}$.  In all seven cases $|s_1|<1$ on
+$[\tfrac{1074}{1000},\tfrac32]$.  At the remaining zero $c\in Z\setminus\{1,x\}$,
+solving the $4\times4$ systems over $\mathbb Q(r)$ gives
+\[
+\begin{array}{cccccc}
+  x & Z & D & D(1-s_c) & D(1+s_c) & |s_c|\le1\text{ on}\\[2pt]
+  4 & \{1,4,5\} & 32(r-1)Q_5 & \gamma_6 & -35r\gamma_7 & [\rho_6,\rho_7]\\
+  4 & \{1,4,6\} & 16(r-1)Q_6 & \gamma_5 & -105r\gamma_6 & [\rho_5,\rho_6]\\
+  4 & \{1,4,7\} & 16(r-1)Q_7 & \gamma_4 & -105r\gamma_5 & [\rho_4,\rho_5]\\
+  4 & \{1,4,8\} & 32(r-1)Q_8 & \gamma' & -105r\gamma_4 & [\rho',\rho_4]\\
+  4 & \{1,3,4\} & 48(r-1)(15r+71) & 4209+1806r-2549r^2 & \gamma_7 & [\rho_7,\tfrac32]\\
+  5 & \{1,3,5\} & 48(r-1)q_5 & -\gamma_+ & \gamma_2 & [\rho_2,\rho_+]\\
+  5 & \{1,4,5\} & 96(r-1)Q_5 & -\gamma_2 & \gamma_1 & [\rho_1,\rho_2]
+\end{array}
+\]
+with positive denominators $D$ on $r>1$.  Each $\gamma$ has exactly one
+zero in $(1,\tfrac32)$ and is negative before it and positive after it, $\rho_+=1.4831\ldots$ being the zero of
+$\gamma_+$, and $4209+1806r-2549r^2$ is concave and positive at $1$ and
+$\tfrac32$.  So on $(1,\tfrac32]$, $|s_c|\le1$ exactly on the interval in the
+last column, and
+\eqref{eq:witness} gives $\tau(\{4\})$ on $[\rho',\tfrac{13}{10}]$ and
+$\tau(\{5\})=\theta_5$ on $[\rho_1,\rho_2]$, $\tau(\{5\})=t_5$ on
+$[\rho_2,\tfrac{13}{10}]$, as stated; as both certificates are certificates
+for $\{5\}$, $\tau(\{5\})=\min(\theta_5,t_5)$ on $[\rho_1,\tfrac{13}{10}]$.
+
+\emph{The placements $4$ and $5$.}  By the identity for $t_5-\theta_8$
+above, $\theta_8<t_5$ for $1<r<\rho_3$ and $t_5<\theta_8$ for
+$\rho_3<r<\tfrac32$; moreover $\theta_8<\theta_5$ on
+$[\tfrac{1074}{1000},\tfrac{118}{100}]$, and $t_5<\theta_z$ on
+$[\tfrac{11242}{10000},\tfrac{13}{10}]$ for $z=3,5,6,7$, where
+$\tfrac{11242}{10000}<\rho_3$.  So $\tau(\{4\})\le\theta_8<\tau(\{5\})$ for
+$\rho_1\le r<\rho_3$, and $\tau(\{5\})=t_5<\tau(\{4\})$ for
+$\rho_3<r\le\tfrac{13}{10}$, where $\tau(\{4\})$ is one of
+$\theta_8,\theta_7,\theta_6,\theta_5,\theta_3$.
+
+\emph{The other placements.}  Apply Theorem~\ref{thm:halfmass} with the
+escaping minimiser, $Z^*=\{1,3\}$.  With the signs $H_2<0<H_d$ ($d\ge4$) of
+the proof of Theorem~\ref{thm:family},
+$2\sum_{d\le n}|H_d|-\Tail(H)=-H_2+\sum_{d=4}^nH_d-\sum_{d>n}H_d$ is a
+rational function of $r$, positive on $[\tfrac{1074}{1000},\tfrac{13}{10}]$
+for $n=13$ and on $[b_n,\tfrac{13}{10}]$ for $n=6,\ldots,12$, where
+$(b_6,\ldots,b_{12})=(1.274,1.197,1.153,1.125,1.106,1.092,1.081)$.  So
+$N\le13$, and $N\le x$ once $r\ge b_x$.  The placements $\{1\}$ and $\{3\}$
+cost at most $\tau^*$, and $\tau^*<\min(t_5,\theta_5)=\tau(\{5\})$ on
+$[\tfrac{1074}{1000},\tfrac{13}{10}]$.  For $6\le x\le12$ and $r<b_x$ the
+aligned lift, with zero set $\{1,3,x\}$, has tail below both $t_5$ and
+$\theta_5$ on $[\tfrac{1074}{1000},b_x]$, so below $\tau(\{5\})$.  The
+placement $\{2\}$ costs at most the tail of the full certificate
+$\{1,2,13\}$, below $t_5$ and $\theta_5$ on
+$[\tfrac{1074}{1000},\tfrac{1112}{1000}]$, and at most that of $\{1,2,10\}$,
+below each of $\theta_3,\theta_5,\ldots,\theta_8$ on
+$[\tfrac{1112}{1000},\tfrac{13}{10}]$, hence below $\tau(\{4\})$ there,
+since $\rho'<\tfrac{1112}{1000}$.  So every placement other than $\{4\}$ and
+$\{5\}$ costs less than $\max(\tau(\{4\}),\tau(\{5\}))$, and by
+Theorem~\ref{thm:halfmass}(c) $T$ is that maximum, which the two previous
+steps evaluate as displayed.  Theorem~\ref{thm:value} gives the infimum.
+
+The computation is in \texttt{test\_family\_below}
+(\texttt{tests/test\_attainment.py}), in the arithmetic of $\mathbb Q(r)$ of
+\texttt{test\_family\_threshold}.  It solves the linear systems for the
+certificates and for the witnesses with $r$ an indeterminate, checks the
+closed forms of the $\theta_z$, the identities displayed above and in
+Appendix~\ref{sec:familydata}, and that the series of each witness vanishes
+at the four nodes; it brackets each zero $\rho$ between two rationals and
+checks that each $\gamma$ has exactly one zero in $(1,\tfrac32)$; and it
+checks every sign on an interval quoted in this proof by a Sturm count over
+$\mathbb Q$.  The tails of the certificates with zero sets $\{1,3,x\}$ and
+$\{1,2,z\}$ enter only through these signs.
+\end{proof}
+
+The pieces follow a pattern.  As $r$ decreases from $r_c$ the zero set
+minimising $\tau(\{4\})$ moves up, $\{1,3,4\},\{1,4,5\},\ldots,\{1,4,8\}$.
+For $\{1,4,z\}$ the entry $s_z$ of the witness passes from $-1$ at the
+upper end of its piece to $1$ at the lower end, where $\{1,4,z+1\}$ takes
+over with the same tail; at $\rho_7$ the entries $s_3$ of $\{1,3,4\}$ and
+$s_5$ of $\{1,4,5\}$ are both $-1$.  The cost of $\{5\}$ overtakes that
+of $\{4\}$ at $\rho_3$.
+At $r=\tfrac{11}{10}$ the worst placement $\{5\}$ and its zero set
+$\{1,3,5\}$ are those of Theorem~\ref{thm:elevenvalue}, whose proof bounds
+the other placements with other certificates.  Below $\rho_1$ we have no
+proof.  A floating-point search over zero sets in $\{1,\ldots,40\}$, at the
+placements $x\le15$, suggests that the minimiser for $\{5\}$ continues
+$\{1,5,6\},\{1,5,7\},\{1,5,8\},\ldots$, that the worst placement becomes $6$
+near $r=1.03$ and $7$ near $r=1.01$, and that the half-mass point grows
+($N=15$ at $r=1.06$), which would make infinitely many pieces on
+$(1,\rho_1)$.
+
 So the escaping placement stays extremal at some roots below $2$, here down
 to $r_c$, and the failure below $r_c$ starts at the placement $\{4\}$ just
 above $Z^*$, where the conclusion of Lemma~\ref{lem:delete} fails.  The cutoff cannot be
@@ -2011,11 +2188,13 @@ proved.
 \item A description of the root sets below $2$ at which the escaping
 placement stays extremal, which depends on more than $r_1$
 (Theorem~\ref{thm:family} and Proposition~\ref{prop:cutoffsharp}).
-\item The infimum along $(r,3,5,7)$ for $1<r<\tfrac{13}{10}$, where
-Theorem~\ref{thm:family} gives only the upper bound $\tfrac{209}4$; at
-$r=\tfrac54$ its proof breaks twice, as the multiplier $x+\kappa$ of the
-lower bound gives $\max_{j\ne4}|S_j|>\beta(r)$ and the half-mass point is
-$7$.
+\item The infimum along $(r,3,5,7)$ for $1<r<\rho_1=1.0745\ldots$, where
+Theorem~\ref{thm:family} gives only the upper bound $\tfrac{209}4$.
+Theorem~\ref{thm:familylow} gives it on $[\rho_1,\tfrac{13}{10}]$ in seven
+pieces; below $\rho_1$ the pieces seem to accumulate at $r=1$ (the remark
+after that theorem).  Precisely: is the number of pieces on $(1,\rho_1)$
+infinite, does the worst placement tend to $\infty$ as $r\to1^+$, and what
+is $\lim_{r\to1^+}\inf_Qb_2(QP_r)$?
 \end{itemize}
 
 \paragraph{Relation to the literature.}  The nearest work is the reduced
@@ -2053,8 +2232,9 @@ with helpers in \texttt{tests/sweep.py}, of the repository
 and run with \texttt{uv run pytest tests/test\_attainment.py}.
 
 \paragraph{Computer assistance.}
-Three computations are computer-assisted: steps of the proofs of
-Theorems~\ref{thm:elevenvalue} and~\ref{thm:family}, and the failure of
+Four computations are computer-assisted: steps of the proofs of
+Theorems~\ref{thm:elevenvalue}, \ref{thm:family} and~\ref{thm:familylow},
+and the failure of
 \eqref{eq:runchord} above the cutoff.  In
 Theorem~\ref{thm:elevenvalue}, the sum $H$, its tail, the threshold $N=11$
 and the tails of the seven full certificates for the placements
@@ -2066,7 +2246,15 @@ $2\sum_{d\le n}|H_d|-\Tail(H)$ for $n=5,6$ are identities in $\mathbb Q(r)$,
 verified with $r$ an indeterminate in \texttt{test\_family\_threshold} and
 \texttt{test\_family\_window};
 Appendix~\ref{sec:familydata} lists the solutions of the linear systems, from
-which they can also be checked by hand.  The statement after
+which they can also be checked by hand.  In Theorem~\ref{thm:familylow}, the
+tails $\theta_z$, the witnesses and their identities, the ties between
+pieces, the closed forms of $2\sum_{d\le n}|H_d|-\Tail(H)$ for
+$n=6,\ldots,13$ and the tails of the full certificates $\{1,3,x\}$
+($6\le x\le12$), $\{1,2,13\}$ and $\{1,2,10\}$ are computed over
+$\mathbb Q(r)$ in \texttt{test\_family\_below}, and every sign of a rational
+function on an interval that its proof uses is decided by Sturm sequences
+over $\mathbb Q$ between rational endpoints; Appendix~\ref{sec:familydata}
+lists the tails, the breakpoint polynomials and one witness.  The statement after
 Proposition~\ref{prop:runchord} that \eqref{eq:runchord} can fail above the
 cutoff rests on the two rationals computed in
 \texttt{test\_run\_chord\_control\_above\_cutoff}.  All arithmetic is exact:
@@ -2074,7 +2262,9 @@ rationals are Python \texttt{fractions.Fraction}, and $\mathbb Q(r)$ is
 represented by quotients of polynomials with \texttt{Fraction}
 coefficients, a small class defined in the test file; no floating point and
 no computer algebra system is used, and every decimal in the paper is a
-truncation of an exact rational.  The other computations only check steps
+truncation of an exact rational or of a zero of an explicit polynomial.  The
+floating-point search reported after Theorem~\ref{thm:familylow} is
+exploration, used in no proof and not part of the tests.  The other computations only check steps
 proved by hand: the example after Theorem~\ref{thm:extremal}
 (\texttt{test\_extremal\_example\_2357}); the multiple $F$ of
 Proposition~\ref{prop:belowtwo} and the certificate with zero set
@@ -2105,7 +2295,8 @@ interests to declare.
 \section{Data for the family \texorpdfstring{$(r,3,5,7)$}{(r,3,5,7)}}\label{sec:familydata}
 
 This appendix lists the solutions of the linear systems in the proof of
-Theorem~\ref{thm:family} as rational functions of $r$, written with
+Theorem~\ref{thm:family}, and the data of Theorem~\ref{thm:familylow}, as
+rational functions of $r$, written with
 \[
   p(r)=(3-r)(5-r)(7-r),\qquad q(r)=3466r^2+7455r+11025 ,
 \]
@@ -2208,6 +2399,70 @@ Theorem~\ref{thm:family}.  For the identity with $d\le6$ there,
 \]
 with $e_7(r)=430890r^4+2035579r^3+3937376r^2+8468880r+12524400$, and
 $\sum_{d\le6}|H_d|=-H_2+H_4+H_5+H_6$.
+
+\paragraph{The certificates of Theorem~\ref{thm:familylow}.}  With
+\begin{align*}
+  Q_5&=77r^2+480r+1733,\qquad Q_6=9359r^3+60705r^2+246086r+363930,\\
+  Q_7&=421939r^4+2798055r^3+12013156r^2+25839030r+38212650,\\
+  Q_8&=8457547r^5+56817765r^4+251780638r^3+630690690r^2\\
+  &\qquad+1356549075r+2006164125,
+\end{align*}
+the tails of the full certificates with zero sets $\{1,4,z\}$ are
+\[
+  \theta_5=\frac{n_5}{96(r-1)Q_5},\qquad
+  \theta_6=\frac{n_6}{48(r-1)Q_6},\qquad
+  \theta_7=\frac{n_7}{48(r-1)Q_7},\qquad
+  \theta_8=\frac{n_8}{96(r-1)Q_8},
+\]
+where
+\begin{align*}
+  n_5&=769r^2+3374r-3989,\qquad n_6=49550r^3+244468r^2+148970r-433629,\\
+  n_7&=2308315r^4+12063338r^3+17059705r^2+15420090r-46429509,\\
+  n_8&=94332044r^5+508724104r^4+933286436r^3+1788992289r^2\\
+  &\qquad+1607184810r-4915604589 .
+\end{align*}
+For $\{1,4,5\}$ the weights are
+\begin{gather*}
+  \lambda_1=-\frac{77r^5}{p(r)Q_5},\qquad
+  \lambda_3=\frac{243(r^2+12r+109)}{16(3-r)Q_5},\\
+  \lambda_5=-\frac{3125(r^2+10r+79)}{8(5-r)Q_5},\qquad
+  \lambda_7=\frac{16807(r^2+8r+49)}{16(7-r)Q_5},
+\end{gather*}
+and $v_0=1$, $v_1=v_4=v_5=0$,
+\[
+  v_2=-\frac{15r+71}{2Q_5},\qquad v_3=-\frac{r+15}{2Q_5},\qquad
+  \sum_{d\ge6}v_d=-\frac{r^2+14r+139}{96(r-1)Q_5},
+\]
+all negative, so $\Tail(v)=-v_2-v_3-\sum_{d\ge6}v_d=\theta_5(r)$.  Its witness
+in \eqref{eq:witness} has
+\begin{gather*}
+  s_1=\frac{769r^3+10766r^2+42091r-52276}{96(r-1)Q_5},\qquad
+  s_4=\frac{211252r^3+380157r^2+254562r-991257}{96(r-1)Q_5},\\
+  s_5=-\frac{142079r^3+137846r^2-345779r-55456}{32(r-1)Q_5},
+\end{gather*}
+and $s_d=-1$ for $d=2,3$ and $d\ge6$.  The other witnesses have larger
+coefficients and are only computed.  The polynomials of the breakpoints are
+\begin{align*}
+  \gamma_1&=218644r^3+418845r^2+374850r-1157625,\\
+  \gamma_2&=203860r^3+341469r^2+134274r-824889,\\
+  \gamma'&=172587443623r^6+203696380262r^5-245023502843r^4-16113960832r^3\\
+  &\qquad-40364204160r^2-86819140800r-128394504000,\\
+  \gamma_3&=31863386060r^7+527299949544r^6+2216976743064r^5+5148085143336r^4\\
+  &\qquad+7473795889089r^3+2333772047565r^2-9236198868099r-16544067678495,\\
+  \gamma_4&=1638534863r^5+1910488822r^4-2452391683r^3-384420992r^2\\
+  &\qquad-826848960r-1222804800,\\
+  \gamma_5&=15476503r^4+17470982r^3-26164523r^2-7874752r-11645760,\\
+  \gamma_6&=144543r^3+150742r^2-305683r-110912,\qquad
+  \gamma_7=3989r^2+3570r-11025,\\
+  \gamma_+&=111700r^3-50307r^2-97470r-109209,
+\end{align*}
+each with exactly one zero in $(1,\tfrac32)$, where it changes sign from
+$-$ to $+$.  Besides the ties after Theorem~\ref{thm:familylow},
+\begin{gather*}
+  \theta_5-\theta_6=-\frac{(r^2+15r+154)\gamma_6}{32(r-1)Q_5Q_6},\qquad
+  \theta_6-\theta_7=-\frac{(15r^3+225r^2+2310r+9359)\gamma_5}{16(r-1)Q_6Q_7},\\
+  \theta_7-\theta_8=-\frac{7(22r^4+330r^3+3388r^2+17745r+60277)\gamma_4}{32(r-1)Q_7Q_8} .
+\end{gather*}
 
 \begin{thebibliography}{9}
 \small
