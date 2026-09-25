@@ -46,9 +46,13 @@ and bounds the cost of that step by first-order optimality.  For $1<r<2$ the
 rows are not all top rows.  We show that they are given by
 prefix-constrained problems whenever the top row is at most one, and on each diagonal $L-k=\mathrm{const}$ for all but finitely many
 rows.  The second row is the minimum of the top row and finitely many terms, one
-for each nearby exempted position, each attained by a polynomial with integer zeros whose optimality, for
-rational $r$, is a finite exact check; at $r=\frac54$ and $r=\frac43$ this shows that the
-prefix description fails in general.
+for each nearby exempted position.  More generally, row $k\ge2$ is the minimum
+of row $k-1$ on the same diagonal and finitely many terms, one for each
+exempted set in a finite tree cut off by thresholds for several far zeros.
+Each term is attained by a polynomial with integer zeros whose optimality, for
+rational $r$, is a finite exact check.  At $r=\frac54$ and $r=\frac43$ this shows that the
+prefix description fails in general, and at $r=\frac43$ that it can fail in
+the third row while holding in the second row of the same diagonal.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient order
@@ -118,7 +122,11 @@ It is not attained in general.  The second row $k=2$ is the minimum of the top
 row and finitely many exempted-position terms (Theorem~\ref{thm:secondrow}), and exact
 certificates give $V_{5/4}(16,2)=1/\nu_3(14)<\min_{i\le2}1/\nu_i(15)$ and
 $V_{4/3}(19,2)<\min_{i\le2}1/\nu_i(18)$
-(Proposition~\ref{prop:secondrowexact}).
+(Proposition~\ref{prop:secondrowexact}).  Every row $k\ge2$ is likewise
+the minimum of $V_r(L-1,k-1)$ and finitely many exempted-set terms
+(Theorem~\ref{thm:finiterows}), and exact certificates give
+$V_{4/3}(16,3)<V_{4/3}(15,2)=\min_{i\le3}1/\nu_i(14)$
+(Proposition~\ref{prop:thirdrowexact}).
 
 \paragraph{Method.}
 Divisibility by $(x-r)^L$ is a set of linear conditions on the
@@ -874,7 +882,10 @@ would give $\min_{i\le k}1/\nu_i(n)$.  This section proves it in two regimes: fo
 every $k$ when $\beta_r(n)\le1$ (Section~\ref{sec:onepoly}), and for every
 $n$ once $k$ is large compared with $n$ (Section~\ref{sec:longdiag}).  In
 both the minimum is at $i=k$.  Section~\ref{sec:secondrow} treats the
-second row for every $n$ and shows that the identity can fail.
+second row for every $n$ and shows that the identity can fail, and
+Section~\ref{sec:finiterows} reduces every row to finitely many exempted
+sets and shows that it can fail in the third row of a diagonal whose second
+row satisfies it.
 
 \subsection{One polynomial for all exempted sets}\label{sec:onepoly}
 
@@ -1045,7 +1056,8 @@ Beyond $\beta_r(n)\le1$, where the argument of Theorem~\ref{thm:onepolyrows}
 no longer shows that one polynomial serves all prefixes,
 we do not know in general when the prefix identity holds;
 Section~\ref{sec:secondrow} reduces the case $k=2$ to finitely many exempted
-positions.  Section~\ref{sec:longdiag} shows that a
+positions, and Section~\ref{sec:finiterows} every $k$ to finitely many
+exempted sets.  Section~\ref{sec:longdiag} shows that a
 single polynomial does serve all prefixes once $k$ is large compared with
 $n$.
 
@@ -1219,7 +1231,8 @@ $V_r(L,k)=(1+o(1))/\nu_k(n)$ as $k\to\infty$ with $n$ fixed: the factor
 $1+o(1)$ is exactly $1$ once $k\ge\max\{K,\alpha(n-1)\}$, uniformly in $n$.
 What remains open for $1<r<2$ are the rows with $\beta_r(n)>1$ and $k$
 below these thresholds.  The next subsection treats the first of them,
-$k=2$.
+$k=2$, and Section~\ref{sec:finiterows} reduces each of them to finitely
+many exempted sets.
 
 \subsection{The second row}\label{sec:secondrow}
 
@@ -1510,6 +1523,246 @@ conjecture that the prefix identity holds at $(r,n+1,2)$ whenever
 $\nu_2(n)\ge\nu_1(n)$.  Whether a worst finite position is always small,
 and whether failures occur for every $1<r<2$ or only near $1$, we do not
 know.
+
+\subsection{Every row is a finite minimum}\label{sec:finiterows}
+
+Theorem~\ref{thm:secondrow} rests on one fact: a zero placed far enough out
+does not increase $\Phi_r$.  For $k\ge3$ several exempted positions can
+move out together, and a threshold for one far zero does not serve two.  At
+$r=\frac54$ and $p_*=r_{Y_{15}}$ of Proposition~\ref{prop:secondrowexact}
+the threshold of Theorem~\ref{thm:secondrow} is $\sigma_*=25$, while the
+zeros $25$ and $26$ together raise $\Phi_r(p_*)$ by more than half
+(\texttt{tests/test\_rows.py}).  Lemma~\ref{lem:farzeros} gives a threshold
+for up to $m$ far zeros at once.  It depends on the exempted positions below
+it, and the positions that stay below the thresholds form a finite tree.  So
+each row is the minimum of the row before it on its diagonal and finitely
+many exempted-set terms (Theorem~\ref{thm:finiterows}).
+
+For integers $m,s\ge1$, real $t>0$ and a real polynomial $q$ put
+\[
+  \phi_m(s,t)=\begin{cases}-s,&s\le t,\\(s-t)(s/t)^{m-1}-t,&s>t,\end{cases}
+  \qquad
+  \Delta_{q,m}(t)=\sum_{s\ge1}\phi_m(s,t)\,|q(s)|\,r^{-s}.
+\]
+Since $\phi_1(s,t)=-s+2(s-t)^+$, we have
+$\Delta_{q,1}(\sigma)=2R_q(\sigma)-\Psi_r(q)$.
+
+\begin{lemma}[Several far zeros]\label{lem:farzeros}
+Let $r>1$, $m\ge1$, and let $q$ be a nonzero real polynomial.
+\begin{enumerate}
+\item[(a)] $\Delta_{q,m}(t)$ does not increase in $t>0$,
+$\Delta_{q,m}\le\Delta_{q,m+1}$, and $\Delta_{q,m}(t)\to-\Psi_r(q)<0$ as
+$t\to\infty$.  So there is a least integer $t_m(q)\ge1$ with
+$\Delta_{q,m}(t_m(q))\le0$; moreover $\Delta_{q,m}(t)\le0$ for all real
+$t\ge t_m(q)$, and $t_m(q)\le t_{m+1}(q)$.
+\item[(b)] If $t>0$, $\Delta_{q,m}(t)\le0$, and $F\subset\N_{>0}$ is finite
+with $|F|\le m$ and all elements at least $t$, then
+$\Phi_r(q\,r_F)\le\Phi_r(q)$.
+\end{enumerate}
+For $m=1$, $t_1(p_*)$ is the threshold $\sigma_*$ of
+Theorem~\ref{thm:secondrow}.
+\end{lemma}
+
+\begin{proof}
+(a) Fix $s$.  For $t\ge s$, $\phi_m(s,t)=-s$.  For $0<t<s$, the product
+$(s-t)(s/t)^{m-1}$ of a positive decreasing and a positive nonincreasing
+function of $t$ decreases, so $\phi_m(s,t)$ decreases in $t$ there, and it
+tends to $-s$ as $t\uparrow s$.  So $\phi_m(s,\cdot)$ is nonincreasing.  For
+$s>t$, $(s/t)^{m-1}\le(s/t)^m$, so $\phi_m\le\phi_{m+1}$.  For fixed $t$,
+$|\phi_m(s,t)|$ is at most a polynomial in $s$, so every series here
+converges absolutely, and the first two claims follow term by term.  For
+$t\ge1$, $|\phi_m(s,t)|\le s^m+s$, and $\sum_s(s^m+s)|q(s)|r^{-s}<\infty$, so
+dominated convergence with $\phi_m(s,t)\to-s$ gives the limit.  Finally
+$\Psi_r(q)>0$, since $q$ has finitely many zeros.
+
+(b) Let $F\ne\varnothing$ and $u=\min F\ge t$, so $\Delta_{q,m}(u)\le0$ by
+(a).  Every $f\in F$ has $|1-s/f|\le\max\{1,s/f\}\le\max\{1,s/u\}$, so
+$|r_F(s)|\le|1-s/u|\max\{1,s/u\}^{m-1}$ for $s\ge1$.  Hence
+$u(|r_F(s)|-1)\le\phi_m(s,u)$: for $s\le u$ the left side is at most
+$(u-s)-u$, and for $s>u$ at most $(s-u)(s/u)^{m-1}-u$.  Multiplying by
+$|q(s)|r^{-s}$ and summing gives
+$u\bigl(\Phi_r(q\,r_F)-\Phi_r(q)\bigr)\le\Delta_{q,m}(u)\le0$.  For $m=1$,
+$\Delta_{p_*,1}(\sigma)\le0$ is the condition $2R_{p_*}(\sigma)\le\Psi_r(p_*)$
+defining $\sigma_*$.
+\end{proof}
+
+\begin{theorem}[Every row is a finite minimum]\label{thm:finiterows}
+Let $r>1$ and $n,m\ge1$.
+\begin{enumerate}
+\item[(a)] For each finite $N\subset\N_{>0}$ with $|N|<m$ fix a minimizer
+$q_N$ of $\mu_r(N,n+|N|)$ (Lemma~\ref{lem:vertexopt}) and put
+$T(N)=t_{m-|N|}(q_N)$.  Let $\mathcal S$ be the set of
+$S=\{\sigma_1<\cdots<\sigma_m\}\subset\N_{>0}$ with
+$\sigma_{j+1}<T(\{\sigma_1,\ldots,\sigma_j\})$ for $0\le j<m$.  Then
+$\mathcal S$ is finite, and
+\[
+  V_r(n+m,m+1)=\min\Bigl\{V_r(n+m-1,m),\
+  \min_{S\in\mathcal S}\frac1{\mu_r(S,n+m)}\Bigr\},
+\]
+where the inner minimum is omitted if $\mathcal S=\varnothing$.
+\item[(b)] Let $B>0$, and let $\mathcal T$ be a set of finite subsets of
+$\N_{>0}$ of size less than $m$, with $\varnothing\in\mathcal T$.  To each
+$N\in\mathcal T$ attach a real polynomial $q_N$ with $\deg q_N\le n+|N|-1$,
+$q_N(0)=1$, $q_N|_N=0$ and $\Phi_r(q_N)\le B$, and an integer $T_N\ge1$ with
+$\Delta_{q_N,m-|N|}(T_N)\le0$.  Suppose that $N\cup\{\sigma\}\in\mathcal T$
+whenever $N\in\mathcal T$, $|N|\le m-2$ and $\max N<\sigma<T_N$
+($\max\varnothing=0$), and that $\mu_r(N\cup\{\sigma\},n+m)\le B$ whenever
+$N\in\mathcal T$, $|N|=m-1$ and $\max N<\sigma<T_N$.  Then
+$\mu_r(S,n+m)\le B$ for every $S\subset\N_{>0}$ with $|S|=m$, and
+$V_r(n+m,m+1)\ge1/B$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Both parts rest on one step.  Let $S=\{\sigma_1<\cdots<\sigma_m\}$, put
+$N_j=\{\sigma_1,\ldots,\sigma_j\}$, and let $q$ be real with
+$\deg q\le n+j-1$, $q(0)=1$, $q|_{N_j}=0$ and
+$\Delta_{q,m-j}(\sigma_{j+1})\le0$ for some $j<m$.  The set
+$F=S\setminus N_j$ has $m-j$ elements, all at least $\sigma_{j+1}$, so
+Lemma~\ref{lem:farzeros}(b) gives $\Phi_r(q\,r_F)\le\Phi_r(q)$.  The
+polynomial $q\,r_F$ has degree at most $n+m-1$, takes the value $1$ at $0$
+and vanishes on $S$, so
+\begin{equation}\label{eq:farstep}
+  \mu_r(S,n+m)\le\Phi_r(q).
+\end{equation}
+
+(a) A set in $\mathcal S$ with given $\sigma_1,\ldots,\sigma_j$ has fewer
+than $T(N_j)$ choices of $\sigma_{j+1}$, so $\mathcal S$ is finite by
+induction on $j$.  Proposition~\ref{prop:rowvalue}(b) gives
+$V_r(n+m,m+1)\le1/\mu_r(S,n+m)$ for each $S$, and Lemma~\ref{lem:rowmono}
+gives $V_r(n+m,m+1)\le V_r(n+m-1,m)$.  Conversely let $|S|=m$ with
+$S\notin\mathcal S$.  Then some $j<m$ has $\sigma_{j+1}\ge T(N_j)$, so
+$\Delta_{q_{N_j},m-j}(\sigma_{j+1})\le0$ by Lemma~\ref{lem:farzeros}(a),
+and~\eqref{eq:farstep} gives $\mu_r(S,n+m)\le\mu_r(N_j,n+j)$.  By
+Proposition~\ref{prop:rowvalue}(b), $1/\mu_r(N_j,n+j)\ge V_r(n+j,j+1)$ (for
+$j=0$ both sides are $\beta_r(n)$), and by Lemma~\ref{lem:rowmono},
+$V_r(n+j,j+1)\ge V_r(n+m-1,m)$ since $j\le m-1$.  So every $S$ has
+$1/\mu_r(S,n+m)$ at least the right side, and
+Proposition~\ref{prop:rowvalue}(b) gives the reverse inequality.
+
+(b) Let $|S|=m$.  We have $N_0\in\mathcal T$.  If $N_j\in\mathcal T$ and
+$\sigma_{j+1}<T_{N_j}$, then $N_{j+1}\in\mathcal T$ when $j\le m-2$, and
+$\mu_r(S,n+m)\le B$ by hypothesis when $j=m-1$.  Otherwise some $j<m$ has
+$N_j\in\mathcal T$ and $\sigma_{j+1}\ge T_{N_j}$.  Then
+$\Delta_{q_{N_j},m-j}(\sigma_{j+1})\le\Delta_{q_{N_j},m-j}(T_{N_j})\le0$ by
+Lemma~\ref{lem:farzeros}(a), and~\eqref{eq:farstep} gives
+$\mu_r(S,n+m)\le\Phi_r(q_{N_j})\le B$.  Proposition~\ref{prop:rowvalue}(b)
+gives $V_r(n+m,m+1)\ge1/B$.
+\end{proof}
+
+For $m=1$ the set $\mathcal S$ is $\{\{\sigma\}:\sigma<\sigma_*\}$ and (a) is
+Theorem~\ref{thm:secondrow}(b).  Applying (a) to $V_r(n+m-1,m)$, and so on
+down to $V_r(n,1)=\beta_r(n)$, writes every row $V_r(n+m,m+1)$ as the
+minimum of finitely many values $1/\mu_r(S,n+|S|)$, $|S|\le m$, each equal
+to $1/\Phi_r(Z)$ for a set $Z\supseteq S$ of $n+|S|-1$ integers
+(Lemma~\ref{lem:vertexopt}).  The sets in $\mathcal S$ depend on the
+minimizers $q_N$, and the theorem does not say how to find them; part (b)
+needs only upper bounds.  If $V_r(n+m,m+1)<V_r(n+m-1,m)$, the infimum
+defining $V_r(n+m,m+1)$ is attained, at some $S\in\mathcal S$.  For rational
+$r$ and $q=r_Z$, $\Delta_{q,m}(t)$ is a rational number computable exactly
+as $\Phi_r(Z)$ is, since past $\max(Z\cup\{t\})$ its summand is a polynomial
+times $r^{-s}$.  So for given zero sets every hypothesis of (b), with
+$\mu_r(N\cup\{\sigma\},n+m)\le B$ checked through some $\Phi_r(Z)\le B$,
+$Z\supseteq N\cup\{\sigma\}$, $|Z|\le n+m-1$, is a finite exact check.
+
+\begin{proposition}[Third rows at the roots $\frac43$ and $\frac32$]\label{prop:thirdrowexact}
+Let $r=\frac43$ in (a) and (b).
+\begin{enumerate}
+\item[(a)] Let
+\begin{align*}
+  Y_{12}&=\{1,3,6,9,13,17,23,30,39,50,64\},\\
+  Z_2&=\{1,2,5,8,12,16,21,28,35,44,56,71\},\\
+  Z_{2,3}&=\{2,3,4,7,10,15,19,25,32,40,49,61,77\}.
+\end{align*}
+Then $V_r(14,3)=1/\Phi_r(Z_{2,3})=7.7168\ldots$,
+$V_r(13,2)=1/\Phi_r(Z_2)=1/\nu_3(11)=8.5482\ldots$ and
+$\min_{i\le3}1/\nu_i(12)=\beta_r(12)=1/\Phi_r(Y_{12})=8.8501\ldots$.  So
+$V_r(14,3)<V_r(13,2)<\min_{i\le3}1/\nu_i(12)$: the prefix identity fails at
+$(\frac43,13,2)$ and at $(\frac43,14,3)$, and the third row lies strictly
+below the second on this diagonal.  The pair $S=\{2,3\}$ is the only
+exempted set with $1/\mu_r(S,14)=V_r(14,3)$.
+\item[(b)] Let
+\begin{align*}
+  Y_{14}&=\{1,3,5,8,11,15,20,26,32,40,50,62,77\},\\
+  Z'_{2,3}&=\{1,2,3,6,9,13,17,22,27,34,41,50,60,73,89\}.
+\end{align*}
+Then $V_r(15,2)=\beta_r(14)=1/\Phi_r(Y_{14})=15.0390\ldots=\min_{i\le3}1/\nu_i(14)$
+and $V_r(16,3)=1/\Phi_r(Z'_{2,3})=1/\nu_4(13)=14.6268\ldots$.  So the
+prefix identity holds at $(\frac43,15,2)$, with its minimum at $i=1$, and
+fails at $(\frac43,16,3)$.  The pair $S=\{2,3\}$ is the only exempted set
+with $1/\mu_r(S,16)=V_r(16,3)$.
+\item[(c)] Let $r=\frac32$ and $Y_8=\{1,3,6,9,14,20,28\}$.  Then
+$V_r(10,3)=V_r(9,2)=\beta_r(8)=1/\Phi_r(Y_8)=8.0259\ldots=\min_{i\le3}1/\nu_i(8)$,
+and $\nu_2(8),\nu_3(8)<\nu_1(8)$.  So the prefix identity holds at
+$(\frac32,10,3)$ with its minimum at $i=1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+All numbers below are exact rationals, and the computation is in
+\texttt{tests/test\_rows.py}.  Each lower bound for a row comes from
+Theorem~\ref{thm:finiterows}(b) with $q_\varnothing=r_Y$ for the set $Y$
+named in that part, $q_N=r_{Z_N}$ for sets $Z_N\supseteq N$ of at most
+$n+|N|-1$ integers, and $T_N$ the least integer with
+$\Delta_{q_N,m-|N|}(T_N)\le0$; a leaf $N\cup\{\sigma\}$ is checked through a
+set $Z\supseteq N\cup\{\sigma\}$ of at most $n+m-1$ integers with
+$\Phi_r(Z)\le B$.  The test builds the tree.  For each child
+$N\cup\{\sigma\}$ it tries a few sets: that of $N$ with a nearby element
+replaced by $\sigma$ or with $\sigma$ added, and one fixed set of each size
+with the elements nearest to the positions of $N\cup\{\sigma\}$ moved there.
+It keeps the one with the least $\Phi_r$, unless the child is given a named
+set.
+
+(a) Lemma~\ref{lem:vertexopt} with $S=\{2,3\}$, $\{2\}$ and $\varnothing$
+gives $\mu_r(\{2,3\},14)=\Phi_r(Z_{2,3})$, $\eta_2(12)=\Phi_r(Z_2)$ and
+$\nu_1(12)=\Phi_r(Y_{12})$, and $\Phi_r(Y_{12})<\Phi_r(Z_2)<\Phi_r(Z_{2,3})$.
+With $n=12$, $m=2$, $B=\Phi_r(Z_{2,3})$, $Y=Y_{12}$ (so
+$T_\varnothing=33$) and the pair $\{2,3\}$ given $Z_{2,3}$, the test checks
+the hypotheses of Theorem~\ref{thm:finiterows}(b), with $\Phi_r<B$ for every
+other set used.  So $\mu_r(S,14)\le B$ for all $|S|=2$, with equality only
+at $S=\{2,3\}$: a pair outside the tree has $\mu_r(S,14)\le\Phi_r(q_N)<B$
+by~\eqref{eq:farstep}.  Proposition~\ref{prop:rowvalue}(b) gives
+$V_r(14,3)=1/B$.  With $m=1$, $B=\Phi_r(Z_2)$ and the position $2$ given
+$Z_2$, the same check gives $V_r(13,2)\ge1/\Phi_r(Z_2)$, and $S=\{2\}$ gives
+equality.  Since $[1,2]\subseteq Z_2$,
+$\eta_2(12)\le\nu_3(11)=\mu_r([1,2],13)\le\Phi_r(Z_2)=\eta_2(12)$.  Finally
+the sets $\{1,3,5,8,12,16,21,28,35,44,56,71\}\ni1$ and
+$\{1,2,5,7,11,15,20,25,32,40,50,61,77\}\supseteq[1,2]$ give
+$\nu_2(12),\nu_3(12)<\nu_1(12)$, so
+$\min_{i\le3}1/\nu_i(12)=1/\nu_1(12)$.
+
+(b) As in (a): Lemma~\ref{lem:vertexopt} gives
+$\mu_r(\{2,3\},16)=\Phi_r(Z'_{2,3})$ and $\nu_1(14)=\Phi_r(Y_{14})$, which is
+smaller.  Theorem~\ref{thm:finiterows}(b) with $n=14$, $m=2$,
+$B=\Phi_r(Z'_{2,3})$ and $Y=Y_{14}$ ($T_\varnothing=36$), with $\Phi_r<B$
+for every set used except $Z'_{2,3}$ at $\{2,3\}$, gives $V_r(16,3)=1/B$,
+attained only at $\{2,3\}$.  With $m=1$ and $B=\Phi_r(Y_{14})$ it gives
+$V_r(15,2)\ge\beta_r(14)$, and Proposition~\ref{prop:rowvalue}(c) gives
+equality.  Since $[1,3]\subseteq Z'_{2,3}$,
+$\mu_r(\{2,3\},16)\le\mu_r([1,3],16)=\nu_4(13)\le\Phi_r(Z'_{2,3})$, so all
+three are equal.  The sets $\{1,3,5,7,10,14,18,24,30,37,45,55,67,83\}\ni1$
+and $\{1,2,4,7,10,13,17,22,28,34,42,50,61,73,90\}\supseteq[1,2]$ give
+$\nu_2(14),\nu_3(14)<\nu_1(14)$.
+
+(c) Lemma~\ref{lem:vertexopt} gives $\nu_1(8)=\Phi_r(Y_8)$.
+Theorem~\ref{thm:finiterows}(b) with $n=8$, $m=2$, $B=\Phi_r(Y_8)$, $Y=Y_8$,
+and the pair $\{2,3\}$ given $\{2,3,4,7,10,15,20,27,37\}$, gives
+$V_r(10,3)\ge\beta_r(8)$.  Lemma~\ref{lem:rowmono} and
+Proposition~\ref{prop:rowvalue}(c) give
+$V_r(10,3)\le V_r(9,2)\le\beta_r(8)$.  The sets
+$\{1,3,5,8,12,17,24,33\}\ni1$ and $\{1,2,5,7,11,15,21,28,37\}\supseteq[1,2]$
+give $\nu_2(8),\nu_3(8)<\nu_1(8)$.
+\end{proof}
+
+In (b) the prefix identity fails in the third row although it holds in the
+second, so this failure does not come from the second row through
+Lemma~\ref{lem:rowmono}.  In (a) the third row is strictly below the
+second.  In (b) the optimum for the worst pair contains $[1,3]$, as the
+optima in Proposition~\ref{prop:secondrowexact}(a) and~(d) contain
+$[1,\sigma]$; in (a) the optimum $Z_{2,3}$ omits $1$.  The identities at
+$(\frac43,15,2)$ and $(\frac32,10,3)$ are outside
+Theorems~\ref{thm:onepolyrows} and~\ref{thm:longdiag}, which give
+$\nu_1(n)\le\nu_k(n)$.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.  The exact
