@@ -13,10 +13,10 @@ is open; an answer lands in the paper it extends, and the row leaves.
 - [complex](papers/coefficient-mass-complex.tex): the rows of
   `cor:annuli` item 1 at a fixed separation, and the least such separation
   for the mass (`sec:annuli`).
-- [rows](papers/coefficient-mass-rows.tex): whether `nu_2(n) >= nu_1(n)`
-  implies the prefix identity at `k = 2` (`sec:secondrow`); whether the
-  worst finite position is always small, and failures occur for every
-  `1 < r < 2`; closed forms or tree bounds for rows `k >= 3`
+- [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
+  identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
+  whether the worst finite position is always small, and failures occur
+  for every `1 < r < 2`; closed forms or tree bounds for rows `k >= 3`
   (`sec:finiterows`).
 - [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
   holds for integer multiples at Gaussian roots in a wide sector
@@ -164,7 +164,15 @@ is open; an answer lands in the paper it extends, and the row leaves.
   identity fails at `(5/4, 16, 2)` and `(5/4, 17, 3)`; `V_{4/3}(19,2) =
   41.38... < beta_{4/3}(18) = 42.34...` with worst position `sigma = 3`;
   and `V_{5/4}(14,2) = beta_{5/4}(13) > 1`, the identity with its minimum
-  at `i = 1`, outside `thm:onepolyrows` and `thm:longdiag`.
+  at `i = 1`, outside `thm:onepolyrows` and `thm:longdiag`.  The
+  hypothesis `nu_2(n) >= nu_1(n)` does not give the identity at `k = 2`
+  (Closed, negatively): when `nu_2(n) > nu_1(n)` the position 2 cannot
+  break it (by crossing, after `prop:secondrowexact`), but at
+  `r = 177/167` exact certificates give `nu_1(50) < nu_2(50) <
+  eta_5(50)`, so `V(51,2) <= 1/eta_5(50) = 4.2112... < 1/nu_2(50)`
+  (`prop:secondrowhyp`, `tests/test_rows.py`); the margins are below 0.3
+  percent, and floating-point experiments find no failure under the
+  hypothesis at `r = p/q >= 5/4`, `q <= 20`.
   Every row (`sec:finiterows`): a threshold for up to `m` far zeros
   (`lem:farzeros`) cuts the exempted sets to a finite tree, so for all
   `r > 1`, `n, m >= 1`, `V_r(n+m,m+1) = min(V_r(n+m-1,m), min_(S in tree)
@@ -178,8 +186,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   beta_{4/3}(14) = min_(i<=4) 1/nu_i(14)`, so the identity fails in the
   third row while holding in the second (and at `k = 4` by `lem:rowmono`);
   `V_{3/2}(10,3) = beta_{3/2}(8)`, the identity with minimum at `i = 1`.
-  Open: a proof that `nu_2(n) >= nu_1(n)` implies the identity at `k = 2`
-  (conjectured in `sec:secondrow`);
+  Open: a condition on `r` and `n` that gives the identity at `k = 2`;
   whether the worst finite position or set is always small; whether failures
   occur for every `1 < r < 2`; closed forms, or bounds on the trees, for the
   rows `k >= 3` with `beta_r(n) > 1` -- `thm:finiterows` does not say how to

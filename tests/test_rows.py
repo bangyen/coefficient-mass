@@ -52,10 +52,11 @@ def _power_sum(head, poly, deg: int, top: int, r: Fraction) -> Fraction:
     whole = Fraction(
         p * sum(c * q**j * d ** (deg - j) for j, c in enumerate(diffs)), d ** (deg + 1)
     )
-    near = sum(
-        ((head(s) if s else 0) - poly(s)) * q**s * p ** (top - s)
-        for s in range(top + 1)
-    )
+    # Horner: near = sum_s (head(s) - poly(s)) q^s p^(top-s), with head(0) = 0.
+    near, q_s = 0, 1
+    for s in range(top + 1):
+        near = near * p + ((head(s) if s else 0) - poly(s)) * q_s
+        q_s *= q
     return whole + Fraction(near, p**top)
 
 
@@ -406,6 +407,54 @@ def test_second_row_at_four_thirds() -> None:
     assert Fraction(4234, 100) < 1 / _phi(short, r) < Fraction(4235, 100)
     # The control: the prefix bound nu_1(18) fails at sigma = 3 and only there.
     assert _second_row_bounded(r, short, full, _phi(short, r), {}) == [3]
+
+
+# ``prop:secondrowhyp``: at ``r = 177/167``, ``n = 50`` the prefix identity
+# fails in the second row although ``nu_2(50) > nu_1(50)``.
+_R177 = Fraction(177, 167)
+#: ``nu_1(50)``, ``nu_2(50) = mu({1}, 51)`` and ``eta_5(50) = mu({5}, 51)``.
+_Y50 = (
+    *(2, 4, 7, 10, 15, 20, 27, 34, 42, 51, 61, 71, 83, 95, 109, 123, 138),
+    *(155, 172, 190, 210, 230, 252, 275, 299, 324, 350, 378, 407, 437, 469),
+    *(502, 537, 574, 613, 654, 696, 741, 789, 839, 893, 950, 1011, 1076),
+    *(1148, 1226, 1314, 1416, 1543),
+)
+_ONE50 = (
+    *(1, 4, 6, 10, 15, 20, 26, 33, 41, 50, 59, 70, 81, 93, 107, 121, 136),
+    *(152, 169, 187, 205, 225, 247, 269, 292, 316, 342, 369, 397, 427, 458),
+    *(490, 524, 560, 597, 637, 678, 721, 767, 815, 866, 920, 978, 1039),
+    *(1105, 1177, 1256, 1345, 1448, 1576),
+)
+_FIVE50 = (
+    *(2, 4, 5, 10, 14, 20, 26, 33, 41, 50, 59, 70, 81, 93, 106, 121, 136),
+    *(152, 168, 186, 205, 225, 246, 269, 292, 316, 342, 369, 397, 427, 458),
+    *(490, 524, 560, 597, 637, 678, 721, 767, 815, 866, 920, 978, 1039),
+    *(1105, 1177, 1256, 1345, 1448, 1576),
+)
+
+
+def test_second_row_hypothesis_fails() -> None:
+    """``prop:secondrowhyp``: ``nu_1(50) < nu_2(50) < eta_5(50)`` at
+    ``r = 177/167``, so ``V(51,2) <= 1/eta_5(50) < min_{i<=2} 1/nu_i(50)``."""
+    r = _R177
+    assert (len(_Y50), len(_ONE50), len(_FIVE50)) == (49, 50, 50)
+    assert 1 in _ONE50 and 5 in _FIVE50 and not {1, 3} & set(_FIVE50)
+    assert _vertex_optimal(_Y50, set(), r)
+    assert _vertex_optimal(_ONE50, {1}, r)
+    # Strict: r_{Z_5(50)} is the unique minimizer, as the paper says.
+    assert _vertex_optimal(_FIVE50, {5}, r, strict=True)
+    nu1, nu2, eta5 = _phi(_Y50, r), _phi(_ONE50, r), _phi(_FIVE50, r)
+    # The hypothesis of the former conjecture, and the failure.
+    assert nu1 < nu2 < eta5
+    assert Fraction(42262, 10**4) < 1 / nu1 < Fraction(42263, 10**4)
+    assert Fraction(42221, 10**4) < 1 / nu2 < Fraction(42222, 10**4)
+    assert Fraction(42112, 10**4) < 1 / eta5 < Fraction(42113, 10**4)
+    # The margins quoted in the paper: below 0.1 and 0.3 percent.
+    assert nu2 < nu1 * Fraction(1001, 1000) and eta5 < nu2 * Fraction(1003, 1000)
+    # The controls: the vertex test rejects Z_5(50) with its largest zero
+    # moved by one, and the constrained optimum Y'_50 offered for nu_1(51).
+    assert not _vertex_optimal((*_FIVE50[:-1], 1577), {5}, r)
+    assert not _vertex_optimal(_ONE50, set(), r)
 
 
 # Every row (``sec:finiterows``).  For a polynomial ``q_N`` through the
