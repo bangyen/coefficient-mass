@@ -50,7 +50,7 @@ the smallest root, strictly increases the tail, and iterating gives a product bo
 the initial run of consecutive zeros, with equality only when all the zeros
 are consecutive.  As a by-product, the same-sign hypothesis under which
 Dubickas and Jankauskas evaluate the consecutive case holds at all distinct
-positive nodes, making their reduced-height bound $H(P)\ge|P(1)|$ unconditional for
+nodes in $(0,1)$, making their reduced-height bound $H(P)\ge|P(1)|$ unconditional for
 distinct real roots greater than one.
 \end{abstract}
 
@@ -111,8 +111,8 @@ $L\ge8$ (Proposition~\ref{prop:quadratic}), and together
 with absolute constants (Corollary~\ref{cor:allroots}).
 
 For comparison, the Mahler measure and Landau's inequality give only
-$\Lambda(F)\ge\sum_i\log r_i-\frac12\log(D+1)$ for monic $F$, of order
-$L\log L$ at the first $L$ primes.
+$\Lambda(F)\ge\sum_i\log r_i-\frac12\log(D+1)$ for monic $F$, at most of
+order $L\log L$ at the first $L$ primes and vacuous once $\log D\gg L\log L$.
 
 \paragraph{Method.}
 To bound $b_k$, we exclude any $k-1$ positions and build a normalized
@@ -137,10 +137,11 @@ dual lower bound for the reduced height, their inequality~(8).  They
 evaluate the consecutive case $J=\{1,\ldots,c-1\}$ on the condition that
 all $S_n$ with $n$ large have the same sign~\cite[p.~333]{dj}, a hypothesis
 kept through their Corollary~7~\cite[Section~2]{dj} and checked case by
-case~\cite[Sections~3--4]{dj}.  Lemma~\ref{lem:consecutive} proves it for
-all distinct positive real nodes, so their bound $H(P)\ge|P(1)|$ on the reduced height $H(P)$, the infimum of the heights of the multiples $PQ$ with $Q$ monic, the row
-$k=1$ of Theorem~\ref{thm:order}, holds unconditionally for distinct real
-roots greater than one.  What is new here is the tail estimate for
+case~\cite[Sections~3--4]{dj}.  Here $H(P)$ is the reduced height, the infimum of the
+heights of the multiples $PQ$ with $Q$ monic.  Lemma~\ref{lem:consecutive}
+proves the same-sign condition for all distinct nodes in $(0,1)$, so their
+bound $H(P)\ge|P(1)|$, which is the row $k=1$ of Theorem~\ref{thm:order},
+holds unconditionally for distinct real roots greater than one.  What is new here is the tail estimate for
 arbitrary integer zero sets, and with it the rows $k\ge2$.
 
 \paragraph{Sharpness and companion papers.}
@@ -889,9 +890,9 @@ They are not infima at every root set.  The companion
 paper~\cite{coefficient-mass-attainment} characterizes the root sets at
 which \eqref{eq:order} is an infimum: for $2\le r_1\le\cdots\le r_L$,
 repeated roots included, the row $k=u+1$ is the infimum of $b_{u+1}(PQ)$
-over monic $Q$ exactly when no partial sum of the coefficients of
-$P_u=\prod_{i>u}(x-r_i)$, read down from the leading one, exceeds their
-total $P_u(1)$ in absolute value.  At $(\tfrac52,3,\tfrac72)$ with $u=1$ the
+over monic $Q$ exactly when every partial sum of the coefficients of
+$P_u=\prod_{i>u}(x-r_i)$, read down from the leading one, has absolute value
+at most $|P_u(1)|$.  At $(\tfrac52,3,\tfrac72)$ with $u=1$ the
 partial sum $1-\tfrac{13}2=-\tfrac{11}2$ of the two leading coefficients of
 $P_1=(x-3)(x-\tfrac72)$ exceeds $P_1(1)=5$ in absolute value, so there the row $k=2$ is not an infimum.
 
