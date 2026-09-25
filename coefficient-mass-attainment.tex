@@ -418,7 +418,7 @@ $s_i=r_i-1$ over the surviving roots.
 
 \begin{lemma}[Improving the consecutive certificate]\label{lem:improve}
 Let $\rho_1,\ldots,\rho_n>1$ be distinct, $R=\prod_{i=1}^n(x-\rho_i)$ with
-partial sums $S_j(R)$, and $v^*$ the certificate on the nodes $1/\rho_i$ with
+partial sums $S_j(R)$, and $v^*$ the certificate on the nodes $y_i=1/\rho_i$ with
 zero set $\{1,\ldots,n-1\}$, so that $\Tail(v^*)=1/|R(1)|$ by Lemma~2.1.  If
 $X_0\subseteq\{1,\ldots,n-1\}$ and some $j\in\{1,\ldots,n-1\}\setminus X_0$
 has $|S_j(R)|>|R(1)|$, then some certificate for $X_0$ on the same nodes has
@@ -426,27 +426,27 @@ tail less than $1/|R(1)|$.
 \end{lemma}
 
 \begin{proof}
-Let $\delta$ be the exponential sum on the nodes with $\delta_0=0$ and
-$\delta_i=[i=j]$ for $1\le i\le n-1$; it exists by the Vandermonde argument.
+Put $y_{\max}=\max_iy_i$.  Let $\eta$ be the exponential sum on the nodes with $\eta_0=0$ and
+$\eta_i=[i=j]$ for $1\le i\le n-1$; it exists by the Vandermonde argument.
 With $\Pi(x)=\prod_i(1-x/\rho_i)=\sum_s\pi_sx^s$, its generating function is
 $N(x)/\Pi(x)$ with $\deg N\le n-1$, and $N$ is the truncation of
-$\Pi\sum_d\delta_dx^d$ below degree $n$, namely
-$N(x)=\sum_{t=j}^{n-1}\pi_{t-j}x^t$.  Since $\Pi$ is $R$ times the constant
+$\Pi\sum_d\eta_dx^d$ below degree $n$, namely
+$N(x)=\sum_{k=j}^{n-1}\pi_{k-j}x^k$.  Since $\Pi$ is $R$ times the constant
 $\prod_i(-1/\rho_i)$, evaluating at $x=1$ gives
 \[
-  \sum_{d\ge n}\delta_d=\frac{N(1)}{\Pi(1)}-1
+  \sum_{d\ge n}\eta_d=\frac{N(1)}{\Pi(1)}-1
   =-\frac{\pi_{n-j}+\cdots+\pi_n}{\Pi(1)}
   =-\frac{S_j(R)}{R(1)} .
 \]
 By Lemma~2.1, $v^*_d$ has the constant sign $(-1)^{n+1}$ for $d\ge n$
 and $|v^*_d|\ge\bigl(\prod_iy_i\bigr)y_{\max}^{\,d-n}$, while
-$|\delta_d|\le C_\delta y_{\max}^{\,d}$ for a constant $C_\delta$; so for
-$\kappa>0$ small enough $v=v^*+t\delta$ with
+$|\eta_d|\le C_\eta y_{\max}^{\,d}$ for a constant $C_\eta$; so for
+$\kappa>0$ small enough $v=v^*+t\eta$ with
 $t=(-1)^{n+1}\kappa\sgn\bigl(S_j(R)/R(1)\bigr)$ keeps the sign
 $(-1)^{n+1}$ at every $d\ge n$.  It is a certificate for $X_0$, since it vanishes
 on $\{1,\ldots,n-1\}\setminus\{j\}$, and
 \[
-  \Tail(v)=\kappa+(-1)^{n+1}\sum_{d\ge n}\bigl(v^*_d+t\delta_d\bigr)
+  \Tail(v)=\kappa+(-1)^{n+1}\sum_{d\ge n}\bigl(v^*_d+t\eta_d\bigr)
   =\Tail(v^*)-\kappa\Bigl(\Bigl|\frac{S_j(R)}{R(1)}\Bigr|-1\Bigr)
   <\Tail(v^*).
 \]
@@ -458,11 +458,11 @@ Hermite space of $R$.  The proof of Lemma~2.1 is a generating-function
 computation that uses only the denominator $\prod_i(1-y_ix)$, so with
 repetitions it still gives
 $v^*_d=(-1)^{n+1}(\prod_iy_i)h_{d-n}(y)$ for $d\ge n$ and
-$\Tail(v^*)=1/|R(1)|$; the sum $\delta$ is given explicitly by its generating
+$\Tail(v^*)=1/|R(1)|$; the sum $\eta$ is given explicitly by its generating
 function $N(x)/\Pi(x)$, and the evaluation at $x=1$ is unchanged.  The only
 change is in the domination: if $y_{\max}$ has multiplicity $\mu$, then
 $h_{d-n}(y)\ge\binom{d-n+\mu-1}{\mu-1}y_{\max}^{\,d-n}$ while
-$|\delta_d|\le C_\delta(1+d)^{\mu-1}y_{\max}^{\,d}$, so $|\delta_d/v^*_d|$ is still
+$|\eta_d|\le C_\eta(1+d)^{\mu-1}y_{\max}^{\,d}$, so $|\eta_d/v^*_d|$ is still
 bounded for $d\ge n$, and a small $\kappa$ keeps the sign of $v^*$.
 
 Zeros far from the origin cost only the largest nodes because the leading
@@ -1011,8 +1011,7 @@ By Lemma~\ref{lem:attainXrep} with $k=0$, $\tau(X)$ is attained by a
 full certificate $v$.  It is a nonzero element of $\mathcal H_0$, so it has
 at most $L-1$ real zeros and $v_d\ne0$ for some $d>D$.  Hence
 $\sum_{d\le D}|v_d|<\Tail(v)=\tau(X)\le T$, and $b_{u+1}(F)>1/T$.  The last
-sentence follows because, by Corollary~\ref{cor:charrep}, \eqref{eq:order}
-is then equal to $1/T$.
+sentence follows because the infimum is $1/T$.
 \end{proof}
 
 \section{The escaping placement is extremal}\label{sec:extremal}
@@ -1029,11 +1028,11 @@ proof inserts the exempt coefficients one at a time, each paid for by one
 node, and the payment is the deletion step of Theorem~2.2 read backwards.
 
 \begin{lemma}[The deletion step]\label{lem:delete}
-Let $c\ge2$, let $\tfrac12\ge y_1>y_2>\cdots>y_c>0$, let $Z$ be a set of $c-1$
+Let $c\ge2$, let $\tfrac12\ge y_1>y_2>\cdots>y_c>0$ be any nodes, let $Z$ be a set of $c-1$
 positive integers with $z=\max Z$, let $w$ be the full certificate on
-$y_1,\ldots,y_c$ with zero set $Z$, and let $F$ be the full certificate on
+$y_1,\ldots,y_c$ with zero set $Z$, and let $V$ be the full certificate on
 $y_2,\ldots,y_c$ with zero set $Z\setminus\{z\}$.  Then
-$\Tail(w)\le\Tail(F)$.
+$\Tail(w)\le\Tail(V)$.
 \end{lemma}
 
 \begin{proof}
@@ -1041,7 +1040,7 @@ If $Z=\{1,\ldots,c-1\}$, Lemma~2.1 evaluates both tails as products, which
 differ by the factor $y_1/(1-y_1)\le1$.  Otherwise $Z$ has a displaced zero,
 and the displaced step of the proof of Theorem~2.2 (whose nodes are listed in
 increasing order) deletes the largest prescribed zero together with the
-largest node and proves $\Tail(w)<\Tail(F)$ for nodes at most $\tfrac12$; that
+largest node and proves $\Tail(w)<\Tail(V)$ for nodes at most $\tfrac12$; that
 step does not use the induction hypothesis of the proof.
 \end{proof}
 
@@ -1067,25 +1066,25 @@ $V(d)$ for $V_d$.
 Let $0\le k\le L-3$ and $y_{k+1}\le\tfrac12$, let $g\ge1$, let
 $B_0\subseteq\{1,\ldots,g-1\}$, and let $A$ be a nonempty set of integers
 above $g$ with $|B_0|+|A|=L-k-2$, with runs $[s_j,e_j]$ and neighbours $Z_j$
-as above.  Let $F$ and $F_j$ be the full certificates on
+as above.  Let $V$ and $V_j$ be the full certificates on
 $y_{k+2},\ldots,y_L$ with zero sets $Z=B_0\cup A$ and $Z_j$, and let $w$ be
 the full certificate on $y_{k+1},\ldots,y_L$ with zero set
 $\widehat Z=B_0\cup\{g\}\cup(A+1)$.  Then there are $\lambda_1,\ldots,\lambda_p,\mu>0$
 with $\sum_j\lambda_j+\mu=1$ such that
 \begin{equation}\label{eq:runchord}
-  \Tail(F)\ge\sum_{j=1}^p\lambda_j\Tail(F_j)+\mu\,\Tail(w),
+  \Tail(V)\ge\sum_{j=1}^p\lambda_j\Tail(V_j)+\mu\,\Tail(w),
 \end{equation}
 with equality if and only if $y_{k+1}=\tfrac12$ and $B_0=\{1,\ldots,g-1\}$.
 \end{proposition}
 
 \begin{proof}
 \emph{Signs.}  For an integer $d\ge0$ put $\varphi(d)=(-1)^{|Z\cap(0,d)|}$.
-Each of $F$, $F_j$, $w$ is full, so by the zero bound it has exactly its
+Each of $V$, $V_j$, $w$ is full, so by the zero bound it has exactly its
 prescribed zeros, all simple, and it is positive at $0$; its sign at an
 integer $d$ outside its zero set is $-1$ to the number of its zeros below $d$.
-Hence $F(d)=\varphi(d)|F(d)|$.  For an integer $d$,
+Hence $V(d)=\varphi(d)|V(d)|$.  For an integer $d$,
 $|Z_j\cap(0,d)|-|Z\cap(0,d)|=[e_j+1<d]-[s_j<d]$, which vanishes unless
-$s_j<d\le e_j+1$, and those $d$ lie in $Z_j$; so $F_j(d)=\varphi(d)|F_j(d)|$
+$s_j<d\le e_j+1$, and those $d$ lie in $Z_j$; so $V_j(d)=\varphi(d)|V_j(d)|$
 for every integer $d\ge0$.  Since $|(A+1)\cap(0,d)|=|A\cap(0,d-1)|$,
 \[
   |\widehat Z\cap(0,d)|=|Z\cap(0,d)|+[g<d]-[d-1\in A],
@@ -1095,25 +1094,25 @@ and $d-1\in A$ puts $d$ in $\widehat Z$; so
   w(d)=\varphi(d)|w(d)|\quad(0\le d\le g),\qquad
   w(d)=-\varphi(d)|w(d)|\quad(d>g).
 \end{equation}
-In words: the $F_j$ keep the signs of $F$ at every integer, and $w$ keeps
+In words: the $V_j$ keep the signs of $V$ at every integer, and $w$ keeps
 them up to $g$ and reverses them above.
 
-\emph{The combination.}  At a run start $s_i$ we have $F_j(s_i)=0$ for
-$j\ne i$, as $s_i\in Z_j$; $F_i(s_i)\ne0$, as $s_i\notin Z_i$; and
+\emph{The combination.}  At a run start $s_i$ we have $V_j(s_i)=0$ for
+$j\ne i$, as $s_i\in Z_j$; $V_i(s_i)\ne0$, as $s_i\notin Z_i$; and
 $w(s_i)\ne0$, as $s_i>g$ and $s_i-1\notin A$ keep $s_i$ out of $\widehat Z$.  Put
-$\rho_i=|w(s_i)|/|F_i(s_i)|$, $\mu=1/(1+\sum_i\rho_i)$, $\lambda_i=\mu\rho_i$
+$\rho_i=|w(s_i)|/|V_i(s_i)|$, $\mu=1/(1+\sum_i\rho_i)$, $\lambda_i=\mu\rho_i$
 and
 \[
   q=\sum_{j=1}^p\lambda_jF_j+\mu w .
 \]
 Then $q(0)=1$, and by \eqref{eq:runsigns}
-$q(s_i)=\varphi(s_i)\bigl(\lambda_i|F_i(s_i)|-\mu|w(s_i)|\bigr)=0$.  Every
+$q(s_i)=\varphi(s_i)\bigl(\lambda_i|V_i(s_i)|-\mu|w(s_i)|\bigr)=0$.  Every
 other point of $Z$ lies in $B_0$ or in $A\cap(A+1)$, hence in every $Z_j$ and
 in $\widehat Z$, so $q$ vanishes on all of $Z$.  Let $\omega$ be the weight of $w$ on
 $y_{k+1}$.  It is nonzero, for otherwise $w$ would be a sum on $L-k-1$ nodes
 with the $L-k-1$ zeros $\widehat Z$; and since $y_{k+1}$ is the largest node and $w$
 has the sign $(-1)^{|\widehat Z|}=(-1)^{L-k-1}$ past $\max\widehat Z$,
-$\sgn\omega=(-1)^{L-k-1}$.  The sum $G=F-q$ on $y_{k+1},\ldots,y_L$ has weight
+$\sgn\omega=(-1)^{L-k-1}$.  The sum $G=V-q$ on $y_{k+1},\ldots,y_L$ has weight
 $-\mu\omega\ne0$ on $y_{k+1}$ and vanishes on the $L-k-1$ points
 $\{0\}\cup Z$, so by the zero bound these are its only zeros and all are
 simple.  For large $d$ its sign is $-\sgn\omega=(-1)^{L-k}=(-1)^{|Z|}$, which
@@ -1123,16 +1122,16 @@ of $Z$,
   \varphi(d)G(d)=|G(d)|\qquad(d\ge0).
 \end{equation}
 
-\emph{Decomposition.}  Put $\delta_d=|F(d)|-|q(d)|$ and
-$\gamma_d=\sum_j\lambda_j|F_j(d)|+\mu|w(d)|-|q(d)|$, so that, all the series
+\emph{Decomposition.}  Put $\delta_d=|V(d)|-|q(d)|$ and
+$\gamma_d=\sum_j\lambda_j|V_j(d)|+\mu|w(d)|-|q(d)|$, so that, all the series
 converging absolutely, the left side of \eqref{eq:runchord} minus the right is
 $\sum_{d\ge1}(\delta_d-\gamma_d)$.  For $1\le d\le g$ every term of $q(d)$ has
 the sign $\varphi(d)$ or vanishes, so $\gamma_d=0$ and
-$\delta_d=\varphi(d)(F(d)-q(d))=\varphi(d)G(d)$.  For $d>g$ write
-$\alpha=\sum_j\lambda_j|F_j(d)|$ and $\beta=\mu|w(d)|$; by \eqref{eq:runsigns}
+$\delta_d=\varphi(d)(V(d)-q(d))=\varphi(d)G(d)$.  For $d>g$ write
+$\alpha=\sum_j\lambda_j|V_j(d)|$ and $\beta=\mu|w(d)|$; by \eqref{eq:runsigns}
 $q(d)=\varphi(d)(\alpha-\beta)$, so $\gamma_d=\alpha+\beta-|\alpha-\beta|$ and
 \[
-  \delta_d-\gamma_d=|F(d)|-\alpha-\beta=\varphi(d)G(d)-2\mu|w(d)| ,
+  \delta_d-\gamma_d=|V(d)|-\alpha-\beta=\varphi(d)G(d)-2\mu|w(d)| ,
 \]
 whatever the sign of $\alpha-\beta$.  Hence the difference is
 $\sum_{d\ge1}\varphi(d)G(d)-2\mu\sum_{d>g}|w(d)|$.  Since $G(0)=0$, and
@@ -1140,7 +1139,7 @@ $\varphi(d)\ne\varphi(d-1)$ only when $d-1\in Z$, where $G$ vanishes,
 $\sum_{d\ge1}\varphi(d)G(d)=\sum_{d\ge1}\varphi(d)G(d-1)$.  With
 \eqref{eq:runsigns} and \eqref{eq:runG} this gives
 \begin{equation}\label{eq:runsplit}
-  \Tail(F)-\sum_j\lambda_j\Tail(F_j)-\mu\Tail(w)
+  \Tail(V)-\sum_j\lambda_j\Tail(V_j)-\mu\Tail(w)
   =\sum_{d=1}^{g}|G(d-1)|+\sum_{d>g}\varphi(d)E(d),
   \qquad E(d)=G(d-1)+2\mu\,w(d),
 \end{equation}
@@ -1196,7 +1195,7 @@ $2-1/y_{k+1}$; the nodes $y_{k+2},\ldots,y_L$ may be any distinct reals in
 $(0,y_{k+1})$.  For $y_{k+1}>\tfrac12$ that sign flips and
 \eqref{eq:runchord} can fail: with the nodes
 $(\tfrac34,\tfrac13,\tfrac14,\tfrac1{10},\tfrac1{11})$, $B_0=\{1,2\}$, $g=3$
-and $A=\{7\}$ its right side exceeds $\Tail(F)$.
+and $A=\{7\}$ its right side exceeds $\Tail(V)$.
 
 \begin{theorem}[The escaping placement is extremal]\label{thm:extremal}
 Let $2\le r_1<\cdots<r_L$ and $0\le u\le L-1$.  For every $0\le k<u$ and every
@@ -1215,7 +1214,7 @@ over monic $Q,M\in\R[x]$.
 \begin{proof}
 Fix $k$ and $X$, and put $g=\max X$ and $X'=X\setminus\{g\}$, a set of
 $u-k-1\le L-k-2$ integers.  By Lemma~\ref{lem:attainX} on
-$y_{k+2},\ldots,y_L$, $\tau_{k+1}(X')$ is attained by a full certificate $F$
+$y_{k+2},\ldots,y_L$, $\tau_{k+1}(X')$ is attained by a full certificate $V$
 whose zero set $Z^-\supseteq X'$ has $L-k-2$ elements.  Every node is at most
 $\tfrac12$.
 
@@ -1225,7 +1224,7 @@ $Z^+\supseteq X$ has $L-k-1$ elements, its largest element is the one added,
 and the full certificate $v^+$ on $y_{k+1},\ldots,y_L$ with zero set $Z^+$ is a
 certificate for $X$.  Lemma~\ref{lem:delete}, with the largest node $y_{k+1}$
 and the largest zero deleted, gives
-$\tau_k(X)\le\Tail(v^+)\le\Tail(F)=\tau_{k+1}(X')$.
+$\tau_k(X)\le\Tail(v^+)\le\Tail(V)=\tau_{k+1}(X')$.
 
 Otherwise $g\notin Z^-$ and $g<\max Z^-$.  Put $B_0=Z^-\cap(0,g)$, which
 contains $X'$ because every element of $X'$ is below $g$, and
@@ -1233,10 +1232,10 @@ $A=Z^-\cap(g,\infty)\ne\varnothing$; then $L-k-2=|Z^-|\ge1$, so $k\le L-3$.
 For a run $[s,e]$ of $A$ the neighbour $(Z^-\setminus\{s\})\cup\{e+1\}$ has
 $L-k-2$ elements and contains $X'$, as $s>g$, so its full certificate is a
 certificate for $X'$ on $y_{k+2},\ldots,y_L$ and its tail is at least
-$\tau_{k+1}(X')=\Tail(F)$.  In \eqref{eq:runchord} every $\Tail(F_j)$ is
-therefore at least $\Tail(F)$, so
-$\Tail(F)\ge(1-\mu)\Tail(F)+\mu\Tail(w)$ with $\mu>0$, that is
-$\Tail(w)\le\Tail(F)$.  The zero set $B_0\cup\{g\}\cup(A+1)$ of $w$ contains
+$\tau_{k+1}(X')=\Tail(V)$.  In \eqref{eq:runchord} every $\Tail(V_j)$ is
+therefore at least $\Tail(V)$, so
+$\Tail(V)\ge(1-\mu)\Tail(V)+\mu\Tail(w)$ with $\mu>0$, that is
+$\Tail(w)\le\Tail(V)$.  The zero set $B_0\cup\{g\}\cup(A+1)$ of $w$ contains
 $X$, so $\tau_k(X)\le\Tail(w)\le\tau_{k+1}(X')$.
 
 Chaining \eqref{eq:step} from $k=0$ upwards, each step deleting the largest
