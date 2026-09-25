@@ -6,9 +6,10 @@ the new zero is aligned (``lem:delete``) and through the run chord
 (``prop:runchord``) when it straddles.  Below 2 the conclusion fails
 (``prop:belowtwo``); for one exempt coefficient the aligned lift obeys an
 exact identity (``thm:halfmass``), which pins the infimum at
-``(11/10, 3, 5, 7)`` (``thm:elevenvalue``) and the threshold ``r_c`` along
-``(r, 3, 5, 7)`` (``thm:family``); along ``(r, 5, 7)`` it fails for every
-``r < 2`` (``prop:cutoffsharp``).
+``(11/10, 3, 5, 7)`` (``thm:elevenvalue``), the threshold ``r_c`` along
+``(r, 3, 5, 7)`` (``thm:family``) and the infimum there in seven pieces down
+to ``r = 1.0745...`` (``thm:familylow``, signs on intervals by Sturm counts);
+along ``(r, 5, 7)`` it fails for every ``r < 2`` (``prop:cutoffsharp``).
 
 Every tail is exact: a full certificate has used its zero budget, so it keeps
 one sign past its largest zero and the rest of its tail is a geometric sum
@@ -708,6 +709,349 @@ def test_family_window() -> None:
     assert _half_mass_point(_roots_to_nodes(_window_roots(x)), [1, 3]) == 7
     mult = [(105 - 34 * x) / (49 * x - 34), Fraction(1)]
     assert _exempt_max(_multiply(_family(x), mult), 4) > 1 / _theta(x)
+
+
+# --- The family below 13/10: ``thm:familylow`` -------------------------------
+
+
+def _peval(p: list[Fraction], x: Fraction) -> Fraction:
+    value = Fraction(0)
+    for c in reversed(p):
+        value = value * x + c
+    return value
+
+
+def _sturm(p: list[Fraction], a: Fraction, b: Fraction) -> int:
+    """Distinct real zeros of ``p`` in ``(a, b]``, by Sturm's theorem.
+
+    The count is exact over Q; ``p`` must not vanish at ``a`` or ``b``.
+    """
+    assert _peval(p, a) != 0 and _peval(p, b) != 0
+    chain = [p, _trim([i * c for i, c in enumerate(p)][1:])]
+    while len(chain[-1]) > 1:
+        rem = _pdivmod(chain[-2], chain[-1])[1]
+        if not rem:
+            break
+        chain.append([-c for c in rem])
+
+    def changes(x: Fraction) -> int:
+        signs = [v > 0 for v in (_peval(q, x) for q in chain) if v != 0]
+        return sum(s != t for s, t in zip(signs, signs[1:], strict=False))
+
+    return changes(a) - changes(b)
+
+
+def _positive_on(f: _Rat, a: Fraction, b: Fraction) -> bool:
+    """``f > 0`` on ``[a, b]``: numerator and denominator have no zero there
+    (Sturm), and ``f(a) > 0``."""
+    for p in (f.num, f.den):
+        if _peval(p, a) == 0 or _peval(p, b) == 0 or _sturm(p, a, b):
+            return False
+    return f.at(a) > 0
+
+
+def _witness(nodes, zeros: list[int]) -> tuple[dict[int, _Rat], _Rat]:
+    """The multiplier witness of a full certificate with zero set ``Z``.
+
+    Off ``Z`` put ``s_d = sgn u_d = (-1)^{#{z in Z : z < d}}``; on ``Z`` the
+    ``s_d``, and ``theta``, solve ``sum_{d >= 1} s_d y^d = theta`` at every
+    node, the part past ``max Z`` a geometric sum.  Then ``w_0 = 1``,
+    ``w_d = -s_d/theta`` is bounded and its series vanishes at every node.
+    """
+    top = max(zeros)
+
+    def sign(d: int) -> int:
+        return (-1) ** sum(z < d for z in zeros)
+
+    matrix, rhs = [], []
+    for y in nodes:
+        matrix.append([y**d for d in zeros] + [_Rat([-1])])
+        known = sum(
+            (sign(d) * y**d for d in range(1, top + 1) if d not in zeros), _Rat([0])
+        )
+        rhs.append(-(known + sign(top + 1) * y ** (top + 1) / (1 - y)))
+    sol = _solve(matrix, rhs)
+    return dict(zip(zeros, sol[:-1], strict=True)), sol[-1]
+
+
+def _half_gap(nodes, n: int) -> _Rat:
+    """``2 sum_{d<=n} |H_d| - Tail(H)`` from ``H_2 < 0 < H_d`` (``d > 3``)."""
+    h = _correction(nodes, [1, 3])
+    head = -_u(nodes, h, 2) + sum((_u(nodes, h, d) for d in range(4, n + 1)), _Rat([0]))
+    beyond = sum(
+        (hi * y ** (n + 1) / (1 - y) for hi, y in zip(h, nodes, strict=True)),
+        _Rat([0]),
+    )
+    return head - beyond
+
+
+def _rpoly(coeffs: list[int]) -> _Rat:
+    """The polynomial with the given coefficients, highest degree first."""
+    return _Rat([Fraction(c) for c in reversed(coeffs)])
+
+
+#: The breakpoint polynomials ``gamma`` of ``thm:familylow`` (keys: their
+#: indices, and ``gamma'``, ``gamma_+``), highest degree first, each with one
+#: zero in (1, 3/2), bracketed between the two numbers over 10000.
+_BREAKS = {
+    1: ([218644, 418845, 374850, -1157625], (10740, 10750)),
+    2: ([203860, 341469, 134274, -824889], (10950, 10960)),
+    "prime": (
+        [
+            172587443623,
+            203696380262,
+            -245023502843,
+            -16113960832,
+            -40364204160,
+            -86819140800,
+            -128394504000,
+        ],
+        (11110, 11120),
+    ),
+    3: (
+        [
+            31863386060,
+            527299949544,
+            2216976743064,
+            5148085143336,
+            7473795889089,
+            2333772047565,
+            -9236198868099,
+            -16544067678495,
+        ],
+        (11244, 11245),
+    ),
+    4: (
+        [
+            1638534863,
+            1910488822,
+            -2452391683,
+            -384420992,
+            -826848960,
+            -1222804800,
+        ],
+        (11330, 11340),
+    ),
+    5: ([15476503, 17470982, -26164523, -7874752, -11645760], (11660, 11670)),
+    6: ([144543, 150742, -305683, -110912], (12150, 12160)),
+    7: ([3989, 3570, -11025], (12740, 12750)),
+    "plus": ([111700, -50307, -97470, -109209], (14830, 14840)),
+}
+
+#: ``Q_z`` in the denominators for the zero sets {1, 4, z}.
+_QS = {
+    5: [77, 480, 1733],
+    6: [9359, 60705, 246086, 363930],
+    7: [421939, 2798055, 12013156, 25839030, 38212650],
+    8: [8457547, 56817765, 251780638, 630690690, 1356549075, 2006164125],
+}
+
+#: Numerators of the tails ``theta_z`` of {1, 4, z}, and the constants ``k``
+#: with ``theta_z = numerator / (k (r - 1) Q_z)``.
+_THETAS = {
+    5: ([769, 3374, -3989], 96),
+    6: ([49550, 244468, 148970, -433629], 48),
+    7: ([2308315, 12063338, 17059705, 15420090, -46429509], 48),
+    8: (
+        [94332044, 508724104, 933286436, 1788992289, 1607184810, -4915604589],
+        96,
+    ),
+}
+
+
+def test_family_below() -> None:
+    """``thm:familylow``: the infimum along (r, 3, 5, 7) on ``[rho_1, 13/10]``.
+
+    Over ``Q(r)``: the tails ``theta_z`` of the full certificates {1, 4, z}
+    and their multiplier witnesses, whose entries on the zero set lie in
+    ``[-1, 1]`` exactly between consecutive breakpoints; the witnesses for
+    placement 5 at {1, 3, 5} and {1, 4, 5}; the crossing ``rho_3`` of placements
+    4 and 5; ``N <= 13``, with ``N <= x`` past ``b_x``; and one certificate
+    per remaining placement cheaper than ``T``.  Every sign on an interval is
+    a Sturm count over Q.  Controls: each witness fails outside its piece,
+    ``N`` is 13 and not 12 at ``rho_1``, and the finite programs stay above
+    ``1/T``.
+    """
+    tau = Fraction(31, 1704)
+    r = _Rat([0, 1])
+    nodes = [1 / r, *(_Rat.of(Fraction(1, k)) for k in (3, 5, 7))]
+    lo, hi = Fraction(1), Fraction(3, 2)
+    g = {key: _rpoly(c) for key, (c, _) in _BREAKS.items()}
+    # Each breakpoint polynomial: one zero in (1, 3/2), from - to +, bracketed.
+    brackets = {}
+    for key, (_, (a, b)) in _BREAKS.items():
+        a, b = Fraction(a, 10000), Fraction(b, 10000)
+        assert _sturm(g[key].num, lo, hi) == 1, key
+        assert g[key].at(lo) < 0 < g[key].at(hi), key
+        assert g[key].at(a) < 0 < g[key].at(b), key
+        brackets[key] = (a, b)
+    order = [1, 2, "prime", 3, 4, 5, 6, 7]
+    assert all(
+        brackets[s][1] <= brackets[t][0] for s, t in zip(order, order[1:], strict=False)
+    )
+    r1 = brackets[1][0]  # a rational just below rho_1
+    top = Fraction(13, 10)
+    assert brackets[7][1] < top < brackets["plus"][0]
+
+    def tail(zeros: list[int]) -> _Rat:
+        return _signed_tail(nodes, zeros, _certificate(nodes, zeros))
+
+    q5 = 960 * r**2 + 5041 * r + 7455
+    t5 = tail([1, 3, 5])
+    assert t5 == 5 * (347 * r**2 + 250 * r - 501) / (24 * (r - 1) * q5)
+    theta = {3: tail([1, 3, 4])}
+    assert theta[3] == (49 * r - 34) / (48 * (r - 1) * (15 * r + 71))
+    qs = {z: _rpoly(c) for z, c in _QS.items()}
+    for z, (c, k) in _THETAS.items():
+        theta[z] = tail([1, 4, z])
+        assert theta[z] == _rpoly(c) / (k * (r - 1) * qs[z]), z
+    # The ties: consecutive tails agree exactly at the breakpoints.
+    assert theta[3] - theta[5] == -(r + 15) * g[7] / (
+        96 * (r - 1) * (15 * r + 71) * qs[5]
+    )
+    assert t5 - theta[5] == -(r + 15) * g[2] / (96 * (r - 1) * qs[5] * q5)
+    assert t5 - theta[8] == -g[3] / (96 * (r - 1) * q5 * qs[8])
+    assert theta[5] - theta[6] == -(r**2 + 15 * r + 154) * g[6] / (
+        32 * (r - 1) * qs[5] * qs[6]
+    )
+    assert theta[6] - theta[7] == -(15 * r**3 + 225 * r**2 + 2310 * r + 9359) * g[5] / (
+        16 * (r - 1) * qs[6] * qs[7]
+    )
+    assert theta[7] - theta[8] == -7 * (
+        22 * r**4 + 330 * r**3 + 3388 * r**2 + 17745 * r + 60277
+    ) * g[4] / (32 * (r - 1) * qs[7] * qs[8])
+    # The certificate {1, 4, 5} and its witness, as in sec:familydata.
+    p = (3 - r) * (5 - r) * (7 - r)
+    q = qs[5]
+    a = _certificate(nodes, [1, 4, 5])
+    assert a == [
+        -77 * r**5 / (p * q),
+        243 * (r**2 + 12 * r + 109) / (16 * (3 - r) * q),
+        -3125 * (r**2 + 10 * r + 79) / (8 * (5 - r) * q),
+        16807 * (r**2 + 8 * r + 49) / (16 * (7 - r) * q),
+    ]
+    assert [_u(nodes, a, d) for d in range(6)] == [
+        1,
+        0,
+        -(15 * r + 71) / (2 * q),
+        -(r + 15) / (2 * q),
+        0,
+        0,
+    ]
+    past = sum((ai * y**6 / (1 - y) for ai, y in zip(a, nodes, strict=True)), _Rat([0]))
+    assert past == -(r**2 + 14 * r + 139) / (96 * (r - 1) * q)
+    s = _witness(nodes, [1, 4, 5])[0]
+    assert s[1] == (769 * r**3 + 10766 * r**2 + 42091 * r - 52276) / (96 * (r - 1) * q)
+    assert s[4] == (211252 * r**3 + 380157 * r**2 + 254562 * r - 991257) / (
+        96 * (r - 1) * q
+    )
+    assert s[5] == -(142079 * r**3 + 137846 * r**2 - 345779 * r - 55456) / (
+        32 * (r - 1) * q
+    )
+    # rho_7 = (105 sqrt(4278) - 1785)/3989, the zero of gamma_7.
+    assert 3570**2 + 4 * 3989 * 11025 == 210**2 * 4278
+    # Lower bounds: the witnesses, piece by piece.  ``(1 - s_c) den`` and
+    # ``(1 + s_c) den`` are the displayed multiples of breakpoint polynomials.
+    pieces = [  # placement, zero set, checked entry c, den, 1 - s_c, 1 + s_c
+        (
+            4,
+            [1, 3, 4],
+            3,
+            48 * (r - 1) * (15 * r + 71),
+            -(2549 * r**2 - 1806 * r - 4209),
+            g[7],
+        ),
+        (4, [1, 4, 5], 5, 32 * (r - 1) * qs[5], g[6], -35 * r * g[7]),
+        (4, [1, 4, 6], 6, 16 * (r - 1) * qs[6], g[5], -105 * r * g[6]),
+        (4, [1, 4, 7], 7, 16 * (r - 1) * qs[7], g[4], -105 * r * g[5]),
+        (4, [1, 4, 8], 8, 32 * (r - 1) * qs[8], g["prime"], -105 * r * g[4]),
+        (5, [1, 3, 5], 3, 48 * (r - 1) * q5, -g["plus"], g[2]),
+        (5, [1, 4, 5], 4, 96 * (r - 1) * qs[5], -g[2], g[1]),
+    ]
+    for x, zeros, c, den, minus, plus in pieces:
+        s, th = _witness(nodes, zeros)
+        assert th == tail(zeros), zeros
+        for y in nodes:  # the series of w vanishes at every node
+            assert (
+                sum((s[d] * y**d for d in zeros), _Rat([0]))
+                + sum(
+                    (
+                        (-1) ** sum(z < d for z in zeros) * y**d
+                        for d in range(1, max(zeros) + 1)
+                        if d not in zeros
+                    ),
+                    _Rat([0]),
+                )
+                + (-1) ** len(zeros) * y ** (max(zeros) + 1) / (1 - y)
+                == th
+            )
+        assert (1 - s[c]) * den == minus, zeros
+        assert (1 + s[c]) * den == plus, zeros
+        assert _positive_on(den, r1, hi)
+        # |s_1| < 1 on the whole range; the placement's own entry is free.
+        assert _positive_on(1 - s[1], r1, hi) and _positive_on(1 + s[1], r1, hi)
+        assert x in zeros and x != c
+    # 1 - s_3 at {1, 3, 4}: concave, positive at both ends of [1, 3/2].
+    assert _positive_on(4209 + 1806 * r - 2549 * r**2, lo, hi)
+    # Inside each piece the checked entry lies in [-1, 1].
+    inside = [Fraction(129, 100), Fraction(5, 4), Fraction(6, 5), Fraction(23, 20)]
+    inside += [Fraction(28, 25), Fraction(11, 10), Fraction(27, 25)]
+    for (_, zeros, c, *_), x in zip(pieces, inside, strict=True):
+        assert abs(_witness(nodes, zeros)[0][c].at(x)) <= 1, zeros
+    # Control: each witness fails just outside its piece.
+    s6 = _witness(nodes, [1, 4, 6])[0][6]
+    assert s6.at(Fraction(5, 4)) < -1 and s6.at(Fraction(23, 20)) > 1
+    s4 = _witness(nodes, [1, 4, 5])[0][4]
+    assert s4.at(Fraction(107, 100)) < -1 and s4.at(Fraction(11, 10)) > 1
+    # Placement 4 below rho_3, placement 5 above: theta_8 < min(t_5, theta_5)
+    # on [rho_1, rho_3), and t_5 < theta_z (z = 3, 5, 6, 7) past 1.1242 < rho_3.
+    assert _positive_on(theta[5] - theta[8], r1, Fraction(118, 100))
+    cut = Fraction(11242, 10000)
+    assert brackets[4][0] > brackets[3][0] >= cut
+    for z in (3, 5, 6, 7):
+        assert _positive_on(theta[z] - t5, cut, top), z
+    # Control: the Sturm check sees the crossing at rho_3 from either side.
+    assert not _positive_on(t5 - theta[8], r1, top)
+    assert not _positive_on(theta[8] - t5, r1, top)
+    # tau* < min(t_5, theta_5), so the placements 1 and 3 cost less than T.
+    assert _positive_on(t5 - tau, r1, top) and _positive_on(theta[5] - tau, r1, top)
+    # The half-mass point: N <= 13 on [rho_1, 13/10], N <= x past b_x.
+    ends = {
+        13: r1,
+        12: Fraction(1081, 1000),
+        11: Fraction(1092, 1000),
+        10: Fraction(1106, 1000),
+        9: Fraction(1125, 1000),
+        8: Fraction(1153, 1000),
+        7: Fraction(1197, 1000),
+        6: Fraction(1274, 1000),
+    }
+    for n, b in ends.items():
+        assert _positive_on(_half_gap(nodes, n), b, top), n
+    # Upper bounds: the aligned lift {1, 3, x} for 6 <= x <= 12 below b_x,
+    # {1, 2, 13} and {1, 2, 10} for placement 2.
+    for x in range(6, 13):
+        t = tail([1, 3, x])
+        assert _positive_on(t5 - t, r1, ends[x]), x
+        assert _positive_on(theta[5] - t, r1, ends[x]), x
+    split = Fraction(1112, 1000)
+    assert brackets["prime"][1] <= split
+    t = tail([1, 2, 13])
+    assert _positive_on(t5 - t, r1, split) and _positive_on(theta[5] - t, r1, split)
+    t = tail([1, 2, 10])
+    for z in (3, 5, 6, 7, 8):
+        assert _positive_on(theta[z] - t, split, top), z
+    # At 11/10 the value is that of thm:elevenvalue.
+    assert t5.at(Fraction(11, 10)) == Fraction(96935, 3398808)
+    assert 1 / theta[5].at(Fraction(5, 4)) == Fraction(314024, 7627)
+    # Controls: N is 13 at rho_1, not 12; below rho_2 the certificate {1, 3, 5}
+    # is not the cheapest for placement 5; the finite programs stay above 1/T.
+    points = _roots_to_nodes(_window_roots(r1))
+    assert _half_mass_point(points, [1, 3]) == 13
+    assert _half_gap(nodes, 12).at(r1) < 0
+    assert t5.at(Fraction(108, 100)) > theta[5].at(Fraction(108, 100))
+    for x, value in ((Fraction(6, 5), theta[6]), (Fraction(9, 8), theta[8])):
+        assert min_bk_of(_family(x), 2, 8) > 1 / value.at(x)
 
 
 def test_cutoff_sharp() -> None:
