@@ -1067,6 +1067,79 @@ $m$ of $F/x^e$ is unclean at some $\alpha_j$,
 \cite[Lemma~6.1]{coefficient-mass-complex} gives only
 $|f_e|\ge(\rho_{\min}/2)^m$, since no $f_i$ with $e<i<e+m$ can be the large one.
 
+The lowest $m$ coefficients of the multiples are cut out by one congruence,
+modulo $P(0)^m$, at a root of $P$ found by Newton's method from $0$; this
+holds for every monic $P$ with $\gcd(P(0),P'(0))=1$, and so recovers
+Proposition~\ref{prop:gausslow}, item~2.
+
+\begin{proposition}[One congruence]\label{prop:gausscong}
+Let $P\in\mathbb Z[x]$ be monic with $D=P(0)\ne0$, and let $m\ge1$.
+\begin{enumerate}
+\item If $\gcd(D,P'(0))=1$, there is $t\in\mathbb Z$ with $D\mid t$ and
+$P(t)\equiv0\pmod{D^m}$, and for $(f_0,\ldots,f_{m-1})\in\mathbb Z^m$ some
+$F\in\mathbb Z[x]$ divisible by $P$ has $F\equiv\sum_{i<m}f_ix^i\pmod{x^m}$
+if and only if
+\[
+  \sum_{i<m}f_it^i\ \equiv\ 0\pmod{D^m}.
+\]
+In particular $d_m=D^m$ in the notation of Proposition~\ref{prop:gausslow}.
+In the setting of Section~\ref{sec:gaussian} with odd pairwise coprime norms
+$n_j$ and $\gcd(a_j,c_j)=1$, $\gcd(D,P'(0))=1$.
+\item Some $F\in\mathbb Z[x]$ divisible by $P$ has $F\equiv f_0+f_1x\pmod{x^2}$
+if and only if $D\mid f_0$ and $f_1\equiv P'(0)f_0/D\pmod D$.
+\item In the setting of Section~\ref{sec:gaussian}, if
+$|P'(0)|<\rho_{\min}/2$, then $F=P$ has $|p_1|<\rho_{\min}/2$ and
+$\log|p_0|=\log P(0)$, so a constant $C$ with
+$\log|f_e|\ge2\log P(0)-2C\log\rho_{\max}$ for every integer multiple with
+$|f_{e+1}|<\rho_{\min}/2$ has $C\ge\log P(0)/(2\log\rho_{\max})$.  At the
+four points $-26+35i$, $-1+60i$, $29+62i$, $47+62i$, of norms $1901$,
+$3601=13\cdot277$, $4685=5\cdot937$, $6053$, which are odd and pairwise
+coprime, with $\gcd(a_j,c_j)=1$ and $43<\rho_j<78$, $P'(0)=6$, and so
+$C>3.77$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+1.  Put $t_1=0$, and given $t_k$ with $D\mid t_k$ and $D^k\mid P(t_k)$, note
+$P'(t_k)\equiv P'(0)\pmod D$, so there is $w\in\mathbb Z$ with
+$wP'(t_k)\equiv1\pmod{D^m}$; put $h=-wP(t_k)$ and $t_{k+1}=t_k+h$.  Then
+$D\mid t_{k+1}$, and $P(t_k+h)=P(t_k)+P'(t_k)h+h^2Q$ with $Q\in\mathbb Z$,
+so $P(t_{k+1})\equiv P(t_k)(1-wP'(t_k))\equiv0\pmod{D^{k+1}}$, as
+$D^k\mid P(t_k)$ and $D^k\mid h$.  Take $t=t_m$.  If $F=PS$ with
+$S\in\mathbb Z[x]$ and $F=\sum_{i<m}f_ix^i+x^mG$, then
+$\sum_{i<m}f_it^i=P(t)S(t)-t^mG(t)\equiv0\pmod{D^m}$, as $D^m\mid t^m$.  So
+the lattice $L_m$ of the proof of Proposition~\ref{prop:gaussadic}, item~3,
+lies in the kernel of $f\mapsto\sum_{i<m}f_it^i\bmod D^m$, a homomorphism
+$\mathbb Z^m\to\mathbb Z/D^m$ that is onto, as $f=(r,0,\ldots,0)$ maps to
+$r$.  Both have index $D^m$, so they are equal, and $(f,0,\ldots,0)$ lies in
+$L_m$ exactly when $D^m\mid f$.  In the setting of Section~\ref{sec:gaussian},
+$P=\prod_j(x^2-2a_jx+n_j)$ gives $P'(0)=-\sum_j2a_jD/n_j$, and a prime $p$
+dividing $D$ divides exactly one $n_j$, is odd and divides neither $a_j$
+(otherwise $p\mid\gcd(a_j,c_j)$) nor $D/n_j$, so
+$P'(0)\equiv-2a_jD/n_j\not\equiv0\pmod p$.
+
+2.  In the notation of the proof of Proposition~\ref{prop:gaussadic}, item~3,
+$L_2$ is spanned by $\mathbf p_0=(D,P'(0))$ and $\mathbf p_1=(0,D)$, so its
+vectors are $(sD,sP'(0)+s'D)$ with $s,s'\in\mathbb Z$.
+
+3.  $P$ is divisible by $P$, with $p_0=P(0)$ and $p_1=P'(0)$; the inequality
+at $F=P$, $e=0$, reads $\log P(0)\ge2\log P(0)-2C\log\rho_{\max}$.  For the
+example, $P'(0)=-2\sum_ja_jD/n_j=6<\rho_{\min}/2$, as $\rho_{\min}^2=1901$,
+and $\log D/(2\log\rho_{\max})>3.77$ with $D=194126805235805$ and
+$\rho_{\max}^2=6053$.
+\end{proof}
+
+So at $m=2$ the divisibility $P(0)\mid f_e$ is, at such root sets, all that
+holds: a bound $\log|f_e|\ge m\log P(0)-Cm\log\rho_{\max}$ for all
+integer multiples with $|f_i|<\rho_{\min}/2$ for $e<i<e+m$ needs, at $m=2$,
+$C\ge\log P(0)/(2\log\rho_{\max})$, which is nearly $K$ for points in one
+annulus, whenever the multiple $P$ itself has $|P'(0)|<\rho_{\min}/2$, that
+is, whenever $\bigl|\sum_ja_j/n_j\bigr|<\rho_{\min}/(4P(0))$.  Whether this
+happens for every $K$ is open.  The multiples of
+Proposition~\ref{prop:gaussheavy}, item~2, need the step only at
+$m=\deg H\ge2K$, where the congruence of item~1 involves $m-1\ge2K-1$ small
+coefficients.
+
 At Gaussian roots a small second row confines an integer multiple to one
 level set of a polynomial with small nonleading coefficients, whereas over
 the reals $x^N-\rho^N$ has $b_2=0$.
@@ -1238,12 +1311,97 @@ at every scale: for $w=a+ci$ on the Pell equation, $y=i\bar w=c+ai$ gives
 $y^3+y=-i\,\overline{(w^3-w)}=-(8c^3+2c)$, so $(y^3+y)^2$, with nonleading
 coefficients $2$ and $1$, takes the value $(8c^3+2c)^2$ at the two points
 $\pm c+ai$ of one norm.  So three points of one norm need $h_1=h_2=0$, and
-if $h_1\ne0$ the $\alpha_j$ have distinct norms.  Whether the number of
-Gaussian points above the axis in one level set of a polynomial with small
-nonleading coefficients is bounded independently of $\rho_{\min}$, whether
-one norm carries at most two of them, and whether $\Lambda(F)\ge cK^2\log R$
-holds for all integer multiples at Gaussian roots in a wide sector, remain
-open.
+if $h_1\ne0$ the $\alpha_j$ have distinct norms.  The bound $K\le\ell$ is
+not a constant, as $\ell$ is unbounded on one norm: if $k\ge1$ and
+$a^2-3c^2=1$ with $c>\binom{2k}k$, then $(y^3+y)^{2k}=\sum_j\binom{2k}jy^{2k+2j}$, with
+$\ell=2k$, is $(8c^3+2c)^{2k}$ at $\pm c+ai$, and $(y^3-y)^{2k}$, with
+$\ell=2k$, is $(-1)^k(8c^3+2c)^{2k}$ at $\pm a+ci$, $2ci$; the nonleading
+coefficients of both are below $c\le\rho_{\min}/2$.  In both the points of one
+norm are $\alpha$ and $-\bar\alpha$, and $H$ is even.  This is forced: a
+symmetry of $\mathbb Z[i]$ relating two points of a level set is a symmetry
+of $H$.
+
+\begin{proposition}[Symmetries of a level set]\label{prop:gausssym}
+In the setting of Proposition~\ref{prop:gaussheavy}, item~2, write
+$H=\sum_{k=1}^dh_ky^k$ with $h_d\ne0$, and call the eight numbers
+$u\alpha_j$, $u\bar\alpha_j$ with $u^4=1$ the \emph{class} of $\alpha_j$.
+\begin{enumerate}
+\item If $\alpha\in\mathbb Z[i]$ has $|\alpha|\ge\rho_{\min}$ and
+$H(\alpha)=H(u\alpha)=-v$ for a unit $u\ne1$, then $H(uy)=H(y)$: $H$ is
+even if $u=-1$, and $H\in\mathbb Z[y^4]$ if $u=\pm i$.
+\item A class contains at most one of the $\alpha_j$ if $H$ is not even, at
+most two if $H\notin\mathbb Z[y^4]$, and at most four.
+\item Let every $\alpha_j$ have norm $n$; with $t_p$, $s_p$ as in
+Proposition~\ref{prop:gaussprimes}, let every prime $p\equiv1\pmod4$
+dividing $n$ have $\operatorname{ord}_p(n)>2t_p$, and let $m$ of them have
+$\operatorname{ord}_p(n)\ne2s_p$.  Then the $\alpha_j$ lie in at most
+$\max(2^{m-1},1)$ classes.  In particular, if $n$ has at most one prime
+factor $p\equiv1\pmod4$, then $K=1$ unless $H$ is even, and $K\le2$ unless
+$H\in\mathbb Z[y^4]$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+1.  Put $\rho=|\alpha|$, $x=1/\rho$ and $b=\max_{0<k<d}|h_k|$, so
+$b<\rho_{\min}/2\le\rho/2$.  The polynomial
+$W(y)=H(y)-H(uy)=\sum_k(1-u^k)h_ky^k$ has Gaussian-integer coefficients and
+$W(\alpha)=0$.  Suppose $W\ne0$, of degree $M$.  Every $h_k$ with $k<M$ is
+nonleading, so
+\[
+  |1-u^M|\rho^M\le|(1-u^M)h_M\alpha^M|
+  =\Bigl|\sum_{k<M}(1-u^k)h_k\alpha^k\Bigr|
+  \le b\sum_{k<M}|1-u^k|\rho^k.
+\]
+If $u=-1$, $|1-u^k|$ is $2$ for odd $k$ and $0$ for even $k$, so $M$ is
+odd and the right side is at most
+$2b\rho^M(x^2+x^4+\cdots)<\rho^{M+1}/(\rho^2-1)<2\rho^M$, as $\rho>2$.  If $u=\pm i$, $|1-u^k|$ is
+$0,\sqrt2,2,\sqrt2$ for $k\equiv0,1,2,3\pmod4$, so $4\nmid M$, and grouping
+the $k<M$ by $M-k\bmod4$ bounds the right side by
+$|1-u^M|\,b\rho^M\sigma$, $\sigma=(\sqrt2x+x^2+x^4)/(1-x^4)$: this is the
+case $M\equiv3$, and for $M\equiv1,2$ the weights of $x,x^2,x^3,x^4$ are
+$(0,1,\sqrt2,1)$ and $(1/\sqrt2,0,1/\sqrt2,1)$, where $x^3\le x$.  Norms of
+Gaussian integers above $4$ are $5$ or at least $8$.  If $\rho^2\ge8$,
+$b\sigma<(\sqrt2+x+x^3)/(2(1-x^4))<0.93$; if $\rho^2=5$, then
+$\rho_{\min}^2=5$, so $b\le1$ and $b\sigma<0.91$.  Either way the right side
+is below $|1-u^M|\rho^M$, a contradiction.  So $W=0$.
+
+2.  The units $u$ with $H(uy)=H(y)$ form a group $U$ of order $1$, $2$ or
+$4$ as $H$ is not even, is even but not in $\mathbb Z[y^4]$, or is in
+$\mathbb Z[y^4]$.  Fix $j$ and let $S$ be the set of units $u$ with
+$H(u\alpha_j)=-v$.  Then $1\in S$, $U\subseteq S$, and if $u,u'\in S$,
+item~1 at $u\alpha_j$, of modulus $\rho_j\ge\rho_{\min}$, gives $u'/u\in U$;
+so $S=U$.  As $v+H$ has real coefficients, $u\bar\alpha_j$ is a root of it
+if and only if $\bar u\alpha_j$ is, so its roots in the class of $\alpha_j$
+are the $w$ and $\bar w$ with $w\in U\alpha_j$, and at most $|U|$ of them
+lie above the axis.
+
+3.  Let $p\equiv1\pmod4$ divide $n$, $e=\operatorname{ord}_p(n)$, and
+$p=\pi\bar\pi$ with $\operatorname{ord}_p(\pi)>0$ under the embedding of
+Proposition~\ref{prop:gaussprimes}; as $\pi$ and $\bar\pi$ are coprime,
+$\operatorname{ord}_p(\bar\pi)=0$ and $\operatorname{ord}_p(\pi)=1$, so $\operatorname{ord}_p(\alpha_j)$ and $\operatorname{ord}_p(\bar\alpha_j)$
+are the exponents of $\pi$ and $\bar\pi$ in $\alpha_j$.  As in the proof of
+Proposition~\ref{prop:gaussprimes}, item~2, since $e>2t_p$ one of them
+exceeds $t_p$ and so equals $s_p$, and they sum to $e$; so the exponent of
+$\pi$ in $\alpha_j$ is $s_p$ or $e-s_p$.  The exponents of $1+i$ and of each
+prime $q\equiv3\pmod4$ in $\alpha_j$ are $\operatorname{ord}_2(n)$ and
+$\operatorname{ord}_q(n)/2$.  So $\alpha_j$ is determined up to a unit by a
+choice between $s_p$ and $e-s_p$ at each of the $m$ primes with
+$e\ne2s_p$, and $\bar\alpha_j$, in the same class, by the opposite choices.
+Hence there are at most $\max(2^{m-1},1)$ classes, one if $m\le1$, and
+item~2 gives the last statement.
+\end{proof}
+
+The pairs above attain item~2 with $H$ even, at every scale.  So three
+points of one norm need, besides $h_1=h_2=0$, that $H\in\mathbb Z[y^4]$, or
+that $n$ has two primes $p\equiv1\pmod4$ with
+$\operatorname{ord}_p(n)\ne2s_p$ (three if $H$ is not even), or one with
+$\operatorname{ord}_p(n)\le2t_p$.  Item~1 needs
+the small coefficients: $H=y^5+y^4+6y^3+6y^2+25y$ is $-25$ at $\pm(1+2i)$
+and is not even.  Whether the number of Gaussian points above the axis in
+one level set of a polynomial with small nonleading coefficients is bounded
+independently of $\rho_{\min}$, whether one norm carries at most two of
+them, and whether $\Lambda(F)\ge cK^2\log R$ holds for all integer
+multiples at Gaussian roots in a wide sector, remain open.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.
@@ -1252,7 +1410,8 @@ No datasets were generated or analyzed in this study.
 No proof in this paper relies on computation.  The numerical thresholds after
 Theorem~\ref{thm:thinsector} describe its range and are not used elsewhere,
 and the value $-270400$ after Proposition~\ref{prop:gaussheavy} is a direct
-evaluation.  The file \texttt{tests/test\_sectors.py} in the
+evaluation, as are the values $P'(0)=6$ and $P(0)$ in
+Proposition~\ref{prop:gausscong}, item~3.  The file \texttt{tests/test\_sectors.py} in the
 repository of~\cite{coefficient-mass} checks the statements, on seeded
 random Gaussian and integer multiples and on the extremal examples, each
 group with a control showing that a false variant is caught; these checks

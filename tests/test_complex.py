@@ -9,6 +9,7 @@ variant of its statement is caught.
 from __future__ import annotations
 
 import random
+from collections.abc import Callable
 from fractions import Fraction
 from itertools import product
 from math import comb, log, prod
@@ -675,11 +676,17 @@ def test_truncation_lemma() -> None:
 
 
 def _second_row_bound(f: Poly, alpha: int, moduli: list[int]) -> Fraction:
-    """The right side of ``thm:rowstwo``, ``T`` the least of the moduli."""
+    """The right side of ``thm:rowstwo``, ``T`` the least of the moduli, with
+    its two consequences ``lambda / 8`` and ``lambda^2 / 2`` checked below it."""
     n, a = len(moduli), abs(alpha)
     lam = 1 - Fraction(n * a, min(moduli))
-    assert 0 < lam <= 1 and a > 1
-    return lam**2 / 2 * (1 - Fraction(1, a)) * abs(f[-1]) * prod(moduli)
+    gamma = 1 if n == 1 else (1 - Fraction(a, min(moduli))) ** n
+    assert 0 < lam <= 1 and a > 1 and gamma >= max(lam, Fraction(1, 4))
+    bound = lam * gamma / 2 * (1 - Fraction(1, a)) * abs(f[-1]) * prod(moduli)
+    assert bound >= max(lam / 8, lam**2 / 2) * (1 - Fraction(1, a)) * abs(f[-1]) * prod(
+        moduli
+    )
+    return bound
 
 
 def test_second_row_at_separation_n() -> None:
@@ -687,9 +694,10 @@ def test_second_row_at_separation_n() -> None:
     at least ``T`` (real of both signs, or Pythagorean pairs) and a zero
     ``alpha`` with ``1 < |alpha| < T/n``, and on ``(x - q)(x + t)^K`` just past
     ``t = Kq``, where the ratio ``b_2 / prod |beta|`` is ``lambda`` for large
-    ``q`` (the remark after the theorem).
+    ``q`` (the remark after the theorem), and at ``n = 1`` with ``|beta|``
+    just above ``|alpha|``, where ``lambda`` is small and ``gamma = 1``.
 
-    Control: without the factor ``lambda^2`` the bound fails, at
+    Control: without the factor ``lambda`` the bound fails, at
     ``t = Kq + 1``."""
     rng = random.Random(SEED + 32)
     for _ in range(300):
@@ -713,6 +721,11 @@ def test_second_row_at_separation_n() -> None:
         f = _product([[-alpha, 1], _cofactor(rng), *factors])
         assert all(_divides(p, f) for p in factors)
         assert _b(f)[1] >= _second_row_bound(f, alpha, moduli)
+    for alpha, beta in product((2, -3, 7, -40), (1, 2, 5)):
+        beta = -(abs(alpha) + beta) if alpha > 0 else abs(alpha) + beta
+        for cofactor in ([1], [1, 1], [-2, 0, 1], [3, -1, 0, 1]):
+            f = _product([[-alpha, 1], [-beta, 1], cofactor])
+            assert _b(f)[1] >= _second_row_bound(f, alpha, [abs(beta)])
     for big_k, q in product((1, 3, 10), (5, 4**10)):
         for t in (big_k * q + 1, 2 * big_k * q):
             f = _mul([-q, 1], _product([[t, 1]] * big_k))
@@ -772,6 +785,160 @@ def test_rows_for_two_annuli() -> None:
         q = 4**big_k
         f = _mul([-q, 1], _product([[(big_k + 1) * q + 1, 1]] * big_k))
         assert _b(f)[1] * 2 ** (big_k + 1) > ((big_k + 1) * q + 1) ** big_k
+
+
+# Rows for three or more annuli (lem:rowsbelow, thm:rowsk, cor:rowsall,
+# prop:rowslower).
+
+
+def _scaled(p: Poly, s: int) -> Poly:
+    """``s^deg p * p(x / s)``: the zeros of ``p`` times ``s``."""
+    return [c * s ** (len(p) - 1 - i) for i, c in enumerate(p)]
+
+
+def _annuli_rows(
+    rng: random.Random, gap: Callable[[int, int], int], sizes: list[int]
+) -> tuple[Poly, list[list[int]]]:
+    """A multiple of zeros in ``len(sizes)`` annuli, real of both signs or
+    Pythagorean pairs, the ``a``-th annulus holding ``sizes[a - 1]`` factors,
+    scaled so that ``T_a > gap(a, n_a) U_(a-1)``; returns it with the moduli
+    per annulus."""
+    small = [p for p in PYTHAGOREAN if p[2] >= 5]
+    groups: list[list[tuple[Poly, int]]] = []
+    for size in sizes:
+        group = []
+        for _ in range(size):
+            x, y, rho = rng.choice(small)
+            if rng.random() < 0.5:
+                group.append((_pair(x, y), rho))
+            else:
+                group.append(([rng.choice([-1, 1]) * rho, 1], rho))
+        groups.append(group)
+    counts = [sum(len(p) - 1 for p, _ in g) for g in groups]
+    scale, upper_u, out = 1, 0, []
+    for a, group in enumerate(groups):
+        if a:
+            n_a = sum(counts[a:])
+            least = min(rho for _, rho in group)
+            scale = gap(a + 1, n_a) * upper_u // least + 1
+        group = [(_scaled(p, scale), scale * rho) for p, rho in group]
+        out.append(group)
+        upper_u = max(rho for _, rho in group)
+    moduli = [[rho for p, rho in g for _ in range(len(p) - 1)] for g in out]
+    f = _mul(_product([p for g in out for p, _ in g]), _cofactor(rng))
+    return f, moduli
+
+
+def _row(f: Poly, moduli: list[list[int]], k: int) -> Fraction:
+    """The row ``k`` of ``cor:annuli`` item 1: ``|f_D|/2 prod |beta|/2``."""
+    up = [r for g in moduli[k - 1 :] for r in g]
+    return Fraction(abs(f[-1]), 2) * prod(Fraction(r, 2) for r in up)
+
+
+def _rows_k_epsilon(n: int, lam: Fraction, gamma: Fraction, xi: Fraction) -> Fraction:
+    """``2 eps / (1 - 1/|alpha|)`` in ``thm:rowsk``."""
+    return gamma * (lam * (1 - 2 * xi) - (1 - lam) * xi / (1 - xi))
+
+
+def _rows_all_margin(c: int, n: int) -> Fraction:
+    """``gamma V - (27/26) 2^(-n)`` in the proof of ``cor:rowsall``, with the
+    separation ``n_a + c`` in place of ``n_a + 9``."""
+    m = n + c
+    return _rows_k_epsilon(
+        n, Fraction(c, m), (1 - Fraction(1, m)) ** n, Fraction(3, m + 1)
+    ) - Fraction(27, 26 * 2**n)
+
+
+def test_rows_positions_below() -> None:
+    """``lem:rowsbelow``: the row ``k`` needs the factor ``9 n_k`` only at the
+    ``k``-th separation, on seeded multiples with three annuli, the other
+    separation just above ``9``.
+
+    Control: the family of ``prop:rowsneedn`` with a third annulus far above
+    misses the row ``2`` at ``T_2 = n_2 U_1``, so the check is not blind."""
+    rng = random.Random(SEED + 34)
+    for _ in range(40):
+        k = rng.choice([2, 3])
+        sizes = [rng.randint(1, 2), rng.randint(1, 3), rng.randint(1, 3)]
+        f, moduli = _annuli_rows(rng, lambda a, n, k=k: 9 * n if a == k else 9, sizes)
+        b = _b(f)
+        assert b[k - 1] > _row(f, moduli, k)
+    big_k, q = 10, 4**10
+    f = _mul(_rows_need_n(big_k, q, big_k), [-(10**40), 1])
+    moduli = [[q], [big_k * q] * big_k, [10**40]]
+    assert _b(f)[1] < _row(f, moduli, 2)
+
+
+def test_rows_at_separation_n_plus_nine() -> None:
+    """``thm:rowsk`` and ``cor:rowsall``: the bound
+    ``b_k >= min(2^(-n-1), eps) |f_D| prod |beta|`` at a zero of the
+    ``(k-1)``-st annulus, and every row and the mass of ``cor:annuli`` item 1
+    at ``T_a`` just above ``(n_a + 9) U_(a-1)``, on seeded multiples with three
+    and four annuli; and the numbers in the proof of ``cor:rowsall``.
+
+    Control: with ``n_a + 8`` in place of ``n_a + 9`` the inequality of that
+    proof fails at ``n = 2``, and with ``n_a + 9`` at ``n = 1``, which is why
+    ``n_k = 1`` is left to ``lem:rowsbelow``."""
+    for n in range(2, 300):
+        assert _rows_all_margin(9, n) > 0
+    for n in range(4, 300):
+        m = n + 9
+        v = Fraction(6 * m * m - 39 * m + 117, m * (m + 1) * (m - 2))
+        assert v == _rows_k_epsilon(n, Fraction(9, m), Fraction(1), Fraction(3, m + 1))
+        assert v >= Fraction(3, m) and 3 / (2.7183 * m) >= 27 / 26 / 2**n
+    assert _rows_all_margin(8, 2) < 0 and _rows_all_margin(9, 1) < 0
+    rng = random.Random(SEED + 35)
+    for _ in range(40):
+        sizes = [rng.randint(1, 2) for _ in range(rng.choice([3, 4]))]
+        f, moduli = _annuli_rows(rng, lambda a, n: n + 9, sizes)
+        b = _b(f)
+        rows = [_row(f, moduli, k) for k in range(1, len(sizes) + 1)]
+        assert all(b[k] > rows[k] for k in range(len(sizes)))
+        assert _mass(f) >= abs(f[-1]) * prod(rows)
+        for k in range(3, len(sizes) + 1):
+            up = [r for g in moduli[k - 1 :] for r in g]
+            n, big_t = len(up), min(up)
+            xi = Fraction(3 * max(moduli[k - 3]), min(moduli[k - 2]))
+            for a in set(moduli[k - 2]):
+                lam = 1 - Fraction(n * a, big_t)
+                gamma = (1 - Fraction(a, big_t)) ** n
+                eps = _rows_k_epsilon(n, lam, gamma, xi) / 2 * (1 - Fraction(1, a))
+                assert eps > Fraction(1, 2 ** (n + 1)) or n == 1
+                bound = min(Fraction(1, 2 ** (n + 1)), eps) * abs(f[-1]) * prod(up)
+                assert b[k - 1] >= bound
+
+
+def _rows_lower(h: int, big_k: int, p: int, q_1: int | None = None) -> Poly:
+    """``prop:rowslower``: ``(x - q_1)(x - q_2)(x + t)^K``."""
+    q_2 = big_k * (big_k + 1 + 2 * h) * p
+    if q_1 is None:
+        q_1 = 2 * h * (big_k + h) * p
+    t = (big_k + h) * q_2
+    return _product([[-q_1, 1], [-q_2, 1]] + [[t, 1]] * big_k)
+
+
+@pytest.mark.parametrize(("h", "big_k"), [(1, 18), (1, 25), (2, 36), (3, 54)])
+def test_row_three_needs_the_lower_separation(h: int, big_k: int) -> None:
+    """``prop:rowslower``: at ``T_3 = (n_3 + h) U_2`` and
+    ``9 U_1 < T_2 < (n_2 / (2h) + 1) U_1`` the row ``k = 3`` fails,
+    ``f_2 = 0`` and ``b_3 <= 4 t^K / q_2 < t^K / 2^(K+1)``.
+
+    Control: the same ``q_2`` and ``t`` with ``q_1 = 1``, far below, meet the
+    row, and so does ``q_1 = 1`` at ``T_3`` just above ``(n_3 + 9) U_2``
+    (``cor:rowsall``)."""
+    p = 2**big_k
+    q_1, q_2 = 2 * h * (big_k + h) * p, big_k * (big_k + 1 + 2 * h) * p
+    t = (big_k + h) * q_2
+    f = _rows_lower(h, big_k, p)
+    assert f[-1] == 1 and q_1 > 3
+    assert 9 * q_1 < q_2 < (Fraction(big_k + 1, 2 * h) + 1) * q_1
+    assert f[2] == 0
+    assert all(abs(c) * q_2 <= 4 * t**big_k for c in f[2:-1])
+    assert _b(f)[2] * q_2 <= 4 * t**big_k < q_2 * t**big_k // 2 ** (big_k + 1)
+    g = _rows_lower(h, big_k, p, q_1=1)
+    assert _b(g)[2] * 2 ** (big_k + 1) > t**big_k
+    s = _product([[-1, 1], [-q_2, 1]] + [[(big_k + 10) * q_2, 1]] * big_k)
+    assert _b(s)[2] * 2 ** (big_k + 1) > ((big_k + 10) * q_2) ** big_k
 
 
 def test_mass_fails_at_separation_two() -> None:
