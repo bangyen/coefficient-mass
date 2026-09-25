@@ -137,7 +137,10 @@ def _rows_are_top_rows(r: Fraction, big_l: int, k: int) -> list[tuple[int, ...]]
     """The exempted sets ``S`` at which ``mu(S, L) > mu(0, n)`` on a window.
 
     ``thm:allrowstwo`` says ``V_r(L,k) = beta_r(n)``, ``n = L-k+1``, that is,
-    ``mu_r(S, L) <= mu_r(0, n)`` for every ``|S| = k-1``.
+    ``mu_r(S, L) <= mu_r(0, n)`` for every ``|S| = k-1``.  Both sides are
+    minimized over zero sets inside a window, so this is a consistency check
+    on small cases, not a certificate: the exact values are certified in
+    ``test_second_row_*`` and ``test_third_row_*``.
     """
     window = 14
     top = _mu((), big_l - k, r, window)

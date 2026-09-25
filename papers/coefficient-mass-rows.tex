@@ -7,7 +7,7 @@
   pdfauthor={Bangyen Pham},
   pdftitle={Every Row Is a Top Row: Coefficient Order Statistics of Multiples of a Power},
   pdfsubject={Exact coefficient order statistics of polynomial multiples of (x-r)^L},
-  pdfkeywords={polynomial multiples, coefficient mass, reduced height, Chebyshev systems, exponential sums},
+  pdfkeywords={polynomial multiples, coefficient mass, reduced height, linear programming duality, exponential sums},
   pdflang={en-US}
 }
 
@@ -155,6 +155,18 @@ the cost of that insertion by the factor $\max\{1,1/(r-1)\}$
 Below $2$ this factor exceeds $1$, and the proofs use instead one
 polynomial for all exempted sets (Theorem~\ref{thm:onepoly}) and the
 supermultiplicativity of the prefix values (Lemma~\ref{lem:prefixshift}).
+
+\paragraph{Relation to the literature.}
+The top row $\beta_r(n)=V_r(n,1)$ is the reduced height of $(x-r)^n$ in
+the sense of Dubickas and Jankauskas~\cite{dj}, the infimum of the
+heights of its monic multiples; the reduced length~\cite{schinzel} is the
+$\ell^1$ analogue.  Lower bounds for the coefficients of polynomials with a
+root of high multiplicity go back to the work of Beaucoup, Borwein, Boyd
+and Pinner on multiple roots of power series with bounded
+coefficients~\cite{bbbp-multiple}, which bounds the multiplicity at a
+given point in terms of the coefficient size.  The rows $k\ge2$, which
+exempt the largest coefficients, are an order-statistic variant of these
+problems that the companion paper~\cite{coefficient-mass} introduces.
 
 \paragraph{Organization.}
 Section~\ref{sec:rowvalues} sets up the row values and their dual
@@ -1876,11 +1888,33 @@ they need Python~3.12 or later.
 
 \begin{thebibliography}{9}
 
+\bibitem{bbbp-multiple}
+F.~Beaucoup, P.~Borwein, D.~W. Boyd and C.~Pinner,
+\newblock Multiple roots of $[-1,1]$ power series,
+\newblock \emph{Journal of the London Mathematical Society} (2) 57 (1998), 135--147,
+\newblock \href{https://doi.org/10.1112/S0024610798005857}
+{doi:10.1112/S0024610798005857}.
+
+\bibitem{dj}
+A.~Dubickas and J.~Jankauskas,
+\newblock On the reduced height of a polynomial,
+\newblock \emph{Publicationes Mathematicae Debrecen} 71 (2007), 325--348,
+\newblock \href{https://doi.org/10.5486/PMD.2007.3728}
+{doi:10.5486/PMD.2007.3728}.
+
 \bibitem{coefficient-mass}
 B.~Pham,
 \newblock Displaced-zero certificates and the coefficient mass of polynomial
 multiples,
 \newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
+
+\bibitem{schinzel}
+A.~Schinzel,
+\newblock On the reduced length of a polynomial with real coefficients,
+\newblock \emph{Functiones et Approximatio Commentarii Mathematici} 35
+(2006), 271--306,
+\newblock \href{https://doi.org/10.7169/facm/1229442629}
+{doi:10.7169/facm/1229442629}.
 
 \end{thebibliography}
 
