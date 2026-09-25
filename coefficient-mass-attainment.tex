@@ -1083,8 +1083,9 @@ above $g$ with $|B_0|+|A|=L-k-2$, with runs $[s_j,e_j]$ and neighbours $Z_j$
 as above.  Let $V$ and $V_j$ be the full certificates on
 $y_{k+2},\ldots,y_L$ with zero sets $Z=B_0\cup A$ and $Z_j$, and let $w$ be
 the full certificate on $y_{k+1},\ldots,y_L$ with zero set
-$\widehat Z=B_0\cup\{g\}\cup(A+1)$.  Then there are $\lambda_1,\ldots,\lambda_p,\mu>0$
-with $\sum_j\lambda_j+\mu=1$ such that
+$\widehat Z=B_0\cup\{g\}\cup(A+1)$.  Put $\rho_j=|w(s_j)|/|V_j(s_j)|$ (the
+denominator is nonzero), $\mu=1/(1+\sum_j\rho_j)$ and $\lambda_j=\mu\rho_j$,
+so that $\lambda_j,\mu>0$ and $\sum_j\lambda_j+\mu=1$.  Then
 \begin{equation}\label{eq:runchord}
   \Tail(V)\ge\sum_{j=1}^p\lambda_j\Tail(V_j)+\mu\,\Tail(w),
 \end{equation}
@@ -1113,9 +1114,7 @@ them up to $g$ and reverses them above.
 
 \emph{The combination.}  At a run start $s_i$ we have $V_j(s_i)=0$ for
 $j\ne i$, as $s_i\in Z_j$; $V_i(s_i)\ne0$, as $s_i\notin Z_i$; and
-$w(s_i)\ne0$, as $s_i>g$ and $s_i-1\notin A$ keep $s_i$ out of $\widehat Z$.  Put
-$\rho_i=|w(s_i)|/|V_i(s_i)|$, $\mu=1/(1+\sum_i\rho_i)$, $\lambda_i=\mu\rho_i$
-and
+$w(s_i)\ne0$, as $s_i>g$ and $s_i-1\notin A$ keep $s_i$ out of $\widehat Z$.  With the weights of the statement put
 \[
   q=\sum_{j=1}^p\lambda_jV_j+\mu w .
 \]
@@ -1207,7 +1206,7 @@ $y_{k+1}=\tfrac12$, and otherwise $\varphi(g+1)E(g+1)>0$, as $g+1\notin A+1$.
 Only the new node is held to the cutoff, and only through the sign of
 $2-1/y_{k+1}$; the nodes $y_{k+2},\ldots,y_L$ may be any distinct reals in
 $(0,y_{k+1})$.  For $y_{k+1}>\tfrac12$ that sign flips and
-\eqref{eq:runchord} can fail: with the nodes
+\eqref{eq:runchord} with these weights can fail: with the nodes
 $(\tfrac34,\tfrac13,\tfrac14,\tfrac1{10},\tfrac1{11})$, $B_0=\{1,2\}$, $g=3$
 and $A=\{7\}$ its right side exceeds $\Tail(V)$.
 
