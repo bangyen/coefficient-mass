@@ -44,10 +44,10 @@ sum of the coefficients of the surviving factor $P_u=\prod_{i>u}(x-r_i)$
 exceeds their total in absolute value, repeated roots included.  For any
 real roots above $1$ we express the infimum as the reciprocal of the value
 of a placement game on exponential sums, show that the placement in which
-the exempt coefficients escape to the bottom costs the least $\ell^1$ tail
-$\tau^*$ of a certificate on the surviving roots, and identify $1/\tau^*$
-with the least, over monic multipliers $M$, of the largest partial sum of
-the coefficients of $P_uM$.  For roots at least $2$, repeated roots
+the exempt coefficients escape to the bottom costs $\tau^*$, the least
+$\ell^1$ tail of a certificate on the surviving roots, and identify
+$1/\tau^*$ with $\min_M\max_{j\ge1}|S_j(P_uM)|$ over monic multipliers $M$,
+where $S_j$ is the sum of the $j+1$ leading coefficients.  For roots at least $2$, repeated roots
 included, the escaping placement is the worst one, so the infimum is exactly
 $1/\tau^*$; below $2$ it can be strictly smaller.  No infimum of $b_{u+1}$
 over monic multiples is attained.  Along the way we extend the underlying tail comparison to
@@ -105,12 +105,13 @@ bottom.
 
 \emph{The value.}  For $1<r_1\le\cdots\le r_L$ the infimum is $1/T$, where
 $T$ is the supremum, over placements $X$ of the $u$ exempt coefficients, of
-the least tail of an exponential sum on the roots vanishing on $X$
-(Theorems~\ref{thm:value} and~\ref{thm:valuerep}).  The placement in which
+the least tail $\sum_{d\ge1}|v_d|$ of an exponential sum
+$v_d=\sum_i\lambda_ir_i^{-d}$ with $v_0=1$ and $v|_X=0$
+(Theorems~\ref{thm:value} and~\ref{thm:valuerep}; for repeated roots, $v$
+ranges over the Hermite space of the roots).  The placement in which
 the exempt coefficients escape to the bottom costs, in the limit, $\tau^*$, the
-least tail $\sum_{d\ge1}|v_d|$ of an exponential sum
-$v_d=\sum_{i>u}\lambda_ir_i^{-d}$ with $v_0=1$ on the surviving roots alone
-(for repeated roots, of an element of their Hermite space), so
+least tail of a sum with $v_0=1$ on the surviving roots alone and no
+prescribed zeros, so
 $T\ge\tau^*$; and $\tau^*$ is attained, with
 \[
   \frac1{\tau^*}=\min_M\max_{j\ge1}\bigl|S_j(P_uM)\bigr|
@@ -154,8 +155,8 @@ $m_i$ times.  Let
 \[
   \xi_d=\sum_{i=1}^c p_i(d)y_i^d,\qquad \deg p_i<m_i,
 \]
-satisfy $\xi_0=1$ and $\xi_z=0$ for a set $Z$ of $m-1$ positive integers with
-leading run $f$.  Then
+satisfy $\xi_0=1$ and $\xi|_Z=0$ for a set $Z$ of $m-1$ positive integers with
+leading run $f=\max\{0\le k\le m-1:\{1,\ldots,k\}\subseteq Z\}$.  Then
 \[
   \Tail(\xi)\le\prod_{j=1}^{f+1}\frac{y_{(j)}}{1-y_{(j)}}.
 \]
@@ -187,7 +188,7 @@ function space is spanned either way.
 
 For such an $\varepsilon$ let $\xi^{(\varepsilon)}$ be the unique exponential
 sum on the nodes $z_{i,j}$ with $\xi^{(\varepsilon)}_0=1$ and
-$\xi^{(\varepsilon)}_z=0$ for $z\in Z$; existence and uniqueness are the
+$\xi^{(\varepsilon)}|_Z=0$; existence and uniqueness are the
 Vandermonde argument opening~\cite[Section~2]{coefficient-mass}.
 Theorem~2.2 applies with the same $f$ and gives
 \[
@@ -245,42 +246,42 @@ run $f$.  Keep the perturbed nodes $z_{i,j}=y_i\exp(-j\varepsilon)$ of the
 proof of Proposition~\ref{prop:confluent}; the largest of them is
 $y_c$ itself ($j=0$), and it is strictly larger than all the others.  Run the
 displaced step of the proof of Theorem~2.2 once at these $m$ distinct nodes:
-$F^{(\varepsilon)}$ is the sum on the perturbed nodes other than $y_c$ with
-$F^{(\varepsilon)}_0=1$ and $F^{(\varepsilon)}|_{Z'}=0$, $G^{(\varepsilon)}$
+$V^{(\varepsilon)}$ is the sum on the perturbed nodes other than $y_c$ with
+$V^{(\varepsilon)}_0=1$ and $V^{(\varepsilon)}|_{Z'}=0$, $G^{(\varepsilon)}$
 the sum on all of them with $G^{(\varepsilon)}|_{\{0\}\cup Z'}=0$ and
-$G^{(\varepsilon)}_z=1$, and $\mu_\varepsilon=|F^{(\varepsilon)}_z|$.  The
+$G^{(\varepsilon)}_z=1$, and $\mu_\varepsilon=|V^{(\varepsilon)}_z|$.  The
 splitting identity and the correction-ratio bound
-$\Gamma_G(z)\le2\Gamma_F(z)$ there (all nodes are at most $1/2$) give
+$\Gamma_G(z)\le2\Gamma_V(z)$ there (all nodes are at most $1/2$) give
 \[
   \Tail(\xi^{(\varepsilon)})
-  \le\Tail(F^{(\varepsilon)})-\mu_\varepsilon A_{G^{(\varepsilon)}},
+  \le\Tail(V^{(\varepsilon)})-\mu_\varepsilon \Sigma_{G^{(\varepsilon)}},
   \qquad
-  A_{G^{(\varepsilon)}}=\sum_{1\le d<z}|G^{(\varepsilon)}_d| .
+  \Sigma_{G^{(\varepsilon)}}=\sum_{1\le d<z}|G^{(\varepsilon)}_d| .
 \]
-Theorem~2.2 on the $m-1$ nodes of $F^{(\varepsilon)}$ bounds
-$\Tail(F^{(\varepsilon)})$ by the product over their $f+1\le m-1$ smallest
+Theorem~2.2 on the $m-1$ nodes of $V^{(\varepsilon)}$ bounds
+$\Tail(V^{(\varepsilon)})$ by the product over their $f+1\le m-1$ smallest
 members, which are the $f+1$ smallest of all $m$ perturbed nodes because the
 one removed is the largest.  So
 $\Tail(\xi^{(\varepsilon)})\le\prod_{j\le f+1}y_{(j)}(\varepsilon)/(1-y_{(j)}(\varepsilon))
--\mu_\varepsilon A_{G^{(\varepsilon)}}$.
+-\mu_\varepsilon \Sigma_{G^{(\varepsilon)}}$.
 
-Now let $\varepsilon\to0$.  The sums $F^{(\varepsilon)}$ and
+Now let $\varepsilon\to0$.  The sums $V^{(\varepsilon)}$ and
 $G^{(\varepsilon)}$ are interpolants at the distinct points $\{0\}\cup Z'$
 and $\{0\}\cup Z$ in spaces spanned by functions of the form
 $\phi_{i,k,\varepsilon}$ (for the group of $y_c$, which has lost its top
 member, with $y_c$ replaced by $y_c\exp(-\varepsilon)$), so exactly as in the
 proof of Proposition~\ref{prop:confluent} they converge pointwise to the
-confluent interpolants: $F^{(0)}$ in the Hermite space of the multiset with one
-copy of $y_c$ removed, with $F^{(0)}_0=1$ and $F^{(0)}|_{Z'}=0$, and $G^{(0)}$
+confluent interpolants: $V^{(0)}$ in the Hermite space of the multiset with one
+copy of $y_c$ removed, with $V^{(0)}_0=1$ and $V^{(0)}|_{Z'}=0$, and $G^{(0)}$
 in the full Hermite space, with $G^{(0)}|_{\{0\}\cup Z'}=0$ and $G^{(0)}_z=1$.
-By the P\'olya--Szeg\H o zero bound $F^{(0)}$, a nonzero element of an
+By the P\'olya--Szeg\H o zero bound $V^{(0)}$, a nonzero element of an
 $(m-1)$-dimensional Hermite space with the $m-2$ zeros $Z'$, has no other real
-zero, so $F^{(0)}_z\ne0$; likewise $G^{(0)}$ vanishes only on
+zero, so $V^{(0)}_z\ne0$; likewise $G^{(0)}$ vanishes only on
 $\{0\}\cup Z'$, and since $|Z'|=m-2<z-1$ some $1\le d<z$ avoids $Z'$, so
-$A_{G^{(0)}}>0$.  By Fatou's lemma, as in Proposition~\ref{prop:confluent},
+$\Sigma_{G^{(0)}}>0$.  By Fatou's lemma, as in Proposition~\ref{prop:confluent},
 \[
   \Tail(\xi)\le\liminf_{\varepsilon\to0}\Tail(\xi^{(\varepsilon)})
-  \le\prod_{j=1}^{f+1}\frac{y_{(j)}}{1-y_{(j)}}-|F^{(0)}_z|\,A_{G^{(0)}}
+  \le\prod_{j=1}^{f+1}\frac{y_{(j)}}{1-y_{(j)}}-|V^{(0)}_z|\,\Sigma_{G^{(0)}}
   <\prod_{j=1}^{f+1}\frac{y_{(j)}}{1-y_{(j)}} .
 \]
 \end{proof}
@@ -309,8 +310,8 @@ $\widetilde P_u$ does.  Its coefficients are therefore the partial sums
 $S_j=c_m+c_{m-1}+\cdots+c_{m-j}$ of the coefficients $c_k$ of $P_u$ read down
 from the leading $c_m=1$, and they stabilize at
 $S_m=P_u(1)=(-1)^m\prod_{i>u}(r_i-1)$ once $j\ge m$.  So the free prefix is
-$S_1,\ldots,S_{m-1}$ and the run value is $|S_m|$, which is exactly
-\eqref{eq:order}: the construction reproduces the bound because the sum of the
+$S_1,\ldots,S_{m-1}$ and the run value is $S_m=P_u(1)$, whose magnitude
+$|S_m|$ is exactly \eqref{eq:order}: the construction reproduces the bound because the sum of the
 coefficients of $P_u$ is $P_u(1)$.
 
 This makes the requirement explicit.  At $u=0$ both the criterion and this
@@ -437,15 +438,16 @@ $\prod_i(-1/\rho_i)$, evaluating at $x=1$ gives
   =-\frac{\pi_{n-j}+\cdots+\pi_n}{\Pi(1)}
   =-\frac{S_j(R)}{R(1)} .
 \]
-By Lemma~2.1, $v^*_d$ has the constant sign $\sigma=(-1)^{n+1}$ for $d\ge n$
+By Lemma~2.1, $v^*_d$ has the constant sign $(-1)^{n+1}$ for $d\ge n$
 and $|v^*_d|\ge\bigl(\prod_iy_i\bigr)y_{\max}^{\,d-n}$, while
-$|\delta_d|\le Cy_{\max}^{\,d}$; so for $0<\tau$ small enough
-$v=v^*+t\delta$ with $t=\tau\sigma\sgn\bigl(S_j(R)/R(1)\bigr)$ keeps the sign
-$\sigma$ at every $d\ge n$.  It is a certificate for $X_0$, since it vanishes
+$|\delta_d|\le C_\delta y_{\max}^{\,d}$ for a constant $C_\delta$; so for
+$\kappa>0$ small enough $v=v^*+t\delta$ with
+$t=(-1)^{n+1}\kappa\sgn\bigl(S_j(R)/R(1)\bigr)$ keeps the sign
+$(-1)^{n+1}$ at every $d\ge n$.  It is a certificate for $X_0$, since it vanishes
 on $\{1,\ldots,n-1\}\setminus\{j\}$, and
 \[
-  \Tail(v)=\tau+\sigma\sum_{d\ge n}\bigl(v^*_d+t\delta_d\bigr)
-  =\Tail(v^*)-\tau\Bigl(\Bigl|\frac{S_j(R)}{R(1)}\Bigr|-1\Bigr)
+  \Tail(v)=\kappa+(-1)^{n+1}\sum_{d\ge n}\bigl(v^*_d+t\delta_d\bigr)
+  =\Tail(v^*)-\kappa\Bigl(\Bigl|\frac{S_j(R)}{R(1)}\Bigr|-1\Bigr)
   <\Tail(v^*).
 \]
 \end{proof}
@@ -460,8 +462,8 @@ $\Tail(v^*)=1/|R(1)|$; the sum $\delta$ is given explicitly by its generating
 function $N(x)/\Pi(x)$, and the evaluation at $x=1$ is unchanged.  The only
 change is in the domination: if $y_{\max}$ has multiplicity $\mu$, then
 $h_{d-n}(y)\ge\binom{d-n+\mu-1}{\mu-1}y_{\max}^{\,d-n}$ while
-$|\delta_d|\le C(1+d)^{\mu-1}y_{\max}^{\,d}$, so $|\delta_d/v^*_d|$ is still
-bounded for $d\ge n$, and a small $\tau$ keeps the sign of $v^*$.
+$|\delta_d|\le C_\delta(1+d)^{\mu-1}y_{\max}^{\,d}$, so $|\delta_d/v^*_d|$ is still
+bounded for $d\ge n$, and a small $\kappa$ keeps the sign of $v^*$.
 
 Zeros far from the origin cost only the largest nodes because the leading
 functions of the basis cannot produce them, and that is a Descartes rule at
@@ -639,8 +641,9 @@ $R=P_k$ and $X_0$ finishes the proof once some $j\in\{1,\ldots,n-1\}\setminus X_
 has $|S_j(P_k)|>|P_k(1)|$.
 
 For a monic $R$ with all roots above $1$ let
-$\mathcal A(R)=\{1\le j\le\deg R-1:|S_j(R)|>|R(1)|\}$.  The coefficients of
-$(x-2)R$ read from the top are $c_l-2c_{l-1}$, so
+$\mathcal A(R)=\{1\le j\le\deg R-1:|S_j(R)|>|R(1)|\}$.  If $R$ has
+coefficient $\zeta_l$ at $x^{\deg R-l}$ ($\zeta_0=1$, $\zeta_{-1}=0$), then
+$(x-2)R$ has $\zeta_l-2\zeta_{l-1}$ at $x^{\deg R+1-l}$, so
 $S_j((x-2)R)=S_j(R)-2S_{j-1}(R)$, and by Lemma~\ref{lem:signs}
 $(-1)^jS_j(R)>0$ for $0\le j\le\deg R$; hence
 $|S_j((x-2)R)|=|S_j(R)|+2|S_{j-1}(R)|$ for $1\le j\le\deg R$, while
@@ -844,7 +847,7 @@ largest zero.  For finite $X\subset\N_{>0}$ put
   \tau_k(X)=\inf\{\Tail(v):v\text{ a certificate for }X\text{ on }\mathcal H_k\},
   \qquad \tau(X)=\tau_0(X),\qquad \tau^*=\tau_u(\varnothing).
 \]
-For distinct roots these are the quantities of Section~\ref{sec:value}.  The top basis function $\psi_{k+1}$ of $\mathcal H_k$ is
+For distinct roots these are the quantities defined at the start of this section.  The top basis function $\psi_{k+1}$ of $\mathcal H_k$ is
 $d^ay^d$, where $y=1/r_{k+1}$ is the largest node of $\mathcal H_k$ and
 $a+1$ its multiplicity there; $\mathcal H_{k+1}$ is the span of the others.
 
@@ -865,17 +868,18 @@ Theorem~\ref{thm:converse}.
 For the upper bound fix $X$ with $|X|=u$ and $D\ge\max(L,\max X)$, and let
 $\tau_D(X)$ be the least $\sum_{d=1}^D|v_d|$ over certificates $v$ for $X$
 on $\mathcal H_0$; it is positive because a nonzero element of
-$\mathcal H_0$ has at most $L-1$ zeros.  Write $m_i$ for the multiplicity of
-$r_i$.  Since $r_i\ne0$, $F=x^D+\sum_{j<D}f_jx^j$ is a
-multiple of $P$ exactly when
-$\bigl((x\,d/dx)^aF\bigr)(r_i)=\sum_{j\le D}f_jj^ar_i^j=0$ for $a<m_i$.  Minimising the
+$\mathcal H_0$ has at most $L-1$ zeros.  Write $m_\rho$ for the multiplicity
+of a distinct value $\rho$ among the $r_i$.  Since $\rho\ne0$,
+$F=x^D+\sum_{j<D}f_jx^j$ is a multiple of $P$ exactly when
+$\bigl((x\,d/dx)^aF\bigr)(\rho)=\sum_{j\le D}f_jj^a\rho^j=0$ for every
+distinct $\rho$ and $a<m_\rho$, which are $L$ constraints.  Minimising the
 largest $|f_j|$ over the positions $j<D$ with $D-j\notin X$ subject to these
 constraints is a feasible linear program ($x^{D-L}P$ is feasible).  With
-multipliers $\mu_{i,a}$ put
-$v_d=-\sum_{i,a}\mu_{i,a}r_i^D(D-d)^ay_i^d$; then the coefficient of $f_j$ in
-the Lagrangian is $-v_{D-j}$, and as $\{(D-d)^a\}_{a<m_i}$ and
-$\{d^a\}_{a<m_i}$ span the same polynomials, $\mu\mapsto v$ is a linear
-bijection onto $\mathcal H_0$.  The dual program is to maximise $v_0$
+multipliers $\mu_{\rho,a}$ put
+$v_d=-\sum_{\rho,a}\mu_{\rho,a}\rho^D(D-d)^a\rho^{-d}$; then the coefficient
+of $f_j$ in the Lagrangian is $-v_{D-j}$, and as $\{(D-d)^a\}_{a<m_\rho}$ and
+$\{d^a\}_{a<m_\rho}$ span the same polynomials, $\mu\mapsto v$ is a linear
+bijection from $\R^L$ onto $\mathcal H_0$.  The dual program is to maximise $v_0$
 subject to $v|_X=0$ and $\sum_{1\le d\le D,\,d\notin X}|v_d|\le1$, with value
 $1/\tau_D(X)$, so some monic multiple of degree $D$ has
 $b_{u+1}\le1/\tau_D(X)$.  The limit $\tau_D(X)\uparrow\tau(X)$ is the
@@ -1331,7 +1335,8 @@ $\tfrac{23863}{120}>\tfrac{997}{20}$, so $b_2(F)=\tfrac{997}{20}=49.85$.  By
 Theorem~\ref{thm:value}, $1/T\le b_2(F)<1/\tau^*$.
 \end{proof}
 
-Lemma~\ref{lem:delete} fails at these roots, where $y_1=\tfrac{10}{11}$:
+The conclusion of Lemma~\ref{lem:delete} fails at these roots, where
+$y_1=\tfrac{10}{11}>\tfrac12$:
 lifting the escaping minimiser, with zero set $\{1,3\}$, by the zero $5$
 gives the full certificate on all four nodes with zero set $\{1,3,5\}$ and
 tail $\tfrac{96935}{3398808}=0.02852\ldots>\tfrac{31}{1704}$.  Numerically
@@ -1358,8 +1363,8 @@ magnitudes, not ordinary length or height: they are uniform over the degree
 of $F$ and over all additional real or complex roots.  In the opposite
 direction, the degree of an integer polynomial of height $H\ge2$ all of whose
 roots are nonzero rationals is at most a constant times $\log H$~\cite{htv},
-and the minimal height of a degree-$n$ polynomial over a fixed number field
-with all roots in $K^\times$ grows exponentially in $n$~\cite{tromp}.  The
+and the minimal height of a degree-$n$ polynomial over a fixed number
+field $\mathbb K$ with all roots in $\mathbb K^\times$ grows exponentially in $n$~\cite{tromp}.  The
 normalized determinant sequence and its consecutive-zero evaluation are from
 Dubickas and Jankauskas~\cite{dj}, as is the case $u=0$ of the construction
 of Section~\ref{sec:criterion}.  The infimum of $b_{u+1}$ is the
