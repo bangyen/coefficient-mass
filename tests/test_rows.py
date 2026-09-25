@@ -22,6 +22,7 @@ from __future__ import annotations
 import json
 from fractions import Fraction
 from itertools import combinations
+from math import comb
 from pathlib import Path
 
 import pytest
@@ -457,6 +458,76 @@ def test_second_row_hypothesis_fails() -> None:
     # moved by one, and the constrained optimum Y'_50 offered for nu_1(51).
     assert not _vertex_optimal((*_FIVE50[:-1], 1577), {5}, r)
     assert not _vertex_optimal(_ONE50, set(), r)
+
+
+def _monomials(zeros) -> list[int]:
+    """Integer coefficients of ``prod_z (z - s)``, constant term first."""
+    c = [1]
+    for z in zeros:
+        c = [z * a - b for a, b in zip([*c, 0], [0, *c], strict=True)]
+    return c
+
+
+def _moments(deg: int, r: Fraction) -> list[Fraction]:
+    """``m_k = sum_{s>=0} s^k x^s``, ``x = 1/r``, for ``k <= deg``, from
+    ``(1-x) m_k = [k=0] + x sum_{j<k} C(k,j) m_j``; not the forward
+    differences of ``_power_sum``."""
+    x, m = 1 / r, []
+    for k in range(deg + 1):
+        m.append(((k == 0) + x * sum(comb(k, j) * m[j] for j in range(k))) / (1 - x))
+    return m
+
+
+def _signed_series(c, vals, signs, m, w, r: Fraction) -> Fraction:
+    """``sum_{s>=1} signs(s) C(s) r^-s`` for the integer polynomial ``C`` with
+    coefficients ``c``, given ``vals[s] = C(s)`` and ``signs[s]`` for ``s <= M``
+    and the sign ``signs[M+1]`` for all ``s > M``, the moments ``m`` and the
+    weights ``w[s] = r^-s p^M`` with ``p`` the numerator of ``r``."""
+    top, tail = len(vals) - 1, signs[-1]
+    head = sum((signs[s] - tail) * vals[s] * w[s] for s in range(1, top + 1))
+    return tail * (sum(a * mk for a, mk in zip(c, m, strict=True)) - c[0]) + Fraction(
+        head, r.numerator**top
+    )
+
+
+def _independent(zeros, fixed, r):
+    """``Phi_r(Z)``, whether ``Z`` passes the test of ``lem:vertexopt``, and
+    whether strictly, recomputed without ``_power_sum``, ``_phi``
+    or ``_vertex_optimal``."""
+    top, prod = max(zeros), 1
+    for z in zeros:
+        prod *= z
+    c = _monomials(zeros)
+    vals = [sum(a * s**i for i, a in enumerate(c)) for s in range(top + 2)]
+    signs = [(v > 0) - (v < 0) for v in vals]
+    m = _moments(len(zeros), r)
+    w = [r.denominator**s * r.numerator ** (top - s) for s in range(top + 1)]
+    phi = _signed_series(c, vals[: top + 1], signs, m, w, r) / prod
+    passes, strict = True, True
+    for y in set(zeros) - fixed:
+        # e_y(s) prod(Z - y) = s prod_{z != y} (z - s) = s C(s) / (y - s).
+        ce = [0, *_monomials([z for z in zeros if z != y])]
+        ev = [s * vals[s] // (y - s) if s != y else 0 for s in range(top + 1)]
+        ev[y] = sum(a * y**i for i, a in enumerate(ce))
+        g, bound = _signed_series(ce, ev, signs, m, w, r), abs(ev[y]) * r**-y
+        passes, strict = passes and abs(g) <= bound, strict and abs(g) < bound
+    return phi, passes, strict
+
+
+def test_second_row_hypothesis_independently() -> None:
+    """``prop:secondrowhyp`` again, by a separate evaluation of the series."""
+    r = _R177
+    phis = []
+    for zeros, fixed in ((_Y50, set()), (_ONE50, {1}), (_FIVE50, {5})):
+        phi, passes, strict = _independent(zeros, fixed, r)
+        assert passes and (strict or fixed != {5}), fixed
+        phis.append(phi)
+    assert phis[0] < phis[1] < phis[2]
+    assert phis == [_phi(z, r) for z in (_Y50, _ONE50, _FIVE50)]
+    # The controls: Z_5(50) with its largest zero moved by one, and Y'_50
+    # offered for nu_1(51), fail the test.
+    assert not _independent((*_FIVE50[:-1], 1577), {5}, r)[1]
+    assert not _independent(_ONE50, set(), r)[1]
 
 
 # ``thm:failinterval``: a chain of certificates of ``prop:failinterval``, each

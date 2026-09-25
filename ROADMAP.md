@@ -6,27 +6,29 @@ is open; an answer lands in the paper it extends, and the row leaves.
 ## Open at a glance
 
 - [attainment](papers/coefficient-mass-attainment.tex) (`sec:scope`): an a
-  priori bound on the zero set minimising one `tau({x})`; a half-mass
-  threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
-  the escaping placement extremal; the pieces along `(r,3,5,7)` for
-  `1 < r < 1.0745...`, where `thm:familylow` stops (infinitely many
-  accumulate at `r = 1` by `cor:familyone`; near 1, off the jumps, the
-  worst placement is `x*` with zero set `{1,x*,z}` by `thm:familyosc`, but
-  which `z`, and the transition near the jumps, are open).
+  priori bound on the zero set minimising one `tau({x})` at general roots
+  (along `(r,3,5,7)` it is `{1,x,z}` or `{1,z,x}`, `z` a half-mass point,
+  by `thm:familyzero`); a half-mass threshold like `thm:halfmass` for
+  `u >= 2`; which root sets below 2 keep the escaping placement extremal;
+  along `(r,3,5,7)` on `(1, 1.0745...)`, the order of the pieces (is the
+  worst placement monotone in `r`, does each boundary equation of
+  `thm:familyzero` have one root), explicit constants and a rate in
+  `thm:familyjump`, and whether the normalised excess is monotone across
+  each window.
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
   separation for the mass, between `2 + 1/18915` and 81 (at most
   `max(4, n_2 + 1)` for two annuli, `cor:twofixed`), and whether 9
   suffices, for two annuli with many roots above the gap in particular;
   whether `T_a > (n_a + 1) U_(a-1)` gives every row of `cor:annuli` also
-  where `n_a < 30` and `S >= 3` (it does where `n_a >= 30`, and for large
-  `n_a` the additive constant is exactly 1/2, `cor:rowsplusone`,
-  `prop:rowslower`; below 30 only `min(n_a + 9, 3 rho_(n_a))` is known,
-  `cor:rowsall`; for two annuli the least separation lies between
-  `n_2/(1 - 2**(-n_2-1))` and `n_2 (1 + 3 * 2**(-n_2))` for `n_2 >= 4`,
-  `cor:twofixed`); the best constant `c` in
-  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` for `|alpha|` near 1
-  (in `[1/8, 1]`; at least `1 - 1/a_0` over `|alpha| >= a_0 >= 2`,
-  `prop:rowstwolarge`).
+  where `n_a <= 9` and `S >= 3` (it does where `n_a >= 10`, the row 3 also
+  where `n_3 >= 7`, and for large `n_a` the additive constant is exactly
+  1/2, `cor:rowsplusone`, `prop:rowslower`; for `3 <= n_a <= 9` the
+  separation `max(9, n_a + 3/2)` is known, `cor:rowsplusone` item 3; for
+  two annuli the least separation lies between `n_2/(1 - 2**(-n_2-1))` and
+  `n_2 (1 + 3 * 2**(-n_2))` for `n_2 >= 4`, `cor:twofixed`); the best
+  constant `c` in `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` (in
+  `[1/2, 1]`, `prop:rowstwohalf`; at least `1 - 1/a_0` over
+  `|alpha| >= a_0 >= 2`, `prop:rowstwolarge`; numerically 1).
 - [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
@@ -110,21 +112,44 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `(inf b_2 - 24)(r-1)**(-alpha)` oscillates log-periodically: its limit
   points fill `[80 * 18**(-alpha), (400/3) 18**(-alpha)] = [20.865...,
   34.775...]`, the limit along `r = 1 + 18 * 3**(-n-w)` being
-  `80 * 18**(-alpha) (5/3)**w`.  Exactly at `r = 5701/5700`:
-  `T = tau({10})`, the tail of `{1,10,1335}`, `inf b_2 = 24.4788...`
-  (`tests/test_attainment.py`).  Along `(r,5,7)` it fails for every `r < 2`
+  `80 * 18**(-alpha) (5/3)**w`; this holds for `r <= 1 + (delta/10)**4`
+  when `delta <= w <= 1 - delta` (`prop:familyrdelta`).  Exactly at
+  `r = 5701/5700`: `T = tau({10})`, the tail of `{1,10,1335}`,
+  `inf b_2 = 24.4788...` (`tests/test_attainment.py`).  Every cost along
+  the family is explicit (Closed; `thm:familyzero`): for `x >= 2` and
+  `1 < r < 3`, with `H` the sum on the four nodes with weight 1 on `1/r`
+  vanishing at `0, 1, x`, the mass `F = sum_d |H_d|` is positive, and
+  flipping the witness of `{1,x}` at `(3,5,7)` from the far end, first past
+  `x` and then just below it, until half of `F` is used gives the exact
+  cost and the minimising zero set, `{1,x,z}` or `{1,z,x}`; with
+  `thm:halfmass` the infimum is a finite closed-form computation at every
+  `r` (e.g. `{1,4,5}`, `7627/314024` at `r = 5/4`; `{1,3,5}` at
+  `11/10`), and the piece boundaries are explicit equations.  The limit
+  profile (Closed; `thm:familylimit`): as `3**x (r-1) -> kappa`,
+  `tau({x}) -> G(kappa) = min(1/24, min_c (t(c) + ell(c)/kappa))`, the
+  minimum at the `c >= 3` with `k_c <= kappa <= k_(c-1)`,
+  `k_c = 18/(1 - 18*3**-c + 30*5**-c - 14*7**-c)` (`k_3 = 66150/1957`,
+  `k_c -> 18`, never `c = 2`), the zero set eventually `{1,c,x}` (and
+  `{1,x,z}` with `(r-1)z -> log(36/(18+kappa))` below 18), and
+  `1/24 - G(18(1+eta))` of order `eta**(1+alpha)` with an oscillating
+  ratio.  Across the jumps (Closed; `thm:familyjump`): the worst placement
+  is `x*` or `x* + 1`, and uniformly in `w`,
+  `(inf b_2 - 24)(r-1)**(-alpha) = min(Phi(w), Phi(w-1) + Gamma) + o(1)`
+  with `Gamma = 576 (r-1)**(-alpha) (1/24 - G(3**(x*+1)(r-1)))`; so the
+  drop by `3/5` happens in a window `1 - w ~ (r-1)**(alpha/(1+alpha))`
+  before each jump, and at `r = 101/100` the worst placement is `7 = x* +
+  1` with zero set `{1,4,7}` (`inf b_2 = 27.8209...`), at `r = 9842/9841`
+  it is `11` with `{1,7,11}`.  Along `(r,5,7)` it fails for every `r < 2`
   (`prop:cutoffsharp`).  Open (`sec:scope`): an a priori bound on the zero
-  set minimising one `tau({x})` (to make `u = 1` a finite computation
-  outright), a threshold like `N` for `u >= 2`, which root sets below 2
-  keep the escaping placement extremal (it depends on more than `r_1`),
-  the pieces along `(r,3,5,7)` on `(1, 1.0745...)` themselves (which `z` in
-  `{1,x*,z}`: a piece ends where the witness entry `s_z` reaches `+-1`), an
-  explicit range of `r` in `thm:familyosc` (a), and the transition near the
-  jumps, where `x*` and `x* + 1` compete (numerically with zero sets
-  `{1,c,x*+1}`, `c = 3, 4`; at `r = 101/100` the worst placement is 7, not
-  `x* = 6`): whether the constant minus its limit function tends to 0
-  uniformly for `0 < w <= 1 - delta`, and whether `tau({x})` tends to
-  `min_c (t(c) + ell(c)/kappa)` when `3**x (r-1) -> kappa > 18`.
+  set minimising one `tau({x})` at general roots (the argument of
+  `thm:familyzero` needs the minimiser at the fast nodes to be `{1,x}` with
+  a sign-stable witness), a threshold like `N` for `u >= 2`, which root sets
+  below 2 keep the escaping placement extremal (it depends on more than
+  `r_1`), and, along `(r,3,5,7)` below `1.0745...`, the order of the pieces
+  (is the worst placement monotone in `r`; does each boundary equation of
+  `thm:familyzero` have a single root), explicit constants and a rate in
+  `thm:familyjump`, and whether the normalised excess is monotone across
+  each window.
 
 - **Coefficient mass at complex roots.**  Purely imaginary pairs are Closed
   ([coefficient-mass-complex](papers/coefficient-mass-complex.tex), split
@@ -219,18 +244,40 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `lambda`, against `s = |alpha'|/|alpha|` times the next truncation term,
   at most `binom(n+1, 2)(|alpha|/T)**2 ~ 1/2`; so the row `k` holds about
   when `s < 2 lambda`, and `prop:rowslower` has `s/lambda -> 2`.  Hence the
-  row `k` holds at `T_a > (n_a + 1) U_(a-1)` once `n_k >= 30` (by hand; the
-  margin is positive from `n_k = 26` numerically), and at `n_a + c` for
-  every `c > 1/2` once `n_k` is large, while `prop:rowslower` with rational
-  `h < 1/2` fails with both separations above `n_a + h`: for large `n_a`
-  the additive constant is exactly 1/2 (for the row 2 every `c > 0`).
-  Every row and the mass hold at `T_a > sigma(n_a) U_(a-1)`,
-  `sigma(n) = n + 1` for `n >= 30` and `min(n + 9, 3 rho_n)` below.  For the
-  second row, summing the truncations against the powers of `|alpha|`
-  removes `gamma`: `b_2 >= lambda (1 - 1/|alpha|)**2 |f_D| prod |beta|` for
-  `|alpha| >= 2` (`prop:rowstwolarge`), while `(x - q)(x + t)**K` has
+  row `k` holds at `T_a > (n_a + 1) U_(a-1)` once `n_k >= 10`, and the
+  row 3 once `n_3 >= 7`, and at `n_a + c` for every `c > 1/2` once `n_k` is
+  large, while `prop:rowslower` (with rational `h < 1/2` and `K >= 9`, so
+  that `thm:annuli` applies) fails with both separations above `n_a + h`:
+  for large `n_a` the additive constant is exactly 1/2 (for the row 2 every
+  `c > 0`).  The thresholds 10 and 7 come from bounding `|S_(M+j)(alpha)|`
+  by `|S_M(alpha)| + tau`, `tau` the added terms, instead of by
+  `(1 - |alpha|/T)**(-n)`: the condition of `thm:rowspair` becomes three
+  values of an affine function `Phi` positive, checked in exact rational
+  arithmetic at the bounds for `n_k <= 29` (the one computer-assisted step
+  of the paper) and by hand, through `Xi > nu`, above.  Every row and the
+  mass hold at `T_a > sigma(n_a) U_(a-1)`, `sigma(n) = n + 1` for
+  `n >= 10`, `max(9, n + 3/2)` for `3 <= n <= 9`, 12 for `n = 2` (where
+  `cor:rowsall` has 11 when every separation is `n_a + 9`) and 6 for
+  `n = 1` (`cor:rowsplusone` item 3).  For the second row, summing the
+  truncations against the powers of `|alpha|` removes `gamma`:
+  `b_2 >= lambda (1 - 1/|alpha|)**2 |f_D| prod |beta|` for `|alpha| >= 2`
+  (`prop:rowstwolarge`), while `(x - q)(x + t)**K` has
   `b_2 = lambda prod |beta|`, so the best constant tends to 1 as `|alpha|`
-  grows.  Closed for the mass at a fixed separation: every
+  grows; splitting the two identities, with the truncations at the other
+  positions differing from `S_M(alpha)` only in degrees `>= 2`, gives
+  `b_2 >= (lambda/2)(1 - 1/|alpha|) |f_D| prod |beta|` at every `|alpha|`
+  (`prop:rowstwohalf`).  Numerically only (floating-point linear programs
+  for the least `b_k` over real multiples, real roots of both signs at the
+  moduli bounds): at `T_a` just above `(n_a + 1) U_(a-1)` with one root in
+  each of three annuli the least `b_3` is about `4/3` times the row (real
+  cofactors of degree up to 9), and about 1.56 and 2.2 times it with 2 and
+  3 roots in the top annulus (degree up to 2), more roots in the lower
+  annuli giving more; and the least
+  `b_2 / (lambda (1 - 1/|alpha|) prod |beta|)` over `(x - alpha)(x + T)**n`
+  times real cofactors of degree up to 8 (`n = 1, 3`, `lambda` from 0.01
+  to 0.99, `|alpha|` from 1.001 to 100) is about `|alpha|/(|alpha| - 1)`
+  for large `|alpha|`, grows like `1/(|alpha| - 1)` as `|alpha| -> 1`, and
+  is never below 1.  Closed for the mass at a fixed separation: every
   multiple with `|f_D| >= 1` has mass at least
   `sum_s s K_s log(T_s/2) - S log 2` once `T_1 > 3` and
   `T_a > 81 U_(a-1)` (`thm:fixedgap`: where one central index falls
@@ -277,13 +324,23 @@ is open; an answer lands in the paper it extends, and the row leaves.
   suffices there is open: for `n_2 >= g` the first two rows fall short of
   the mass at the separation `g`, and a third position must be charged; for
   `K_2 = 2`, whether the least separation is close to 2), and whether
-  `T_a > (n_a + 1) U_(a-1)` gives every row also where `n_a < 30` and
-  `S >= 3`, where only `min(n_a + 9, 3 rho_(n_a))` is known (`n_a + 9` for
-  `n_a >= 2`, 6 for `n_a = 1`; at `n_a >= 30` it is `cor:rowsplusone`).
-  And the best constant `c` in
-  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` of `thm:rowstwo`
-  as `|alpha| -> 1`, between 1/8 and 1 (at least `1 - 1/a_0` over
-  `|alpha| >= a_0 >= 2` by `prop:rowstwolarge`).
+  `T_a > (n_a + 1) U_(a-1)` gives every row also where `n_a <= 9` and
+  `S >= 3` (for the row `k >= 4` where `n_k <= 9`, for the row 3 where
+  `n_3 <= 6`; known there: `max(9, n_a + 3/2)` for `n_a >= 3`, 12 or 11 for
+  `n_a = 2`, 6 for `n_a = 1`; at `n_a >= 10` it is `cor:rowsplusone`).
+  Below `n_a = 8` the separation `n_a + 1` is below 9, where
+  `lem:rowsbelow` cannot order the central indices of the lower annuli, so
+  a proof there must place the `k - 1` positions below the `(k-1)`-st
+  annulus otherwise, for instance by eliminating at a zero of every lower
+  annulus; and for `k = 3` near the threshold the loss is the terms with
+  `e`, the small coefficients bounded only by `2**(-n-1) prod |beta|`.
+  And whether the best constant `c` in
+  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` of `thm:rowstwo` is
+  1, that is, whether `b_2 >= lambda (1 - 1/|alpha|) |f_D| prod |beta|` for
+  all `|alpha| > 1`: it is at least 1/2 (`prop:rowstwohalf`, whose proof
+  reaches 1/2 only as `n = 2`, `lambda -> 0` and `|alpha| -> 1`), at least
+  `1 - 1/a_0` over `|alpha| >= a_0 >= 2` (`prop:rowstwolarge`), and at most
+  1.
 
 - **Coefficient mass in sectors.**  The paper is
   [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), split out
