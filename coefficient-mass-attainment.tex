@@ -1327,7 +1327,9 @@ and $A=\{7\}$,
   \sum_j\lambda_j\Tail(V_j)+\mu\Tail(w)
   &=\tfrac{1246797277705214239223}{416394790925719545961974}=0.002994\ldots,
 \end{align*}
-computed by exact rational arithmetic in
+computed by exact rational arithmetic (the finite part up to the largest
+zero, then geometric series, the sign past it fixed by the zero bound, as in
+the proof of Theorem~\ref{thm:elevenvalue}) in
 \texttt{test\_run\_chord\_control\_above\_cutoff}
 (\texttt{tests/test\_attainment.py}).
 
@@ -1871,8 +1873,9 @@ is proved; and a description of the root sets below $2$ at which the
 escaping placement stays extremal, which depends on more than $r_1$
 (Theorem~\ref{thm:family} and Proposition~\ref{prop:cutoffsharp}).
 
-\paragraph{Relation to the literature.}  The bounds here concern coefficient
-magnitudes, not ordinary length or height: they are uniform over the degree
+\paragraph{Relation to the literature.}  The bounds here concern order
+statistics of the coefficient magnitudes of multiples, which at $u=0$ reduce
+to the height; they are uniform over the degree
 of $F$ and over all additional real or complex roots.  In the opposite
 direction, the degree of an integer polynomial of height $H\ge2$ all of whose
 roots are nonzero rationals is at most a constant times $\log H$~\cite{htv},
@@ -1894,8 +1897,9 @@ Corollary~7~\cite{dj}.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.  The exact
-computations behind Theorems~\ref{thm:elevenvalue} and~\ref{thm:family}
-are in \texttt{tests/test\_attainment.py} of the repository
+computations quoted in the paper (Theorems~\ref{thm:elevenvalue}
+and~\ref{thm:family}, and the remarks after
+Propositions~\ref{prop:runchord} and~\ref{prop:belowtwo}) are in \texttt{tests/test\_attainment.py} of the repository
 \href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass},
 and run with \texttt{uv run pytest tests/test\_attainment.py}.
 
