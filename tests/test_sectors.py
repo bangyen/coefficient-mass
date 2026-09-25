@@ -714,6 +714,96 @@ def test_small_coefficients_after_the_lowest() -> None:
     assert f is not None and f[0] == 18330 < p[0] ** 3
 
 
+def _newton_root(p: Poly, m: int) -> int:
+    """``t`` with ``P(0) | t`` and ``P(t) = 0 mod P(0)^m``, by Newton's
+    method from ``0`` as in the proof of ``prop:gausscong``."""
+    d, t = p[0], 0
+    mod = d**m
+    for _ in range(m):
+        value = sum(c * t**i for i, c in enumerate(p))
+        slope = sum(i * c * t ** (i - 1) for i, c in enumerate(p) if i)
+        t = (t - value * pow(slope, -1, mod)) % mod
+    return t
+
+
+def _in_lattice(p: Poly, f: list[int]) -> bool:
+    """Whether ``f`` is the lowest ``len(f)`` coefficients of a multiple of
+    ``P``: ``f/P mod x^m`` has integer coefficients (``prop:gausslow``)."""
+    u = _inverse_series(p, len(f))
+    return all(
+        sum(f[i] * u[n - i] for i in range(n + 1)).denominator == 1
+        for n in range(len(f))
+    )
+
+
+def test_one_congruence() -> None:
+    """``prop:gausscong``, items 1-2, at ``COPRIME``, ``K <= 4``, ``m <= 4``:
+    the lowest ``m`` coefficients of the multiples are exactly the ``f`` with
+    ``sum f_i t^i = 0 mod P(0)^m``, on the lattice basis and on seeded
+    random vectors, half of them adjusted into the congruence; at ``m = 2``,
+    ``P(0) | f_0`` and ``f_1 = P'(0) f_0/P(0) mod P(0)``.
+
+    Control: at the common norm ``5`` (roots ``1 + 2i``, ``2 + i``),
+    ``gcd(P(0), P'(0)) = 5`` and ``d_2 < P(0)^2``, so item 1 needs the
+    hypothesis.
+    """
+    rng = random.Random(SEED + 11)
+    for big_k in range(1, len(COPRIME) + 1):
+        p = _pairs(COPRIME[:big_k])
+        d = p[0]
+        assert gcd(d, p[1]) == 1
+        for m in range(1, 5):
+            t = _newton_root(p, m)
+            mod = d**m
+            assert t % d == 0
+            assert sum(c * t**i for i, c in enumerate(p)) % mod == 0
+
+            def congruent(f: list[int], t: int = t, mod: int = mod) -> bool:
+                return sum(c * t**i for i, c in enumerate(f)) % mod == 0
+
+            for k in range(m):
+                row = ([0] * k + p)[:m]
+                row += [0] * (m - len(row))
+                assert congruent(row) and _in_lattice(p, row)
+            for trial in range(60):
+                f = [rng.randint(-(d**m), d**m) for _ in range(m)]
+                if trial % 2:
+                    f[0] -= sum(c * t**i for i, c in enumerate(f)) % mod
+                assert congruent(f) == _in_lattice(p, f)
+            if m == 2:
+                for _ in range(60):
+                    f = [d * rng.randint(-50, 50), rng.randint(-(d**2), d**2)]
+                    f[0] += rng.choice([0, 0, 1])
+                    item2 = f[0] % d == 0 and (f[1] - p[1] * (f[0] // d)) % d == 0
+                    assert item2 == _in_lattice(p, f)
+    p = _pairs([(1, 2), (2, 1)])
+    assert gcd(p[0], p[1]) == 5
+    assert _lowest_denominator(p, 2) < p[0] ** 2
+
+
+def test_small_derivative_at_zero() -> None:
+    """``prop:gausscong``, item 3: at ``-26 + 35i``, ``-1 + 60i``,
+    ``29 + 62i``, ``47 + 62i`` the norms are odd and pairwise coprime,
+    ``gcd(a_j, c_j) = 1``, ``43 < rho_j < 78`` and ``P'(0) = 6``, so
+    ``F = P`` has ``|f_1| < rho_min/2`` and forces ``C > 3.77`` at ``m = 2``.
+
+    Control: moving one point to ``48 + 62i`` makes ``|P'(0)|`` exceed
+    ``rho_min/2`` by far.
+    """
+    roots = [(-26, 35), (-1, 60), (29, 62), (47, 62)]
+    norms = [_norm(z) for z in roots]
+    assert norms == [1901, 3601, 4685, 6053]
+    assert all(n % 2 and gcd(a, c) == 1 for (a, c), n in zip(roots, norms, strict=True))
+    assert all(gcd(x, y) == 1 for i, x in enumerate(norms) for y in norms[i + 1 :])
+    assert all(43**2 < n < 78**2 for n in norms)
+    p = _pairs(roots)
+    assert p[0] == prod(norms) == 194126805235805 and p[1] == 6
+    assert 4 * p[1] ** 2 < min(norms)
+    assert log(p[0]) / log(max(norms)) > 3.77
+    q = _pairs([(-26, 35), (-1, 60), (29, 62), (48, 62)])
+    assert 4 * q[1] ** 2 > 10**6 * min(_norm(z) for z in roots)
+
+
 def _level_sets(big_b: int, degree: int, box: int) -> dict[tuple, list[Gauss]]:
     """Gaussian ``y`` above the axis grouped by the real value of ``g(y)``,
     over ``g`` with ``g(0) = 0``, positive leading coefficient and
