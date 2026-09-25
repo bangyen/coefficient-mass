@@ -42,12 +42,12 @@ a theorem of that type; nothing is assumed.  The guards in `scripts/` (the
 [lean-guards](https://github.com/bangyen/lean-guards) submodule) reject
 unfinished proofs and new axioms, so the build is honest at every commit.
 
-Proved: the zero bound (`zeroBound`), Lemma 2.1 (`consecutiveTail`), and every
-step after Theorem 2.2, so `logarithmicMass_of_tailBound : TailBound →
-LogarithmicMass` reduces Corollary 3.4 to Theorem 2.2 alone.  Theorem 2.2
-(`TailBound`) is the one open statement: its base case, no displaced zeros,
-is `tailBound_consecutive`; the displaced step needs Lemma 2.3's zero count
-with multiplicity.
+Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
+depends only on the standard axioms (`propext`, `Classical.choice`,
+`Quot.sound`).  One step departs from the paper: Lemma 2.3 and the bound
+`σ ≤ G_z / F̂_z` use weak sign alternation (`card_le_of_alternating`, a
+mean-value-theorem induction) in place of zero counting with multiplicity and
+the asymptotic argument.
 
 ```bash
 git submodule update --init
