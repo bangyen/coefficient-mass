@@ -1,4 +1,4 @@
-"""Exact checks of ``coefficient-mass-rows.tex`` and its roadmap entry.
+"""Exact checks of ``coefficient-mass-rows.tex``.
 
 The paper reduces every row to the dual problem
 ``mu_r(S, L) = min Phi_r(q)`` over ``q`` of degree below ``L`` with
@@ -159,10 +159,11 @@ def test_rows_are_not_top_rows_below_two() -> None:
     assert _rows_are_top_rows(BELOW, 3, 2)
 
 
-# The roadmap's counterexample to the prefix identity at ``r = 5/4``,
-# ``L = 16``, ``k = 2``, ``n = 15``, as exact certificates.  The zero sets are
-# the optima of a local search; the checks below need only that they are
-# feasible, not that they are optimal.
+# ``prop:secondrowexact`` (a): the prefix identity fails at ``r = 5/4``,
+# ``L = 16``, ``k = 2``, ``n = 15``.  The primal multiple built below needs
+# only that the zero sets are feasible; that they are optimal, and uniquely
+# so, is the vertex certificate of ``lem:vertexopt``, checked in
+# ``test_vertex_certificate`` and ``test_second_row_at_five_fourths_fails``.
 
 #: ``Phi(Z)`` over ``Z`` containing the exempted distance ``2``: the vertex
 #: that the primal multiple is read off from.
@@ -233,10 +234,14 @@ def test_prefix_identity_fails_below_two() -> None:
 # tail threshold on, and each position below it gets an explicit zero set.
 
 
-def _vertex_optimal(zeros: tuple[int, ...], fixed: set[int], r: Fraction) -> bool:
+def _vertex_optimal(
+    zeros: tuple[int, ...], fixed: set[int], r: Fraction, strict: bool = False
+) -> bool:
     """``lem:vertexopt``: whether ``Phi_r(Z) = mu_r(S, |Z|+1)``, ``S = fixed``.
 
-    Everything is scaled by ``prod(Z - y)``: ``e_y(s)`` is ``s * _pz(rest, s)``.
+    With ``strict``, whether every inequality of the test is strict, so that
+    ``r_Z`` is the unique minimizer.  Everything is scaled by
+    ``prod(Z - y)``: ``e_y(s)`` is ``s * _pz(rest, s)``.
     """
     top, sign = max(zeros), (-1) ** len(zeros)
     for y in set(zeros) - fixed:
@@ -251,7 +256,8 @@ def _vertex_optimal(zeros: tuple[int, ...], fixed: set[int], r: Fraction) -> boo
             return sign * s * _pz(rest, s)
 
         g = _power_sum(head, tail, len(zeros), top, r)
-        if abs(g) > abs(y * _pz(rest, y)) * r**-y:
+        bound = abs(y * _pz(rest, y)) * r**-y
+        if abs(g) > bound or (strict and abs(g) == bound):
             return False
     return True
 
@@ -336,7 +342,7 @@ def _second_row_bounded(
 
 def test_vertex_certificate() -> None:
     """``lem:vertexopt`` accepts the optima and rejects a displaced zero."""
-    assert _vertex_optimal(_VERTEX, {2}, BELOW)
+    assert _vertex_optimal(_VERTEX, {2}, BELOW, strict=True)
     assert _vertex_optimal(_VERTEX, {1, 2}, BELOW)
     assert _vertex_optimal(_Y1, set(), BELOW)
     assert _vertex_optimal(_Y2, {1}, BELOW)
@@ -360,7 +366,8 @@ def test_second_row_at_five_fourths_fails() -> None:
     """``prop:secondrowexact`` (a), (b): ``V(16,2) = 1/Phi(Z_2) = 1/nu_3(14)``,
     below ``beta(15) = min_{i<=3} 1/nu_i(15)``."""
     top = _phi(_VERTEX, BELOW)
-    assert _vertex_optimal(_VERTEX, {2}, BELOW)
+    # Strict: Z_2(15) is the unique optimum, as the paper uses.
+    assert _vertex_optimal(_VERTEX, {2}, BELOW, strict=True)
     assert _vertex_optimal(_Y1, set(), BELOW)
     assert _phi(_Y1, BELOW) < top
     assert _tail_threshold(_Y1, BELOW) == 107
@@ -398,7 +405,7 @@ def test_second_row_at_four_thirds() -> None:
     full = (1, 2, 4, 6, 8, 11, 15, 19, 23, 28, 34, 41, 48, 57, 66, 78, 91, 109)
     worst = (1, 2, 3, 6, 8, 11, 15, 18, 23, 28, 34, 41, 48, 57, 66, 78, 91, 109)
     top = _phi(worst, r)
-    assert _vertex_optimal(worst, {3}, r)
+    assert _vertex_optimal(worst, {3}, r, strict=True)
     assert _vertex_optimal(short, set(), r)
     assert _phi(full, r) < _phi(short, r) < top
     assert _tail_threshold(short, r) == 103
@@ -550,7 +557,7 @@ def test_third_row_below_second() -> None:
     r, pair, eta, top = _R43, _phi(_PAIR12, _R43), _phi(_ETA12, _R43), _phi(_Y12, _R43)
     # eta_2(12) = nu_3(11), as [1, 2] lies in its optimum, while Z_23 omits 1.
     assert {1, 2} <= set(_ETA12) and 1 not in _PAIR12
-    assert _vertex_optimal(_PAIR12, {2, 3}, r)
+    assert _vertex_optimal(_PAIR12, {2, 3}, r, strict=True)
     assert _vertex_optimal(_ETA12, {2}, r)
     assert _vertex_optimal(_Y12, set(), r)
     assert top < eta < pair
@@ -590,7 +597,7 @@ def test_third_row_fails_alone() -> None:
     r, pair, top = _R43, _phi(_PAIR14, _R43), _phi(_Y14, _R43)
     # mu({2,3}, 16) = nu_4(13), as [1, 3] lies in its optimum.
     assert {1, 2, 3} <= set(_PAIR14)
-    assert _vertex_optimal(_PAIR14, {2, 3}, r)
+    assert _vertex_optimal(_PAIR14, {2, 3}, r, strict=True)
     assert _vertex_optimal(_Y14, set(), r)
     assert top < pair
     # nu_2(14), nu_3(14) and nu_4(14) are below nu_1(14), so by lem:rowmono
