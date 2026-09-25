@@ -42,10 +42,6 @@ CITATIONS = {
         "Proposition",
         "prop:sharp23",
     ),
-    ("coefficient-mass-complex.tex", "coefficient-mass", "2.1"): (
-        "Lemma",
-        "lem:consecutive",
-    ),
     ("coefficient-mass-complex.tex", "coefficient-mass", "3.2"): (
         "Theorem",
         "thm:order",

@@ -73,7 +73,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `rho_min > 2` and `b_2(F) < rho_min/2`, `F = x**e (v + H)` with every
   nonleading coefficient of `H` below `rho_min/2`, so all the roots lie in one
   level set `H(y) = -v` (`prop:gaussheavy`); three Gaussian points above the
-  axis can share one (`(y**3 - y)**2 = -100` at `+-2 + i`, `2i`).
+  axis can share one (`(y**3 - y)**2 = -270400` at `+-7 + 4i`, `8i`, where
+  `rho_min = sqrt(65)`).
   Open: whether `c K**2 log R` holds for all integer multiples at such Gaussian
   roots in a wide sector (the question the paper's introduction leaves),
   and whether the number of Gaussian points above the axis in one such level

@@ -806,8 +806,9 @@ def test_one_heavy_coefficient_is_one_level_set() -> None:
     ``v + H`` with ``H(alpha_j) = -v`` and ``(rho_min/2)^deg H <= |v|``.
 
     Checked at ``y^6 - 2y^4 + y^2 + 270400``, whose roots include
-    ``+-7 + 4i`` and ``8i``, and at every multiple ``g(x) - v`` with small
-    coefficients whose Gaussian roots in a box have ``rho_min > 2B``.
+    ``+-7 + 4i`` and ``8i`` (the triple quoted after the proposition), and
+    at every multiple ``g(x) - v`` with small coefficients whose Gaussian
+    roots in a box have ``rho_min > 2B``.
     Control: at the first, ``rho_min^6 > |v|``, so the degree bound fails
     with ``rho_min`` in place of ``rho_min/2``.
     """
@@ -857,12 +858,3 @@ def test_gaussian_integers_in_a_disc() -> None:
     x = Fraction(101, 100)
     count = sum(1 for a in range(-2, 3) for b in range(-2, 3) if a * a + b * b < x * x)
     assert count == 5 > Fraction(22, 7) * x * x
-
-
-def test_second_level_set_triple() -> None:
-    """The second triple after ``prop:gaussheavy``: ``y^8 + 3y^4 = 4`` at
-    ``+-1 + i`` and ``i``, so ``y^8 + 3y^4 - 4`` is a multiple of their pairs."""
-    h = [0, 0, 0, 0, 3, 0, 0, 0, 1]
-    roots = [(-1, 1), (0, 1), (1, 1)]
-    assert all(_horner(h, z) == (4, 0) for z in roots)
-    assert _divides(_pairs(roots), [-4, *h[1:]])

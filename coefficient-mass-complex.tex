@@ -97,9 +97,9 @@ coefficients and a root on a given ray in~\cite{bbbp-ray}; the first row
 below, $b_1(F)\ge|f_D|\prod_j(|\alpha_j|-1)$, is the complex analogue of the
 bound $H(P)\ge|P(1)|$ on the reduced height $H(P)$ (the infimum of the
 heights of the multiples $PQ$, $Q$ monic) obtained in~\cite{dj} for real roots
-greater than one on the condition that their determinant sequence
-eventually has constant sign~\cite[p.~333]{dj}, a condition removed
-in~\cite[Lemma~2.1]{coefficient-mass}; the two agree at such roots, but at complex
+greater than one under an extra sign condition~\cite[p.~333]{dj}, a
+condition removed by the $u=0$ clause of~\cite[Theorem~3.2]{coefficient-mass};
+the two agree at such roots, but at complex
 roots $|P(1)|$ can exceed $\prod_j(|\alpha_j|-1)$ ($x^2+\rho^2$).
 
 \paragraph{Exact reductions.}  If the prescribed factor has the form
@@ -276,8 +276,9 @@ multiples of $P_{\rm re}$.  In particular, with $c_1^2\ge2$ and $K\ge2$,
   K^2+\sum_{j=1}^Kj\log(c_j^2-1)
 \]
 with the absolute constants of \cite[Corollary~4.3]{coefficient-mass};
-$\Lambda(F)\ge K^2/80$ for monic $F$ when $K\ge8$; and for $K=2$ the row
-$k=2$ is an infimum at $(c_1^2,c_2^2)=(2,3)$.
+$\Lambda(F)\ge K^2/80$ for monic $F$ when $K\ge8$; and for $K=2$ and
+$(c_1^2,c_2^2)=(2,3)$ the row $k=2$ of item~1 is sharp:
+$\inf_{Q\text{ monic}}b_2(P_{\rm im}Q)=c_2^2-1=2$.
 \end{enumerate}
 \end{corollary}
 
@@ -444,19 +445,19 @@ hand, do help, through the Archimedean Newton polygon.  For a nonzero
 $F=\sum_if_ix^i\in\mathbb C[x]$ of degree $D$ and order $e$ at $0$, let
 $\varphi$ be the least concave function on $[e,D]$ with
 $\varphi(i)\ge\log|f_i|$ whenever $f_i\ne0$.  Its vertices
-$D=v_0>v_1>\cdots>v_L=e$ are among these points, so $\varphi(v_t)=\log|f_{v_t}|$.
+$D=v_0>v_1>\cdots>v_J=e$ are among these points, so $\varphi(v_t)=\log|f_{v_t}|$.
 The edge joining $v_s$ to $v_{s-1}$ has length $\ell_s=v_{s-1}-v_s\ge1$ and
-slope $-\sigma_s$; by concavity $\sigma_1>\sigma_2>\cdots>\sigma_L$, and
+slope $-\sigma_s$; by concavity $\sigma_1>\sigma_2>\cdots>\sigma_J$, and
 \[
-  \log|f_{v_t}|=\log|f_D|+\sum_{s\le t}\ell_s\sigma_s\qquad(0\le t\le L).
+  \log|f_{v_t}|=\log|f_D|+\sum_{s\le t}\ell_s\sigma_s\qquad(0\le t\le J).
 \]
-We call $\sigma_1,\ldots,\sigma_L$ the \emph{tropical roots} of $F$.  For
+We call $\sigma_1,\ldots,\sigma_J$ the \emph{tropical roots} of $F$.  For
 $u\in\R$ the vertex $v_s$ with $\sigma_{s+1}<u<\sigma_s$ (where
-$\sigma_0=+\infty$ and $\sigma_{L+1}=-\infty$) is the one maximizing
+$\sigma_0=+\infty$ and $\sigma_{J+1}=-\infty$) is the one maximizing
 $\log|f_i|+iu$; we call it \emph{active} at $u$.
 
 \begin{theorem}[Archimedean Newton polygon]\label{thm:archnewton}
-Let $F\in\mathbb C[x]$ be nonzero, with tropical roots $\sigma_1>\cdots>\sigma_L$.
+Let $F\in\mathbb C[x]$ be nonzero, with tropical roots $\sigma_1>\cdots>\sigma_J$.
 \begin{enumerate}
 \item Let $u\in\R$ satisfy $|u-\sigma_s|>\log3$ for every $s$, let $v$ be the
 vertex active at $u$, and $r=e^u$.  Then
@@ -470,7 +471,7 @@ $\bigl|\log|\beta|-\sigma_s\bigr|\le\log3$ for some $s$.
 \begin{proof}
 1.  Let $v=v_s$, so $\sigma_{s+1}<u<\sigma_s$, and put $d_+=\sigma_s-u$ and
 $d_-=u-\sigma_{s+1}$, both larger than $\log3$ (and infinite when $s=0$,
-respectively $s=L$).  A concave function lies below the line through any of
+respectively $s=J$).  A concave function lies below the line through any of
 its edges, so for $i>v$ the edge of slope $-\sigma_s$ gives
 $\log|f_i|\le\varphi(i)\le\varphi(v)-\sigma_s(i-v)$, that is,
 $|f_i|r^i\le|f_v|r^ve^{-(i-v)d_+}$; likewise the edge of slope $-\sigma_{s+1}$
@@ -946,9 +947,11 @@ genuinely weaker: by the multisection transfer (the remark after
 Corollary~\ref{cor:imag}, with $R=\prod_j(y-s_j^2)$), the $L=2m$ roots $\pm s_j$
 of $\prod_j(x^2-s_j^2)$ are worth only the $m$ positive roots $s_j^2$, so at a
 common modulus $s$ they cost about $\frac14L^2\log s$ instead of the
-$\frac12L^2\log s$ of $L$ roots of one sign.  Rolle's theorem, used on the two
-half-lines separately as in \cite[Proposition~4.2]{coefficient-mass}, gives the
-matching lower bound: every excluded coefficient costs one root of each sign.
+$\frac12L^2\log s$ of $L$ roots of one sign.  The operator $T_z$ of the
+proof of \cite[Proposition~4.2]{coefficient-mass}, where Rolle's theorem is
+used on $(0,\tfrac12]$ only, here used on the two half-lines separately,
+gives the matching lower bound: every excluded coefficient costs one root of
+each sign.
 
 \begin{lemma}[Rolle on both half-lines]\label{lem:rolleside}
 Let $h\in\R[t]$ be nonzero, let $z\ge1$ be an integer, and put
@@ -1096,7 +1099,7 @@ Without separated moduli, a multiple may have a single tropical root
 (Theorem~\ref{thm:archnewton}) for all the prescribed roots of an annulus, as $x^{2M}+\rho^{2M}$ and
 $x^{2m}+x+B$ of Proposition~\ref{prop:noangle} do.  The angle mechanism of
 Proposition~\ref{prop:noangle} puts $K$ roots within an angle $\delta$ of a
-ray only at the price of degree about $K/\delta$.  A multiple of smaller
+ray only at the price of degree about $\pi K/\delta$.  A multiple of smaller
 degree is handled by the real theory, applied to the real polynomial
 $r\mapsto\operatorname{Im}\bigl(e^{-i\theta}F(re^{i\psi})\bigr)$ along a ray
 $\arg z=\psi$ next to the sector.  For $0<x\le\pi/2$ put
@@ -1321,7 +1324,8 @@ divisible by $P$, of degree $d$.  Then
   \Lambda(B)\ \ge\ \log|b_d|+d\log\frac{\rho_{\min}}2 .
 \]
 Hence every nonzero $F\in\mathbb Z[x]$ divisible by $P$ has
-$\Lambda(F)\ge\sum_s(\deg B_s)\log(\rho_{\min}/2)$ over its blocks.
+$\Lambda(F)\ge\sum_s(\deg B_s)\log(\rho_{\min}/2)$ over the blocks $B_s$ of
+any decomposition of $F$ as in Lemma~\ref{lem:gaussblocks}.
 \end{theorem}
 
 \begin{proof}
@@ -1335,10 +1339,12 @@ is the first inequality.  The rest follows from $\log^+|b_d|\ge\log|b_d|$ and
 Lemma~\ref{lem:gaussblocks}.
 \end{proof}
 
-Compare Proposition~\ref{prop:noangle}: $x^{2M}+\rho^{2M}$ pays
-$\Lambda=2M\log\rho$ for its degree $2M$, which the theorem allows; what the
-theorem forbids, at Gaussian roots, is a block of large degree and small
-mass.
+Compare Proposition~\ref{prop:noangle}, which lies outside this setting: at
+most two roots of $x^{2M}+\rho^{2M}$ above the axis are Gaussian integers
+(Lemma~\ref{lem:gaussbinom}; none unless $\rho^{2M}\in\mathbb Z$).  It
+pays $\Lambda=2M\log\rho$ for its degree $2M$, a charge of the form the
+theorem gives; what the theorem forbids, at Gaussian roots, is a block of
+large degree and small mass.
 
 \begin{theorem}[Thin Gaussian clusters]\label{thm:thingauss}
 Let $\varphi\in\R$, $0<\delta\le\pi/4$ and $R\ge6$, and suppose that every
@@ -1351,13 +1357,16 @@ and
   \qquad
   \frac{\pi}{2E(2\delta)}\ \ge\ \frac{\pi\log2}{16\,\delta\log(e\pi/(2\delta))}.
 \]
-If moreover some block $B$ of $F$ (Lemma~\ref{lem:gaussblocks}) has
+If moreover some block $B$ of some decomposition of $F$ as in
+Lemma~\ref{lem:gaussblocks} has
 $\deg B\cdot E(2\delta)\le\pi K/2$, then
 $b_k(F)\ge(R/2-1)^{m-k+1}$ for $1\le k\le m=\lceil K/2\rceil-1$.
 \end{theorem}
 
 \begin{proof}
-Let $B$ be a block of $F$, of degree $d$.  It is divisible by $P$, so it
+Let $B$ be a block, of degree $d$, of any decomposition of $F$ as in
+Lemma~\ref{lem:gaussblocks}; for the rows, take the block of the hypothesis.
+It is divisible by $P$, so it
 vanishes at the $K$ distinct $\alpha_j$; $B(0)\ne0$, $|b_d|\ge1$,
 $\Lambda(F)\ge\Lambda(B)$ and $b_k(F)\ge b_k(B)$.  If $dE(2\delta)\le\pi K/2$,
 Theorem~\ref{thm:thinsector} applies to $B$ and gives the first term, and the
@@ -1385,8 +1394,8 @@ smaller rate is possible.  $K$ zeros of modulus at least $R$ in a sector of
 half-width $\delta<\pi/2$ then cost either about $\frac12m^2\log R$, where
 $m$ is the excess of $K$ over the share $\delta n/\pi$, or about $n\log R$
 through the Mahler measure.  So for fixed $\delta$ and $K,R\to\infty$
-every multiple of degree $O(K)$ pays $(\pi/\delta-o(1))K\log R$, and this
-constant is attained
+every multiple of degree $O(K)$ with $|f_D|\ge1$ pays
+$(\pi/\delta-o(1))K\log R$, and this constant is attained
 (Theorem~\ref{thm:widesector}, Corollary~\ref{cor:wideconst},
 Proposition~\ref{prop:widesharp}); at Gaussian roots and fixed $\delta$ the
 degree restriction is removed by Theorem~\ref{thm:gausscharge}
@@ -1667,7 +1676,8 @@ $R\to\infty$.
 \end{corollary}
 
 \begin{proof}
-Let $B$ be a block of $F$ (Lemma~\ref{lem:gaussblocks}), of degree $d$; it is
+Let $B$ be a block of any decomposition of $F$ as in
+Lemma~\ref{lem:gaussblocks}, of degree $d$; it is
 real, $|b_d|\ge1$, it vanishes at the $K$ distinct $\alpha_j$, and
 $\Lambda(F)\ge\Lambda(B)$.  If $d\ge\lambda K$, Theorem~\ref{thm:gausscharge}
 with $\rho_{\min}\ge R>2$ gives $\Lambda(B)\ge\lambda K\log(R/2)$.  Otherwise
@@ -1833,9 +1843,9 @@ In the setting of Section~\ref{sec:gaussian}, assume $\rho_{\min}>2$, and let
 $F\in\mathbb Z[x]$ be nonzero and divisible by $P$, with lowest nonzero
 coefficient $v=f_e$.
 \begin{enumerate}
-\item The lowest coefficient of every block of $F$ (Lemma~\ref{lem:gaussblocks})
-is heavy and nonleading, so $F$ has at most as many blocks as heavy nonleading
-coefficients.
+\item For any decomposition of $F$ as in Lemma~\ref{lem:gaussblocks}, the
+lowest coefficient of every block is heavy and nonleading, so there are at most
+as many blocks as heavy nonleading coefficients of $F$.
 \item If $b_2(F)<\rho_{\min}/2$, then $F=x^e(v+H)$ with $H\in\mathbb Z[x]$,
 $H(0)=0$ and every nonleading coefficient of $H$ of modulus less than
 $\rho_{\min}/2$; moreover $H(\alpha_j)=-v$ for every $j$, and
@@ -1849,8 +1859,9 @@ $|B(0)|\ge P(0)\ge\rho_{\min}^2>\rho_{\min}/2$.  Its degree is at least $2K\ge2$
 so its lowest coefficient is not the leading coefficient of $F$, and distinct
 blocks have distinct lowest positions.
 
-2.  At most one nonleading coefficient of $F$ is heavy, so by item~1 $F$ has
-exactly one block, $F=x^eB$, and $B(0)=v$ is the heavy one; every other
+2.  At most one nonleading coefficient of $F$ is heavy, so by item~1 a
+decomposition of $F$ as in Lemma~\ref{lem:gaussblocks} has exactly one block,
+$F=x^eB$, and $B(0)=v$ is the heavy one; every other
 nonleading coefficient of $F$ has modulus less than $\rho_{\min}/2$.  Write
 $B=v+H$; since $B(\alpha_j)=0$, $H(\alpha_j)=-v$.  Let
 $d=\deg H=\deg B$.  The split $d$ of the $P$-irreducible $B$ is unclean at
@@ -1862,9 +1873,11 @@ nonleading coefficient of $F$, so $i=0$ and $|v|\ge(\rho_{\min}/2)^d$.
 
 So, when $\rho_{\min}>2$, $b_2(F)\ge\rho_{\min}/2$ unless every $\alpha_j$
 lies in one level set $\{y:H(y)=-v\}$ of such an $H$.  Three Gaussian points
-above the axis can share such a level set: $(y^3-y)^2$ takes the value
-$-100$ at $\pm2+i$ and $2i$, since $y^3-y$ is $\pm10i$ there, and $y^8+3y^4$
-the value $4$ at $\pm1+i$ and $i$, since $y^4$ is $-4$ and $1$ there.  Whether the number of Gaussian points above the axis in one level set
+above the axis can share such a level set: $(y^3-y)^2$, with nonleading
+coefficients $-2$ and $1$, takes the value $-270400$ at $\pm7+4i$ and $8i$,
+since $y^3-y$ is $\pm520i$ there, and these points have
+$\rho_{\min}=\sqrt{65}>4$.  Whether the number of Gaussian points above the
+axis in one level set
 of a polynomial with small nonleading coefficients is bounded, and whether
 $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots in
 a wide sector, remain open.
