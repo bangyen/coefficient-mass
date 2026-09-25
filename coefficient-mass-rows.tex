@@ -270,7 +270,7 @@ which is used in the remark after Theorem~\ref{thm:crossing}; the last row
 As in \cite[Section~2]{coefficient-mass}, for distinct nodes
 $y_1,\ldots,y_c\in(0,1)$ and $Z\subset\N_{>0}$ with $|Z|=c-1$, the
 \emph{exponential sum} $w$ on these nodes with $w_0=1$ and $w|_Z=0$ is the
-sequence $w_d=\sum_ia_iy_i^d$ with these values, $\Tail(w)=\sum_{d\ge1}|w_d|$,
+sequence $w_d=\sum_i\gamma_iy_i^d$ with these values, $\Tail(w)=\sum_{d\ge1}|w_d|$,
 and the \emph{leading run} of $Z$ is the largest $\ell\ge0$ with
 $[1,\ell]\subseteq Z$.
 
@@ -514,9 +514,9 @@ Evaluating $1=p(0)=\sum_l\ell_l(0)p(t_l)$ gives
 $\max_l|p(t_l)|\ge(n-1)!/(2(M_k+n-1))^{n-1}$.  Moreover
 $P(t_l)\ge r^{-(n-1)}P(M_k)$.
 
-The law has variance $\sigma^2=kr/(r-1)^2$.  By Chebyshev's inequality at
-least $\frac34$ of its mass lies within $2\sigma$ of the mean, on at most
-$4\sigma+1$ integers.  So the mode carries at least $3/(4(4\sigma+1))$.
+The law has variance $kr/(r-1)^2$.  By Chebyshev's inequality at
+least $\frac34$ of its mass lies within $2\sqrt{kr}/(r-1)$ of the mean, on at most
+$4\sqrt{kr}/(r-1)+1$ integers.  So the mode carries at least $3/(4(4\sqrt{kr}/(r-1)+1))$.
 \end{proof}
 
 \begin{corollary}[Rows for roots between one and two]\label{cor:belowtwo}
@@ -1260,7 +1260,8 @@ $i\le k$ and all such $k$.
 
 This sharpens Corollary~\ref{cor:belowtwo}, which gives
 $V_r(L,k)=(1+o(1))/\nu_k(n)$ as $k\to\infty$ with $n$ fixed: the factor
-$1+o(1)$ is exactly $1$ once $k\ge\max\{K,\alpha(n-1)\}$, uniformly in $n$.
+$1+o(1)$ is exactly $1$ once $k\ge\max\{K,\alpha(n-1)\}$, where $K$ does not
+depend on $n$.
 What remains open for $1<r<2$ are the rows with $\beta_r(n)>1$ and $k$
 below these thresholds.  The next subsection treats the first of them,
 $k=2$, and Section~\ref{sec:finiterows} reduces each of them to finitely
@@ -1506,7 +1507,7 @@ S$; the tail condition at $\sigma_0$ is the sign of
 $2R_p(\sigma_0)-\Psi_r(p)$, evaluated in the same way; and for each
 $\sigma<\sigma_0$ the test evaluates $\Phi_r$ on the listed candidate
 sets through $\sigma$, at most $n+1$ for each $\sigma$, until one
-satisfies the bound.  In each part $p=r_{Y_n}$, and $\sigma_0$ is the least
+satisfies the bound.  In (a), (c) and (d) $p=r_{Y_n}$, and $\sigma_0$ is the least
 integer $\sigma\ge\max Y_n$ with $2R_p(\sigma)\le\Psi_r(p)$, found by
 evaluating this sign at $\sigma=\max Y_n,\max Y_n+1,\ldots$; in all three
 parts it is $\max Y_n$ itself.  Any $\sigma_0$ satisfying the tail condition
@@ -1571,8 +1572,8 @@ $\eta_3(18)=\nu_4(16)=\mu_r([1,3],19)$ as in (a).
 
 Neither Theorem~\ref{thm:onepolyrows} nor Theorem~\ref{thm:longdiag}
 reaches (c), since both place the minimum at $i=k$.  In (a) and (d) the
-row is attained at a position $\sigma$ whose unique optimum contains all of
-$[1,\sigma]$.  So there the second row equals the prefix value
+row is attained at a position $\sigma$ for which the unique minimizer
+$r_Z$ of $\eta_\sigma(n)$ has all of $[1,\sigma]$ among its zeros.  So there the second row equals the prefix value
 $1/\nu_{\sigma+1}(n+1-\sigma)$, of a longer prefix and a smaller degree than
 the prefix identity allows, although only one position is exempted.
 
@@ -1771,15 +1772,15 @@ Proposition~\ref{prop:secondrowexact}, in \texttt{tests/test\_rows.py}
 \texttt{test\_third\_row\_is\_top\_row} for (c)); no floating point is
 used, and the decimals are truncations of exact values.  Each lower bound for a row comes from
 Theorem~\ref{thm:finiterows}(b) with $q_\varnothing=r_Y$ for the set $Y$
-named in that part, $q_N=r_{Z_N}$ for sets $Z_N\supseteq N$ of at most
+named in that part, $q_N=r_{K_N}$ for sets $K_N\supseteq N$ of at most
 $n+|N|-1$ integers, and $T_N$ the least integer with
 $\Delta_{q_N,m-|N|}(T_N)\le0$; a leaf $N\cup\{\sigma\}$ is checked through a
 set $Z\supseteq N\cup\{\sigma\}$ of at most $n+m-1$ integers with
 $\Phi_r(Z)\le B$.  The test builds the tree from the root
-$Z_\varnothing=Y$.  For a child $N\cup\{\sigma\}$ of a node $N$ with kept
-set $Z_N$ it forms these candidates: $Z_N$ itself if $\sigma\in Z_N$;
-otherwise $Z_N$ with one of the three elements of $Z_N\setminus N$ nearest
-to $\sigma$ replaced by $\sigma$, and $Z_N\cup\{\sigma\}$; and in either
+$K_\varnothing=Y$.  For a child $N\cup\{\sigma\}$ of a node $N$ with kept
+set $K_N$ it forms these candidates: $K_N$ itself if $\sigma\in K_N$;
+otherwise $K_N$ with one of the three elements of $K_N\setminus N$ nearest
+to $\sigma$ replaced by $\sigma$, and $K_N\cup\{\sigma\}$; and in either
 case the fixed set of $n+|N|$ integers of that part, with each position of
 $N\cup\{\sigma\}$ that it misses, taken in increasing order, put in place of
 one of the two elements outside $N\cup\{\sigma\}$ nearest to it, in every
@@ -1857,9 +1858,11 @@ give $\nu_2(8),\nu_3(8)<\nu_1(8)$.
 In (b) the prefix identity fails in the third row although it holds in the
 second, so this failure does not come from the second row through
 Lemma~\ref{lem:rowmono}.  In (a) the third row is strictly below the
-second.  In (b) the unique optimum $Z_{2,3}(14)$ contains $[1,3]$, as the
-unique optima in Proposition~\ref{prop:secondrowexact}(a) and~(d) contain
-$[1,\sigma]$; in (a) the unique optimum $Z_{2,3}(12)$ omits $1$.  The identities at
+second.  In (b) the zero set $Z_{2,3}(14)$ of the unique minimizer for
+$\mu_r(\{2,3\},16)$ contains $[1,3]$, as the zero sets of the unique
+minimizers for $\eta_\sigma(n)$ in Proposition~\ref{prop:secondrowexact}(a)
+and~(d) contain $[1,\sigma]$; in (a) the zero set $Z_{2,3}(12)$ of the
+unique minimizer for $\mu_r(\{2,3\},14)$ omits $1$.  The identities at
 $(\frac43,15,2)$ and $(\frac32,10,3)$ are outside
 Theorems~\ref{thm:onepolyrows} and~\ref{thm:longdiag}, which give
 $\nu_1(n)\le\nu_k(n)$.
