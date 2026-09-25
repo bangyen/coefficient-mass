@@ -42,7 +42,7 @@ this sharpens the bound $b_k\ge L-k+1$.  The proof reduces each row to an
 $\ell^1$ problem for polynomials with prescribed integer zeros, covers all
 exempted positions beyond the first gap of a minimizer by one crossing step,
 and bounds the cost of that step by first-order optimality.  For $1<r<2$ the
-rows are not top rows.  We show that they are given by
+rows are not all top rows.  We show that they are given by
 prefix-constrained problems whenever the top row is at most one, and on each diagonal $L-k=\mathrm{const}$ for all but finitely many
 rows.  The second row is a minimum over finitely many exempted positions,
 each term attained by a polynomial with integer zeros whose optimality, for
@@ -93,7 +93,7 @@ versions of this paper proved the identity at $r\ge\frac92$, $r\ge4$ and
 $r\ge\frac{25}7$ by bounding the hole product of a top-row optimum; that
 route cannot reach $r=2$.
 
-For $1<r<2$ the rows are not top rows.  The last row is
+For $1<r<2$ the rows are not all top rows.  The last row is
 $V_r(L,L)=(r-1)^L<\beta_r(1)$ for $L\ge2$ (Corollary~\ref{cor:lastrowr}).
 The natural comparison values are the prefix values $\nu_i(n)$: the least
 weighted $\ell^1$ norm $\sum_{s\ge1}|q(s)|r^{-s}$ of a polynomial $q$ with
@@ -333,8 +333,8 @@ At $r=2$ both values are $1$.
 
 This section keeps the notation of the previous one and brackets every row
 by prefix values (Theorem~\ref{thm:prefixrows}).  For $1<r<2$ the bracket
-identifies the rows up to a factor tending to $1$
-(Corollary~\ref{cor:belowtwo}).
+identifies the rows up to a factor tending to $1$ once $k$ is large
+compared with $n$ (Corollary~\ref{cor:belowtwo}).
 
 For $i\ge1$ and $n\ge1$ put
 \[
@@ -446,7 +446,8 @@ $\Omega_k(n)\le\nu_k(n)+E_k(r)$.
 The upper bound says that the prefix sets $S=[1,i-1]$, completed by a far
 block, are admissible exempted sets.  The lower bound compares every $S$
 with the prefix $[1,k-1]$.  The loss $E_k(r)$ comes from the first $2k-2$
-positions only.  For $r<2$ it is exponentially small against $\nu_k(n)$.
+positions only.  For $r<2$ and $n$ small compared with $k$ it is exponentially small
+against $\nu_k(n)$ (Corollary~\ref{cor:belowtwo}).
 
 \begin{lemma}[The negative-binomial mass]\label{lem:nbmass}
 Let $r>1$, $k,n\ge1$, $\varpi=1-1/r$, and let $M_k$ be a mode of the
@@ -863,7 +864,7 @@ $D\to\infty$ gives $\nu_{i+1}(m)\le a\,\nu_i(m)$ for every $r>1$.
 
 \section{Rows below the root \texorpdfstring{$2$}{2}}\label{sec:belowtwo}
 
-For $1<r<2$ the rows are not top rows, and Theorem~\ref{thm:allrowstwo}
+For $1<r<2$ the rows are not all top rows, and Theorem~\ref{thm:allrowstwo}
 gives only $V_r(L,k)\ge(r-1)^{k-1}\beta_r(n)$.  The prefix identity~\eqref{eq:prefixid}
 would give $\min_{i\le k}1/\nu_i(n)$.  This section proves it in two regimes: for
 every $k$ when $\beta_r(n)\le1$ (Section~\ref{sec:onepoly}), and for every
@@ -1059,7 +1060,7 @@ The mechanism is simple.  By Lemma~\ref{lem:intzeros} the polynomials for
 $\nu_k(n)$ may be taken with all zeros at least $k$, and such a polynomial is
 bounded by $1$ on $[1,2k-3]$.  There the weights $\omega_i$, $i<k$, exceed
 $\omega_k$ by an amount that is exponentially small compared with $\nu_k(n)$
-when $r<2$.  From $2k-2$ on, $\omega_k$ dominates every $\omega_i$, $i<k$,
+when $r<2$ and $k$ is large compared with $n$.  From $2k-2$ on, $\omega_k$ dominates every $\omega_i$, $i<k$,
 with a margin that is a fixed fraction of $\omega_k$ near the mode of
 $\omega_k$, where every polynomial in $\mathcal Q_n$ has some mass.
 
@@ -1120,8 +1121,8 @@ Theorem~\ref{thm:prefixrows} gives
 $V_r(L,k)\le\min_i1/\nu_i(n)\le1/\nu_k(n)$.
 \end{proof}
 
-The hypothesis compares a quantity that is exponentially small for $r<2$
-with one that is not.  The next proposition makes this explicit.  It uses
+The hypothesis compares a quantity that is exponentially small relative to
+$a^k$ for $r<2$ with one that is not.  The next proposition makes this explicit.  It uses
 the mode of $\omega_k$ and Lagrange interpolation, as in
 Lemma~\ref{lem:nbmass}.
 
@@ -1312,7 +1313,7 @@ factor $1-s/w$ with $w\to\infty$ tends to $1$, so $r_{W_j}\to r_Z$
 coefficientwise, where $Z\supseteq S$, $|Z|\le L-1$, consists of the
 eventually constant elements.  For each $M$,
 $\sum_{s\le M}|r_Z(s)|r^{-s}=\lim_j\sum_{s\le M}|r_{W_j}(s)|r^{-s}$, and for
-$D_j\ge M$ each term is at most
+$D_j\ge M$ each partial sum $\sum_{s\le M}|r_{W_j}(s)|r^{-s}$ is at most
 $\Phi_{r,D_j}(r_{W_j})=\mu_{r,D_j}(S,L)\le\mu_r(S,L)$.  So
 $\Phi_r(Z)\le\mu_r(S,L)$, with equality because $r_Z$ is admissible.  If
 $|Z|<L-1$, then $(1-s/\sigma)r_Z$ is admissible for $\mu_r(S,L)$ for every
