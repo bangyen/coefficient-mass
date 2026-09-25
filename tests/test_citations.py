@@ -1,9 +1,10 @@
 """The papers' numbered cross-references resolve to the results they name.
 
-The three companions cite ``coefficient-mass.tex`` by number --
-``\\cite[Theorem~2.2]{coefficient-mass}``.  :mod:`numbering` explains why a
-number has to be checked against the source; this holds every such citation
-to the paper and the label it is supposed to name.  The expectations are
+The companions cite ``coefficient-mass.tex`` by number --
+``\\cite[Theorem~2.2]{coefficient-mass}`` -- and ``coefficient-mass-sectors.tex``
+cites ``coefficient-mass-complex.tex`` the same way.  :mod:`numbering`
+explains why a number has to be checked against the source; this holds every
+such citation to the paper and the label it is supposed to name.  The expectations are
 labels, not numbers, because the label is what the citing sentence means.
 
 ``bangyen/esolangs`` cites these papers too, from a pinned tag; its own
@@ -74,6 +75,42 @@ CITATIONS = {
         "Proposition",
         "prop:sharp23",
     ),
+    ("coefficient-mass-sectors.tex", "coefficient-mass", "3.2"): (
+        "Theorem",
+        "thm:order",
+    ),
+    ("coefficient-mass-sectors.tex", "coefficient-mass", "3.4"): (
+        "Corollary",
+        "cor:mass",
+    ),
+    ("coefficient-mass-sectors.tex", "coefficient-mass-complex", "2.2"): (
+        "Theorem",
+        "thm:transfer",
+    ),
+    ("coefficient-mass-sectors.tex", "coefficient-mass-complex", "2.4"): (
+        "Corollary",
+        "cor:ray",
+    ),
+    ("coefficient-mass-sectors.tex", "coefficient-mass-complex", "3.2"): (
+        "Proposition",
+        "prop:noangle",
+    ),
+    ("coefficient-mass-sectors.tex", "coefficient-mass-complex", "3.3"): (
+        "Theorem",
+        "thm:archnewton",
+    ),
+    ("coefficient-mass-sectors.tex", "coefficient-mass-complex", "6.1"): (
+        "Lemma",
+        "lem:gausscarry",
+    ),
+    ("coefficient-mass-sectors.tex", "coefficient-mass-complex", "6.2"): (
+        "Lemma",
+        "lem:gaussblocks",
+    ),
+    ("coefficient-mass-sectors.tex", "coefficient-mass-complex", "6.3"): (
+        "Theorem",
+        "thm:gausscharge",
+    ),
     ("coefficient-mass-rows.tex", "coefficient-mass", "2.1"): (
         "Lemma",
         "lem:consecutive",
@@ -97,6 +134,7 @@ CITING = (
     "coefficient-mass-attainment.tex",
     "coefficient-mass-complex.tex",
     "coefficient-mass-rows.tex",
+    "coefficient-mass-sectors.tex",
 )
 
 #: A numbered reference in running text or in a ``\cite`` option.
