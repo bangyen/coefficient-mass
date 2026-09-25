@@ -17,7 +17,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   each window.
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
   separation for the mass, between `2 + 1/18915` and 81 (at most
-  `max(4, n_2 + 1)` for two annuli, `cor:twofixed`), and whether 9
+  `max(4, n_2 + 1)` for two annuli, `cor:twofixed`, and `7/3` for
+  `n_2 <= 2`, `cor:twonear`), and whether 9
   suffices, for two annuli with many roots above the gap in particular;
   whether `T_a > (n_a + 1) U_(a-1)` gives every row of `cor:annuli` also
   where `n_a <= 9` and `S >= 3` (it does where `n_a >= 10`, the row 3 also
@@ -25,7 +26,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   1/2, `cor:rowsplusone`, `prop:rowslower`; for `3 <= n_a <= 9` the
   separation `max(9, n_a + 3/2)` is known, `cor:rowsplusone` item 3; for
   two annuli the least separation lies between `n_2/(1 - 2**(-n_2-1))` and
-  `n_2 (1 + 3 * 2**(-n_2))` for `n_2 >= 4`, `cor:twofixed`); the best
+  `n_2 (1 + 3 * 2**(-n_2))` for `n_2 >= 4`, `cor:twofixed`, and between
+  `4/3` and `4/3 + 2/(3 T_1)` for `n_2 = 1`, `cor:twonear`); the best
   constant `c` in `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` (in
   `[1/2, 1]`, `prop:rowstwohalf`; at least `1 - 1/a_0` over
   `|alpha| >= a_0 >= 2`, `prop:rowstwolarge`; numerically 1).
@@ -230,9 +232,20 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `max(4, n_2 + 1)`, with only `T_1 > 3` (`cor:twofixed`);
   `(x - q)(x + t)**K`, `t = Kq/(1 - 2**(-K-1))`, misses the second row, so
   for two annuli the least separation for the rows lies between
-  `n_2/(1 - 2**(-n_2-1))` and `n_2 (1 + 3 * 2**(-n_2))` (`n_2 >= 4`).  For
-  the mass, `K_2 = 1` lies in `[32/31, 4]` and `K_2 = 2` in
-  `[2 + 1/18915, 4]`.  At a fixed separation `g` and `n_2 = K >= g`, the
+  `n_2/(1 - 2**(-n_2-1))` and `n_2 (1 + 3 * 2**(-n_2))` (`n_2 >= 4`).
+  Eliminating one position `j` between a zero `alpha` below the gap and a
+  zero `beta` above, `sum_l f_l beta**l ((alpha/beta)**(l-j) - 1) = 0`,
+  charges `beta` to the position `D - 1` (or a higher power of `|beta|` to
+  a lower position) with no factor `lambda` (`lem:twozeros`).  So for
+  `K_2 = 1` the second row holds at `T_2 > (4/3 + 2/(3 T_1)) U_1`, and
+  `(x - q)(x + t)`, `t < 4q/3`, misses it: the least separation for the rows
+  is `4/3 + O(1/T_1)`.  For `K_2 = 2` it gives, with the second position
+  of the proof of `prop:rowstwolarge` (which excludes any given position)
+  and the first row at a position `<= D - 2`, the mass at
+  `T_2 > (2 + 1/T_1) U_1` (`cor:twonear`).  For the mass,
+  `K_2 = 1` lies in `[32/31, 4/3 + 2/(3 T_1)]` (at most `14/9`) and
+  `K_2 = 2` in `[2 + 1/18915, 7/3]`, tending to 2 as `T_1 -> oo`: at
+  `T_1 = q >= 97` it lies in `[2 + 1/(q(2q+1)), 2 + 1/q]`.  At a fixed separation `g` and `n_2 = K >= g`, the
   same family at `t = Kq/(1 - 2**(-2K-4))`, `q >= 2**(3K+5)`, has
   `log b_1 + log b_2` below the mass bound, so a proof at a fixed
   separation for all `n_2` must charge a third nonleading position (there
@@ -294,7 +307,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   holds at `T_2 > 12 U_1` when `K_2 = 2`, the case of `prop:gaptwo`, and at
   `T_2 > 6 U_1` when `K_2 = 1`, where `(x - q)(x + t)` fails for
   `1 <= t - q < t/32` (separations up to `32/31`); both at `4 U_1` by
-  `cor:twofixed`.  Below 81 the proof of
+  `cor:twofixed`, and at `7/3` and `14/9` by `cor:twonear`.  Below 81 the proof of
   `thm:fixedgap` breaks down where only one vertex above those charged for
   the lower annuli is active in the gap, between tropical roots less than
   `2 log 3` apart, with fewer than `n_a` positions above it; that is how
@@ -320,10 +333,18 @@ is open; an answer lands in the paper it extends, and the row leaves.
   also for pairs near the imaginary axis (`prop:annulisharp`).  Open: the
   least fixed separation for the mass, between `2 + 1/18915` and 81
   (whether 9 suffices; for two annuli it is at most `max(4, n_2 + 1)` by
-  `cor:twofixed`, and whether a separation below 81 independent of `n_2`
-  suffices there is open: for `n_2 >= g` the first two rows fall short of
-  the mass at the separation `g`, and a third position must be charged; for
-  `K_2 = 2`, whether the least separation is close to 2), and whether
+  `cor:twofixed`, and `7/3` for `n_2 <= 2` by `cor:twonear`, and whether a
+  separation below 81 independent of `n_2` suffices there is open: for
+  `n_2 >= g` the first two rows fall short of the mass at the separation
+  `g`, and a third position must be charged; `lem:twobelow` charges `k`
+  zeros above the gap to one position only at separations above `k`, and
+  `lem:twozeros` only one zero, so for `n_2 >= 3` below the separation `n_2`
+  the charge must be spread over several positions whose distances from `D`
+  add up to about `n_2`, as at `2, ..., K` in `(x - q)(x + t)**K` near
+  `t = Kq`; for `K_2 = 2`, whether the least separation at a given `T_1`
+  exceeds 2 by order `1/T_1`, as `cor:twonear` allows, or by order
+  `1/T_1**2`, as `prop:gaptwo` gives; for `K_2 = 1`, the least separation
+  for the mass, between `32/31` and `4/3 + 2/(3 T_1)`), and whether
   `T_a > (n_a + 1) U_(a-1)` gives every row also where `n_a <= 9` and
   `S >= 3` (for the row `k >= 4` where `n_k <= 9`, for the row 3 where
   `n_3 <= 6`; known there: `max(9, n_a + 3/2)` for `n_a >= 3`, 12 or 11 for
