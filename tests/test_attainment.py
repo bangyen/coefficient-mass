@@ -23,7 +23,15 @@ from __future__ import annotations
 import random
 from fractions import Fraction
 
-from tests.sweep import _certificate, _partial_sums, _solve, _tail, _u, min_bk_of
+from tests.sweep import (
+    _certificate,
+    _partial_sums,
+    _simplex_min_t,
+    _solve,
+    _tail,
+    _u,
+    min_bk_of,
+)
 
 SEED = 20260925
 
@@ -625,3 +633,37 @@ def test_cutoff_sharp() -> None:
     two = _poly([Fraction(2), Fraction(5), Fraction(7)])
     assert _exempt_max(two, 2) == 24
     assert min_bk_of(two, 2, 7) >= 24
+
+
+def _min_b2_exempting(poly: list[Fraction], degree: int, exempt: int) -> Fraction:
+    """Exact ``min b_2`` over monic multiples of ``poly`` of the given degree
+    whose largest nonleading coefficient sits at position ``exempt``."""
+    deg_p = len(poly) - 1
+    n = degree - deg_p
+    keep = [j for j in range(degree) if j != exempt]
+    rows = [
+        [poly[j - i] if 0 <= j - i <= deg_p else Fraction(0) for i in range(n)]
+        for j in keep
+    ]
+    const = [poly[j - n] if 0 <= j - n <= deg_p else Fraction(0) for j in keep]
+    return _simplex_min_t(rows, const)
+
+
+def test_infimum_approached_directly() -> None:
+    """``inf b_2 = 1704/31`` at ``(2,3,5,7)``, checked by optimizing over
+    multiples rather than by replaying the certificate: the exact optimum at
+    each degree up to 30 stays above ``1704/31`` and comes within ``1/1000``
+    of it, and at degree 14 the best exempt position is the constant term,
+    the escaping placement of ``thm:extremal``.
+
+    Control: the row value ``48`` of ``thm:order`` at ``u = 1`` is not the
+    infimum here, as the partial-sum criterion fails.
+    """
+    poly = _poly([Fraction(r) for r in (2, 3, 5, 7)])
+    target = Fraction(1704, 31)
+    values = [_min_b2_exempting(poly, d, 0) for d in (10, 15, 20, 25, 30)]
+    assert all(a > b > target for a, b in zip(values, values[1:], strict=False))
+    assert values[-1] - target < Fraction(1, 1000)
+    at14 = [_min_b2_exempting(poly, 14, e) for e in range(14)]
+    assert min(at14) == at14[0]
+    assert min(at14) > target > 48
