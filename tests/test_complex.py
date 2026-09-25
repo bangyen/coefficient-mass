@@ -560,7 +560,8 @@ COPRIME = [(1, 2), (-2, 3), (4, 1), (-5, 2)]
 def test_lowest_coefficients_coprime() -> None:
     """``prop:gausslow``, items 1-2: ``d_m = P(0)^m``, and the multiple
     ``P (d_m/P mod x^m)`` is ``d_m`` below ``x^m``; random multiples pay
-    ``P(0)^g`` at their lowest coefficient for a gap ``g``."""
+    ``P(0)^gap`` at their lowest coefficient, ``gap`` the distance to
+    the next nonzero one."""
     rng = random.Random(SEED + 4)
     for big_k in range(1, len(COPRIME) + 1):
         p = _pairs(COPRIME[:big_k])

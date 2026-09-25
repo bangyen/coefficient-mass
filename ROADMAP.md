@@ -43,7 +43,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `floor((L+1)**2/4) log(R/2)`, sharp at `+-s_j` (`cor:bothsignsmass`,
   `prop:bothsignssharp`).  Wide sectors (`sec:widesectors`): for multiples of degree `O(K)` the order is
   `min(K**2, K/delta) log R` with both constants sharp (`1/2` of `K**2 log R`
-  as `delta K -> 0`, on a common ray; `pi` of `(K/delta) log R`) (`thm:widesector`,
+  as `K -> oo` with `delta K -> 0`, on a common ray; `pi` of `(K/delta) log R`
+  at fixed `delta`) (`thm:widesector`,
   `cor:wideconst`; `x^N - rho^N` attains `pi/delta`, `prop:widesharp`), so
   `c K**2 log R` is false over the reals; at Gaussian roots
   `(pi/delta - o(1)) K log R` holds unconditionally (`cor:widegauss`).
@@ -51,8 +52,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `2 deg A` Gaussian roots above the axis, so `x^N - b` at most two
   (`lem:gaussbinom`); at pairwise coprime odd norms with
   `gcd(a_j, c_j) = 1` a multiple can be `f mod x^m` exactly when
-  `P(0)**m | f`, so a gap `g` after the lowest coefficient costs
-  `2Kg log rho_min`, while at a common norm `n` the lowest `m`
+  `P(0)**m | f`, so a gap `m` after the lowest coefficient costs
+  `2Km log rho_min`, while at a common norm `n` the lowest `m`
   coefficients can be `n**(K+m-1), 0, ..., 0` (`prop:gausslow`); and an
   exhaustive search finds no `H(x) - v` with small `H` at more than three
   prescribed roots.
