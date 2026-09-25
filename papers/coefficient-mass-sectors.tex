@@ -143,7 +143,13 @@ and at odd,
 pairwise coprime norms $|\alpha_j|^2$ with
 $\gcd(\operatorname{Re}\alpha_j,\operatorname{Im}\alpha_j)=1$ a gap $m$ after
 the lowest coefficient, that is, $m-1$ vanishing coefficients after it,
-costs $2Km\log\min_j|\alpha_j|$ (Proposition~\ref{prop:gausslow}).  If
+costs $2Km\log\min_j|\alpha_j|$ (Proposition~\ref{prop:gausslow}).  The
+$p$-adic Newton polygons of $F$ at the primes dividing these norms refine
+this (Proposition~\ref{prop:gaussadic}): there a polynomial in $x^N$ pays
+$2N\sum_j\log|\alpha_j|$, but the valuations alone give a bound linear in $K$
+at $P=\prod_j(x-\alpha_j)(x-\bar\alpha_j)$ itself, and coefficients of
+modulus at most $V$ in place of the gap may lower the exponent $m$ of
+$P(0)$ in the cost by $(m-1)\log V/\log P(0)$.  If
 $\min_j|\alpha_j|>2$ and an integer multiple $F$ has
 $b_2(F)<\min_j|\alpha_j|/2$, all the $\alpha_j$ lie in one level set
 $\{y:H(y)=-v\}$, $v$ the lowest nonzero coefficient of $F$, of a polynomial
@@ -428,7 +434,8 @@ In wide sectors a bound $\Lambda\ge cK^2\log R$ valid for all root sets is
 therefore false for real multiples.  For integer
 multiples at Gaussian roots it is open; Section~\ref{sec:imitations} gives
 limits on integer imitations of $x^N-\rho^N$ (Lemma~\ref{lem:gaussbinom},
-Propositions~\ref{prop:gausspower} and~\ref{prop:gausslow}), shows that such a
+Propositions~\ref{prop:gausspower}, \ref{prop:gausslow}
+and~\ref{prop:gaussadic}), shows that such a
 $c$ is at most $1$, and at most $\frac12$ when $\delta>\pi/4$
 (Proposition~\ref{prop:gausspower}), and reduces the second row to level
 sets (Propositions~\ref{prop:gaussheavy} and~\ref{prop:gausscircle}).
@@ -956,6 +963,108 @@ some multiple has lowest $m=O(K)$ coefficients $(d_m,0,\ldots,0)$, of mass
 $\log d_m\le(K+m-1)\log n$, and no bound that looks only at them gives order
 $K^2\log R$ at every root set.
 
+At pairwise coprime norms, the mass bound of item~2 is one term of a bound
+read off the $p$-adic Newton polygons of $F$ at the primes $p$ dividing the norms.  For a
+prime $p$ and a nonzero $F\in\mathbb Z[x]$ let $\mathcal N_p(F)$ be the lower
+convex hull of the points $(i,v_p(f_i))$, $f_i\ne0$, where $v_p$ is the
+$p$-adic valuation.  By the Newton polygon
+theorem~\cite[Chapter~II, Proposition~6.3]{neukirch}, if
+$F=x^eF_0$ with $F_0(0)\ne0$, an edge of $\mathcal N_p(F)$ of slope $-s$ and
+horizontal length $\ell$ accounts for exactly $\ell$ roots of $F_0$, counted
+with multiplicity, of valuation $s$ in an algebraic closure of $\mathbb Q_p$,
+and every root of $F_0$ arises in this way.
+
+\begin{proposition}[Valuations at the primes over the norms]\label{prop:gaussadic}
+In the setting of Section~\ref{sec:gaussian}, let $F\in\mathbb Z[x]$ be nonzero
+and divisible by $P$, with lowest nonzero coefficient $f_e$ and next nonzero
+coefficient $f_{e_2}$, and write $n_j=\rho_j^2$.
+\begin{enumerate}
+\item Let $p$ be an odd prime and $j$ an index with $p\mid n_j$ and
+$p\nmid\gcd(a_j,c_j)$, and put $w=v_p(n_j)$.  Then $\mathcal N_p(F)$ has an
+edge of slope $-w$.  Its right endpoint $y=y_{j,p}$ satisfies $y\ge e_2$ and
+$f_y\ne0$, $y-e$ is the number of roots of $F/x^e$ of valuation at least $w$,
+counted with multiplicity, and
+\[
+  p^{w(y-i)}\ \text{divides}\ f_i\qquad(0\le i<y).
+\]
+\item If the $n_j$ are odd and pairwise coprime and $\gcd(a_j,c_j)=1$ for
+every $j$, then
+\[
+  \Lambda(F)\ \ge\ \sum_{j=1}^K\sum_{p\mid n_j}v_p(n_j)\log p
+  \sum_{\substack{e\le i<y_{j,p}\\ f_i\ne0}}(y_{j,p}-i)
+  \ \ge\ (e_2-e)\log P(0).
+\]
+In particular $\Lambda(F)\ge N\log P(0)=2N\sum_j\log\rho_j$ if $F=A(x^N)$
+with $A\in\mathbb Z[y]$, and at $F=P$ every $y_{j,p}$ equals $1$, so the
+middle term of the display is $\log P(0)$.
+\item Let $m\ge1$ and $1\le V<P(0)$.  Some $F\in\mathbb Z[x]$ divisible by $P$,
+of degree less than $m+2K$, has $|f_i|\le V$ for $0<i<m$ and
+$P(0)\le|f_0|\le P(0)^m/V^{m-1}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+1.  Here $p\nmid c_j$: otherwise $p\mid a_j^2=n_j-c_j^2$ and $p\mid\gcd(a_j,c_j)$;
+likewise $p\nmid a_j$.  As $a_j^2\equiv-c_j^2\pmod p$, $-1$ is a square modulo
+the odd prime $p$, and by Hensel's lemma there is $\iota\in\mathbb Z_p$ with
+$\iota^2=-1$ and $\iota\equiv-a_j/c_j\pmod p$.  The ring homomorphism
+$\phi:\mathbb Z[i]\to\mathbb Z_p$, $i\mapsto\iota$, has
+$\phi(\alpha_j)\phi(\bar\alpha_j)=n_j$ and
+$\phi(\bar\alpha_j)=a_j-c_j\iota\equiv2a_j\not\equiv0\pmod p$, so
+$v_p(\phi(\alpha_j))=w\ge1$, and $F(\phi(\alpha_j))=\phi(F(\alpha_j))=0$.  So
+$F/x^e$ has a root of valuation $w$ in $\mathbb Z_p$, and $\mathcal N_p(F)$ has
+an edge of slope $-w$, from $(y',v_p(f_{y'}))$ to $(y,v_p(f_y))$ say, with
+$e\le y'<y$ positions of nonzero coefficients; so $y\ge e_2$.  The edges
+to its left have slopes less than $-w$ and account for the roots of valuation
+more than $w$, so the roots of valuation at least $w$ number $y-e$.  By
+convexity, $\mathcal N_p(F)$ lies above the line through this edge on
+$[e,y]$, so every $i<y$ with $f_i\ne0$ has
+$v_p(f_i)\ge v_p(f_y)+w(y-i)\ge w(y-i)$; for $f_i=0$ there is nothing to
+prove.
+
+2.  An odd prime dividing some $n_j$ divides no other $n_l$, and item~1 applies
+to every pair $(j,p)$ with $p\mid n_j$.  For each nonzero coefficient,
+$\log^+|f_i|\ge\log|f_i|=\sum_pv_p(f_i)\log p$, and keeping only the primes
+dividing some $n_j$, each of which belongs to exactly one $j$, and bounding
+$v_p(f_i)\ge v_p(n_j)(y_{j,p}-i)$ for $i<y_{j,p}$ by item~1 gives the first
+inequality.  Keeping only $i=e$ and using $y_{j,p}\ge e_2$, and
+$\sum_j\sum_{p\mid n_j}v_p(n_j)\log p=\log\prod_jn_j=\log P(0)$, gives the
+second.  A monomial has no root $\alpha_j\ne0$, so a multiple $A(x^N)$ has two
+nonzero coefficients whose positions are multiples of $N$, and $e_2-e\ge N$.
+At $F=P$, $e=0$ and $P=(x^2-2a_jx+n_j)U$ with $U(0)=\prod_{l\ne j}n_l$ prime to
+$p$, so $p_1=-2a_jU(0)+n_jU'(0)\equiv-2a_jU(0)\not\equiv0\pmod p$; the edge of
+slope $-w$ joins $(0,w)$ to $(1,0)$, and $y_{j,p}=1$.
+
+3.  For $S=\sum_{k<m}s_kx^k\in\mathbb Z[x]$ the lowest $m$ coefficients of
+$PS$ are $\sum_ks_k\,\mathbf p_k$, where $\mathbf p_k\in\mathbb Z^m$ is the
+vector of the coefficients of $x^0,\ldots,x^{m-1}$ in $x^kP$.  Its first $k$
+entries vanish and its entry $k$ is $P(0)$, so the $\mathbf p_k$ span a
+lattice $L_m\subset\mathbb Z^m$ of determinant $P(0)^m$.  The box
+$[-X,X]\times[-V,V]^{m-1}$ with $X=P(0)^m/V^{m-1}$ has volume $2^mP(0)^m$, so by
+Minkowski's theorem it contains a nonzero vector $\sum_ks_k\mathbf p_k$ of
+$L_m$.  If $k_0$ is the least $k$ with $s_k\ne0$, the entry $k_0$ of this
+vector is $P(0)s_{k_0}$ and the earlier ones vanish; since $V<P(0)$, this
+forces $k_0=0$.  So $F=PS$ has $|f_0|=P(0)|s_0|\in[P(0),X]$ and $|f_i|\le V$
+for $0<i<m$, and $\deg F<m+2K$.
+\end{proof}
+
+By item~2 a polynomial in $x^N$ pays $2N\sum_j\log\rho_j$ at such norms, four
+times the bound of Proposition~\ref{prop:gausspower}, item~1, whose equality
+case $x^4+4k^4$ has a common norm.  The valuations cannot do more than
+item~2 says: the middle term of the display charges $\log n_j$ once for every
+root of $F/x^e$ that is at least as divisible by $p$ as $\alpha_j$, other
+than $\alpha_j$ itself, and roots of $F/P$ need not be; at $F=P$ it is
+$\log P(0)\le2K\log\rho_{\max}$, linear in $K$.  A bound of order
+$K^2\log R$ at pairwise coprime norms therefore has to combine the
+valuations with the sizes of the coefficients.  Item~3 bounds what such a
+combination can give at the lowest coefficient: small coefficients after it,
+in place of the zeros of Proposition~\ref{prop:gausslow}, item~2, may lower
+the exponent $m$ of $P(0)$ by $(m-1)\log V/\log P(0)$, which is less than
+$m-1$.  The sizes alone give much less: if $V<\rho_{\min}/2$ and the split
+$m$ of $F/x^e$ is unclean at some $\alpha_j$,
+\cite[Lemma~6.1]{coefficient-mass-complex} gives only
+$|f_e|\ge(\rho_{\min}/2)^m$, since no $f_i$ with $e<i<e+m$ can be the large one.
+
 At Gaussian roots a small second row confines an integer multiple to one
 level set of a polynomial with small nonleading coefficients, whereas over
 the reals $x^N-\rho^N$ has $b_2=0$.
@@ -1069,7 +1178,8 @@ repository of~\cite{coefficient-mass} checks the statements, on seeded
 random Gaussian and integer multiples and on the extremal examples, each
 group with a control showing that a false variant is caught; these checks
 test the statements and are not used in any proof.  Polynomial products,
-divisibility, coefficient magnitudes, power-series coefficients and Sturm
+divisibility, $p$-adic valuations and Newton polygons, coefficient
+magnitudes, power-series coefficients, lattice vectors and Sturm
 counts of real zeros are computed in exact integer and rational arithmetic;
 floating point enters only in evaluating logarithms, in the right-hand sides
 of mass bounds and the constants $E$ and $\kappa$.
@@ -1100,6 +1210,11 @@ B.~Pham,
 P.~Erd\H{o}s and P.~Tur\'an,
 \newblock On the distribution of roots of polynomials,
 \newblock \emph{Annals of Mathematics} (2) 51 (1950), 105--119.
+
+\bibitem{neukirch}
+J.~Neukirch,
+\newblock \emph{Algebraic Number Theory},
+\newblock Grundlehren der mathematischen Wissenschaften 322, Springer, 1999.
 \end{thebibliography}
 
 \end{document}
