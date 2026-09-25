@@ -133,7 +133,8 @@ $T\ge\tau^*$; and $\tau^*$ is attained, with
 \]
 over monic $M\in\R[x]$ (Propositions~\ref{prop:attain}
 and~\ref{prop:attainrep}).  For $2\le r_1\le\cdots\le r_L$ the escaping
-placement is the worst one: $T=\tau^*$, so the infimum is $1/\tau^*$ and the
+placement is the worst one (the largest least tail, so the one the best
+multiples use): $T=\tau^*$, so the infimum is $1/\tau^*$ and the
 multiplier formula computes it (Theorem~\ref{thm:extremal} and
 Corollary~\ref{cor:extremalrep}).  Below $2$ this fails: at
 $(\tfrac{11}{10},3,5,7)$ with $u=1$ an explicit multiple beats $1/\tau^*$
@@ -708,8 +709,9 @@ A certificate on $c$ nodes is \emph{full} if it has $c-1$ prescribed zeros.
 It is then unique, and by the zero bound it has no other zeros and keeps one
 sign past its largest zero.  By \eqref{eq:weak} every monic multiple $F$ has
 $b_{u+1}(F)\ge1/\tau(X_F)$, where $X_F$ holds the distances from the top of
-its $u$ largest nonleading coefficients.  So the infimum is set by the worst
-placement.  The first result says that it is exactly that, and that exempt
+its $u$ largest nonleading coefficients.  So the infimum is set by the \emph{worst}
+placement, the one maximising $\tau(X)$: worst for the certificate, and so
+best for the multiple.  We call $\tau(X)$ the \emph{cost} of $X$.  The first result says that it is exactly that, and that exempt
 coefficients escaping to the bottom cost $\tau^*$, the best tail on the
 surviving roots alone.
 
@@ -1476,7 +1478,7 @@ $y_1,\ldots,y_L$ with weight $1$ on $y_1$, $H_0=0$ and $H|_{Z^*}=0$.
 \begin{enumerate}
 \item[(a)] $\tau(\{x\})\le\tau^*$ for $x\in Z^*$.
 \item[(b)] For $x>g$, the full certificate $w$ on $y_1,\ldots,y_L$ with
-zero set $Z^*\cup\{x\}$ satisfies
+zero set $Z^*\cup\{x\}$ (the \emph{aligned lift} of $V$ by $x$) satisfies
 \[
   \Tail(w)=\tau^*-2\sum_{d>x}|V_d|
   -\frac{|V_x|}{|H_x|}\Bigl(\sum_{d=1}^{x}|H_d|-\sum_{d>x}|H_d|\Bigr).
