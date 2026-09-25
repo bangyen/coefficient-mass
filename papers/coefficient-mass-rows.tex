@@ -299,37 +299,87 @@ $\Tail(w)\le\max(1,\varphi_c)\Tail(u)$.
 \end{theorem}
 
 \begin{proof}
-The sum $w$ exists and is unique for any distinct positive nodes, by the
-Vandermonde argument at the start of \cite[Section~2]{coefficient-mass}.  Induct on $c-1-\ell$ as in
-the proof of \cite[Theorem~2.2]{coefficient-mass}.  The base case $Z=[1,c-1]$ is
-\cite[Lemma~2.1]{coefficient-mass}, which gives $\prod_{i=1}^c\varphi_i$ and needs
-no cutoff.  In the displaced step, with $z=\max Z$ and $u$ as in the
-statement (the sum called $V$ there), let $G$ be the sum on all $c$ nodes with
-$G|_{\{0\}\cup(Z\setminus\{z\})}=0$ and $G_z=1$, put $\xi=|u_z|$, so that
-$w=u-u_zG$, and put $\Gamma_X(z)=\sum_{d\ge z}|X_d|/|X_z|$ for
-$X\in\{u,G\}$ and $\Sigma_G=\sum_{1\le d<z}|G_d|$, the notation of the proof of
-\cite[Theorem~2.2]{coefficient-mass}.  That proof derives the identity
-\cite[eq.~(2)]{coefficient-mass},
-$\Tail(u)-\Tail(w)=\xi(2\Gamma_u(z)-\Gamma_G(z)+\Sigma_G)$, and the first
-inequality of \cite[eq.~(3)]{coefficient-mass},
-$\Gamma_G(z)\le\Gamma_u(z)/(1-y_c)$, from the zero bound of
-\cite[Section~2]{coefficient-mass}, \cite[Lemma~2.3]{coefficient-mass}
-(which needs no upper bound on the nodes) and $y_c<1$ only; the cutoff
-$y_c\le\frac12$ enters there only through the second inequality of
-\cite[eq.~(3)]{coefficient-mass}.  So both hold here.  If $y_c\le\frac12$,
-that second inequality holds as well, and the proof of
-\cite[Theorem~2.2]{coefficient-mass} gives
-$\Tail(w)<\Tail(u)$.  If $y_c>\frac12$, then $\Sigma_G\ge0$ and
-the identity give
+We use the zero bound of \cite[Section~2]{coefficient-mass}: a nonzero
+exponential sum on $n$ distinct positive nodes has at most $n-1$ real
+zeros, counted with multiplicity, so a nonzero sum on these nodes with
+$n-1$ prescribed distinct real zeros has exactly those zeros, each simple
+and a change of sign.  In particular a kernel vector of the $c$ conditions
+defining $w$ would be a nonzero $c$-node sum with the $c$ zeros
+$\{0\}\cup Z$, so $w$ exists and is unique; this needs only distinct
+positive nodes.  As in \cite[Section~2]{coefficient-mass}, sums are
+regarded as functions of the real variable $d\ge0$.  We induct on
+$c-1-\ell$.
+
+\emph{Base case.}  If $Z=[1,c-1]$, then $\ell=c-1$ and
+\cite[Lemma~2.1]{coefficient-mass}, which needs no cutoff, gives
+$\Tail(w)=\prod_{i=1}^c\varphi_i$.
+
+\emph{Displaced step.}  Let $\ell<c-1$.  Then $Z\ne[1,c-1]$, so $c\ge2$ and
+$z=\max Z\ge c\ge\ell+2$.  Put $Z'=Z\setminus\{z\}$ and
+$m=\max(Z'\cup\{0\})<z$, and let $u$ be as in the statement:
+the sum on $y_1,\ldots,y_{c-1}$ with $u_0=1$ and $u|_{Z'}=0$.  Let $G$ be a
+nonzero sum on all $c$ nodes vanishing on $\{0\}\cup Z'$, which exists
+since these are $c-1$ linear conditions on $c$ coefficients; $G_z\ne0$, as
+otherwise $G$ would have $c$ zeros, so we normalize $G_z=1$.  Put
+$\xi=|u_z|$.  If $\xi=0$, then $u$, a sum on the $c$ nodes with coefficient
+$0$ at $y_c$, satisfies the conditions defining $w$, so $w=u$ and
+$\Tail(w)\le\max(1,\varphi_c)\Tail(u)$.  Otherwise let $\eta=\sgn(u_z)$; then $w=u-\eta\xi G$,
+both sides satisfying the same $c$ conditions.
+
+By the zero bound, $G$ has exactly the simple zeros $\{0\}\cup Z'$, $u$
+exactly $Z'$, and $w$ exactly $Z$.  So $u/G$ has constant sign on
+$(0,\infty)\setminus Z'$, equal to its sign $\eta$ at $z$, and
+$w_d=\eta\sgn(G_d)\psi(d)$ there, where $\psi(d)=|u_d|-\xi|G_d|$.  The
+function $\psi$ is continuous, vanishes on $Z'$, has $\psi(0)=1$ and has no
+zero in $(0,\min Z)$, where $w$ has none; so $\psi>0$ there.  Off $Z$, the
+sign of $\psi$ does not change across a point of $Z'$, where $w$ and $G$
+both change sign, and changes across $z$, where only $w$ does.  Hence
+$|u_d|>\xi|G_d|$ for $1\le d<z$, $d\notin Z'$, and $|u_d|<\xi|G_d|$ for
+$d>z$, with $|w_d|=\bigl||u_d|-\xi|G_d|\bigr|$ for all $d\ge1$.  Splitting
+the tails at $z$ and using $|u_z|=\xi|G_z|$ gives
 \[
-  \Tail(w)\le\Tail(u)+\xi\Gamma_u(z)\Bigl(\frac1{1-y_c}-2\Bigr),
+  \Tail(u)-\Tail(w)=\xi\sum_{1\le d<z}|G_d|
+  +\sum_{d\ge z}\bigl(2|u_d|-\xi|G_d|\bigr),
 \]
-where the bracket is positive, and
-$\xi\Gamma_u(z)=\sum_{d\ge z}|u_d|\le\Tail(u)$ (if $u_z=0$ then $w=u$), so
-$\Tail(w)\le(\frac1{1-y_c}-1)\Tail(u)=\varphi_c\Tail(u)$.  In both cases
-$\Tail(w)\le\max(1,\varphi_c)\Tail(u)$.  The set $Z\setminus\{\max Z\}$ has
-the same leading run $\ell$ and $\ell+1\le c-1$, so the induction hypothesis
-for $u$ on $y_1,\ldots,y_{c-1}$ gives the bound.
+all series converging because the nodes are below $1$.  Therefore
+\begin{equation}\label{eq:tailsplit}
+  \Tail(w)\le\Tail(u)+\xi\sum_{d\ge z}|G_d|-2\sum_{d\ge z}|u_d|.
+\end{equation}
+
+We bound the middle term.  Put $\hat u=\eta u$, $\tau=G_z/\hat u_z=1/\xi$,
+and $E_d=G_d-y_cG_{d-1}$ for $d\ge1$.  By the zero bound, $\hat u$ and $G$
+are positive for $d>m$: neither has a zero there, and $\hat u_z,G_z>0$.
+Writing $G_d=\sum_ig_iy_i^d$ gives
+$E_d=\sum_{i<c}g_i(1-y_c/y_i)y_i^d$, a sum on $y_1,\ldots,y_{c-1}$.  With
+the marked points $\{0\}\cup Z'$ and $\widehat V=\hat u$,
+\cite[Lemma~2.3]{coefficient-mass}, which needs no upper bound on the
+nodes, gives $E_d\le\sigma\hat u_d$ for $d\ge m+1$, where
+$\sigma=G_{m+1}/\hat u_{m+1}$.  We claim $\sigma\le\tau$.  If $z=m+1$ they
+are equal.  If $z>m+1$, the $c$-node sum $\Theta=G-\tau\hat u$ vanishes on
+the $c-1$ points $Z'\cup\{z\}$ and has $\Theta_0=-\tau\eta\ne0$, so it
+changes sign exactly at those points.  The $c-2$ points of $Z'$ lie in
+$(0,m+1)$, so $\sgn\Theta_{m+1}=(-1)^c\sgn\Theta_0=-(-1)^c\eta$, and
+$\eta=(-1)^c$ because $u_0=1$ and $u$ changes sign at the $c-2$ points of
+$Z'$, all below $z$.  So $\Theta_{m+1}<0$, that is, $\sigma<\tau$.  Hence
+$E_d\le\tau\hat u_d$ for $d\ge z$, and induction on $t$ in
+$G_{z+t}=y_cG_{z+t-1}+E_{z+t}$, starting from $G_z=\tau\hat u_z$, gives
+\[
+  G_{z+t}\le\tau\sum_{j=0}^ty_c^{\,t-j}\hat u_{z+j}\qquad(t\ge0).
+\]
+Summing over $t$,
+$\xi\sum_{d\ge z}|G_d|\le\frac1{1-y_c}\sum_{d\ge z}|u_d|$, and
+\eqref{eq:tailsplit} becomes
+\[
+  \Tail(w)\le\Tail(u)+\Bigl(\frac1{1-y_c}-2\Bigr)\sum_{d\ge z}|u_d|.
+\]
+If $y_c\le\frac12$ the bracket is at most $0$ and $\Tail(w)\le\Tail(u)$.
+If $y_c>\frac12$ the bracket is $\varphi_c-1>0$, and
+$\sum_{d\ge z}|u_d|\le\Tail(u)$ gives $\Tail(w)\le\varphi_c\Tail(u)$.  In
+both cases $\Tail(w)\le\max(1,\varphi_c)\Tail(u)$.  Finally $z>\ell+1$, so
+$Z'$ has the same leading run $\ell$ as $Z$, and $\ell\le c-2=|Z'|$; the
+induction hypothesis for $u$ on $y_1,\ldots,y_{c-1}$ bounds $\Tail(u)$ by
+$\prod_{i=1}^{\ell+1}\varphi_i\prod_{i=\ell+2}^{c-1}\max(1,\varphi_i)$,
+which gives the bound for $w$.
 \end{proof}
 
 For $y_c\le\frac12$ every $\max(1,\varphi_i)$ is $1$ and this is
@@ -346,23 +396,49 @@ $\Phi_r(Z)\le a^{|Z|+1}$ when $1<r\le2$.
 \end{lemma}
 
 \begin{proof}
-$|r_{[1,\ell]}(s)|=\binom{s-1}\ell$ for $s>\ell$ and
-$\sum_{s>\ell}\binom{s-1}\ell r^{-s}=(r^{-1}/(1-r^{-1}))^{\ell+1}=a^{\ell+1}$;
-this also settles $Z=[1,\ell]$, the ratio being $a$.  For
-$Z\ne[1,|Z|]$ put $c=|Z|+1$ and run the limit in the proof of
-\cite[Lemma~4.6]{coefficient-mass} with
-the nodes $y_i=\frac1r-(c-i)\varepsilon$ and the comparison
-$\Tail(w^\varepsilon)\le\max(1,\varphi_c)\Tail(u^\varepsilon)$ of
-Theorem~\ref{thm:tailgen} for its sums $w$, $u$ on these nodes; the
-domination of the divided differences, with $h_j$ the complete homogeneous
-symmetric polynomial,
-$0\le h_{d-i+1}(y_1,\ldots,y_i)\le\binom d{i-1}r^{-(d-i+1)}$ and the
-invertibility of the limit matrix are as there, and $\varphi_c\to a$.  The
-consequences follow by deleting the largest element repeatedly: for $r\ge2$
-each step does not increase $\Phi_r$, and for $r\le2$ each of the $|Z|$
-steps from $Z$ to $\varnothing$ costs at most the factor $a$, with
+For $x=1/r$ we have $\sum_{s>\ell}\binom{s-1}\ell x^s=(x/(1-x))^{\ell+1}$
+and $x/(1-x)=a$; since $|r_{[1,\ell]}(s)|=\binom{s-1}\ell$ for $s>\ell$ and
+$r_{[1,\ell]}$ vanishes on $[1,\ell]$, this is $\Phi_r([1,\ell])=a^{\ell+1}$.
+It settles the inequality for $Z=[1,|Z|]$, the ratio being $a$.
+
+Now let $Z\ne[1,|Z|]$, put $c=|Z|+1$ and $Z'=Z\setminus\{\max Z\}$.  For
+small $\varepsilon>0$ take the nodes $y_i=\frac1r-(c-i)\varepsilon$, so
+$0<y_1<\cdots<y_c=\frac1r<1$ and $\varphi_c=a$.  Let $w^\varepsilon$ be the
+sum on $y_1,\ldots,y_c$ with $w_0=1$ and $w|_Z=0$, and $u^\varepsilon$ the
+sum on $y_1,\ldots,y_{c-1}$ with $u_0=1$ and $u|_{Z'}=0$.  Since
+$Z\ne[1,c-1]$, Theorem~\ref{thm:tailgen} gives
+$\Tail(w^\varepsilon)\le\max(1,a)\Tail(u^\varepsilon)$.
+
+Let $\varepsilon\to0$.  The divided difference of $y\mapsto y^d$ at
+$y_1,\ldots,y_i$ is $N_i(d)=h_{d-i+1}(y_1,\ldots,y_i)$, with $h_j$ the
+complete homogeneous symmetric polynomial ($h_j=0$ for $j<0$), and it is a
+combination of $y_1^d,\ldots,y_i^d$ with nonzero coefficient on $y_i^d$.  So
+$w^\varepsilon_d=\sum_{i=1}^c\alpha_iN_i(d)$ for unique $\alpha_i$, and the
+$c$ conditions at $d\in\{0\}\cup Z$ form a linear system for $\alpha$ whose
+matrix $(N_i(d))$ tends to the matrix with entries
+$\binom d{i-1}r^{-(d-i+1)}$, the value of $h_{d-i+1}$ at $i$ arguments equal
+to $\frac1r$.  The limit matrix is invertible: after scaling rows by $r^d$
+and columns by $r^{-(i-1)}$ its entries are $\binom d{i-1}$, and the
+polynomials $\binom s{i-1}$, $i\le c$, form a basis of the polynomials of
+degree below $c$, none of which but $0$ vanishes at the $c$ points
+$\{0\}\cup Z$.  Hence $\alpha$ converges, to $\alpha^0$ say.  Since the $y_j$
+are positive and at most $\frac1r$,
+$0\le h_{d-i+1}(y_1,\ldots,y_i)\le\binom d{i-1}r^{-(d-i+1)}$, so
+$|w^\varepsilon_d|\le C(d+1)^{c-1}r^{-d}$ with $C$ independent of
+$\varepsilon$ and $d$.  The limit is $w^0_d=p(d)r^{-d}$ with
+$p(s)=\sum_i\alpha^0_ir^{i-1}\binom s{i-1}$, so $\deg p\le|Z|$, $p(0)=1$
+and $p|_Z=0$, which forces $p=r_Z$.  By dominated convergence
+$\Tail(w^\varepsilon)\to\Phi_r(Z)$, and in the same way, on the nodes
+$y_1,\ldots,y_{c-1}$, $\Tail(u^\varepsilon)\to\Phi_r(Z')$.  This proves the
+inequality.
+
+The consequences follow by deleting the largest element repeatedly: for
+$r\ge2$ each step does not increase $\Phi_r$, and for $r\le2$ each of the
+$|Z|$ steps from $Z$ to $\varnothing$ costs at most the factor $a$, with
 $\Phi_r(\varnothing)=a$.
 \end{proof}
+
+At $r=2$, where $a=1$, this is \cite[Lemma~4.6]{coefficient-mass}.
 
 \begin{corollary}[The last row]\label{cor:lastrowr}
 $V_r(L,L)=r-1$ for $r\ge2$, and $V_r(L,L)=(r-1)^L$ for $1<r\le2$.
