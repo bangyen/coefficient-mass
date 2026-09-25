@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytest ruff
+      - name: Lint
+        run: |
+          ruff format --check tests
+          ruff check tests
+      - name: Check cross-references
+        run: python -m pytest -q
+      - name: Run the certificate sweep
+        run: python tests/sweep.py
+
+  pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tectonic
+        run: |
+          curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net | sh
+          sudo mv tectonic /usr/local/bin/
+      - name: Build the papers
+        run: for paper in coefficient-mass coefficient-mass-attainment coefficient-mass-complex coefficient-mass-rows; do tectonic "$paper.tex"; done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: papers
+          path: "*.pdf"

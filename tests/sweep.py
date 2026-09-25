@@ -1,10 +1,10 @@
 """The certificate sweeps behind the two coefficient-mass papers.
 
-Run:  just proofs   (or python tests/proofs/deep/coefficient_mass.py)
+Run:  just sweep   (or python tests/sweep.py)
 
-``docs/proofs/coefficient-mass.tex`` proves the displaced-zero tail bound
+``coefficient-mass.tex`` proves the displaced-zero tail bound
 (Theorem 2.2) under the node cutoff ``y_i <= 1/2``;
-``docs/proofs/coefficient-mass-attainment.tex`` shows the cutoff cannot be
+``coefficient-mass-attainment.tex`` shows the cutoff cannot be
 raised, that the ``(2,3,5)`` families are ordered at every degree, and that
 the partial-sum criterion is necessary as well as sufficient, and computes
 the infimum at two root sets where it fails.  This
@@ -42,14 +42,9 @@ from __future__ import annotations
 import random
 from fractions import Fraction
 
-#: Cost band; see ``__main__.py``.  Exact rational solves of 450 small
-#: Vandermonde systems, an exact simplex on the small searches, and the
-#: sign identities to D=40.  Measured 1.8s, most of it the degree-12
-#: ``(2,3,5,7)`` program of ``_check_value`` -- nodes are unit fractions over
-#: small denominators, so the arithmetic stays narrow.  Sits beside
-#: ``multiplicity``, the other coefficient-mass proof, in ``ci``.
-BAND = "ci"
-COST = 2.0
+# Cost: exact rational solves of 450 small Vandermonde systems, an exact simplex
+# on the small searches, and the sign identities to D=40.  Measured 1.8s,
+# most of it the degree-12 ``(2,3,5,7)`` program of ``_check_value``.
 
 #: Draws are seeded so the printed tallies are quotable.  Changing this
 #: reseeds every count below.
