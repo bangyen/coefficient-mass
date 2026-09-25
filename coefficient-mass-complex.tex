@@ -34,7 +34,7 @@ $k$-th largest nonleading coefficient magnitude and
 $\Lambda(F)=\sum_j\log^+|f_j|$ its logarithmic coefficient mass.  For real
 roots $2\le r_1\le\cdots\le r_L$ a companion paper proves
 $b_k(F)\ge|f_D|\prod_{i\ge k}(r_i-1)$ for every multiple of
-$\prod_i(x-r_i)$, and hence a mass bound quadratic in $L$.  We ask what
+$\prod_i(x-r_i)$, and hence a mass bound that charges the $i$-th root $i$ times.  We ask what
 survives for complex roots.  For fixed $m$, all $m$-th roots of real
 numbers $s_j$ of one sign, in particular purely imaginary pairs $\pm ic$
 (the square roots of $-c^2$), reduce exactly to real roots: the infimum of
@@ -100,7 +100,8 @@ heights of the multiples $PQ$, $Q$ monic) obtained in~\cite{dj} for real roots
 greater than one under an extra sign condition~\cite[p.~333]{dj}, a
 condition removed by the $u=0$ clause of~\cite[Theorem~3.2]{coefficient-mass};
 the two agree at such roots, but at complex
-roots $|P(1)|$ can exceed $\prod_j(|\alpha_j|-1)$ ($x^2+\rho^2$).
+roots $|P(1)|$ is not a lower bound for $H(P)$: $P=x^2+\rho^2$ has $H(P)\le\rho^2$ (take $Q=1$),
+while $|P(1)|=1+\rho^2$ and $\prod_j(|\alpha_j|-1)=(\rho-1)^2$.
 
 \paragraph{Exact reductions.}  If the prescribed factor has the form
 $R(x^m)$, multisection reduces every multiple to a multiple of $R$ with a
@@ -930,7 +931,7 @@ $\delta$ of the imaginary axis, and $2M_s\le\pi(K_s+1)/\delta$.  The product
 is $x^{2M_1+2M_2}+t_2^{2M_2}x^{2M_1}+t_1^{2M_1}x^{2M_2}+t_1^{2M_1}t_2^{2M_2}$,
 four distinct positions as $M_1\ne M_2$, which gives $\Lambda$.
 
-For the final sentence, item~1 with $S=2$, $N_1=N_2=N$ and $T_s=t_s/3\ge3$
+For the final sentence, item~1 with $S=2$, $N_1=N_2=N$, $t_1\ge9$ and $T_s=t_s/3$ (so $T_s\ge3$)
 has $K_s=N$ zeros with moduli in $[T_s,9T_s]$ and
 $\Lambda(F)=N\log t_1+2N\log t_2\le3N\log(3T_2)\le6N\log T_2$, which is below
 $cN^2\log T_2$ once $N>6/c$.  Item~2 with $T_s=t_s$ has
