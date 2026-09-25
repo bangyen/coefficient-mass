@@ -804,6 +804,133 @@ def test_small_derivative_at_zero() -> None:
     assert 4 * q[1] ** 2 > 10**6 * min(_norm(z) for z in roots)
 
 
+QGauss = tuple[Fraction, Fraction]
+
+
+def _qmul(a: QGauss, b: QGauss) -> QGauss:
+    return (a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0])
+
+
+def _on_lines(lines: list[tuple[Gauss, Gauss]], s: int) -> list[Gauss]:
+    """The points ``lambda_j s + mu_j``, conjugated into the upper half-plane."""
+    out = []
+    for (lr, li), (mr, mi) in lines:
+        a, c = lr * s + mr, li * s + mi
+        out.append((a, abs(c)))
+    return out
+
+
+def _line_residues(lines: list[tuple[Gauss, Gauss]]) -> list[QGauss]:
+    """``Lambda Q'(w_j)/lambda_j`` of ``prop:gaussline``, item 1."""
+    ws = []
+    for lam, mu in lines:
+        n = _norm(lam)
+        ws.append(
+            _qmul(
+                (Fraction(-mu[0]), Fraction(-mu[1])),
+                (Fraction(lam[0], n), Fraction(-lam[1], n)),
+            )
+        )
+    big_l = prod(_norm(lam) for lam, _ in lines)
+    out = []
+    for j, (lam, _) in enumerate(lines):
+        w = ws[j]
+        q: QGauss = (Fraction(0), 2 * w[1])
+        for k, v in enumerate(ws):
+            if k != j:
+                q = _qmul(
+                    q, _qmul((w[0] - v[0], w[1] - v[1]), (w[0] - v[0], w[1] + v[1]))
+                )
+        n = _norm(lam)
+        q = _qmul(q, (Fraction(lam[0], n), Fraction(-lam[1], n)))
+        out.append((big_l * q[0], big_l * q[1]))
+    return out
+
+
+LINES_2 = [((-1, 1), (-3, 2)), ((1, 1), (1, 2))]
+LINES_3 = [((-1, 1), (-3, 2)), ((0, 1), (-1, 1)), ((1, 1), (-1, 0))]
+
+
+def _meets_gausslow(roots: list[Gauss]) -> bool:
+    """The hypotheses of ``prop:gausslow``, item 2: distinct points above the
+    axis with odd, pairwise coprime norms and ``gcd(a_j, c_j) = 1``."""
+    norms = [_norm(z) for z in roots]
+    return (
+        len(set(roots)) == len(roots)
+        and all(c > 0 and gcd(a, c) == 1 for a, c in roots)
+        and all(n % 2 for n in norms)
+        and all(gcd(x, y) == 1 for i, x in enumerate(norms) for y in norms[i + 1 :])
+    )
+
+
+def test_constant_derivative_along_lines() -> None:
+    """``prop:gaussline``: on the lines of items 2 and 3, ``P'(0) = 4`` and
+    ``90`` at every ``s`` in a window, ``P(0) = Lambda Q(s)``, and
+    ``Lambda Q'(w_j) = N lambda_j`` with ``N = -P'(0)`` (item 1); the
+    hypotheses of ``prop:gausslow``, item 2, hold for every ``s >= -1`` on
+    item 2 and exactly for odd ``s = 0, 3 mod 5`` on item 3; at
+    ``s = 10^6 + 5`` the points of item 3 are in one annulus, ``|P'(0)| <
+    rho_min/2`` and ``log P(0)/(2 log rho_max) > 2.97``.
+
+    Control: moving ``mu_2`` of item 3 to ``-1 + 2i`` makes ``P'(0)`` move
+    with ``s`` and item 1's residues unequal.
+    """
+    for lines, value in ((LINES_2, 4), (LINES_3, 90)):
+        residues = _line_residues(lines)
+        assert residues == [(Fraction(-value), Fraction(0))] * len(lines)
+        big_l = prod(_norm(lam) for lam, _ in lines)
+        for s in range(-1, 120):
+            roots = _on_lines(lines, s)
+            p = _pairs(roots)
+            assert p[1] == value
+            q = Fraction(1)
+            for (lr, li), (mr, mi) in lines:
+                q *= Fraction(
+                    (lr * s + mr) ** 2 + (li * s + mi) ** 2, lr * lr + li * li
+                )
+            assert p[0] == big_l * q
+            if lines is LINES_2:
+                assert _meets_gausslow(roots)
+            elif s >= 1:
+                assert _meets_gausslow(roots) == (s % 2 == 1 and s % 5 in (0, 3))
+    s = 10**6 + 5
+    roots = _on_lines(LINES_3, s)
+    norms = [_norm(z) for z in roots]
+    p = _pairs(roots)
+    assert _meets_gausslow(roots) and 4 * p[1] ** 2 < min(norms) < max(norms) < 4 * min(
+        norms
+    )
+    assert log(p[0]) / log(max(norms)) > 2.97
+    moved = [LINES_3[0], ((0, 1), (-1, 2)), LINES_3[2]]
+    assert len({_pairs(_on_lines(moved, s))[1] for s in range(5)}) > 1
+    assert len(set(_line_residues(moved))) > 1
+
+
+def test_light_multiples() -> None:
+    """``prop:gausslight`` on the Pell level sets ``(8c^3 + 2c)^2 +
+    (y^3 - y)^2``, which are light: ``d = 6 >= 2K``, ``|f_e| < rho_min^(d+1)``,
+    and a constant ``C`` for the step at ``m = d + 1`` needs ``C log rho_max >
+    log P(0) - log rho_min >= (2K - 1) log rho_min``.
+
+    Control: ``|f_e| < rho_min^d`` fails on every one of them.
+    """
+    h = [0, 0, 1, 0, -2, 0, 1]
+    for a, c in _pell_triples(8):
+        roots = [(a, c), (-a, c), (0, 2 * c)]
+        f = [(8 * c**3 + 2 * c) ** 2] + h[1:]
+        p = _pairs(roots)
+        assert _divides(p, f)
+        n_min, n_max = min(_norm(z) for z in roots), max(_norm(z) for z in roots)
+        assert all(4 * x * x < n_min for x in f[1:])
+        d = len(f) - 1
+        assert d >= 2 * len(roots)
+        assert f[0] ** 2 < n_min ** (d + 1)
+        assert f[0] ** 2 > n_min**d
+        c_min = (log(p[0]) - log(f[0]) / (d + 1)) / (0.5 * log(n_max))
+        assert c_min * 0.5 * log(n_max) > log(p[0]) - 0.5 * log(n_min)
+        assert log(p[0]) - 0.5 * log(n_min) >= (2 * len(roots) - 1) * 0.5 * log(n_min)
+
+
 def _level_sets(big_b: int, degree: int, box: int) -> dict[tuple, list[Gauss]]:
     """Gaussian ``y`` above the axis grouped by the real value of ``g(y)``,
     over ``g`` with ``g(0) = 0``, positive leading coefficient and
