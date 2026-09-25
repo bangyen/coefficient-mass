@@ -5,11 +5,14 @@ Authors: Bangyen Pham
 -/
 
 import CoefficientMass.Certificate
+import CoefficientMass.Chain
 import CoefficientMass.Consecutive
 import CoefficientMass.Defs
 import CoefficientMass.ExpSum
 import CoefficientMass.Mass
 import CoefficientMass.Order
+import CoefficientMass.OrderStat
+import CoefficientMass.Perturb
 import CoefficientMass.RealPart
 import CoefficientMass.ZeroBound
 
