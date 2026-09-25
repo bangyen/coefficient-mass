@@ -10,7 +10,8 @@ from __future__ import annotations
 
 import random
 from fractions import Fraction
-from math import ceil, prod
+from itertools import product
+from math import ceil, gcd, isqrt, prod
 
 import pytest
 
@@ -489,3 +490,140 @@ def test_first_row_at_the_optimum(a: int, b: int, rho: int) -> None:
     ``(rho - 1)^2`` fails there."""
     best = min_bk_of([Fraction(rho * rho), Fraction(-2 * a), Fraction(1)], 1, 9)
     assert (rho - 1) ** 2 <= best < rho**2
+
+
+# Integer imitations of x^N - rho^N (lem:gaussbinom, prop:gausslow).
+
+Gauss = tuple[int, int]  # a + bi
+
+
+def _gmul(z: Gauss, w: Gauss) -> Gauss:
+    return (z[0] * w[0] - z[1] * w[1], z[0] * w[1] + z[1] * w[0])
+
+
+def _gpow(z: Gauss, n: int) -> Gauss:
+    out = (1, 0)
+    for _ in range(n):
+        out = _gmul(out, z)
+    return out
+
+
+def _upper(box: int) -> list[Gauss]:
+    return [(a, b) for a in range(-box, box + 1) for b in range(1, box + 1)]
+
+
+def test_polynomials_in_a_power() -> None:
+    """``lem:gaussbinom``: Gaussian ``alpha`` above the axis with one value of
+    ``(alpha - t)^N`` number at most two, and differ by a unit.
+
+    Control: ``x^4 + 4`` has two such roots, so "at most one" is false.
+    """
+    for n in range(1, 13):
+        for t in range(-3, 4):
+            classes: dict[Gauss, list[Gauss]] = {}
+            for z in _upper(10):
+                classes.setdefault(_gpow((z[0] - t, z[1]), n), []).append(z)
+            for members in classes.values():
+                assert len(members) <= 2
+                (a, b), *rest = members
+                for c, d in rest:
+                    assert (c - t, d) in {(-(a - t), -b), (-b, a - t), (b, -(a - t))}
+    assert _gpow((1, 1), 4) == _gpow((-1, 1), 4) == (-4, 0)
+    assert _product([[2, -2, 1], [2, 2, 1]]) == [4, 0, 0, 0, 1]
+
+
+def _inverse_series(p: Poly, m: int) -> list[Fraction]:
+    """The first ``m`` coefficients of ``1/p`` at ``0``."""
+    u = [Fraction(1, p[0])]
+    for n in range(1, m):
+        s = sum(p[k] * u[n - k] for k in range(1, min(n, len(p) - 1) + 1))
+        u.append(-s / p[0])
+    return u
+
+
+def _lowest_denominator(p: Poly, m: int) -> int:
+    """``d_m``: the least ``d > 0`` with ``d u_l`` integral for ``l < m``."""
+    d = 1
+    for c in _inverse_series(p, m):
+        d = d * c.denominator // gcd(d, c.denominator)
+    return d
+
+
+def _pairs(roots: list[Gauss]) -> Poly:
+    return _product([[a * a + b * b, -2 * a, 1] for a, b in roots])
+
+
+#: Primitive Gaussian integers of pairwise coprime odd norms 5, 13, 17, 29.
+COPRIME = [(1, 2), (-2, 3), (4, 1), (-5, 2)]
+
+
+def test_lowest_coefficients_coprime() -> None:
+    """``prop:gausslow``, items 1-2: ``d_m = P(0)^m``, and the multiple
+    ``P (d_m/P mod x^m)`` is ``d_m`` below ``x^m``; random multiples pay
+    ``P(0)^g`` at their lowest coefficient for a gap ``g``."""
+    rng = random.Random(SEED + 4)
+    for big_k in range(1, len(COPRIME) + 1):
+        p = _pairs(COPRIME[:big_k])
+        for m in range(1, 6):
+            d = _lowest_denominator(p, m)
+            assert d == p[0] ** m
+            q = [d * c for c in _inverse_series(p, m)]
+            assert all(c.denominator == 1 for c in q)
+            f = _mul(p, [int(c) for c in q])
+            assert f[:m] == [d] + [0] * (m - 1)
+            for _ in range(20):
+                g = _mul(f, _cofactor(rng))
+                low = next(i for i, c in enumerate(g) if c)
+                gap = next(i for i, c in enumerate(g[low + 1 :], 1) if c)
+                assert g[low] % p[0] ** gap == 0
+
+
+def test_lowest_coefficients_common_norm() -> None:
+    """``prop:gausslow``, item 3: at a common norm ``n``, ``d_m | n^(K+m-1)``.
+
+    Control: there ``d_m < P(0)^m`` for ``K, m >= 2``, so item 2 needs its
+    coprimality.
+    """
+    n = 5 * 13 * 17 * 29
+    circle = [(a, b) for a, b in _upper(isqrt(n)) if a * a + b * b == n]
+    assert len(circle) == 32
+    for roots in ([(1, 8), (-1, 8), (4, 7), (-4, 7)], circle[:6]):
+        norm = roots[0][0] ** 2 + roots[0][1] ** 2
+        p = _pairs(roots)
+        big_k = len(roots)
+        for m in range(1, 6):
+            d = _lowest_denominator(p, m)
+            assert norm ** (big_k + m - 1) % d == 0
+            if m >= 2:
+                assert d < p[0] ** m
+
+
+def _level_sets(big_b: int, degree: int, box: int) -> dict[tuple, list[Gauss]]:
+    """Gaussian ``y`` above the axis grouped by the real value of ``g(y)``,
+    over ``g`` with ``g(0) = 0``, positive leading coefficient and
+    coefficients in ``[-B, B]``."""
+    points = _upper(box)
+    out: dict[tuple, list[Gauss]] = {}
+    for s in range(1, degree + 1):
+        for g in product(range(-big_b, big_b + 1), repeat=s):
+            if g[-1] <= 0:
+                continue
+            for y in points:
+                v = (0, 0)
+                for c in reversed(g):
+                    v = _gmul((v[0] + c, v[1]), y)
+                if v[1] == 0:
+                    out.setdefault((g, v[0]), []).append(y)
+    return out
+
+
+def test_one_heavy_coefficient() -> None:
+    """The search reported after ``prop:gausslow``, on a small range: no real
+    value of ``g`` is taken at three Gaussian ``y`` above the axis.
+
+    Control: ``y^6 - 2y^4 + y^2`` takes the value ``-100`` at ``+-2 + i`` and
+    ``2i``, and the same search finds it.
+    """
+    assert max(len(ys) for ys in _level_sets(1, 5, 8).values()) <= 2
+    found = _level_sets(2, 6, 3)
+    assert sorted(found[((0, 1, 0, -2, 0, 1), -100)]) == [(-2, 1), (0, 2), (2, 1)]

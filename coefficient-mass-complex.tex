@@ -128,7 +128,11 @@ large zeros, and the mass of multiples of degree $O(K)$ is of order
 $\min(K^2,K/\delta)\log R$ (Theorem~\ref{thm:widesector},
 Corollary~\ref{cor:wideconst}, Proposition~\ref{prop:widesharp}).  Whether
 $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots
-in a wide sector is open.
+in a wide sector is open.  Its integer imitations of $x^N-\rho^N$ fail: a
+polynomial in $(x-t)^N$ has at most two Gaussian roots in the upper
+half-plane per root of its outer factor (Lemma~\ref{lem:gaussbinom}), and at
+pairwise coprime norms a gap $g$ after the lowest coefficient costs
+$2Kg\log R$ (Proposition~\ref{prop:gausslow}).
 
 \paragraph{Conventions.}
 All logarithms are natural.  For $F\in\mathbb C[x]$ of degree $D$ we write
@@ -1238,7 +1242,10 @@ $(\pi/\delta-o(1))K\log R$, and this constant is attained
 Proposition~\ref{prop:widesharp}); at Gaussian roots the degree restriction
 is removed by Theorem~\ref{thm:gausscharge} (Corollary~\ref{cor:widegauss}).
 In wide sectors a bound $\Lambda\ge cK^2\log R$ is therefore false for real
-multiples, the correct order being $\min(K^2,K/\delta)\log R$.
+multiples, the correct order being $\min(K^2,K/\delta)\log R$.  For integer
+multiples at Gaussian roots it is open; the section ends by showing that the
+integer imitations of $x^N-\rho^N$ fail (Lemma~\ref{lem:gaussbinom},
+Proposition~\ref{prop:gausslow}).
 
 For $0<\delta\le\pi/2$ put
 \[
@@ -1476,6 +1483,129 @@ its bound only improves when $e$ decreases, since $\nu_m$ then
 increases and $g$ is increasing.  For the last statement take
 $\lambda=\pi/\delta$ and argue as in Corollary~\ref{cor:wideconst}.
 \end{proof}
+
+\paragraph{Integer imitations of $x^N-\rho^N$.}  Corollary~\ref{cor:widegauss}
+leaves open whether $\Lambda(F)\ge cK^2\log R$ for every integer multiple at
+Gaussian roots in a wide sector.  Over the reals the bound fails because of
+$x^N-\rho^N$, whose mass sits in a single coefficient after a gap of length
+$N$.  Its two integer imitations fail at Gaussian roots: a polynomial in
+$(x-t)^N$ has few Gaussian roots, and at pairwise coprime norms a long gap
+after the lowest coefficient is expensive.
+
+\begin{lemma}[Polynomials in $(x-t)^N$]\label{lem:gaussbinom}
+Let $A\in\mathbb Z[y]$ be nonzero of degree $s$, $t\in\mathbb Z$ and $N\ge1$.
+Then $A\bigl((x-t)^N\bigr)$ has at most $2s$ distinct roots $\alpha\in\mathbb Z[i]$
+with $\operatorname{Im}\alpha>0$.  In particular a binomial $a(x-t)^N+b$ with
+$a,b\in\mathbb Z\setminus\{0\}$ has at most two, and $x^4+4$, with the roots
+$\pm1+i$ in the upper half-plane, has two.
+\end{lemma}
+
+\begin{proof}
+For each such root $\alpha$ the number $(\alpha-t)^N$ is one of the at most $s$
+distinct roots of $A$, which sorts the roots $\alpha$ into at most $s$ classes.
+Let $\alpha,\alpha'$ lie in one class, and put $\beta=\alpha-t$,
+$\beta'=\alpha'-t$.  These are nonzero Gaussian integers with
+$\beta'^N=\beta^N$, so $\beta'/\beta$ is a root of unity in $\mathbb Q(i)$,
+that is, one of $\pm1,\pm i$.  If $\beta=u+iv$, the imaginary parts of $\beta$,
+$i\beta$, $-\beta$, $-i\beta$ are $v$, $u$, $-v$, $-u$, of which at most two are
+positive; since $\operatorname{Im}\alpha=\operatorname{Im}\beta$, each class has
+at most two members.  Finally $x^4+4=(x^2-2x+2)(x^2+2x+2)$.
+\end{proof}
+
+So $x^N-m$, $m\in\mathbb Z$, carries at most two of the prescribed roots
+$\alpha_j$, whatever $N$ and $m$, where Proposition~\ref{prop:widesharp} needs
+$K$; more generally $A(x^N)$, whose mass is that of $A$
+(Theorem~\ref{thm:transfer}), carries at most $2\deg A$ of them.
+
+For the gap, recall $P(0)=\prod_j\rho_j^2$.  Expand
+$1/P(x)=\sum_{l\ge0}u_lx^l$ as a power series at $0$, which is possible since
+$P(0)\ne0$, and for $m\ge1$ let $d_m$ be the least positive integer with
+$d_mu_l\in\mathbb Z$ for every $l<m$.
+
+\begin{proposition}[The lowest coefficients]\label{prop:gausslow}
+In the setting of Section~\ref{sec:gaussian}, let $m\ge1$.
+\begin{enumerate}
+\item For $f\in\mathbb Z$, some $F\in\mathbb Z[x]$ divisible by $P$ has
+$F\equiv f\pmod{x^m}$ if and only if $d_m\mid f$; and $d_m\mid P(0)^m$.
+\item If the norms $\rho_j^2=a_j^2+c_j^2$ are odd and pairwise coprime and
+$\gcd(a_j,c_j)=1$ for every $j$, then $d_m=P(0)^m$.  Consequently, if
+$F=x^e(f_e+x^gG)$ with $f_e\ne0$, $g\ge1$ and $G\in\mathbb Z[x]$ is divisible by
+$P$, then $P(0)^g$ divides $f_e$, and
+\[
+  \Lambda(F)\ \ge\ g\log P(0)\ \ge\ 2Kg\log\rho_{\min}.
+\]
+\item If all the norms $\rho_j^2$ equal one integer $n$, then
+$d_m\mid n^{K+m-1}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+1.  The integers $f$ with $fu_l\in\mathbb Z$ for all $l<m$ form a subgroup of
+$\mathbb Z$, namely $d_m\mathbb Z$.  Since $P$ is monic, a multiple of $P$ in
+$\mathbb Z[x]$ is $F=PQ$ with $Q\in\mathbb Z[x]$, and since $P$ is a unit of
+$\mathbb Q[[x]]$, $F\equiv f\pmod{x^m}$ if and only if $Q\equiv f/P\pmod{x^m}$.
+If so, the $fu_l$, $l<m$, are coefficients of $Q$, hence integers, and
+$d_m\mid f$.  Conversely, if $d_m\mid f$, then $Q=\sum_{l<m}fu_lx^l$ lies in
+$\mathbb Z[x]$ and $F=PQ\equiv f$.  Writing $P=P(0)+xP_1$ with
+$P_1\in\mathbb Z[x]$,
+\[
+  \frac1P=\sum_{k\ge0}\frac{(-1)^kx^kP_1^k}{P(0)^{k+1}},
+\]
+and only $k\le l$ contributes to $u_l$, so $P(0)^{l+1}u_l\in\mathbb Z$ and
+$d_m\mid P(0)^m$.
+
+2.  First, the $2K$ Gaussian integers $\alpha_j$, $\bar\alpha_j$ are pairwise
+coprime.  A Gaussian prime $\pi$ dividing $\alpha_j$ and $\bar\alpha_j$ divides
+$\alpha_j+\bar\alpha_j=2a_j$ and $\alpha_j-\bar\alpha_j=2ic_j$, hence
+$2\gcd(a_j,c_j)=2$, so $\pi$ is an associate of $1+i$ and $2=|\pi|^2$ divides
+the odd norm $\rho_j^2$; and a common prime factor of one of $\alpha_j,\bar\alpha_j$
+and one of $\alpha_l,\bar\alpha_l$, $l\ne j$, would give $|\pi|^2>1$ dividing
+both $\rho_j^2$ and $\rho_l^2$.  Now let $F\in\mathbb Z[x]$ be divisible by $P$
+with $F\equiv f\pmod{x^m}$, so $F=f+x^mG$ with $G\in\mathbb Z[x]$.  For each $j$,
+$0=F(\alpha_j)=f+\alpha_j^mG(\alpha_j)$ with $G(\alpha_j)\in\mathbb Z[i]$, so
+$\alpha_j^m\mid f$, and conjugating, $\bar\alpha_j^m\mid f$.  By coprimality
+$\prod_j\alpha_j^m\bar\alpha_j^m=P(0)^m$ divides $f$ in $\mathbb Z[i]$, hence in
+$\mathbb Z$.  Taking $f=d_m$, which item~1 allows, gives $P(0)^m\mid d_m$, and
+item~1 gives the reverse.  For the consequence, $P(0)\ne0$ makes $P$ divide
+$F_0=f_e+x^gG$, and $F_0\equiv f_e\pmod{x^g}$, so $d_g=P(0)^g$ divides $f_e$.
+Then $\Lambda(F)\ge\log|f_e|\ge g\log P(0)$, and
+$P(0)=\prod_j\rho_j^2\ge\rho_{\min}^{2K}$.
+
+3.  Let $z$ run over the $2K$ roots $\alpha_j,\bar\alpha_j$ of $P$.  Then
+$\prod_z(-z)=\prod_j\alpha_j\bar\alpha_j=n^K$, so
+$P(x)=n^K\prod_z(1-x/z)$ and
+\[
+  \frac1P=n^{-K}\prod_z\sum_{k\ge0}\frac{x^k}{z^k}
+  =n^{-K}\sum_{l\ge0}h_l(z^{-1})\,x^l,
+\]
+where $h_l$ is the complete homogeneous symmetric polynomial of degree $l$ in
+$2K$ variables.  Since $z^{-1}=\bar z/n$ and the multiset of the $\bar z$ is
+that of the $z$, $h_l(z^{-1})=n^{-l}h_l(z)$.  As a symmetric polynomial with
+integer coefficients in the roots of the monic $P\in\mathbb Z[x]$, $h_l(z)$ is
+an integer.  So $n^{K+l}u_l\in\mathbb Z$, and $d_m\mid n^{K+m-1}$.
+\end{proof}
+
+Under the hypotheses of item~2, then, an integer multiple imitating $x^N-\rho^N$,
+with a gap $g\ge\pi K/\delta$ after its lowest coefficient, pays at least
+$(2\pi/\delta)K^2\log\rho_{\min}$.  The coprimality cannot be dropped: at a
+common norm $n$, item~3 gives $d_m\le n^{K+m-1}$, far below
+$P(0)^m=n^{Km}$ when $K,m\ge2$ (for $n=5\cdot13\cdot17\cdot29$ there are $32$
+Gaussian integers of norm $n$ in the upper half-plane).  So at a common norm
+the lowest $m=O(K)$ coefficients of a multiple can carry mass at
+most $(K+m-1)\log n$, and no bound that looks only at them gives order
+$K^2\log R$ at every root set.
+
+Nor, numerically, does a single heavy coefficient suffice.  If $F=H(x)-v$ with
+$H(0)=0$ and $v\in\mathbb Z$, the prescribed roots of $F$ are Gaussian $y$ with
+$\operatorname{Im}y>0$ at which $H$ takes the real value $v$.  An exhaustive
+search over the $H\in\mathbb Z[y]$ with $H(0)=0$, positive leading coefficient,
+coefficients at most $B$ in absolute value and degree at most $s$, and over the
+$y$ with $|\operatorname{Re}y|\le Y$ and $1\le\operatorname{Im}y\le Y$, for
+$(B,s,Y)=(1,10,30)$, $(2,7,40)$, $(3,5,50)$ and $(5,4,60)$, finds no real value
+taken at more than three such $y$, and three only for $H=y^6-2y^4+y^2$, at
+$\{\pm2+i,2i\}$, $\{\pm7+4i,8i\}$ and $\{\pm26+15i,30i\}$.  This is numerical
+evidence only; whether $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples
+at Gaussian roots in a wide sector remains open.
 
 
 \paragraph{Data availability.}
