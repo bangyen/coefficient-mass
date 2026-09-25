@@ -28,16 +28,16 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `c**2`, rows, mass and sharpness included), and the first row holds at
   every root set (`prop:rowone`).  Beyond that no bound can depend on the
   moduli and the angles alone (`prop:noangle`: `x**(2M) + rho**(2M)`).
-  At Gaussian-integer pairs, integer multiples split into blocks
+  At distinct Gaussian-integer pairs (`Im alpha_j >= 1`), integer multiples split into blocks
   (`lem:gausscarry`, `lem:gaussblocks`) each paying `log(rho_min/2)` per
   degree (`thm:gausscharge`).  An Archimedean Newton polygon
   (`thm:archnewton`) gives rows and mass `sum j log(rho_j/3)` for every
-  complex multiple once moduli grow by a factor 9 (`cor:separated`), and
+  complex multiple with `|f_D| >= 1` once moduli grow by a factor 9 (`cor:separated`), and
   at most `g` moduli per annulus `[R, 9R]` costs a factor `g**2`.  Crowded
   roots in a thin sector are CLOSED (`lem:sectorcount`, `thm:thinsector`,
   `thm:thingauss`: the argument principle forces a real crossing
   polynomial with `K/2` large roots unless the degree is `>> K/delta`,
-  which block charging pays; at Gaussian roots `thm:thingauss` gives
+  which block charging pays; at such Gaussian roots `thm:thingauss` gives
   order `K**2 log R` when `delta K log(1/delta) = O(1)`).  Real roots of both signs (`sec:bothsigns`):
   Rolle on each half-line gives rows charging one root of each sign per
   excluded coefficient (`thm:bothsigns`) and mass
@@ -46,7 +46,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `(1/2 - o(1)) K**2 log R` as `K, R -> oo` with `delta K -> 0` (sharp on a
   common ray, `cor:thinconst`) and `(pi/delta - o(1)) K log R` at fixed
   `delta`, `K, R -> oo` (`thm:widesector`, `cor:wideconst`; `x^N - rho^N` attains `pi/delta`, `prop:widesharp`), so
-  `c K**2 log R` is false over the reals; at Gaussian roots and fixed
+  `c K**2 log R` is false over the reals; at such Gaussian roots and fixed
   `delta`, `(pi/delta - o(1)) K log R` holds at every degree (`cor:widegauss`).
   Two integer imitations of `x^N - rho^N` are limited: `A((x-t)^N)` has at most
   `2 deg A` Gaussian roots above the axis, so `x^N - b` at most two
@@ -57,17 +57,17 @@ is open; an answer lands in the paper it extends, and the row leaves.
   coefficients can be `n**(K+m-1), 0, ..., 0` (`prop:gausslow`); and an
   exhaustive search finds no `H(x) - v` with small `H` at more than three
   prescribed roots.
-  Open: whether `c K**2 log R` holds for all integer multiples at Gaussian
+  Open: whether `c K**2 log R` holds for all integer multiples at such Gaussian
   roots in a wide sector (the question the paper's introduction leaves),
   and whether the cross terms below need a separation growing with the
   root counts.  Cross terms between annuli (`sec:annuli`): with `K_s` roots of
   modulus in `[T_s, U_s]`, the central index (`lem:central`,
   `lem:tropcount`) gives positions charging a root once per annulus at or
-  below it (`thm:annuli`), so mass `sum_s s K_s log(T_s/2) - S log 2` once
+  below it (`thm:annuli`), so every monic multiple has mass at least `sum_s s K_s log(T_s/2) - S log 2` once
   `T_a > 3*9**n_a U_(a-1)`, `n_a` the roots from annulus `a` up, and
   ratios `log(|beta|/6U_(a-1))` at the factor 9 (`cor:annuli`).  A
-  lacunary integer multiple attains `sum_s s K_s log t_s` exactly, so the
-  constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
+  lacunary integer multiple at suitable roots attains `sum_s s K_s log t_s`
+  exactly, so the constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
   also for pairs near the imaginary axis (`prop:annulisharp`).  At a
   constant separation `(x - t)**K` breaks the count of `lem:tropcount`,
   though not necessarily `cor:annuli` item 1.
