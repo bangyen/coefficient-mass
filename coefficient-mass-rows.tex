@@ -45,7 +45,8 @@ and bounds the cost of that step by first-order optimality.  For $1<r<2$ the
 rows are not top rows.  We show that they are given by
 prefix-constrained problems whenever the top row is at most one, and on each diagonal $L-k=\mathrm{const}$ for all but finitely many
 rows.  The second row is a minimum over finitely many exempted positions,
-each of which can be certified exactly; at $r=\frac54$ and $r=\frac43$ this shows that the
+each term attained by a polynomial with integer zeros whose optimality, for
+rational $r$, is a finite exact check; at $r=\frac54$ and $r=\frac43$ this shows that the
 prefix description fails in general.
 \end{abstract}
 
@@ -66,8 +67,10 @@ $\prod_i(x-r_i)$ has
 \]
 \cite[Theorem~3.2]{coefficient-mass}, and that at the root $2$ every monic
 multiple of $(x-2)^L$ has $b_k(F)\ge L-k+1$
-\cite[Theorem~4.13]{coefficient-mass}.  We call the bound at a given $k$
-the row $k$.  This paper determines the rows when all roots are equal.
+\cite[Theorem~4.13]{coefficient-mass}.  We call the infimum of
+$b_k(F)$ over monic multiples $F$ of $\prod_i(x-r_i)$ the row $k$; the bounds
+above are lower bounds for it.  This paper determines the rows when all
+roots are equal.
 
 \paragraph{The rows at a single root.}
 Fix a real $r>1$ and put
@@ -75,10 +78,9 @@ Fix a real $r>1$ and put
   V_r(L,k)=\inf\{b_k(F):\ F\text{ a monic real multiple of }(x-r)^L\},
   \qquad \beta_r(n)=V_r(n,1),
 \]
-so $\beta_r(n)$ is the top row of $(x-r)^n$.  Exempting the positions of
-the $k-1$ largest coefficients can never help by more than it costs in
-roots, and $V_r(L,k)\le\beta_r(L-k+1)$
-(Proposition~\ref{prop:rowvalue}).  Our main result is that equality holds
+so $\beta_r(n)$ is the top row of $(x-r)^n$.  Exempting the $k-1$ largest
+coefficients always costs at least $k-1$ of the roots:
+$V_r(L,k)\le\beta_r(L-k+1)$ (Proposition~\ref{prop:rowvalue}).  Our main result is that equality holds
 at every root $r\ge2$.
 
 \begin{mainthm}
@@ -148,7 +150,8 @@ Section~\ref{sec:allrowstwo} proves that every row is a top row at
 $r\ge2$, and Section~\ref{sec:belowtwo} treats $1<r<2$.
 
 \paragraph{Conventions.}
-All logarithms are natural and $\N_{>0}=\{1,2,\ldots\}$.  For a finite set
+All logarithms are natural, $\N_{>0}=\{1,2,\ldots\}$, and $[u,v]$ denotes
+the integers in that range.  For a finite set
 $Z\subset\N_{>0}$ we write $r_Z(s)=\prod_{z\in Z}(1-s/z)$, so $r_Z(0)=1$
 and $\deg r_Z=|Z|$.  Results of the companion paper are cited by their
 numbers there.
@@ -162,7 +165,7 @@ Let $r>1$ be real.  Throughout the paper
   \Phi_r(Z)=\Phi_r(r_Z),
 \]
 for real polynomials $q$ and finite $Z\subset\N_{>0}$, so $\Phi_2$ is the sum $\Phi$ of \cite[Section~4.4]{coefficient-mass} and
-$\Phi_r(\varnothing)=a$.  Write $[u,v]$ for the integers in that range.  For
+$\Phi_r(\varnothing)=a$.  For
 $1\le k\le L$ put $n=L-k+1$ and
 \[
   V_r(L,k)=\inf\{b_k(F): F\text{ a monic real multiple of }(x-r)^L\},
@@ -231,6 +234,13 @@ approached when the $k-1$ exempted positions lie far below the leading one.
 The lower bounds come from certificates, and the first tool is the
 displaced-zero tail bound without the cutoff $\rho_i\ge2$.
 
+As in \cite[Section~2]{coefficient-mass}, for distinct nodes
+$y_1,\ldots,y_c\in(0,1)$ and $Z\subset\N_{>0}$ with $|Z|=c-1$, the
+\emph{exponential sum} $w$ on these nodes with $w_0=1$ and $w|_Z=0$ is the
+sequence $w_d=\sum_ia_iy_i^d$ with these values, $\Tail(w)=\sum_{d\ge1}|w_d|$,
+and the \emph{leading run} of $Z$ is the largest $\ell\ge0$ with
+$[1,\ell]\subseteq Z$.
+
 \begin{theorem}[Tail bound at arbitrary nodes]\label{thm:tailgen}
 Let $0<y_1<\cdots<y_c<1$, let $Z\subset\N_{>0}$ with $|Z|=c-1$ have leading
 run $\ell$, let $w$ be the exponential sum on these nodes with $w_0=1$ and
@@ -248,7 +258,12 @@ The sum $w$ exists and is unique for any distinct positive nodes, by the
 Vandermonde argument at the start of \cite[Section~2]{coefficient-mass}.  Induct on $c-1-\ell$ as in
 the proof of \cite[Theorem~2.2]{coefficient-mass}.  The base case $Z=[1,c-1]$ is
 \cite[Lemma~2.1]{coefficient-mass}, which gives $\prod_{i=1}^c\varphi_i$ and needs
-no cutoff.  In the displaced step, the sign comparison, the splitting
+no cutoff.  In the displaced step, with $z=\max Z$ and $V$ as in the
+statement, let $G$ be the sum on all $c$ nodes with
+$G|_{\{0\}\cup(Z\setminus\{z\})}=0$ and $G_z=1$, put $\xi=|V_z|$, so that
+$w=V-V_zG$, and put $\Gamma_X(z)=\sum_{d\ge z}|X_d|/|X_z|$ for
+$X\in\{V,G\}$ and $\Sigma_G=\sum_{1\le d<z}|G_d|$, all as in the proof of
+\cite[Theorem~2.2]{coefficient-mass}.  The sign comparison, the splitting
 identity and the first correction-ratio inequality in the proof of
 \cite[Theorem~2.2]{coefficient-mass},
 $\Gamma_G(z)\le\Gamma_V(z)/(1-y_c)$, use only the zero bound,
@@ -257,10 +272,10 @@ $y_c<1$.  If $y_c\le\frac12$, the proof of \cite[Theorem~2.2]{coefficient-mass} 
 $\Tail(w)<\Tail(V)$.  If $y_c>\frac12$, then $\Sigma_G\ge0$ and
 the splitting identity give
 \[
-  \Tail(w)\le\Tail(V)+\mu\Gamma_V(z)\Bigl(\frac1{1-y_c}-2\Bigr),
+  \Tail(w)\le\Tail(V)+\xi\Gamma_V(z)\Bigl(\frac1{1-y_c}-2\Bigr),
 \]
-where $\mu=|V_z|$ and $z=\max Z$ as there, the bracket is positive, and
-$\mu\Gamma_V(z)=\sum_{d\ge z}|V_d|\le\Tail(V)$ (if $V_z=0$ then $w=V$), so
+where the bracket is positive, and
+$\xi\Gamma_V(z)=\sum_{d\ge z}|V_d|\le\Tail(V)$ (if $V_z=0$ then $w=V$), so
 $\Tail(w)\le(\frac1{1-y_c}-1)\Tail(V)=\varphi_c\Tail(V)$.  In both cases
 $\Tail(w)\le\max(1,\varphi_c)\Tail(V)$.  The set $Z\setminus\{\max Z\}$ has
 the same leading run $\ell$ and $\ell+1\le c-1$, so the induction hypothesis
@@ -284,10 +299,13 @@ $\Phi_r(Z)\le a^{|Z|+1}$ when $1<r\le2$.
 $|r_{[1,\ell]}(s)|=\binom{s-1}\ell$ for $s>\ell$ and
 $\sum_{s>\ell}\binom{s-1}\ell r^{-s}=(r^{-1}/(1-r^{-1}))^{\ell+1}=a^{\ell+1}$;
 this also settles $Z=[1,\ell]$, the ratio being $a$.  For
-$Z\ne[1,|Z|]$ run the limit in the proof of \cite[Lemma~4.6]{coefficient-mass} with
+$Z\ne[1,|Z|]$ put $c=|Z|+1$ and run the limit in the proof of
+\cite[Lemma~4.6]{coefficient-mass} with
 the nodes $y_i=\frac1r-(c-i)\varepsilon$ and the comparison
 $\Tail(w^\varepsilon)\le\max(1,\varphi_c)\Tail(V^\varepsilon)$ of
-Theorem~\ref{thm:tailgen}; the domination
+Theorem~\ref{thm:tailgen} for its sums $w$, $V$ on these nodes; the
+domination of the divided differences, with $h_j$ the complete homogeneous
+symmetric polynomial,
 $0\le h_{d-i+1}(y_1,\ldots,y_i)\le\binom d{i-1}r^{-(d-i+1)}$ and the
 invertibility of the limit matrix are as there, and $\varphi_c\to a$.  The
 consequences follow by deleting the largest element repeatedly: for $r\ge2$
@@ -305,7 +323,7 @@ Lower bounds: Proposition~\ref{prop:rowvalue}(a) with $Z=S$, $|S|=L-1$, and
 Lemma~\ref{lem:confdelr}, which gives $\Phi_r(S)\le a$ for $r\ge2$ and
 $\Phi_r(S)\le a^L$ for $r\le2$.  Upper bounds: for $r\ge2$,
 Proposition~\ref{prop:rowvalue}(c) with $n=1$ and
-$\beta_r(1)=1/\Phi_r(1)=r-1$; for $r\le2$, Proposition~\ref{prop:rowvalue}(b)
+$\beta_r(1)=1/\Phi_r(\varnothing)=r-1$; for $r\le2$, Proposition~\ref{prop:rowvalue}(b)
 with $S=[1,L-1]$, where $q=r_S$ is forced and $\mu_r(S,L)=a^L$.
 \end{proof}
 
@@ -466,8 +484,12 @@ Let $1<r<2$ and $\theta=4(r-1)/r^2<1$.  For all $1\le k\le L$ and $n=L-k+1$,
   \frac1{1+\varepsilon},\qquad
   \varepsilon\le\frac{r^2\,\theta^k}{4(2-r)\,m_k(n)} .
 \]
-With Lemma~\ref{lem:nbmass}, $\varepsilon\le C_{r,n}k^{n-1/2}\theta^k$.  So
-for fixed $n$ (indeed for $n=o(k/\log k)$),
+For $n\le k$, Lemma~\ref{lem:nbmass} and $M_k+n-1\le k(2r-1)/(r-1)$ give
+\[
+  \varepsilon\le\frac{r^2\bigl(4\sqrt r/(r-1)+1\bigr)}{3(2-r)}\,
+  \frac{\bigl(2r(2r-1)k/(r-1)\bigr)^{n-1}}{(n-1)!}\,\sqrt k\,\theta^k .
+\]
+So for fixed $n$ (indeed for $n=o(k/\log k)$),
 $V_r(L,k)=(1+o(1))(r-1)^k/m_k(n)$ as $k\to\infty$, and the exempted set
 $S=[1,k-1]$ is asymptotically the worst.
 \end{corollary}
@@ -629,7 +651,7 @@ do this, in a truncated form, by a first-order optimality argument.
 The idea is as follows.  Insert at a gap $c$ of a minimizer $W$.  The zeros of $W$
 above $c$ move up by one, and above $c$ the new polynomial is essentially
 the old one shifted by one position.  Measured against the first moment
-$\sum_ss|r_W(s)|r^{-s}$, the shift costs exactly the factor $1/r$.  The
+$\sum_ss|r_W(s)|r^{-s}$, the shift costs at most the factor $1/r$.  The
 first moment is in turn bounded by optimality, in the direction that trades
 the leading coefficient of $r_{\mathrm{ins}(W,c)}$ against that of $s\,r_W$.
 
@@ -985,7 +1007,8 @@ $V_r(L,k)\le\min_i1/\nu_i(n)\le1/\nu_k(n)$ is Theorem~\ref{thm:prefixrows}.
 \end{proof}
 
 Since $\nu_1(n+1)\le\nu_1(n)$, we have $\beta_r(n)\ge\beta_r(1)=r-1$.  So the
-hypothesis forces $r\le2$, and at $r=2$ it holds only for $n=1$.  For each
+hypothesis forces $r\le2$, and at $r=2$ it holds only for $n=1$, since
+$\beta_2(n)\ge n$ by \cite[Theorem~4.13]{coefficient-mass}.  For each
 $q\in\mathcal Q_n$ the sum $\Phi_r(q)$ decreases in $r$, term by term, so
 $\nu_1(n)$ does not increase with $r$.  Hence
 $\{r>1:\beta_r(n)\le1\}$ is an interval with left end $1$, it shrinks as $n$
@@ -1256,7 +1279,7 @@ and
   G_y=\sum_{s\ge1,\ s\notin Z}\sgn\bigl(r_Z(s)\bigr)\,e_y(s)\,r^{-s}.
 \]
 Then $\Phi_r(Z)=\mu_r(S,L)$ if and only if $|G_y|\le|e_y(y)|\,r^{-y}$ for
-every $y\in Z\setminus S$.  Conversely, for every finite
+every $y\in Z\setminus S$.  Moreover, for every finite
 $S\subset\N_{>0}$ and $L>|S|$ some $Z\supseteq S$ with $|Z|=L-1$ has
 $\Phi_r(Z)=\mu_r(S,L)$.
 \end{lemma}
@@ -1281,15 +1304,16 @@ This is nonnegative for all $c$ if and only if it is for each $c$
 supported on one $y$, with either sign, that is, if and only if
 $|G_y|\le|e_y(y)|r^{-y}$ for every $y$.
 
-For the converse take integers $D_j\to\infty$ with
+For the last claim take integers $D_j\to\infty$ with
 $D_j\ge L+\max(S\cup\{0\})$ and $W_j$ as in Lemma~\ref{lem:truncvertex} for
 $\mu_{r,D_j}(S,L)$.  Passing to a subsequence, for each $i$ the $i$-th
 smallest element of $W_j$ is eventually constant or tends to $\infty$.  A
 factor $1-s/w$ with $w\to\infty$ tends to $1$, so $r_{W_j}\to r_Z$
 coefficientwise, where $Z\supseteq S$, $|Z|\le L-1$, consists of the
 eventually constant elements.  For each $M$,
-$\sum_{s\le M}|r_Z(s)|r^{-s}=\lim_j\sum_{s\le M}|r_{W_j}(s)|r^{-s}\le
-\mu_r(S,L)$, since truncated sums are at most full ones.  So
+$\sum_{s\le M}|r_Z(s)|r^{-s}=\lim_j\sum_{s\le M}|r_{W_j}(s)|r^{-s}$, and for
+$D_j\ge M$ each term is at most
+$\Phi_{r,D_j}(r_{W_j})=\mu_{r,D_j}(S,L)\le\mu_r(S,L)$.  So
 $\Phi_r(Z)\le\mu_r(S,L)$, with equality because $r_Z$ is admissible.  If
 $|Z|<L-1$, then $(1-s/\sigma)r_Z$ is admissible for $\mu_r(S,L)$ for every
 $\sigma>0$, and for large $\sigma$ the identity before the lemma gives
@@ -1301,7 +1325,7 @@ Beyond $\max Z$ the sign of $r_Z$ is $(-1)^{|Z|}$, and
 $\sum_{s\ge0}P(s)x^s=\sum_j(\Delta^jP)(0)\,x^j/(1-x)^{j+1}$ for a
 polynomial $P$.  So for rational $r$ both $\Phi_r(Z)$ and the $G_y$ are
 rational numbers computable exactly, and for a given $Z$ the test of the
-lemma is finite.  By the converse, every $\mu_r(S,L)$, in particular every
+lemma is finite.  By the last claim, every $\mu_r(S,L)$, in particular every
 $\eta_\sigma(n)$, is attained at some such $Z$; the lemma does not say how
 to find it.
 
