@@ -375,7 +375,7 @@ inequalities, $|V_z|=\mu|G_z|$ and $|G_z|=1$, gives
 \begin{equation}\label{eq:gamma}
   \Gamma_G(z)\le\frac{\Gamma_V(z)}{1-y_c}\le2\Gamma_V(z).
 \end{equation}
-Let $\widehat V_d=\eta V_d>0$ for $d>m$ and
+Let $\widehat V=\eta V$, which is positive at every $d>m$, and
 $E_d=G_d-y_cG_{d-1}$, an exponential sum on the first $c-1$ nodes.  We first
 show
 \begin{equation}\label{eq:drive}
@@ -920,14 +920,14 @@ $b_k(F)\ge n$.
 \end{lemma}
 
 \begin{proof}
-Write $\theta=x\,d/dx$ and $q=r_Z$, of degree at most $L-1$.  Since
-$q(D-\theta)x^j=q(D-j)x^j$ and each application of $\theta$ lowers the order
-of the zero of $F$ at $2$ by at most one, $(q(D-\theta)F)(2)=0$, that is
-$\sum_{j\le D}f_jq(D-j)2^{j}=0$.  Dividing by $2^D$ and using $f_D=q(0)=1$
-and $q=0$ on $S$,
+Write $\theta=x\,d/dx$ and $\psi=r_Z$, of degree at most $L-1$.  Since
+$\psi(D-\theta)x^j=\psi(D-j)x^j$ and each application of $\theta$ lowers the order
+of the zero of $F$ at $2$ by at most one, $(\psi(D-\theta)F)(2)=0$, that is
+$\sum_{j\le D}f_j\psi(D-j)2^{j}=0$.  Dividing by $2^D$ and using $f_D=\psi(0)=1$
+and $\psi=0$ on $S$,
 \[
-  1=\Bigl|\sum_{1\le s\le D,\ s\notin S}f_{D-s}\,q(s)2^{-s}\Bigr|
-   \le b_k(F)\sum_{s\ge1}|q(s)|2^{-s}=b_k(F)\,\Phi(Z)\le\frac{b_k(F)}n,
+  1=\Bigl|\sum_{1\le s\le D,\ s\notin S}f_{D-s}\,\psi(s)2^{-s}\Bigr|
+   \le b_k(F)\sum_{s\ge1}|\psi(s)|2^{-s}=b_k(F)\,\Phi(Z)\le\frac{b_k(F)}n,
 \]
 because every position outside the $k-1$ largest has magnitude at most
 $b_k(F)$.
@@ -1015,7 +1015,7 @@ For $C=\{1\}$ and $C=\{2\}$ one finds $M_C\equiv1$, so
   \Phi(\{1,\ldots,N\}\setminus\{2\})=\frac1{N-1};
 \end{equation}
 the first is the identity
-$\sum_{s\ge1}|\prod_{z=2}^n(1-s/z)|2^{-s}=1/n$ behind
+$\sum_{s\ge1}|\prod_{z=2}^N(1-s/z)|2^{-s}=1/N$ behind
 Proposition~\ref{prop:unbounded}.  For $C=\{3,b\}$ with $b\ge4$,
 $\pi_b=-\pi_3=3b/(b-3)$, and with $(1+v)^2-(1-v)^2=4v$,
 \begin{equation}\label{eq:twohole}
@@ -1024,13 +1024,13 @@ $\pi_b=-\pi_3=3b/(b-3)$, and with $(1+v)^2-(1-v)^2=4v$,
 \end{equation}
 
 \begin{lemma}[Two holes]\label{lem:twohole}
-For $b\ge4$ and $k\ge0$,
-$\Phi(\{1,\ldots,b+k\}\setminus\{3,b\})\le1/(k+1)$.
+For $b\ge4$ and $q\ge0$,
+$\Phi(\{1,\ldots,b+q\}\setminus\{3,b\})\le1/(q+1)$.
 \end{lemma}
 
 \begin{proof}
 For $b=4$, \eqref{eq:twohole} is $\tfrac32(1-v^2)$, and
-$\int_0^1v^k\tfrac32(1-v^2)\,dv=\frac3{(k+1)(k+3)}\le\frac1{k+1}$.  Let
+$\int_0^1v^q\tfrac32(1-v^2)\,dv=\frac3{(q+1)(q+3)}\le\frac1{q+1}$.  Let
 $b\ge5$ and expand $M=M_{\{3,b\}}$ in the Bernstein basis
 $B_i=\binom{b-1}iv^i(1-v)^{b-1-i}$, $0\le i\le b-1$.  From
 $1+v=(1-v)+2v$ we get
@@ -1046,7 +1046,7 @@ Every coefficient $\frac{3b}{b-3}\gamma_i$ is at most $1$: the largest
 candidates are $\frac{3b}{8(b-3)}\le1$ (as $b\ge5$) and $\frac{3b}{4(b-1)}\le1$.
 Since the $B_i$ are nonnegative and sum to $1$, $0\le M\le1$ on $[0,1]$, and
 Lemma~\ref{lem:holeint} gives
-$\Phi\le\int_0^1v^k\,dv=1/(k+1)$.
+$\Phi\le\int_0^1v^q\,dv=1/(q+1)$.
 \end{proof}
 
 \begin{proposition}[Rows away from the top three positions]\label{prop:rowsfree}
@@ -1082,7 +1082,7 @@ $Y=\{1,\ldots,N\}\setminus\{2\}$ with $N=c_n\ge n+1$, and
 $\Phi(Y)=1/(N-1)\le1/n$.  For $j=2$ put $b=c_2\ge4$; the $n-1$ filled holes
 exceed $b$, so $N\ge b+n-1$.  The sets
 $\{1,\ldots,t\}\setminus\{3,b\}$, $b+n-1\le t\le N$, contain $b+1$ and miss
-$3$, so Lemma~\ref{lem:confdel} and Lemma~\ref{lem:twohole} with $k=n-1$ give
+$3$, so Lemma~\ref{lem:confdel} and Lemma~\ref{lem:twohole} with $q=n-1$ give
 $\Phi(Y)\le\Phi(\{1,\ldots,b+n-1\}\setminus\{3,b\})\le1/n$.
 
 The consequence is Lemma~\ref{lem:rowcert} with $A=S$: here $|S|=k-1$, so
@@ -1097,17 +1097,17 @@ The two parts of $\Phi$ that appear in the proof of Lemma~\ref{lem:holeint}
 are bounded separately: the values at the kept holes by comparison with the
 consecutive block $\{j+1,\ldots,2j+1\}$, and the tail beyond $N$ by a Beta
 integral.  Throughout, $j\ge0$, $C=\{c_1<\cdots<c_{j+1}\}\subset\N_{>0}$ with
-$c_1=j+1$, $m=c_{j+1}$, $k\ge0$, $N=m+k$, $Y=\{1,\ldots,N\}\setminus C$ and
+$c_1=j+1$, $m=c_{j+1}$, $q\ge0$, $N=m+q$, $Y=\{1,\ldots,N\}\setminus C$ and
 $\psi=r_Y$.  Then $m\ge2j+1$, and by the proof of Lemma~\ref{lem:holeint}
-$\Phi(Y)=H(C,k)+T(C,k)$, where
+$\Phi(Y)=H(C,q)+T(C,q)$, where
 \[
-  H(C,k)=\sum_{c\in C}|\psi(c)|\,2^{-c},\qquad
-  T(C,k)=\sum_{s>N}|\psi(s)|\,2^{-s}
+  H(C,q)=\sum_{c\in C}|\psi(c)|\,2^{-c},\qquad
+  T(C,q)=\sum_{s>N}|\psi(s)|\,2^{-s}
         =\sum_{s>N}\binom{s-1}N2^{-s}\prod_{c\in C}\frac c{s-c}.
 \]
 
 \begin{lemma}[Values at the kept holes]\label{lem:holevals}
-$H(C,k)\le\dfrac1{2(k+1)}$.
+$H(C,q)\le\dfrac1{2(q+1)}$.
 \end{lemma}
 
 \begin{proof}
@@ -1134,28 +1134,28 @@ $c_{i+1},\ldots,c_{j+1}$ removed.  The factor $(p-c)/p$ lies in $(0,1)$ and
 increases with $p$, so the product is at most the product over the
 $N-c-i'$ largest integers of $(c,N]$, which is
 $\prod_{p=c+i'+1}^{N}(p-c)/p=\binom{c+i'}c\big/\binom Nc$.  Since
-$m\ge c+i'$, we have $N\ge c+i'+k$, and hence
+$m\ge c+i'$, we have $N\ge c+i'+q$, and hence
 \[
   2^{-c}|\psi(c)|\le U_i(c):=2^{-c}\lambda_i(c)
-        \binom{c+i'}c\Big/\binom{c+i'+k}c .
+        \binom{c+i'}c\Big/\binom{c+i'+q}c .
 \]
 
 \emph{Moving $c$ down.}  For $i\ge2$ and $c\ge j+i$,
 \[
   \frac{U_i(c+1)}{U_i(c)}
-  =\frac{c-j-1}{2(c-j)}\cdot\frac c{c-i+2}\cdot\frac{c+i'+1}{c+i'+k+1}
+  =\frac{c-j-1}{2(c-j)}\cdot\frac c{c-i+2}\cdot\frac{c+i'+1}{c+i'+q+1}
   \le\frac c{2(c-i+2)}\le1,
 \]
 the last step because $c\ge j+i\ge2i-1$ (as $i\le j+1$).  Since
 $c_i\ge j+i$, we get $2^{-c_i}|\psi(c_i)|\le U_i(j+i)$ for every $i$; for $i=1$
 this is the bound itself.
 
-\emph{The block.}  For $C^\circ=\{j+1,\ldots,2j+1\}$ with the same $k$, all
+\emph{The block.}  For $C^\circ=\{j+1,\ldots,2j+1\}$ with the same $q$, all
 three bounds are equalities: $E=\varnothing$, the holes above
-$c_i^\circ=j+i$ are $j+i+1,\ldots,2j+1$, and $N^\circ=2j+1+k=c_i^\circ+i'+k$.
-So $2^{-c_i}|r_Y(c_i)|\le2^{-c_i^\circ}|r_{Y^\circ}(c_i^\circ)|$ term by term,
-and $H(C,k)\le H(C^\circ,k)$.  By the proof of Lemma~\ref{lem:holeint},
-$H(C^\circ,k)=\int_0^1v^k\sum_{c\in C^\circ}|\pi_c|2^{-c}v^{2j+1-c}(1-v)^{c-1}\,dv$
+$c_i^\circ=j+i$ are $j+i+1,\ldots,2j+1$, and $N^\circ=2j+1+q=c_i^\circ+i'+q$.
+So $2^{-c_i}|\psi(c_i)|\le2^{-c_i^\circ}|\psi^\circ(c_i^\circ)|$, where $\psi^\circ=r_{Y^\circ}$ and $Y^\circ=\{1,\ldots,N^\circ\}\setminus C^\circ$, term by term,
+and $H(C,q)\le H(C^\circ,q)$.  By the proof of Lemma~\ref{lem:holeint},
+$H(C^\circ,q)=\int_0^1v^q\sum_{c\in C^\circ}|\pi_c|2^{-c}v^{2j+1-c}(1-v)^{c-1}\,dv$
 with $|\pi_{j+i}|=(2j+1)!/\bigl(j!\,(i-1)!\,(j+1-i)!\bigr)$, and the binomial
 theorem gives
 \[
@@ -1165,12 +1165,12 @@ theorem gives
 \]
 where $\gamma_j=(2j+1)!/(j!^24^j)$ satisfies
 $\int_0^1\gamma_j(1-v^2)^j\,dv=1$.  The function $(1-v^2)^j$ is
-nonincreasing and $v^k$ is nondecreasing, so Chebyshev's integral inequality
-gives $H(C^\circ,k)\le\frac12\int_0^1v^k\,dv=\frac1{2(k+1)}$.
+nonincreasing and $v^q$ is nondecreasing, so Chebyshev's integral inequality
+gives $H(C^\circ,q)\le\frac12\int_0^1v^q\,dv=\frac1{2(q+1)}$.
 \end{proof}
 
 \begin{lemma}[The tail beyond the kept holes]\label{lem:holetail}
-If $j\ge1$ and $k\ge1$, then $T(C,k)\le\dfrac{j+1}{e\,j\,(k+1)}$.
+If $j\ge1$ and $q\ge1$, then $T(C,q)\le\dfrac{j+1}{e\,j\,(q+1)}$.
 \end{lemma}
 
 \begin{proof}
@@ -1191,14 +1191,14 @@ $\sum_{s>N}\binom{s-1}N y^s=\bigl(y/(1-y)\bigr)^{N+1}$ at $y=(1-t)/2$, the
 sum of $\binom{s-1}N2^{-s}(1-t)^{s-m-1}$ is
 $(1-t)^{-m-1}\bigl((1-t)/(1+t)\bigr)^{N+1}$, so
 \[
-  T(C,k)\le(j+1)\binom mj\int_0^1t^j
-     \Bigl(\frac{1-t}{1+t}\Bigr)^k(1+t)^{-m-1}\,dt .
+  T(C,q)\le(j+1)\binom mj\int_0^1t^j
+     \Bigl(\frac{1-t}{1+t}\Bigr)^q(1+t)^{-m-1}\,dt .
 \]
 Now $(1-t)/(1+t)\le e^{-2t}$, since $\log\frac{1+t}{1-t}\ge2t$, and for
-$k\ge1$, $(k+1)e^{-2kt}\le2k\,e^{-2kt}\le1/(et)$, since $ye^{-y}\le1/e$.
+$q\ge1$, $(q+1)e^{-2qt}\le2q\,e^{-2qt}\le1/(et)$, since $ye^{-y}\le1/e$.
 Extending the integral to $(0,\infty)$,
 \[
-  (k+1)\,T(C,k)\le\frac{j+1}e\binom mj\int_0^\infty t^{j-1}(1+t)^{-m-1}\,dt
+  (q+1)\,T(C,q)\le\frac{j+1}e\binom mj\int_0^\infty t^{j-1}(1+t)^{-m-1}\,dt
   =\frac{j+1}e\binom mj\,\mathrm B(j,m-j+1)=\frac{j+1}{e\,j}.
 \]
 \end{proof}
@@ -1221,11 +1221,11 @@ filled holes $c_{j+2},\ldots,c_{j+n}$, and $|Z|\le|A|+n-1$.  As in the proof
 of Proposition~\ref{prop:rowsfree}, adding the elements of $Z$ above $N$ to
 $Y$ one at a time never produces a set $\{1,\ldots,t\}$, because the hole
 $j+1$ lies below them, so Lemma~\ref{lem:confdel} gives
-$\Phi(Z)\le\Phi(Y)$.  Put $m=c_{j+1}$ and $k=N-m\ge n-1\ge1$.  By
+$\Phi(Z)\le\Phi(Y)$.  Put $m=c_{j+1}$ and $q=N-m\ge n-1\ge1$.  By
 Lemmas~\ref{lem:holevals} and~\ref{lem:holetail},
 \[
-  \Phi(Y)=H(C,k)+T(C,k)\le\frac1{k+1}\Bigl(\frac12+\frac{j+1}{e\,j}\Bigr)
-  \le\frac1{k+1}\Bigl(\frac12+\frac4{3e}\Bigr)<\frac1{k+1}\le\frac1n,
+  \Phi(Y)=H(C,q)+T(C,q)\le\frac1{q+1}\Bigl(\frac12+\frac{j+1}{e\,j}\Bigr)
+  \le\frac1{q+1}\Bigl(\frac12+\frac4{3e}\Bigr)<\frac1{q+1}\le\frac1n,
 \]
 because $(j+1)/j\le4/3$ for $j\ge3$ and $8<3e$.
 \end{proof}
