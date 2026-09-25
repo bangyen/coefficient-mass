@@ -797,10 +797,11 @@ def _rpoly(coeffs: list[int]) -> _Rat:
 
 #: The breakpoint polynomials ``gamma`` of ``thm:familylow`` (keys: their
 #: indices, and ``gamma'``, ``gamma_+``), highest degree first, each with one
-#: zero in (1, 3/2), bracketed between the two numbers over 10000.
+#: zero in (1, 3/2), bracketed between the two numbers over 100000 (the
+#: digits printed in the paper).
 _BREAKS = {
-    1: ([218644, 418845, 374850, -1157625], (10740, 10750)),
-    2: ([203860, 341469, 134274, -824889], (10950, 10960)),
+    1: ([218644, 418845, 374850, -1157625], (107451, 107452)),
+    2: ([203860, 341469, 134274, -824889], (109547, 109548)),
     "prime": (
         [
             172587443623,
@@ -811,7 +812,7 @@ _BREAKS = {
             -86819140800,
             -128394504000,
         ],
-        (11110, 11120),
+        (111142, 111143),
     ),
     3: (
         [
@@ -824,7 +825,7 @@ _BREAKS = {
             -9236198868099,
             -16544067678495,
         ],
-        (11244, 11245),
+        (112444, 112445),
     ),
     4: (
         [
@@ -835,12 +836,12 @@ _BREAKS = {
             -826848960,
             -1222804800,
         ],
-        (11330, 11340),
+        (113392, 113393),
     ),
-    5: ([15476503, 17470982, -26164523, -7874752, -11645760], (11660, 11670)),
-    6: ([144543, 150742, -305683, -110912], (12150, 12160)),
-    7: ([3989, 3570, -11025], (12740, 12750)),
-    "plus": ([111700, -50307, -97470, -109209], (14830, 14840)),
+    5: ([15476503, 17470982, -26164523, -7874752, -11645760], (116696, 116697)),
+    6: ([144543, 150742, -305683, -110912], (121576, 121577)),
+    7: ([3989, 3570, -11025], (127417, 127418)),
+    "plus": ([111700, -50307, -97470, -109209], (148310, 148320)),
 }
 
 #: ``Q_z`` in the denominators for the zero sets {1, 4, z}.
@@ -885,7 +886,7 @@ def test_family_below() -> None:
     # Each breakpoint polynomial: one zero in (1, 3/2), from - to +, bracketed.
     brackets = {}
     for key, (_, (a, b)) in _BREAKS.items():
-        a, b = Fraction(a, 10000), Fraction(b, 10000)
+        a, b = Fraction(a, 100000), Fraction(b, 100000)
         assert _sturm(g[key].num, lo, hi) == 1, key
         assert g[key].at(lo) < 0 < g[key].at(hi), key
         assert g[key].at(a) < 0 < g[key].at(b), key
@@ -894,7 +895,8 @@ def test_family_below() -> None:
     assert all(
         brackets[s][1] <= brackets[t][0] for s, t in zip(order, order[1:], strict=False)
     )
-    r1 = brackets[1][0]  # a rational just below rho_1
+    r1 = Fraction(1074, 1000)  # the rational below rho_1 used in the paper
+    assert r1 < brackets[1][0]
     top = Fraction(13, 10)
     assert brackets[7][1] < top < brackets["plus"][0]
 
@@ -1254,7 +1256,7 @@ def test_family_near_one() -> None:
     found = _flip_witness(r, x)
     assert found is not None
     z, phi, c = found
-    assert z >= x + 3
+    assert z == 41  # as quoted after thm:familyone
     for cj, cap in zip(c, (13, 146, 405), strict=True):
         assert abs(cj) <= cap * Fraction(1, 3**z)
     rho = {1: s1 + c[0], 2: -1 + c[1], 3: -1 + c[2], x: sx, z: 1 - 2 * phi}
@@ -1398,6 +1400,9 @@ def test_family_oscillation() -> None:
     assert y**x * (1 + y) - y**2 >= (1 - y) / 24 and sx + 7 <= 1 / (r * eps)
     ws1, _, wsz, theta = _exact_witness(y, x, z)
     assert abs(ws1) <= 1 and abs(wsz) <= 1  # eq:witness: tau({10}) = theta
+    assert Fraction(4525, 10**4) < ws1 < Fraction(4526, 10**4)  # the quoted digits
+    assert Fraction(-3406, 10**4) < wsz < Fraction(-3405, 10**4)
+    assert Fraction(4085, 10**5) < theta < Fraction(4086, 10**5)
     cert = _certificate([y, *_FAST], [1, x, z])
     tail = sum(
         li * (a ** (x + 1) - a**z - a ** (z + 1) - a**2 + a**x) / (1 - a)
@@ -1740,6 +1745,8 @@ def test_family_jumps() -> None:
     p7 = _Placement(r, 7)
     tau7, z7, phi7 = p7.cost()
     assert z6 == [1, 6, 41] and z7 == [1, 4, 7] and 0 < phi7 < 1
+    assert Fraction(35595, 10**6) < tau6 < Fraction(35596, 10**6)
+    assert Fraction(35944, 10**6) < tau7 < Fraction(35945, 10**6)
     assert _tail_of(nodes, z6) == tau6 and _tail_of(nodes, z7) == tau7
     assert 2 * p7.h_from(8) < p7.big_f  # control: far flips alone do not balance
     assert max(_at_x(4)[1], _at_x(5)[1]) < _at_x(6)[1] < tau7 and tau6 < tau7
@@ -1755,11 +1762,104 @@ def test_family_jumps() -> None:
     tau11, z11, _ = _Placement(r, 11).cost()
     assert z11 == [1, 7, 11] and _tail_of([1 / r, *_FAST], z11) == tau11
     assert all(_at_x(k)[1] < tau11 for k in range(4, 11))
+    assert max(Fraction(1, 48), Fraction(31, 1704)) < tau11
+    assert Fraction(411505, 10**7) < tau11 < Fraction(411506, 10**7)
     assert Fraction(408515, 10**7) < _at_x(10)[1] < Fraction(408516, 10**7)
     for k in range(12, 24):
         assert _cheap_bound(r, 3, k + 1) < _cheap_bound(r, 3, k)
     assert _cheap_bound(r, 3, 12) < Fraction(288, 10000) < tau11
     assert Fraction(243009, 10000) < 1 / tau11 < Fraction(24301, 1000)
+
+
+def _e_bounds() -> tuple[Fraction, Fraction]:
+    """Rationals ``lo < e < hi``: the series up to ``1/19!``, whose tail is
+    below ``2/20!``."""
+    lo, term = Fraction(0), Fraction(1)
+    for k in range(1, 21):
+        lo += term
+        term /= k
+    return lo, lo + 2 * term
+
+
+def test_family_hand_estimates() -> None:
+    """The estimates with logarithms and irrational powers in the proofs of
+    ``thm:familyone``, ``thm:familylimit`` (d), ``thm:familyjump`` (b) and
+    ``prop:familyrdelta``, each reduced to a comparison of rationals or of
+    integer powers.  ``e`` is bracketed by its series and ``alpha =
+    log(5/3)/log 3`` by ``alpha > p/q  <=>  5^q > 3^(p+q)``.  Control: the
+    brackets are tight enough to fail when moved past the true values."""
+    e_lo, e_hi = _e_bounds()
+    assert Fraction(27182818, 10**7) < e_lo < e_hi < Fraction(27182819, 10**7)
+    # alpha: 0.4649 < alpha < 0.465, 1/alpha < 2.151, 2/5 < alpha < 1/2.
+    assert 5**10000 > 3**14649 and 5**200 < 3**293
+    assert 5**2151 > 3**3151  # alpha > 1000/2151
+    assert 5**5 > 3**7 and 5**2 < 3**3
+    assert not 5**1000 > 3**1466 and not 5**1000 < 3**1464  # control: 0.464, 0.466
+    # thm:familyone (c), upper bound: x log r <= eps log_3(8/eps) <= log_3(800)/100
+    # < 1/14 (eps log(8/eps) increases while eps < 8/e), y^x > e^(-1/14) >
+    # 13/14, and (W1) at the worst y = 100/101.
+    assert 800**14 < 3**100 and 8 * 100 > e_hi
+    assert e_hi < Fraction(14, 13) ** 14
+    y = Fraction(100, 101)
+    assert y**2 * (Fraction(13, 14) * (1 + y) - 1) > (1 - y) / 24
+    r, eps = Fraction(101, 100), Fraction(1, 100)
+    assert r * eps < Fraction(8, 777) and 8 / r - 48 * eps >= 3
+    assert 810 < 5**6
+    # ... lower bound: (3/5)^4 > 1/23 and (1/16)(3/5)^4 < 1/24 - 5/192;
+    # eps log(945/(2 eps)) <= log(47250)/100 < 27/250, log(300/101) > 27/25,
+    # so X log r < 1/10 and r^X < e^(1/10) < 111/100; 3^X < 525/eps, and
+    # 525^alpha < sqrt(525) < 23.
+    assert Fraction(3, 5) ** 4 > Fraction(1, 23)
+    assert Fraction(1, 16) * Fraction(3, 5) ** 4 < Fraction(1, 24) - Fraction(5, 192)
+    assert 945 * 100 > 2 * e_hi  # eps log(945/(2 eps)) increases up to 1/100
+    assert 47250**250 < e_lo**2700
+    assert e_hi**27 < Fraction(300, 101) ** 25
+    assert e_hi < Fraction(111, 100) ** 10
+    assert Fraction(111, 100) * Fraction(945, 2) < 525 < 23**2
+    # ... the worst placement: 3^4 < 100, and (125/36)^5 < 3^6.
+    assert 3**4 < 100 and Fraction(125, 36) ** 5 < 3**6
+    # thm:familylimit (d): 5 (8/5)^alpha <= 5 sqrt(8/5) <= 8, and
+    # q <= 14.6/81 gives K_c <= 18 (1 + 18 * 3^-c).
+    assert 25 * Fraction(8, 5) <= 64
+    assert Fraction(146, 10) / (1 - Fraction(146, 810)) <= 18
+    # thm:familyjump (b): (36/5) Phi(-1) = (36/5)(3/5) 80 * 18^-alpha >= 90,
+    # that is 18^alpha <= 3.84, from alpha < 93/200.
+    assert 18**93 <= Fraction(384, 100) ** 200
+    assert not 18**465 <= Fraction(383, 100) ** 1000  # control: 18^alpha > 3.83
+    # prop:familyrdelta: log_3(7/3) > 0.77, log_3(5)/2 > 0.73, and at
+    # delta = 1/2, eps = (delta/10)^4 = 1/160000 (so eps/6 = 1/960000):
+    assert 7**100 > 3**177 and 5**100 > 3**146
+    assert 960000**4649 >= 500**10000  # (eps/6)^alpha <= delta/250
+    assert 2880000 <= 3**40  # eps log_3(18/eps) <= delta/2000
+    assert (460**2 * 216) ** 50 <= 960000**77  # 2.3 (108/delta)^alpha (eps/6)^.77
+    assert 600**100 <= 960000**73  # 3 (eps/6)^0.73 <= delta/100
+    assert Fraction(72, 5) ** 2151 <= Fraction(160000, 36) ** 1000  # (delta/10)^4
+    assert 3 * 49 > 144 and e_hi**21 < 3**20  # 3^-1/2 < 7/12, log 3 > 21/20
+    assert 4 * Fraction(1, 250) + 9 * Fraction(1, 2) ** 3 / 10**4 < Fraction(5, 6)
+    u = Fraction(1, 5)  # 1/(1 - u)^2 <= 1 + 3u for u <= 1/5
+    assert (1 - u) ** 2 * (1 + 3 * u) >= 1
+    # Pi <= 1 + delta/30 and the bound 0.02 delta on (0, 1/2]: divided by
+    # delta, each difference is monotone in delta, so its end value decides.
+    d = Fraction(1, 2)
+    assert (
+        Fraction(21, 1000) - Fraction(1, 30) + d * Fraction(12, 10**5) + d**2 / 10**7
+        < 0
+    )
+    assert (1 + d / 100) ** 2 * (1 + d / 1000) - 1 - d / 30 == d * (
+        Fraction(21, 1000) - Fraction(1, 30) + d * Fraction(12, 10**5) + d**2 / 10**7
+    )
+    c0 = Fraction(21, 20) - Fraction(1, 2) - Fraction(1, 30) - Fraction(16, 50)
+    c1 = Fraction(1, 60) + Fraction(16, 50) * Fraction(21, 20)
+    ratio = (1 + d / 2) * (1 + d / 30) / (1 + Fraction(21, 20) * d)
+    assert (1 - ratio) / 16 - d / 50 == d * (c0 - c1 * d) / (
+        16 * (1 + Fraction(21, 20) * d)
+    )
+    assert c0 - c1 * d > 0
+    top = Fraction(5, 36) * Fraction(102, 100) + Fraction(14, 27) / 5**13
+    assert top <= Fraction(143, 1000)
+    assert Fraction(25, 108) * Fraction(96, 100) >= Fraction(22, 100)
+    assert Fraction(25, 144) > Fraction(17, 100)
+    assert Fraction(2, 100) / Fraction(143, 1000) >= Fraction(10, 72)
 
 
 def test_cutoff_sharp() -> None:
