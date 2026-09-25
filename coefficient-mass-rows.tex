@@ -96,10 +96,7 @@ $V_r(L,k)=\beta_r(L-k+1)$ (Theorem~\ref{thm:allrowstwo}).
 At $r=2$ this sharpens $b_k\ge L-k+1$ to $b_k\ge\beta_2(L-k+1)$; for instance
 $q(s)=(1-\frac s2)(1-\frac s5)$ is admissible for $\beta_2(3)$ and has
 $\sum_{s\ge1}|q(s)|2^{-s}=\frac{11}{40}$, so
-$\beta_2(3)\ge\frac{40}{11}>3$.  Earlier
-versions of this paper proved the identity at $r\ge\frac92$, $r\ge4$ and
-$r\ge\frac{25}7$ by bounding the hole product of a top-row optimum; that
-route cannot reach $r=2$.
+$\beta_2(3)\ge\frac{40}{11}>3$.
 
 For $1<r<2$ the rows are not all top rows.  The last row is
 $V_r(L,L)=(r-1)^L<\beta_r(1)$ for $L\ge2$ (Corollary~\ref{cor:lastrowr}).
@@ -116,8 +113,10 @@ $n=o(k/\log k)$), $E_k(r)/\nu_k(n)\to0$ as $k\to\infty$
 (Corollary~\ref{cor:belowtwo}).
 We prove that the upper bound is attained for
 every $k$ whenever $\beta_r(n)\le1$ (Theorem~\ref{thm:onepolyrows}).  We
-also prove it whenever $k\ge\max(K,\alpha(n-1))$ for constants depending on
-$r$ (Theorem~\ref{thm:longdiag}, Proposition~\ref{prop:longdiagexplicit}).
+also prove it whenever $k\ge\max(K,\alpha(n-1))$, where $\alpha\ge1$ is any
+constant with $\rho(\alpha)<1$ for an explicit function $\rho$ depending on
+$r$, and $K$ depends on $r$ and the chosen $\alpha$
+(Theorem~\ref{thm:longdiag}, Proposition~\ref{prop:longdiagexplicit}).
 It is not attained in general.  The second row $V_r(n+1,2)$ is the minimum of the top
 row $\beta_r(n)$ and finitely many exempted-position terms (Theorem~\ref{thm:secondrow}), and exact
 certificates give $V_{5/4}(16,2)=1/\nu_3(14)<\min_{i\le2}1/\nu_i(15)$ and
@@ -193,9 +192,12 @@ $r=2$, \cite[Theorem~4.13]{coefficient-mass} says $V_2(L,k)\ge n$.
 \begin{proposition}[The row values]\label{prop:rowvalue}
 Let $r>1$ and $1\le k\le L$.
 \begin{enumerate}
-\item[(a)] If $F$ is a monic multiple of $(x-r)^L$, $S$ is the set of
-backward distances of $k-1$ positions carrying the $k-1$ largest nonleading
-magnitudes, and $q$ is real with $\deg q\le L-1$, $q(0)=1$ and $q|_S=0$, then
+\item[(a)] Let $F=\sum_{j\le D}f_jx^j$ be a monic multiple of $(x-r)^L$,
+let $J\subseteq[0,D-1]$ be any set of $k-1$ indices with
+$\min_{j\in J}|f_j|\ge\max\{|f_j|:j<D,\ j\notin J\}$ (so $J$ carries $k-1$
+largest nonleading magnitudes, ties broken arbitrarily), and let
+$S=\{D-j:j\in J\}$ be the set of their backward distances from the leading
+position.  If $q$ is real with $\deg q\le L-1$, $q(0)=1$ and $q|_S=0$, then
 $b_k(F)\,\Phi_r(q)\ge1$.  In particular $b_k(F)\ge1/\Phi_r(Z)$ for every
 finite $Z\supseteq S$ with $|Z|\le L-1$.
 \item[(b)] $V_r(L,k)=\inf_{|S|=k-1}1/\mu_r(S,L)$, the infimum over
@@ -206,16 +208,21 @@ $S\subset\N_{>0}$.
 
 \begin{proof}
 (a) This is the proof of \cite[Lemma~4.5]{coefficient-mass} with $2$ replaced by $r$:
-$(q(D-\theta)F)(r)=0$ with $\theta=x\,d/dx$ gives
+$(q(D-\delta)F)(r)=0$ with $\delta=x\,d/dx$ gives
 $\sum_{j\le D}f_jq(D-j)r^{j-D}=0$, so
 $1\le\sum_{s\ge1,\,s\notin S}|f_{D-s}||q(s)|r^{-s}\le b_k(F)\Phi_r(q)$.
+The last step uses $|f_j|\le b_k(F)$ for $j<D$, $j\notin J$: the $k-1$
+magnitudes on $J$ are at least every other nonleading one, so $b_k(F)$ is
+the largest magnitude off $J$ (here $D\ge L\ge k$).  Only $|S|=k-1$ and
+this inequality are used below, so every result stated for ``the set $S$
+of (a)'' holds for every admissible choice of $J$.
 
 (b) By (a), $b_k(F)\ge1/\mu_r(S_F,L)$ for the set $S_F$ of (a), which
 gives ``$\ge$''.  For ``$\le$'' fix $S$ with $|S|=k-1$ and $D\ge\max(L,\max S)$.
 Writing $F=\sum_{s=0}^Dg_sx^{D-s}$ with $g_0=1$, divisibility by
 $(x-r)^L$ is the set of $L$ linear conditions
 $\sum_{s=0}^Dg_sq(s)r^{-s}=0$ for $\deg q\le L-1$ (as in (a), these are the
-conditions $(\theta^iF)(r)=0$, $i<L$).  Minimizing
+conditions $(\delta^iF)(r)=0$, $i<L$).  Minimizing
 $\max_{s\in[1,D]\setminus S}|g_s|$ over this affine set is a finite linear
 program, feasible because $D\ge L$, and by linear-programming duality its value is
 $1/\mu_{r,D}(S,L)$, where $\mu_{r,D}$ is defined like $\mu_r$ with the sum
@@ -246,8 +253,12 @@ $S=\varnothing$ is $V_r(n,1)=\beta_r(n)$.
 
 So every row is at most the top row of a multiple of $(x-r)^n$, the value
 approached when the $k-1$ exempted positions lie far below the leading one.
-The lower bounds come from certificates, and the first tool is the
-displaced-zero tail bound without the cutoff $y_i\le\frac12$ (that is, $\rho_i=1/y_i\ge2$ in \cite{coefficient-mass}).
+The lower bounds come from certificates.  We first extend the
+displaced-zero tail bound of \cite{coefficient-mass} to nodes without the
+cutoff $y_i\le\frac12$ (that is, $\rho_i=1/y_i\ge2$ there).  At the root $r$
+it bounds the cost of deleting the largest zero (Lemma~\ref{lem:confdelr}),
+which is used in the remark after Theorem~\ref{thm:crossing}; the last row
+(Corollary~\ref{cor:lastrowr}) needs only convexity.
 
 As in \cite[Section~2]{coefficient-mass}, for distinct nodes
 $y_1,\ldots,y_c\in(0,1)$ and $Z\subset\N_{>0}$ with $|Z|=c-1$, the
@@ -277,15 +288,20 @@ no cutoff.  In the displaced step, with $z=\max Z$ and $V$ as in the
 statement, let $G$ be the sum on all $c$ nodes with
 $G|_{\{0\}\cup(Z\setminus\{z\})}=0$ and $G_z=1$, put $\xi=|V_z|$, so that
 $w=V-V_zG$, and put $\Gamma_X(z)=\sum_{d\ge z}|X_d|/|X_z|$ for
-$X\in\{V,G\}$ and $\Sigma_G=\sum_{1\le d<z}|G_d|$, all as in the proof of
-\cite[Theorem~2.2]{coefficient-mass}.  The sign comparison, the splitting
-identity and the first correction-ratio inequality in the proof of
-\cite[Theorem~2.2]{coefficient-mass},
-$\Gamma_G(z)\le\Gamma_V(z)/(1-y_c)$, use only the zero bound,
-\cite[Lemma~2.3]{coefficient-mass} (which needs no upper bound on the nodes) and
-$y_c<1$.  If $y_c\le\frac12$, the proof of \cite[Theorem~2.2]{coefficient-mass} gives
+$X\in\{V,G\}$ and $\Sigma_G=\sum_{1\le d<z}|G_d|$, the notation of the proof of
+\cite[Theorem~2.2]{coefficient-mass}.  That proof derives the identity
+\cite[eq.~(2)]{coefficient-mass},
+$\Tail(V)-\Tail(w)=\xi(2\Gamma_V(z)-\Gamma_G(z)+\Sigma_G)$, and the first
+inequality of \cite[eq.~(3)]{coefficient-mass},
+$\Gamma_G(z)\le\Gamma_V(z)/(1-y_c)$, from the zero bound of
+\cite[Section~2]{coefficient-mass}, \cite[Lemma~2.3]{coefficient-mass}
+(which needs no upper bound on the nodes) and $y_c<1$ only; the cutoff
+$y_c\le\frac12$ enters there only through the second inequality of
+\cite[eq.~(3)]{coefficient-mass}.  So both hold here.  If $y_c\le\frac12$,
+that second inequality holds as well, and the proof of
+\cite[Theorem~2.2]{coefficient-mass} gives
 $\Tail(w)<\Tail(V)$.  If $y_c>\frac12$, then $\Sigma_G\ge0$ and
-the splitting identity give
+the identity give
 \[
   \Tail(w)\le\Tail(V)+\xi\Gamma_V(z)\Bigl(\frac1{1-y_c}-2\Bigr),
 \]
@@ -335,8 +351,11 @@ $V_r(L,L)=r-1$ for $r\ge2$, and $V_r(L,L)=(r-1)^L$ for $1<r\le2$.
 
 \begin{proof}
 Lower bounds: Proposition~\ref{prop:rowvalue}(a) with $Z=S$, $|S|=L-1$, and
-Lemma~\ref{lem:confdelr}, which gives $\Phi_r(S)\le a$ for $r\ge2$ and
-$\Phi_r(S)\le a^L$ for $r\le2$.  Upper bounds: for $r\ge2$,
+Lemma~\ref{lem:prefixpush} of Section~\ref{sec:onepoly} with $p=1$, whose
+proof uses only the convexity of Lemma~\ref{lem:crossing}(b).  It gives
+$\Phi_r(S)\le\max_{1\le i\le L}\Phi_r([1,i-1])=\max_{1\le i\le L}a^i$, by
+the first claim of Lemma~\ref{lem:confdelr} (a direct computation), and
+this maximum is $a$ for $r\ge2$ and $a^L$ for $r\le2$.  Upper bounds: for $r\ge2$,
 Proposition~\ref{prop:rowvalue}(c) with $n=1$ and
 $\beta_r(1)=1/\Phi_r(\varnothing)=r-1$; for $r\le2$, Proposition~\ref{prop:rowvalue}(b)
 with $S=[1,L-1]$, where $q=r_S$ is forced and $\mu_r(S,L)=a^L$.
@@ -969,11 +988,9 @@ Theorem~\ref{thm:prefixrows}, and this loses nothing when one $p$ is nearly
 optimal for all prefix problems at once.  The prefix identity~\eqref{eq:prefixid} holds at $(r,L,k)$ whenever
 $\Lambda_k(n)=\max_{i\le k}\nu_i(n)$.  For $n=1$ we have
 $\mathcal Q_1=\{1\}$ and $A_i(1)=a^i$.  So the theorem gives
-$V_r(L,L)\ge r-1$ for $r\ge2$ and $V_r(L,L)\ge(r-1)^L$ for $r\le2$, and
-Lemma~\ref{lem:prefixpush} with $p=1$ gives $\Phi_r(S)\le\max\{a,a^{|S|+1}\}$.
-These are the lower bounds of Corollary~\ref{cor:lastrowr}, obtained here
-from convexity alone, without Lemma~\ref{lem:confdelr} and the tail theorem
-behind it.
+$V_r(L,L)\ge r-1$ for $r\ge2$ and $V_r(L,L)\ge(r-1)^L$ for $r\le2$, the
+lower bounds of Corollary~\ref{cor:lastrowr}; its proof is this argument,
+through Lemma~\ref{lem:prefixpush} with $p=1$.
 
 \begin{lemma}[Shifting the prefix index]\label{lem:prefixshift}
 Let $r>1$, $n\ge1$, $i,m\ge1$, and let $p$ be real with $\deg p\le n-1$.
@@ -1150,20 +1167,20 @@ Lemma~\ref{lem:nbmass}.
 Let $1<r<2$, $\theta=4(r-1)/r^2$ and $n\ge1$.  For $k\ge2$ put
 $M_k=\lfloor(k-1)r/(r-1)\rfloor+1$ and
 \[
-  F(k)=\theta^k\,(2r)^{n-1}\binom{M_k+n-1}{n-1}
+  \Xi(k)=\theta^k\,(2r)^{n-1}\binom{M_k+n-1}{n-1}
   \Bigl(\frac{4\sqrt{kr}}{r-1}+1\Bigr).
 \]
 \begin{enumerate}
-\item[(a)] If $F(k)\le3(2-r)^2/r^2$, then $N_k(r)\le\tau_k(n)$, so
+\item[(a)] If $\Xi(k)\le3(2-r)^2/r^2$, then $N_k(r)\le\tau_k(n)$, so
 Theorem~\ref{thm:longdiag} applies.
 \item[(b)] Put $d=\lceil r/(r-1)\rceil$ and
-$\rho_k=\theta\,(1+(n-1)/(M_k+1))^d\sqrt{1+1/k}$.  Then $F(k+1)\le\rho_kF(k)$,
-and $\rho_k$ does not increase with $k$.  So if $F(k_1)\le3(2-r)^2/r^2$ and
+$\rho_k=\theta\,(1+(n-1)/(M_k+1))^d\sqrt{1+1/k}$.  Then $\Xi(k+1)\le\rho_k\Xi(k)$,
+and $\rho_k$ does not increase with $k$.  So if $\Xi(k_1)\le3(2-r)^2/r^2$ and
 $\rho_{k_1}\le1$, then (a) applies to every $k\ge k_1$.
 \item[(c)] Let $\alpha\ge1$ satisfy
 $\rho(\alpha):=\theta\,\bigl(2re(\alpha r/(r-1)+1)\bigr)^{1/\alpha}<1$.  If
 $n-1\le k/\alpha$, then
-$F(k)\le\rho(\alpha)^k(4\sqrt{kr}/(r-1)+1)$.  Consequently there is $K$ such
+$\Xi(k)\le\rho(\alpha)^k(4\sqrt{kr}/(r-1)+1)$.  Consequently there is $K$ such
 that $V_r(n+k-1,k)=1/\nu_k(n)$ for every $n\ge1$ and every
 $k\ge\max\{K,\alpha(n-1)\}$.
 \end{enumerate}
@@ -1196,13 +1213,13 @@ $\max_l|p(t_l)|\ge1/(2^{n-1}\binom{M_k+n-1}{n-1})$.  Altogether
   \ge\frac{3(2-r)\,a^k}{4\,(4\sqrt{kr}/(r-1)+1)\,(2r)^{n-1}\binom{M_k+n-1}{n-1}} .
 \]
 This lower bound for $\tau_k(n)$ is at least the upper bound for $E_k(r)$
-exactly when $F(k)\le3(2-r)^2/r^2$.
+exactly when $\Xi(k)\le3(2-r)^2/r^2$.
 
 (b) We have $M_{k+1}-M_k\le d$, so
 $\binom{M_{k+1}+n-1}{n-1}/\binom{M_k+n-1}{n-1}=\prod_{j=M_k+1}^{M_{k+1}}(j+n-1)/j
 \le(1+(n-1)/(M_k+1))^d$.  Also
 $(4\sqrt{(k+1)r}/(r-1)+1)/(4\sqrt{kr}/(r-1)+1)\le\sqrt{(k+1)/k}$.  This gives
-$F(k+1)\le\rho_kF(k)$.  Since $M_k$ does not decrease, neither does
+$\Xi(k+1)\le\rho_k\Xi(k)$.  Since $M_k$ does not decrease, neither does
 $1/\rho_k$, and induction on $k$ gives the rest.
 
 (c) For $n=1$ the claim is $\theta\le\rho(\alpha)$.  Let $m=n-1\ge1$.  Then
@@ -1210,7 +1227,7 @@ $\binom{M_k+m}m\le(e(M_k+m)/m)^m$, and the right side increases with $m$,
 since the derivative of $m\log(e(M_k+m)/m)$ is $\log(1+M_k/m)+m/(M_k+m)>0$.
 With $m\le k/\alpha$ and $M_k\le(k-1)r/(r-1)+1\le kr/(r-1)$ this gives
 $\binom{M_k+m}m\le(e(\alpha r/(r-1)+1))^{k/\alpha}$.  Also
-$(2r)^m\le(2r)^{k/\alpha}$, which proves the bound on $F(k)$.  Its right side
+$(2r)^m\le(2r)^{k/\alpha}$, which proves the bound on $\Xi(k)$.  Its right side
 tends to $0$ as $k\to\infty$ and decreases once $k\ge1/(2\log(1/\rho(\alpha)))$.
 So some $K$ has $\rho(\alpha)^k(4\sqrt{kr}/(r-1)+1)\le3(2-r)^2/r^2$ for all
 $k\ge K$, and (a) and Theorem~\ref{thm:longdiag} apply whenever also
@@ -1345,7 +1362,8 @@ $|Z|=L-1$.
 
 Beyond $\max Z$ the sign of $r_Z$ is $(-1)^{|Z|}$, and
 $\sum_{s\ge0}P(s)x^s=\sum_j(\Delta^jP)(0)\,x^j/(1-x)^{j+1}$ for a
-polynomial $P$.  So for rational $r$ both $\Phi_r(Z)$ and the $G_y$ are
+polynomial $P$, where $(\Delta P)(s)=P(s+1)-P(s)$ is the forward
+difference.  So for rational $r$ both $\Phi_r(Z)$ and the $G_y$ are
 rational numbers computable exactly, and for a given $Z$ the test of the
 lemma is finite.  By the last claim, every $\mu_r(S,L)$, in particular every
 $\eta_\sigma(n)$, is attained at some such $Z$; the lemma does not say how
@@ -1405,28 +1423,38 @@ with $2R_p(\sigma_0)\le\Psi_r(p)$ give $\eta_\sigma(n)\le\Phi_r(p)$ for all
 $\sigma\ge\sigma_0$, since $R_p$ decreases.  The next proposition handles
 the far positions this way.
 
+\paragraph{Names of zero sets.}
+In Propositions~\ref{prop:secondrowexact} and~\ref{prop:thirdrowexact} each
+part fixes a root $r$ and a top-row degree $n$, and a named set of integers
+records $n$ and the positions it must contain: $Y_n$ is a set of $n-1$
+integers (a candidate for $\nu_1(n)$), $Y'_n$ is a set of $n$ integers
+containing $1$, and, for a set $S$ of exempted positions, $Z_S(n)$ is a set
+of $n+|S|-1$ integers containing $S$ (a candidate for $\mu_r(S,n+|S|)$),
+written $Z_\sigma(n)$ and $Z_{\sigma,\sigma'}(n)$ for $S=\{\sigma\}$ and
+$S=\{\sigma,\sigma'\}$.  No name is used at two different roots.  The names
+fix only sizes and prescribed elements; every property of a named set is
+proved where it is used.
+
 \begin{proposition}[Second rows at the roots $\frac54$ and $\frac43$]\label{prop:secondrowexact}
-Let $r=\frac54$ in (a)--(c).  In the named sets below $Y_n$ has $n-1$
-elements, $Y'_n$ has $n$, and $Z_\sigma$ has $n$ and contains $\sigma$,
-where $n$ is the argument of $\nu_1(n)$ in the part concerned.  Let
+Let $r=\frac54$ in (a)--(c), and let
 \begin{align*}
-  Z_2&=\{1,2,5,8,12,17,22,28,35,44,53,65,78,94,115\},\\
+  Z_2(15)&=\{1,2,5,8,12,17,22,28,35,44,53,65,78,94,115\},\\
   Y_{15}&=\{1,3,6,9,13,18,24,30,38,47,58,71,87,107\},\\
   Y_{13}&=\{1,3,6,10,15,21,27,36,45,57,72,91\}.
 \end{align*}
 \begin{enumerate}
-\item[(a)] $V_r(16,2)=1/\Phi_r(Z_2)=1/\nu_3(14)=6.5694\ldots$, while
+\item[(a)] $V_r(16,2)=1/\Phi_r(Z_2(15))=1/\nu_3(14)=6.5694\ldots$, while
 $\min_{i\le2}1/\nu_i(15)=\beta_r(15)=1/\Phi_r(Y_{15})=7.6492\ldots$.
-\item[(b)] $V_r(17,3)\le1/\Phi_r(Z_2)<\beta_r(15)=\min_{i\le3}1/\nu_i(15)$.
+\item[(b)] $V_r(17,3)\le1/\Phi_r(Z_2(15))<\beta_r(15)=\min_{i\le3}1/\nu_i(15)$.
 So the prefix identity fails at $(\frac54,16,2)$ and at $(\frac54,17,3)$.
 \item[(c)] $V_r(14,2)=\beta_r(13)=1/\Phi_r(Y_{13})=4.6297\ldots>1$ and
 $\nu_2(13)<\nu_1(13)$.  So the prefix identity holds at $(\frac54,14,2)$
 with its minimum at $i=1$: the second row is the top row of
 $(x-\frac54)^{13}$.
 \item[(d)] Let $r=\frac43$,
-$Z_3=\{1,2,3,6,8,11,15,18,23,28,34,41,48,57,66,78,91,109\}$ and
+$Z_3(18)=\{1,2,3,6,8,11,15,18,23,28,34,41,48,57,66,78,91,109\}$ and
 $Y_{18}=\{1,2,4,6,9,12,16,20,25,30,36,44,52,61,72,85,103\}$.  Then
-$V_r(19,2)=1/\eta_3(18)=1/\Phi_r(Z_3)=1/\nu_4(16)=41.38\ldots$, while
+$V_r(19,2)=1/\eta_3(18)=1/\Phi_r(Z_3(18))=1/\nu_4(16)=41.38\ldots$, while
 $\eta_2(18)<\nu_1(18)$ and
 $\min_{i\le2}1/\nu_i(18)=\beta_r(18)=1/\Phi_r(Y_{18})=42.34\ldots$.  So the
 prefix identity fails at $(\frac43,19,2)$, and a worst exempted position
@@ -1452,37 +1480,48 @@ S$; the tail condition at $\sigma_0$ is the sign of
 $2R_p(\sigma_0)-\Psi_r(p)$, evaluated in the same way; and for each
 $\sigma<\sigma_0$ the test evaluates $\Phi_r$ on the listed candidate
 sets through $\sigma$, at most $n+1$ for each $\sigma$, until one
-satisfies the bound.  The named sets are the certificate: with them the statement
-can be rechecked by any exact evaluation of $\Phi_r$ and $G_y$.
+satisfies the bound.  In each part $p=r_{Y_n}$, and $\sigma_0$ is the least
+integer $\sigma\ge\max Y_n$ with $2R_p(\sigma)\le\Psi_r(p)$, found by
+evaluating this sign at $\sigma=\max Y_n,\max Y_n+1,\ldots$; in all three
+parts it is $\max Y_n$ itself.  Any $\sigma_0$ satisfying the tail condition
+would do, and none of the proofs uses the least one.  The named sets are the
+certificate: with them the statement can be rechecked by any exact
+evaluation of $\Phi_r$ and $G_y$.
 
 (a) Lemma~\ref{lem:vertexopt} with $S=\{2\}$ shows
-$\eta_2(15)=\Phi_r(Z_2)$, and with $S=\varnothing$ that
-$\nu_1(15)=\Phi_r(Y_{15})$, which is less than $\Phi_r(Z_2)$.  The tail
+$\eta_2(15)=\Phi_r(Z_2(15))$, and with $S=\varnothing$ that
+$\nu_1(15)=\Phi_r(Y_{15})$, which is less than $\Phi_r(Z_2(15))$.  The tail
 condition $2R_p(\sigma_0)\le\Psi_r(p)$ holds for $p=r_{Y_{15}}$ at
-$\sigma_0=107$ (an admissible $\sigma_0\ge\sigma_*$; the least is $\sigma_*=25$, Section~\ref{sec:finiterows}), so $\eta_\sigma(15)\le\Phi_r(Y_{15})$ for $\sigma\ge107$ by
-the remark after Theorem~\ref{thm:secondrow}.  For every
+$\sigma_0=\max Y_{15}=107$, so $\eta_\sigma(15)\le\Phi_r(Y_{15})$ for
+$\sigma\ge107$ by the remark after Theorem~\ref{thm:secondrow}.  (Since
+$r_{Y_{15}}$ is a minimizer for $\nu_1(15)$, Theorem~\ref{thm:secondrow}(b)
+applies with $p_*=r_{Y_{15}}$, and its threshold $\sigma_*$, the least
+$\sigma\ge1$ with the tail condition, is $25$, as recorded in
+Section~\ref{sec:finiterows} and checked there by exact arithmetic.  The
+argument here uses only $\sigma_0=107$, which is larger than necessary,
+and not the value of $\sigma_*$.)  For every
 $\sigma<107$ other than $2$, one of the following sets $Z\ni\sigma$ of $15$ integers has
-$\Phi_r(Z)\le\Phi_r(Z_2)$:
+$\Phi_r(Z)\le\Phi_r(Z_2(15))$:
 $Y'_{15}=\{1,3,5,8,12,17,22,28,36,44,54,65,78,94,115\}$ if
 $\sigma\in Y'_{15}$; $\mathrm{ins}(Y_{15},\sigma)$ if $\sigma\notin Y_{15}$;
 $Y'_{15}$ with some element replaced by $\sigma$ (all $15$ replacements are
 tried) if $\sigma\notin Y'_{15}$.
 For each $\sigma$, \texttt{tests/test\_rows.py} generates these candidates
 and checks that one of them satisfies the bound.  Hence
-$\sup_\sigma\eta_\sigma(15)=\Phi_r(Z_2)$, and
-Proposition~\ref{prop:rowvalue}(b) gives $V_r(16,2)=1/\Phi_r(Z_2)$.  Since
-$[1,2]\subseteq Z_2$,
-$\eta_2(15)\le\nu_3(14)=\mu_r([1,2],16)\le\Phi_r(Z_2)=\eta_2(15)$.  Finally
+$\sup_\sigma\eta_\sigma(15)=\Phi_r(Z_2(15))$, and
+Proposition~\ref{prop:rowvalue}(b) gives $V_r(16,2)=1/\Phi_r(Z_2(15))$.  Since
+$[1,2]\subseteq Z_2(15)$,
+$\eta_2(15)\le\nu_3(14)=\mu_r([1,2],16)\le\Phi_r(Z_2(15))=\eta_2(15)$.  Finally
 $\nu_2(15)\le\Phi_r(Y'_{15})<\nu_1(15)$, as $1\in Y'_{15}$.
 
 (b) Lemma~\ref{lem:rowmono} and (a) give the first inequality.  With (a),
 the set $\{1,2,5,8,11,16,21,26,33,41,50,60,71,85,102,123\}\supseteq[1,2]$
 gives $\nu_3(15)<\nu_1(15)$, so
 $\min_{i\le3}1/\nu_i(15)=1/\nu_1(15)=\beta_r(15)$, which exceeds
-$1/\Phi_r(Z_2)$ by (a).
+$1/\Phi_r(Z_2(15))$ by (a).
 
 (c) Lemma~\ref{lem:vertexopt} gives $\nu_1(13)=\Phi_r(Y_{13})<1$.  The
-tail condition holds for $p=r_{Y_{13}}$ at $\sigma_0=91$, and every
+tail condition holds for $p=r_{Y_{13}}$ at $\sigma_0=\max Y_{13}=91$, and every
 $\sigma<91$ lies in a set of $13$ integers with
 $\Phi_r\le\Phi_r(Y_{13})$, found among the candidates of (a) built from
 $Y_{13}$ and
@@ -1491,14 +1530,14 @@ $\sup_\sigma\eta_\sigma(13)=\nu_1(13)$, and
 Proposition~\ref{prop:rowvalue}(b) gives $V_r(14,2)=\beta_r(13)$.  Since
 $1\in Y'_{13}$, $\nu_2(13)\le\Phi_r(Y'_{13})<\nu_1(13)$.
 
-(d) As in (a): Lemma~\ref{lem:vertexopt} gives $\eta_3(18)=\Phi_r(Z_3)$
-and $\nu_1(18)=\Phi_r(Y_{18})<\Phi_r(Z_3)$; the tail condition holds for
-$p=r_{Y_{18}}$ at $\sigma_0=103$; and every $\sigma<103$ other than $3$
-lies in a set of $18$ integers with $\Phi_r\le\Phi_r(Z_3)$, found among
+(d) As in (a): Lemma~\ref{lem:vertexopt} gives $\eta_3(18)=\Phi_r(Z_3(18))$
+and $\nu_1(18)=\Phi_r(Y_{18})<\Phi_r(Z_3(18))$; the tail condition holds for
+$p=r_{Y_{18}}$ at $\sigma_0=\max Y_{18}=103$; and every $\sigma<103$ other than $3$
+lies in a set of $18$ integers with $\Phi_r\le\Phi_r(Z_3(18))$, found among
 the candidates of (a) built from $Y_{18}$ and
 $Y'_{18}=\{1,2,4,6,8,11,15,19,23,28,34,41,48,57,66,78,91,109\}$.  Since
 $\{1,2\}\subseteq Y'_{18}$, $\eta_2(18)$ and $\nu_2(18)$ are at most
-$\Phi_r(Y'_{18})<\nu_1(18)$, and $[1,3]\subseteq Z_3$ gives
+$\Phi_r(Y'_{18})<\nu_1(18)$, and $[1,3]\subseteq Z_3(18)$ gives
 $\eta_3(18)=\nu_4(16)=\mu_r([1,3],19)$ as in (a).
 \end{proof}
 
@@ -1547,9 +1586,9 @@ $\Delta_{q,m}\le\Delta_{q,m+1}$, and $\Delta_{q,m}(t)\to-\Psi_r(q)<0$ as
 $t\to\infty$.  So there is a least integer $t_m(q)\ge1$ with
 $\Delta_{q,m}(t_m(q))\le0$; moreover $\Delta_{q,m}(t)\le0$ for all real
 $t\ge t_m(q)$, and $t_m(q)\le t_{m+1}(q)$.
-\item[(b)] If $t>0$, $\Delta_{q,m}(t)\le0$, and $F\subset\N_{>0}$ is finite
-with $|F|\le m$ and all elements at least $t$, then
-$\Phi_r(q\,r_F)\le\Phi_r(q)$.
+\item[(b)] If $t>0$, $\Delta_{q,m}(t)\le0$, and $U\subset\N_{>0}$ is finite
+with $|U|\le m$ and all elements at least $t$, then
+$\Phi_r(q\,r_U)\le\Phi_r(q)$.
 \end{enumerate}
 For $m=1$, $t_1(p_*)$ is the threshold $\sigma_*$ of
 Theorem~\ref{thm:secondrow}.
@@ -1567,13 +1606,13 @@ $t\ge1$, $|\phi_m(s,t)|\le s^m+s$, and $\sum_s(s^m+s)|q(s)|r^{-s}<\infty$, so
 dominated convergence with $\phi_m(s,t)\to-s$ gives the limit.  Finally
 $\Psi_r(q)>0$, since $q$ has finitely many zeros.
 
-(b) Let $F\ne\varnothing$ and $u=\min F\ge t$, so $\Delta_{q,m}(u)\le0$ by
-(a).  Every $f\in F$ has $|1-s/f|\le\max\{1,s/f\}\le\max\{1,s/u\}$, so
-$|r_F(s)|\le|1-s/u|\max\{1,s/u\}^{m-1}$ for $s\ge1$.  Hence
-$u(|r_F(s)|-1)\le\phi_m(s,u)$: for $s\le u$ the left side is at most
+(b) Let $U\ne\varnothing$ and $u=\min U\ge t$, so $\Delta_{q,m}(u)\le0$ by
+(a).  Every $v\in U$ has $|1-s/v|\le\max\{1,s/v\}\le\max\{1,s/u\}$, so
+$|r_U(s)|\le|1-s/u|\max\{1,s/u\}^{m-1}$ for $s\ge1$.  Hence
+$u(|r_U(s)|-1)\le\phi_m(s,u)$: for $s\le u$ the left side is at most
 $(u-s)-u$, and for $s>u$ at most $(s-u)(s/u)^{m-1}-u$.  Multiplying by
 $|q(s)|r^{-s}$ and summing gives
-$u\bigl(\Phi_r(q\,r_F)-\Phi_r(q)\bigr)\le\Delta_{q,m}(u)\le0$.  For $m=1$,
+$u\bigl(\Phi_r(q\,r_U)-\Phi_r(q)\bigr)\le\Delta_{q,m}(u)\le0$.  For $m=1$,
 $\Delta_{p_*,1}(\sigma)\le0$ is the condition $2R_{p_*}(\sigma)\le\Psi_r(p_*)$
 defining $\sigma_*$.
 \end{proof}
@@ -1610,9 +1649,9 @@ Both parts rest on one step.  Let $S=\{\sigma_1<\cdots<\sigma_m\}$ and
 put $N_j=\{\sigma_1,\ldots,\sigma_j\}$ for $0\le j\le m$.  Fix $j<m$ and
 let $q$ be real with $\deg q\le n+j-1$, $q(0)=1$, $q|_{N_j}=0$ and
 $\Delta_{q,m-j}(\sigma_{j+1})\le0$.  The set
-$F=S\setminus N_j$ has $m-j$ elements, all at least $\sigma_{j+1}$, so
-Lemma~\ref{lem:farzeros}(b) gives $\Phi_r(q\,r_F)\le\Phi_r(q)$.  The
-polynomial $q\,r_F$ has degree at most $n+m-1$, takes the value $1$ at $0$
+$U=S\setminus N_j$ has $m-j$ elements, all at least $\sigma_{j+1}$, so
+Lemma~\ref{lem:farzeros}(b) gives $\Phi_r(q\,r_U)\le\Phi_r(q)$.  The
+polynomial $q\,r_U$ has degree at most $n+m-1$, takes the value $1$ at $0$
 and vanishes on $S$, so
 \begin{equation}\label{eq:farstep}
   \mu_r(S,n+m)\le\Phi_r(q).
@@ -1665,11 +1704,11 @@ Let $r=\frac43$ in (a) and (b).
 \item[(a)] Let
 \begin{align*}
   Y_{12}&=\{1,3,6,9,13,17,23,30,39,50,64\},\\
-  Z_2&=\{1,2,5,8,12,16,21,28,35,44,56,71\},\\
-  Z_{2,3}&=\{2,3,4,7,10,15,19,25,32,40,49,61,77\}.
+  Z_2(12)&=\{1,2,5,8,12,16,21,28,35,44,56,71\},\\
+  Z_{2,3}(12)&=\{2,3,4,7,10,15,19,25,32,40,49,61,77\}.
 \end{align*}
-Then $V_r(14,3)=1/\Phi_r(Z_{2,3})=7.7168\ldots$,
-$V_r(13,2)=1/\Phi_r(Z_2)=1/\nu_3(11)=8.5482\ldots$ and
+Then $V_r(14,3)=1/\Phi_r(Z_{2,3}(12))=7.7168\ldots$,
+$V_r(13,2)=1/\Phi_r(Z_2(12))=1/\nu_3(11)=8.5482\ldots$ and
 $\min_{i\le4}1/\nu_i(12)=\beta_r(12)=1/\Phi_r(Y_{12})=8.8501\ldots$.  So
 $V_r(14,3)<V_r(13,2)<\min_{i\le3}1/\nu_i(12)$: the prefix identity fails at
 $(\frac43,13,2)$ and at $(\frac43,14,3)$, and the third row lies strictly
@@ -1679,10 +1718,10 @@ exempted set with $1/\mu_r(S,14)=V_r(14,3)$.
 \item[(b)] Let
 \begin{align*}
   Y_{14}&=\{1,3,5,8,11,15,20,26,32,40,50,62,77\},\\
-  Z'_{2,3}&=\{1,2,3,6,9,13,17,22,27,34,41,50,60,73,89\}.
+  Z_{2,3}(14)&=\{1,2,3,6,9,13,17,22,27,34,41,50,60,73,89\}.
 \end{align*}
 Then $V_r(15,2)=\beta_r(14)=1/\Phi_r(Y_{14})=15.0390\ldots=\min_{i\le4}1/\nu_i(14)$
-and $V_r(16,3)=1/\Phi_r(Z'_{2,3})=1/\nu_4(13)=14.6268\ldots$.  So the
+and $V_r(16,3)=1/\Phi_r(Z_{2,3}(14))=1/\nu_4(13)=14.6268\ldots$.  So the
 prefix identity holds at $(\frac43,15,2)$, with its minimum at $i=1$, and
 fails at $(\frac43,16,3)$ and, by Lemma~\ref{lem:rowmono}, at
 $(\frac43,17,4)$.  The pair $S=\{2,3\}$ is the only exempted set
@@ -1706,35 +1745,50 @@ named in that part, $q_N=r_{Z_N}$ for sets $Z_N\supseteq N$ of at most
 $n+|N|-1$ integers, and $T_N$ the least integer with
 $\Delta_{q_N,m-|N|}(T_N)\le0$; a leaf $N\cup\{\sigma\}$ is checked through a
 set $Z\supseteq N\cup\{\sigma\}$ of at most $n+m-1$ integers with
-$\Phi_r(Z)\le B$.  The test builds the tree.  For each child
-$N\cup\{\sigma\}$ it tries $Z_N$ with one of the three elements outside $N$
-nearest to $\sigma$ replaced by $\sigma$, or with $\sigma$ added, and the
-fixed set of $n+|N|$ integers (\texttt{\_FULL12}, \texttt{\_FULL14} and
-\texttt{\_FULL8} in the test, for (a)--(c)) with each position of
-$N\cup\{\sigma\}$ that it misses put in place of one of the two elements
-outside $N\cup\{\sigma\}$ nearest to it, in every combination.  It keeps
-the one of at most $n+|N|$ elements with the least $\Phi_r$, unless the
-child is given a named set.  Each threshold $T_N$ is found by evaluating
-the sign of $\Delta_{q_N,m-|N|}$ at integers (it does not increase,
-Lemma~\ref{lem:farzeros}(a)), and the test checks
-$\Delta_{q_N,m-|N|}(T_N)\le0$ exactly.  For the third rows the trees have
-$32$, $35$ and $15$ nodes of size one and $126$, $161$ and $33$ leaves in
-(a), (b) and (c); at each node and leaf the test checks $\Phi_r\le B$, or
-$\Phi_r<B$ where stated, for the set it keeps.
+$\Phi_r(Z)\le B$.  The test builds the tree from the root
+$Z_\varnothing=Y$.  For a child $N\cup\{\sigma\}$ of a node $N$ with kept
+set $Z_N$ it forms these candidates: $Z_N$ itself if $\sigma\in Z_N$;
+otherwise $Z_N$ with one of the three elements of $Z_N\setminus N$ nearest
+to $\sigma$ replaced by $\sigma$, and $Z_N\cup\{\sigma\}$; and in either
+case the fixed set of $n+|N|$ integers of that part, with each position of
+$N\cup\{\sigma\}$ that it misses, taken in increasing order, put in place of
+one of the two elements outside $N\cup\{\sigma\}$ nearest to it, in every
+combination.  The fixed sets are
+\begin{align*}
+  \text{(a)}\quad&\{1,3,5,8,12,16,21,28,35,44,56,71\},\
+  \{1,3,5,8,11,15,20,26,32,40,50,62,77\},\\
+  \text{(b)}\quad&\{1,3,5,7,10,14,18,24,30,37,45,55,67,83\},\
+  \{1,3,4,7,10,13,17,22,28,34,42,50,61,73,90\},\\
+  \text{(c)}\quad&\{1,3,5,8,12,17,24,33\},\ \{1,3,5,8,11,15,21,28,37\},
+\end{align*}
+of $n$ and $n+1$ integers, used for children of size one and two.  Among
+the candidates with at most $n+|N|$ elements the test keeps one with the
+least $\Phi_r$ (on ties, the first formed, and nearest elements are taken
+toward the smaller one), unless the child is given a named set.  Each
+threshold $T_N$ is found by evaluating the sign of $\Delta_{q_N,m-|N|}$ at
+integers (it does not increase, Lemma~\ref{lem:farzeros}(a)), and the test
+checks $\Delta_{q_N,m-|N|}(T_N)\le0$ exactly.  For the third rows the trees
+have $32$, $35$ and $15$ nodes of size one and $126$, $161$ and $33$ leaves
+in (a), (b) and (c); at each node and leaf the test checks $\Phi_r\le B$,
+or $\Phi_r<B$ where stated, for the set it keeps.  Theorem~\ref{thm:finiterows}(b)
+needs only that each node and each leaf have some set of the allowed size
+through it with $\Phi_r\le B$ (or $<B$); which one is kept, and so the
+tie-breaking above, changes the thresholds $T_N$ and the tree sizes but not
+the validity of the certificate.
 
 (a) Lemma~\ref{lem:vertexopt} with $S=\{2,3\}$, $\{2\}$ and $\varnothing$
-gives $\mu_r(\{2,3\},14)=\Phi_r(Z_{2,3})$, $\eta_2(12)=\Phi_r(Z_2)$ and
-$\nu_1(12)=\Phi_r(Y_{12})$, and $\Phi_r(Y_{12})<\Phi_r(Z_2)<\Phi_r(Z_{2,3})$.
-With $n=12$, $m=2$, $B=\Phi_r(Z_{2,3})$, $Y=Y_{12}$ (so
-$T_\varnothing=33$) and the pair $\{2,3\}$ given $Z_{2,3}$, the test checks
+gives $\mu_r(\{2,3\},14)=\Phi_r(Z_{2,3}(12))$, $\eta_2(12)=\Phi_r(Z_2(12))$ and
+$\nu_1(12)=\Phi_r(Y_{12})$, and $\Phi_r(Y_{12})<\Phi_r(Z_2(12))<\Phi_r(Z_{2,3}(12))$.
+With $n=12$, $m=2$, $B=\Phi_r(Z_{2,3}(12))$, $Y=Y_{12}$ (so
+$T_\varnothing=33$) and the pair $\{2,3\}$ given $Z_{2,3}(12)$, the test checks
 the hypotheses of Theorem~\ref{thm:finiterows}(b), with $\Phi_r<B$ for every
 other set used.  So $\mu_r(S,14)\le B$ for all $|S|=2$, with equality only
 at $S=\{2,3\}$: a pair outside the tree has $\mu_r(S,14)\le\Phi_r(q_N)<B$
 by~\eqref{eq:farstep}.  Proposition~\ref{prop:rowvalue}(b) gives
-$V_r(14,3)=1/B$.  With $m=1$, $B=\Phi_r(Z_2)$ and the position $2$ given
-$Z_2$, the same check gives $V_r(13,2)\ge1/\Phi_r(Z_2)$, and $S=\{2\}$ gives
-equality.  Since $[1,2]\subseteq Z_2$,
-$\eta_2(12)\le\nu_3(11)=\mu_r([1,2],13)\le\Phi_r(Z_2)=\eta_2(12)$.  Finally
+$V_r(14,3)=1/B$.  With $m=1$, $B=\Phi_r(Z_2(12))$ and the position $2$ given
+$Z_2(12)$, the same check gives $V_r(13,2)\ge1/\Phi_r(Z_2(12))$, and $S=\{2\}$ gives
+equality.  Since $[1,2]\subseteq Z_2(12)$,
+$\eta_2(12)\le\nu_3(11)=\mu_r([1,2],13)\le\Phi_r(Z_2(12))=\eta_2(12)$.  Finally
 the sets $\{1,3,5,8,12,16,21,28,35,44,56,71\}\ni1$,
 $\{1,2,5,7,11,15,20,25,32,40,50,61,77\}\supseteq[1,2]$ and
 $\{1,2,3,7,10,14,18,23,29,37,45,55,67,83\}\supseteq[1,3]$ give
@@ -1743,14 +1797,14 @@ $\min_{i\le4}1/\nu_i(12)=1/\nu_1(12)$, and Lemma~\ref{lem:rowmono} gives
 $V_r(15,4)\le V_r(14,3)$.
 
 (b) As in (a): Lemma~\ref{lem:vertexopt} gives
-$\mu_r(\{2,3\},16)=\Phi_r(Z'_{2,3})$ and $\nu_1(14)=\Phi_r(Y_{14})$, which is
+$\mu_r(\{2,3\},16)=\Phi_r(Z_{2,3}(14))$ and $\nu_1(14)=\Phi_r(Y_{14})$, which is
 smaller.  Theorem~\ref{thm:finiterows}(b) with $n=14$, $m=2$,
-$B=\Phi_r(Z'_{2,3})$ and $Y=Y_{14}$ ($T_\varnothing=36$), with $\Phi_r<B$
-for every set used except $Z'_{2,3}$ at $\{2,3\}$, gives $V_r(16,3)=1/B$,
+$B=\Phi_r(Z_{2,3}(14))$ and $Y=Y_{14}$ ($T_\varnothing=36$), with $\Phi_r<B$
+for every set used except $Z_{2,3}(14)$ at $\{2,3\}$, gives $V_r(16,3)=1/B$,
 attained only at $\{2,3\}$.  With $m=1$ and $B=\Phi_r(Y_{14})$ it gives
 $V_r(15,2)\ge\beta_r(14)$, and Proposition~\ref{prop:rowvalue}(c) gives
-equality.  Since $[1,3]\subseteq Z'_{2,3}$,
-$\mu_r(\{2,3\},16)\le\mu_r([1,3],16)=\nu_4(13)\le\Phi_r(Z'_{2,3})$, so all
+equality.  Since $[1,3]\subseteq Z_{2,3}(14)$,
+$\mu_r(\{2,3\},16)\le\mu_r([1,3],16)=\nu_4(13)\le\Phi_r(Z_{2,3}(14))$, so all
 three are equal.  The sets $\{1,3,5,7,10,14,18,24,30,37,45,55,67,83\}\ni1$,
 $\{1,2,4,7,10,13,17,22,28,34,42,50,61,73,90\}\supseteq[1,2]$ and
 $\{1,2,3,6,9,12,16,21,26,32,39,46,55,66,79,96\}\supseteq[1,3]$ give
@@ -1770,9 +1824,9 @@ give $\nu_2(8),\nu_3(8)<\nu_1(8)$.
 In (b) the prefix identity fails in the third row although it holds in the
 second, so this failure does not come from the second row through
 Lemma~\ref{lem:rowmono}.  In (a) the third row is strictly below the
-second.  In (b) the certified optimum $Z'_{2,3}$ contains $[1,3]$, as the
+second.  In (b) the certified optimum $Z_{2,3}(14)$ contains $[1,3]$, as the
 certified optima in Proposition~\ref{prop:secondrowexact}(a) and~(d) contain
-$[1,\sigma]$; in (a) $Z_{2,3}$ omits $1$.  The identities at
+$[1,\sigma]$; in (a) $Z_{2,3}(12)$ omits $1$.  The identities at
 $(\frac43,15,2)$ and $(\frac32,10,3)$ are outside
 Theorems~\ref{thm:onepolyrows} and~\ref{thm:longdiag}, which give
 $\nu_1(n)\le\nu_k(n)$.
@@ -1780,7 +1834,8 @@ $\nu_1(n)\le\nu_k(n)$.
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.  The exact
 computations behind Propositions~\ref{prop:secondrowexact} and~\ref{prop:thirdrowexact} are in
-\texttt{tests/test\_rows.py} of the accompanying repository.
+\texttt{tests/test\_rows.py} of the repository
+\href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass}.
 
 \begin{thebibliography}{9}
 
