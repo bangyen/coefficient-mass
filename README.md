@@ -45,10 +45,10 @@ unfinished proofs and new axioms, so the build is honest at every commit.
 
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,
-`Quot.sound`).  One step departs from the paper: Lemma 2.3 and the bound
-`σ ≤ G_z / F̂_z` use weak sign alternation (`card_le_of_alternating`, a
-mean-value-theorem induction) in place of zero counting with multiplicity and
-the asymptotic argument.
+`Quot.sound`).  Lemma 2.3 and the bound `σ ≤ G_z / V̂_z` use weak sign
+alternation (`card_le_of_alternating`, a mean-value-theorem induction), as the
+paper now does; the formal zero bound counts distinct zeros only, and the sign
+changes at prescribed zeros come from weak alternation.
 
 ```bash
 git submodule update --init
