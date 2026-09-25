@@ -19,8 +19,11 @@ to see anything cannot pass.
 
 from __future__ import annotations
 
+import json
 from fractions import Fraction
 from itertools import combinations
+from math import comb
+from pathlib import Path
 
 import pytest
 
@@ -52,10 +55,11 @@ def _power_sum(head, poly, deg: int, top: int, r: Fraction) -> Fraction:
     whole = Fraction(
         p * sum(c * q**j * d ** (deg - j) for j, c in enumerate(diffs)), d ** (deg + 1)
     )
-    near = sum(
-        ((head(s) if s else 0) - poly(s)) * q**s * p ** (top - s)
-        for s in range(top + 1)
-    )
+    # Horner: near = sum_s (head(s) - poly(s)) q^s p^(top-s), with head(0) = 0.
+    near, q_s = 0, 1
+    for s in range(top + 1):
+        near = near * p + ((head(s) if s else 0) - poly(s)) * q_s
+        q_s *= q
     return whole + Fraction(near, p**top)
 
 
@@ -408,6 +412,187 @@ def test_second_row_at_four_thirds() -> None:
     assert _second_row_bounded(r, short, full, _phi(short, r), {}) == [3]
 
 
+# ``prop:secondrowhyp``: at ``r = 177/167``, ``n = 50`` the prefix identity
+# fails in the second row although ``nu_2(50) > nu_1(50)``.
+_R177 = Fraction(177, 167)
+#: ``nu_1(50)``, ``nu_2(50) = mu({1}, 51)`` and ``eta_5(50) = mu({5}, 51)``.
+_Y50 = (
+    *(2, 4, 7, 10, 15, 20, 27, 34, 42, 51, 61, 71, 83, 95, 109, 123, 138),
+    *(155, 172, 190, 210, 230, 252, 275, 299, 324, 350, 378, 407, 437, 469),
+    *(502, 537, 574, 613, 654, 696, 741, 789, 839, 893, 950, 1011, 1076),
+    *(1148, 1226, 1314, 1416, 1543),
+)
+_ONE50 = (
+    *(1, 4, 6, 10, 15, 20, 26, 33, 41, 50, 59, 70, 81, 93, 107, 121, 136),
+    *(152, 169, 187, 205, 225, 247, 269, 292, 316, 342, 369, 397, 427, 458),
+    *(490, 524, 560, 597, 637, 678, 721, 767, 815, 866, 920, 978, 1039),
+    *(1105, 1177, 1256, 1345, 1448, 1576),
+)
+_FIVE50 = (
+    *(2, 4, 5, 10, 14, 20, 26, 33, 41, 50, 59, 70, 81, 93, 106, 121, 136),
+    *(152, 168, 186, 205, 225, 246, 269, 292, 316, 342, 369, 397, 427, 458),
+    *(490, 524, 560, 597, 637, 678, 721, 767, 815, 866, 920, 978, 1039),
+    *(1105, 1177, 1256, 1345, 1448, 1576),
+)
+
+
+def test_second_row_hypothesis_fails() -> None:
+    """``prop:secondrowhyp``: ``nu_1(50) < nu_2(50) < eta_5(50)`` at
+    ``r = 177/167``, so ``V(51,2) <= 1/eta_5(50) < min_{i<=2} 1/nu_i(50)``."""
+    r = _R177
+    assert (len(_Y50), len(_ONE50), len(_FIVE50)) == (49, 50, 50)
+    assert 1 in _ONE50 and 5 in _FIVE50 and not {1, 3} & set(_FIVE50)
+    assert _vertex_optimal(_Y50, set(), r)
+    assert _vertex_optimal(_ONE50, {1}, r)
+    # Strict: r_{Z_5(50)} is the unique minimizer, as the paper says.
+    assert _vertex_optimal(_FIVE50, {5}, r, strict=True)
+    nu1, nu2, eta5 = _phi(_Y50, r), _phi(_ONE50, r), _phi(_FIVE50, r)
+    # The hypothesis of the former conjecture, and the failure.
+    assert nu1 < nu2 < eta5
+    assert Fraction(42262, 10**4) < 1 / nu1 < Fraction(42263, 10**4)
+    assert Fraction(42221, 10**4) < 1 / nu2 < Fraction(42222, 10**4)
+    assert Fraction(42112, 10**4) < 1 / eta5 < Fraction(42113, 10**4)
+    # The margins quoted in the paper: below 0.1 and 0.3 percent.
+    assert nu2 < nu1 * Fraction(1001, 1000) and eta5 < nu2 * Fraction(1003, 1000)
+    # The controls: the vertex test rejects Z_5(50) with its largest zero
+    # moved by one, and the constrained optimum Y'_50 offered for nu_1(51).
+    assert not _vertex_optimal((*_FIVE50[:-1], 1577), {5}, r)
+    assert not _vertex_optimal(_ONE50, set(), r)
+
+
+def _monomials(zeros) -> list[int]:
+    """Integer coefficients of ``prod_z (z - s)``, constant term first."""
+    c = [1]
+    for z in zeros:
+        c = [z * a - b for a, b in zip([*c, 0], [0, *c], strict=True)]
+    return c
+
+
+def _moments(deg: int, r: Fraction) -> list[Fraction]:
+    """``m_k = sum_{s>=0} s^k x^s``, ``x = 1/r``, for ``k <= deg``, from
+    ``(1-x) m_k = [k=0] + x sum_{j<k} C(k,j) m_j``; not the forward
+    differences of ``_power_sum``."""
+    x, m = 1 / r, []
+    for k in range(deg + 1):
+        m.append(((k == 0) + x * sum(comb(k, j) * m[j] for j in range(k))) / (1 - x))
+    return m
+
+
+def _signed_series(c, vals, signs, m, w, r: Fraction) -> Fraction:
+    """``sum_{s>=1} signs(s) C(s) r^-s`` for the integer polynomial ``C`` with
+    coefficients ``c``, given ``vals[s] = C(s)`` and ``signs[s]`` for ``s <= M``
+    and the sign ``signs[M+1]`` for all ``s > M``, the moments ``m`` and the
+    weights ``w[s] = r^-s p^M`` with ``p`` the numerator of ``r``."""
+    top, tail = len(vals) - 1, signs[-1]
+    head = sum((signs[s] - tail) * vals[s] * w[s] for s in range(1, top + 1))
+    return tail * (sum(a * mk for a, mk in zip(c, m, strict=True)) - c[0]) + Fraction(
+        head, r.numerator**top
+    )
+
+
+def _independent(zeros, fixed, r):
+    """``Phi_r(Z)``, whether ``Z`` passes the test of ``lem:vertexopt``, and
+    whether strictly, recomputed without ``_power_sum``, ``_phi``
+    or ``_vertex_optimal``."""
+    top, prod = max(zeros), 1
+    for z in zeros:
+        prod *= z
+    c = _monomials(zeros)
+    vals = [sum(a * s**i for i, a in enumerate(c)) for s in range(top + 2)]
+    signs = [(v > 0) - (v < 0) for v in vals]
+    m = _moments(len(zeros), r)
+    w = [r.denominator**s * r.numerator ** (top - s) for s in range(top + 1)]
+    phi = _signed_series(c, vals[: top + 1], signs, m, w, r) / prod
+    passes, strict = True, True
+    for y in set(zeros) - fixed:
+        # e_y(s) prod(Z - y) = s prod_{z != y} (z - s) = s C(s) / (y - s).
+        ce = [0, *_monomials([z for z in zeros if z != y])]
+        ev = [s * vals[s] // (y - s) if s != y else 0 for s in range(top + 1)]
+        ev[y] = sum(a * y**i for i, a in enumerate(ce))
+        g, bound = _signed_series(ce, ev, signs, m, w, r), abs(ev[y]) * r**-y
+        passes, strict = passes and abs(g) <= bound, strict and abs(g) < bound
+    return phi, passes, strict
+
+
+def test_second_row_hypothesis_independently() -> None:
+    """``prop:secondrowhyp`` again, by a separate evaluation of the series."""
+    r = _R177
+    phis = []
+    for zeros, fixed in ((_Y50, set()), (_ONE50, {1}), (_FIVE50, {5})):
+        phi, passes, strict = _independent(zeros, fixed, r)
+        assert passes and (strict or fixed != {5}), fixed
+        phis.append(phi)
+    assert phis[0] < phis[1] < phis[2]
+    assert phis == [_phi(z, r) for z in (_Y50, _ONE50, _FIVE50)]
+    # The controls: Z_5(50) with its largest zero moved by one, and Y'_50
+    # offered for nu_1(51), fail the test.
+    assert not _independent((*_FIVE50[:-1], 1577), {5}, r)[1]
+    assert not _independent(_ONE50, set(), r)[1]
+
+
+# ``thm:failinterval``: a chain of certificates of ``prop:failinterval``, each
+# ``(r_0, r_1, n, sigma, Y, Y', Z)``, covers every root in ``[21/20, 139/100]``.
+_COVER_FILE = Path(__file__).with_name("second_row_cover.json")
+_COVER_ENDS = (Fraction(21, 20), Fraction(139, 100))
+
+
+def _cover() -> list[tuple]:
+    return [
+        (Fraction(lo), Fraction(hi), n, sigma, tuple(y), tuple(y1), tuple(z))
+        for lo, hi, n, sigma, y, y1, z in json.loads(_COVER_FILE.read_text())
+    ]
+
+
+def _fails_on_interval(cert: tuple) -> bool:
+    """The hypotheses of ``prop:failinterval``: ``Z`` passes the vertex test
+    for ``eta_sigma(n)`` at ``r_1``, and ``Phi_{r_1}(Z)`` exceeds
+    ``Phi_{r_0}(Y)`` and ``Phi_{r_0}(Y')``."""
+    lo, hi, n, sigma, y, y1, z = cert
+    return (
+        1 < lo < hi
+        and sigma >= 2
+        and (len(set(y)), len(set(y1)), len(set(z))) == (n - 1, n, n)
+        and (len(y), len(y1), len(z)) == (n - 1, n, n)
+        and min((*y, *y1, *z)) >= 1
+        and 1 in y1
+        and sigma in z
+        and _phi(z, hi) > max(_phi(y, lo), _phi(y1, lo))
+        and _vertex_optimal(z, {sigma}, hi)
+    )
+
+
+def _chain_covers(cover: list[tuple], ends: tuple[Fraction, Fraction]) -> bool:
+    """Whether the intervals ``[r_0, r_1]`` cover ``ends`` without a gap."""
+    reach = ends[0]
+    for lo, hi, *_ in cover:
+        if lo > reach:
+            return False
+        reach = max(reach, hi)
+    return reach >= ends[1] and cover[0][0] <= ends[0]
+
+
+def test_second_row_fails_on_an_interval() -> None:
+    """``thm:failinterval``: for every ``r`` in ``[21/20, 139/100]`` the prefix
+    identity fails at ``(r, n+1, 2)`` for some ``n``, at the position 2."""
+    cover = _cover()
+    assert _chain_covers(cover, _COVER_ENDS)
+    assert all(_fails_on_interval(cert) for cert in cover)
+    # The facts quoted in the paper: 49 certificates, n from 68 down to 10,
+    # always the position 2, endpoints over denominators dividing 2 * 10^4.
+    assert len(cover) == 49
+    assert [c[2] for c in (cover[0], cover[-1])] == [68, 10]
+    assert all(c[2] >= d[2] for c, d in zip(cover, cover[1:], strict=False))
+    assert {c[3] for c in cover} == {2}
+    assert all(2 * 10**4 % c[i].denominator == 0 for c in cover for i in (0, 1))
+    # The controls: a certificate stretched to the root 3/2, one with the
+    # largest zero of Z moved by one, and the chain with a link dropped.
+    lo, hi, n, sigma, y, y1, z = cover[-1]
+    assert not _fails_on_interval((lo, Fraction(3, 2), n, sigma, y, y1, z))
+    assert not _fails_on_interval((lo, hi, n, sigma, y, y1, (*z[:-1], z[-1] + 1)))
+    assert not _chain_covers(cover[:5] + cover[6:], _COVER_ENDS)
+    assert not _chain_covers(cover, (Fraction(26, 25), _COVER_ENDS[1]))
+
+
 # Every row (``sec:finiterows``).  For a polynomial ``q_N`` through the
 # exempted positions ``N`` found so far, ``lem:farzeros`` gives a threshold
 # from which the ``m - |N|`` positions still to come cost nothing; the
@@ -635,3 +820,76 @@ def test_third_row_is_top_row() -> None:
     # The control: a bound a millionth below nu_1(8) is not certified.
     below = top * (1 - Fraction(1, 10**6))
     assert _row_cover(r, 8, 2, below, _Y8, _FULL8, {(2, 3): _PAIR8}) == [()]
+
+
+# ``thm:blockinterval``: certificates of ``prop:blockinterval``, each
+# ``(r_0, r_1, n, k, Z - [2,k], anchors)``, cover every root in
+# ``[139/100, 19/10]``: the block ``S = [2, k]`` beats every prefix value.
+_BLOCK_FILE = Path(__file__).with_name("block_row_cover.json")
+_BLOCK_ENDS = (Fraction(139, 100), Fraction(19, 10))
+
+
+def _block_cover() -> list[tuple]:
+    return [
+        (Fraction(lo), Fraction(hi), n, k, tuple(z), [(j, tuple(y)) for j, y in marks])
+        for lo, hi, n, k, z, marks in json.loads(_BLOCK_FILE.read_text())
+    ]
+
+
+def _block_fails(cert: tuple) -> bool:
+    """The hypotheses of ``prop:blockinterval``: ``Z = [2,k] + free`` passes the
+    vertex test for ``S = [2,k]`` at ``r_1``, and at ``r_0`` every ``nu_i(n)``,
+    ``i <= k``, is below ``Phi_{r_1}(Z)``, through the last anchor ``j <= i``
+    and ``nu_i <= a^(i-j) nu_j`` (``eq:prefixup``)."""
+    lo, hi, n, k, free, anchors = cert
+    block = tuple(range(2, k + 1))
+    zeros = tuple(sorted({*block, *free}))
+    starts = [j for j, _ in anchors]
+    if not (
+        1 < lo < hi
+        and n >= 2
+        and k >= 2
+        and len(zeros) == n + k - 2
+        and min(zeros) >= 1
+        and starts[0] == 1
+        and starts == sorted(set(starts))
+        and starts[-1] <= k
+    ):
+        return False
+    top, a = _phi(zeros, hi), 1 / (lo - 1)
+    bounds = {}
+    for j, extra in anchors:
+        full = tuple(sorted({*range(1, j), *extra}))
+        if len(full) != n + j - 2 or min(full) < 1:
+            return False
+        bounds[j] = _phi(full, lo)
+    j = 1
+    for i in range(1, k + 1):
+        j = i if i in bounds else j
+        if a ** (i - j) * bounds[j] >= top:
+            return False
+    return _vertex_optimal(zeros, set(block), hi)
+
+
+def test_block_rows_fail_on_an_interval() -> None:
+    """``thm:blockinterval``: for every ``r`` in ``[139/100, 19/10]`` the
+    prefix identity fails at ``(r, n+k-1, k)`` for some ``n``, ``k``."""
+    cover = _block_cover()
+    assert _chain_covers(cover, _BLOCK_ENDS)
+    assert all(_block_fails(cert) for cert in cover)
+    # The facts quoted in the paper: the number of certificates, the ranges
+    # of n and k, and 1 in every Z, so that mu_{r_1}([2,k]) = nu_{k+1}(n-1).
+    assert len(cover) == 27
+    assert (min(c[2] for c in cover), max(c[2] for c in cover)) == (13, 22)
+    assert (min(c[3] for c in cover), max(c[3] for c in cover)) == (9, 384)
+    assert all(1 in c[4] for c in cover)
+    assert all(2 * 10**4 % c[i].denominator == 0 for c in cover for i in (0, 1))
+    # The controls: a certificate stretched to the root 2, one with the
+    # largest zero of Z moved by one, one with its last anchor dropped, and
+    # the chain with a link dropped or started below 139/100.
+    lo, hi, n, k, free, anchors = cover[0]
+    assert not _block_fails((lo, Fraction(2), n, k, free, anchors))
+    assert not _block_fails((lo, hi, n, k, (*free[:-1], free[-1] + 1), anchors))
+    assert not _block_fails((lo, hi, n, k, free, anchors[:-1]))
+    assert not _chain_covers(cover[:3] + cover[4:], _BLOCK_ENDS)
+    assert not _chain_covers(cover, (Fraction(138, 100), _BLOCK_ENDS[1]))
