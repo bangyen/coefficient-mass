@@ -29,7 +29,10 @@ is open; an answer lands in the paper it extends, and the row leaves.
   (`sec:widesectors`); whether one level set `H(y) = -v` holds a number of
   Gaussian points above the axis bounded independently of `rho_min` (fewer
   than `6 rho_min` by `prop:gausscircle`, at most `ord_0 H` per norm by
-  `prop:gaussprimes`), and whether one norm carries at most two; whether
+  `prop:gaussprimes`; `ord_0 H` itself is unbounded), and whether one norm
+  carries at most two (yes unless `H` is in `Z[y**4]`, or `n` has two
+  primes `= 1 mod 4`, or one with `ord_p n <= 2 t_p`, `prop:gausssym`);
+  whether
   small coefficients after the lowest one cost nearly as much as zeros at
   pairwise coprime norms (`prop:gaussadic`).
 
@@ -218,7 +221,25 @@ is open; an answer lands in the paper it extends, and the row leaves.
   one (e.g. `deg H >= 8 rho_min**2`), and `h_1 != 0` forces distinct norms
   (`prop:gaussprimes`); `(y**3 + y)**2 = (8c**3 + 2c)**2` at `+-c + ai`
   (Pell `a, c`) attains `K = l = 2` on one norm at every scale, and the
-  Pell triples show `K <= l` fails on two norms.  Numerical evidence only:
+  Pell triples show `K <= l` fails on two norms.  `l` is unbounded on one
+  norm: `(y**3 + y)**(2k)` and `(y**3 - y)**(2k)`, `c > binom(2k, k)`, put
+  `l = 2k` on the Pell pair and triple.  In both, the pair is
+  `alpha, -conj(alpha)` and `H` is even, and this is forced
+  (`prop:gausssym`): if `alpha` and `u alpha` (`u` a unit) are both in the
+  level set, then `H(uy) = H(y)` (compare the top coefficient of
+  `H(y) - H(uy)` with the small ones below it), so a class
+  `{u alpha, u conj(alpha)}` holds one point unless `H` is even, two unless
+  `H` is in `Z[y**4]`, and four in any case.  On one norm `n` with every
+  prime `p = 1 mod 4` of `n` having `ord_p n > 2 t_p`, the Newton polygon
+  fixes the exponent of `pi_p` up to `s_p <-> e_p - s_p`, so the points lie
+  in at most `2**(m-1)` classes, `m` the primes with `e_p != 2 s_p`; hence
+  with at most one prime `= 1 mod 4` in `n`, `K = 1` unless `H` is even and
+  `K <= 2` unless `H` is in `Z[y**4]`.  Numerical evidence only
+  (exhaustive enumeration, with `fpylll`, of the lattice of multiples of
+  degree `d` whose nonleading coefficients lie below `sqrt(n)/2`): no three
+  points of one norm `n <= 5000` for `d <= 20`, nor for `n <= 2000`,
+  `d <= 28`; no four for `n <= 5000`, `d <= 20`; and no `H` in `Z[y**4]`
+  with a class of four points (`|alpha|**2 <= 5000`, `d <= 120`).  Numerical evidence only:
   exhaustive searches over `H` of degree `5` to `7` (nonleading coefficients
   up to `2` or `3`, points of height up to `60` to `100`), even `H` of degree
   `6` (coefficients up to `6`, height `300`) and even `H` of degree `8`
@@ -241,7 +262,11 @@ is open; an answer lands in the paper it extends, and the row leaves.
   set is bounded independently of `rho_min` (the annulus and
   `K <= deg H / 2` alone allow order `rho_min` points when `deg H` is of
   order `rho_min`, so a bound `o(rho_min)` needs more than the positions),
-  and whether one norm carries at most two (three need `h_1 = h_2 = 0`).  The case left by separated moduli (`cor:annuli` of the
+  and whether one norm carries at most two (three need `h_1 = h_2 = 0`,
+  and `H` in `Z[y**4]`, or two primes `= 1 mod 4` in the norm, or one with
+  `ord_p n <= 2 t_p`, `prop:gausssym`; for `H = A(y**4)` the question is
+  whether one Gaussian `z = alpha**4` can be a root of `v + A` with the
+  coefficients of `A` below `|z|**(1/4)/2`).  The case left by separated moduli (`cor:annuli` of the
   complex paper) and common norms (`prop:gausslow`, item 3) is pairwise
   coprime norms in one annulus `[R, 2R]`; there valuations alone give only
   linear bounds (`prop:gaussadic`), and seeded lattice reduction at

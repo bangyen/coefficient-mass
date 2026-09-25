@@ -1085,6 +1085,169 @@ def test_primes_of_a_level_set() -> None:
     assert _prime_orders(f, roots)
 
 
+# Symmetries of a level set (prop:gausssym).
+
+_UNITS: list[Gauss] = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
+
+def _class(z: Gauss) -> frozenset[Gauss]:
+    """The eight numbers ``u z``, ``u conj(z)``, ``u^4 = 1``."""
+    return frozenset(_gmul(u, w) for u in _UNITS for w in (z, (z[0], -z[1])))
+
+
+def _symmetries(h: Poly) -> list[Gauss]:
+    """The units ``u`` with ``H(uy) = H(y)``, from the coefficients."""
+    return [
+        u
+        for k, u in enumerate(_UNITS)
+        if all(c == 0 for j, c in enumerate(h) if j and (j * k) % 4)
+    ]
+
+
+def _level_set_symmetric(h: Poly, roots: list[Gauss]) -> bool:
+    """``prop:gausssym``, items 1 and 2, for ``v + H`` with the Gaussian
+    roots ``roots`` above the axis: a unit taking one root of modulus at
+    least ``rho_min`` to another is a symmetry of ``H``, and each class holds
+    at most ``|U|`` of the roots."""
+    value = _horner(h, roots[0])
+    sym = _symmetries(h)
+    for z in roots:
+        for u in _UNITS:
+            if _horner(h, _gmul(u, z)) == value and u not in sym:
+                return False
+    classes: dict[frozenset[Gauss], int] = {}
+    for z in roots:
+        classes[_class(z)] = classes.get(_class(z), 0) + 1
+    return all(c <= len(sym) for c in classes.values())
+
+
+def _pell_powers(k: int) -> list[tuple[Poly, Poly, list[Gauss], list[Gauss], int]]:
+    """``(y^3 + y)^(2k)`` and ``(y^3 - y)^(2k)`` with the Pell pair
+    ``+-c + ai`` and triple ``+-a + ci``, ``2ci``, for the first Pell ``c``
+    above ``binom(2k, k)``."""
+    out = []
+    for a, c in _pell_triples(12):
+        if c * c <= max(_power([0, 1, 0, 1], 2 * k)) ** 2:
+            continue
+        out.append(
+            (
+                _power([0, 1, 0, 1], 2 * k),
+                _power([0, -1, 0, 1], 2 * k),
+                [(c, a), (-c, a)],
+                [(a, c), (-a, c), (0, 2 * c)],
+                8 * c**3 + 2 * c,
+            )
+        )
+        if len(out) == 2:
+            break
+    return out
+
+
+def _power(p: Poly, k: int) -> Poly:
+    out: Poly = [1]
+    for _ in range(k):
+        out = _mul(out, p)
+    return out
+
+
+def _pattern_classes(n: int) -> list[tuple[int, int]]:
+    """For every choice of ``s_p`` at the primes ``p = 1 mod 4`` dividing
+    ``n`` (all of them informative), the number of classes met by the
+    Gaussian integers of norm ``n`` whose exponent of ``pi_p`` is ``s_p`` or
+    ``e_p - s_p``, and ``m``, the number of ``p`` with ``e_p != 2 s_p``."""
+    split = [(p, e) for p, e in _factor(n).items() if p % 4 == 1]
+    r = isqrt(n)
+    points = [
+        (a, sign * isqrt(n - a * a))
+        for a in range(-r, r + 1)
+        for sign in (1, -1)
+        if isqrt(n - a * a) ** 2 == n - a * a
+    ]
+    exps = {z: [_root_orders(z, p)[0] for p, _ in split] for z in points}
+    out = []
+    for s in product(*[range(e + 1) for _, e in split]):
+        classes = {
+            _class(z)
+            for z in points
+            if all(
+                x in (sp, e - sp)
+                for x, sp, (_, e) in zip(exps[z], s, split, strict=True)
+            )
+        }
+        m = sum(e != 2 * sp for sp, (_, e) in zip(s, split, strict=True))
+        out.append((len(classes), m))
+    return out
+
+
+def test_symmetries_of_a_level_set() -> None:
+    """``prop:gausssym``: the powers ``(y^3 +- y)^(2k)`` put ``ell = 2k`` on
+    the Pell pair and triple with nonleading coefficients below ``c``;
+    items 1 and 2 on them, on every level set of even ``H`` of degree up to
+    8 and of any ``H`` of degree up to 4 with coefficients in ``[-2, 2]``
+    and roots in a box; the two bounds that close item 1 for ``u = +-i``,
+    in rationals; and
+    item 3's count of classes at every norm up to 1500.
+
+    Controls: ``y^5 + y^4 + 6y^3 + 6y^2 + 25y`` is ``-25`` at ``+-(1 + 2i)``
+    and not even, so item 1 needs small coefficients; with ``b < rho/2`` in
+    place of ``b <= 1`` the bound for ``u = +-i`` fails at ``rho^2 = 5``;
+    and without the valuations, the Gaussian integers of norm 125 meet two
+    classes.
+    """
+    for k in (1, 2, 3):
+        plus, minus, pair, triple, w = _pell_powers(k)[0]
+        c = pair[0][0]
+        assert plus[2 * k] == minus[2 * k] ** 2 == 1 and not any(plus[: 2 * k])
+        assert max(abs(x) for x in plus[:-1] + minus[:-1]) < c
+        assert all(_horner(plus, z) == (w ** (2 * k), 0) for z in pair)
+        assert all(_horner(minus, z) == ((-1) ** k * w ** (2 * k), 0) for z in triple)
+        assert 4 * c * c < min(_norm(z) for z in pair) == 4 * c * c + 1
+        assert 4 * max(abs(x) for x in minus[:-1]) ** 2 < min(map(_norm, triple))
+        assert _level_set_symmetric(plus, pair) and _level_set_symmetric(minus, triple)
+        assert _class(pair[0]) == _class(pair[1]) and len(_symmetries(plus)) == 2
+    big_b, seen = 2, 0
+    level: dict[tuple, list[Gauss]] = {}
+    for s in (3, 4):
+        for g in product(range(-big_b, big_b + 1), repeat=s):
+            if g[-1] <= 0:
+                continue
+            h = [0] + [x for c in g for x in (0, c)]
+            for z in _upper(12):
+                val = _horner(h, z)
+                if val[1] == 0:
+                    level.setdefault((tuple(h), val[0]), []).append(z)
+    for (g, value), ys in _level_sets(big_b, 4, 6).items():
+        level[((0, *g), value)] = ys
+    for (h, _), ys in level.items():
+        if 4 * big_b**2 < min(map(_norm, ys)):
+            assert _level_set_symmetric(list(h), ys)
+            seen += len(ys) > 1
+    assert seen > 0
+    r2 = Fraction(1415, 1000)
+    x = Fraction(3536, 10000)
+    assert x * x * 8 >= 1 and r2 * r2 >= 2
+    assert (r2 + x + x**3) / (2 * (1 - x**4)) < Fraction(93, 100)
+    x5 = Fraction(4473, 10000)
+    assert x5 * x5 * 5 >= 1
+    assert (r2 * x5 + Fraction(1, 5) + Fraction(1, 25)) / (1 - Fraction(1, 25)) < (
+        Fraction(91, 100)
+    )
+    for n in range(5, 1500):
+        for count, m in _pattern_classes(n):
+            if count:
+                assert count <= max(2 ** (m - 1), 1)
+    h = [0, 25, 6, 6, 1, 1]
+    assert _horner(h, (1, 2)) == _horner(h, (-1, -2)) == (-25, 0)
+    assert _symmetries(h) == [(1, 0)]
+    assert not _level_set_symmetric(h, [(1, 2)])
+    r2_low, x5_low = Fraction(1414, 1000), Fraction(4472, 10000)
+    assert x5_low * x5_low * 5 <= 1
+    bound = (r2_low + x5_low + x5_low**3) / (2 * (1 - Fraction(1, 25)))
+    assert bound > 1
+    norm125 = {_class(z) for z in _upper(12) if _norm(z) == 125}
+    assert len(norm125) == 2 > 1
+
+
 # Counting Gaussian integers (cor:gausscount).
 
 
