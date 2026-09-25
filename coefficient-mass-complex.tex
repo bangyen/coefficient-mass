@@ -43,7 +43,12 @@ first row survives: $b_1(F)\ge|f_D|\prod_j(|\alpha_j|-1)$ at arbitrary roots
 of modulus greater than one, while $b_2$ and every superlinear mass bound
 fail for pairs within any fixed angle of the imaginary axis.  Rows and mass
 return, up to constants, when the moduli are separated by a factor $9$, by
-an Archimedean Newton polygon argument.  Real roots of both signs charge one
+an Archimedean Newton polygon argument.  With $K_s$ roots of modulus at
+least $T_s$ in the $s$-th of several sufficiently separated annuli, monic
+multiples have mass at least $\sum_ssK_s\log(T_s/2)-O(S)$, attained to
+leading order: a root is charged once per annulus at or below it, and the
+cross terms $K_uK_s\log T_s$ of the real bound fail.  Real roots of both
+signs charge one
 root of each sign per excluded coefficient, with the sharp constant
 $\frac14$ in the mass.  For $K$ roots of modulus at least $R$ in a sector of
 half-width $\delta$, the mass of multiples of degree $O(K)$ is of order
@@ -97,7 +102,12 @@ within any fixed angle of the imaginary axis admit multiples with $b_2=0$
 and mass linear in the number of pairs (Proposition~\ref{prop:noangle}).
 Separated moduli restore the rows and the mass up to constants, through an
 Archimedean Newton polygon (Theorem~\ref{thm:archnewton},
-Corollary~\ref{cor:separated}).
+Corollary~\ref{cor:separated}).  For $K_s$ roots in each of several separated
+annuli the central index charges a root once for every annulus at or below it,
+$\sum_ssK_s\log T_s$ in all, sharply when the separation grows with the
+number of roots; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
+(Theorem~\ref{thm:annuli},
+Corollary~\ref{cor:annuli}, Proposition~\ref{prop:annulisharp}).
 
 \paragraph{Both signs.}  For real roots of both signs, Rolle's theorem on
 each half-line charges one root of each sign per excluded coefficient
@@ -511,6 +521,279 @@ $\log(\rho_j^2/729)$, which is the charge $\log(c_j^2-1)$ of
 Corollary~\ref{cor:imag} up to the constant.  Proposition~\ref{prop:noangle}
 shows that some separation is necessary; the constants $3$, $9$ and $729$ are
 not optimized.
+
+\section{Several annuli}\label{sec:annuli}
+
+For real roots the mass bound \eqref{eq:order} charges the $i$-th smallest
+root $i$ times: once for itself and once for every smaller root.  Group $K_s$
+real roots near $T_s$, with $T_1\ll\cdots\ll T_S$, and it reads
+$\sum_s\bigl(K_1+\cdots+K_{s-1}+\frac{K_s+1}2\bigr)K_s\log T_s$ up to lower
+order terms, with a square term $\frac12K_s^2\log T_s$ inside each group and a
+cross term $K_uK_s\log T_s$ between the groups $u<s$.  At complex roots the
+square term is false (Proposition~\ref{prop:noangle}).  This section shows
+that the cross terms are false as well, and that the right count charges a
+root once for every annulus at or below it: when the separation grows with
+the number of roots, the mass is $\sum_ssK_s\log T_s$ up to lower order
+terms, with the constant $1$ attained in the limit
+(Corollary~\ref{cor:annuli}, Proposition~\ref{prop:annulisharp}).
+Corollary~\ref{cor:separated} is essentially the case $K_s=1$.
+
+For a nonzero $F$ and $r>0$ we call a position $y$ maximizing $|f_i|r^i$ a
+\emph{central index} at $r$.  In the notation of Theorem~\ref{thm:archnewton},
+the central index at $r=e^u$ is the vertex active at $u$ when $u$ is not a
+tropical root; at a tropical root it is any position $i$ of the corresponding
+edge with $\log|f_i|=\varphi(i)$, its two vertices included.
+
+\begin{lemma}[Central index]\label{lem:central}
+Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $r>0$, and let $y$ be a
+central index of $F$ at $r$.  For every sub-multiset $A$ of the zeros of $F$,
+counted with multiplicity,
+\[
+  |f_y|\ >\ \frac{|f_D|}2\,r^{D-y-|A|}\prod_{\beta\in A}\max\Bigl(r,\frac{|\beta|}2\Bigr).
+\]
+In particular, if $r\ge1$ then $|f_y|>\frac{|f_D|}2\prod_{\beta\in A}\frac{|\beta|}{2r}$,
+and if moreover $D-y\ge|A|$ then $|f_y|>\frac{|f_D|}2\prod_{\beta\in A}\frac{|\beta|}2$.
+\end{lemma}
+
+\begin{proof}
+Let $\beta_1,\ldots,\beta_D$ be the zeros of $F$ with multiplicity.  Jensen's
+formula on $|z|=2r$ and the choice of $y$ give
+\[
+  |f_D|\prod_{l=1}^D\max(2r,|\beta_l|)\ \le\ \max_{|z|=2r}|F(z)|
+  \ \le\ \sum_{i=0}^D|f_i|r^i2^i\ \le\ |f_y|r^y\sum_{i=0}^D2^i\ <\ |f_y|r^y2^{D+1}.
+\]
+Each of the $D-|A|$ factors $\max(2r,|\beta_l|)$ with $\beta_l\notin A$ is at
+least $2r$, so
+$|f_y|>|f_D|2^{-D-1}r^{-y}(2r)^{D-|A|}\prod_{\beta\in A}\max(2r,|\beta|)$,
+which is the claim.  For $r\ge1$, $r^{D-y-|A|}\prod_A\max(r,|\beta|/2)\ge
+r^{D-y}\prod_A|\beta|/(2r)\ge\prod_A|\beta|/(2r)$; if $D-y\ge|A|$, then
+$r^{D-y-|A|}\ge1$ and $\max(r,|\beta|/2)\ge|\beta|/2$.
+\end{proof}
+
+At $r=1$ the exponent $D-y-|A|$ plays no role: the central coefficient at
+radius $1$ carries every zero, as $\max(1,|\beta|/2)$, like the first row of
+Proposition~\ref{prop:rowone}.  At a larger radius the lemma charges
+$|\beta|/2$ only for as many zeros as there are positions above the central
+index.  The next lemma supplies such positions.
+
+\begin{lemma}[Counting at a distance]\label{lem:tropcount}
+Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $n\ge1$ and $u<v$ with
+$v-u>2n\log3$, and suppose that $F$ has at least $n$ zeros, counted with
+multiplicity, of modulus at least $e^v$.  Then every central index $y$ of $F$
+at $e^u$ satisfies $D-y\ge n$.
+\end{lemma}
+
+\begin{proof}
+We use the tropical roots $\sigma_1>\cdots>\sigma_L$, the vertices $v_s$ and
+the multiplicities $\ell_s$ of Theorem~\ref{thm:archnewton}.  Two facts first.
+(a) If $u<p$, $y$ is a central index at $e^u$ and $y'$ one at $e^p$, then
+$y\le y'$: otherwise $\log|f_y|+yu\ge\log|f_{y'}|+y'u$ and
+$\log|f_{y'}|+y'p\ge\log|f_y|+yp$ add up to $(y-y')(u-p)\ge0$, which is false
+for $y>y'$ and $u<p$.  (b) Every central index $y$ at $e^u$ satisfies
+$D-y\ge\sum_{\sigma_s>u}\ell_s$.  Indeed let $s$ be the largest index with
+$\sigma_s>u$ ($s=0$ if there is none); then $D-v_s=\sum_{t\le s}\ell_t$, and
+for $i>v_s$ the edge of slope $-\sigma_s$ gives
+$\log|f_i|+iu\le\log|f_{v_s}|+v_su-(\sigma_s-u)(i-v_s)<\log|f_{v_s}|+v_su$,
+so $y\le v_s$.
+
+Choose $0<\eta<v-u-2n\log3$ and let $I=[u+\log3+\eta,\,v-\log3]$, an interval
+of length greater than $2(n-1)\log3\ge0$.  If some $p\in I$ has
+$|p-\sigma_s|>\log3$ for every $s$, then by Theorem~\ref{thm:archnewton},
+item~1, $F$ has exactly $y'$ zeros in $|z|<e^p$ and none on $|z|=e^p$, where
+$y'$ is the vertex active at $p$.  The $n$ zeros of modulus at least
+$e^v>e^p$ lie outside, so $D-y'\ge n$, and $y\le y'$ by (a).  Otherwise the
+closed intervals $[\sigma_s-\log3,\sigma_s+\log3]$ that meet $I$ cover it, so
+their total length is at least the length of $I$, and there are at least $n$
+of them.  Their centres lie in $[u+\eta,v]$, so at least $n$ tropical roots
+exceed $u$, and (b) gives $D-y\ge n$.
+\end{proof}
+
+The distance cannot be a constant: $(x-t)^K$ has $K$ zeros of modulus $t$, and
+at $r=t/c$ its terms are $t^K\binom Kic^{-i}$, so for $c<K$ the term $i=1$
+beats the term $i=0$ and the central index is positive.  So
+Lemma~\ref{lem:tropcount} needs $e^{v-u}$ at least about $n$; it asks for
+$9^n$.
+
+\begin{theorem}[Several annuli]\label{thm:annuli}
+Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $S\ge1$, and let
+$A_1,\ldots,A_S$ be nonempty sub-multisets of the zeros of $F$, counted with
+multiplicity, the moduli in $A_s$ lying in $[T_s,U_s]$, where
+\[
+  T_1>3,\qquad T_a>9U_{a-1}\quad(2\le a\le S).
+\]
+Put $K_s=|A_s|$, $n_a=K_a+\cdots+K_S$ and $A_{\ge a}=A_a\cup\cdots\cup A_S$.
+Let $r_1=1$ and $k_1=n_1$, and for $2\le a\le S$ choose $r_a$ with
+$3U_{a-1}<r_a<T_a/3$, let $\kappa_a$ be the largest integer with
+$9^{\kappa_a}<T_a/r_a$, and put $k_a=\min\bigl(n_a,\max(\kappa_a,S-a+1)\bigr)$.
+Then there are positions $y_1<y_2<\cdots<y_S<D$ with
+\[
+  |f_{y_a}|\ >\ B_a=\frac{|f_D|}2\,r_a^{k_a-n_a}\prod_{\beta\in A_{\ge a}}\frac{|\beta|}2
+  \qquad(1\le a\le S).
+\]
+Hence $b_k(F)>\min_{a\le k}B_a$ for $1\le k\le S$, and, if $|f_D|\ge1$,
+\[
+  \Lambda(F)\ \ge\ (S+1)\log|f_D|+\sum_{s=1}^Ss\sum_{\beta\in A_s}\log\frac{|\beta|}2
+  -\sum_{a=2}^S(n_a-k_a)\log r_a-S\log2 .
+\]
+\end{theorem}
+
+\begin{proof}
+Let $y_a$ be a central index of $F$ at $r_a$.  Since $r_a<T_a/3$,
+$\kappa_a\ge0$.
+
+\emph{Order.}  For $1\le j\le S$ pick $\beta\in A_j$.  By
+Theorem~\ref{thm:archnewton}, item~2, some tropical root $\sigma^{(j)}$
+satisfies $|\sigma^{(j)}-\log|\beta||\le\log3$, so
+$\log(T_j/3)\le\sigma^{(j)}\le\log(3U_j)$.  These intervals are disjoint, as
+$T_{j+1}>9U_j$, so the $\sigma^{(j)}$ are distinct.  For every $a$,
+$\log r_a<\log(T_a/3)\le\sigma^{(a)}$ (for $a=1$ because $T_1>3$), and for
+$a<S$ also $\sigma^{(a)}\le\log(3U_a)<\log r_{a+1}$.  Let
+$\sigma^{(a)}=\sigma_s$ in the numbering of Theorem~\ref{thm:archnewton}.  By
+fact~(b) in the proof of Lemma~\ref{lem:tropcount}, a central index at a
+radius below $e^{\sigma_s}$ is at most the lower vertex $v_s$ of the edge of
+slope $-\sigma_s$; symmetrically, for $i<v_{s-1}$ the same edge gives
+$\log|f_i|+ip<\log|f_{v_{s-1}}|+v_{s-1}p$ when $p>\sigma_s$, so a central
+index at a radius above $e^{\sigma_s}$ is at least the upper vertex
+$v_{s-1}>v_s$.  Hence $y_a\le v_s<v_{s-1}\le y_{a+1}$ for $a<S$, and
+$y_S\le v_s<v_0=D$ for $a=S$.
+
+\emph{Counts.}  Let $a\ge2$.  The $S-a+1$ distinct tropical roots
+$\sigma^{(a)},\ldots,\sigma^{(S)}$ exceed $\log r_a$, so
+$D-y_a\ge S-a+1$ by fact~(b) in the proof of Lemma~\ref{lem:tropcount}.  If
+$\kappa_a\ge1$, let $n=\min(n_a,\kappa_a)$; Lemma~\ref{lem:tropcount} with
+$u=\log r_a$ and $v=\log T_a$ applies, as $v-u=\log(T_a/r_a)>n\log9$ and the
+$n_a\ge n$ zeros in $A_{\ge a}$ have modulus at least $T_a$, and gives
+$D-y_a\ge n$.  So $D-y_a\ge k_a$ for every $a\ge2$.
+
+\emph{Values.}  Every $r_a\ge1$ (for $a\ge2$, $r_a>3U_{a-1}\ge3T_1>9$).
+Lemma~\ref{lem:central} with $A=A_{\ge a}$ gives
+$|f_{y_a}|>\frac{|f_D|}2r_a^{D-y_a-n_a}\prod_{A_{\ge a}}\max(r_a,|\beta|/2)$.
+For $a=1$ the power of $r_1=1$ is $1$; for $a\ge2$ it is at least
+$r_a^{k_a-n_a}$, since $D-y_a\ge k_a$; and $\max(r_a,|\beta|/2)\ge|\beta|/2$.
+This is $|f_{y_a}|>B_a$.
+
+The positions $y_1,\ldots,y_k$ are $k$ distinct nonleading positions with
+magnitudes above $\min_{a\le k}B_a$, which bounds $b_k(F)$.  For the mass,
+$\Lambda(F)\ge\log^+|f_D|+\sum_a\log^+|f_{y_a}|\ge\log|f_D|+\sum_a\log B_a$,
+and $\sum_a\sum_{\beta\in A_{\ge a}}=\sum_ss\sum_{\beta\in A_s}$; the term
+$a=1$ has no power of $r_1$.
+\end{proof}
+
+\begin{corollary}[Annuli]\label{cor:annuli}
+In the setting of Theorem~\ref{thm:annuli}:
+\begin{enumerate}
+\item If moreover $T_a>3\cdot9^{n_a}U_{a-1}$ for $2\le a\le S$, then
+$b_k(F)>\frac{|f_D|}2\prod_{\beta\in A_{\ge k}}\frac{|\beta|}2$ for $1\le k\le S$,
+and, if $|f_D|\ge1$,
+\[
+  \Lambda(F)\ \ge\ (S+1)\log|f_D|+\sum_{s=1}^Ss\sum_{\beta\in A_s}\log\frac{|\beta|}2-S\log2 .
+\]
+\item Without the extra hypothesis, if $|f_D|\ge1$,
+\[
+  \Lambda(F)\ \ge\ (S+1)\log|f_D|+\sum_{\beta\in A_{\ge1}}\log\frac{|\beta|}2
+  +\sum_{a=2}^S\sum_{\beta\in A_{\ge a}}\log\frac{|\beta|}{6U_{a-1}}-S\log2 .
+\]
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+1.  Choose $r_a$ with $3U_{a-1}<r_a<9^{-n_a}T_a$.  Then $r_a<T_a/3$ and
+$9^{n_a}<T_a/r_a$, so $k_a=n_a$ and
+$B_a=\frac{|f_D|}2\prod_{A_{\ge a}}\frac{|\beta|}2$.  Every factor
+$|\beta|/2$ exceeds $1$, so $B_a$ decreases with $a$ and
+$\min_{a\le k}B_a=B_k$.
+
+2.  As $k_a\ge0$, $(n_a-k_a)\log r_a\le n_a\log r_a$, and
+$\sum_{A_{\ge a}}\log\frac{|\beta|}2-n_a\log r_a=\sum_{A_{\ge a}}\log\frac{|\beta|}{2r_a}$.
+The bound holds for every admissible $r_a$; let $r_a\downarrow3U_{a-1}$.
+\end{proof}
+
+Item~1 charges a root of $A_s$ once for each annulus at or below it, $s$
+times in all, at the price of a separation that grows exponentially with the
+number of roots above.  Item~2 needs only the factor $9$, but past the first
+annulus it charges ratios $|\beta|/U_{a-1}$ instead of moduli.  With one root
+per annulus, $k_a=n_a=S-a+1$ at the separation $9$ of the theorem, which then
+gives Corollary~\ref{cor:separated}, item~1, with $\rho_j/2$ in place of
+$\rho_j/3$ and an extra factor $\frac12$ in each row.  Item~1 is sharp,
+constant included, and the cross terms $K_uK_s\log T_s$ of the real bound
+fail.
+
+\begin{proposition}[Sharpness for annuli]\label{prop:annulisharp}
+\leavevmode
+\begin{enumerate}
+\item Let $N_1,\ldots,N_S\ge1$ and let $2\le t_1<\cdots<t_S$ be integers with
+$t_{a+1}>9t_a$.  Put $y_a=N_1+\cdots+N_a$ ($y_0=0$), $D=y_S$ and
+\[
+  F=\sum_{a=0}^Sc_ax^{y_a},\qquad c_a=\prod_{s>a}t_s^{N_s}.
+\]
+Then $F\in\mathbb Z[x]$ is monic, $F$ has exactly $N_s$ zeros, counted with
+multiplicity, in $t_s/3\le|z|\le3t_s$ for each $s$ and no other zeros, and
+\[
+  \Lambda(F)=\sum_{s=1}^SsN_s\log t_s .
+\]
+If moreover $t_1>9$ and $t_a>27\cdot9^{n_a}t_{a-1}$, where
+$n_a=N_a+\cdots+N_S$, then Corollary~\ref{cor:annuli}, item~1, applies to $F$
+with $A_s$ the zeros in $[t_s/3,3t_s]$, and gives
+$\Lambda(F)\ge\sum_ssN_s\log(t_s/6)-S\log2$.
+\item Let $0<\delta<\pi/2$, let $M_1\ne M_2$ be odd integers at least $3$,
+and let $1<t_1<t_2$.  The monic real polynomial
+$(x^{2M_1}+t_1^{2M_1})(x^{2M_2}+t_2^{2M_2})$ is divisible, for $s=1,2$, by
+$K_s=2\lfloor\delta M_s/\pi\rfloor+1$ conjugate pairs of modulus $t_s$
+within $\delta$ of the imaginary axis, and
+\[
+  \Lambda=4M_1\log t_1+4M_2\log t_2\ \le\
+  \frac{2\pi}\delta\bigl((K_1+1)\log t_1+(K_2+1)\log t_2\bigr).
+\]
+\end{enumerate}
+In particular, for no $c>0$ does $\Lambda(F)\ge c\,K_1K_2\log T_2$ hold for
+all monic multiples $F$ of $K_1$ roots with moduli in $[T_1,9T_1]$ and $K_2$
+roots with moduli in $[T_2,9T_2]$, however large $T_2/T_1$ is, nor for such
+roots in conjugate pairs within a fixed angle of the imaginary axis.
+\end{proposition}
+
+\begin{proof}
+1.  $F$ has the $S+1$ nonzero coefficients $c_a\in\mathbb Z$ at the positions
+$y_a$, and $c_S=1$.  The slope from $(y_{a-1},\log c_{a-1})$ to
+$(y_a,\log c_a)$ is $-\log t_a$, which decreases strictly with $a$, so these
+points are the vertices of the least concave majorant, and the tropical roots
+are the $\log t_a$, the edge of $\log t_a$ joining $y_{a-1}$ to $y_a$.  By
+Theorem~\ref{thm:archnewton}, item~2, every zero lies in one of the closed
+annuli $[t_s/3,3t_s]$, which are disjoint as $t_{s+1}>9t_s$.  For $0\le a\le S$
+choose $u_a$ with $3t_a<e^{u_a}<t_{a+1}/3$ (with $t_0=0$ and $t_{S+1}=\infty$).
+It is farther than $\log3$ from every tropical root, and the vertex active at
+$u_a$ is $y_a$; by Theorem~\ref{thm:archnewton}, item~1, $F$ has exactly
+$y_a$ zeros in $|z|<e^{u_a}$, that is, in the first $a$ annuli.  So the
+$a$-th annulus holds $y_a-y_{a-1}=N_a$ zeros.  Every $c_a\ge1$, so
+$\Lambda(F)=\sum_{a<S}\log c_a=\sum_{a<S}\sum_{s>a}N_s\log t_s
+=\sum_ssN_s\log t_s$.
+
+For the last claim take $T_s=t_s/3$ and $U_s=3t_s$: then $T_1>3$,
+$T_a>3\cdot9^{n_a}U_{a-1}$ (which implies $T_a>9U_{a-1}$), $|A_s|=N_s$,
+$f_D=1$, and $|\beta|/2\ge t_s/6$ on $A_s$.
+
+2.  By the proof of Proposition~\ref{prop:noangle}, item~1, each factor
+$x^{2M_s}+t_s^{2M_s}$ has $K_s$ conjugate pairs of modulus $t_s$ within
+$\delta$ of the imaginary axis, and $2M_s\le\pi(K_s+1)/\delta$.  The product
+is $x^{2M_1+2M_2}+t_2^{2M_2}x^{2M_1}+t_1^{2M_1}x^{2M_2}+t_1^{2M_1}t_2^{2M_2}$,
+four distinct positions as $M_1\ne M_2$, which gives $\Lambda$.
+
+For the final sentence, item~1 with $S=2$, $N_1=N_2=N$ and $T_s=t_s/3\ge3$
+has $K_s=N$ zeros with moduli in $[T_s,9T_s]$ and
+$\Lambda(F)=N\log t_1+2N\log t_2\le3N\log(3T_2)\le6N\log T_2$, which is below
+$cN^2\log T_2$ once $N>6/c$.  Item~2 with $T_s=t_s$ has
+$\Lambda\le\frac{2\pi}\delta(K_1+K_2+2)\log T_2$, below $cK_1K_2\log T_2$
+once $M_1$ and $M_2$, hence $K_1$ and $K_2$, are large.
+\end{proof}
+
+So at complex roots in separated annuli the analogue of $\sum_ii\log r_i$ is
+$\sum_ssK_s\log T_s$: the cross term between annuli $u<s$ is $K_s\log T_s$,
+linear in the number of roots above and independent of the number below.  It
+is proved when the separation grows like $9^{n_a}$
+(Corollary~\ref{cor:annuli}, item~1), and with ratios in place of moduli at
+the fixed separation $9$ (item~2).  Whether item~1 holds at a fixed
+separation is open; the only loss is in the second case of the proof of
+Lemma~\ref{lem:tropcount}, when tropical roots crowd the whole gap below an
+annulus.
 
 \section{Real roots of both signs}\label{sec:bothsigns}
 
