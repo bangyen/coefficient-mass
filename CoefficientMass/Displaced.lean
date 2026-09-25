@@ -14,7 +14,7 @@ largest zero `z` of `Z` and the largest node.  With `Z' = Z \ {z}` and
 `A = {0} ∪ Z'`, the sum `F` on the smaller nodes has `F_0 = 1` and zeros `Z'`,
 and `G` on all nodes vanishes on `A` with `G_z = 1`.  This module records
 their sign patterns and proves the paper's bound `σ ≤ G_z / F̂_z` by the sign
-of `G - τ F̂`, where the paper argues asymptotically.
+of `G - τ F̂`, as the paper does (the paper writes `V` for `F`).
 
 ## Theorems
 
