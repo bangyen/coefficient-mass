@@ -14,17 +14,24 @@ is open; an answer lands in the paper it extends, and the row leaves.
   worst placement is `x*` with zero set `{1,x*,z}` by `thm:familyosc`, but
   which `z`, and the transition near the jumps, are open).
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
-  separation for the mass, between `2 + 1/18915` and 81 (at most 9 for two
-  annuli with `n_2 <= 8`, `cor:rowstwo`), and whether 9 suffices; the least
-  separation for the rows of `cor:annuli`, between `n_a` and
-  `min(n_a + 9, 3 rho_(n_a))` (`cor:rowsall`, `cor:fewabove`), that is,
-  the additive constant in `n_a + O(1)`, in particular whether
-  `T_a > (n_a + 1) U_(a-1)` gives every row (`sec:annuli`; for two annuli
-  it lies between `n_2` and `n_2 + 1`, `cor:rowstwo`).
+  separation for the mass, between `2 + 1/18915` and 81 (at most
+  `max(4, n_2 + 1)` for two annuli, `cor:twofixed`), and whether 9
+  suffices, for two annuli with many roots above the gap in particular;
+  whether `T_a > (n_a + 1) U_(a-1)` gives every row of `cor:annuli` also
+  where `n_a < 30` and `S >= 3` (it does where `n_a >= 30`, and for large
+  `n_a` the additive constant is exactly 1/2, `cor:rowsplusone`,
+  `prop:rowslower`; below 30 only `min(n_a + 9, 3 rho_(n_a))` is known,
+  `cor:rowsall`; for two annuli the least separation lies between
+  `n_2/(1 - 2**(-n_2-1))` and `n_2 (1 + 3 * 2**(-n_2))` for `n_2 >= 4`,
+  `cor:twofixed`); the best constant `c` in
+  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` for `|alpha|` near 1
+  (in `[1/8, 1]`; at least `1 - 1/a_0` over `|alpha| >= a_0 >= 2`,
+  `prop:rowstwolarge`).
 - [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
-  for every `1 < r < 2`; closed forms or tree bounds for rows `k >= 3`
+  for every `1 < r < 2` (proved for `21/20 <= r <= 139/100`,
+  `thm:failinterval`); closed forms or tree bounds for rows `k >= 3`
   (`sec:finiterows`).
 - [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
   holds for integer multiples at Gaussian roots in a wide sector
@@ -187,7 +194,41 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `q_2/q_1 = K(K+1+2h)/(2h(K+h)) < n_2/(2h) + 1` has `f_2 = 0` and `b_3`
   below the row by a factor tending to 0 (`prop:rowslower`); there
   `lambda ~ xi/6`, so the condition of `thm:rowsk` is sharp up to a constant
-  factor.  Closed for the mass at a fixed separation: every
+  factor.  Splitting the two identities of the truncation argument, and
+  excluding any given position `j`, gives a position `l <= D - n`, `l != j`,
+  with `|f_l| >= |f_D| prod |beta| / Gamma`, `Gamma` about half of
+  `2|alpha|/((|alpha| - 1) lambda gamma)` (`lem:twobelow`).  For `S = 2` the
+  rows and the mass then hold at `T_2 > 4 U_1` when `n_2 <= 3` and at
+  `T_2 > n_2 (1 + 3 * 2**(-n_2)) U_1` when `n_2 >= 4`, so at
+  `max(4, n_2 + 1)`, with only `T_1 > 3` (`cor:twofixed`);
+  `(x - q)(x + t)**K`, `t = Kq/(1 - 2**(-K-1))`, misses the second row, so
+  for two annuli the least separation for the rows lies between
+  `n_2/(1 - 2**(-n_2-1))` and `n_2 (1 + 3 * 2**(-n_2))` (`n_2 >= 4`).  For
+  the mass, `K_2 = 1` lies in `[32/31, 4]` and `K_2 = 2` in
+  `[2 + 1/18915, 4]`.  At a fixed separation `g` and `n_2 = K >= g`, the
+  same family at `t = Kq/(1 - 2**(-2K-4))`, `q >= 2**(3K+5)`, has
+  `log b_1 + log b_2` below the mass bound, so a proof at a fixed
+  separation for all `n_2` must charge a third nonleading position (there
+  the positions `2, ..., K`).  For `S >= 3`, two lower zeros close the gap
+  of `thm:rowsk` up to the leading constant
+  (`thm:rowspair`, `cor:rowsplusone`): a zero of `A_(k-2)` determines the
+  coefficient at `y_(k-2)` from the one at `y_(k-1)`, and eliminating it
+  leaves at `alpha` the truncation `S_M(alpha)`, of modulus at least
+  `lambda`, against `s = |alpha'|/|alpha|` times the next truncation term,
+  at most `binom(n+1, 2)(|alpha|/T)**2 ~ 1/2`; so the row `k` holds about
+  when `s < 2 lambda`, and `prop:rowslower` has `s/lambda -> 2`.  Hence the
+  row `k` holds at `T_a > (n_a + 1) U_(a-1)` once `n_k >= 30` (by hand; the
+  margin is positive from `n_k = 26` numerically), and at `n_a + c` for
+  every `c > 1/2` once `n_k` is large, while `prop:rowslower` with rational
+  `h < 1/2` fails with both separations above `n_a + h`: for large `n_a`
+  the additive constant is exactly 1/2 (for the row 2 every `c > 0`).
+  Every row and the mass hold at `T_a > sigma(n_a) U_(a-1)`,
+  `sigma(n) = n + 1` for `n >= 30` and `min(n + 9, 3 rho_n)` below.  For the
+  second row, summing the truncations against the powers of `|alpha|`
+  removes `gamma`: `b_2 >= lambda (1 - 1/|alpha|)**2 |f_D| prod |beta|` for
+  `|alpha| >= 2` (`prop:rowstwolarge`), while `(x - q)(x + t)**K` has
+  `b_2 = lambda prod |beta|`, so the best constant tends to 1 as `|alpha|`
+  grows.  Closed for the mass at a fixed separation: every
   multiple with `|f_D| >= 1` has mass at least
   `sum_s s K_s log(T_s/2) - S log 2` once `T_1 > 3` and
   `T_a > 81 U_(a-1)` (`thm:fixedgap`: where one central index falls
@@ -203,7 +244,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `thm:fixedgap` give the mass bound (`cor:fewabove`).  For `S = 2` it
   holds at `T_2 > 12 U_1` when `K_2 = 2`, the case of `prop:gaptwo`, and at
   `T_2 > 6 U_1` when `K_2 = 1`, where `(x - q)(x + t)` fails for
-  `1 <= t - q < t/32` (separations up to `32/31`).  Below 81 the proof of
+  `1 <= t - q < t/32` (separations up to `32/31`); both at `4 U_1` by
+  `cor:twofixed`.  Below 81 the proof of
   `thm:fixedgap` breaks down where only one vertex above those charged for
   the lower annuli is active in the gap, between tropical roots less than
   `2 log 3` apart, with fewer than `n_a` positions above it; that is how
@@ -228,15 +270,18 @@ is open; an answer lands in the paper it extends, and the row leaves.
   exactly, so the constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
   also for pairs near the imaginary axis (`prop:annulisharp`).  Open: the
   least fixed separation for the mass, between `2 + 1/18915` and 81
-  (whether 9 suffices; for two annuli with `n_2 <= 8` it is at most 9 by
-  `cor:rowstwo`), and the least separation for the rows `k >= 3` when
-  `S >= 3`, between `n_a` and `min(n_a + 9, 3 rho_(n_a))` (`n_a + 9` for
-  `n_a >= 2`, 6 for `n_a = 1`); in particular whether
-  `T_a > (n_a + 1) U_(a-1)` suffices for every row (the family of
-  `prop:rowslower` fails only when `T_2/U_1` is about `n_2/(2h)`, and
-  `thm:rowsk` needs `T_2/U_1` about `3 n_2/h`), and the best constant `c` in
-  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` of `thm:rowstwo`,
-  between 1/8 and 1.
+  (whether 9 suffices; for two annuli it is at most `max(4, n_2 + 1)` by
+  `cor:twofixed`, and whether a separation below 81 independent of `n_2`
+  suffices there is open: for `n_2 >= g` the first two rows fall short of
+  the mass at the separation `g`, and a third position must be charged; for
+  `K_2 = 2`, whether the least separation is close to 2), and whether
+  `T_a > (n_a + 1) U_(a-1)` gives every row also where `n_a < 30` and
+  `S >= 3`, where only `min(n_a + 9, 3 rho_(n_a))` is known (`n_a + 9` for
+  `n_a >= 2`, 6 for `n_a = 1`; at `n_a >= 30` it is `cor:rowsplusone`).
+  And the best constant `c` in
+  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` of `thm:rowstwo`
+  as `|alpha| -> 1`, between 1/8 and 1 (at least `1 - 1/a_0` over
+  `|alpha| >= a_0 >= 2` by `prop:rowstwolarge`).
 
 - **Coefficient mass in sectors.**  The paper is
   [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), split out
@@ -444,6 +489,17 @@ is open; an answer lands in the paper it extends, and the row leaves.
   (`prop:secondrowhyp`, `tests/test_rows.py`); the margins are below 0.3
   percent, and floating-point experiments find no failure under the
   hypothesis at `r = p/q >= 5/4`, `q <= 20`.
+  Failures on an interval (`lem:rootmono`, `prop:failinterval`,
+  `thm:failinterval`): every `mu_r(S,L)` decreases with `r`, so
+  `eta_sigma(n) > max(nu_1(n), nu_2(n))` at `r_1` (a vertex certificate)
+  against upper bounds at `r_0 < r_1` persists on `[r_0, r_1]`; 49 such
+  certificates (`tests/second_row_cover.json`, `n` from 68 down to 10,
+  always `sigma = 2`) show that for every `r` in `[21/20, 139/100]` the
+  prefix identity fails at `(r, n+1, 2)` for some `n`.  Numerically only,
+  the failures continue in narrow windows (`n = 9` on about
+  `[1.403, 1.429]`, `n = 8` near `1.466`), and a floating-point search
+  finds no second-row failure with `n <= 40` at `r = 1.400` and on most of
+  a `0.004`-grid of `[1.43, 1.5]`, nor with `n <= 30` at `1.6, ..., 1.9`.
   Every row (`sec:finiterows`): a threshold for up to `m` far zeros
   (`lem:farzeros`) cuts the exempted sets to a finite tree, so for all
   `r > 1`, `n, m >= 1`, `V_r(n+m,m+1) = min(V_r(n+m-1,m), min_(S in tree)
@@ -459,7 +515,12 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `V_{3/2}(10,3) = beta_{3/2}(8)`, the identity with minimum at `i = 1`.
   Open: a condition on `r` and `n` that gives the identity at `k = 2`;
   whether the worst finite position or set is always small; whether failures
-  occur for every `1 < r < 2`; closed forms, or bounds on the trees, for the
+  occur for every `1 < r < 2`, in particular for `1 < r < 21/20` (a
+  failure needs `beta_r(n) > 1`, so `n -> oo` as `r -> 1+` by
+  `thm:onepolyrows` and `lem:topnearone`) and
+  for `r` near `1.40` and above `1.43`, where the second row may satisfy the
+  identity on every diagonal and a failure would have to come from a row
+  `k >= 3`; closed forms, or bounds on the trees, for the
   rows `k >= 3` with `beta_r(n) > 1` -- `thm:finiterows` does not say how to
   find the minimizers `q_N` it branches on, and its thresholds do not
   decrease with `m`.
