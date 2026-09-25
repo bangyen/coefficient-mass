@@ -16,13 +16,17 @@ is open; an answer lands in the paper it extends, and the row leaves.
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
   separation for the mass, between `2 + 1/18915` and 81 (at most
   `max(4, n_2 + 1)` for two annuli, `cor:twofixed`), and whether 9
-  suffices, for two annuli with many roots above the gap in particular; the
-  least separation for the rows of `cor:annuli`, between `n_a` and
-  `min(n_a + 9, 3 rho_(n_a))` (`cor:rowsall`, `cor:fewabove`), that is,
-  the additive constant in `n_a + O(1)`, in particular whether
-  `T_a > (n_a + 1) U_(a-1)` gives every row (`sec:annuli`; for two annuli
-  it lies between `n_2/(1 - 2**(-n_2-1))` and `n_2 (1 + 3 * 2**(-n_2))`
-  for `n_2 >= 4`, `cor:twofixed`).
+  suffices, for two annuli with many roots above the gap in particular;
+  whether `T_a > (n_a + 1) U_(a-1)` gives every row of `cor:annuli` also
+  where `n_a < 30` and `S >= 3` (it does where `n_a >= 30`, and for large
+  `n_a` the additive constant is exactly 1/2, `cor:rowsplusone`,
+  `prop:rowslower`; below 30 only `min(n_a + 9, 3 rho_(n_a))` is known,
+  `cor:rowsall`; for two annuli the least separation lies between
+  `n_2/(1 - 2**(-n_2-1))` and `n_2 (1 + 3 * 2**(-n_2))` for `n_2 >= 4`,
+  `cor:twofixed`); the best constant `c` in
+  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` for `|alpha|` near 1
+  (in `[1/8, 1]`; at least `1 - 1/a_0` over `|alpha| >= a_0 >= 2`,
+  `prop:rowstwolarge`).
 - [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
@@ -204,7 +208,26 @@ is open; an answer lands in the paper it extends, and the row leaves.
   same family at `t = Kq/(1 - 2**(-2K-4))`, `q >= 2**(3K+5)`, has
   `log b_1 + log b_2` below the mass bound, so a proof at a fixed
   separation for all `n_2` must charge a third nonleading position (there
-  the positions `2, ..., K`).  Closed for the mass at a fixed separation: every
+  the positions `2, ..., K`).  For `S >= 3`, two lower zeros close the gap
+  of `thm:rowsk` up to the leading constant
+  (`thm:rowspair`, `cor:rowsplusone`): a zero of `A_(k-2)` determines the
+  coefficient at `y_(k-2)` from the one at `y_(k-1)`, and eliminating it
+  leaves at `alpha` the truncation `S_M(alpha)`, of modulus at least
+  `lambda`, against `s = |alpha'|/|alpha|` times the next truncation term,
+  at most `binom(n+1, 2)(|alpha|/T)**2 ~ 1/2`; so the row `k` holds about
+  when `s < 2 lambda`, and `prop:rowslower` has `s/lambda -> 2`.  Hence the
+  row `k` holds at `T_a > (n_a + 1) U_(a-1)` once `n_k >= 30` (by hand; the
+  margin is positive from `n_k = 26` numerically), and at `n_a + c` for
+  every `c > 1/2` once `n_k` is large, while `prop:rowslower` with rational
+  `h < 1/2` fails with both separations above `n_a + h`: for large `n_a`
+  the additive constant is exactly 1/2 (for the row 2 every `c > 0`).
+  Every row and the mass hold at `T_a > sigma(n_a) U_(a-1)`,
+  `sigma(n) = n + 1` for `n >= 30` and `min(n + 9, 3 rho_n)` below.  For the
+  second row, summing the truncations against the powers of `|alpha|`
+  removes `gamma`: `b_2 >= lambda (1 - 1/|alpha|)**2 |f_D| prod |beta|` for
+  `|alpha| >= 2` (`prop:rowstwolarge`), while `(x - q)(x + t)**K` has
+  `b_2 = lambda prod |beta|`, so the best constant tends to 1 as `|alpha|`
+  grows.  Closed for the mass at a fixed separation: every
   multiple with `|f_D| >= 1` has mass at least
   `sum_s s K_s log(T_s/2) - S log 2` once `T_1 > 3` and
   `T_a > 81 U_(a-1)` (`thm:fixedgap`: where one central index falls
@@ -250,14 +273,14 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `cor:twofixed`, and whether a separation below 81 independent of `n_2`
   suffices there is open: for `n_2 >= g` the first two rows fall short of
   the mass at the separation `g`, and a third position must be charged; for
-  `K_2 = 2`, whether the least separation is close to 2), and the least separation for the rows `k >= 3` when
-  `S >= 3`, between `n_a` and `min(n_a + 9, 3 rho_(n_a))` (`n_a + 9` for
-  `n_a >= 2`, 6 for `n_a = 1`); in particular whether
-  `T_a > (n_a + 1) U_(a-1)` suffices for every row (the family of
-  `prop:rowslower` fails only when `T_2/U_1` is about `n_2/(2h)`, and
-  `thm:rowsk` needs `T_2/U_1` about `3 n_2/h`), and the best constant `c` in
-  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` of `thm:rowstwo`,
-  between 1/8 and 1.
+  `K_2 = 2`, whether the least separation is close to 2), and whether
+  `T_a > (n_a + 1) U_(a-1)` gives every row also where `n_a < 30` and
+  `S >= 3`, where only `min(n_a + 9, 3 rho_(n_a))` is known (`n_a + 9` for
+  `n_a >= 2`, 6 for `n_a = 1`; at `n_a >= 30` it is `cor:rowsplusone`).
+  And the best constant `c` in
+  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` of `thm:rowstwo`
+  as `|alpha| -> 1`, between 1/8 and 1 (at least `1 - 1/a_0` over
+  `|alpha| >= a_0 >= 2` by `prop:rowstwolarge`).
 
 - **Coefficient mass in sectors.**  The paper is
   [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), split out
