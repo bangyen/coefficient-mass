@@ -160,6 +160,15 @@ reduce exactly to real roots, and $K$ roots of modulus at least $R$ in a
 sector of half-width $\delta$ cost a mass of order
 $\min(K^2,K/\delta)\log R$ for multiples of degree $O(K)$.
 
+\paragraph{Formalization.}
+Sections~2 and~3 through Corollary~\ref{cor:mass} are formalized in Lean~4
+with Mathlib, in the directory \texttt{CoefficientMass} of the repository
+\href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass}.
+The formal proofs follow the ones given here.  Two clauses are not
+formalized: the equality case of Theorem~\ref{thm:tail}, and the relaxation
+of $r_1\ge2$ to $r_1>1$ in the first row of Lemma~\ref{lem:slack} and
+Theorem~\ref{thm:order}.
+
 \paragraph{Conventions.}
 All logarithms are natural, $\N_{>0}=\{1,2,\ldots\}$, and every asymptotic
 statement is for $L\to\infty$ with absolute implied constants unless
@@ -192,6 +201,19 @@ form a Chebyshev system~\cite{karlin}.
 Consequently a nonzero $r$-node sum with $r-1$
 distinct prescribed real zeros has exactly those zeros, each is simple, and the sum
 changes sign at each of them.
+
+A form of the zero bound that needs no local analysis at the zeros is
+\emph{weak alternation}: if a nonzero sum $f$ on $r$ distinct positive nodes
+satisfies $\varepsilon(-1)^kf(t_k)\ge0$ at points $t_0<t_1<\cdots<t_n$, for a
+fixed sign $\varepsilon$, then $n+1\le r$.  Divide by the exponential of one
+node, which keeps the hypothesis, and apply the mean value theorem on each
+$[t_{k-1},t_k]$: the derivative, a sum on the other $r-1$ nodes, satisfies
+$\varepsilon(-1)^kg'(s_k)\ge0$ at some $s_k\in(t_{k-1},t_k)$, so it weakly
+alternates at the $n$ points $s_1<\cdots<s_n$, and induction on $r$ applies.
+If the derivative vanishes identically, $f$ is a single exponential, which has
+a strict sign, so $n=0$.  A zero at which $f$ keeps its sign is a weak
+alternation on both sides, so this bound does the work of a count with
+multiplicity.
 
 \begin{lemma}[Consecutive zero set]\label{lem:consecutive}
 Let $0<y_1<\cdots<y_c<1$; no cutoff $y_c\le1/2$ is imposed.  Let $w$ be the
@@ -251,8 +273,8 @@ gives $\frac18$ and $Z=\{2\}$ gives $\frac9{64}$, so the theorem does not
 compare zero sets at fixed nodes.  Instead its proof removes the displaced
 zeros one at a time, starting with the largest, each time together with the
 largest reciprocal node.  The hard step is the following comparison of a
-correction sum with its value just past the prescribed zeros, proved by a
-zero count.
+correction sum with its value just past the prescribed zeros, proved by
+weak alternation.
 
 \begin{lemma}[Interlacing of the correction sum]\label{lem:interlace}
 Let $c\ge2$ and $0<y_1<\cdots<y_c$, let $Z'\subset\N_{>0}$ satisfy $|Z'|=c-2$, and put
@@ -278,57 +300,28 @@ $y_1,\ldots,y_{c-1}$: writing $G_d=\sum_ia_iy_i^d$ gives
       =\sum_{i=1}^{c-1}\beta_iy_i^d,
 \]
 with $\beta_i=a_i(1-y_c/y_i)$, the $i=c$ term having cancelled.  Hence $\Delta$
-is an exponential sum on at most $c-1$ nodes (some coefficients may vanish),
-so by the zero bound it is either identically zero or has at most $c-2$ real
-zeros counted with multiplicity.
+is an exponential sum on the $c-1$ nodes $y_1,\ldots,y_{c-1}$, some of its
+coefficients possibly zero.
 
-Relabel $A=\{0\}\cup Z'$ as $\alpha_1=0<\alpha_2<\cdots<\alpha_{c-1}=m$; let $r$ be the
-number of consecutive pairs $\{\alpha_j,\alpha_{j+1}\}=\{d-1,d\}$ in $A$, and
-$J=\{j:\alpha_{j+1}\in Z',\ \alpha_j<\alpha_{j+1}-1\}$, so that $|J|=c-2-r$.
+We record its values at the points of $Z'$ and at $m+1$.  First,
+$\Delta_{m+1}=0$, because $G_m=0$ gives $E_{m+1}=G_{m+1}=\sigma\widehat
+F_{m+1}$.  Next let $p\in Z'$.  Then $\widehat F_p=G_p=0$, so
+$\Delta_p=-E_p=y_cG_{p-1}$.  By the zero bound $G$ has exactly the simple
+zeros $\{0\}\cup Z'$ and is positive past $m$, so on the component of
+$(0,\infty)\setminus Z'$ just below $p$ it has the sign $(-1)^{a(p)}$, where
+$a(p)=|\{\alpha\in Z':\alpha\ge p\}|$.  Hence $\Delta_p$ is zero, when $p-1$
+is marked, or has the sign $(-1)^{a(p)}$.
 
-By the zero bound, $G$ has exactly the simple zeros $\{0\}\cup Z'$; on a
-component $(\alpha_j,\alpha_{j+1})$ its sign is $(-1)^{c-1-j}$ because it is positive
-past the last zero and flips at each.  We record the zeros of $\Delta$.
-
-First, $\Delta_{m+1}=0$, because $G_m=0$ and $\sigma=G_{m+1}/\widehat
-F_{m+1}$.  Second, if $\alpha_j=\alpha_{j+1}-1$ then $\alpha_j,\alpha_{j+1}\in A$, so
-$G_{\alpha_j}=G_{\alpha_{j+1}}=0$, and $\alpha_{j+1}\in Z'$, so $\widehat F_{\alpha_{j+1}}=0$;
-thus $\Delta_{\alpha_{j+1}}=-E_{\alpha_{j+1}}=-G_{\alpha_{j+1}}+y_cG_{\alpha_{j+1}-1}=0$.  There
-are $r$ such forced zeros, one for each consecutive pair.  At every other
-marked point $\alpha_{j+1}\in Z'$ one has $\alpha_j<\alpha_{j+1}-1$, so
-$\alpha_{j+1}-1\notin A$ and $G_{\alpha_{j+1}-1}\ne0$, and
-\[
-  \Delta_{\alpha_{j+1}}=-E_{\alpha_{j+1}}=y_cG_{\alpha_{j+1}-1},
-  \qquad \sgn\Delta_{\alpha_{j+1}}=(-1)^{c-1-j}.
-\]
-
-If $\Delta\equiv0$ there is nothing to prove, so assume $\Delta\not\equiv0$;
-then $J\ne\varnothing$, since otherwise the $r=c-2$ forced zeros and $m+1$
-would exceed the budget $c-2$.  Order $J=\{j_1<\cdots<j_p\}$, $p=c-2-r$, and
-let $N_\Delta$ be the number of zeros of $\Delta$ with multiplicity.
-
-Take consecutive $j<j'$ in $J$.  Strictly between
-$\alpha_{j+1}$ and $\alpha_{j'+1}$ lie the $q=j'-j-1$ marked points
-$\alpha_{j+2},\ldots,\alpha_{j'}$; none of $j+1,\ldots,j'-1$ lies in $J$, so
-each $\alpha_{i+1}$ with $j<i<j'$ has $\alpha_i=\alpha_{i+1}-1$ adjacent and
-carries a forced zero; and the endpoint signs
-$(-1)^{c-1-j}$, $(-1)^{c-1-j'}$ differ by $(-1)^{q+1}$.  So the number of
-zeros in $(\alpha_{j+1},\alpha_{j'+1})$, counted with multiplicity, has the
-parity of $q+1$ and is at least $q$, hence at least $q+1$.  The $r$ forced zeros lie at marked points, and the
-parity supplies one additional unit of multiplicity in each of the $p-1$ gaps
-between consecutive members of $J$, possibly at a point already forced.  With
-the zero at $m+1$ this gives
-\[
-  N_\Delta\ge r+(p-1)+1=c-2,
-\]
-which exhausts the zero-multiplicity budget of the $(c-1)$-node sum $\Delta$; in
-particular there are no other zeros.
-
-The $p-1$ extra multiplicities lie below $\alpha_{j_p+1}$, so the zeros of
-$\Delta$ above $\alpha_{j_p+1}$ are exactly the $c-1-j_p$ simple zeros at
-$\alpha_{j+1}$, $j_p<j\le c-2$, and at $m+1$.  Starting from
-$\sgn\Delta_{\alpha_{j_p+1}}=(-1)^{c-1-j_p}$ and crossing them gives the sign
-$+1$ beyond $m+1$.  Thus $\Delta_d\ge0$ for $d\ge m+1$.
+Suppose $\Delta_d<0$ for some $d>m+1$.  List the $c$ points
+$Z'\cup\{m+1,d\}$ in increasing order and let $k(p)$ be the position of $p$,
+counted from $0$; thus $k(p)=|\{\alpha\in Z':\alpha<p\}|=c-2-a(p)$ for
+$p\in Z'$, $k(m+1)=c-2$ and $k(d)=c-1$.  Then
+$(-1)^c(-1)^{k(p)}\Delta_p\ge0$ at every listed point: at $p\in Z'$ by the
+sign of $\Delta_p$, at $m+1$ because $\Delta_{m+1}=0$, and at $d$ because
+$(-1)^c(-1)^{c-1}\Delta_d=-\Delta_d>0$.  So $\Delta$, which is not
+identically zero since $\Delta_d\ne0$, weakly alternates at $c$ points
+while having at most $c-1$ nodes, contradicting weak alternation.  Hence
+$\Delta_d\ge0$ for every $d\ge m+1$.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:tail}]
@@ -393,19 +386,19 @@ $\sigma=G_{m+1}/\widehat F_{m+1}$, and
 $\Delta_d=\sigma\widehat F_d-E_d$.  Both $\widehat F$ and $G$ are positive for
 $d>m$, the latter because $G_z=1$ with $z>m$, so Lemma~\ref{lem:interlace}
 applies and gives $\Delta_d\ge0$ for $d\ge m+1$, that is,
-$E_d/\widehat F_d\le\sigma$ for $d\ge m+1$.  Next, writing $G_d=\sum_ia_iy_i^d$, the coefficient $a_c$ of the largest
-node is positive: $G_d>0$ for $d>m$ forces $a_c\ge0$, and $a_c=0$ would make
-$G$ a sum on the $c-1$ nodes $y_1,\ldots,y_{c-1}$ with the $c-1$ zeros
-$\{0\}\cup Z'$, hence identically zero.  Consider the $c$-node sum
+$E_d/\widehat F_d\le\sigma$ for $d\ge m+1$.  Next, $\sigma\le G_z/\widehat F_z$, with equality
+when $z=m+1$.  So let $z>m+1$, put $\tau=G_z/\widehat F_z>0$, and consider
+the $c$-node sum
 \[
-  \Psi_d=\widehat F_{m+1}G_d-G_{m+1}\widehat F_d .
+  \Theta_d=G_d-\tau\widehat F_d .
 \]
-Its $y_c$-coefficient is $\widehat F_{m+1}a_c>0$, so it is not identically
-zero and $\Psi_d\sim\widehat F_{m+1}a_cy_c^{\,d}>0$ as $d\to\infty$; it
-vanishes on $Z'\cup\{m+1\}$, which is $c-1$ points, so by the zero bound
-those are its only zeros and $\Psi$ is positive beyond $m+1$.  Hence
-$G_d/\widehat F_d>\sigma$ for $d>m+1$, while $G_z/\widehat F_z=\sigma$ when
-$z=m+1$; in either case $\sigma\le G_z/\widehat F_z$.  Therefore
+It vanishes on $Z'$ and at $z$, which is $c-1$ points, and
+$\Theta_0=-\tau\widehat F_0=-\tau\eta\ne0$, so by the zero bound $\Theta$
+changes sign exactly at those points.  The $c-2$ points of $Z'$ lie in
+$(0,m+1)$ and $z$ does not, so $\sgn\Theta_{m+1}=(-1)^{c}\sgn\Theta_0
+=-(-1)^{c}\eta$.  And $\eta=(-1)^{c}$, since $F_0=1$ and $F$ flips at each of
+the $c-2$ points of $Z'$, all below $z$.  Hence $\Theta_{m+1}<0$, that is,
+$\sigma<\tau$.  Therefore
 \[
   \frac{E_d}{\widehat F_d}\le\sigma\le\frac{G_z}{\widehat F_z}
   \qquad(d\ge z>m),
