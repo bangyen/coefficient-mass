@@ -154,7 +154,10 @@ the infimum $\tfrac{3398808}{96935}=35.06\ldots$
 (Theorem~\ref{thm:elevenvalue}).  Along $(r,3,5,7)$, $1<r<3$, the escaping
 placement is the worst one exactly when $930r^2-7r-1988\ge0$, that is
 $r\ge r_c=1.4658\ldots$, and for $\tfrac{29}{20}\le r\le r_c$ the infimum is
-$48(r-1)(15r+71)/(49r-34)$ (Theorem~\ref{thm:family}).  Along $(r,5,7)$ it
+$48(r-1)(15r+71)/(49r-34)$ (Theorem~\ref{thm:family}).  Both proofs end in
+a finite computation in exact rational arithmetic, over $\mathbb Q$ and
+over $\mathbb Q(r)$ respectively, which the proofs state and the
+accompanying tests carry out.  Along $(r,5,7)$ it
 fails for every $1<r<2$, so the cutoff of Theorem~\ref{thm:extremal} cannot
 be lowered uniformly (Proposition~\ref{prop:cutoffsharp}).
 
@@ -1288,9 +1291,18 @@ makes \eqref{eq:multiplier} an equality at some monic $M$.
 For example, at $(2,3,5,7)$ with $u=1$ the surviving factor
 $(x-3)(x-5)(x-7)$ has partial sums $1,-14,57,-48$, so \eqref{eq:partial}
 fails and \eqref{eq:order} is not the infimum.  The full certificate on
-$(\tfrac13,\tfrac15,\tfrac17)$ with zero set $\{1,3\}$ has tail
-$\tfrac{31}{1704}$, and the multiplier $M=x+\tfrac9{62}$ has
-$\max_{j\ge1}|S_j(P_1M)|=\tfrac{1704}{31}$, so by \eqref{eq:dualpair} both
+$(\tfrac13,\tfrac15,\tfrac17)$ with zero set $\{1,3\}$ is
+\[
+  v_d=\tfrac1{142}\bigl(81\cdot3^{-d}-625\cdot5^{-d}+686\cdot7^{-d}\bigr):
+\]
+$v_0=1$, $v_1=v_3=0$ and $v_2=-\tfrac1{71}$, and $v_d>0$ for $d\ge4$ by the
+zero bound, so its tail is
+$\tfrac1{71}+\tfrac1{142}\bigl(\tfrac32-\tfrac54+\tfrac13\bigr)=\tfrac{31}{1704}$,
+the geometric sums $\sum_{d\ge4}\rho^{-d}$ at $\rho=3,5,7$ giving the
+bracket.  The multiplier $M=x+\tfrac9{62}$ gives the partial sums
+$-\tfrac{859}{62},\tfrac{1704}{31},-\tfrac{2463}{62},-\tfrac{1704}{31}$ of
+$P_1M$, constant from $j=4$ on, so
+$\max_{j\ge1}|S_j(P_1M)|=\tfrac{1704}{31}$, and by \eqref{eq:dualpair} both
 attain $\tau^*=\tfrac{31}{1704}$ and Theorem~\ref{thm:extremal} gives
 \[
   \inf_Qb_2\bigl(Q(x-2)(x-3)(x-5)(x-7)\bigr)=\frac{1704}{31}=54.967\ldots,
@@ -1377,8 +1389,19 @@ Theorem~\ref{thm:value}, $1/T\le b_2(F)<1/\tau^*$.
 The conclusion of Lemma~\ref{lem:delete} fails at these roots, where
 $y_1=\tfrac{10}{11}>\tfrac12$:
 lifting the escaping minimiser, with zero set $\{1,3\}$, by the zero $5$
-gives the full certificate on all four nodes with zero set $\{1,3,5\}$ and
-tail $\tfrac{96935}{3398808}=0.02852\ldots>\tfrac{31}{1704}$.
+gives the full certificate on all four nodes with zero set $\{1,3,5\}$,
+\[
+  w_d=-\tfrac{5153632}{2063784541}\bigl(\tfrac{10}{11}\bigr)^d
+  +\tfrac{3601989}{5381446}\,3^{-d}
+  -\tfrac{17296875}{3682042}\,5^{-d}
+  +\tfrac{6004901}{1193629}\,7^{-d},
+\]
+and tail $|w_2|+|w_4|+\bigl|\sum_{d\ge6}w_d\bigr|
+=\tfrac{96935}{3398808}=0.02852\ldots>\tfrac{31}{1704}$ (by the zero bound
+$w_d$ has one sign for $d\ge6$, so the last term is a sum of four
+geometric series).  These weights are checked, with the tail, by exact
+rational arithmetic in \texttt{test\_below\_two}
+(\texttt{tests/test\_attainment.py}).
 Section~\ref{sec:belowtwo} shows that $\{5\}$ is the worst placement there,
 so the infimum is $\tfrac{3398808}{96935}$ (Theorem~\ref{thm:elevenvalue}).
 
@@ -1574,10 +1597,25 @@ $\tau(\{x\})\le\tau^*<\theta$ for $x\in\{1,3\}$ and for $x\ge11$.  For
 $x=2,4,6,7,8,9,10$ the full certificates with zero sets $\{1,2,10\}$,
 $\{1,4,9\}$ and $\{1,3,x\}$ have tails $0.02082\ldots$, $0.02562\ldots$,
 $0.02151\ldots$, $0.01914\ldots$, $0.01842\ldots$, $0.01823\ldots$ and
-$0.01818\ldots$, all below $\theta=0.02852\ldots$ (each is an exact
-rational, a finite head plus a geometric remainder past the largest
-zero).  So $T=\theta$, attained only at $\{5\}$, and
-Theorem~\ref{thm:value} gives the infimum.
+$0.01818\ldots$, all below $\theta=0.02852\ldots$.  So $T=\theta$, attained
+only at $\{5\}$, and Theorem~\ref{thm:value} gives the infimum.
+
+The facts about $H$ and the seven tails are a computer-assisted
+verification by exact rational arithmetic, in \texttt{test\_value\_eleven\_tenths}
+(\texttt{tests/test\_attainment.py}); no step uses floating point, and the
+decimals above are truncations of exact rationals.  The test solves the
+$3\times3$ system for $H$ over $\mathbb Q$ and compares it with the display;
+forms $\Tail(H)=\sum_{d\le3}|H_d|+\sum_{d\ge4}H_d$, the last sum a
+combination of four geometric series since $H_d>0$ for $d>3$; and compares
+$2\sum_{d\le n}|H_d|$ with it for $n=10,11$.  For each of the seven zero
+sets $Z$ it solves the $4\times4$ system $w_0=1$, $w|_Z=0$ for the weights
+on $(\tfrac{10}{11},\tfrac13,\tfrac15,\tfrac17)$, forms
+$\Tail(w)=\sum_{d\le\max Z}|w_d|+\bigl|\sum_{d>\max Z}w_d\bigr|$ (one sign
+past $\max Z$ by the zero bound, so the last sum is again geometric), and
+checks $\Tail(w)<\theta$ exactly.  The partial sums of $PM$ and the tail of
+the certificate $\{1,3,5\}$ are checked in the same way, and can be
+verified by hand from the data displayed here and after
+Proposition~\ref{prop:belowtwo}.
 \end{proof}
 
 The minimising zero set $\{1,3,5\}$ is $Z^*\cup\{5\}$, the aligned lift that
@@ -1586,9 +1624,13 @@ The window $g<x<N$ is needed here: the aligned lift costs more than $\tau^*$
 at $x=4,\ldots,9$ and less at $x=10$.  By Theorem~\ref{thm:noattain} no
 multiple attains the infimum.  For each degree $D\le10$ and each exempt
 position, the least $\max|f_j|$ over the remaining positions $j<D$ of monic
-multiples of degree $D$ is a linear program, which we solved exactly over
-$\mathbb Q$ (\texttt{tests/test\_attainment.py}); every optimum is at least
-$41.2$, so the multiples of degree at most $10$ have $b_2\ge41.2$.
+multiples of degree $D$ is a linear program in the $D-4$ free coefficients
+of $Q$ and a bound $t$.  By exact rational arithmetic, in
+\texttt{test\_value\_eleven\_tenths}, a simplex method over $\mathbb Q$
+solves each of these finitely many programs, and each optimum is certified
+by a feasible point and a dual solution of the same value (weak duality), so
+the optima are exact; every one is at least $\tfrac{206}5$, so the multiples
+of degree at most $10$ have $b_2\ge\tfrac{206}5=41.2$.
 
 \begin{theorem}[The family $(r,3,5,7)$]\label{thm:family}
 Let $1<r<3$, $P_r=(x-r)(x-3)(x-5)(x-7)$ and $u=1$, so $\tau^*=\tfrac{31}{1704}$,
@@ -1632,8 +1674,11 @@ and $|S_1|,|S_3|\le\beta(r)$ amounts to $671r^2+2002r-2827\ge0$,
 $3989r^2+3570r-11025\ge0$ and $2549r^2-1806r-4209\le0$; the first two
 increase on $r>0$ and the third is convex, and all three hold at
 $r=\tfrac{13}{10}$ and $r=\tfrac32$, hence on $[\tfrac{13}{10},\tfrac32]$.
-There $\tau(\{4\})\ge1/\beta(r)$, and $1/\beta(r)-\tau^*$ has the sign of
-$1988+7r-930r^2$, positive exactly for $r<r_c$.
+There $\tau(\{4\})\ge1/\beta(r)$, and
+\[
+  \frac1{\beta(r)}-\tau^*=\frac{1988+7r-930r^2}{3408(r-1)(15r+71)}
+\]
+has the sign of $1988+7r-930r^2$, positive exactly for $r<r_c$.
 
 \emph{Upper bounds.}  Let $\tfrac{29}{20}\le r<3$, so
 $\tfrac13<y\le\tfrac{20}{29}$ and $y$ is the largest node.  Solving the
@@ -1641,12 +1686,28 @@ $4\times4$ systems, with the sign patterns given by the zero bound, the full
 certificates with zero sets $\{1,3,4\}$ and $\{1,2,5\}$ have tails
 \[
   \frac1{\beta(r)}\quad\text{and}\quad
-  \frac{4267r^2+5070r-5871}{48(r-1)(3466r^2+7455r+11025)},
+  t_2(r)=\frac{4267r^2+5070r-5871}{48(r-1)(3466r^2+7455r+11025)},
 \]
-the second at most $\tau^*$ exactly when
-$c_2(r)=214892r^3-55639r^2-138630r-266709\ge0$.  For the $H$ of
-Theorem~\ref{thm:halfmass}, $2\sum_{d\le5}|H_d|-\Tail(H)$ has the sign of
-$c_5(r)=206070r^3-67123r^2-161312r-238560$ on $(1,3)$.  Both cubics
+and $\tau^*-t_2(r)=c_2(r)/\bigl(3408(r-1)(3466r^2+7455r+11025)\bigr)$ with
+$c_2(r)=214892r^3-55639r^2-138630r-266709$, so the second is at most
+$\tau^*$ exactly when $c_2(r)\ge0$.  For the $H$ of
+Theorem~\ref{thm:halfmass}, $H_d>0$ for $d\ge4$ and $H_2<0$ by the zero
+bound, and solving the $3\times3$ system for $H$ gives, on $(1,3)$,
+\[
+  2\sum_{d\le5}|H_d|-\Tail(H)=-H_2+H_4+H_5-\sum_{d\ge6}H_d
+  =\frac{c_5(r)(3-r)(5-r)(7-r)}{12524400\,r^5(r-1)},
+\]
+with $c_5(r)=206070r^3-67123r^2-161312r-238560$, which has the sign of
+$c_5(r)$ there.  The two tails and this identity are identities between
+rational functions of $r$, verified by exact polynomial arithmetic over
+$\mathbb Q$ in \texttt{test\_family\_threshold}
+(\texttt{tests/test\_attainment.py}): with $r$ an indeterminate the test
+solves the three linear systems over $\mathbb Q(r)$, forms each tail and
+the left side above from the sign pattern of the zero bound and the
+geometric sums past the largest zero, and compares reduced numerators and
+denominators with the displayed forms, so the check covers every $r$ in
+$(1,3)$, not sample points.  The same test checks the partial sums and the
+three quadratics of the lower bounds as identities in $r$.  Both cubics
 increase on $r\ge1$ (their derivatives are positive there) and are positive
 at $\tfrac{29}{20}$, so the certificate $\{1,2,5\}$ gives
 $\tau(\{2\})\le\tau^*$ and $N\le5$.  By Theorem~\ref{thm:halfmass},
@@ -1721,7 +1782,9 @@ integer-polynomial $\ell^2$ analogue, the minimal Euclidean norm of an
 algebraic number, is effectively computable~\cite{frw}.
 
 \paragraph{Data availability.}
-No datasets were generated or analyzed in this study.
+No datasets were generated or analyzed in this study.  The exact
+computations behind Theorems~\ref{thm:elevenvalue} and~\ref{thm:family}
+are in \texttt{tests/test\_attainment.py} of the accompanying repository.
 
 \begin{thebibliography}{9}
 \small

@@ -126,7 +126,10 @@ $V_{4/3}(19,2)<\min_{i\le2}1/\nu_i(18)$
 the minimum of $V_r(L-1,k-1)$ and finitely many exempted-set terms
 (Theorem~\ref{thm:finiterows}), and exact certificates give
 $V_{4/3}(16,3)<V_{4/3}(15,2)=\min_{i\le3}1/\nu_i(14)$
-(Proposition~\ref{prop:thirdrowexact}).
+(Proposition~\ref{prop:thirdrowexact}).  The proofs of these two
+propositions are computer-assisted: they print the certifying zero sets and
+reduce the claims to finitely many comparisons of explicit rationals, which
+the accompanying tests carry out in exact arithmetic.
 
 \paragraph{Method.}
 Divisibility by $(x-r)^L$ is a set of linear conditions on the
@@ -1432,9 +1435,25 @@ is $\sigma=3$, while $\sigma=2$ is not one.
 \end{proposition}
 
 \begin{proof}
-All numbers below are exact rationals, computed as described after
-Lemma~\ref{lem:vertexopt}; the computation is in
-\texttt{tests/test\_rows.py}.
+The proof is computer-assisted: every number below is an exact rational,
+computed as described after Lemma~\ref{lem:vertexopt}, and every comparison
+is verified by exact rational arithmetic in \texttt{tests/test\_rows.py}
+(\texttt{test\_second\_row\_at\_five\_fourths\_fails} for (a) and (b),
+\texttt{test\_second\_row\_at\_five\_fourths\_holds} for (c),
+\texttt{test\_second\_row\_at\_four\_thirds} for (d)).  No floating
+point is used, and the decimals in the statement are truncations of the
+exact values, checked by exact comparison with the stated digits.  The
+finite computation is this.  For a set $Z$ of integers, $\Phi_r(Z)$ is the
+finite sum over $s\le\max Z$ plus the closed form of the series past
+$\max Z$; the vertex test of Lemma~\ref{lem:vertexopt} for $Z$ and $S$
+evaluates $G_y$, a finite sum plus such a closed form, and
+$|e_y(y)|r^{-y}$ for each of the at most $|Z|$ elements $y\in Z\setminus
+S$; the tail condition at $\sigma_0$ is the sign of
+$2R_p(\sigma_0)-\Psi_r(p)$, evaluated in the same way; and for each
+$\sigma<\sigma_0$ the test evaluates $\Phi_r$ on the listed candidate
+sets through $\sigma$, at most $n+1$ for each $\sigma$, until one
+satisfies the bound.  The named sets are the certificate: with them the statement
+can be rechecked by any exact evaluation of $\Phi_r$ and $G_y$.
 
 (a) Lemma~\ref{lem:vertexopt} with $S=\{2\}$ shows
 $\eta_2(15)=\Phi_r(Z_2)$, and with $S=\varnothing$ that
@@ -1504,7 +1523,8 @@ move out together, and a threshold for one far zero does not serve two.  At
 $r=\frac54$ and $p_*=r_{Y_{15}}$ of Proposition~\ref{prop:secondrowexact}
 the threshold of Theorem~\ref{thm:secondrow} is $\sigma_*=25$, while the
 zeros $25$ and $26$ together raise $\Phi_r(p_*)$ by more than half
-(\texttt{tests/test\_rows.py}).  Lemma~\ref{lem:farzeros} gives a threshold
+(exact rational arithmetic, \texttt{test\_far\_zeros} in
+\texttt{tests/test\_rows.py}).  Lemma~\ref{lem:farzeros} gives a threshold
 for up to $m$ far zeros at once.  It depends on the exempted positions below
 it, and the positions that stay below the thresholds form a finite tree.  So
 each row is the minimum of the row before it on its diagonal and finitely
@@ -1675,8 +1695,12 @@ $(\frac32,10,3)$ with its minimum at $i=1$.
 \end{proposition}
 
 \begin{proof}
-All numbers below are exact rationals, and the computation is in
-\texttt{tests/test\_rows.py}.  Each lower bound for a row comes from
+The proof is computer-assisted, by exact rational arithmetic as in
+Proposition~\ref{prop:secondrowexact}, in \texttt{tests/test\_rows.py}
+(\texttt{test\_third\_row\_below\_second} for (a),
+\texttt{test\_third\_row\_fails\_alone} for (b),
+\texttt{test\_third\_row\_is\_top\_row} for (c)); no floating point is
+used, and the decimals are truncations of exact values.  Each lower bound for a row comes from
 Theorem~\ref{thm:finiterows}(b) with $q_\varnothing=r_Y$ for the set $Y$
 named in that part, $q_N=r_{Z_N}$ for sets $Z_N\supseteq N$ of at most
 $n+|N|-1$ integers, and $T_N$ the least integer with
@@ -1690,7 +1714,13 @@ fixed set of $n+|N|$ integers (\texttt{\_FULL12}, \texttt{\_FULL14} and
 $N\cup\{\sigma\}$ that it misses put in place of one of the two elements
 outside $N\cup\{\sigma\}$ nearest to it, in every combination.  It keeps
 the one of at most $n+|N|$ elements with the least $\Phi_r$, unless the
-child is given a named set.
+child is given a named set.  Each threshold $T_N$ is found by evaluating
+the sign of $\Delta_{q_N,m-|N|}$ at integers (it does not increase,
+Lemma~\ref{lem:farzeros}(a)), and the test checks
+$\Delta_{q_N,m-|N|}(T_N)\le0$ exactly.  For the third rows the trees have
+$32$, $35$ and $15$ nodes of size one and $126$, $161$ and $33$ leaves in
+(a), (b) and (c); at each node and leaf the test checks $\Phi_r\le B$, or
+$\Phi_r<B$ where stated, for the set it keeps.
 
 (a) Lemma~\ref{lem:vertexopt} with $S=\{2,3\}$, $\{2\}$ and $\varnothing$
 gives $\mu_r(\{2,3\},14)=\Phi_r(Z_{2,3})$, $\eta_2(12)=\Phi_r(Z_2)$ and

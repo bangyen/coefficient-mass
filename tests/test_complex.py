@@ -859,9 +859,9 @@ def test_gaussian_integers_in_a_disc() -> None:
     assert count == 5 > Fraction(22, 7) * x * x
 
 
-def test_second_triple_of_the_search() -> None:
-    """The other triple the search reports: ``y^8 + 3y^4 = 4`` at ``+-1 + i``
-    and ``i``, so ``y^8 + 3y^4 - 4`` is a multiple of their pairs."""
+def test_second_level_set_triple() -> None:
+    """The second triple after ``prop:gaussheavy``: ``y^8 + 3y^4 = 4`` at
+    ``+-1 + i`` and ``i``, so ``y^8 + 3y^4 - 4`` is a multiple of their pairs."""
     h = [0, 0, 0, 0, 3, 0, 0, 0, 1]
     roots = [(-1, 1), (0, 1), (1, 1)]
     assert all(_horner(h, z) == (4, 0) for z in roots)
