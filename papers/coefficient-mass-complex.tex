@@ -149,10 +149,24 @@ to grow with the number of roots above (Proposition~\ref{prop:rowslower}).
 Sharpening the constant, for two annuli the least separation for the
 rows exceeds $n_2$ by between $n_22^{-n_2-1}$ and $3n_22^{-n_2}$ once
 $n_2\ge4$, and is at most $4$ when $n_2\le3$ (Lemma~\ref{lem:twobelow},
-Corollary~\ref{cor:twofixed}).  The mass bound fails with
+Corollary~\ref{cor:twofixed}); with one root above the gap it lies between
+$\frac43$ and $\frac43+\frac2{3T_1}$, as eliminating one position between a
+zero below the gap and one above costs no factor $\lambda$
+(Lemma~\ref{lem:twozeros}, Corollary~\ref{cor:twonear}).
+For more annuli, eliminating the coefficient charged below with a zero of
+the next annulus down gives $n_a+1$ once $n_a\ge10$, and for large $n_a$ the
+additive constant is exactly $\frac12$: $n_a+c$ suffices for every
+$c>\frac12$ and fails for every $c<\frac12$ (Theorem~\ref{thm:rowspair},
+Corollary~\ref{cor:rowsplusone}, Proposition~\ref{prop:rowslower}).  At a
+lower zero $\alpha$ the second row is at least
+$\frac12\lambda(1-1/|\alpha|)$ times its charge, $\lambda=1-n|\alpha|/T$,
+and at least $\lambda(1-1/|\alpha|)^2$ times it when $|\alpha|\ge2$, with
+the constant $1$ approached as $|\alpha|\to\infty$
+(Propositions~\ref{prop:rowstwolarge} and~\ref{prop:rowstwohalf}).  The mass bound fails with
 $T_2=(2+\frac1{18915})U_1$ (Proposition~\ref{prop:gaptwo}), with two roots
-above the gap, where the separation $4$ suffices
-(Corollary~\ref{cor:twofixed}); for two annuli with many roots above the
+above the gap, where the separation $2+\frac1{T_1}\le\frac73$ suffices,
+so that the least separation tends to $2$ as $T_1$ grows
+(Corollary~\ref{cor:twonear}); for two annuli with many roots above the
 gap, a fixed separation below $81$ would have to charge three nonleading
 positions.
 
@@ -176,7 +190,7 @@ Theorem~\ref{thm:gausscharge} for integer multiples of large degree.
 \paragraph{Open questions.}  Two questions are left open.  First, what the
 least fixed separation of the annuli for the mass is: it lies between
 $2+\frac1{18915}$ and $81$ (and at most $\max(4,n_2+1)$ for two annuli
-with $n_2$ roots in the upper one), and whether the separation $9$ of Corollary~\ref{cor:annuli},
+with $n_2$ roots in the upper one, $\frac73$ if $n_2\le2$), and whether the separation $9$ of Corollary~\ref{cor:annuli},
 item~2, suffices is open (Section~\ref{sec:annuli}).  Second, whether
 $\Lambda(F)\ge cK^2\log R$ holds for every integer multiple $F$ at $K$
 distinct Gaussian-integer roots of modulus at least $R$ in the upper
@@ -839,7 +853,9 @@ $T_a/r_a<n_a$, and the rows themselves fail at $T_a=n_aU_{a-1}$
 $T_2>(n_2+1)U_1$ (Corollary~\ref{cor:rowstwo}), and even at
 $T_2>n_2(1+3\cdot2^{-n_2})U_1$ once $n_2\ge4$ (Corollary~\ref{cor:twofixed}), and for every $S$ at
 $T_a>\min(n_a+9,3\rho_{n_a})U_{a-1}$ (Corollaries~\ref{cor:fewabove}
-and~\ref{cor:rowsall}).  Item~2 needs only the factor $9$, but past the first
+and~\ref{cor:rowsall}), and at $T_a>\sigma(n_a)U_{a-1}$, where
+$\sigma(n)=n+1$ for $n\ge10$ and $\sigma(n)\le12$ for $n\le9$
+(Corollary~\ref{cor:rowsplusone}).  Item~2 needs only the factor $9$, but past the first
 annulus it charges ratios $|\beta|/U_{a-1}$ instead of moduli.  With one root
 per annulus, $k_a=n_a=S-a+1$ at the separation $9$ of the theorem, which then
 gives Corollary~\ref{cor:separated}, item~1, when $\rho_1>3$ (the corollary
@@ -922,7 +938,8 @@ coefficients rather than one, and the rows of Corollary~\ref{cor:annuli},
 item~1, fail at every fixed separation (Proposition~\ref{prop:rowsneedn}).
 The factor $81$ cannot be lowered below $2+\frac1{18915}$
 (Proposition~\ref{prop:gaptwo}), and for two annuli $\max(4,n_2+1)$
-suffices (Corollary~\ref{cor:twofixed});
+suffices (Corollary~\ref{cor:twofixed}), and $\frac73$ when $n_2\le2$
+(Corollary~\ref{cor:twonear});
 the least admissible factor is open.  The mass bound is sharp to leading order, the
 coefficient $s$ of each $K_s\log T_s$ being best possible, as
 $\min_sT_s\to\infty$ (Proposition~\ref{prop:annulisharp} has
@@ -1003,8 +1020,10 @@ the mass it is proved at the fixed separation $81$
 (Theorem~\ref{thm:fixedgap}), and with ratios in place of moduli at the
 separation $9$ (Corollary~\ref{cor:annuli}, item~2); the rows of item~1 are
 proved at the separation $9n_a$, at $3\rho_{n_a}<7n_a$ by
-Corollary~\ref{cor:fewabove}, and at $n_a+9$ by Corollary~\ref{cor:rowsall},
-and the factor $n_a$ cannot be dropped; for two annuli $n_2+1$ suffices
+Corollary~\ref{cor:fewabove}, at $n_a+9$ by Corollary~\ref{cor:rowsall}, and
+at a separation that is $n_a+1$ where $n_a\ge10$ and at most $12$ below by
+Corollary~\ref{cor:rowsplusone}, and the
+factor $n_a$ cannot be dropped; for two annuli $n_2+1$ suffices
 (Corollary~\ref{cor:rowstwo}).
 
 \begin{proposition}[Rows need the factor $n_a$]\label{prop:rowsneedn}
@@ -1044,8 +1063,9 @@ $A_2$.  The cancellation needs $|\sum_{\beta\in A_2}1/\beta|=1/q$, hence
 $T_2\le n_2U_1$.  So the separation the rows of Corollary~\ref{cor:annuli},
 item~1, need grows linearly with $n_a$: it is at most
 $\min(n_a+9,3\rho_{n_a})$, where $3\rho_{n_a}<7n_a$
-(Corollaries~\ref{cor:fewabove} and~\ref{cor:rowsall}), and not at most
-$n_a$.
+(Corollaries~\ref{cor:fewabove} and~\ref{cor:rowsall}), and $n_a+1$ where
+$n_a\ge10$ and at most $12$ below (Corollary~\ref{cor:rowsplusone}), and
+not at most $n_a$.
 
 For two annuli this cancellation is the only obstruction, and the factor
 $7n_2$ drops to $n_2+1$.  Dividing out the zeros above leaves a quotient
@@ -1188,11 +1208,137 @@ Bernoulli's inequality, and $(1-a/T)^n>(1-\frac1n)^n\ge\frac14$ as $a/T<1/n$.
 
 The order $\lambda$ is sharp: $(x-q)(x+t)^K$ with $t=Kq/(1-\lambda)$ has
 $f_1=\lambda t^K$, so $b_2(F)=\lambda\prod_{\beta\in A}|\beta|$ once $q$ is
-large, and at $\lambda=0$ this is Proposition~\ref{prop:rowsneedn}.  The
-best constant $c$ in $b_2(F)\ge c\lambda(1-\frac1{|\alpha|})|f_D|\prod_{\beta\in A}|\beta|$
-lies in $[\frac18,1]$.  For $n=1$ the truncations alone give only
-$\lambda^2$, as $|S_m(\alpha)|$ can be close to $1/\lambda$; the proof uses
-both zeros instead.
+large, and at $\lambda=0$ this is Proposition~\ref{prop:rowsneedn}.  For
+$n=1$ the pointwise bound $|S_m(\alpha)|\le1/\gamma$ gives only $\lambda^2$,
+as $|S_m(\alpha)|$ can be close to $1/\lambda$; the proof uses both zeros
+instead.  Summing the truncations against the powers of $|\alpha|$ first
+removes the factor $\gamma$, and the constant becomes $1$ as $|\alpha|$
+grows.
+
+\begin{proposition}[The second row at a large lower zero]\label{prop:rowstwolarge}
+In the setting of Theorem~\ref{thm:rowstwo}, put $a=|\alpha|$,
+$\Pi=\prod_{\beta\in A}|\beta|$ and $\Gamma=(1-1/T)^{-n}$.  Then
+$\Gamma\le a/(a-1+\lambda)$ and
+\[
+  b_2(F)\ \ge\ \min\Bigl(\frac{\lambda(a-1)}{\Gamma(a-\lambda)},\
+  \frac{a-1}{1+(2a-1)(\Gamma-1)}\Bigr)|f_D|\,\Pi .
+\]
+More precisely, with $\varepsilon$ this minimum, for every position $j$
+some $l\le D-n$, $l\ne j$, has $|f_l|\ge\varepsilon|f_D|\Pi$.
+In particular $b_2(F)\ge\lambda(1-\frac1a)^2|f_D|\Pi$ if $a\ge2$.
+\end{proposition}
+
+\begin{proof}
+Divide $F$ by $f_D$, so $f_D=1$; let $\varepsilon$ be the minimum and
+suppose that some position $j$ has $|f_l|<\varepsilon\Pi$ for every
+$l\le D-n$ other than $j$ (if $b_2(F)<\varepsilon\Pi$, a position $j<D$ of a
+largest nonleading coefficient does).  Let $H$, $P$, $d=D-n$, $w_m$ and $S_m$ be as in the
+case $n\ge2$ of the proof of Theorem~\ref{thm:rowstwo}, which needs only
+$n\ge1$, and $W_m=\binom{n+m-1}mT^{-m}$, so $|w_m|\le W_m$,
+$\sum_mW_m=\Gamma$ and $|S_m(\alpha)|\le\sum_{i\le m}W_ia^i$.  Hence
+\[
+  \sum_{l\le d}a^l|S_{d-l}(\alpha)|\ \le\ \sum_iW_i\sum_{l\le d-i}a^{l+i}
+  \ <\ \frac{\Gamma a^{d+1}}{a-1},
+\]
+and, as $S_0=1$, $\sum_{l<d}a^l|S_{d-l}(\alpha)|<(1+a(\Gamma-1))a^d/(a-1)$.
+As $\varepsilon\Gamma\le\lambda(a-1)/(a-\lambda)<1$, the coefficient
+$H(0)=\sum_{l\le d}f_lw_{d-l}$ of $x^d$ forces $j\le d$; put $M=d-j$.  If
+$M\ge1$, then $|f_j|W_M>\Pi(1-\varepsilon\Gamma)$, and at $x=\alpha$, by
+Lemma~\ref{lem:trunc}, $\lambda|f_j|a^j\le|f_j\alpha^jS_M(\alpha)|<\varepsilon\Pi\Gamma
+a^{d+1}/(a-1)$; as $W_Ma^M\le(na/T)^M\le1-\lambda$, together
+$\lambda(1-\varepsilon\Gamma)<\varepsilon\Gamma(1-\lambda)a/(a-1)$, that is,
+$\varepsilon>\lambda(a-1)/(\Gamma(a-\lambda))$.  If $M=0$, then
+$|f_d|>\Pi(1-\varepsilon(\Gamma-1))$ and $|f_d|a^d<\varepsilon\Pi(1+a(\Gamma-1))a^d/(a-1)$,
+so $\varepsilon>(a-1)/(1+(2a-1)(\Gamma-1))$.  Both contradict the choice of
+$\varepsilon$.
+
+By Bernoulli's inequality $\Gamma^{-1}\ge1-n/T=1-(1-\lambda)/a$.  Let
+$a\ge2$.  Then the first term of the minimum is at least
+$\lambda(a-1)(a-1+\lambda)/(a(a-\lambda))\ge\lambda(a-1)^2/a^2$, as
+$2a\lambda\ge\lambda$, and the second is at least
+$(a-1)(a-1+\lambda)/(3a-2+2\lambda-2a\lambda)$, which is at least the first
+bound as
+$a(a-\lambda)-\lambda(3a-2+2\lambda-2a\lambda)=a(a-2)+2a(1-\lambda)^2+2\lambda(1-\lambda)\ge0$.
+\end{proof}
+
+So the order $\lambda$ of Theorem~\ref{thm:rowstwo} holds with the constant
+$1-O(1/|\alpha|)$, while $(x-q)(x+t)^K$ above has $b_2(F)=\lambda|f_D|\Pi$
+at $|\alpha|=q$: the best constant $c$ in
+$b_2(F)\ge c\lambda(1-\frac1{|\alpha|})|f_D|\prod_{\beta\in A}|\beta|$ over
+$|\alpha|\ge a_0$ lies in $[1-\frac1{a_0},1]$ for $a_0\ge2$, and tends to
+$1$; over all $|\alpha|>1$ it lies in $[\frac12,1]$, by the next
+proposition.
+
+Near $|\alpha|=1$ the two identities of the proof can be split instead:
+the position of the largest coefficient is determined by the first, and at
+$\alpha$ the truncations for the other positions differ from the one at
+that position only in terms of degree at least $2$.
+
+\begin{proposition}[The constant $\frac12$ in the second row]\label{prop:rowstwohalf}
+In the setting of Theorem~\ref{thm:rowstwo},
+\[
+  b_2(F)\ \ge\ \frac\lambda2\Bigl(1-\frac1{|\alpha|}\Bigr)|f_D|\prod_{\beta\in A}|\beta| .
+\]
+\end{proposition}
+
+\begin{proof}
+For $n=1$ this is Theorem~\ref{thm:rowstwo}, where $\gamma=1$.  Let
+$n\ge2$, divide $F$ by $f_D$, so $f_D=1$, and let $a$, $\Pi$, $H$, $P$,
+$d=D-n$, $w_m$, $S_m$ and $W_m$ be as in the proof of
+Proposition~\ref{prop:rowstwolarge}; put $\rho=a/T$, so $n\rho=1-\lambda$,
+$g=\sum_mW_ma^m=(1-\rho)^{-n}$, $R=\sum_{m\ge2}W_ma^m=g-1-n\rho$ and
+$G=\sum_mW_m=(1-1/T)^{-n}$.  Let $j<D$ be a position of a largest
+nonleading coefficient and $m$ the largest $|f_l|$ over $l\le d$, $l\ne j$,
+so $m\le b_2(F)$.  The coefficient of $x^d$ and the value at $\alpha$ of
+$H(0)P(x)=\sum_{l\le d}f_lx^lS_{d-l}(x)$ give
+\[
+  \Pi\ =\ \Bigl|\sum_{l\le d}f_lw_{d-l}\Bigr|,\qquad
+  0\ =\ \sum_{l\le d}f_l\alpha^lS_{d-l}(\alpha).
+\]
+If $j>d$, the first gives $\Pi\le mG$.  Let $j\le d$ and $M=d-j$.  If
+$M=0$, the second gives
+$|f_d|a^d\le\sum_{l<d}|f_l|a^l|S_{d-l}(\alpha)|\le mga^d/(a-1)$, and the
+first $\Pi\le|f_d|+m(G-1)$.  Let $M\ge1$ and $\sigma=|S_M(\alpha)|$, so
+$\sigma\ge\lambda$ by Lemma~\ref{lem:trunc}.  For $l<d$, $l\ne j$, both $M$
+and $d-l$ are positive, so $S_{d-l}(\alpha)-S_M(\alpha)$ is a sum of terms
+$w_i\alpha^i$ with $i\ge2$ and $|S_{d-l}(\alpha)|\le\sigma+R$; and
+$S_0=1$.  So the second identity gives
+$\sigma|f_j|a^j\le m\bigl(a^d+(\sigma+R)a^d/(a-1)\bigr)$, that is,
+\[
+  |f_j|a^{j-d}\ \le\ m\,\frac{a-1+\sigma+R}{\sigma(a-1)}\ \le\ m\,\frac{a-1+\lambda+R}{\lambda(a-1)} ,
+\]
+and as $|w_M|a^M\le(na/T)^M\le1-\lambda$, the first gives
+$\Pi\le|f_j||w_M|+mG\le m(1-\lambda)(a-1+\lambda+R)/(\lambda(a-1))+mG$.
+Multiplying by $\lambda(1-\frac1a)$, in the three cases
+$\lambda(1-\frac1a)\Pi\le mQ$ with $Q$ one of
+\[
+  Q_2=\lambda\Bigl(1-\frac1a\Bigr)G,\qquad
+  Q_0=\frac{\lambda g}a+\lambda\Bigl(1-\frac1a\Bigr)(G-1),\qquad
+  Q_1=\frac{(1-\lambda)(a-1+\lambda+R)}a+\lambda\Bigl(1-\frac1a\Bigr)G ,
+\]
+and it remains that each is at most $2$.
+
+By Bernoulli's inequality $G^{-1}\ge1-n/T=1-(1-\lambda)/a$, so
+$\lambda(1-\frac1a)G\le\lambda(a-1)/(a-1+\lambda)\le\lambda$ and
+$\lambda(1-\frac1a)(G-1)\le\lambda(1-\lambda)(a-1)/(a(a-1+\lambda))\le(a-1)/a$;
+and $g^{-1}=(1-(1-\lambda)/n)^n\ge\lambda$.  So $Q_2\le1$ and
+$Q_0\le\frac1a+\frac{a-1}a=1$.  For $Q_1$, $R=g-2+\lambda$ and
+$Q_1\le(1-\lambda)\bigl(1+(g-3+2\lambda)/a\bigr)+\lambda$.  As
+$\log(1-u/n)^{-n}=\sum_{i\ge1}u^i/(in^{i-1})$ decreases with $n$,
+$g\le(1-\frac{1-\lambda}2)^{-2}=4/(1+\lambda)^2$.  If $g-3+2\lambda\le0$
+then $Q_1\le1$; otherwise, as $a>1$,
+$Q_1\le(1-\lambda)\bigl(4/(1+\lambda)^2-2+2\lambda\bigr)+\lambda$, which is
+at most $2$, as
+\[
+  (1+\lambda)^2\Bigl(2-\lambda-(1-\lambda)\Bigl(\frac4{(1+\lambda)^2}-2+2\lambda\Bigr)\Bigr)
+  \ =\ \lambda(7-4\lambda-\lambda^2+2\lambda^3)\ \ge\ 0 .
+\]
+So $\lambda(1-\frac1a)\Pi\le2m\le2b_2(F)$.
+\end{proof}
+
+At $n=2$ the bound $Q_1\le2$ is approached as $\lambda\to0$ and
+$|\alpha|\to1$, so the constant $\frac12$ is where this proof stops, not
+where the second row does.
 
 \begin{corollary}[Rows for two annuli]\label{cor:rowstwo}
 In the setting of Theorem~\ref{thm:annuli} with $S\ge2$, let $C>1$.  If
@@ -1225,7 +1371,12 @@ So for two annuli the rows need a separation between $n_2U_1$
 in the form $b_2(F)\ge\varepsilon|f_D|\prod_{A_{\ge2}}|\beta|$ the least
 constant in a separation $Cn_2U_1$ is $C=1$: every $C>1$ gives
 $\varepsilon=\frac13(1-\frac1C)^2$, independent of $n_2$, and $C=1$ gives no
-$\varepsilon>0$.  With $S=2$ and $n_2\le8$ this also gives the mass bound of
+$\varepsilon>0$.  By Proposition~\ref{prop:rowstwolarge}, as $|\alpha|>3$,
+also $\varepsilon=\frac49(1-\frac1C)$; and $T_2>(n_2+c)U_1$ with $c>0$ gives
+$\lambda>c/(n_2+c)$ and
+$b_2(F)>\frac49\cdot\frac c{n_2+c}|f_D|\prod_{A_{\ge2}}|\beta|$, which is the row
+once $\frac89c\,2^{n_2}\ge n_2+c$, so for the row $2$ every additive
+constant $c>0$ suffices once $n_2$ is large, for every $S$.  With $S=2$ and $n_2\le8$ this also gives the mass bound of
 Theorem~\ref{thm:fixedgap} at the separation $9$; Corollary~\ref{cor:twofixed}
 below lowers these to $\max(4,n_2+1)$, and to $n_2(1+3\cdot2^{-n_2})$ for
 $n_2\ge4$, against $n_2/(1-2^{-n_2-1})$ from below.
@@ -1388,25 +1539,33 @@ of the second annulus can then cancel the coefficient of $x^2$ together with
 the zero below it.
 
 \begin{proposition}[The row $3$ needs the lower separation]\label{prop:rowslower}
-Let $h\ge1$, $K\ge18h$ and $p\ge2^K$ be integers, $q_1=2h(K+h)p$,
-$q_2=K(K+1+2h)p$, $t=(K+h)q_2$, and $F=(x-q_1)(x-q_2)(x+t)^K$.  Then
-Theorem~\ref{thm:annuli} applies to the monic $F\in\mathbb Z[x]$ with $S=3$,
-$A_1=\{q_1\}$, $A_2=\{q_2\}$ and $A_3$ the $K$-fold zero $-t$, so that
-$T_3=(n_3+h)U_2$ and $T_2<(\frac{n_2}{2h}+1)U_1$, and
+Let $h=u/v>0$ with coprime positive integers $u$ and $v$, let
+$K\ge\max(9,18h)$ be an integer and $p\ge2^K$ a multiple of $v^2$, and put
+$q_1=2h(K+h)p$, $q_2=K(K+1+2h)p$, $t=(K+h)q_2$ and
+$F=(x-q_1)(x-q_2)(x+t)^K$.  Then Theorem~\ref{thm:annuli} applies to the
+monic $F\in\mathbb Z[x]$ with $S=3$, $A_1=\{q_1\}$, $A_2=\{q_2\}$ and $A_3$
+the $K$-fold zero $-t$, so that $T_3=(n_3+h)U_2$ and
+$T_2<(\frac{n_2}{2h}+1)U_1$, and
 \[
   f_2=0,\qquad b_3(F)\ \le\ \frac{4t^K}{q_2}\ <\ \frac12\prod_{\beta\in A_3}\frac{|\beta|}2 .
 \]
-So the row $k=3$ of Corollary~\ref{cor:annuli}, item~1, fails; and as
+If moreover $h<\frac12$ and $(1-2h)K^2\ge1$, then also $T_2>(n_2+h)U_1$.
+So the row $k=3$ of Corollary~\ref{cor:annuli}, item~1, fails; as
 $T_2/U_1\to\infty$ with $K$ while $b_3(F)/t^K\to0$ as $p\to\infty$, for no
 $h$, $G$ and $\varepsilon>0$ do $T_3\ge(n_3+h)U_2$ and $T_2\ge GU_1$ give
-$b_3(F)\ge\varepsilon|f_D|\prod_{\beta\in A_3}|\beta|$.
+$b_3(F)\ge\varepsilon|f_D|\prod_{\beta\in A_3}|\beta|$; and for no
+$c<\frac12$, $N$ and $\varepsilon>0$ do $n_3\ge N$ and
+$T_a>(n_a+c)U_{a-1}$ for $a=2,3$ give it.
 \end{proposition}
 
 \begin{proof}
-Here $n_3=K$ and $n_2=K+1$, $T_3=U_3=t=(K+h)q_2$, and
-$T_2/U_1=q_2/q_1=K(K+1+2h)/(2h(K+h))$, which is below
+Here $n_3=K$ and $n_2=K+1$, $T_3=U_3=t=(K+h)q_2$, so $T_3/U_2=K+h>9$, and
+$q_1=2u(Kv+u)p/v^2$, $q_2=K(Kv+v+2u)p/v$ and $t=(Kv+u)q_2/v$ are integers,
+as $v^2\mid p$.  Further $T_2/U_1=q_2/q_1=K(K+1+2h)/(2h(K+h))$, which is below
 $(K+1+2h)/(2h)=\frac{n_2}{2h}+1$ and above $9$, as $K\ge18h$ gives $K^2\ge18hK$
-and $K+2hK>18h^2$; and $T_1=q_1>3$.  With $(x+t)^K=\sum_i\binom Kit^{K-i}x^i$,
+and $K+2hK>18h^2$; and $T_1=q_1\ge2u(Kv+u)>3$.  If $h<\frac12$, then
+$K(K+1+2h)-2h(K+h)(K+1+h)=(1-2h)K(K+1+2h)-2h^2(1+h)>1-\frac34$, that is,
+$T_2/U_1>K+1+h=n_2+h$.  With $(x+t)^K=\sum_i\binom Kit^{K-i}x^i$,
 for $2\le i\le K+1$,
 \[
   f_i=t^{K-i}\Bigl(\binom K{i-2}t^2-(q_1+q_2)\binom K{i-1}t+q_1q_2\binom Ki\Bigr).
@@ -1416,13 +1575,270 @@ At $i=2$ the bracket is $t(t-Kq_2)-q_1(Kt-\binom K2q_2)
 $\binom Kj\le K^j$ and $t\ge Kq_2$, the three terms of the bracket are at most
 $t^iq_2^{2-i}$, $2t^iq_2^{2-i}$ and $t^iq_2^{2-i}$, so $|f_i|\le4t^Kq_2^{2-i}\le4t^K/q_2$.
 The positions other than $0$ and $1$ thus have $|f_i|\le4t^K/q_2$, which
-bounds $b_3(F)$, and $4/q_2<2^{-K-1}$ as $q_2\ge18\cdot21\cdot2^K$.
+bounds $b_3(F)$, and $4/q_2<2^{-K-1}$ as $q_2\ge K(K+1)2^K\ge12\cdot2^K$.
+For the last claim take a rational $h$ with $c<h<\frac12$ and $K\ge N$
+with $(1-2h)K^2\ge1$, and let $p\to\infty$.
 \end{proof}
 
-In this family $\lambda=1-n_3U_2/T_3=h/(K+h)$ and $\xi=3U_1/T_2$ is about
-$6h/K$, while Theorem~\ref{thm:rowsk} needs about $\lambda>\xi$; so its
-condition is sharp up to a constant factor.  Whether the separation
-$T_a>(n_a+1)U_{a-1}$ for every $a$ gives all the rows is open.
+In this family $\lambda=1-n_3U_2/T_3=h/(K+h)$, and the ratio $s=U_1/T_2$ has
+$s/\lambda=2(K+h)^2/(K(K+1+2h))\to2$, while Theorem~\ref{thm:rowsk} needs
+about $\lambda>\xi=3s$.  The loss is the central index at the radius just
+above $3U_{k-2}$, which bounds the positions below $y_{k-1}$ by powers of
+that radius rather than of the moduli in $A_{k-2}$.  A zero of $A_{k-2}$
+determines the coefficient at $y_{k-2}$ from the one at $y_{k-1}$ instead,
+and eliminating it leaves at $\alpha$ the truncation $S_M(\alpha)$, of
+modulus at least $\lambda$, against $s$ times the next term of
+$\prod(1-\alpha/\beta)^{-1}$, of modulus at most
+$\binom{n+1}2(|\alpha|/T)^2\approx\frac12$: the condition becomes about
+$s<2\lambda$, sharp to leading order by this family.
+
+\begin{theorem}[The row $k$ at two lower zeros]\label{thm:rowspair}
+With the assumptions of Lemma~\ref{lem:rowsbelow}, let $k\ge3$, $n=n_k$,
+$T=T_k$, $\Pi=\prod_{\beta\in A_{\ge k}}|\beta|$ and $\theta=2^{-n-1}$, and
+let $r_1,\ldots,r_{k-1}$ be radii as in that lemma with $j=k-1$.  Let
+$\alpha\in A_{k-1}$ with $a=|\alpha|<T/n$ and $\alpha'\in A_{k-2}$, and put
+$\rho=a/T$, $\lambda=1-n\rho$, $s=|\alpha'|/a$, $\gamma=(1-\rho)^n$,
+$\gamma'=(1-s\rho)^n$, $x_0=nr_{k-1}/T$, and $q=r_{k-2}/|\alpha'|$ if
+$k\ge4$, $q=0$ if $k=3$.  Suppose $\theta<\gamma$ and
+$2\gamma'-1>q/(1-q)$, and put
+\[
+  e=\frac{3\theta}{2\gamma(1-x_0)(1-\theta/\gamma)},\qquad
+  \eta=\frac{1-\gamma'}{2\gamma'-1},\qquad
+  \kappa=\frac{1+e}{2\gamma'-1-q/(1-q)},
+\]
+and, for $\sigma,\tau\ge0$ and $0\le\omega\le s$,
+\[
+  \Phi(\sigma,\tau,\omega)=\sigma(1-\omega)-\omega\tau
+  -(\sigma+\tau)\Bigl(\omega\eta+\frac{\omega\kappa q}{(1-q)(2\gamma'-1)}+\frac{3e\gamma}{2(2\gamma'-1)}\Bigr)
+  -\frac{\omega\kappa qs}{\gamma(1-qs)}-e .
+\]
+If $\Phi(1,\frac1\gamma-1,s)$, $\Phi(\lambda,\frac12n(n+1)\rho^2,s)$ and
+$\Phi(\lambda,\frac1\gamma-1-n\rho,s^2)$ are positive, then
+$b_k(F)>\frac{|f_D|}2\prod_{\beta\in A_{\ge k}}\frac{|\beta|}2$.  This
+holds in particular if $\Xi>\nu$, where
+$\Delta=\max\bigl(\frac12n(n+1)\rho^2,s(\frac1\gamma-1)\bigr)$,
+$\Xi=\min\bigl(\lambda(1-s)-s\Delta,1-\frac s\gamma\bigr)$ and
+\[
+  \nu=\frac s\gamma\Bigl(\eta+\frac{\kappa qs}{1-qs}+\frac{\kappa q}{(1-q)(2\gamma'-1)}\Bigr)
+  +e\Bigl(1+\frac3{2(2\gamma'-1)}\Bigr).
+\]
+\end{theorem}
+
+\begin{proof}
+Divide $F$ by $f_D$, so $f_D=1$ and the claim is $b_k(F)>\theta\Pi$.
+Lemma~\ref{lem:rowsbelow} gives central indices $y_a$ of $F$ at $r_a$ with
+$y_1<\cdots<y_{k-1}$, $D-y_{k-1}\ge n$ and $|f_{y_a}|>\theta\Pi$.  Put
+$y=y_{k-1}$, $y'=y_{k-2}$, $j=y-y'\ge1$, $r=r_{k-1}$ and $b=|\alpha'|=sa$,
+and suppose that every other nonleading position $l$ has $|f_l|\le\theta\Pi$.
+Let $H$, $P$, $d=D-n\ge y$, $w_m$ and $S_m$ be as in the case $n\ge2$ of the
+proof of Theorem~\ref{thm:rowstwo} (they need only $n\ge1$), $M=d-y$ and
+$W_m=\binom{n+m-1}mT^{-m}$.  For $|z|<T$, $|S_m(z)|\le(1-|z|/T)^{-n}$ and
+$|S_m(z)-1|\le(1-|z|/T)^{-n}-1$, so $|S_m(\alpha)|\le1/\gamma$ and
+$2-1/\gamma'\le|S_m(\alpha')|\le1/\gamma'$.  As in the proof of
+Theorem~\ref{thm:rowsk}, now with
+$|f_l|W_{d-l}\le|f_y|r^{y-l}W_M(n/T)^{y-l}=|f_y|W_Mx_0^{y-l}$ for $l<y$, the
+coefficient of $x^d$ gives $|f_y|W_M\ge(1-x_0)(1-\theta/\gamma)\Pi$, where
+$x_0<\frac13$ as $r<T_{k-1}/3\le a/3$.  For
+$z\in\{\alpha,\alpha'\}$, as $|z|\ge b\ge T_1>3$ and $W_M|z|^M\le(n|z|/T)^M\le1$,
+\[
+  \theta\Pi\sum_{l\le d}|z|^l\ <\ \frac{\theta\Pi|z|^{d+1}}{|z|-1}
+  \ \le\ \frac{3\theta\Pi|z|^y}{2W_M}\ \le\ e\gamma|f_y||z|^y .
+\]
+
+For $z\in\{\alpha,\alpha'\}$, $H(0)P(z)=0$ reads
+\[
+  f_yz^yS_M(z)+f_{y'}z^{y'}S_{M+j}(z)+\Psi_z+E_z\ =\ 0,
+\]
+where, if $k\ge4$, $\Psi_z$ sums $f_lz^lS_{d-l}(z)$ over $l<y'$ and $E_z$
+over $y'<l\le d$, $l\ne y$, and, if $k=3$, $\Psi_z=0$ and $E_z$ sums over
+all $l\le d$ other than $y$ and $y'$.  The positions in $E_z$ are nonleading
+and none of the $y_a$, so $|f_l|\le\theta\Pi$ there, and as
+$|S_{d-l}(z)|\le1/\gamma$ the last display gives $|E_z|\le e|f_y||z|^y$.  If $k\ge4$, then $|f_l|\le|f_{y'}|r_{k-2}^{y'-l}$
+for $l<y'$, as $y'$ is a central index at $r_{k-2}$.  At $z=\alpha'$ put
+$Y=|f_y|b^y$ and $Z=|f_{y'}|b^{y'}$: then $|\Psi_{\alpha'}|\le
+Zq/((1-q)\gamma')$, and the equation gives
+$Z(2-1/\gamma')\le Y/\gamma'+Zq/((1-q)\gamma')+eY$, so $Z\le\kappa Y$, as
+$\gamma'\le1$.
+
+Multiply the equation at $\alpha'$ by
+$\mu=(\alpha/\alpha')^{y'}S_{M+j}(\alpha)/S_{M+j}(\alpha')$ and subtract it
+from the equation at $\alpha$.  With $t=(\alpha'/\alpha)^j$, so $|t|=s^j$,
+and $\varphi=S_M(\alpha')/S_{M+j}(\alpha')$, so $|\varphi-1|\le\eta$, the
+coefficient $f_{y'}$ cancels and
+\[
+  f_y\alpha^y\bigl(S_M(\alpha)(1-t)-t(S_{M+j}-S_M)(\alpha)-tS_{M+j}(\alpha)(\varphi-1)\bigr)
+  \ =\ \mu(\Psi_{\alpha'}+E_{\alpha'})-\Psi_\alpha-E_\alpha .
+\]
+Put $\sigma=|S_M(\alpha)|$, $\tau=\sum_{m=M+1}^{M+j}W_ma^m$ and
+$\omega=|t|$.  Then $|(S_{M+j}-S_M)(\alpha)|\le\tau$ and
+$|S_{M+j}(\alpha)|\le\sigma+\tau$, so the bracket has modulus at least
+$\sigma(1-\omega)-\omega\tau-\omega(\sigma+\tau)\eta$.  On the right,
+$|E_\alpha|\le e|f_y|a^y$, and
+$|f_{y'}|a^{y'}=Z(a/b)^{y'}\le\kappa\omega|f_y|a^y$, so, as
+$r_{k-2}/a=qs$,
+\[
+  |\Psi_\alpha|\ \le\ \frac{|f_{y'}|a^{y'}}\gamma\sum_{i\ge1}(qs)^i
+  \ \le\ \frac{\omega\kappa qs}{\gamma(1-qs)}|f_y|a^y .
+\]
+As $|\mu|\le(a/b)^{y'}(\sigma+\tau)\gamma'/(2\gamma'-1)$,
+$|\mu\Psi_{\alpha'}|\le(\sigma+\tau)\frac{\omega\kappa q}{(1-q)(2\gamma'-1)}|f_y|a^y$; and as
+$a^{y'}b^{l-y'}\le a^l$ for $l>y'$ and $\sum_{l<y'}a^{y'}b^{l-y'}<a^{y'}/(b-1)<a^{d+1}/(2(a-1))$,
+\[
+  |\mu E_{\alpha'}|\ \le\ \frac{(a/b)^{y'}(\sigma+\tau)\theta\Pi}{2\gamma'-1}\sum_{l\le d,\,l\ne y,y'}b^l
+  \ \le\ \frac{3(\sigma+\tau)\theta\Pi a^{d+1}}{2(a-1)(2\gamma'-1)}
+  \ \le\ (\sigma+\tau)\frac{3e\gamma}{2(2\gamma'-1)}|f_y|a^y .
+\]
+Dividing by $|f_y|a^y>0$ gives $\Phi(\sigma,\tau,\omega)\le0$.
+
+Now $\Phi$ decreases in $\tau$ and in $\omega$, and is affine in $\sigma$ with
+slope
+$c(\omega)=1-\omega-\omega\eta-\frac{\omega\kappa q}{(1-q)(2\gamma'-1)}-\frac{3e\gamma}{2(2\gamma'-1)}$,
+which decreases in $\omega$; and $c(s)\ge\Phi(1,\tau,s)$ for every
+$\tau\ge0$, so $c(\omega)\ge c(s)>0$.  If $M=0$, then $\sigma=1$,
+$\tau\le\sum_{m\ge1}W_ma^m=\frac1\gamma-1$ and $\omega\le s$, so
+$\Phi(\sigma,\tau,\omega)\ge\Phi(1,\frac1\gamma-1,s)>0$.  If $M\ge1$, then
+$\sigma\ge\lambda$ by Lemma~\ref{lem:trunc}.  As
+$W_{m+1}a^{m+1}/(W_ma^m)=(n+m)\rho/(m+1)\le1$, if $j=1$ then $\omega=s$ and
+$\tau=W_{M+1}a^{M+1}\le W_2a^2=\frac12n(n+1)\rho^2$, and if $j\ge2$ then
+$\omega\le s^2$ and $\tau\le\sum_{m\ge2}W_ma^m=\frac1\gamma-1-n\rho$; so
+$\Phi(\sigma,\tau,\omega)\ge\Phi(\lambda,\tau,\omega)$ is at least
+$\Phi(\lambda,\frac12n(n+1)\rho^2,s)$ or
+$\Phi(\lambda,\frac1\gamma-1-n\rho,s^2)$, and positive.  Either way this
+contradicts $\Phi(\sigma,\tau,\omega)\le0$.  So some nonleading position
+other than the $y_a$ has $|f_l|>\theta\Pi$, and $b_k(F)>\theta\Pi$.
+
+Finally let $\Xi>\nu$.  At $(1,\frac1\gamma-1,s)$, $\sigma+\tau=\frac1\gamma$
+and $\Phi=1-\frac s\gamma-\nu\ge\Xi-\nu$.  At the other two points
+$\sigma+\tau\le\frac1\gamma$, as
+$\frac1\gamma=\sum_mW_ma^m\ge1+n\rho+W_2a^2$, and $\omega\tau\le s\Delta$,
+as $\frac12n(n+1)\rho^2\le\Delta$ and
+$s^2(\frac1\gamma-1-n\rho)\le s\Delta$; since also
+$\sigma(1-\omega)\ge\lambda(1-s)$ and $\omega\le s$,
+$\Phi\ge\lambda(1-s)-s\Delta-\nu\ge\Xi-\nu$.
+\end{proof}
+
+With the separation $n_a+c$ at every annulus, $\lambda$ and $s$ are about
+$c/n_k$ and $1/n_k$, $\Delta$ is about $\frac12$ and $\nu=O(n_k^{-2})$, so
+the condition $\Xi>\nu$ reads about $c>\frac12$.
+
+\begin{corollary}[Rows at the separation $n_a+1$]\label{cor:rowsplusone}
+Let $F$, $A_1,\ldots,A_S$, $K_s$ and $n_a$ be as in
+Theorem~\ref{thm:annuli}, except that of the moduli only $T_1>3$ is
+assumed, and let $\rho_n$ be as in Lemma~\ref{lem:tropcount}.
+\begin{enumerate}
+\item Let $3\le k\le S$ with $n_k\ge10$, or $k=3$ and $n_3\ge7$.  If
+$T_a>(n_a+1)U_{a-1}$ for $2\le a\le k$ and $T_a>U_{a-1}$ for $a>k$, then
+$b_k(F)>\frac{|f_D|}2\prod_{\beta\in A_{\ge k}}\frac{|\beta|}2$.
+\item For every $c>\frac12$ there is $N_c$ such that item~1 holds with
+$n_k\ge N_c$ and $T_a>(n_a+c)U_{a-1}$ in place of $n_k\ge10$ and
+$T_a>(n_a+1)U_{a-1}$; for $c<\frac12$ there is no such $N_c$
+(Proposition~\ref{prop:rowslower}).
+\item If $T_a>\sigma(n_a)U_{a-1}$ for $2\le a\le S$, where $\sigma(n)=n+1$
+for $n\ge10$, $\sigma(n)=\max(9,n+\frac32)$ for $3\le n\le9$, $\sigma(2)=12$
+and $\sigma(1)=6$, then the rows and the mass bound of
+Corollary~\ref{cor:annuli}, item~1, hold.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+We first bound the quantities of Theorem~\ref{thm:rowspair}.  Let $k\ge3$,
+$n=n_k$, and let $g_0>n$ and $g_1,g_2\ge9$ with $T>g_0U_{k-1}$,
+$T_{k-1}>g_1U_{k-2}$, $g_0g_1>7n$ and, if $k\ge4$, $T_{k-2}>g_2U_{k-3}$,
+where $T=T_k$; assume $T_a>9U_{a-1}$ for $2\le a<k$ and $T_a>U_{a-1}$ for
+all $a$, so that the assumptions of Lemma~\ref{lem:rowsbelow} hold.  Take
+$\alpha\in A_{k-1}$ and $\alpha'\in A_{k-2}$.  Then
+$a\le U_{k-1}<T/g_0$ and $s\le U_{k-2}/T_{k-1}<1/g_1$, so $\rho<1/g_0$.
+As $T>g_0T_{k-1}>g_0g_1U_{k-2}$, the radius $r_{k-1}$ of that lemma can be
+chosen with $3U_{k-2}<r_{k-1}<\min(T_{k-1}/3,3T/(g_0g_1))$, and then
+$\rho_nr_{k-1}<\frac73nr_{k-1}<T$ and $x_0<3n/(g_0g_1)$; if $k\ge4$,
+$r_{k-2}$ can be chosen with $3U_{k-3}<r_{k-2}<3T_{k-2}/g_2\le T_{k-2}/3$,
+and then $q<3/g_2$.  Regard $\Phi$ as a function of $\sigma$, $\tau$,
+$\omega$, $s$, $q$, $e$, $e\gamma$, $\eta$, $\kappa$, $\frac1\gamma$ and
+$\frac1{2\gamma'-1}$: it is nonincreasing in each of them but $\sigma$, and
+nondecreasing in $\sigma$ where its slope $c(\omega)$, nonincreasing in the
+same variables, is nonnegative.  Where the side conditions $\theta<\gamma$
+and $2\gamma'-1>q/(1-q)$ hold, $\gamma$, $\gamma'$ and $\lambda$ are
+nonincreasing, and $e=3\theta/(2(1-x_0)(\gamma-\theta))$,
+$e\gamma=3\theta/(2(1-x_0)(1-\theta/\gamma))$, $\eta$, $\kappa$ and the
+arguments $\frac1\gamma-1$, $\frac12n(n+1)\rho^2$, $\frac1\gamma-1-n\rho$,
+$s$ and $s^2$ nondecreasing, in each of $\rho$, $s$, $q$ and $x_0$; and
+$c(s)\ge\Phi(1,\frac1\gamma-1,s)$.  So if at $\rho=1/g_0$, $s=1/g_1$,
+$q=3/g_2$ ($q=0$ if $k=3$) and $x_0=3n/(g_0g_1)$ the side conditions hold
+and the three values of $\Phi$ in Theorem~\ref{thm:rowspair} are positive,
+they hold and are positive at the actual values, and the theorem gives the
+row.
+
+1.  Here $n_{k-1}\ge n+1$ and $n_{k-2}\ge n+2$, and $T_a>(n+2)U_{a-1}$
+for $a<k$, so the above applies with $g_0=n+1$, $g_1=n+2$ and $g_2=n+3$, as
+$n\ge7$; and $x_0<3n/((n+1)(n+2))\le\frac1{10}$ for $n\ge27$.  For
+$n\le29$, in the range of the statement, the side conditions hold and the
+three values of $\Phi$ are positive at the bounds, a finite computation in
+rational arithmetic
+(\texttt{test\_rows\_at\_separation\_n\_plus\_one} in
+\texttt{tests/test\_complex.py}).  Let $n\ge30$.  Then $\rho<\frac1{n+1}$,
+$\lambda>\frac1{n+1}$, $s<\frac1{n+2}$, $x_0<\frac1{10}$ and
+$q<\frac3{n+3}$.  Now
+$\gamma\ge(\frac n{n+1})^n>\frac13$, so $\frac1\gamma<3$ and $\theta<\gamma$;
+by Bernoulli's inequality $\gamma'\ge1-ns\rho>1-\frac1{n+2}$, so
+$2\gamma'-1>\frac n{n+2}\ge\frac{15}{16}$ and $\eta<\frac1n$; and
+$q/(1-q)<\frac3n\le\frac1{10}$.  Hence $e<2^{2-n}$ and
+$\kappa<(1+2^{-28})/(\frac{15}{16}-\frac1{10})<\frac65$.  Both terms of
+$\Delta$ are below $\frac n{2(n+1)}$, so
+$\lambda(1-s)-s\Delta>\frac1{n+2}-\frac n{2(n+1)(n+2)}=\frac1{2(n+1)}$, and
+$\Xi>\frac1{2(n+1)}$.  As $qs<\frac3{(n+2)(n+3)}<\frac1{11n}$,
+\[
+  \nu\ <\ \frac3{n+2}\Bigl(\frac1n+\frac65\cdot\frac1{11n-1}+\frac65\cdot\frac3n\cdot\frac{16}{15}\Bigr)
+  +2^{2-n}\cdot\frac{13}5\ <\ \frac{15}{n(n+2)}+2^{4-n},
+\]
+and $\frac1{2(n+1)}-\frac{15}{n(n+2)}=\frac{n^2-28n-30}{2n(n+1)(n+2)}\ge\frac{15}{n(n+1)(n+2)}>2^{4-n}$
+for $n\ge30$, as $2^{26}>30\cdot31\cdot32/15$ and $n(n+1)(n+2)$ less than
+doubles when $n$ grows by $1$.  So $\Xi>\nu$, and Theorem~\ref{thm:rowspair} gives the row.
+
+2.  With $n+c$ in place of $n+1$ the same choices, with $g_0=n+c$,
+$g_1=n+1+c$ and $g_2=n+2+c$ (for large $n$), give $\rho<\frac1{n+c}$,
+$s<\frac1{n+1+c}$, $q<\frac3{n+2+c}$ and $x_0<\frac1{10}$.
+Since $\gamma$ and $\gamma'$ decrease in $\rho$ and $s$, $\Xi$ decreases and
+$\nu$ increases in $\rho$, $s$, $q$ and $x_0$, so it suffices that $\Xi>\nu$
+at these bounds, where $\theta<\gamma$ and $2\gamma'-1>q/(1-q)$ for large
+$n$.  There, as $n\to\infty$, $n\lambda\to c$, $ns\to1$,
+$\Delta\to\frac12$, $\gamma\to\exp(-1)$, $\eta$, $q$ and $e$ tend to $0$,
+and $\kappa\to1$; so $n\Xi\to c-\frac12>0$ and $n\nu\to0$.  For $c<\frac12$
+see the last clause of Proposition~\ref{prop:rowslower}.
+
+3.  The function $\sigma$ is nondecreasing on $n\ge3$, and $\sigma(n)\ge9$
+for $n\ge2$.  The row $1$ is that of Theorem~\ref{thm:annuli}.  The row $2$
+is Lemma~\ref{lem:rowsbelow} if $n_2\le2$, as then
+$\sigma(n_2)=3\rho_{n_2}$, and otherwise the proof of
+Corollary~\ref{cor:rowstwo}, as $T_2>\max(9,n_2+1)U_1$ and every
+$T_a>U_{a-1}$.  Let $k\ge3$; for $a<k$, $n_a\ge2$, so $T_a>9U_{a-1}$.  If
+$n_k\ge10$, item~1 gives the row, as $\sigma(n_a)=n_a+1$ for $a\le k$.  If
+$n_k\le2$, Lemma~\ref{lem:rowsbelow} does.  Otherwise $3\le n=n_k\le9$, and
+the bounds above apply with $g_0=\sigma(n)$, $g_1=\sigma(n+1)$ and
+$g_2=\sigma(n+2)$, as $n_{k-1}\ge n+1$, $n_{k-2}\ge n+2$ and
+$g_0g_1\ge81>7n$; there the side conditions hold and the three values of
+$\Phi$ are positive, for $k=3$ and for $k\ge4$ (the same computation), and
+Theorem~\ref{thm:rowspair} gives the row.  The rows give the mass as in
+Corollary~\ref{cor:rowstwo}.
+\end{proof}
+
+So for the rows $k\ge3$ the additive constant in the separation $n_a+O(1)$
+is $\frac12$ once $n_a$ is large: every $c>\frac12$ suffices and every
+$c<\frac12$ fails, the failure needing both separations
+(Proposition~\ref{prop:rowslower}); for the row $2$ every $c>0$ suffices
+(the remark after Corollary~\ref{cor:rowstwo}; for $S=2$ the excess over
+$n_2$ is even exponentially small, Corollary~\ref{cor:twofixed}) and $c=0$
+does not.  The thresholds $10$ and $7$ are where the three values of $\Phi$
+at the bounds of item~1 stop being positive: at $n_k=9$ with $k\ge4$, and
+at $n_k=6$ with $k=3$, the second is negative; the largest losses are the
+term with $q$, from the central index at $r_{k-2}$, for $k\ge4$, and the
+terms with $e$, from the coefficients bounded only by $\theta\Pi$, for
+$k=3$.  The function $\sigma$ of item~3 is at most
+$\min(n+9,3\rho_n)$ except at $n=2$, where Corollary~\ref{cor:rowsall}
+gives $11$ when every separation is at least $n_a+9$.  Whether
+$T_a>(n_a+1)U_{a-1}$ for every $a$ gives all the rows also when $n_a\le9$
+is open for $S\ge3$; below $n_a=8$ it would need more than the central
+indices of Lemma~\ref{lem:rowsbelow}, whose ordering uses the separation
+$9$.
 
 For the mass the cancellation of Proposition~\ref{prop:rowsneedn}, with $K=2$, breaks
 Theorem~\ref{thm:fixedgap} at the separation $2$.
@@ -1453,7 +1869,9 @@ Finally $t/q=2+\delta/q$, which is $2+\frac1{18915}$ at $q=97$.
 With few roots above a gap the single central index of
 Corollary~\ref{cor:annuli}, item~1, needs less than the factor $9n_a$: by
 the last clause of Lemma~\ref{lem:tropcount}, $T_a>3\rho_{n_a}U_{a-1}$
-suffices, and $3\rho_{n_a}<81$ for $n_a\le13$.  At a gap where it does not
+suffices, and $3\rho_{n_a}<81$ for $n_a\le13$, as
+$(\frac{28}{27})^{13}-1<(\frac{26}{27})^{13}$ and $(1+\theta)^n-1-(1-\theta)^n$
+increases with $n$.  At a gap where it does not
 suffice the two positions of Theorem~\ref{thm:fixedgap} can be used, gap by gap.
 
 \begin{corollary}[Few roots above a gap]\label{cor:fewabove}
@@ -1502,14 +1920,17 @@ $3\rho_1=6$ and $3\rho_2=12$.
 So for the mass at two annuli with two roots in the upper one, the case of
 Proposition~\ref{prop:gaptwo}, the least separation lies between
 $2+\frac1{18915}$ and $12$, by Corollary~\ref{cor:rowstwo} even $9$, and
-by Corollary~\ref{cor:twofixed} below even $4$; with one root in the upper annulus it is at
+by Corollaries~\ref{cor:twofixed} and~\ref{cor:twonear} below even $4$ and
+$\frac73$; with one root in the upper annulus it is at
 least $\frac{32}{31}$, since $F=(x-q)(x+t)$ has
 $\Lambda(F)=\log(qt(t-q))$ against the bound $\log(qt^2/32)$ when
 $1\le t-q<t/32$, for instance at $q=100$, $t=103$.  For the rows,
 Proposition~\ref{prop:rowsneedn} and Corollaries~\ref{cor:fewabove}
 and~\ref{cor:rowsall} put the least separation between $n_a$ and
 $\min(n_a+9,3\rho_{n_a})$, which is $3\rho_1=6$ for $n_a=1$ and $n_a+9$ for
-$n_a\ge2$.
+$n_a\ge2$, and Corollary~\ref{cor:rowsplusone} gives instead, at all the
+gaps at once, $n_a+1$ where $n_a\ge10$, $\max(9,n_a+\frac32)$ where
+$3\le n_a\le9$, $12$ where $n_a=2$ and $6$ where $n_a=1$.
 
 For two annuli the charge of $A_2$ needs one position besides the central
 index at $1$.  The truncation argument of Theorem~\ref{thm:rowstwo} can
@@ -1544,7 +1965,7 @@ $|f_D|\Pi\le m(1-1/T)^{-n}\le m\Gamma$.  Let $j\le d$ and $M=d-j$.  The
 second identity gives
 \[
   |f_j|a^j\lambda\ \le\ \Bigl(1-\frac aT\Bigr)^{-n}\sum_{l\le d,\,l\ne j}|f_l|a^l
-  \ <\ m\Bigl(1-\frac aT\Bigr)^{-n}\frac{a^{d+1}}{a-1},
+  \ \le\ m\Bigl(1-\frac aT\Bigr)^{-n}\frac{a^{d+1}}{a-1},
 \]
 and $a^M|w_M|\le\binom{n+M-1}M(a/T)^M\le(na/T)^M\le1$, as
 $\binom{n+M-1}M\le n^M$.  So the first identity gives
@@ -1597,7 +2018,8 @@ $\sum_kn^{1-k}/(k3^k)$), $(1-\frac1g)^{-n}\le(\frac43)^4<\frac{19}6$ and
 $(1-\frac1{3g})^{-n}\le(\frac{12}{11})^4<\frac{17}{12}$; so
 $\gamma_n<\frac{19}4(1+\frac{2^n}3)+\frac{17}{12}=\frac{19}{12}2^n+\frac{37}6$,
 which is at most $2^{n+1}$ as $\frac5{12}2^n\ge\frac{20}3>\frac{37}6$.  The
-row $k=1$ is Lemma~\ref{lem:central} at $r=1$ with $A=A_1\cup A_2$, and the
+row $k=1$ is Lemma~\ref{lem:central} at $r=1$ with $A=A_1\cup A_2$ (the
+central index is below $D$, as $\prod_A|\beta|/2>(\frac32)^2>2$), and the
 two rows give the mass as in Corollary~\ref{cor:rowstwo}.
 
 2.  Here $f_1=t^{K-1}(t-Kq)=2^{-K-1}t^K$, and for $2\le i\le K$,
@@ -1613,8 +2035,8 @@ roots above the gap, and at $n_2+3n_22^{-n_2}$ otherwise, while the rows
 need $n_2/(1-2^{-n_2-1})>n_2+n_22^{-n_2-1}$ (item~2 with $K=n_2$): the
 least separation for the rows lies between these, and exceeds $n_2$ by an
 amount exponentially small in $n_2$.  For the mass with $K_2=1$ or $K_2=2$
-the least separation lies in $[\frac{32}{31},4]$ and
-$[2+\frac1{18915},4]$.  At a fixed separation $g$ and $n_2=K\ge g$ two
+the least separation lies in $[\frac{32}{31},\frac{14}9]$ and
+$[2+\frac1{18915},\frac73]$ (Corollary~\ref{cor:twonear} below).  At a fixed separation $g$ and $n_2=K\ge g$ two
 nonleading positions no longer suffice: by the proof of item~2,
 $F=(x-q)(x+t)^K$ with $t=Kq/(1-2^{-2K-4})$ and $q\ge2^{3K+5}$ has
 $b_1(F)=qt^K$ and $b_2(F)\le2^{-2K-4}t^K$, so
@@ -1622,6 +2044,158 @@ $\log b_1(F)+\log b_2(F)$ falls short of the mass bound
 $\log(q/2)+2K\log(t/2)-2\log2$ by at least $\log2$, and the positions
 $2,\ldots,K$ carry the rest.  So a mass bound at a fixed separation for
 all $n_2$ must charge three or more nonleading positions.
+
+With one or two roots above the gap the least separation is close to its
+lower bound.  Lemma~\ref{lem:twobelow} eliminates the positions above
+$D-n$ and pays for it with the factor $\lambda$; eliminating instead the
+position $j$ between one zero below the gap and one above charges that zero
+above to the position $D-1$, or with a higher power of $|\beta|$ to a lower
+one, with no factor $\lambda$ at all.
+
+\begin{lemma}[Two zeros and one excluded position]\label{lem:twozeros}
+Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $\alpha$ and $\beta$ be
+zeros of $F$ with $1<a=|\alpha|<b=|\beta|$, put $\rho=a/b$, and let $j<D$
+be a position.  Then
+\[
+  |f_D|\,b\,(1-\rho^{D-j})\ \le\ \sum_{j<l<D}|f_l|(1+\rho^{l-j})b^{l-D+1}
+  +\sum_{l<j}|f_l|\bigl(a^{l-j}+b^{l-j}\bigr)b^{j-D+1} .
+\]
+Hence if $j=D-1$, some $l<D-1$ has
+$|f_l|(\frac1{a-1}+\frac1{b-1})\ge|f_D|b(1-\rho)$; and if $j\le D-2$,
+then, with $m$ the largest $|f_l|$ over $l\le D-2$, $l\ne j$ ($m=0$ if
+there is none),
+\[
+  |f_D|\,b\,(1-\rho^2)\ \le\ (1+\rho)|f_{D-1}|
+  +\Bigl(\frac{1+\rho}{b-1}+\frac1{b(a-1)}\Bigr)m .
+\]
+\end{lemma}
+
+\begin{proof}
+Put $z=\alpha/\beta$.  Subtracting $z^j\sum_lf_l\beta^l=0$ from
+$\sum_lf_l\alpha^l=0$ and dividing by $z^j$ gives
+$\sum_lf_l\beta^l(z^{l-j}-1)=0$, whose term $l=j$ vanishes, so
+\[
+  f_D\beta^D(1-z^{D-j})=\sum_{l\ne j,D}f_l\beta^l(z^{l-j}-1).
+\]
+The left side has modulus at least $|f_D|b^D(1-\rho^{D-j})$.  On the right,
+$|z^{l-j}-1|\le1+\rho^{l-j}$ for $l>j$, and
+$b^l|z^{l-j}-1|\le b^l\rho^{l-j}+b^l=b^ja^{l-j}+b^l$ for $l<j$; dividing
+by $b^{D-1}$ gives the inequality.  If $j=D-1$, only the second sum is
+present, and its weights add up to less than $\frac1{a-1}+\frac1{b-1}$.  If
+$j\le D-2$, then $1-\rho^{D-j}\ge1-\rho^2$, the weight of $l=D-1$ is at most
+$1+\rho$, and as $b^{j-D+1}\le b^{-1}$ the weights of the positions $l\le
+D-2$ add up to less than $(1+\rho)\sum_{k\ge1}b^{-k}+b^{-1}\sum_{k\ge1}a^{-k}$.
+\end{proof}
+
+At $F=(x-q)(x+q+1)$, $q>1$, and $j=0$ the inequality is an equality.
+
+\begin{corollary}[One or two roots above the gap]\label{cor:twonear}
+Let $F$, $A_1$, $A_2$ and $n_2=K_2$ be as in Theorem~\ref{thm:annuli} with
+$S=2$, except that only $T_1>3$ is assumed of the moduli.
+\begin{enumerate}
+\item If $K_2=1$ and $T_2>(\frac43+\frac2{3T_1})U_1$, then
+$b_2(F)>\frac{|f_D|}2\cdot\frac{|\beta|}2$ for the zero $\beta$ of $A_2$, and
+the rows and the mass bound of Corollary~\ref{cor:annuli}, item~1, hold.
+The factor $\frac43$ cannot be lowered: for $3<q<t<\frac43q$,
+$F=(x-q)(x+t)$ has $b_2(F)=t-q<\frac t4$.
+\item If $K_2=2$, $|f_D|\ge1$ and $T_2>(2+\frac1{T_1})U_1$, the mass bound
+of Theorem~\ref{thm:fixedgap} holds.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Take $\alpha\in A_1$ and put $a=|\alpha|$ and $\tau=T_1$, so
+$3<\tau\le a\le U_1$; let $\beta$ be a zero of $A_2$ of the largest modulus
+$b$, so $b\ge T_2>ga\ge g\tau$ for the relevant $g$, and $\rho=a/b<1/g$.
+
+1.  Here $g=\frac43+\frac2{3\tau}=\frac{4\tau+2}{3\tau}$.  Let $j$ be a
+position of a largest nonleading coefficient, and suppose that
+$|f_l|\le|f_D|b/4$ for every $l\ne j,D$, and apply
+Lemma~\ref{lem:twozeros}.  If $j=D-1$, it gives
+$4(1-\rho)\le\frac1{a-1}+\frac1{b-1}<\frac12+\frac13$, as $b>g\tau\ge4$;
+but $4(1-\rho)>4(1-\frac1g)\ge1$.  If $j\le D-2$, it gives
+$4(1-\rho^2)\le(1+\rho)(1+\frac1{b-1})+\frac1{b(a-1)}$, so
+$4(1-\rho)-1\le\frac1{b-1}+\frac1{b(a-1)}$.  Here
+$4(1-\rho)-1>3-\frac4g=\frac3{2\tau+1}$, while
+$\frac1{b-1}<\frac1{g\tau-1}=\frac3{4\tau-1}$ and
+$\frac1{b(a-1)}<\frac1{g\tau(\tau-1)}=\frac3{(4\tau+2)(\tau-1)}$, and
+\[
+  \frac3{2\tau+1}-\frac3{4\tau-1}-\frac3{(4\tau+2)(\tau-1)}
+  =\frac{3(2\tau-1)(2\tau-5)}{2(2\tau+1)(4\tau-1)(\tau-1)}\ >\ 0 .
+\]
+Both cases are contradictory, so some $l\ne j,D$ has $|f_l|>|f_D|b/4$,
+which bounds $b_2(F)$.  The row $k=1$ is Lemma~\ref{lem:central} at $r=1$
+with $A=A_1\cup A_2$ (the central index is below $D$, as
+$\prod_A|\beta|/2>\frac32\cdot2>2$), and the two rows give the mass as in
+Corollary~\ref{cor:rowstwo}.  Finally $(x-q)(x+t)=x^2+(t-q)x-qt$ has
+$T_1=U_1=q$, $T_2=t$ and $b_2=t-q$.
+
+2.  Here $g=2+\frac1\tau$, so $g\tau=2\tau+1$, $1-\frac1g=\frac{\tau+1}{2\tau+1}$
+and $1-\frac2g=\frac1{2\tau+1}$.  Let $\Pi$ be the product of the moduli of
+the two zeros of $A_2$, so $\Pi\le b^2$.  By Lemma~\ref{lem:central} at $r=1$
+with $A=A_1\cup A_2$, a central index at $1$ has modulus above
+$\frac{|f_D|}2\prod_{A_1\cup A_2}\frac{|\beta|}2\ge|f_D|aT_2^2/16>|f_D|$, so
+it is not $D$, and we take it for $j$.  First, $j\le D-2$.  Otherwise
+$j=D-1$ carries the largest value of the concave majorant, so the edge from
+$D-1$ to $D$ has the tropical root $\sigma_1=\log(|f_{D-1}|/|f_D|)>0$ and
+every other tropical root is at most $0$.  If $\sigma_1>2\log3$, take $u$
+with $\log3<u<\min(\log a,\sigma_1-\log3)$: it is farther than $\log3$ from
+every tropical root, the vertex active at $u$ is $D-1$, and
+Theorem~\ref{thm:archnewton}, item~1, puts $D-1$ zeros in $|z|<e^u$,
+although $\alpha$ and the two zeros of $A_2$ lie outside.  So
+$|f_{D-1}|\le9|f_D|$, against
+$|f_{D-1}|>|f_D|aT_2^2/16>|f_D|g^2\tau^3/16$, where
+$g^2\tau^3=\tau(2\tau+1)^2>147$.
+
+Proposition~\ref{prop:rowstwolarge}, with $A=A_2$, $n=2$ and
+$T=T_2$ (as $a<T_2/2$), gives some $l\le D-2$, $l\ne j$, with
+$|f_l|\ge\varepsilon|f_D|\Pi$, where $\varepsilon$ is the minimum there.  In
+its first term $\lambda>\frac1{2\tau+1}$, $\frac{a-1}{a-\lambda}\ge1-\frac1a>\frac23$
+and $(1-\frac1{T_2})^{-2}<(\frac{2\tau+1}{2\tau})^2\le(\frac76)^2$; the second
+exceeds $\frac12$, as $(2a-1)\bigl((1-\frac1{T_2})^{-2}-1\bigr)
+=(2a-1)(2T_2-1)/(T_2-1)^2<3$ by $T_2>2a$.  So
+$\varepsilon\ge\frac{24}{49(2\tau+1)}$.  Let $m$ be the largest $|f_l|$ over
+$l\le D-2$, $l\ne j$, so $m\ge\varepsilon|f_D|\Pi$.  If
+$m\ge|f_D|\Pi/8$, its position alone carries
+$\log(|f_D|/2)+\sum_{A_2}\log(|\beta|/2)$.  Otherwise
+Lemma~\ref{lem:twozeros} with $\alpha$, $\beta$ and $j\le D-2$ gives
+$(1+\rho)|f_{D-1}|>|f_D|b(1-\rho^2)-|f_D|b^2W/8$, with $W$ its weight
+$\frac{1+\rho}{b-1}+\frac1{b(a-1)}$, so $|f_{D-1}|>|f_D|b\kappa$ with
+\[
+  \kappa=1-\frac1g-\frac18\Bigl(\frac{g\tau}{g\tau-1}+\frac1{\tau-1}\Bigr)
+  \ \le\ 1-\rho-\frac18\Bigl(\frac b{b-1}+\frac1{a-1}\Bigr),
+\]
+and then the positions $D-1$ and that of $m$, distinct from each other and
+from $j$, carry $\log(|f_{D-1}|m)\ge\log(|f_D|\Pi/8)$ as soon as
+$g\tau\kappa\ge1/(8\varepsilon)$, as $|f_D|\ge1$ and $b>g\tau$.  As
+$\frac{2\tau+1}{2\tau}\le\frac76$ and $\frac{2\tau+1}{\tau-1}\le\frac72$,
+\[
+  g\tau\kappa=\tau+1-\frac{2\tau+1}8\Bigl(\frac{2\tau+1}{2\tau}+\frac1{\tau-1}\Bigr)
+  \ \ge\ \tau+1-\frac{7(2\tau+1)}{48}-\frac7{16}=\frac{34\tau+20}{48},
+\]
+while $\frac1{8\varepsilon}\le\frac{49(2\tau+1)}{192}$, and
+$4(34\tau+20)-49(2\tau+1)=38\tau+31>0$.
+
+In both cases the positions other than $j$ and $D$ carry at least
+$\log(|f_D|/2)+\sum_{A_2}\log(|\beta|/2)$, and $j$ carries
+$\log(|f_D|/2)+\sum_{A_1\cup A_2}\log(|\beta|/2)$; with $\log^+|f_D|\ge\log|f_D|$
+this is the bound of Theorem~\ref{thm:fixedgap} for $S=2$.
+\end{proof}
+
+So with one root above the gap the second row needs a separation between
+$\frac43$ and $\frac43+\frac2{3T_1}\le\frac{14}9$, and $\frac43$ is its limit
+as $T_1\to\infty$; the mass needs between $\frac{32}{31}$ and the same.  With
+two roots above the gap the mass holds at $2+\frac1{T_1}\le\frac73$,
+while Proposition~\ref{prop:gaptwo} breaks it at $2+\frac1{q(2q+1)}$ for
+integers $T_1=q\ge97$: the least separation lies in $[2+\frac1{18915},\frac73]$,
+and tends to $2$ as $T_1\to\infty$, the upper bound exceeding $2$ by order
+$1/T_1$ and the lower by order $1/T_1^2$.  The argument does not extend to
+many roots above the gap: Lemma~\ref{lem:twobelow} charges $k$ zeros above
+the gap to one position only at a separation above $k$, and
+Lemma~\ref{lem:twozeros} charges only one; at a separation $g\le n_2$ the
+$n_2$ zeros must be charged to several positions, as in $(x-q)(x+t)^K$ near
+$t=Kq$, whose positions $i=2,\ldots,K$ carry $|f_i|$ of order
+$\binom K{i-1}t^{K+1-i}$.
 
 Below the separation $81$ the proof of Theorem~\ref{thm:fixedgap} breaks
 down where only one vertex above those charged for the lower annuli is
@@ -1636,7 +2210,8 @@ the charge of the two zeros $-t$, with one position above it.
 
 Open: the least fixed separation for the mass, between $2+\frac1{18915}$
 and $81$, in particular whether $9$ suffices; for two annuli it is at most
-$\max(4,n_2+1)$ (Corollary~\ref{cor:twofixed}), and whether a separation
+$\max(4,n_2+1)$ (Corollary~\ref{cor:twofixed}), and $\frac73$ for
+$n_2\le2$ (Corollary~\ref{cor:twonear}), and whether a separation
 below $81$ independent of $n_2$ suffices there is open.
 
 \section{Real roots of both signs}\label{sec:bothsigns}
@@ -1919,11 +2494,16 @@ large degree and small mass.
 No datasets were generated or analyzed in this study.
 
 \paragraph{Computer assistance.}
-No proof in this paper relies on computation.  The file \texttt{tests/test\_complex.py} in the
+One step relies on computation: in the proof of
+Corollary~\ref{cor:rowsplusone}, items~1 and~3, the positivity of the three
+values of $\Phi$ of Theorem~\ref{thm:rowspair} at the stated rational
+bounds, for $3\le n_k\le29$, is checked in exact rational arithmetic by
+\texttt{test\_rows\_at\_separation\_n\_plus\_one}; no other proof relies on
+computation.  The file \texttt{tests/test\_complex.py} in the
 repository of~\cite{coefficient-mass} checks the statements, on seeded
 random integer multiples and on the extremal examples, each group with a
-control showing that a false variant is caught; these checks test the
-statements and are not used in any proof.  Polynomial products,
+control showing that a false variant is caught; apart from that step,
+these checks test the statements and are not used in any proof.  Polynomial products,
 divisibility, coefficient magnitudes, central indices and Rouch\'e
 comparisons are computed in exact integer and rational arithmetic; floating
 point enters only in evaluating logarithms, in the right-hand sides of mass

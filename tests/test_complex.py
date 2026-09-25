@@ -739,6 +739,143 @@ def test_second_row_at_separation_n() -> None:
     assert _b(f)[1] < Fraction(1, 2) * (1 - Fraction(1, q)) * t**big_k
 
 
+def _second_row_large(f: Poly, alpha: int, moduli: list[int]) -> Fraction:
+    """The right side of ``prop:rowstwolarge``, with ``Gamma <= a/(a-1+lambda)``
+    and, for ``a >= 2``, the bound ``lambda (1 - 1/a)^2`` checked below it."""
+    n, a, big_t = len(moduli), abs(alpha), min(moduli)
+    lam = 1 - Fraction(n * a, big_t)
+    big_g = Fraction(big_t, big_t - 1) ** n
+    assert 0 < lam <= 1 and big_g <= a / (a - 1 + lam)
+    c = min(
+        lam * (a - 1) / (big_g * (a - lam)), (a - 1) / (1 + (2 * a - 1) * (big_g - 1))
+    )
+    if a >= 2:
+        assert c >= lam * (1 - Fraction(1, a)) ** 2
+    return c * abs(f[-1]) * prod(moduli)
+
+
+def test_second_row_at_a_large_lower_zero() -> None:
+    """``prop:rowstwolarge`` on the multiples of ``test_second_row_at_separation_n``
+    and on ``(x - q)(x + t)^K`` with ``t = Kq/(1 - lambda)``, where
+    ``b_2 = lambda prod |beta|`` and the ratio to ``lambda (1 - 1/q) prod |beta|``
+    is ``q/(q - 1)``, so the constant 1 of the remark is approached.
+
+    Control: that family has ``b_2`` below ``lambda (1 + 1/q) prod |beta|``, so
+    no constant above 1 holds, and at ``t = Kq + 1`` the bound of
+    ``thm:rowstwo`` without ``lambda`` fails (``test_second_row_at_separation_n``)."""
+    rng = random.Random(SEED + 36)
+    for _ in range(300):
+        alpha = rng.choice([-1, 1]) * rng.randint(2, 12)
+        factors, moduli = [], []
+        for _ in range(rng.randint(1, 3)):
+            if rng.random() < 0.5:
+                x, y, rho = rng.choice(PYTHAGOREAN[:5])
+                factors.append(_pair(x, y))
+                moduli += [rho, rho]
+            else:
+                t = rng.randint(1, 40)
+                factors.append([-rng.choice([-1, 1]) * t, 1])
+                moduli.append(t)
+        scale = len(moduli) * abs(alpha) // min(moduli) + rng.randint(1, 3)
+        factors = [
+            [c * scale ** (len(p) - 1 - i) for i, c in enumerate(p)] for p in factors
+        ]
+        moduli = [scale * m for m in moduli]
+        f = _product([[-alpha, 1], _cofactor(rng), *factors])
+        assert _b(f)[1] >= _second_row_large(f, alpha, moduli)
+    for big_k, q in product((1, 3, 10), (5, 40, 4**10)):
+        for t in (big_k * q + 1, 2 * big_k * q):
+            f = _mul([-q, 1], _product([[t, 1]] * big_k))
+            assert _b(f)[1] >= _second_row_large(f, q, [t] * big_k)
+    for lam in (Fraction(1, 4), Fraction(1, 100)):
+        big_k, q = 10, 4**12
+        t = big_k * q / (1 - lam)
+        f = _mul([Fraction(-q), Fraction(1)], _product([[t, Fraction(1)]] * big_k))
+        pi = t**big_k
+        assert _b(f)[1] == lam * pi
+        assert _b(f)[1] >= lam * (1 - Fraction(1, q)) ** 2 * pi
+        assert _b(f)[1] / (lam * (1 - Fraction(1, q)) * pi) == Fraction(q, q - 1)
+        assert _b(f)[1] < lam * (1 + Fraction(1, q)) * pi
+
+
+def _second_row_half_q(n: int, lam: Fraction, a: Fraction) -> list[Fraction]:
+    """``Q_2, Q_0, Q_1`` of ``prop:rowstwohalf`` at ``T = n a/(1 - lambda)``."""
+    big_t = n * a / (1 - lam)
+    rho = a / big_t
+    g = (1 - rho) ** -n
+    big_g = (1 - 1 / big_t) ** -n
+    r = g - 1 - n * rho
+    w = lam * (1 - 1 / a)
+    return [
+        w * big_g,
+        lam * g / a + w * (big_g - 1),
+        (1 - lam) * (a - 1 + lam + r) / a + w * big_g,
+    ]
+
+
+def test_second_row_constant_half() -> None:
+    """``prop:rowstwohalf``: ``b_2 >= (lambda/2)(1 - 1/|alpha|) |f_D| prod |beta|``
+    on the seeded multiples of ``test_second_row_at_separation_n`` and on
+    multiples with a rational lower zero ``alpha = 1 + 1/m`` close to 1; the
+    three quantities ``Q`` of its proof at most 2 on a rational grid, and the
+    polynomial identity behind ``Q_1 <= 2``.
+
+    Control: ``Q_1`` comes within ``1/100`` of 2 at ``n = 2``, ``lambda``
+    small and ``|alpha|`` close to 1, so the proof gives no constant above
+    1/2; and ``(x - q)(x + t)^K`` with ``t = Kq/(1 - lambda)`` has
+    ``b_2 < lambda (1 + 1/q) prod |beta|``, so no constant above 1 holds."""
+    rng = random.Random(SEED + 38)
+    for _ in range(300):
+        if rng.random() < 0.5:
+            alpha = Fraction(rng.choice([-1, 1]) * rng.randint(2, 12))
+        else:
+            m = rng.randint(1, 20)
+            alpha = rng.choice([-1, 1]) * Fraction(m + 1, m)
+        factors, moduli = [], []
+        for _ in range(rng.randint(1, 3)):
+            if rng.random() < 0.5:
+                x, y, rho = rng.choice(PYTHAGOREAN[:5])
+                factors.append(_pair(x, y))
+                moduli += [rho, rho]
+            else:
+                t = rng.randint(1, 40)
+                factors.append([-rng.choice([-1, 1]) * t, 1])
+                moduli.append(t)
+        n, a = len(moduli), abs(alpha)
+        scale = int(n * a) // min(moduli) + rng.randint(1, 3)
+        factors = [_scaled(p, scale) for p in factors]
+        moduli = [scale * r for r in moduli]
+        lam = 1 - n * a / min(moduli)
+        assert 0 < lam <= 1
+        f = _product([[-alpha, Fraction(1)], _cofactor(rng), *factors])
+        bound = lam / 2 * (1 - 1 / a) * abs(f[-1]) * prod(moduli)
+        assert _b(f)[1] >= bound
+    for n in range(2, 7):
+        for lam in (
+            Fraction(1, 1000),
+            Fraction(1, 10),
+            Fraction(1, 2),
+            Fraction(9, 10),
+        ):
+            for a in (
+                Fraction(1001, 1000),
+                Fraction(11, 10),
+                Fraction(2),
+                Fraction(50),
+            ):
+                assert max(_second_row_half_q(n, lam, a)) <= 2
+    for lam in (Fraction(k, 20) for k in range(1, 21)):
+        g = 4 / (1 + lam) ** 2
+        lhs = (1 + lam) ** 2 * (2 - lam - (1 - lam) * (g - 2 + 2 * lam))
+        assert lhs == lam * (7 - 4 * lam - lam**2 + 2 * lam**3) >= 0
+    q_1 = _second_row_half_q(2, Fraction(1, 10**4), Fraction(10001, 10000))[2]
+    assert 2 - Fraction(1, 100) < q_1 <= 2
+    big_k, q, lam = 10, 4**12, Fraction(1, 4)
+    t = big_k * q / (1 - lam)
+    f = _mul([Fraction(-q), Fraction(1)], _product([[t, Fraction(1)]] * big_k))
+    assert _b(f)[1] < lam * (1 + Fraction(1, q)) * t**big_k
+
+
 def test_rows_for_two_annuli() -> None:
     """``cor:rowstwo`` for ``S = 2``: rows ``k = 1, 2`` and the mass of
     ``cor:annuli`` item 1 at ``T_2`` just above ``max(9, n_2 + 1) U_1``, on
@@ -908,30 +1045,45 @@ def test_rows_at_separation_n_plus_nine() -> None:
                 assert b[k - 1] >= bound
 
 
-def _rows_lower(h: int, big_k: int, p: int, q_1: int | None = None) -> Poly:
-    """``prop:rowslower``: ``(x - q_1)(x - q_2)(x + t)^K``."""
+def _rows_lower_zeros(h: Fraction, big_k: int, p: int) -> tuple[int, int, int]:
+    """``q_1, q_2, t`` of ``prop:rowslower``, integers when ``v^2 | p``."""
+    q_1 = 2 * h * (big_k + h) * p
     q_2 = big_k * (big_k + 1 + 2 * h) * p
-    if q_1 is None:
-        q_1 = 2 * h * (big_k + h) * p
     t = (big_k + h) * q_2
+    assert q_1.denominator == q_2.denominator == t.denominator == 1
+    return int(q_1), int(q_2), int(t)
+
+
+def _rows_lower(h: Fraction, big_k: int, p: int, q_1: int | None = None) -> Poly:
+    """``prop:rowslower``: ``(x - q_1)(x - q_2)(x + t)^K``."""
+    q, q_2, t = _rows_lower_zeros(h, big_k, p)
+    q_1 = q if q_1 is None else q_1
     return _product([[-q_1, 1], [-q_2, 1]] + [[t, 1]] * big_k)
 
 
-@pytest.mark.parametrize(("h", "big_k"), [(1, 18), (1, 25), (2, 36), (3, 54)])
-def test_row_three_needs_the_lower_separation(h: int, big_k: int) -> None:
+@pytest.mark.parametrize(
+    ("h", "big_k"),
+    [(1, 18), (1, 25), (2, 36), (3, 54), (Fraction(1, 3), 12), (Fraction(2, 5), 20)],
+)
+def test_row_three_needs_the_lower_separation(h: int | Fraction, big_k: int) -> None:
     """``prop:rowslower``: at ``T_3 = (n_3 + h) U_2`` and
     ``9 U_1 < T_2 < (n_2 / (2h) + 1) U_1`` the row ``k = 3`` fails,
-    ``f_2 = 0`` and ``b_3 <= 4 t^K / q_2 < t^K / 2^(K+1)``.
+    ``f_2 = 0`` and ``b_3 <= 4 t^K / q_2 < t^K / 2^(K+1)``; for ``h < 1/2``
+    also ``T_2 > (n_2 + h) U_1``, so both separations exceed ``n_a + h``.
 
     Control: the same ``q_2`` and ``t`` with ``q_1 = 1``, far below, meet the
     row, and so does ``q_1 = 1`` at ``T_3`` just above ``(n_3 + 9) U_2``
     (``cor:rowsall``)."""
-    p = 2**big_k
-    q_1, q_2 = 2 * h * (big_k + h) * p, big_k * (big_k + 1 + 2 * h) * p
-    t = (big_k + h) * q_2
+    h = Fraction(h)
+    p = h.denominator**2 * 2**big_k
+    q_1, q_2, t = _rows_lower_zeros(h, big_k, p)
     f = _rows_lower(h, big_k, p)
-    assert f[-1] == 1 and q_1 > 3
+    assert f[-1] == 1 and q_1 > 3 and big_k >= max(9, 18 * h)
+    assert t > 9 * q_2 and q_2 > 9 * q_1
+    assert t == (big_k + h) * q_2
     assert 9 * q_1 < q_2 < (Fraction(big_k + 1, 2 * h) + 1) * q_1
+    if h < Fraction(1, 2):
+        assert (1 - 2 * h) * big_k**2 >= 1 and q_2 > (big_k + 1 + h) * q_1
     assert f[2] == 0
     assert all(abs(c) * q_2 <= 4 * t**big_k for c in f[2:-1])
     assert _b(f)[2] * q_2 <= 4 * t**big_k < q_2 * t**big_k // 2 ** (big_k + 1)
@@ -939,6 +1091,201 @@ def test_row_three_needs_the_lower_separation(h: int, big_k: int) -> None:
     assert _b(g)[2] * 2 ** (big_k + 1) > t**big_k
     s = _product([[-1, 1], [-q_2, 1]] + [[(big_k + 10) * q_2, 1]] * big_k)
     assert _b(s)[2] * 2 ** (big_k + 1) > ((big_k + 10) * q_2) ** big_k
+    # K >= 9 is needed: at h = 1/6 the bound 18h allows K = 3, where
+    # T_3 = (K + h) U_2 < 9 U_2 and thm:annuli does not apply.
+    small_h = Fraction(1, 6)
+    _, q_2, t = _rows_lower_zeros(small_h, 3, 36 * 8)
+    assert 3 >= 18 * small_h and t < 9 * q_2
+
+
+def _pair_margin(
+    n: int, rho: Fraction, s: Fraction, q: Fraction, x_0: Fraction
+) -> Fraction:
+    """``Xi - nu`` of ``thm:rowspair``, after checking its two side conditions."""
+    theta = Fraction(1, 2 ** (n + 1))
+    lam, gamma, gamma_1 = 1 - n * rho, (1 - rho) ** n, (1 - s * rho) ** n
+    assert theta < gamma and 2 * gamma_1 - 1 > q / (1 - q)
+    e = 3 * theta / (2 * gamma * (1 - x_0) * (1 - theta / gamma))
+    eta = (1 - gamma_1) / (2 * gamma_1 - 1)
+    kappa = (1 + e) / (2 * gamma_1 - 1 - q / (1 - q))
+    delta = max(n * (n + 1) * rho**2 / 2, s * (1 / gamma - 1))
+    xi = min(lam * (1 - s) - s * delta, 1 - s / gamma)
+    nu = s / gamma * (
+        eta + kappa * q * s / (1 - q * s) + kappa * q / ((1 - q) * (2 * gamma_1 - 1))
+    ) + e * (1 + Fraction(3, 2) / (2 * gamma_1 - 1))
+    return xi - nu
+
+
+def _pair_phi(
+    n: int, rho: Fraction, s: Fraction, q: Fraction, x_0: Fraction
+) -> list[Fraction] | None:
+    """The three values of ``Phi`` in ``thm:rowspair``, or ``None`` where its
+    side conditions fail."""
+    theta = Fraction(1, 2 ** (n + 1))
+    lam, gamma, gamma_1 = 1 - n * rho, (1 - rho) ** n, (1 - s * rho) ** n
+    if not (theta < gamma and 2 * gamma_1 - 1 > q / (1 - q)):
+        return None
+    e = 3 * theta / (2 * gamma * (1 - x_0) * (1 - theta / gamma))
+    eta = (1 - gamma_1) / (2 * gamma_1 - 1)
+    kappa = (1 + e) / (2 * gamma_1 - 1 - q / (1 - q))
+
+    def phi(sigma: Fraction, tau: Fraction, omega: Fraction) -> Fraction:
+        slope = (
+            omega * eta
+            + omega * kappa * q / ((1 - q) * (2 * gamma_1 - 1))
+            + 3 * e * gamma / (2 * (2 * gamma_1 - 1))
+        )
+        return (
+            sigma * (1 - omega)
+            - omega * tau
+            - (sigma + tau) * slope
+            - omega * kappa * q * s / (gamma * (1 - q * s))
+            - e
+        )
+
+    return [
+        phi(Fraction(1), 1 / gamma - 1, s),
+        phi(lam, n * (n + 1) * rho**2 / 2, s),
+        phi(lam, 1 / gamma - 1 - n * rho, s * s),
+    ]
+
+
+def _pair_at_bounds(
+    n: int, g_0: Fraction, g_1: Fraction, g_2: Fraction | None
+) -> list[Fraction] | None:
+    """``Phi`` at the bounds of ``cor:rowsplusone``: ``rho = 1/g_0``,
+    ``s = 1/g_1``, ``q = 3/g_2`` (``q = 0`` for ``k = 3``, ``g_2 = None``)
+    and ``x_0 = 3n/(g_0 g_1)``."""
+    q = Fraction(0) if g_2 is None else 3 / g_2
+    return _pair_phi(n, 1 / g_0, 1 / g_1, q, 3 * n / (g_0 * g_1))
+
+
+def _sigma_rows(n: int) -> Fraction:
+    """``sigma`` of ``cor:rowsplusone`` item 3."""
+    if n >= 10:
+        return Fraction(n + 1)
+    if n >= 3:
+        return max(Fraction(9), n + Fraction(3, 2))
+    return Fraction(12 if n == 2 else 6)
+
+
+def _pair_worst(n: int, c: Fraction) -> Fraction:
+    """The margin at the bounds of ``cor:rowsplusone``, separation ``n_a + c``."""
+    return _pair_margin(
+        n, 1 / (n + c), 1 / (n + 1 + c), 3 / (n + 2 + c), Fraction(1, 10)
+    )
+
+
+def test_row_k_at_two_lower_zeros() -> None:
+    """``thm:rowspair`` on ``(x - q_1)(x - q_2)(x + t)^K`` of ``prop:rowslower``
+    with ``q_1`` swept below ``q_2 / 9``: wherever ``Xi > nu`` at the actual
+    ``rho = q_2/t``, ``s = q_1/q_2`` and ``x_0 = K(3q_1 + 1)/t``, the row ``3``
+    holds, and ``Xi > nu`` already at ``s = 3 lambda / 2``, close to the
+    cancellation at ``s ~ 2 lambda``; each of the three values of ``Phi`` is
+    at least ``Xi - nu``, and wherever all three are positive the row holds.
+
+    Control: at the cancelling ``q_1`` the row fails and ``Xi <= nu`` and
+    ``min Phi <= 0``, and ``thm:rowsk`` gives nothing there (its
+    ``epsilon`` is negative)."""
+    big_k, h = 40, Fraction(1)
+    p = 2**60
+    q_1, q_2, t = _rows_lower_zeros(h, big_k, p)
+    rho, lam = Fraction(q_2, t), 1 - big_k * Fraction(q_2, t)
+    row = Fraction(t**big_k, 2 ** (big_k + 1))
+    positive = positive_phi = 0
+    for num in range(1, 110):
+        b = q_2 * num // 1000
+        args = (
+            big_k,
+            rho,
+            Fraction(b, q_2),
+            Fraction(0),
+            Fraction(big_k * (3 * b + 1), t),
+        )
+        margin = _pair_margin(*args)
+        phi = _pair_phi(*args)
+        assert phi is not None and min(phi) >= margin
+        assert 7 * big_k * (3 * b + 1) < 3 * t and 3 * (3 * b + 1) < q_2
+        positive += margin > 0
+        if min(phi) > 0:
+            positive_phi += 1
+            f = _product([[-b, 1], [-q_2, 1]] + [[t, 1]] * big_k)
+            assert _b(f)[2] > row
+    assert positive > 30 and positive_phi >= positive
+    s = Fraction(3, 2) * lam
+    assert _pair_margin(big_k, rho, s, Fraction(0), 3 * big_k * s * rho) > 0
+    f = _rows_lower(h, big_k, p)
+    assert _b(f)[2] < row
+    s = Fraction(q_1, q_2)
+    args = (big_k, rho, s, Fraction(0), big_k * (3 * q_1 + 1) / Fraction(t))
+    assert _pair_margin(*args) <= 0
+    phi = _pair_phi(*args)
+    assert phi is not None and min(phi) <= 0
+    assert _rows_k_epsilon(big_k, lam, (1 - rho) ** big_k, 3 * s) < 0
+
+
+def test_rows_at_separation_n_plus_one() -> None:
+    """``cor:rowsplusone``: the finite computation of its proof (the side
+    conditions and the three values of ``Phi`` of ``thm:rowspair`` positive at
+    the rational bounds, for ``k = 3`` and ``k >= 4``: at ``n_a + 1`` for
+    ``10 <= n <= 29``, and for ``k = 3`` from ``n = 7``, and at ``sigma`` of
+    item 3 for ``3 <= n <= 9``), the numbers of item 1 for ``30 <= n <= 120``,
+    the margin of item 2 at ``c = 11/20`` for large ``n``, and every row and
+    the mass at ``T_a`` just above ``sigma(n_a) U_(a-1)`` on seeded multiples
+    with three and four annuli, with 1 to 12 or thirty zeros in the top one.
+
+    Control: at ``n_a + 1`` a value of ``Phi`` is negative at ``n = 6`` for
+    ``k = 3`` and at ``n = 9`` for ``k >= 4``, where item 1 stops; at
+    ``c = 9/20 < 1/2`` the margin is negative for large ``n``, as
+    ``prop:rowslower`` requires, and at ``c = 1`` ``Xi - nu`` is negative at
+    ``n = 12``."""
+
+    def positive(v: list[Fraction] | None) -> bool:
+        return v is not None and min(v) > 0
+
+    for n in range(7, 30):
+        g = [Fraction(n + 1), Fraction(n + 2), Fraction(n + 3)]
+        assert g[1] >= 9 and g[0] * g[1] > 7 * n
+        assert positive(_pair_at_bounds(n, g[0], g[1], None))
+        if n >= 10:
+            assert positive(_pair_at_bounds(n, *g))
+        assert (27 <= n) == (3 * n / (g[0] * g[1]) <= Fraction(1, 10))
+    for n in range(3, 10):
+        g = [_sigma_rows(n + i) for i in range(3)]
+        assert g[0] > n and min(g) >= 9 and g[0] * g[1] > 7 * n
+        assert g[0] <= g[1] <= g[2] and g[0] <= min(n + 9, 12)
+        assert positive(_pair_at_bounds(n, g[0], g[1], None))
+        assert positive(_pair_at_bounds(n, *g))
+    assert not positive(_pair_at_bounds(6, Fraction(7), Fraction(8), None))
+    assert not positive(_pair_at_bounds(9, Fraction(10), Fraction(11), Fraction(12)))
+    for n in range(30, 121):
+        rho, s, q = Fraction(1, n + 1), Fraction(1, n + 2), Fraction(3, n + 3)
+        gamma, gamma_1 = (1 - rho) ** n, (1 - s * rho) ** n
+        theta = Fraction(1, 2 ** (n + 1))
+        e = 3 * theta / (2 * gamma * Fraction(9, 10) * (1 - theta / gamma))
+        kappa = (1 + e) / (2 * gamma_1 - 1 - q / (1 - q))
+        assert 1 / gamma < 3 and 2 * gamma_1 - 1 > Fraction(n, n + 2)
+        assert (
+            e < Fraction(4, 2**n)
+            and kappa < Fraction(6, 5)
+            and q * s < Fraction(1, 11 * n)
+        )
+        assert (n * n - 28 * n - 30) * 2 ** (n - 4) > 2 * n * (n + 1) * (n + 2)
+        assert _pair_worst(n, Fraction(1)) > 0
+    for n in (400, 800):
+        assert _pair_worst(n, Fraction(11, 20)) > 0
+        assert _pair_worst(n, Fraction(9, 20)) < 0
+    assert _pair_worst(12, Fraction(1)) < 0
+
+    rng = random.Random(SEED + 37)
+    for top in [30] * 6 + list(range(1, 13)):
+        sizes = [rng.randint(1, 2) for _ in range(rng.choice([2, 3]))] + [top]
+        f, moduli = _annuli_rows(rng, lambda a, n: _sigma_rows(n), sizes)
+        assert len(moduli[-1]) >= top
+        b = _b(f)
+        rows = [_row(f, moduli, k) for k in range(1, len(sizes) + 1)]
+        assert all(b[k] > rows[k] for k in range(len(sizes)))
+        assert _mass(f) >= abs(f[-1]) * prod(rows)
 
 
 def test_mass_fails_at_separation_two() -> None:
@@ -1285,6 +1632,179 @@ def test_two_annuli_at_a_fixed_separation() -> None:
         bound = Fraction(q, 2) * (t / 2) ** (2 * big_k) / 4  # exp of the mass bound
         assert b[0] == q * t**big_k and b[0] * b[1] * 2 <= bound
         assert (bound <= _mass(f)) == (big_k >= 2)
+
+
+# One or two roots above the gap (lem:twozeros, cor:twonear).
+
+
+def _zero_factor(rng: random.Random, above: Fraction) -> tuple[Poly, int]:
+    """A real zero of either sign or a Pythagorean pair, of integer modulus
+    just above ``above``; returns the factor and the modulus."""
+    x, y, rho = rng.choice([p for p in PYTHAGOREAN if p[2] >= 5])
+    if rng.random() < 0.5:
+        k = int(above / rho) + 1
+        return _pair(k * x, k * y), k * rho
+    t = int(above) + 1
+    return [-rng.choice([-1, 1]) * t, 1], t
+
+
+def _two_zeros_sides(f: Poly, a: int, b: int, j: int) -> tuple[Fraction, Fraction]:
+    """The two sides of ``lem:twozeros``."""
+    big_d, rho = len(f) - 1, Fraction(a, b)
+    left = abs(f[-1]) * b * (1 - rho ** (big_d - j))
+    right = sum(
+        abs(f[i]) * (1 + rho ** (i - j)) * Fraction(b) ** (i - big_d + 1)
+        for i in range(j + 1, big_d)
+    ) + sum(
+        abs(f[i])
+        * (Fraction(a) ** (i - j) + Fraction(b) ** (i - j))
+        * Fraction(b) ** (j - big_d + 1)
+        for i in range(j)
+    )
+    return left, right
+
+
+def test_two_zeros_one_excluded_position() -> None:
+    """``lem:twozeros`` at every position ``j`` of seeded multiples of a zero
+    of modulus ``a`` and one of modulus ``b > a`` (real of both signs or
+    Pythagorean pairs), with its two consequences; equality at
+    ``(x - q)(x + q + 1)`` and ``j = 0``.
+
+    Control: without the factor ``1 - rho^(D - j)`` the inequality fails
+    there."""
+    rng = random.Random(SEED + 46)
+    for _ in range(300):
+        low, a = _zero_factor(rng, Fraction(rng.randint(1, 20)))
+        high, b = _zero_factor(rng, Fraction(a * rng.randint(11, 40), 10))
+        f = _product([low, high, _cofactor(rng)])
+        big_d, rho, lead = len(f) - 1, Fraction(a, b), abs(f[-1])
+        assert 1 < a < b
+        for j in range(big_d):
+            left, right = _two_zeros_sides(f, a, b, j)
+            assert left <= right
+            if j == big_d - 1:
+                weight = Fraction(1, a - 1) + Fraction(1, b - 1)
+                assert max(abs(c) for c in f[: big_d - 1]) * weight >= lead * b * (
+                    1 - rho
+                )
+            else:
+                m = max((abs(f[i]) for i in range(big_d - 1) if i != j), default=0)
+                weight = (1 + rho) / (b - 1) + Fraction(1, b * (a - 1))
+                assert lead * b * (1 - rho**2) <= (1 + rho) * abs(f[-2]) + weight * m
+    for q in (2, 5, 97):
+        f = _mul([-q, 1], [q + 1, 1])
+        left, right = _two_zeros_sides(f, q, q + 1, 0)
+        assert left == right and abs(f[-1]) * (q + 1) > right
+
+
+def test_two_annuli_near_the_least_separation() -> None:
+    """``cor:twonear``, with the constants of its proof exactly.  Item 1 on
+    seeded multiples with a zero or pair of modulus ``a`` below and one zero
+    (possibly of a pair) at ``T_2`` just above ``(4/3 + 2/(3a)) a``, and on
+    ``(x - q)(x + t)``: the second row; item 2 likewise with two zeros above
+    ``(2 + 1/a) a``, and on ``(x - q)(x + t)^2``: the mass bound, a
+    largest nonleading coefficient at most at ``D - 2``, the positions of
+    the proof, and the second position of ``prop:rowstwolarge`` excluding
+    every position in turn.
+
+    Control: ``(x - q)(x + t)`` just below ``t = 4q/3`` misses the row, also
+    at ``q = 3 * 10^6``, so ``4/3`` cannot be lowered; and
+    ``prop:gaptwo`` misses the mass at ``T_2 = (2 + 1/(q(2q + 1))) U_1``,
+    below ``2 + 1/q``."""
+    # Item 1: the identity behind the case j <= D - 2, and its sign.
+    for tau in (
+        Fraction(3),
+        Fraction(31, 10),
+        Fraction(4),
+        Fraction(97),
+        Fraction(10**6),
+    ):
+        g = Fraction(4, 3) + Fraction(2, 3 * tau)
+        assert 3 - 4 / g == 3 / (2 * tau + 1) and g * tau - 1 == (4 * tau - 1) / 3
+        diff = 3 / (2 * tau + 1) - 3 / (4 * tau - 1) - 3 / ((4 * tau + 2) * (tau - 1))
+        assert diff == 3 * (2 * tau - 1) * (2 * tau - 5) / (
+            2 * (2 * tau + 1) * (4 * tau - 1) * (tau - 1)
+        )
+        assert diff > 0 and g * tau > 4 and 4 * (1 - 1 / g) >= 1
+    # Item 2: the numbers for g = 2 + 1/tau.
+    for tau in (
+        Fraction(3),
+        Fraction(31, 10),
+        Fraction(4),
+        Fraction(97),
+        Fraction(10**6),
+    ):
+        g = 2 + 1 / tau
+        bt = g * tau
+        assert bt == 2 * tau + 1 and 1 - 2 / g == 1 / (2 * tau + 1)
+        assert 1 - 1 / g == (tau + 1) / (2 * tau + 1)
+        assert g * g * tau**3 == tau * (2 * tau + 1) ** 2 >= 147
+        assert bt / (bt - 1) <= Fraction(7, 6) and bt / (tau - 1) <= Fraction(7, 2)
+        eps = Fraction(24, 49) / (2 * tau + 1)
+        assert eps == (1 - 2 / g) * Fraction(2, 3) / Fraction(7, 6) ** 2
+        kappa = 1 - 1 / g - (bt / (bt - 1) + 1 / (tau - 1)) / 8
+        assert bt * kappa >= (34 * tau + 20) / 48 > 1 / (8 * eps)
+        assert 4 * (34 * tau + 20) - 49 * (2 * tau + 1) == 38 * tau + 31
+    rng = random.Random(SEED + 47)
+    for _ in range(150):
+        low, a = _zero_factor(rng, Fraction(rng.randint(3, 30)))
+        g1 = Fraction(4, 3) + Fraction(2, 3 * a)
+        high, b = _zero_factor(rng, g1 * a)
+        f = _product([low, high, _cofactor(rng)])
+        lead, bs = abs(f[-1]), _b(f)
+        assert 4 * bs[1] > lead * b
+        assert 2 * bs[0] > lead * prod(
+            Fraction(r, 2) for r in [a] * (len(low) - 1) + [b]
+        )
+        g2 = 2 + Fraction(1, a)
+        highs = [_zero_factor(rng, g2 * a)]
+        if len(highs[0][0]) == 2:
+            highs.append(_zero_factor(rng, g2 * a * rng.choice([1, 2])))
+            highs = [(p, r) for p, r in highs if len(p) == 2][:2]
+            if len(highs) < 2:
+                highs.append(([highs[0][1], 1], highs[0][1]))
+        f = _product([low, *(p for p, _ in highs), _cofactor(rng)])
+        up = [r for p, r in highs for _ in range(len(p) - 1)]
+        assert len(up) == 2 and min(up) > g2 * a
+        lead, big_d = abs(f[-1]), len(f) - 1
+        low_moduli = [a] * (len(low) - 1)
+        bound = (
+            lead**3
+            * prod(Fraction(r, 2) for r in low_moduli)
+            * prod(Fraction(r, 2) ** 2 for r in up)
+            / 4
+        )
+        assert _mass(f) >= bound
+        j = _central(f, Fraction(1))[0]
+        assert j <= big_d - 2
+        m = max(abs(f[i]) for i in range(big_d - 1) if i != j)
+        pi8 = Fraction(lead * prod(up), 8)
+        assert m >= pi8 or abs(f[-2]) * m >= pi8
+        # The second position of prop:rowstwolarge, excluding any position.
+        big_t, gp = min(up), (1 - Fraction(1, min(up))) ** -2
+        lam = 1 - Fraction(2 * a, big_t)
+        eps = min(
+            lam * (a - 1) / (gp * (a - lam)), (a - 1) / (1 + (2 * a - 1) * (gp - 1))
+        )
+        assert eps >= Fraction(24, 49) / (2 * a + 1)
+        for j in range(big_d + 1):
+            others = [abs(f[i]) for i in range(big_d - 1) if i != j]
+            assert max(others) >= eps * lead * prod(up)
+    for q in (4, 5, 97, 10**4):
+        t = 2 * q + 2
+        f = _mul([-q, 1], _mul([t, 1], [t, 1]))
+        assert _mass(f) >= Fraction(q, 2) * Fraction(t, 2) ** 4 / 4
+        assert _central(f, Fraction(1)) == [0] and 8 * abs(f[1]) * f[2] >= t * t
+        t = int((Fraction(4, 3) + Fraction(2, 3 * q)) * q) + 1
+        assert 4 * _b(_mul([-q, 1], [t, 1]))[1] > t
+    for k in (2, 5, 10**6):
+        q, t = 3 * k, 4 * k - 1
+        assert 4 * _b(_mul([-q, 1], [t, 1]))[1] < t
+    for q in (97, 1000):
+        t = 2 * q + Fraction(1, 2 * q + 1)
+        assert 2 < t / q < 2 + Fraction(1, q)
+        f = _mul([Fraction(-q), Fraction(1)], _mul([t, Fraction(1)], [t, Fraction(1)]))
+        assert _mass(f) < Fraction(q, 2) * (t / 2) ** 4 / 4
 
 
 # Real roots of both signs (cor:bothsignsmass, prop:bothsignssharp).
