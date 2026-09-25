@@ -53,7 +53,13 @@ reciprocals of the surviving roots with value $1$ at $0$, and identify
 $1/\tau^*$ with $\min_M\max_{j\ge1}|S_j(P_uM)|$ over monic multipliers $M$,
 where $S_j$ is the sum of the $j+1$ leading coefficients.  For roots at least $2$, repeated roots
 included, the escaping placement is the worst one, so the infimum is exactly
-$1/\tau^*$; below $2$ it can be strictly smaller.  No infimum of $b_{u+1}$
+$1/\tau^*$; below $2$ it can be strictly smaller.  For distinct roots
+above $1$ and one exempt coefficient, $T$ is the larger of $\tau^*$ and
+finitely many single-placement values; this gives the infimum
+$\tfrac{3398808}{96935}$ at $(\tfrac{11}{10},3,5,7)$, and along
+$(r,3,5,7)$, $1<r<3$, the escaping placement is the worst one exactly when
+$r\ge r_c=1.4658\ldots$, while along $(r,5,7)$ it is not for any
+$1<r<2$.  No infimum of $b_{u+1}$
 over monic multiples is attained.  Along the way we extend the underlying tail comparison to
 confluent nodes, with strictness.
 \end{abstract}
@@ -134,6 +140,23 @@ $(\tfrac{11}{10},3,5,7)$ with $u=1$ an explicit multiple beats $1/\tau^*$
 (Proposition~\ref{prop:belowtwo}).  No infimum of $b_{u+1}$ over monic
 multiples is attained (Theorem~\ref{thm:noattain}).
 
+\emph{Below $2$.}  For distinct roots above $1$ the supremum $T$ is attained,
+by a placement or at a level where some exempt coefficients have escaped
+(Proposition~\ref{prop:attainT}).  For $u=1$, a zero placed above the zeros
+of the escaping minimiser has an exact cost identity, which makes every
+placement beyond an explicit $N$ cheaper than $\tau^*$, so $T$ is the
+larger of $\tau^*$ and the finitely many $\tau(\{x\})$ with $x<N$
+(Theorem~\ref{thm:halfmass}).  A multiplier with an exempt position bounds
+each $\tau(\{x\})$ from below (Lemma~\ref{lem:exemptpair}).  At
+$(\tfrac{11}{10},3,5,7)$ this gives $N=11$, the worst placement $\{5\}$ and
+the infimum $\tfrac{3398808}{96935}=35.06\ldots$
+(Theorem~\ref{thm:elevenvalue}).  Along $(r,3,5,7)$, $1<r<3$, the escaping
+placement is the worst one exactly when $930r^2-7r-1988\ge0$, that is
+$r\ge r_c=1.4658\ldots$, and for $\tfrac{29}{20}\le r\le r_c$ the infimum is
+$48(r-1)(15r+71)/(49r-34)$ (Theorem~\ref{thm:family}).  Along $(r,5,7)$ it
+fails for every $1<r<2$, so the cutoff of Theorem~\ref{thm:extremal} cannot
+be lowered uniformly (Proposition~\ref{prop:cutoffsharp}).
+
 \emph{The tail comparison.}  The comparison~\cite[Theorem~2.2]{coefficient-mass} extends to confluent nodes
 (Proposition~\ref{prop:confluent}), strictly unless the zero set is
 consecutive (Lemma~\ref{lem:confstrict}), which is what the criterion needs
@@ -148,7 +171,9 @@ that $\tau^*$ is attained with a multiplier witness, completes the criterion
 at repeated roots, and shows that no infimum is attained.
 Section~\ref{sec:extremal} proves that at roots at least $2$ the escaping
 placement is extremal, by lifting minimisers one node at a time, and shows
-that below $2$ it need not be.  Section~\ref{sec:scope} closes with a remark
+that below $2$ it need not be.  Section~\ref{sec:belowtwo} treats roots
+below $2$: attainment of $T$, the reduction for one exempt coefficient, and
+the exact examples.  Section~\ref{sec:scope} closes with a remark
 on what is left open and the relation to the literature.
 
 \section{The confluent tail comparison}\label{sec:extend}
@@ -1351,12 +1376,312 @@ The conclusion of Lemma~\ref{lem:delete} fails at these roots, where
 $y_1=\tfrac{10}{11}>\tfrac12$:
 lifting the escaping minimiser, with zero set $\{1,3\}$, by the zero $5$
 gives the full certificate on all four nodes with zero set $\{1,3,5\}$ and
-tail $\tfrac{96935}{3398808}=0.02852\ldots>\tfrac{31}{1704}$.  Numerically
-$X=\{5\}$ is the worst placement and $\{1,3,5\}$ its minimising zero set,
-which would make the infimum $\tfrac{3398808}{96935}=35.06\ldots$; we have
-not certified this.  Numerically the cutoff does not seem necessary at every
-root set: at $(\tfrac32,3,5,7)$ with $u=1$ every placement up to distance
-$12$ stays strictly below $\tau^*$.
+tail $\tfrac{96935}{3398808}=0.02852\ldots>\tfrac{31}{1704}$.
+Section~\ref{sec:belowtwo} shows that $\{5\}$ is the worst placement there,
+so the infimum is $\tfrac{3398808}{96935}$ (Theorem~\ref{thm:elevenvalue}).
+
+\section{Below the cutoff}\label{sec:belowtwo}
+
+Keep the notation of Section~\ref{sec:value}: $1<r_1<\cdots<r_L$ are
+distinct, $y_i=1/r_i$, and $\tau_k(X)$ is the least tail of a certificate
+for $X$ on $y_{k+1},\ldots,y_L$.  Nothing in this section assumes
+$r_1\ge2$.  The game value $T$ is always attained, possibly at a level
+where some exempt coefficients have escaped
+(Proposition~\ref{prop:attainT}); for one exempt coefficient it reduces to
+$\tau^*$ and finitely many placements (Theorem~\ref{thm:halfmass}).  This
+gives the exact infimum at $(\tfrac{11}{10},3,5,7)$
+(Theorem~\ref{thm:elevenvalue}) and, along $(r,3,5,7)$, the exact range of
+$r$ at which the escaping placement is extremal
+(Theorem~\ref{thm:family}); at $(r,5,7)$ it fails for every $r<2$
+(Proposition~\ref{prop:cutoffsharp}).  Lower bounds on $T$ come from
+multipliers with an exempt position.
+
+\begin{lemma}[Pairing with exempt positions]\label{lem:exemptpair}
+Let $1<r_1<\cdots<r_L$, $P=\prod_{i=1}^L(x-r_i)$, $X\subset\N_{>0}$ finite,
+and $M\in\R[x]$ monic.  Every certificate $v$ for $X$ on $y_1,\ldots,y_L$
+satisfies
+\[
+  1\le\max_{j\ge1,\,j\notin X}\bigl|S_j(PM)\bigr|\cdot\Tail(v),
+\]
+so $\tau(X)\ge1/\max_{j\ge1,\,j\notin X}|S_j(PM)|$.  If $|X|=u\le L-1$, then
+$\inf_Qb_{u+1}(QP)\le\max_{j\ge1,\,j\notin X}|S_j(PM)|$ over monic $Q$.
+\end{lemma}
+
+\begin{proof}
+Put $w_d=S_d(PM)$.  As in \eqref{eq:wgen}, $\sum_dw_dy^d$ is the reverse of
+$PM$ divided by $1-y$, so it vanishes at every $y_i$, and $w$ is bounded,
+equal to $(PM)(1)$ from $d=\deg PM$ on.  For $v_d=\sum_i\lambda_iy_i^d$,
+absolute convergence gives
+$\sum_{d\ge0}w_dv_d=\sum_i\lambda_i\sum_dw_dy_i^d=0$.  Since
+$w_0=v_0=1$ and $v|_X=0$, $1=-\sum_{d\ge1,\,d\notin X}w_dv_d$, which gives
+the inequality.  The last claim is Theorem~\ref{thm:value}:
+the infimum is $1/T\le1/\tau(X)$.
+\end{proof}
+
+With $X=\varnothing$ and $P_u$ in place of $P$ this is \eqref{eq:dualpair}.
+
+\begin{proposition}[The game is attained]\label{prop:attainT}
+Let $1<r_1<\cdots<r_L$ and $0\le u\le L-1$, and for $0\le k\le u$ put
+$T_k=\sup\{\tau_k(X):X\subset\N_{>0},\ |X|=u-k\}$, so that $T_0=T$ and
+$T_u=\tau^*$.  Then $T_0\ge T_1\ge\cdots\ge T_u$, and each $T_k$ is finite
+and equals $\tau_l(X)$ for some $k\le l\le u$ and some $X$ with $|X|=u-l$.
+In particular, if $T>T_1$ then $T=\tau(X)$ for a placement $X$.
+\end{proposition}
+
+\begin{proof}
+First, let $0\le k<L$, let $X_0$ be finite and $j\ge1$ with
+$|X_0|+j\le L-k-1$, and let $E_\nu$ be $j$-sets disjoint from $X_0$ with
+$\min E_\nu\to\infty$; we show $\tau_k(X_0\cup E_\nu)\to\tau_{k+j}(X_0)$.
+Apply Proposition~\ref{prop:farrep} to the roots $r_{k+1},\ldots,r_L$, whose
+spaces $\mathcal H_0$ and $\mathcal H_j$ there are the spans of
+$y_{k+1}^d,\ldots,y_L^d$ and of $y_{k+j+1}^d,\ldots,y_L^d$.  By
+Lemma~\ref{lem:attainX} some certificate $v^\infty$ for $X_0$ on
+$y_{k+j+1},\ldots,y_L$ has tail $\tau_{k+j}(X_0)$, and part~(c) gives
+certificates for $X_0\cup E_\nu$ on $y_{k+1},\ldots,y_L$ with tails tending
+to it; so $\limsup_\nu\tau_k(X_0\cup E_\nu)\le\tau_{k+j}(X_0)$.
+Conversely take certificates $v^\nu$ for $X_0\cup E_\nu$ on
+$y_{k+1},\ldots,y_L$ with $\Tail(v^\nu)\le\tau_k(X_0\cup E_\nu)+1/\nu$,
+along a subsequence realising the $\liminf$, so that the tails are bounded.
+Fix $L-k$ points of $\{0,1,\ldots\}\setminus X_0$, one of them $0$; for
+large $\nu$ they avoid $E_\nu$, the values of $v^\nu$ there are bounded, and
+by the zero bound the coefficient vectors $c^\nu$ are bounded, while
+$\|c^\nu\|_\infty\ge1/(L-k)$ because their entries sum to $v^\nu_0=1$.  Part~(a),
+applied to $v^\nu/\|c^\nu\|_\infty$, sends the coefficients on
+$y_{k+1},\ldots,y_{k+j}$ to $0$.  A convergent subsequence has a limit
+$v$ on $y_{k+j+1},\ldots,y_L$ with $v_0=1$ and $v|_{X_0}=0$, and by Fatou's
+lemma $\tau_{k+j}(X_0)\le\Tail(v)\le\liminf_\nu\tau_k(X_0\cup E_\nu)$.
+
+For $k<u$ and $|X_0|=u-k-1$ this with $E_\nu=\{\nu\}$ gives
+$\tau_{k+1}(X_0)=\lim_\nu\tau_k(X_0\cup\{\nu\})\le T_k$, so $T_{k+1}\le T_k$.
+Now fix $k$ and take $(u-k)$-sets $X_\nu$ with $\tau_k(X_\nu)\to T_k$.  Each
+coordinate of $X_\nu$, listed in increasing order, is bounded or not along
+any subsequence, so after passing to one, $X_\nu=X_0\cup E_\nu$ with $X_0$
+fixed and either $E_\nu=\varnothing$ or $|E_\nu|=j\ge1$ and
+$\min E_\nu\to\infty$.  In the first case $T_k=\tau_k(X_0)$; in the second
+$|X_0|+j=u-k\le L-k-1$, and $T_k=\tau_{k+j}(X_0)$.  Both are finite, since
+full certificates exist.  If $T>T_1$, the second case at $k=0$ would give
+$T=\tau_j(X_0)\le T_j\le T_1$.
+\end{proof}
+
+For one exempt coefficient the escaped levels collapse to $\tau^*$, and an
+exact identity for lifting by a zero above all the others bounds the
+placements that can matter.
+
+\begin{theorem}[One exempt coefficient]\label{thm:halfmass}
+Let $1<r_1<\cdots<r_L$ with $L\ge2$, and $u=1$.  Let $V$ be a full
+certificate on $y_2,\ldots,y_L$ attaining $\tau^*$
+(Proposition~\ref{prop:attain}), $Z^*$ its zero set and
+$g=\max(Z^*\cup\{0\})$, and let $H$ be the exponential sum on
+$y_1,\ldots,y_L$ with weight $1$ on $y_1$, $H_0=0$ and $H|_{Z^*}=0$.
+\begin{enumerate}
+\item[(a)] $\tau(\{x\})\le\tau^*$ for $x\in Z^*$.
+\item[(b)] For $x>g$, the full certificate $w$ on $y_1,\ldots,y_L$ with
+zero set $Z^*\cup\{x\}$ satisfies
+\[
+  \Tail(w)=\tau^*-2\sum_{d>x}|V_d|
+  -\frac{|V_x|}{|H_x|}\Bigl(\sum_{d=1}^{x}|H_d|-\sum_{d>x}|H_d|\Bigr).
+\]
+\item[(c)] Let $N$ be the least integer $N>g$ with
+$2\sum_{d=1}^N|H_d|\ge\Tail(H)$.  Then $\tau(\{x\})<\tau^*$ for every
+$x\ge N$, and
+\[
+  T=\max\Bigl(\tau^*,\ \max\{\tau(\{x\}):1\le x<N,\ x\notin Z^*\}\Bigr),
+\]
+the inner maximum omitted when there is no such $x$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The matrix $(y_i^d)_{i\ge2,\,d\in\{0\}\cup Z^*}$ is square of size $L-1$ and
+nonsingular by the zero bound, so $H$ exists, is unique and nonzero.  It has
+the $L-1$ zeros $\{0\}\cup Z^*$, hence by the zero bound no others, all
+simple; its weight on the largest node is positive, so $H_d>0$ for $d>g$.
+Likewise $V$ has exactly the simple zeros $Z^*$ and $V_0=1$.  So for
+integers $d\ge1$ outside $Z^*$ both $V_d$ and $H_d$ are nonzero, and since
+both change sign exactly at the points of $Z^*$, $\sgn(V_dH_d)=\eta$ is
+constant.
+
+(a) $V$, with weight $0$ on $y_1$, is a certificate for $\{x\}$ on all the
+nodes.
+
+(b) Put $c=V_x/H_x$, which has sign $\eta$.  Then $w=V-cH$: it has
+$w_0=1$ and vanishes on $Z^*\cup\{x\}$, and the full certificate is unique.
+For $d\ge1$ outside $Z^*$, $cH_d$ has the sign of $V_d$, so
+$w_d=\sgn(V_d)(|V_d|-|c||H_d|)$.  By the zero bound $w$ has exactly the
+simple zeros $Z^*\cup\{x\}$, so, as $w_0>0$, $w_d$ has the sign of $V_d$ for
+$d<x$ and the opposite sign for $d>x$.  Hence
+\[
+  \Tail(w)=\sum_{1\le d<x}\bigl(|V_d|-|c||H_d|\bigr)
+  +\sum_{d>x}\bigl(|c||H_d|-|V_d|\bigr),
+\]
+and $\Tail(V)=\tau^*$ with $|V_x|=|c||H_x|$ gives the identity.
+
+(c) As $x$ grows, $\sum_{d\le x}|H_d|$ increases to $\Tail(H)\in(0,\infty)$,
+so $N$ exists and the bracket in (b) is nonnegative for every $x\ge N$.  As
+$V$ has no zero beyond $g$, $\sum_{d>x}|V_d|>0$, so (b) gives
+$\tau(\{x\})\le\Tail(w)<\tau^*$ for $x\ge N$.  Since $u=1$,
+$T=\sup_x\tau(\{x\})\ge\tau^*$ by Theorem~\ref{thm:value}, and (a) leaves
+only the $x<N$ outside $Z^*$.
+\end{proof}
+
+No bound on the nodes is used.  The identity in (b) is exact, so it also
+decides whether the aligned lift costs more than $\tau^*$ at a given $x$;
+at roots at least $2$, Lemma~\ref{lem:delete} gives $\Tail(w)\le\tau^*$ for
+every $x>g$, and the placements $x<g$ outside $Z^*$ are those of the run
+chord (Proposition~\ref{prop:runchord}).  Each remaining $\tau(\{x\})$ is
+attained by a full certificate (Lemma~\ref{lem:attainX}), but we do not
+bound its zero set a priori, so the theorem reduces $T$ to finitely many
+placements without making each of them a finite computation.  Below, the
+worst placement is pinned between an explicit full certificate and
+Lemma~\ref{lem:exemptpair}, and the others are only bounded above.  For
+$u\ge2$ we have no analogue of the threshold $N$.
+
+\begin{theorem}[The infimum at $(\tfrac{11}{10},3,5,7)$]\label{thm:elevenvalue}
+Let $P=(x-\tfrac{11}{10})(x-3)(x-5)(x-7)$ and $u=1$.  Then
+$T=\tau(\{5\})=\tfrac{96935}{3398808}$, $\tau(\{x\})<T$ for every $x\ne5$,
+and
+\[
+  \inf_Qb_2(QP)=\frac{3398808}{96935}=35.062\ldots
+  =\max_{j\ge1,\,j\ne5}\bigl|S_j(PM)\bigr|,\qquad
+  M=x^2+\tfrac{52552}{19387}x+\tfrac{69678}{19387}.
+\]
+\end{theorem}
+
+\begin{proof}
+Put $\theta=\tfrac{96935}{3398808}$.  The partial sums $S_1,\ldots,S_6$ of
+the sextic $PM$ are
+\[
+  -\tfrac{2401917}{193870},\ \tfrac1\theta,\ \tfrac{6064861}{193870},\
+  -\tfrac1\theta,\ -\tfrac{36840237}{96935},\ \tfrac1\theta,
+\]
+and $S_j=S_6$ for $j\ge6$, so Lemma~\ref{lem:exemptpair} with $X=\{5\}$ gives
+$\tau(\{5\})\ge\theta$, while the full certificate with zero set
+$\{1,3,5\}$ has tail $\theta$ (after Proposition~\ref{prop:belowtwo}).  So
+$\tau(\{5\})=\theta$.  For the other placements apply
+Theorem~\ref{thm:halfmass} with $V$ the full certificate on
+$(\tfrac13,\tfrac15,\tfrac17)$ with zero set $Z^*=\{1,3\}$, which attains
+$\tau^*=\tfrac{31}{1704}<\theta$ (the example after
+Theorem~\ref{thm:extremal}).  Then
+\[
+  H_d=\bigl(\tfrac{10}{11}\bigr)^d-\tfrac{14972607}{378004}\,3^{-d}
+  +\tfrac{11210000}{94501}\,5^{-d}-\tfrac{30245397}{378004}\,7^{-d},
+  \qquad \Tail(H)=\tfrac{2812589}{378004},
+\]
+and $2\sum_{d\le10}|H_d|<\Tail(H)\le2\sum_{d\le11}|H_d|$, so $N=11$, and
+$\tau(\{x\})\le\tau^*<\theta$ for $x\in\{1,3\}$ and for $x\ge11$.  For
+$x=2,4,6,7,8,9,10$ the full certificates with zero sets $\{1,2,10\}$,
+$\{1,4,9\}$ and $\{1,3,x\}$ have tails $0.02082\ldots$, $0.02562\ldots$,
+$0.02151\ldots$, $0.01914\ldots$, $0.01842\ldots$, $0.01823\ldots$ and
+$0.01818\ldots$, all below $\theta=0.02852\ldots$ (each is an exact
+rational, a finite head plus a geometric remainder past the largest
+zero).  So $T=\theta$, attained only at $\{5\}$, and
+Theorem~\ref{thm:value} gives the infimum.
+\end{proof}
+
+The minimising zero set $\{1,3,5\}$ is $Z^*\cup\{5\}$, the aligned lift that
+Lemma~\ref{lem:delete} would make cheaper than $\tau^*$ at $y_1\le\tfrac12$.
+The window $g<x<N$ is needed here: the aligned lift costs more than $\tau^*$
+at $x=4,\ldots,9$ and less at $x=10$.  By Theorem~\ref{thm:noattain} no
+multiple attains the infimum; the multiples of degree at most $10$ have
+$b_2\ge41.2$.
+
+\begin{theorem}[The family $(r,3,5,7)$]\label{thm:family}
+Let $1<r<3$, $P_r=(x-r)(x-3)(x-5)(x-7)$ and $u=1$, so $\tau^*=\tfrac{31}{1704}$,
+and let $r_c=(7+\sqrt{7395409})/1860=1.46583\ldots$ be the positive root of
+$930r^2-7r-1988$.  Then $T>\tau^*$ for $1<r<r_c$, and $T=\tau^*$ for
+$r_c\le r<3$.  More precisely, with $\beta(r)=48(r-1)(15r+71)/(49r-34)$,
+\[
+  \inf_Qb_2(QP_r)\ \begin{cases}
+    \le\tfrac{209}{4}, & 1<r\le\tfrac{13}{10},\\[2pt]
+    \le\beta(r)<\tfrac{1704}{31}, & \tfrac{13}{10}\le r<r_c,\\[2pt]
+    =\beta(r), & \tfrac{29}{20}\le r\le r_c,\\[2pt]
+    =\tfrac{1704}{31}, & r_c\le r<3,
+  \end{cases}
+\]
+over monic $Q$, and for $\tfrac{29}{20}\le r<r_c$ the worst placement is
+$\{4\}$ and no other.
+\end{theorem}
+
+\begin{proof}
+The surviving roots are $3,5,7$ for every $r$, so $\tau^*=\tfrac{31}{1704}$,
+attained by the full certificate on $(\tfrac13,\tfrac15,\tfrac17)$ with zero
+set $Z^*=\{1,3\}$ (the example after Theorem~\ref{thm:extremal}).  Write
+$y=1/r$ for the new node.
+
+\emph{Lower bounds.}  For $M=x+m$ the partial sums of $P_rM$ are
+$S_1=m-r-14$, $S_2=14r+57-m(r+14)$, $S_3=m(14r+57)-57r-48$,
+$S_j=(P_rM)(1)=48(m+1)(r-1)$ for $j\ge5$, and $S_4$, which we exempt.
+Lemma~\ref{lem:exemptpair} with $X=\{4\}$ gives
+$T\ge\tau(\{4\})\ge1/\max_{j\ne4}|S_j|$.  At $m=\tfrac32$ each $S_j$ is
+affine in $r$, so $|S_j|$ is convex and its maximum on $[1,\tfrac{13}{10}]$
+is taken at an end; the values are $-\tfrac{27}2,\tfrac{97}2,\tfrac32,0$ at
+$r=1$ and $-\tfrac{69}5,\tfrac{209}4,-\tfrac{93}{10},36$ at
+$r=\tfrac{13}{10}$, all at most $\tfrac{209}4<\tfrac{1704}{31}$.  At
+$m=(105-34r)/(49r-34)$,
+\[
+  S_2=S_5=\beta(r),\qquad
+  S_1=-\frac{7(7r^2+98r-83)}{49r-34},\qquad
+  S_3=-\frac{3269r^2+882r-7617}{49r-34},
+\]
+and $|S_1|,|S_3|\le\beta(r)$ amounts to $671r^2+2002r-2827\ge0$,
+$3989r^2+3570r-11025\ge0$ and $2549r^2-1806r-4209\le0$; the first two
+increase on $r>0$ and the third is convex, and all three hold at
+$r=\tfrac{13}{10}$ and $r=\tfrac32$, hence on $[\tfrac{13}{10},\tfrac32]$.
+There $\tau(\{4\})\ge1/\beta(r)$, and $1/\beta(r)-\tau^*$ has the sign of
+$1988+7r-930r^2$, positive exactly for $r<r_c$.
+
+\emph{Upper bounds.}  Let $\tfrac{29}{20}\le r<3$, so
+$\tfrac13<y\le\tfrac{20}{29}$ and $y$ is the largest node.  Solving the
+$4\times4$ systems, with the sign patterns given by the zero bound, the full
+certificates with zero sets $\{1,3,4\}$ and $\{1,2,5\}$ have tails
+\[
+  \frac1{\beta(r)}\quad\text{and}\quad
+  \frac{4267r^2+5070r-5871}{48(r-1)(3466r^2+7455r+11025)},
+\]
+the second at most $\tau^*$ exactly when
+$c_2(r)=214892r^3-55639r^2-138630r-266709\ge0$.  For the $H$ of
+Theorem~\ref{thm:halfmass}, $2\sum_{d\le5}|H_d|-\Tail(H)$ has the sign of
+$c_5(r)=206070r^3-67123r^2-161312r-238560$ on $(1,3)$.  Both cubics
+increase on $r\ge1$ (their derivatives are positive there) and are positive
+at $\tfrac{29}{20}$, so the certificate $\{1,2,5\}$ gives
+$\tau(\{2\})\le\tau^*$ and $N\le5$.  By Theorem~\ref{thm:halfmass},
+$T=\max(\tau^*,\tau(\{2\}),\tau(\{4\}))\le\max(\tau^*,1/\beta(r))$.
+
+For $r_c\le r<3$ this is $\tau^*$, so $T=\tau^*$.  For
+$\tfrac{29}{20}\le r<r_c$ the lower bound gives $T\ge\tau(\{4\})\ge1/\beta(r)>\tau^*$,
+so $T=\tau(\{4\})=1/\beta(r)$, and every other placement costs at most
+$\tau^*$.  Theorem~\ref{thm:value} turns these into the stated infima.
+\end{proof}
+
+So the escaping placement stays extremal at some roots below $2$, here down
+to $r_c$, and the failure below $r_c$ starts at the placement $\{4\}$ just
+above $Z^*$, where the conclusion of Lemma~\ref{lem:delete} fails.  Numerically (floating
+point, placements up to $24$ and zero sets inside $[1,26]$, $r$ on a grid of
+step $\tfrac1{20}$), the worst placement for $r<\tfrac{29}{20}$ is $\{4\}$
+down to $r=1.15$ and $\{5\}$ at $r=1.05,1.1$.  The cutoff cannot be lowered
+uniformly, however.
+
+\begin{proposition}[The cutoff is sharp]\label{prop:cutoffsharp}
+Let $1<r<2$, $P_r=(x-r)(x-5)(x-7)$ and $u=1$.  Then $\tau^*=\tfrac1{24}$
+and
+\[
+  \inf_Qb_2(QP_r)\le\max(r+11,\,24(r-1))<24=\frac1{\tau^*},
+\]
+so $T>\tau^*$.  At $r=2$ the infimum is $24$.  Hence for every
+$r_1\in(1,2)$ the conclusion of Theorem~\ref{thm:extremal} fails at some
+root set with smallest root $r_1$.
+\end{proposition}
+
+\begin{proof}
+The full certificate on $(\tfrac15,\tfrac17)$ with zero set $\{1\}$ has
+tail $\tfrac1{(5-1)(7-1)}=\tfrac1{24}$ by~\cite[Lemma~2.1]{coefficient-mass}, and $(x-5)(x-7)$ has
+partial sums $1,-11,24$, so \eqref{eq:dualpair} with $M=1$ gives
+$\tau^*=\tfrac1{24}$.  The partial sums of $P_r$ are
+$1,-(r+11),11r+24,-24(r-1)$, constant from $j=3$ on, so
+Lemma~\ref{lem:exemptpair} with $X=\{2\}$ and $M=1$ gives the bound, which
+is below $24$ for $r<2$.  At $r=2$, Theorem~\ref{thm:extremal} gives
+$1/\tau^*=24$.
+\end{proof}
 
 \section{Scope and open questions}\label{sec:scope}
 
@@ -1364,11 +1689,18 @@ $12$ stays strictly below $\tau^*$.
 the infimum is settled: it is $1/\tau^*$, the multiplier value of
 Proposition~\ref{prop:attain} (Theorem~\ref{thm:extremal},
 Corollary~\ref{cor:extremalrep}).  Below $2$, Theorem~\ref{thm:value} still
-gives $1/T$ with $T\ge\tau^*$, and Proposition~\ref{prop:belowtwo} shows
-that $T>\tau^*$ can occur.  Which placement is then the worst, whether $T$
-is a finite computation, and for which roots below $2$ the escaping
-placement stays extremal (at $(\tfrac32,3,5,7)$ with $u=1$, every placement up to distance $12$ stays numerically below $\tau^*$) are
-left open.
+gives $1/T$ with $T\ge\tau^*$, and $T>\tau^*$ can occur
+(Proposition~\ref{prop:belowtwo}).  For distinct roots $T$ is attained at
+some level (Proposition~\ref{prop:attainT}), and for $u=1$ it is the larger of
+$\tau^*$ and finitely many $\tau(\{x\})$, $x<N$ (Theorem~\ref{thm:halfmass}),
+which settles $(\tfrac{11}{10},3,5,7)$ and the family $(r,3,5,7)$
+(Theorems~\ref{thm:elevenvalue} and~\ref{thm:family}).  Open: an a priori
+bound on the zero set minimising a single $\tau(\{x\})$, which would make
+the case $u=1$ a finite computation outright; an analogue of the threshold
+$N$ for $u\ge2$, where only the qualitative Proposition~\ref{prop:attainT}
+is proved; and a description of the root sets below $2$ at which the
+escaping placement stays extremal, which depends on more than $r_1$
+(Theorem~\ref{thm:family} and Proposition~\ref{prop:cutoffsharp}).
 
 \paragraph{Relation to the literature.}  The bounds here concern coefficient
 magnitudes, not ordinary length or height: they are uniform over the degree
