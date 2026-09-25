@@ -14,11 +14,12 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `(inf b_2 - 24)(r-1)**(-alpha)` has a limit as `r -> 1+`
   (`thm:familyone`).
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
-  separation for the mass, between 2 and 81, and whether 9 suffices; the
-  least separation for the rows `k >= 3` of `cor:annuli` (three or more
-  annuli), between `n_a` and `9 n_a`, and whether `(1 + o(1)) n_a` suffices
-  (`sec:annuli`; for two annuli it lies between `n_2` and `n_2 + 1`,
-  `cor:rowstwo`).
+  separation for the mass, between `2 + 1/18915` and 81 (at most 9 for two
+  annuli with `n_2 <= 8`, `cor:rowstwo`), and whether 9 suffices; the least
+  separation for the rows of `cor:annuli`, between `n_a` and
+  `3 rho_(n_a) < 7 n_a` (`cor:fewabove`), and whether `(1 + o(1)) n_a`
+  suffices (`sec:annuli`; for two annuli it lies between `n_2` and
+  `n_2 + 1`, `cor:rowstwo`).
 - [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
@@ -119,12 +120,19 @@ is open; an answer lands in the paper it extends, and the row leaves.
   top, and at `r <= T/6` at least `n/2` (`lem:tropcount`; `(x - t)**K`
   shows the factor `n` is needed), so the positions and rows of
   `cor:annuli` item 1 hold once `T_a > 9 n_a U_(a-1)`, `n_a` the roots from
-  annulus `a` up.  Closed negatively for the rows at a fixed separation:
+  annulus `a` up.  Exactly, the full count holds for `T > rho_n r`, `rho_n`
+  the reciprocal of the root of `(1 + theta)**n - 1 = (1 - theta)**n`:
+  `rho_1 = 2` (sharp: `x**D - sum_(i<D) x**i`), `rho_2 = 4`,
+  `rho_n < 7n/3`, `rho_n/n -> 1/arsinh(1/2) = 2.078...`; so the rows hold
+  once `T_a > 3 rho_(n_a) U_(a-1)`, in particular `T_a > 7 n_a U_(a-1)`
+  (`cor:fewabove`).  Closed negatively for the rows at a fixed separation:
   `(x - q)(x + Kq)**K`, `K >= 10`, `q >= 4**K`, has `T_2 = n_2 U_1`,
   `f_1 = 0` (the `K` zeros above cancel the one below) and
   `b_2 < 2**K (Kq)**(K-1)`, below the row `k = 2` by a factor tending to 0
   (`prop:rowsneedn`); so the rows need a separation between `n_a` and
-  `9 n_a`.  For two annuli `n_2 + 1` suffices (`thm:rowstwo`,
+  `9 n_a`, and at `3 rho_(n_a) < 7 n_a` by `cor:fewabove`, where the full
+  count `D - y >= n` of `lem:tropcount` holds exactly when `T > rho_n r`.
+  For two annuli `n_2 + 1` suffices (`thm:rowstwo`,
   `cor:rowstwo`): dividing out the `n` zeros above leaves at a lower zero
   `alpha` the truncation `sum_(k<=M) h_k(alpha/beta)`, of modulus at least
   `lambda = 1 - n|alpha|/T` (`lem:trunc`: the uniform average on the simplex
@@ -143,20 +151,45 @@ is open; an answer lands in the paper it extends, and the row leaves.
   ratios `log(|beta|/6U_(a-1))` at the factor 9 (`cor:annuli` item 2).
   Separation 2 does not suffice: `(x - q)(x + 2q + 1/(2q+1))**2`, `q >= 97`,
   misses the bound by `log(t**2/(128(3q + 2 delta)))`, unbounded in `q`
-  (`prop:gaptwo`).  Numerically only (floating-point vertex enumeration of
+  (`prop:gaptwo`), and at `q = 97` its separation is `2 + 1/18915`, so
+  the least separation exceeds 2.  With few roots above a gap one central
+  index suffices once `T_a > 3 rho_(n_a) U_(a-1)`, and `3 rho_n < 81` for
+  `n <= 13`: gap by gap, either this or the two positions of
+  `thm:fixedgap` give the mass bound (`cor:fewabove`).  For `S = 2` it
+  holds at `T_2 > 12 U_1` when `K_2 = 2`, the case of `prop:gaptwo`, and at
+  `T_2 > 6 U_1` when `K_2 = 1`, where `(x - q)(x + t)` fails for
+  `1 <= t - q < t/32` (separations up to `32/31`).  Below 81 the proof of
+  `thm:fixedgap` breaks down where only one vertex above those charged for
+  the lower annuli is active in the gap, between tropical roots less than
+  `2 log 3` apart, with fewer than `n_a` positions above it; that is how
+  `prop:gaptwo` fails (vertices `0, 2, 3`, `f_1 < 1`), and ruling it out
+  needs more than the tropical roots, Jensen's formula and the counts of
+  `thm:archnewton` and `lem:tropcount`: for `S = 2` a Newton polygon with
+  vertices `y_1`, `D - n_2 + 1` and `D` only, tropical roots near `log U_1`
+  and just above `log(T_2/2)`, `n_2` large and `K_1` much larger, satisfies
+  all of them (at leading order) up to separations near 18.  Numerically
+  only: minimizing `Lambda` minus the bound directly over the roots of
+  polynomials of degree at most 7 (up to three lower roots, two or three
+  upper, up to two others; 60 to 80 restarts each) finds no failure at
+  separations 2.05, 2.3, 3 and 5, the least margin about `log 30`; and a
+  failure growing with the scale needs coefficients that vanish at leading
+  order, which among the lacunary patterns of degree at most 6 without
+  other roots reaches separation 2 only for `(x - q)(x + t)**2`, the next
+  best being `sqrt 3`.  Numerically only (floating-point vertex enumeration of
   the least mass over real multiples of degree at most `deg P + 1`, about
   150 random root sets per separation, at most three real roots or
   conjugate pairs in the upper annulus), no failure appears at separations 2.2, 3 and 5.  A
   lacunary integer multiple at suitable roots attains `sum_s s K_s log t_s`
   exactly, so the constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
   also for pairs near the imaginary axis (`prop:annulisharp`).  Open: the
-  least fixed separation for the mass, between 2 and 81 (whether 9
-  suffices), and the least separation for the rows `k >= 3` when
-  `S >= 3`, between `n_a` and `9 n_a` (several lower zeros must be handled
-  at once, and one truncation no longer suffices); in particular whether
-  `T_a > (n_a + 1) U_(a-1)` suffices for every row, and whether
-  `lambda**2` in `thm:rowstwo` can be `lambda` (`(x - q)(x + t)**K` attains
-  `lambda`).
+  least fixed separation for the mass, between `2 + 1/18915` and 81
+  (whether 9 suffices; for two annuli with `n_2 <= 8` it is at most 9 by
+  `cor:rowstwo`), and the least separation for the rows `k >= 3` when
+  `S >= 3`, between `n_a` and `3 rho_(n_a) < 7 n_a` (several lower zeros
+  must be handled at once, and one truncation no longer suffices); in
+  particular whether `T_a > (n_a + 1) U_(a-1)` suffices for every row, and
+  whether `lambda**2` in `thm:rowstwo` can be `lambda` (`(x - q)(x + t)**K`
+  attains `lambda`).
 
 - **Coefficient mass in sectors.**  The paper is
   [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), split out
