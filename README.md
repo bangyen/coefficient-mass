@@ -32,6 +32,22 @@ just pdf     # build the papers, failing on undefined references (needs tectonic
 Each negative result carries a control: a false variant the same check must
 catch.
 
+## Lean
+
+`CoefficientMass/` states the chain from the zero bound for exponential sums
+to Corollary 3.4 as `Prop` definitions (`ZeroBound`, `ConsecutiveTail`,
+`TailBound`, `CertificateWithExclusions`, `OrderStatistics`,
+`ComplexOrderStatistics`, `LogarithmicMass`).  A statement is proved by adding
+a theorem of that type; nothing is assumed.  The guards in `scripts/` (the
+[lean-guards](https://github.com/bangyen/lean-guards) submodule) reject
+unfinished proofs and new axioms, so the build is honest at every commit.
+
+```bash
+git submodule update --init
+lake exe cache get
+just lean
+```
+
 ## Citing from elsewhere
 
 These papers began in [bangyen/esolangs](https://github.com/bangyen/esolangs),

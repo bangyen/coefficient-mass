@@ -34,3 +34,9 @@ pdf:
 # print pinned numbering for a citing repo, e.g. `just pin coefficient-mass:3.4`
 pin +refs:
     uv run python tools/numbering.py {{refs}}
+
+# build the Lean statements warning-free and run the lean-guards checks
+lean:
+    lake --wfail build
+    lake lint
+    ./scripts/check_all.sh

@@ -1,0 +1,17 @@
+/-
+Copyright (c) 2026 Bangyen Pham. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Bangyen Pham
+-/
+
+import CoefficientMass.Defs
+import CoefficientMass.ExpSum
+import CoefficientMass.Order
+
+/-!
+# CoefficientMass
+
+The root module, importing the whole library: the statements of
+`coefficient-mass.tex` from the zero bound for exponential sums through
+Corollary 3.4, the logarithmic mass bound.
+-/
