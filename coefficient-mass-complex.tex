@@ -115,14 +115,14 @@ within any fixed angle of the imaginary axis admit multiples with $b_2=0$
 and mass linear in the number of pairs (Proposition~\ref{prop:noangle}).
 Separated moduli restore the rows and the mass up to constants, through an
 Archimedean Newton polygon (Theorem~\ref{thm:archnewton},
-Corollary~\ref{cor:separated}).  For $K_s$ roots in each of several separated
-annuli the central index charges a root once for every annulus at or below it,
-$\sum_ssK_s\log(T_s/2)-O(S)$ in all for multiples with $|f_D|\ge1$ at the
-fixed separation factor $162$, attained for suitable roots as $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
+Corollary~\ref{cor:separated}).  For $K_s$ roots with moduli in $[T_s,U_s]$,
+$1\le s\le S$, where $T_1>3$ and $T_s>162U_{s-1}$, the central index charges a
+root once for every annulus at or below it,
+$\sum_ssK_s\log(T_s/2)-O(S)$ in all for multiples with $|f_D|\ge1$, attained for suitable roots as $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
 (Theorem~\ref{thm:annuli},
 Corollary~\ref{cor:annuli}, Theorem~\ref{thm:fixedgap},
-Proposition~\ref{prop:annulisharp}).  Dividing out the roots counts them
-from a central index at a distance linear in their number
+Proposition~\ref{prop:annulisharp}).  A central index at radius $r$ has at
+least $n$ positions above it once $n$ roots have modulus at least $3nr$
 (Lemma~\ref{lem:tropcount}).
 
 \paragraph{Both signs.}  For real roots of both signs, Rolle's theorem on
@@ -169,11 +169,12 @@ $\gcd(\operatorname{Re}\alpha_j,\operatorname{Im}\alpha_j)=1$ a gap $m$ after
 the lowest coefficient costs $2Km\log\min_j|\alpha_j|$
 (Proposition~\ref{prop:gausslow}).  If $\min_j|\alpha_j|>2$ and an integer
 multiple $F$ has $b_2(F)<\min_j|\alpha_j|/2$, all the $\alpha_j$ lie in one level set
-$\{y:H(y)=-v\}$ of a polynomial $H$ with small nonleading coefficients
-(Proposition~\ref{prop:gaussheavy}); an exhaustive search over $H$ of small
-degree with all coefficients small finds, in the ranges searched, no level set
-with more than three Gaussian points above the axis (numerical evidence
-only).
+$\{y:H(y)=-v\}$, $v$ the lowest nonzero coefficient of $F$, of a polynomial
+$H$ with small nonleading coefficients
+(Proposition~\ref{prop:gaussheavy}); an exhaustive search over $H$ of degree
+at most $s\in\{8,10,11\}$ whose coefficients, the leading one included, are all small
+finds no level set with more than three Gaussian points above the axis
+(numerical evidence only).
 
 \paragraph{Conventions.}
 All logarithms are natural.  For $F\in\mathbb C[x]$ of degree $D$ we write
@@ -586,8 +587,8 @@ order terms, with a square term $\frac12K_s^2\log T_s$ inside each group and a
 cross term $K_uK_s\log T_s$ between the groups $u<s$.  At complex roots the
 square term is false (Proposition~\ref{prop:noangle}).  This section shows
 that the cross terms are false as well, and that the right count charges a
-root once for every annulus at or below it: when consecutive annuli are
-separated by the factor $162$, every multiple with $|f_D|\ge1$ has mass at least
+root once for every annulus at or below it: when the moduli of the $K_s$ roots
+of the $s$-th group lie in $[T_s,U_s]$, with $T_1>3$ and $T_s>162U_{s-1}$, every multiple with $|f_D|\ge1$ has mass at least
 $\sum_ssK_s\log(T_s/2)-S\log2$, and for suitable roots this is
 attained to leading order (the ratio tends to $1$) as $\min_sT_s\to\infty$
 (Theorem~\ref{thm:fixedgap}, Proposition~\ref{prop:annulisharp}).
@@ -680,7 +681,8 @@ The factor $3n$ is sharp up to the $3$: $(x-t)^K$ has $K$ zeros of modulus
 $t$, and at $r=t/c$ its terms are $t^K\binom Kic^{-i}$, so for $c<K$ the term
 $i=1$ beats the term $i=0$ and the central index is positive.  At a constant
 distance only a fraction of the count survives: for $c\ge1$ the central
-index of $(x-t)^K$ at $t/c$ is about $K/(c+1)$.
+index of $(x-t)^K$ at $t/c$ is about $K/(c+1)$, with only about $cK/(c+1)$
+positions above it.
 
 \begin{theorem}[Several annuli]\label{thm:annuli}
 Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $S\ge1$, and let
@@ -819,7 +821,7 @@ vertices active at $u_a^-$ and at $u_a^+$, and let $y_1$ be a central index
 at $1$.  As $\sigma^{(a-1)}<u_a^-<u_a^+<\sigma^{(a)}$ and $0<\sigma^{(1)}$,
 $y_1$ lies below every position in $Y_2$, every
 position in $Y_a$ below every position in $Y_{a+1}$, and every position in
-$Y_S$ below $D$.  So the positions in $\{y_1\}\cup Y_2\cup\cdots\cup Y_S$
+$Y_S$ below $D$ ($y_1$ below $D$ if $S=1$).  So the positions in $\{y_1\}\cup Y_2\cup\cdots\cup Y_S$
 are distinct and nonleading.
 
 By Lemma~\ref{lem:central} at $r=1$ with $A=A_{\ge1}$,
@@ -1864,13 +1866,14 @@ sets of polynomials with small coefficients are small.  An exhaustive
 search over the $H\in\mathbb Z[y]$ with $H(0)=0$, positive leading coefficient,
 coefficients at most $B$ in absolute value and degree at most $s$, and over the
 $y$ with $|\operatorname{Re}y|\le Y$ and $1\le\operatorname{Im}y\le Y$, for
-$(B,s,Y)=(1,11,30)$, $(2,8,40)$, $(2,10,20)$, $(3,6,50)$, $(3,8,30)$,
-$(5,5,60)$ and $(10,4,80)$, finds no real value taken at more than three such
-$y$, and three only for $H=y^6-2y^4+y^2=(y^3-y)^2$, at $\{\pm2+i,2i\}$,
+$(B,s,Y)=(1,11,30)$, $(2,8,40)$, $(2,10,20)$ and $(3,8,30)$, finds no real
+value taken at more than three such $y$.  A real $F$ of degree below $8$ has at
+most three roots above the axis, so only these ranges, with $s\ge8$, are
+informative.  Three such $y$ occur, in these ranges and in
+$(3,6,50)$, $(5,5,60)$ and $(10,4,80)$, only for $H=y^6-2y^4+y^2=(y^3-y)^2$, at $\{\pm2+i,2i\}$,
 $\{\pm7+4i,8i\}$ and $\{\pm26+15i,30i\}$, and for $H=y^8+3y^4$, at
-$\{\pm1+i,i\}$.  A real $F$ of degree below $8$ has at most three roots above the
-axis, so only the ranges with $s\ge8$ are informative.  With
-Proposition~\ref{prop:gaussheavy}, item~2, applied to $\pm F$, they give: if
+$\{\pm1+i,i\}$.  With
+Proposition~\ref{prop:gaussheavy}, item~2, applied to $\pm F$, the ranges with $s\ge8$ give: if
 $K\ge4$, $2B<\rho_{\min}$, every
 $\alpha_j$ lies in the box, and every coefficient of $F$ but one has modulus at
 most $B$ (the exception is $f_e$, as $|f_e|\ge P(0)>B$), then
