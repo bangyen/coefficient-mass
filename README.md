@@ -5,10 +5,10 @@ when its roots are prescribed, with executable checks.
 
 | Paper | Subject |
 | --- | --- |
-| [coefficient-mass](coefficient-mass.tex) | Displaced-zero certificates; the order-statistic tail bound and logarithmic mass (Corollary 3.4) |
-| [coefficient-mass-attainment](coefficient-mass-attainment.tex) | Sharpness of the order-statistic bound; the partial-sum criterion, the confluent analogue, the infimum `1/tau*` when it fails at roots `>= 2`, and the placement game below 2 |
-| [coefficient-mass-rows](coefficient-mass-rows.tex) | Every row is a top row: order statistics of multiples of a power |
-| [coefficient-mass-complex](coefficient-mass-complex.tex) | Complex roots, real roots of both signs, and sectors |
+| [coefficient-mass](papers/coefficient-mass.tex) | Displaced-zero certificates; the order-statistic tail bound and logarithmic mass (Corollary 3.4) |
+| [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex) | Sharpness of the order-statistic bound; the partial-sum criterion, the confluent analogue, the infimum `1/tau*` when it fails at roots `>= 2`, and the placement game below 2 |
+| [coefficient-mass-rows](papers/coefficient-mass-rows.tex) | Every row is a top row: order statistics of multiples of a power |
+| [coefficient-mass-complex](papers/coefficient-mass-complex.tex) | Complex roots, real roots of both signs, and sectors |
 
 Open questions are in [ROADMAP](ROADMAP.md).
 

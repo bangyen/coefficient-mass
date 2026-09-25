@@ -12,9 +12,9 @@ import re
 
 import pytest
 
-from tools.numbering import PAPERS
+from tools.numbering import ROOT
 
-ROADMAP = PAPERS / "ROADMAP.md"
+ROADMAP = ROOT / "ROADMAP.md"
 
 _LINK = re.compile(r"\]\(([^)]+\.tex)\)")
 _CITED = re.compile(r"`((?:thm|lem|cor|prop|sec|eq):[A-Za-z0-9]+)`")
@@ -48,6 +48,6 @@ def test_label_exists(entry: str, label: str, papers: tuple[str, ...]) -> None:
     defined = {
         found
         for paper in papers
-        for found in _DEFINED.findall((PAPERS / paper).read_text())
+        for found in _DEFINED.findall((ROOT / paper).read_text())
     }
     assert label in defined, f"{entry!r} cites {label}, not in {papers}"
