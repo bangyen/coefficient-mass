@@ -134,8 +134,20 @@ def test_extremal_example_2357() -> None:
     surviving = _roots_to_nodes([Fraction(r) for r in (3, 5, 7)])
     assert _partial_sums([Fraction(r) for r in (3, 5, 7)]) == [1, -14, 57, -48]
     assert _tail_of(surviving, [1, 3]) == tau
+    # The weights printed in the paper: v_d = (81 3^-d - 625 5^-d + 686 7^-d)/142.
+    assert _certificate(surviving, [1, 3]) == [
+        Fraction(81, 142),
+        Fraction(-625, 142),
+        Fraction(686, 142),
+    ]
     sums = _partial_sums([Fraction(r) for r in (3, 5, 7)] + [Fraction(-9, 62)])
     assert max(abs(v) for v in sums[1:]) == 1 / tau
+    assert sums[1:] == [
+        Fraction(-859, 62),
+        Fraction(1704, 31),
+        Fraction(-2463, 62),
+        Fraction(-1704, 31),
+    ]
     # The neighbour of {1, 3} at its only run costs more: F is locally minimal.
     assert _tail_of(surviving, [1, 4]) > tau
     nodes = _roots_to_nodes([Fraction(r) for r in (2, 3, 5, 7)])
@@ -191,6 +203,13 @@ def test_below_two() -> None:
     # The deletion step fails at y_1 = 10/11: lifting {1, 3} by the zero 5.
     nodes = _roots_to_nodes(roots)
     assert _tail_of(nodes, [1, 3, 5]) == Fraction(96935, 3398808) > tau
+    # The weights printed in the paper, on (10/11, 1/3, 1/5, 1/7).
+    assert _certificate(nodes, [1, 3, 5]) == [
+        Fraction(-5153632, 2063784541),
+        Fraction(3601989, 5381446),
+        Fraction(-17296875, 3682042),
+        Fraction(6004901, 1193629),
+    ]
 
 
 def test_below_two_control() -> None:
@@ -361,87 +380,218 @@ def _family(r: Fraction) -> list[Fraction]:
     return _poly([r, Fraction(3), Fraction(5), Fraction(7)])
 
 
+# Rational functions of ``r`` over Q, for the closed forms of ``thm:family``.
+# Each is kept as a reduced pair of polynomials (ascending ``Fraction``
+# coefficients) with a monic denominator, so ``==`` is equality in ``Q(r)``
+# and a closed form checked here holds at every ``r``, not at samples.
+
+
+def _trim(p: list[Fraction]) -> list[Fraction]:
+    while p and p[-1] == 0:
+        p = p[:-1]
+    return p
+
+
+def _padd(p: list[Fraction], q: list[Fraction]) -> list[Fraction]:
+    n = max(len(p), len(q))
+    p, q = p + [Fraction(0)] * (n - len(p)), q + [Fraction(0)] * (n - len(q))
+    return _trim([a + b for a, b in zip(p, q, strict=True)])
+
+
+def _pmul(p: list[Fraction], q: list[Fraction]) -> list[Fraction]:
+    return _trim(_multiply(p, q)) if p and q else []
+
+
+def _pdivmod(
+    p: list[Fraction], q: list[Fraction]
+) -> tuple[list[Fraction], list[Fraction]]:
+    p, out = list(p), [Fraction(0)] * max(len(p) - len(q) + 1, 1)
+    while p and len(p) >= len(q):
+        c, k = p[-1] / q[-1], len(p) - len(q)
+        out[k] = c
+        p = _trim([a - c * q[i - k] if i >= k else a for i, a in enumerate(p)])
+    return _trim(out), p
+
+
+class _Rat:
+    """An element of ``Q(r)``; ints and ``Fraction``s coerce to constants."""
+
+    def __init__(self, num: list[Fraction], den: list[Fraction] | None = None):
+        num = _trim([Fraction(c) for c in num])
+        den = _trim([Fraction(c) for c in den or [1]])
+        g, h = num, den
+        while h:
+            g, h = h, _pdivmod(g, h)[1]
+        num, den = _pdivmod(num, g)[0], _pdivmod(den, g)[0]
+        self.num = [c / den[-1] for c in num]
+        self.den = [c / den[-1] for c in den]
+
+    @staticmethod
+    def of(x: _Rat | Fraction | int) -> _Rat:
+        return x if isinstance(x, _Rat) else _Rat([Fraction(x)])
+
+    def __add__(self, o: _Rat | Fraction | int) -> _Rat:
+        o = _Rat.of(o)
+        num = _padd(_pmul(self.num, o.den), _pmul(o.num, self.den))
+        return _Rat(num, _pmul(self.den, o.den))
+
+    __radd__ = __add__
+
+    def __neg__(self) -> _Rat:
+        return _Rat([-c for c in self.num], self.den)
+
+    def __sub__(self, o: _Rat | Fraction | int) -> _Rat:
+        return self + -_Rat.of(o)
+
+    def __rsub__(self, o: Fraction | int) -> _Rat:
+        return _Rat.of(o) - self
+
+    def __mul__(self, o: _Rat | Fraction | int) -> _Rat:
+        o = _Rat.of(o)
+        return _Rat(_pmul(self.num, o.num), _pmul(self.den, o.den))
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, o: _Rat | Fraction | int) -> _Rat:
+        o = _Rat.of(o)
+        return _Rat(_pmul(self.num, o.den), _pmul(self.den, o.num))
+
+    def __rtruediv__(self, o: Fraction | int) -> _Rat:
+        return _Rat.of(o) / self
+
+    def __pow__(self, k: int) -> _Rat:
+        out = _Rat([1])
+        for _ in range(k):
+            out = out * self
+        return out
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, _Rat | Fraction | int):
+            return NotImplemented
+        o = _Rat.of(o)
+        return self.num == o.num and self.den == o.den
+
+    __hash__ = None  # type: ignore[assignment]
+
+    def at(self, x: Fraction) -> Fraction:
+        value = [Fraction(0), Fraction(0)]
+        for i, p in enumerate((self.num, self.den)):
+            for c in reversed(p):
+                value[i] = value[i] * x + c
+        return value[0] / value[1]
+
+
+def _signed_tail(nodes, zeros: list[int], a) -> _Rat:
+    """``Tail`` of a full certificate from the zero bound's sign pattern.
+
+    ``u_0 = 1 > 0`` and ``u`` changes sign exactly at its simple zeros, so
+    ``sgn u_d = (-1)^{#{z in Z : z < d}}``; past ``max Z`` the tail is the
+    geometric sum ``sum_i a_i y_i^(z+1) / (1 - y_i)`` with that sign.
+    """
+    top = max(zeros)
+
+    def sign(d: int) -> int:
+        return (-1) ** sum(z < d for z in zeros)
+
+    head = sum((sign(d) * _u(nodes, a, d) for d in range(1, top + 1)), _Rat([0]))
+    beyond = sum(
+        (ai * y ** (top + 1) / (1 - y) for ai, y in zip(a, nodes, strict=True)),
+        _Rat([0]),
+    )
+    return head + sign(top + 1) * beyond
+
+
 def test_family_threshold() -> None:
     """``thm:family``: at (r, 3, 5, 7), ``T = tau*`` exactly for ``r >= r_c``.
 
-    Checks the closed forms the proof uses at rational ``r``, the two
-    witness multipliers, and the endpoint and monotonicity facts behind the
-    polynomial inequalities.  Control: below ``r_c`` the placement 4 beats
-    ``tau*``, and the finite programs never undercut the stated infimum.
+    With ``r`` an indeterminate, the certificates, ``H`` and the partial sums
+    are computed over ``Q(r)`` and every closed form the proof uses is checked
+    as an identity of rational functions: the tails of the full certificates
+    with zero sets {1, 3, 4} and {1, 2, 5}, their differences with ``tau*``,
+    ``2 sum_{d<=5} |H_d| - Tail(H)``, the partial sums of ``P_r M`` and the
+    quadratics behind ``|S_1|, |S_3| <= beta(r)``.  The signs used are those of
+    the zero bound on (1, 3), where ``1/r`` is the largest node; samples
+    confirm them against the absolute values.  Control: below ``r_c`` the
+    placement 4 beats ``tau*``, and the finite programs never undercut the
+    stated infimum.
     """
     tau = Fraction(31, 1704)
-
-    def rc_poly(r: Fraction) -> Fraction:
-        return 930 * r**2 - 7 * r - 1988
-
-    assert rc_poly(Fraction(1465, 1000)) < 0 < rc_poly(Fraction(1466, 1000))
+    r = _Rat([0, 1])
+    nodes = [1 / r, *(_Rat.of(Fraction(1, k)) for k in (3, 5, 7))]
+    beta = 48 * (r - 1) * (15 * r + 71) / (49 * r - 34)
+    c2 = 214892 * r**3 - 55639 * r**2 - 138630 * r - 266709
+    c5 = 206070 * r**3 - 67123 * r**2 - 161312 * r - 238560
+    # The two 4x4 systems: tails 1/beta(r) and the quoted quotient.
+    t134 = _signed_tail(nodes, [1, 3, 4], _certificate(nodes, [1, 3, 4]))
+    t125 = _signed_tail(nodes, [1, 2, 5], _certificate(nodes, [1, 2, 5]))
+    denom = 3466 * r**2 + 7455 * r + 11025
+    assert t134 == 1 / beta
+    assert t125 == (4267 * r**2 + 5070 * r - 5871) / (48 * (r - 1) * denom)
+    assert 1 / beta - tau == (1988 + 7 * r - 930 * r**2) / (
+        3408 * (r - 1) * (15 * r + 71)
+    )
+    assert tau - t125 == c2 / (3408 * (r - 1) * denom)
+    # The half-mass point: H > 0 past 3 and H_2 < 0, so
+    # 2 sum_{d<=5} |H_d| - Tail(H) = -H_2 + H_4 + H_5 - sum_{d>=6} H_d.
+    h = _correction(nodes, [1, 3])
+    beyond = sum(
+        (hi * y**6 / (1 - y) for hi, y in zip(h, nodes, strict=True)), _Rat([0])
+    )
+    gap = -_u(nodes, h, 2) + _u(nodes, h, 4) + _u(nodes, h, 5) - beyond
+    assert gap == c5 * (3 - r) * (5 - r) * (7 - r) / (12524400 * r**5 * (r - 1))
+    # The signs used, against the absolute values, at sample points.
     samples = [Fraction(k, 100) for k in range(101, 300, 7)]
-    for r in samples:
-        nodes = _roots_to_nodes([r, Fraction(3), Fraction(5), Fraction(7)])
-        # Tail of the aligned lift {1, 3, 4} and its sign against tau*.
-        t134 = _tail_of(nodes, [1, 3, 4])
-        assert t134 == _theta(r)
-        assert (t134 <= tau) == (rc_poly(r) >= 0)
-        if r <= Fraction(13, 10):
-            m = [Fraction(3, 2), Fraction(1)]
-            assert _exempt_max(_multiply(_family(r), m), 4) <= Fraction(209, 4)
-        if Fraction(13, 10) <= r <= Fraction(3, 2):
-            m = [(105 - 34 * r) / (49 * r - 34), Fraction(1)]
-            sums = _desc_sums(_multiply(_family(r), m))
-            assert sums[2] == sums[5] == 1 / _theta(r)
-            assert _exempt_max(_multiply(_family(r), m), 4) == 1 / _theta(r)
-        if r >= Fraction(29, 20):
-            t125 = _tail_of(nodes, [1, 2, 5])
-            assert t125 == (4267 * r**2 + 5070 * r - 5871) / (
-                48 * (r - 1) * (3466 * r**2 + 7455 * r + 11025)
-            )
-            assert t125 <= tau
-            assert _half_mass_point(nodes, [1, 3]) <= 5
-    # The partial sums of x + m quoted in the proof, at the sample points.
-    for r in samples:
-        for m in (Fraction(3, 2), (105 - 34 * r) / (49 * r - 34)):
-            sums = _desc_sums(_multiply(_family(r), [m, Fraction(1)]))
-            assert sums[1:4] == [
-                m - r - 14,
-                14 * r + 57 - m * (r + 14),
-                m * (14 * r + 57) - 57 * r - 48,
-            ]
-            assert sums[5] == 48 * (m + 1) * (r - 1) == sums[-1]
-        m = (105 - 34 * r) / (49 * r - 34)
-        sums = _desc_sums(_multiply(_family(r), [m, Fraction(1)]))
-        assert sums[1] == -7 * (7 * r**2 + 98 * r - 83) / (49 * r - 34)
-        assert sums[3] == -(3269 * r**2 + 882 * r - 7617) / (49 * r - 34)
+    for x in samples:
+        points = _roots_to_nodes([x, Fraction(3), Fraction(5), Fraction(7)])
+        assert _tail_of(points, [1, 3, 4]) == t134.at(x)
+        assert _tail_of(points, [1, 2, 5]) == t125.at(x)
+        hx = _correction(points, [1, 3])
+        whole = _mass(points, hx, 3) + _beyond(points, hx, 3)
+        assert 2 * _mass(points, hx, 5) - whole == gap.at(x)
+    # The partial sums of x + m quoted in the proof, at m = 3/2 and at
+    # m = (105 - 34 r)/(49 r - 34).
+    for mm in (Fraction(3, 2), (105 - 34 * r) / (49 * r - 34)):
+        sums = _desc_sums(_multiply(_poly([r, 3, 5, 7]), [mm, _Rat([1])]))
+        assert sums[1:4] == [
+            mm - r - 14,
+            14 * r + 57 - mm * (r + 14),
+            mm * (14 * r + 57) - 57 * r - 48,
+        ]
+        assert sums[5] == 48 * (mm + 1) * (r - 1)
+    s1, s2, s3, _, s5 = sums[1:6]
+    assert s2 == s5 == beta
+    assert s1 == -7 * (7 * r**2 + 98 * r - 83) / (49 * r - 34)
+    assert s3 == -(3269 * r**2 + 882 * r - 7617) / (49 * r - 34)
+    # |S_1|, |S_3| <= beta: S_1 < 0 there, and the three quadratics.
+    assert (beta + s1) * (49 * r - 34) == 671 * r**2 + 2002 * r - 2827
+    assert (beta - s3) * (49 * r - 34) == 3989 * r**2 + 3570 * r - 11025
+    assert (beta + s3) * (49 * r - 34) == -(2549 * r**2 - 1806 * r - 4209)
+    for x in (Fraction(13, 10), Fraction(3, 2)):
+        assert s1.at(x) < 0
+        assert 671 * x**2 + 2002 * x - 2827 >= 0
+        assert 3989 * x**2 + 3570 * x - 11025 >= 0
+        assert 2549 * x**2 - 1806 * x - 4209 <= 0
     # The affine partial sums of the fixed multiplier, at both ends of (1, 13/10].
     ends = {
         Fraction(1): [Fraction(-27, 2), Fraction(97, 2), Fraction(3, 2), 0],
         Fraction(13, 10): [Fraction(-69, 5), Fraction(209, 4), Fraction(-93, 10), 36],
     }
-    for r, quoted in ends.items():
-        m = [Fraction(3, 2), Fraction(1)]
-        sums = _desc_sums(_multiply(_family(r), m))
+    for x, quoted in ends.items():
+        mult = [Fraction(3, 2), Fraction(1)]
+        sums = _desc_sums(_multiply(_family(x), mult))
         assert [sums[1], sums[2], sums[3], sums[5]] == quoted
-        assert _exempt_max(_multiply(_family(r), m), 4) <= Fraction(209, 4) < 1 / tau
-    # The quadratics of the witness on [13/10, 3/2], and the cubics at 29/20.
-    for r in (Fraction(13, 10), Fraction(3, 2)):
-        assert 671 * r**2 + 2002 * r - 2827 >= 0
-        assert 3989 * r**2 + 3570 * r - 11025 >= 0
-        assert 2549 * r**2 - 1806 * r - 4209 <= 0
-    r = Fraction(29, 20)
-    assert 214892 * r**3 - 55639 * r**2 - 138630 * r - 266709 > 0
-    assert 206070 * r**3 - 67123 * r**2 - 161312 * r - 238560 > 0
+        assert _exempt_max(_multiply(_family(x), mult), 4) <= Fraction(209, 4)
+        assert Fraction(209, 4) < 1 / tau
+    # r_c, and the cubics: positive at 29/20 with derivatives positive on r >= 1.
+    rc_poly = 930 * r**2 - 7 * r - 1988
+    assert rc_poly.at(Fraction(1465, 1000)) < 0 < rc_poly.at(Fraction(1466, 1000))
+    x = Fraction(29, 20)
+    assert c2.at(x) > 0 and c5.at(x) > 0
     assert 644676 - 111278 - 138630 > 0 and 618210 - 134246 - 161312 > 0
-    # The half-mass identity behind "N <= 5": sign of 2 sum_{d<=5}|H_d| - Tail(H).
-    for r in samples:
-        nodes = _roots_to_nodes([r, Fraction(3), Fraction(5), Fraction(7)])
-        h = _correction(nodes, [1, 3])
-        whole = _mass(nodes, h, 3) + _beyond(nodes, h, 3)
-        cubic = 206070 * r**3 - 67123 * r**2 - 161312 * r - 238560
-        assert (2 * _mass(nodes, h, 5) >= whole) == (cubic >= 0), r
     # Control: at r = 29/20 < r_c the placement 4 is worst, above tau*, and
     # the finite programs stay above 1/theta.
-    r = Fraction(29, 20)
-    assert _theta(r) > tau
-    assert min_bk_of(_family(r), 2, 8) > 1 / _theta(r)
+    assert _theta(x) > tau
+    assert min_bk_of(_family(x), 2, 8) > 1 / _theta(x)
     # At r = 3/2 the escaping placement is extremal: inf b_2 = 1704/31.
     assert _theta(Fraction(3, 2)) < tau
 

@@ -1198,7 +1198,9 @@ and $\frac{m(m+1)}2\ge\frac{K(K-2)}8$.
 \end{theorem}
 
 Since $d\ge K$, the degree hypothesis can hold only when
-$E(2\delta)\le\pi/2$, which forces $\delta<0.033$: the theorem is meant for
+$E(2\delta)\le\pi/2$, which forces $\delta<0.033$ (at $\delta=0.033$,
+$8\delta/\log2>0.38$ and $1+\log(1+\pi/(4\delta))>1+\log24.7>4.2$, so
+$E(2\delta)>1.596>\pi/2$, and $E$ is increasing): the theorem is meant for
 $\delta\to0$, and Section~\ref{sec:widesectors} treats wider sectors.
 
 \begin{proof}
@@ -1861,8 +1863,8 @@ nonleading coefficient of $F$, so $i=0$ and $|v|\ge(\rho_{\min}/2)^d$.
 So, when $\rho_{\min}>2$, $b_2(F)\ge\rho_{\min}/2$ unless every $\alpha_j$
 lies in one level set $\{y:H(y)=-v\}$ of such an $H$.  Three Gaussian points
 above the axis can share such a level set: $(y^3-y)^2$ takes the value
-$-100$ at $\pm2+i$ and $2i$, and $y^8+3y^4$ the value $4$ at $\pm1+i$ and
-$i$.  Whether the number of Gaussian points above the axis in one level set
+$-100$ at $\pm2+i$ and $2i$, since $y^3-y$ is $\pm10i$ there, and $y^8+3y^4$
+the value $4$ at $\pm1+i$ and $i$, since $y^4$ is $-4$ and $1$ there.  Whether the number of Gaussian points above the axis in one level set
 of a polynomial with small nonleading coefficients is bounded, and whether
 $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots in
 a wide sector, remain open.

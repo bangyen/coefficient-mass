@@ -461,6 +461,7 @@ def _row_cover(
     fulls: dict[int, list[tuple[int, ...]]],
     exceptions: dict[tuple[int, ...], tuple[int, ...]],
     strict: bool = False,
+    tally: list[int] | None = None,
 ) -> list[tuple[int, ...]]:
     """The nodes of the tree of ``thm:finiterows`` (b) for
     ``V_r(n+m, m+1) >= 1/bound`` that no zero set certifies.
@@ -473,6 +474,7 @@ def _row_cover(
     and ``Phi_r <= bound``.  Each is the cheapest of a few sets built from its
     parent's set and from ``fulls`` (keyed by size), or ``exceptions[S]``.
     With ``strict``, every set but the exceptions must have ``Phi_r < bound``.
+    ``tally``, if given, counts the nodes visited by size.
     """
     uncovered: list[tuple[int, ...]] = []
 
@@ -483,6 +485,8 @@ def _row_cover(
 
     def visit(exempt: tuple[int, ...], zeros: tuple[int, ...]) -> None:
         assert set(exempt) <= set(zeros) and len(zeros) <= n + len(exempt) - 1
+        if tally is not None:
+            tally[len(exempt)] += 1
         if not fits(_phi(zeros, r), exempt):
             uncovered.append(exempt)
             return
@@ -558,9 +562,10 @@ def test_third_row_below_second() -> None:
     # The second row: every position is certified at eta_2(12).
     assert _row_cover(r, 12, 1, eta, _Y12, _FULL12, {(2,): _ETA12}) == []
     # The third row: every pair, strictly below mu({2,3}) except {2,3}.
-    assert (
-        _row_cover(r, 12, 2, pair, _Y12, _FULL12, {(2, 3): _PAIR12}, strict=True) == []
-    )
+    tally = [0, 0, 0]
+    exc = {(2, 3): _PAIR12}
+    assert _row_cover(r, 12, 2, pair, _Y12, _FULL12, exc, True, tally) == []
+    assert tally == [1, 32, 126]  # the tree sizes quoted in the proof
     assert Fraction(77168, 10**4) < 1 / pair < Fraction(77169, 10**4)
     assert Fraction(85482, 10**4) < 1 / eta < Fraction(85483, 10**4)
     assert Fraction(88501, 10**4) < 1 / top < Fraction(88502, 10**4)
@@ -596,9 +601,10 @@ def test_third_row_fails_alone() -> None:
     # The second row is the top row: every position is certified at nu_1(14).
     assert _row_cover(r, 14, 1, top, _Y14, _FULL14, {}) == []
     # The third row: every pair, strictly below mu({2,3}, 16) except {2,3}.
-    assert (
-        _row_cover(r, 14, 2, pair, _Y14, _FULL14, {(2, 3): _PAIR14}, strict=True) == []
-    )
+    tally = [0, 0, 0]
+    exc = {(2, 3): _PAIR14}
+    assert _row_cover(r, 14, 2, pair, _Y14, _FULL14, exc, True, tally) == []
+    assert tally == [1, 35, 161]  # the tree sizes quoted in the proof
     assert Fraction(146268, 10**4) < 1 / pair < Fraction(146269, 10**4)
     assert Fraction(150390, 10**4) < 1 / top < Fraction(150391, 10**4)
     # The control: at nu_1(14) the second row passes but the pair {2,3} fails.
@@ -622,7 +628,10 @@ def test_third_row_is_top_row() -> None:
     assert _phi((1, 2, 5, 7, 11, 15, 21, 28, 37), r) < top
     assert _vertex_optimal(_PAIR8, {2, 3}, r)
     assert _phi(_PAIR8, r) < top
-    assert _row_cover(r, 8, 2, top, _Y8, _FULL8, {(2, 3): _PAIR8}) == []
+    tally = [0, 0, 0]
+    exc = {(2, 3): _PAIR8}
+    assert _row_cover(r, 8, 2, top, _Y8, _FULL8, exc, False, tally) == []
+    assert tally == [1, 15, 33]  # the tree sizes quoted in the proof
     assert Fraction(80259, 10**4) < 1 / top < Fraction(80260, 10**4)
     # The control: a bound a millionth below nu_1(8) is not certified.
     below = top * (1 - Fraction(1, 10**6))
