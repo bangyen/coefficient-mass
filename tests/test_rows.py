@@ -11,15 +11,16 @@ quantity here is a finite minimum of exact rationals.
 keeps the sign ``(-1)^|Z|``, and ``sum_{s>=0} q(s) x^s`` is
 ``sum_j (Delta^j q)(0) x^j / (1-x)^(j+1)``.
 
-Every inequality checked here also has a control at ``r = 5/4``, where the
-paper says it fails, so a window too small to see anything cannot pass.
+Every inequality checked here also has a control: a false variant, such as
+the root ``r = 5/4`` where the paper says it fails or a bound just below the
+true value, that the same check must catch, so a window or a tree too small
+to see anything cannot pass.
 """
 
 from __future__ import annotations
 
 from fractions import Fraction
 from itertools import combinations
-from math import comb
 
 import pytest
 
@@ -31,21 +32,55 @@ def _rz(zeros: tuple[int, ...], s: int) -> Fraction:
     return value
 
 
-def _phi(zeros: tuple[int, ...], r: Fraction) -> Fraction:
-    """``Phi_r(Z) = sum_{s>=1} |r_Z(s)| r^-s``, exactly."""
-    x = 1 / r
-    values = [_rz(zeros, s) for s in range(len(zeros) + 1)]
-    # sum_{s>=0} r_Z(s) x^s through the forward differences of r_Z at 0.
-    whole = sum(
-        sum((-1) ** (j - i) * comb(j, i) * values[i] for i in range(j + 1))
-        * x**j
-        / (1 - x) ** (j + 1)
-        for j in range(len(zeros) + 1)
+def _power_sum(head, poly, deg: int, top: int, r: Fraction) -> Fraction:
+    """``sum_{s=1}^{top} head(s) r^-s + sum_{s>top} poly(s) r^-s``, exactly.
+
+    ``head`` and ``poly`` take integer values, and ``poly`` is a polynomial of
+    degree at most ``deg``.  With ``x = 1/r = q/p`` the whole series is
+    ``sum_{s>=0} poly(s) x^s = sum_j (Delta^j poly)(0) x^j / (1-x)^(j+1)``;
+    everything is kept over the denominators ``p^top`` and ``(p-q)^(deg+1)``.
+    """
+    p, q = r.numerator, r.denominator
+    row = [poly(s) for s in range(deg + 1)]
+    diffs = []
+    for _ in range(deg + 1):
+        diffs.append(row[0])
+        row = [b - a for a, b in zip(row, row[1:], strict=False)]
+    d = p - q
+    whole = Fraction(
+        p * sum(c * q**j * d ** (deg - j) for j, c in enumerate(diffs)), d ** (deg + 1)
     )
-    top = max(zeros, default=0)
-    head = [_rz(zeros, s) * x**s for s in range(1, top + 1)]
-    tail = whole - 1 - sum(head)
-    return sum(abs(h) for h in head) + (-1) ** len(zeros) * tail
+    near = sum(
+        ((head(s) if s else 0) - poly(s)) * q**s * p ** (top - s)
+        for s in range(top + 1)
+    )
+    return whole + Fraction(near, p**top)
+
+
+def _pz(zeros: tuple[int, ...], s: int) -> int:
+    """``prod_z (z - s)``, so that ``r_Z(s)`` is this over ``prod Z``."""
+    value = 1
+    for z in zeros:
+        value *= z - s
+    return value
+
+
+def _prod(zeros: tuple[int, ...]) -> int:
+    return _pz(zeros, 0)
+
+
+def _phi(zeros: tuple[int, ...], r: Fraction) -> Fraction:
+    """``Phi_r(Z) = sum_{s>=1} |r_Z(s)| r^-s``, exactly: past ``max Z`` the
+    polynomial ``r_Z`` has the sign ``(-1)^|Z|``."""
+    sign = (-1) ** len(zeros)
+    total = _power_sum(
+        lambda s: abs(_pz(zeros, s)),
+        lambda s: sign * _pz(zeros, s),
+        len(zeros),
+        max(zeros, default=0),
+        r,
+    )
+    return total / _prod(zeros)
 
 
 def test_phi_is_exact() -> None:
@@ -198,53 +233,63 @@ def test_prefix_identity_fails_below_two() -> None:
 # tail threshold on, and each position below it gets an explicit zero set.
 
 
-def _series_tail(f, deg: int, x: Fraction, start: int) -> Fraction:
-    """``sum_{s>start} f(s) x^s`` for a polynomial ``f`` of degree ``<= deg``."""
-    values = [Fraction(f(s)) for s in range(deg + 1)]
-    whole = sum(
-        sum((-1) ** (j - i) * comb(j, i) * values[i] for i in range(j + 1))
-        * x**j
-        / (1 - x) ** (j + 1)
-        for j in range(deg + 1)
-    )
-    return whole - sum(f(s) * x**s for s in range(start + 1))
-
-
 def _vertex_optimal(zeros: tuple[int, ...], fixed: set[int], r: Fraction) -> bool:
-    """``lem:vertexopt``: whether ``Phi_r(Z) = mu_r(S, |Z|+1)``, ``S = fixed``."""
-    x, top, sign = 1 / r, max(zeros), (-1) ** len(zeros)
-    signs = {
-        s: (1 if _rz(zeros, s) > 0 else -1) for s in range(1, top + 1) if s not in zeros
-    }
+    """``lem:vertexopt``: whether ``Phi_r(Z) = mu_r(S, |Z|+1)``, ``S = fixed``.
+
+    Everything is scaled by ``prod(Z - y)``: ``e_y(s)`` is ``s * _pz(rest, s)``.
+    """
+    top, sign = max(zeros), (-1) ** len(zeros)
     for y in set(zeros) - fixed:
         rest = tuple(z for z in zeros if z != y)
 
-        def e(s: int, rest: tuple[int, ...] = rest) -> Fraction:
-            return s * _rz(rest, s)
+        def head(s: int, rest: tuple[int, ...] = rest) -> int:
+            if s in zeros:
+                return 0
+            return (1 if _pz(zeros, s) > 0 else -1) * s * _pz(rest, s)
 
-        g = sum(sg * e(s) * x**s for s, sg in signs.items())
-        g += sign * _series_tail(e, len(zeros), x, top)
-        if abs(g) > abs(e(y)) * x**y:
+        def tail(s: int, rest: tuple[int, ...] = rest) -> int:
+            return sign * s * _pz(rest, s)
+
+        g = _power_sum(head, tail, len(zeros), top, r)
+        if abs(g) > abs(y * _pz(rest, y)) * r**-y:
             return False
     return True
 
 
+def _far_gap(zeros: tuple[int, ...], m: int, t: int, r: Fraction) -> Fraction:
+    """``t^(m-1) Delta_{q,m}(t)`` of ``lem:farzeros`` for ``q = r_Z``, exactly.
+
+    The weight is ``-s t^(m-1)`` for ``s <= t`` and ``(s-t) s^(m-1) - t^m``
+    above; past ``max(Z, t)`` the summand is a polynomial.
+    """
+    sign = (-1) ** len(zeros)
+
+    def above(s: int) -> int:
+        return (s - t) * s ** (m - 1) - t**m
+
+    def head(s: int) -> int:
+        weight = -s * t ** (m - 1) if s <= t else above(s)
+        return weight * abs(_pz(zeros, s))
+
+    total = _power_sum(
+        head,
+        lambda s: sign * above(s) * _pz(zeros, s),
+        len(zeros) + m,
+        max(max(zeros, default=0), t),
+        r,
+    )
+    return total / _prod(zeros)
+
+
 def _tail_threshold(zeros: tuple[int, ...], r: Fraction) -> int:
-    """The least ``sigma >= max Z`` with ``2 R_p(sigma) <= Psi_r(p)``, ``p = r_Z``."""
-    x, top, sign = 1 / r, max(zeros), (-1) ** len(zeros)
-    deg = len(zeros) + 1
-    moment = sum(s * abs(_rz(zeros, s)) * x**s for s in range(1, top + 1))
-    moment += sign * _series_tail(lambda s: s * _rz(zeros, s), deg, x, top)
-    sigma = top
-    while True:
+    """The least ``sigma >= max Z`` with ``2 R_p(sigma) <= Psi_r(p)``, ``p = r_Z``.
 
-        def f(s: int, sigma: int = sigma) -> Fraction:
-            return (s - sigma) * _rz(zeros, s)
-
-        tail = _series_tail(f, deg, x, sigma)
-        if 2 * sign * tail <= moment:
-            return sigma
+    ``2 R_p(sigma) - Psi_r(p)`` is ``Delta_{p,1}(sigma)``.
+    """
+    sigma = max(zeros)
+    while _far_gap(zeros, 1, sigma, r) > 0:
         sigma += 1
+    return sigma
 
 
 def _candidates(sigma: int, full: tuple[int, ...], short: tuple[int, ...]):
@@ -362,3 +407,219 @@ def test_second_row_at_four_thirds() -> None:
     assert Fraction(4234, 100) < 1 / _phi(short, r) < Fraction(4235, 100)
     # The control: the prefix bound nu_1(18) fails at sigma = 3 and only there.
     assert _second_row_bounded(r, short, full, _phi(short, r), {}) == [3]
+
+
+# Every row (``sec:finiterows``).  For a polynomial ``q_N`` through the
+# exempted positions ``N`` found so far, ``lem:farzeros`` gives a threshold
+# from which the ``m - |N|`` positions still to come cost nothing; the
+# positions below the thresholds form a finite tree (``thm:finiterows``).
+
+
+def _far_threshold(zeros: tuple[int, ...], m: int, r: Fraction) -> int:
+    """The least ``t >= 1`` with ``Delta_{q,m}(t) <= 0``, ``q = r_Z``.
+
+    Bisection, as ``Delta_{q,m}`` does not increase (``lem:farzeros`` (a));
+    the certificates below need only ``Delta_{q,m}(t) <= 0``, checked here.
+    """
+    lo, hi = 0, 1
+    while _far_gap(zeros, m, hi, r) > 0:
+        lo, hi = hi, 2 * hi
+    while hi - lo > 1:
+        mid = (lo + hi) // 2
+        if _far_gap(zeros, m, mid, r) > 0:
+            lo = mid
+        else:
+            hi = mid
+    assert _far_gap(zeros, m, hi, r) <= 0
+    return hi
+
+
+def _through(base: tuple[int, ...], exempt: tuple[int, ...]) -> list[tuple[int, ...]]:
+    """``base`` with each position of ``exempt`` that it misses put in place
+    of one of the two elements outside ``exempt`` nearest to it."""
+    out = [set(base)]
+    for sigma in exempt:
+        grown = []
+        for zs in out:
+            if sigma in zs:
+                grown.append(zs)
+                continue
+            near = sorted(
+                (z for z in zs if z not in exempt), key=lambda z: (abs(z - sigma), z)
+            )
+            grown.extend(zs - {z} | {sigma} for z in near[:2])
+        out = grown
+    return [tuple(sorted(zs)) for zs in out]
+
+
+def _row_cover(
+    r: Fraction,
+    n: int,
+    m: int,
+    bound: Fraction,
+    root: tuple[int, ...],
+    fulls: dict[int, list[tuple[int, ...]]],
+    exceptions: dict[tuple[int, ...], tuple[int, ...]],
+    strict: bool = False,
+) -> list[tuple[int, ...]]:
+    """The nodes of the tree of ``thm:finiterows`` (b) for
+    ``V_r(n+m, m+1) >= 1/bound`` that no zero set certifies.
+
+    A node ``N`` (``|N| < m``) needs a zero set ``Z_N`` through ``N`` with at
+    most ``n+|N|-1`` zeros and ``Phi_r(Z_N) <= bound``; its children are
+    ``N + {sigma}`` for ``max N < sigma < T_N``, ``T_N`` the far threshold of
+    ``Z_N`` for the ``m-|N|`` positions still to come.  A leaf ``S``
+    (``|S| = m``) needs a zero set through ``S`` with at most ``n+m-1`` zeros
+    and ``Phi_r <= bound``.  Each is the cheapest of a few sets built from its
+    parent's set and from ``fulls`` (keyed by size), or ``exceptions[S]``.
+    With ``strict``, every set but the exceptions must have ``Phi_r < bound``.
+    """
+    uncovered: list[tuple[int, ...]] = []
+
+    def fits(value: Fraction, exempt: tuple[int, ...]) -> bool:
+        return value < bound or (
+            value == bound and (not strict or exempt in exceptions)
+        )
+
+    def visit(exempt: tuple[int, ...], zeros: tuple[int, ...]) -> None:
+        assert set(exempt) <= set(zeros) and len(zeros) <= n + len(exempt) - 1
+        if not fits(_phi(zeros, r), exempt):
+            uncovered.append(exempt)
+            return
+        if len(exempt) == m:
+            return
+        top = _far_threshold(zeros, m - len(exempt), r)
+        for sigma in range(max(exempt, default=0) + 1, top):
+            child = (*exempt, sigma)
+            if child in exceptions:
+                visit(child, exceptions[child])
+                continue
+            if sigma in zeros:
+                cands = [zeros]
+            else:
+                near = sorted(
+                    (z for z in zeros if z not in exempt), key=lambda z: abs(z - sigma)
+                )
+                cands = [tuple(sorted(set(zeros) - {z} | {sigma})) for z in near[:3]]
+                cands.append(tuple(sorted({*zeros, sigma})))
+            for base in fulls.get(n + len(child) - 1, []):
+                cands += _through(base, child)
+            cands = [c for c in cands if len(c) <= n + len(child) - 1]
+            visit(child, min(cands, key=lambda c: _phi(c, r)))
+
+    visit((), root)
+    return uncovered
+
+
+def test_far_zeros() -> None:
+    """``lem:farzeros`` at the ``nu_1(15)``-optimum, ``r = 5/4``: the
+    thresholds for one, two and three far zeros, and zeros past them."""
+    base = _phi(_Y1, BELOW)
+    thresholds = [_far_threshold(_Y1, m, BELOW) for m in (1, 2, 3)]
+    assert thresholds == [25, 51, 66]
+    # For m = 1 the threshold is thm:secondrow's sigma_*.
+    assert _far_gap(_Y1, 1, 24, BELOW) > 0
+    for m, t in zip((1, 2, 3), thresholds, strict=True):
+        for far in combinations((t, t + 1, t + 2, t + 7, 2 * t), m):
+            assert _phi(tuple(sorted({*_Y1, *far})), BELOW) <= base, far
+    # The control: two zeros at the one-zero threshold cost half as much again.
+    assert _phi(tuple(sorted({*_Y1, 25, 26})), BELOW) > Fraction(3, 2) * base
+
+
+# ``prop:thirdrowexact`` (a): at ``r = 4/3``, ``n = 12`` the worst pair of
+# exempted positions is ``{2, 3}``, below the second row.
+_R43 = Fraction(4, 3)
+#: ``nu_1(12)``, ``eta_2(12) = nu_3(11)`` and ``mu({2,3}, 14)``.
+_Y12 = (1, 3, 6, 9, 13, 17, 23, 30, 39, 50, 64)
+_ETA12 = (1, 2, 5, 8, 12, 16, 21, 28, 35, 44, 56, 71)
+_PAIR12 = (2, 3, 4, 7, 10, 15, 19, 25, 32, 40, 49, 61, 77)
+_FULL12 = {
+    12: [(1, 3, 5, 8, 12, 16, 21, 28, 35, 44, 56, 71)],
+    13: [(1, 3, 5, 8, 11, 15, 20, 26, 32, 40, 50, 62, 77)],
+}
+
+
+def test_third_row_below_second() -> None:
+    """``V_{4/3}(14,3) = 1/Phi(Z_23) < V_{4/3}(13,2) = 1/nu_3(11) <
+    beta(12) = min_{i<=3} 1/nu_i(12)``, and ``{2,3}`` alone attains it."""
+    assert _far_threshold(_Y12, 2, _R43) == 33
+    r, pair, eta, top = _R43, _phi(_PAIR12, _R43), _phi(_ETA12, _R43), _phi(_Y12, _R43)
+    # eta_2(12) = nu_3(11), as [1, 2] lies in its optimum, while Z_23 omits 1.
+    assert {1, 2} <= set(_ETA12) and 1 not in _PAIR12
+    assert _vertex_optimal(_PAIR12, {2, 3}, r)
+    assert _vertex_optimal(_ETA12, {2}, r)
+    assert _vertex_optimal(_Y12, set(), r)
+    assert top < eta < pair
+    # nu_2(12) and nu_3(12) are below nu_1(12).
+    assert _phi(_FULL12[12][0], r) < top
+    assert _phi((1, 2, 5, 7, 11, 15, 20, 25, 32, 40, 50, 61, 77), r) < top
+    # The second row: every position is certified at eta_2(12).
+    assert _row_cover(r, 12, 1, eta, _Y12, _FULL12, {(2,): _ETA12}) == []
+    # The third row: every pair, strictly below mu({2,3}) except {2,3}.
+    assert (
+        _row_cover(r, 12, 2, pair, _Y12, _FULL12, {(2, 3): _PAIR12}, strict=True) == []
+    )
+    assert Fraction(77168, 10**4) < 1 / pair < Fraction(77169, 10**4)
+    assert Fraction(85482, 10**4) < 1 / eta < Fraction(85483, 10**4)
+    assert Fraction(88501, 10**4) < 1 / top < Fraction(88502, 10**4)
+    # The control: at the second row's value the pair {2,3}, and only it, fails.
+    assert _row_cover(r, 12, 2, eta, _Y12, _FULL12, {}) == [(2, 3)]
+
+
+# ``prop:thirdrowexact`` (b): at ``r = 4/3``, ``n = 14`` the prefix identity
+# holds in the second row and fails in the third.
+_Y14 = (1, 3, 5, 8, 11, 15, 20, 26, 32, 40, 50, 62, 77)
+_PAIR14 = (1, 2, 3, 6, 9, 13, 17, 22, 27, 34, 41, 50, 60, 73, 89)
+_FULL14 = {
+    14: [(1, 3, 5, 7, 10, 14, 18, 24, 30, 37, 45, 55, 67, 83)],
+    15: [(1, 3, 4, 7, 10, 13, 17, 22, 28, 34, 42, 50, 61, 73, 90)],
+}
+
+
+def test_third_row_fails_alone() -> None:
+    """``V_{4/3}(15,2) = beta(14) = min_{i<=3} 1/nu_i(14) > V_{4/3}(16,3) =
+    1/Phi(Z_23) = 1/nu_4(13)``, attained at the pair ``{2,3}`` alone."""
+    assert _far_threshold(_Y14, 2, _R43) == 36
+    r, pair, top = _R43, _phi(_PAIR14, _R43), _phi(_Y14, _R43)
+    # mu({2,3}, 16) = nu_4(13), as [1, 3] lies in its optimum.
+    assert {1, 2, 3} <= set(_PAIR14)
+    assert _vertex_optimal(_PAIR14, {2, 3}, r)
+    assert _vertex_optimal(_Y14, set(), r)
+    assert top < pair
+    # nu_2(14) and nu_3(14) are below nu_1(14).
+    assert _phi(_FULL14[14][0], r) < top
+    assert _phi((1, 2, 4, 7, 10, 13, 17, 22, 28, 34, 42, 50, 61, 73, 90), r) < top
+    # The second row is the top row: every position is certified at nu_1(14).
+    assert _row_cover(r, 14, 1, top, _Y14, _FULL14, {}) == []
+    # The third row: every pair, strictly below mu({2,3}, 16) except {2,3}.
+    assert (
+        _row_cover(r, 14, 2, pair, _Y14, _FULL14, {(2, 3): _PAIR14}, strict=True) == []
+    )
+    assert Fraction(146268, 10**4) < 1 / pair < Fraction(146269, 10**4)
+    assert Fraction(150390, 10**4) < 1 / top < Fraction(150391, 10**4)
+    # The control: at nu_1(14) the second row passes but the pair {2,3} fails.
+    assert _row_cover(r, 14, 2, top, _Y14, _FULL14, {}) == [(2, 3)]
+
+
+# ``prop:thirdrowexact`` (c): at ``r = 3/2``, ``n = 8`` the third row is the top
+# row, with ``nu_2(8), nu_3(8) < nu_1(8)``.
+_R32 = Fraction(3, 2)
+_Y8 = (1, 3, 6, 9, 14, 20, 28)
+_FULL8 = {8: [(1, 3, 5, 8, 12, 17, 24, 33)], 9: [(1, 3, 5, 8, 11, 15, 21, 28, 37)]}
+#: The closest pair: ``mu({2,3}, 10)``, one percent below ``nu_1(8)``.
+_PAIR8 = (2, 3, 4, 7, 10, 15, 20, 27, 37)
+
+
+def test_third_row_is_top_row() -> None:
+    """``V_{3/2}(10,3) = beta(8) = min_{i<=3} 1/nu_i(8)``, minimum at ``i = 1``."""
+    r, top = _R32, _phi(_Y8, _R32)
+    assert _vertex_optimal(_Y8, set(), r)
+    assert _phi(_FULL8[8][0], r) < top
+    assert _phi((1, 2, 5, 7, 11, 15, 21, 28, 37), r) < top
+    assert _vertex_optimal(_PAIR8, {2, 3}, r)
+    assert _phi(_PAIR8, r) < top
+    assert _row_cover(r, 8, 2, top, _Y8, _FULL8, {(2, 3): _PAIR8}) == []
+    assert Fraction(80259, 10**4) < 1 / top < Fraction(80260, 10**4)
+    # The control: a bound a millionth below nu_1(8) is not certified.
+    below = top * (1 - Fraction(1, 10**6))
+    assert _row_cover(r, 8, 2, below, _Y8, _FULL8, {(2, 3): _PAIR8}) == [()]
