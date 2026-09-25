@@ -36,7 +36,7 @@ roots $2\le r_1\le\cdots\le r_L$ a companion paper proves
 $b_k(F)\ge|f_D|\prod_{i\ge k}(r_i-1)$ for every multiple of
 $\prod_i(x-r_i)$, and hence a mass bound quadratic in $L$.  We ask what
 survives for complex roots.  Roots in full orbits of $x\mapsto\zeta x$,
-$\zeta^m=1$, in particular purely imaginary pairs $\pm ic$, reduce exactly to
+$\zeta^m=1$, of real points all of one sign, in particular purely imaginary pairs $\pm ic$, reduce exactly to
 real roots: the infimum of every $b_k$ and of $\Lambda$ over monic multiples
 is the same as at the real roots $c^2$.  Without such structure only the
 first row survives: $b_1(F)\ge|f_D|\prod_j(|\alpha_j|-1)$ at arbitrary roots
@@ -52,7 +52,9 @@ signs charge one
 root of each sign per excluded coefficient, with the sharp constant
 $\frac14$ in the mass.  For $K$ roots of modulus at least $R$ in a sector of
 half-width $\delta$, the mass of multiples of degree $O(K)$ is of order
-$\min(K^2,K/\delta)\log R$, with both constants attained in the limit; at
+$\min(K^2,K/\delta)\log R$, with the constants $\frac12$ of $K^2\log R$ (as
+$\delta K\to0$) and $\pi$ of $(K/\delta)\log R$ (at fixed $\delta$) attained
+in the limit; at
 Gaussian-integer roots the degree restriction is removed for integer
 multiples.
 \end{abstract}
@@ -139,6 +141,10 @@ the lowest coefficient costs $2Kg\log\min_j|\alpha_j|$
 \paragraph{Conventions.}
 All logarithms are natural.  For $F\in\mathbb C[x]$ of degree $D$ we write
 $F^*(t)=t^DF(1/t)=\sum_{d=0}^Df_{D-d}t^d$ for the reciprocal polynomial.
+Coefficients of a polynomial named by a capital letter, when used, carry the
+lowercase letter: $F=\sum_jf_jx^j$, $B=\sum_ib_ix^i$.  With an argument,
+$b_k(\cdot)$ is always the $k$-th largest nonleading magnitude, so $b_k(B)$
+and the coefficient $b_k$ of $B$ differ.
 References of the form \cite[Theorem~3.2]{coefficient-mass} are to the
 companion paper.
 
@@ -219,7 +225,8 @@ multiple of $P_{\rm im}$.
 \[
   b_k(F)\ \ge\ |f_D|\prod_{j=k}^K(c_j^2-1),
 \]
-and the $k$ magnitudes may be taken among the positions $j\equiv D\pmod2$.
+and at least $k$ positions $j<D$ with $j\equiv D\pmod2$ carry magnitudes
+$|f_j|$ at least this bound.
 The row $k=1$ holds for $c_1>1$.
 \item If $c_1^2\ge2$ and $|f_D|\ge1$, then
 \[
@@ -245,7 +252,7 @@ $f_D$, and $\tilde E(y)=E_\varepsilon(-y)$ is a multiple of $P_{\rm re}$
 with leading coefficient $\pm f_D$ and the same coefficient magnitudes.  \cite[Theorem~3.2]{coefficient-mass}, with \cite[Corollary~3.3]{coefficient-mass} for complex $F$, applied to
 $\tilde E$ at the roots $c_j^2\ge2$ gives item~1, since
 $b_k(F)\ge b_k(\tilde E)$ and the positions of $\tilde E$ are those
-$j\equiv D\pmod 2$ of $F$; the clause $c_1>1$ is the $u=0$ clause of
+$j\equiv D\pmod 2$ of $F$; the clause $c_1>1$ is the clause $r_1>1$ for the row $k=1$ of
 \cite[Theorem~3.2]{coefficient-mass}.  Item~2 is \cite[Corollary~3.4]{coefficient-mass} applied to $\tilde E$, together with
 $\Lambda(F)\ge\Lambda(\tilde E)$.  Item~3 is the equality of infima in
 Theorem~\ref{thm:transfer}, composed with the magnitude-preserving
@@ -270,7 +277,8 @@ for $P_{\rm im}$.
 
 The same proof applies to every factor of the form $R(x^m)$ with $R$ real
 and all roots of $R$ of one sign: the real roots $\pm r$ in pairs
-($R=\prod(y-r_j^2)$), or the $m$-th roots of $\pm s_j$ for fixed $m$.  One
+($R=\prod(y-r_j^2)$), or, for fixed $m$, all $m$-th roots of real $s_j$ of
+one sign.  One
 more reduction needs no multisection.
 
 \begin{corollary}[Roots on a common ray]\label{cor:ray}
@@ -442,7 +450,7 @@ $u=\log|\beta|$ shows $F(\beta)\ne0$.
 
 Item~2 is the Archimedean form of the Newton polygon theorem: up to the
 factor $3$, the moduli of the roots can only sit at the tropical roots.
-Unlike the $q$-adic case, the roots of modulus near $e^{\sigma_s}$ need not
+Unlike the non-Archimedean case, the roots of modulus near $e^{\sigma_s}$ need not
 number $\ell_s$; $(x-1)^D$ has all its roots on $|z|=1$ but
 tropical roots $\log\frac{i+1}{D-i}$ spread over $[-\log D,\log D]$.
 Separated roots still force separated vertices, which is all the mass needs.
@@ -819,8 +827,8 @@ matching lower bound: every excluded coefficient costs one root of each sign.
 
 \begin{lemma}[Rolle on both half-lines]\label{lem:rolleside}
 Let $h\in\R[t]$ be nonzero, let $z\ge1$ be an integer, and put
-$T_zh=h-(t/z)h'$, so that $[t^d]T_zh=(1-d/z)[t^d]h$.  If $h$ has the zeros
-$0<\xi_1\le\cdots\le\xi_m$, listed with multiplicity, $m\ge1$, then $T_zh$ has
+$T_zh=h-(t/z)h'$, so that $[t^d]T_zh=(1-d/z)[t^d]h$.  If the zeros of $h$ in
+$(0,\infty)$, listed with multiplicity, are $\xi_1\le\cdots\le\xi_m$, $m\ge1$, then $T_zh$ has
 zeros $\eta_1\le\cdots\le\eta_{m-1}$ in $(0,\infty)$, listed with multiplicity,
 with $\xi_j\le\eta_j\le\xi_{j+1}$.  The same holds in $(-\infty,0)$ for the
 absolute values: zeros $|\xi_1|\le\cdots\le|\xi_m|$ of $h$ there give zeros
@@ -1367,14 +1375,14 @@ $g$ is increasing on $[0,\infty)$, as $g'(\nu)=\log(R/T)-1/(\nu+1)>0$.
 \emph{Mahler measure.}  Suppose $n\ge1$ and let
 $B^*(t)=t^dB(1/t)=\sum_kb_{d-k}t^k$, so $B^*(0)=b_d$ and the nonzero zeros of
 $B^*$ are the $1/\beta$, $\beta\ne0$ a zero of $B$.  Jensen's formula on
-$|t|=\varrho=n/(n+1)\ge\frac12$, where the $n$ points $1/\beta$ with
-$|\beta|>r_1$ lie in $|t|<1/3$ and each contributes $\log(\varrho|\beta|)\ge\log(\varrho r_1)$,
+$|t|=\tau=n/(n+1)\ge\frac12$, where the $n$ points $1/\beta$ with
+$|\beta|>r_1$ lie in $|t|<1/3$ and each contributes $\log(\tau|\beta|)\ge\log(\tau r_1)$,
 and every other contribution is nonnegative, gives
 \[
-  \log\max_{|t|=\varrho}|B^*(t)|\ \ge\ \log|b_d|+n\log(\varrho r_1)\ \ge\ n\log r_1-1,
+  \log\max_{|t|=\tau}|B^*(t)|\ \ge\ \log|b_d|+n\log(\tau r_1)\ \ge\ n\log r_1-1,
 \]
 using $n\log\frac{n+1}n\le1$.  On the other side
-$\max_{|t|=\varrho}|B^*|\le\max_i|b_i|\sum_k\varrho^k=(n+1)\max_i|b_i|$.  So
+$\max_{|t|=\tau}|B^*|\le\max_i|b_i|\sum_k\tau^k=(n+1)\max_i|b_i|$.  So
 $\Lambda(B)\ge\log\max_i|b_i|\ge n\log r_1-\log(n+1)-1\ge g(n)$.
 
 \emph{Crossings.}  Choose $\theta$ with $e^{-i\theta}b_de^{id\psi}=i|b_d|$.  As
@@ -1383,8 +1391,8 @@ $d$ with leading coefficient $|b_d|\ge1$ and $|h_k|\le|b_k|$, so
 $\Lambda(B)\ge\Lambda(h)$.
 
 Let $X_1=N-\delta'n/\pi-\varepsilon'-1$.  If $X_1\ge m$, then by
-Lemma~\ref{lem:sharpcross} $h$ has $m$ distinct zeros larger than
-$r_1\ge3$, and \cite[Theorem~3.2]{coefficient-mass} with \cite[Corollary~3.4]{coefficient-mass} gives
+Lemma~\ref{lem:sharpcross} $h$ has $m$ distinct zeros
+$\varrho_1<\cdots<\varrho_m$ larger than $r_1\ge3$, and \cite[Theorem~3.2]{coefficient-mass} with \cite[Corollary~3.4]{coefficient-mass} gives
 $\Lambda(h)\ge\sum_{i=1}^mi\log(\varrho_i-1)\ge\frac{m(m+1)}2\log(R/T-1)$.
 Otherwise $n>(\pi/\delta')(K-1-m-\varepsilon')$.  If the right side is positive,
 $n\ge1$ and $\Lambda(B)\ge g(n)\ge g(\nu_m(\delta'))$, where $\nu_m(\delta')$
@@ -1399,8 +1407,11 @@ $\nu_m(\delta')\to\nu_m$, and $g$ is continuous.
 The first term is the thin-sector mechanism, now at every width; the second
 is the angle mechanism.  If the zeros of $B$ of modulus above $R/T$ are few,
 for instance if $B=PQ$ with $P$ the product of $K$ conjugate pairs in the
-sector and all zeros of $Q$ in $|z|\le R/T$, then $n\le2K$ and the
-theorem with the largest admissible $m$ gives
+sector and all zeros of $Q$ in $|z|\le R/T$, then $n\le2K$ in the proof.
+For $m$ with $\nu_m>2K$ its alternative $n>(\pi/\delta')(K-1-m-\varepsilon')$
+fails for $\delta'$ near $\delta$, so the crossings step applies; the largest
+such $m$ is at least $(1-\frac{2\delta}\pi)K-e-2$, and whenever this is
+nonnegative,
 $\Lambda(B)\ge\frac12\bigl((1-\frac{2\delta}\pi)K-e-2\bigr)^2\log(R/T-1)$.
 So in a sector of any
 width short of a half-plane a cheap multiple needs about
@@ -1460,7 +1471,11 @@ mechanism is sharp in every sector.  The thin-sector term is sharp too: on a
 common ray, $\prod_j(x-\rho_je^{i\varphi})$ with $\rho_j\in[R,2R]$ has
 $\Lambda\le\frac{K(K+1)}2\log(2R)+K^2\log2$.  So for complex multiples of
 degree $O(K)$ the infimum of $\Lambda$ is of order $\min(K^2,K/\delta)\log R$
-as $R\to\infty$, with both constants attained in the limit.  In a wide sector, with $\delta$
+as $R\to\infty$, with both constants attained in the limit: $\frac12$ in
+$\frac12K^2\log R$, from Theorem~\ref{thm:widesector} with $m=K-o(K)$ as
+$\delta K\to0$, when $e=o(K)$ and $\nu_m\ge K^2/2$, against the common ray; and $\pi$ in
+$\frac\pi\delta K\log R$, from Corollary~\ref{cor:wideconst} at fixed $\delta$,
+against Proposition~\ref{prop:widesharp}.  In a wide sector, with $\delta$
 fixed, it is linear in $K$, and
 $\Lambda\ge cK^2\log R$ fails already for the monic real multiple $x^N-\rho^N$.
 \begin{corollary}[Gaussian roots in sectors of every width]\label{cor:widegauss}
@@ -1473,7 +1488,8 @@ by $P$ satisfies, for every integer $m\ge0$,
   \Lambda(F)\ \ge\ \min\Bigl\{\lambda K\log\frac R2,\
   \frac{m(m+1)}2\log\Bigl(\frac RT-1\Bigr),\ g(\nu_m)\Bigr\},
 \]
-with $g$ and $\nu_m$ as in Theorem~\ref{thm:widesector}.  In particular, for fixed
+with $g$ as in Theorem~\ref{thm:widesector} and
+$\nu_m=\frac\pi\delta(K-1-m-e)^+$ for this $e$.  In particular, for fixed
 $\delta$, $\Lambda(F)\ge(\pi/\delta-o(1))K\log R$ as $K\to\infty$ and
 $R\to\infty$.
 \end{corollary}
