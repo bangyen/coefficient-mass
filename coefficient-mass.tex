@@ -1182,27 +1182,27 @@ Since $c_1=\ell+1$ and $c_i\le m-(\ell+1-i)$ for $i\ge2$,
 \[
   \prod_{c\in C}\frac c{s-c}
   \le\frac{\ell+1}{s-\ell-1}\prod_{i=2}^{\ell+1}\frac{m-\ell-1+i}{s-m+\ell+1-i}
-  =\frac{\ell+1}{s-\ell-1}\binom mj\Big/\binom{s-m-1+\ell}\ell .
+  =\frac{\ell+1}{s-\ell-1}\binom m\ell\Big/\binom{s-m-1+\ell}\ell .
 \]
 Apply $1/\binom\nu \ell=(\nu+1)\int_0^1t^\ell(1-t)^{\nu-\ell}\,dt$ with $\nu=s-m-1+\ell$, and
 note that $\nu+1=s-m+\ell\le s-\ell-1$ because $m\ge2\ell+1$:
 \[
-  \prod_{c\in C}\frac c{s-c}\le(\ell+1)\binom mj\int_0^1t^\ell(1-t)^{s-m-1}\,dt .
+  \prod_{c\in C}\frac c{s-c}\le(\ell+1)\binom m\ell\int_0^1t^\ell(1-t)^{s-m-1}\,dt .
 \]
 Multiply by $\binom{s-1}N2^{-s}$ and sum over $s>N$.  With
 $\sum_{s>N}\binom{s-1}N y^s=\bigl(y/(1-y)\bigr)^{N+1}$ at $y=(1-t)/2$, the
 sum of $\binom{s-1}N2^{-s}(1-t)^{s-m-1}$ is
 $(1-t)^{-m-1}\bigl((1-t)/(1+t)\bigr)^{N+1}$, so
 \[
-  T(C,q)\le(\ell+1)\binom mj\int_0^1t^\ell
+  T(C,q)\le(\ell+1)\binom m\ell\int_0^1t^\ell
      \Bigl(\frac{1-t}{1+t}\Bigr)^q(1+t)^{-m-1}\,dt .
 \]
 Now $(1-t)/(1+t)\le e^{-2t}$, since $\log\frac{1+t}{1-t}\ge2t$, and for
 $q\ge1$, $(q+1)e^{-2qt}\le2q\,e^{-2qt}\le1/(et)$, since $ye^{-y}\le1/e$.
 Extending the integral to $(0,\infty)$,
 \[
-  (q+1)\,T(C,q)\le\frac{\ell+1}e\binom mj\int_0^\infty t^{\ell-1}(1+t)^{-m-1}\,dt
-  =\frac{\ell+1}e\binom mj\,\mathrm B(\ell,m-\ell+1)=\frac{\ell+1}{e\,\ell}.
+  (q+1)\,T(C,q)\le\frac{\ell+1}e\binom m\ell\int_0^\infty t^{\ell-1}(1+t)^{-m-1}\,dt
+  =\frac{\ell+1}e\binom m\ell\,\mathrm B(\ell,m-\ell+1)=\frac{\ell+1}{e\,\ell}.
 \]
 \end{proof}
 
