@@ -10,9 +10,10 @@ is open; an answer lands in the paper it extends, and the row leaves.
   threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
   the escaping placement extremal; the infimum along `(r,3,5,7)` for
   `1 < r < 13/10`, where `thm:family` gives only `<= 209/4`.
-- [complex](papers/coefficient-mass-complex.tex): the rows of
-  `cor:annuli` item 1 at a fixed separation, and the least such separation
-  for the mass (`sec:annuli`).
+- [complex](papers/coefficient-mass-complex.tex): the least fixed
+  separation for the mass, between 2 and 81, and whether 9 suffices; the
+  least separation for the rows of `cor:annuli`, between `n_a` and `9 n_a`
+  (`sec:annuli`).
 - [rows](papers/coefficient-mass-rows.tex): whether `nu_2(n) >= nu_1(n)`
   implies the prefix identity at `k = 2` (`sec:secondrow`); whether the
   worst finite position is always small, and failures occur for every
@@ -82,17 +83,30 @@ is open; an answer lands in the paper it extends, and the row leaves.
   top, and at `r <= T/6` at least `n/2` (`lem:tropcount`; `(x - t)**K`
   shows the factor `n` is needed), so the positions and rows of
   `cor:annuli` item 1 hold once `T_a > 9 n_a U_(a-1)`, `n_a` the roots from
-  annulus `a` up.  Closed for the mass at a fixed separation: every
+  annulus `a` up.  Closed negatively for the rows at a fixed separation:
+  `(x - q)(x + Kq)**K`, `K >= 10`, `q >= 4**K`, has `T_2 = n_2 U_1`,
+  `f_1 = 0` (the `K` zeros above cancel the one below) and
+  `b_2 < 2**K (Kq)**(K-1)`, below the row `k = 2` by a factor tending to 0
+  (`prop:rowsneedn`); so the rows need a separation between `n_a` and
+  `9 n_a`.  Closed for the mass at a fixed separation: every
   multiple with `|f_D| >= 1` has mass at least
   `sum_s s K_s log(T_s/2) - S log 2` once `T_1 > 3` and
-  `T_a > 162 U_(a-1)` (`thm:fixedgap`: where one central index falls
-  short, two share the charge); ratios `log(|beta|/6U_(a-1))` at the
-  factor 9 (`cor:annuli` item 2).  A
+  `T_a > 81 U_(a-1)` (`thm:fixedgap`: where one central index falls
+  short, two share the charge, one at `T_a/3` and one at `T_a/27`, and
+  `lem:tropcount` bounds their shortfalls by `0.82 n_a` and `0.13 n_a`);
+  ratios `log(|beta|/6U_(a-1))` at the factor 9 (`cor:annuli` item 2).
+  Separation 2 does not suffice: `(x - q)(x + 2q + 1/(2q+1))**2`, `q >= 97`,
+  misses the bound by `log(t**2/(128(3q + 2 delta)))`, unbounded in `q`
+  (`prop:gaptwo`).  Numerically only (floating-point vertex enumeration of
+  the least mass over real multiples of degree at most `deg P + 1`, about
+  150 random root sets per separation, at most three real roots or
+  conjugate pairs in the upper annulus), no failure appears at separations 2.2, 3 and 5.  A
   lacunary integer multiple at suitable roots attains `sum_s s K_s log t_s`
   exactly, so the constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
   also for pairs near the imaginary axis (`prop:annulisharp`).  Open: the
-  rows of `cor:annuli` item 1 at a fixed separation, and the least fixed
-  separation for the mass (whether 9 suffices).
+  least fixed separation for the mass, between 2 and 81 (whether 9
+  suffices), and the least separation for the rows, between `n_a` and
+  `9 n_a`.
 
 - **Coefficient mass in sectors.**  The paper is
   [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), split out
