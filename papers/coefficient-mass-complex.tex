@@ -1223,13 +1223,16 @@ $\Gamma\le a/(a-1+\lambda)$ and
   b_2(F)\ \ge\ \min\Bigl(\frac{\lambda(a-1)}{\Gamma(a-\lambda)},\
   \frac{a-1}{1+(2a-1)(\Gamma-1)}\Bigr)|f_D|\,\Pi .
 \]
+More precisely, with $\varepsilon$ this minimum, for every position $j$
+some $l\le D-n$, $l\ne j$, has $|f_l|\ge\varepsilon|f_D|\Pi$.
 In particular $b_2(F)\ge\lambda(1-\frac1a)^2|f_D|\Pi$ if $a\ge2$.
 \end{proposition}
 
 \begin{proof}
 Divide $F$ by $f_D$, so $f_D=1$; let $\varepsilon$ be the minimum and
-suppose $b_2(F)<\varepsilon\Pi$, so that some $j<D$ has $|f_l|<\varepsilon\Pi$ for every
-$l<D$ other than $j$.  Let $H$, $P$, $d=D-n$, $w_m$ and $S_m$ be as in the
+suppose that some position $j$ has $|f_l|<\varepsilon\Pi$ for every
+$l\le D-n$ other than $j$ (if $b_2(F)<\varepsilon\Pi$, a position $j<D$ of a
+largest nonleading coefficient does).  Let $H$, $P$, $d=D-n$, $w_m$ and $S_m$ be as in the
 case $n\ge2$ of the proof of Theorem~\ref{thm:rowstwo}, which needs only
 $n\ge1$, and $W_m=\binom{n+m-1}mT^{-m}$, so $|w_m|\le W_m$,
 $\sum_mW_m=\Gamma$ and $|S_m(\alpha)|\le\sum_{i\le m}W_ia^i$.  Hence
@@ -2122,7 +2125,8 @@ $\frac1{b(a-1)}<\frac1{g\tau(\tau-1)}=\frac3{(4\tau+2)(\tau-1)}$, and
 \]
 Both cases are contradictory, so some $l\ne j,D$ has $|f_l|>|f_D|b/4$,
 which bounds $b_2(F)$.  The row $k=1$ is Lemma~\ref{lem:central} at $r=1$
-with $A=A_1\cup A_2$, and the two rows give the mass as in
+with $A=A_1\cup A_2$ (the central index is below $D$, as
+$\prod_A|\beta|/2>\frac32\cdot2>2$), and the two rows give the mass as in
 Corollary~\ref{cor:rowstwo}.  Finally $(x-q)(x+t)=x^2+(t-q)x-qt$ has
 $T_1=U_1=q$, $T_2=t$ and $b_2=t-q$.
 
@@ -2143,9 +2147,8 @@ $|f_{D-1}|\le9|f_D|$, against
 $|f_{D-1}|>|f_D|aT_2^2/16>|f_D|g^2\tau^3/16$, where
 $g^2\tau^3=\tau(2\tau+1)^2>147$.
 
-The proof of Proposition~\ref{prop:rowstwolarge}, with $A=A_2$, $n=2$ and
-$T=T_2$ (as $a<T_2/2$), uses only the positions $l\le D-2$ other than an
-arbitrary position $j$: it gives some $l\le D-2$, $l\ne j$, with
+Proposition~\ref{prop:rowstwolarge}, with $A=A_2$, $n=2$ and
+$T=T_2$ (as $a<T_2/2$), gives some $l\le D-2$, $l\ne j$, with
 $|f_l|\ge\varepsilon|f_D|\Pi$, where $\varepsilon$ is the minimum there.  In
 its first term $\lambda>\frac1{2\tau+1}$, $\frac{a-1}{a-\lambda}\ge1-\frac1a>\frac23$
 and $(1-\frac1{T_2})^{-2}<(\frac{2\tau+1}{2\tau})^2\le(\frac76)^2$; the second
