@@ -124,12 +124,15 @@ $V_{5/4}(16,2)=1/\nu_3(14)<\min_{i\le2}1/\nu_i(15)$ and
 $V_{4/3}(19,2)<\min_{i\le2}1/\nu_i(18)$
 (Proposition~\ref{prop:secondrowexact}).  They rest on a finite reduction:
 the second row $V_r(n+1,2)$ is the minimum of the top row $\beta_r(n)$ and
-finitely many exempted-position terms (Theorem~\ref{thm:secondrow}).  Every
+finitely many exempted-position terms (Theorem~\ref{thm:secondrow}).  The
+identity can fail in the second row even when $\nu_2(n)>\nu_1(n)$: at
+$r=\frac{177}{167}$, $V_r(51,2)<1/\nu_2(50)<1/\nu_1(50)$
+(Proposition~\ref{prop:secondrowhyp}).  Every
 row $k\ge2$ is likewise the minimum of $V_r(L-1,k-1)$ and finitely many
 exempted-set terms (Theorem~\ref{thm:finiterows}), and exact certificates
 give $V_{4/3}(16,3)<V_{4/3}(15,2)=\min_{i\le3}1/\nu_i(14)$
 (Proposition~\ref{prop:thirdrowexact}), so the identity can fail in the
-third row of a diagonal while holding in the second.  The proofs of these two
+third row of a diagonal while holding in the second.  The proofs of these three
 propositions are computer-assisted: they list the certifying zero sets and
 reduce the claims to finitely many comparisons of explicit rationals, which
 the accompanying tests carry out in exact arithmetic.
@@ -1114,7 +1117,8 @@ would give $\min_{i\le k}1/\nu_i(n)$.  This section proves it in two regimes: fo
 every $k$ when $\beta_r(n)\le1$ (Section~\ref{sec:onepoly}), and for every
 $n$ once $k$ is large compared with $n$ (Section~\ref{sec:longdiag}).  In
 both the minimum is at $i=k$.  Section~\ref{sec:secondrow} treats the
-second row for every $n$ and shows that the identity can fail, and
+second row for every $n$ and shows that the identity can fail, also
+when $\nu_2(n)>\nu_1(n)$, and
 Section~\ref{sec:finiterows} reduces every row to finitely many exempted
 sets and shows that it can fail in the third row of a diagonal whose second
 row satisfies it.
@@ -1491,7 +1495,9 @@ $1/\eta_\sigma(n)=1/\Phi_r(Z)$ for a set $Z\ni\sigma$ of $n$ integers, and
 such a $Z$ can be certified exactly
 (Lemma~\ref{lem:vertexopt}).  At $r=\frac54$ and $r=\frac43$
 this determines rows on both sides of the prefix identity
-(Proposition~\ref{prop:secondrowexact}).
+(Proposition~\ref{prop:secondrowexact}), and at $r=\frac{177}{167}$ it
+shows that the identity can fail although $\nu_2(n)>\nu_1(n)$
+(Proposition~\ref{prop:secondrowhyp}).
 
 \begin{lemma}[Dropping a far exempted position]\label{lem:rowmono}
 Let $r>1$ and $2\le k\le L$.  Then $V_r(L,k)\le V_r(L-1,k-1)$.  So
@@ -1658,8 +1664,8 @@ $\sigma\ge\sigma_0$, since $R_p$ decreases.  The next proposition handles
 the far positions this way.
 
 \paragraph{Names of zero sets.}
-In Propositions~\ref{prop:secondrowexact} and~\ref{prop:thirdrowexact} each
-part fixes a root $r$ and a top-row degree $n$, and a named set of integers
+In Propositions~\ref{prop:secondrowexact}, \ref{prop:secondrowhyp}
+and~\ref{prop:thirdrowexact} each part fixes a root $r$ and a top-row degree $n$, and a named set of integers
 records $n$ and the positions it must contain: $Y_n$ is a set of $n-1$
 integers (a candidate for $\nu_1(n)$), $Y'_n$ is a set of $n$ integers
 containing $1$, and, for a set $S$ of exempted positions, $Z_S(n)$ is a set
@@ -1787,11 +1793,80 @@ row is $1/\mu_r([1,\sigma],n+1)=1/\nu_{\sigma+1}(n+1-\sigma)$.  Neither
 Theorem~\ref{thm:onepolyrows} nor Theorem~\ref{thm:longdiag} reaches (c),
 since both place the minimum at $i=k$.
 
-\paragraph{A conjecture.}
-We conjecture that the prefix identity holds at $(r,n+1,2)$ whenever
-$\nu_2(n)\ge\nu_1(n)$, and we do not know whether a worst exempted
-position, when one exists, is always small, or whether the identity fails
-for every $1<r<2$ or only near $1$.
+\paragraph{The hypothesis $\nu_2(n)\ge\nu_1(n)$.}
+In Proposition~\ref{prop:secondrowexact}(a) and~(d) the identity fails
+with $\nu_2(n)<\nu_1(n)$.  When
+$\nu_2(n)>\nu_1(n)$ the position $\sigma=2$ cannot break it:
+$\eta_2(n)\le\nu_2(n)$.  Indeed, by Lemma~\ref{lem:vertexopt} some $Y$ with
+$|Y|=n-1$ has $\Phi_r(Y)=\nu_1(n)$, and some $Z\ni1$ with $|Z|=n$ has
+$\Phi_r(Z)=\nu_2(n)=\mu_r(\{1\},n+1)$.  If $1\in Y$, then $r_Y$ is
+admissible for $\mu_r(\{1\},n+1)$ and $\nu_2(n)\le\nu_1(n)$.  So
+$Y\subset[2,\infty)$ and $r_Y(2)\ge0$, while
+$r_Z(2)=-\prod_{z\in Z\setminus\{1\}}(1-2/z)\le0$, and
+Lemma~\ref{lem:crossing}(a) with $T=\varnothing$, $\sigma=2$, $L=n+1$ and
+$\varphi=\nu_2(n)$ gives $\eta_2(n)=\mu_r(\{2\},n+1)\le\nu_2(n)$.  The same
+argument covers every $\sigma$ at which $r_Y$ and $r_Z$ take opposite
+signs, but not every $\sigma$, and the hypothesis does not suffice.
+
+\begin{proposition}[A second-row failure with $\nu_2(n)>\nu_1(n)$]\label{prop:secondrowhyp}
+Let $r=\frac{177}{167}$ and
+\begin{align*}
+  Y_{50}&=\{2,4,7,10,15,20,27,34,42,51,61,71,83,95,109,123,138,155,172,190,\\
+  &\qquad210,230,252,275,299,324,350,378,407,437,469,502,537,574,613,654,696,\\
+  &\qquad741,789,839,893,950,1011,1076,1148,1226,1314,1416,1543\},\\
+  Y'_{50}&=\{1,4,6,10,15,20,26,33,41,50,59,70,81,93,107,121,136,152,169,187,\\
+  &\qquad205,225,247,269,292,316,342,369,397,427,458,490,524,560,597,637,678,\\
+  &\qquad721,767,815,866,920,978,1039,1105,1177,1256,1345,1448,1576\},\\
+  Z_5(50)&=\{2,4,5,10,14,20,26,33,41,50,59,70,81,93,106,121,136,152,168,186,\\
+  &\qquad205,225,246,269,292,316,342,369,397,427,458,490,524,560,597,637,678,\\
+  &\qquad721,767,815,866,920,978,1039,1105,1177,1256,1345,1448,1576\}.
+\end{align*}
+Then $\nu_1(50)=\Phi_r(Y_{50})<\nu_2(50)=\Phi_r(Y'_{50})<
+\eta_5(50)=\Phi_r(Z_5(50))$, the reciprocals being $4.2262\ldots$,
+$4.2221\ldots$ and $4.2112\ldots$.  So
+\[
+  V_r(51,2)\le\frac1{\eta_5(50)}<\frac1{\nu_2(50)}=\min_{i\le2}\frac1{\nu_i(50)},
+\]
+and the prefix identity fails at $(\frac{177}{167},51,2)$ although
+$\nu_2(50)>\nu_1(50)$.
+\end{proposition}
+
+\begin{proof}
+The proof is computer-assisted, by exact rational arithmetic as in
+Proposition~\ref{prop:secondrowexact}, in
+\texttt{test\_second\_row\_hypothesis\_fails} of
+\texttt{tests/test\_rows.py}; no floating point is used, and the decimals
+are truncations of exact values.  Lemma~\ref{lem:vertexopt} with
+$S=\varnothing$, $\{1\}$ and $\{5\}$ gives the three equalities, recalling
+$\nu_2(50)=\mu_r(\{1\},51)$; for $Z_5(50)$ every inequality of the lemma is
+strict, so $r_{Z_5(50)}$ is the unique minimizer for $\eta_5(50)$.  The two
+inequalities between the values are exact comparisons.  Finally
+Proposition~\ref{prop:rowvalue}(b) with $S=\{5\}$ gives
+$V_r(51,2)\le1/\mu_r(\{5\},51)=1/\eta_5(50)$.
+\end{proof}
+
+The unique minimizer for $\eta_5(50)$ vanishes at $2$, $4$ and $5$ but not
+at $1$ or $3$.  So the mechanism of Proposition~\ref{prop:secondrowexact}(a)
+and~(d), a minimizer for $\eta_\sigma(n)$ vanishing on all of $[1,\sigma]$,
+is absent here.  The margins are small: $\nu_2(50)$ exceeds $\nu_1(50)$ by less
+than $0.1$ percent, and $\eta_5(50)$ exceeds $\nu_2(50)$ by less than
+$0.3$ percent.  We have not determined $V_r(51,2)$.
+
+Floating-point experiments, not used in any proof, suggest that such
+failures need $r$ near $1$ and $n$ large.  On the rationals
+$r=p/q\in(1,2)$ with $q\le10$ and $n\le14$, and on those in $[\frac54,2)$
+with $q\le20$ for every $n$ up to the third consecutive one with
+$\nu_2(n)<\nu_1(n)$, every $n$ with $\nu_2(n)\ge\nu_1(n)$ gave
+$\max_{\sigma\ge2}\eta_\sigma(n)<0.92\,\nu_2(n)$.  At the root $r_n$ where
+$\nu_2(n)=\nu_1(n)$, which decreases from $1.52\ldots$ at $n=4$ to
+$1.05\ldots$ at $n=58$, the ratio $\max_{\sigma\ge2}\eta_\sigma(n)/\nu_1(n)$,
+computed for $4\le n\le28$ and $n=30,34,\ldots,58$, rises from $0.84$ at
+$n=4$ to $0.9998$ at $n=42$, $1.0017$ at $n=46$ and $1.0054$ at $n=58$,
+with the maximum at $\sigma=3$ for $n\le12$ and at $\sigma=5$ from $n=13$
+on; Proposition~\ref{prop:secondrowhyp} takes $r$ just below $r_{50}$.
+We do not know whether a worst exempted position, when one exists, is
+always small, whether the identity fails for every $1<r<2$ or only near
+$1$, or which condition on $r$ and $n$ gives it at $k=2$.
 
 \subsection{Every row is a finite minimum}\label{sec:finiterows}
 
@@ -2079,14 +2154,15 @@ $\nu_1(n)\le\nu_k(n)$.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.  The exact
-computations behind Propositions~\ref{prop:secondrowexact} and~\ref{prop:thirdrowexact} are in
+computations behind Propositions~\ref{prop:secondrowexact},
+\ref{prop:secondrowhyp} and~\ref{prop:thirdrowexact} are in
 \texttt{tests/test\_rows.py} of the repository
 \href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass};
 they need Python~3.12 or later.
 
 \paragraph{Computer assistance.}
-Propositions~\ref{prop:secondrowexact} and~\ref{prop:thirdrowexact} are the
-only computer-assisted results; every other result is proved by hand.  Their
+Propositions~\ref{prop:secondrowexact}, \ref{prop:secondrowhyp}
+and~\ref{prop:thirdrowexact} are the only computer-assisted results; every other result is proved by hand.  Their
 proofs reduce each claim, through Lemma~\ref{lem:vertexopt},
 Theorem~\ref{thm:secondrow}(a) and Theorem~\ref{thm:finiterows}(b), to
 finitely many comparisons of explicit rational numbers: the vertex test of
@@ -2094,7 +2170,8 @@ Lemma~\ref{lem:vertexopt} for each named zero set, the sign of
 $\Delta_{q,m}$ at each threshold, the bound $\Phi_r(Z)\le B$ (or $<B$) for
 a zero set through each exempted position or set below the thresholds, and
 the comparisons with the stated decimals.  The tests
-\texttt{test\_second\_row\_*} and \texttt{test\_third\_row\_*} in
+\texttt{test\_second\_row\_*} (including
+\texttt{test\_second\_row\_hypothesis\_fails}) and \texttt{test\_third\_row\_*} in
 \texttt{tests/test\_rows.py} carry out these comparisons in exact rational
 arithmetic (Python's \texttt{fractions} module), evaluating $\Phi_r$, $G_y$
 and $\Delta_{q,m}$ through the closed form described after
@@ -2104,6 +2181,9 @@ verification is part of the proofs.  The value $\sigma_*=25$ and the
 comparison for the zeros $25$ and $26$ quoted in
 Section~\ref{sec:finiterows} are computed in the same way
 (\texttt{test\_far\_zeros}) and are illustrations, not used in any proof.
+The floating-point experiments reported after
+Proposition~\ref{prop:secondrowhyp} are not part of any proof or test; they
+only guided the search for its zero sets.
 The remaining tests are checks, not proof steps.
 \texttt{test\_prefix\_identity\_fails\_below\_two} builds from
 $Z_2(15)$, by complementary slackness, an explicit monic multiple of
