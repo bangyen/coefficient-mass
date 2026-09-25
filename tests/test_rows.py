@@ -886,9 +886,10 @@ def test_block_rows_fail_on_an_interval() -> None:
     assert all(2 * 10**4 % c[i].denominator == 0 for c in cover for i in (0, 1))
     # The controls: a certificate stretched to the root 2, one with the
     # largest zero of Z moved by one, one with its last anchor dropped, and
-    # the chain with a link dropped.
+    # the chain with a link dropped or started below 139/100.
     lo, hi, n, k, free, anchors = cover[0]
     assert not _block_fails((lo, Fraction(2), n, k, free, anchors))
     assert not _block_fails((lo, hi, n, k, (*free[:-1], free[-1] + 1), anchors))
     assert not _block_fails((lo, hi, n, k, free, anchors[:-1]))
     assert not _chain_covers(cover[:3] + cover[4:], _BLOCK_ENDS)
+    assert not _chain_covers(cover, (Fraction(138, 100), _BLOCK_ENDS[1]))

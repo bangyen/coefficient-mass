@@ -141,7 +141,7 @@ exempted-set terms (Theorem~\ref{thm:finiterows}), and exact certificates
 give $V_{4/3}(16,3)<V_{4/3}(15,2)=\min_{i\le3}1/\nu_i(14)$
 (Proposition~\ref{prop:thirdrowexact}), so the identity can fail in the
 third row of a diagonal while holding in the second.  Above
-$\frac{139}{100}$ the failures move to higher rows: the term
+$\frac{139}{100}$ we certify failures in higher rows: the term
 $1/\mu_r([2,k],L)$ of the exempted block $[2,k]$ is at least
 $1/\nu_{k+1}(n-1)$, a prefix value of a longer prefix and a smaller degree,
 with equality when its minimizer vanishes at $1$ (Lemma~\ref{lem:block}),
@@ -2325,10 +2325,12 @@ $krM<1+M$.  Since $kr>1$ and $M\ge\nu_1(n)=1/\beta_r(n)$, this is
 $kr-1<1/M\le\beta_r(n)$.
 \end{proof}
 
-So a failure at the block is a prefix value of a longer prefix and a
-smaller degree exceeding every prefix value of the diagonal, as in
-Proposition~\ref{prop:secondrowexact}(a) and~(d), and it occurs only in rows
-$k<(\beta_r(n)+1)/r$, while Theorem~\ref{thm:longdiag} excludes rows
+So a failure at the block needs a prefix value of a longer prefix and a
+smaller degree, $\nu_{k+1}(n-1)$, exceeding every prefix value of the
+diagonal, and when a minimizer vanishes at $1$ the block term is that prefix
+value, as in Proposition~\ref{prop:secondrowexact}(a) and~(d).  It occurs
+only in rows $k<(\beta_r(n)+1)/r$, while
+Proposition~\ref{prop:longdiagexplicit}(c) excludes rows
 $k\ge\max\{K,\alpha(n-1)\}$.
 
 \begin{proposition}[A failure in row $k$ certified on an interval]\label{prop:blockinterval}
@@ -2387,7 +2389,8 @@ Proposition~\ref{prop:secondrowexact}, in
 lists $27$ tuples $(r_0,r_1,n,k,Z\setminus[2,k],(j_l,Y_l\setminus[1,j_l-1])_l)$,
 with rational endpoints over denominators dividing $2\cdot10^4$.  The test
 checks that each tuple satisfies the hypotheses of
-Proposition~\ref{prop:blockinterval}: the sizes, the vertex test for $Z$ at
+Proposition~\ref{prop:blockinterval}: the sizes, the anchors
+$1=j_1<\cdots<j_m\le k$, the vertex test for $Z$ at
 $r_1$, and the strict comparison for every $i\le k$.  It also checks, as for
 Theorem~\ref{thm:failinterval}, that the intervals $[r_0,r_1]$ cover
 $[\frac{139}{100},\frac{19}{10}]$, and Proposition~\ref{prop:blockinterval}
@@ -2400,8 +2403,8 @@ term comes from a block whose minimizer at $r_1$ vanishes on all of $[1,k]$.  Th
 grow as $r$ approaches $2$, from $k=9$ at $\frac{139}{100}$ to
 $k=384$ near $\frac{19}{10}$, while $n$ stays between $13$ and
 $22$ and the intervals shrink roughly in proportion to $2-r$.  A
-floating-point search, not part of any proof, finds block failures further
-on: at $r=1.9$ for $n=14$ in the rows $210\le k\le254$ and for $n=17$ in
+floating-point search, not part of any proof, finds further block
+failures at $r=1.9$ for $n=14$ in the rows $210\le k\le254$ and for $n=17$ in
 the rows $267\le k\le330$.  We do not know whether the identity fails for
 every $r<2$, nor whether the failing rows must tend to infinity as
 $r\to2$; at $r=2$ it holds in every row (Theorem~\ref{thm:allrowstwo}).

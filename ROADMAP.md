@@ -624,8 +624,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   Higher rows on an interval (`lem:block`, `prop:blockinterval`,
   `thm:blockinterval`): the block `S = [2,k]` has `mu_r([2,k], n+k-1) <=
   min(nu_{k+1}(n-1), (1 + nu_k(n))/(kr))`, with equality in the first when
-  its minimizer vanishes at 1, so a block failure is a longer prefix of
-  smaller degree beating every `nu_i(n)`, `i <= k`, and needs
+  its minimizer vanishes at 1, so a block failure needs the longer prefix
+  of smaller degree `nu_{k+1}(n-1)` to beat every `nu_i(n)`, `i <= k`, and
   `k < (beta_r(n) + 1)/r`.  A vertex certificate at `r_1` against upper
   bounds at `r_0`, with `nu_i <= a**(i-j) nu_j` (`eq:prefixup`) between a few
   listed anchors `j`, covers `[r_0, r_1]`; 27 such certificates
@@ -645,7 +645,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `thm:onepolyrows` and `lem:topnearone`; a parametric family of
   certificates with `n ~ c/(r-1)` would be needed) and for
   `19/10 < r < 2` (for each `r` a block failure would do; certificates
-  there need rows `k` in the hundreds and grow without bound as `r -> 2`);
+  found so far need rows `k` in the hundreds, growing as `r -> 2`);
   whether the least row `k(r)` with a failure at the root `r` tends to
   infinity as `r -> 2` (at `r = 2` every row holds, `thm:allrowstwo`, but
   continuity in `r` is not uniform in `n`); closed forms, or bounds on the trees, for the
