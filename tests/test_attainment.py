@@ -119,6 +119,8 @@ def test_run_chord_control_above_cutoff() -> None:
     # The instance quoted after prop:runchord.
     small = [Fraction(1, 3), Fraction(1, 4), Fraction(1, 10), Fraction(1, 11)]
     tail_f, rhs = _chord(Fraction(3, 4), small, [1, 2], 3, [7])
+    assert tail_f == Fraction(39343118507, 13623090657480)
+    assert rhs == Fraction(1246797277705214239223, 416394790925719545961974)
     assert tail_f < rhs
 
 
@@ -352,15 +354,25 @@ def test_value_eleven_tenths() -> None:
         Fraction(-30245397, 378004),
     ]
     witnesses = {2: [1, 2, 10], 4: [1, 4, 9]}
-    quoted = [2082, 2562, 2151, 1914, 1842, 1823, 1818]  # 10**5 * tail, floored
-    for x, q in zip((2, 4, 6, 7, 8, 9, 10), quoted, strict=True):
+    quoted = [  # the exact tails, and 10**5 * tail floored, as displayed
+        (Fraction(843673514383499998315, 40515728086004858188032), 2082),
+        (Fraction(29343173972925245, 1145159451474217216), 2562),
+        (Fraction(177859285, 8265843096), 2151),
+        (Fraction(719323261, 37569613704), 1914),
+        (Fraction(181037572242979, 9826348204397256), 1842),
+        (Fraction(94783579348745045, 5199121229605850568), 1823),
+        (Fraction(199173967015849717825, 10949935864566580087416), 1818),
+    ]
+    for x, (exact, q) in zip((2, 4, 6, 7, 8, 9, 10), quoted, strict=True):
         zeros = witnesses.get(x, [1, 3, x])
         assert x in zeros
-        assert _tail_of(nodes, zeros) < theta, x
-        assert int(10**5 * _tail_of(nodes, zeros)) == q, x
+        assert _tail_of(nodes, zeros) == exact, x
+        assert exact < theta, x
+        assert int(10**5 * exact) == q, x
     assert tau < theta
     # Controls: the aligned lift is above tau* for 4 <= x <= 9 and below at
     # x = 10, and 10 is short of half mass.
+    assert _tail_of(nodes, [1, 3, 4]) == Fraction(199, 4200)
     for x in range(4, 10):
         assert _tail_of(nodes, [1, 3, x]) > tau, x
     assert _tail_of(nodes, [1, 3, 10]) < tau
