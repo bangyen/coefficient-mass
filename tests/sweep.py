@@ -550,7 +550,7 @@ def _series(roots: list[Fraction], beta: Fraction, terms: int) -> list[Fraction]
 
 
 def _check_value(failures: list[str]) -> int:
-    """``sec:value``: the two infima of ``prop:values`` and the lifting behind them.
+    """``thm:extremal``: two infima it makes exact, and the lifting behind them.
 
     Each ``tau*`` is pinned from both sides: a full certificate with that
     tail, and a multiplier ``M = x + beta`` whose partial sums stay within

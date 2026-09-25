@@ -47,8 +47,10 @@ of a placement game on exponential sums, show that the placement in which
 the exempt coefficients escape to the bottom costs the least $\ell^1$ tail
 $\tau^*$ of a certificate on the surviving roots, and identify $1/\tau^*$
 with the least, over monic multipliers $M$, of the largest partial sum of
-the coefficients of $P_uM$.  No infimum of $b_{u+1}$ over monic multiples is
-attained.  Along the way we extend the underlying tail comparison to
+the coefficients of $P_uM$.  For roots at least $2$, repeated roots
+included, the escaping placement is the worst one, so the infimum is exactly
+$1/\tau^*$; below $2$ it can be strictly smaller.  No infimum of $b_{u+1}$
+over monic multiples is attained.  Along the way we extend the underlying tail comparison to
 confluent nodes, with strictness.
 \end{abstract}
 
@@ -114,8 +116,13 @@ $T\ge\tau^*$; and $\tau^*$ is attained, with
   \frac1{\tau^*}=\min_M\max_{j\ge1}\bigl|S_j(P_uM)\bigr|
 \]
 over monic $M\in\R[x]$ (Propositions~\ref{prop:attain}
-and~\ref{prop:attainrep}).  No infimum of $b_{u+1}$ over monic multiples is
-attained (Theorem~\ref{thm:noattain}).
+and~\ref{prop:attainrep}).  For $2\le r_1\le\cdots\le r_L$ the escaping
+placement is the worst one: $T=\tau^*$, so the infimum is $1/\tau^*$ and the
+multiplier formula computes it (Theorem~\ref{thm:extremal} and
+Corollary~\ref{cor:extremalrep}).  Below $2$ this fails: at
+$(\tfrac{11}{10},3,5,7)$ with $u=1$ an explicit multiple beats $1/\tau^*$
+(Proposition~\ref{prop:belowtwo}).  No infimum of $b_{u+1}$ over monic
+multiples is attained (Theorem~\ref{thm:noattain}).
 
 \emph{The tail comparison.}  Theorem~2.2 extends to confluent nodes
 (Proposition~\ref{prop:confluent}), strictly unless the zero set is
@@ -129,8 +136,10 @@ certificate argument built on a Descartes rule at infinity.
 Section~\ref{sec:value} expresses the infimum as a placement game, proves
 that $\tau^*$ is attained with a multiplier witness, completes the criterion
 at repeated roots, and shows that no infimum is attained.
-Section~\ref{sec:scope} closes with a remark on what is left open and the
-relation to the literature.
+Section~\ref{sec:extremal} proves that at roots at least $2$ the escaping
+placement is extremal, by lifting minimisers one node at a time, and shows
+that below $2$ it need not be.  Section~\ref{sec:scope} closes with a remark
+on what is left open and the relation to the literature.
 
 \section{The confluent tail comparison}\label{sec:extend}
 
@@ -998,14 +1007,347 @@ sentence follows because, by Corollary~\ref{cor:charrep}, \eqref{eq:order}
 is then equal to $1/T$.
 \end{proof}
 
+\section{The escaping placement is extremal}\label{sec:extremal}
+
+This section answers the question left by Theorem~\ref{thm:value}.  For roots
+at least $2$ the escaping placement is the worst one, $T=\tau^*$, repeated
+roots included (Theorem~\ref{thm:extremal} and
+Corollary~\ref{cor:extremalrep}); below $2$ it need not be
+(Proposition~\ref{prop:belowtwo}).  Keep the notation of
+Section~\ref{sec:value}: $1<r_1<\cdots<r_L$ are distinct, $y_i=1/r_i$, and
+$\tau_k(X)$ is the least tail of a certificate for $X$ on
+$y_{k+1},\ldots,y_L$.  The
+proof inserts the exempt coefficients one at a time, each paid for by one
+node, and the payment is the deletion step of Theorem~2.2 read backwards.
+
+\begin{lemma}[The deletion step]\label{lem:delete}
+Let $c\ge2$, let $\tfrac12\ge y_1>y_2>\cdots>y_c>0$, let $Z$ be a set of $c-1$
+positive integers with $z=\max Z$, let $w$ be the full certificate on
+$y_1,\ldots,y_c$ with zero set $Z$, and let $F$ be the full certificate on
+$y_2,\ldots,y_c$ with zero set $Z\setminus\{z\}$.  Then
+$\Tail(w)\le\Tail(F)$.
+\end{lemma}
+
+\begin{proof}
+If $Z=\{1,\ldots,c-1\}$, Lemma~2.1 evaluates both tails as products, which
+differ by the factor $y_1/(1-y_1)\le1$.  Otherwise $Z$ has a displaced zero,
+and the displaced step of the proof of Theorem~2.2 (whose nodes are listed in
+increasing order) deletes the largest prescribed zero together with the
+largest node and proves $\Tail(w)<\Tail(F)$ for nodes at most $\tfrac12$; that
+step does not use the induction hypothesis of the proof.
+\end{proof}
+
+Inserting a zero $g$ below the largest zero of the certificate being lifted
+is not covered by Lemma~\ref{lem:delete}, and it can fail: the full
+certificate on $(\tfrac13,\tfrac15,\tfrac17)$ with zero set $\{1,3\}$ has tail
+$\tfrac{31}{1704}$, while adding the node $\tfrac12$ and the zero $2$ gives the
+consecutive zero set $\{1,2,3\}$ and, by Lemma~2.1, the tail
+$\tfrac1{48}>\tfrac{31}{1704}$.  The remedy is to insert $g$ and shift every
+zero above it up by one, and to use that the certificate being lifted is a
+minimiser.  Let $A$ be a finite nonempty set of integers, written as the
+disjoint union of its maximal runs of consecutive integers
+$[s_1,e_1],\ldots,[s_p,e_p]$, and put $A+1=\{a+1:a\in A\}$.  Given a set
+$B_0$ with $\max B_0<\min A$, the \emph{neighbour} of $B_0\cup A$ at the $j$th
+run is
+\[
+  Z_j=(B_0\cup A)\setminus\{s_j\}\cup\{e_j+1\},
+\]
+which moves that run up by one.  For an exponential sum $V$ we also write
+$V(d)$ for $V_d$.
+
+\begin{proposition}[The run chord]\label{prop:runchord}
+Let $0\le k\le L-3$ and $y_{k+1}\le\tfrac12$, let $g\ge1$, let
+$B_0\subseteq\{1,\ldots,g-1\}$, and let $A$ be a nonempty set of integers
+above $g$ with $|B_0|+|A|=L-k-2$, with runs $[s_j,e_j]$ and neighbours $Z_j$
+as above.  Let $F$ and $F_j$ be the full certificates on
+$y_{k+2},\ldots,y_L$ with zero sets $Z=B_0\cup A$ and $Z_j$, and let $w$ be
+the full certificate on $y_{k+1},\ldots,y_L$ with zero set
+$W=B_0\cup\{g\}\cup(A+1)$.  Then there are $\lambda_1,\ldots,\lambda_p,\mu>0$
+with $\sum_j\lambda_j+\mu=1$ such that
+\begin{equation}\label{eq:runchord}
+  \Tail(F)\ge\sum_{j=1}^p\lambda_j\Tail(F_j)+\mu\,\Tail(w),
+\end{equation}
+with equality if and only if $y_{k+1}=\tfrac12$ and $B_0=\{1,\ldots,g-1\}$.
+\end{proposition}
+
+\begin{proof}
+\emph{Signs.}  For an integer $d\ge0$ put $\varphi(d)=(-1)^{|Z\cap(0,d)|}$.
+Each of $F$, $F_j$, $w$ is full, so by the zero bound it has exactly its
+prescribed zeros, all simple, and it is positive at $0$; its sign at an
+integer $d$ outside its zero set is $-1$ to the number of its zeros below $d$.
+Hence $F(d)=\varphi(d)|F(d)|$.  For an integer $d$,
+$|Z_j\cap(0,d)|-|Z\cap(0,d)|=[e_j+1<d]-[s_j<d]$, which vanishes unless
+$s_j<d\le e_j+1$, and those $d$ lie in $Z_j$; so $F_j(d)=\varphi(d)|F_j(d)|$
+for every integer $d\ge0$.  Since $|(A+1)\cap(0,d)|=|A\cap(0,d-1)|$,
+\[
+  |W\cap(0,d)|=|Z\cap(0,d)|+[g<d]-[d-1\in A],
+\]
+and $d-1\in A$ puts $d$ in $W$; so
+\begin{equation}\label{eq:runsigns}
+  w(d)=\varphi(d)|w(d)|\quad(0\le d\le g),\qquad
+  w(d)=-\varphi(d)|w(d)|\quad(d>g).
+\end{equation}
+In words: the $F_j$ keep the signs of $F$ at every integer, and $w$ keeps
+them up to $g$ and reverses them above.
+
+\emph{The combination.}  At a run start $s_i$ we have $F_j(s_i)=0$ for
+$j\ne i$, as $s_i\in Z_j$; $F_i(s_i)\ne0$, as $s_i\notin Z_i$; and
+$w(s_i)\ne0$, as $s_i>g$ and $s_i-1\notin A$ keep $s_i$ out of $W$.  Put
+$\rho_i=|w(s_i)|/|F_i(s_i)|$, $\mu=1/(1+\sum_i\rho_i)$, $\lambda_i=\mu\rho_i$
+and
+\[
+  q=\sum_{j=1}^p\lambda_jF_j+\mu w .
+\]
+Then $q(0)=1$, and by \eqref{eq:runsigns}
+$q(s_i)=\varphi(s_i)\bigl(\lambda_i|F_i(s_i)|-\mu|w(s_i)|\bigr)=0$.  Every
+other point of $Z$ lies in $B_0$ or in $A\cap(A+1)$, hence in every $Z_j$ and
+in $W$, so $q$ vanishes on all of $Z$.  Let $\omega$ be the weight of $w$ on
+$y_{k+1}$.  It is nonzero, for otherwise $w$ would be a sum on $L-k-1$ nodes
+with the $L-k-1$ zeros $W$; and since $y_{k+1}$ is the largest node and $w$
+has the sign $(-1)^{|W|}=(-1)^{L-k-1}$ past $\max W$,
+$\sgn\omega=(-1)^{L-k-1}$.  The sum $G=F-q$ on $y_{k+1},\ldots,y_L$ has weight
+$-\mu\omega\ne0$ on $y_{k+1}$ and vanishes on the $L-k-1$ points
+$\{0\}\cup Z$, so by the zero bound these are its only zeros and all are
+simple.  For large $d$ its sign is $-\sgn\omega=(-1)^{L-k}=(-1)^{|Z|}$, which
+is $\varphi(d)$ there; as $G$ and $\varphi$ change sign exactly at the points
+of $Z$,
+\begin{equation}\label{eq:runG}
+  \varphi(d)G(d)=|G(d)|\qquad(d\ge0).
+\end{equation}
+
+\emph{Decomposition.}  Put $\delta_d=|F(d)|-|q(d)|$ and
+$\gamma_d=\sum_j\lambda_j|F_j(d)|+\mu|w(d)|-|q(d)|$, so that, all the series
+converging absolutely, the left side of \eqref{eq:runchord} minus the right is
+$\sum_{d\ge1}(\delta_d-\gamma_d)$.  For $1\le d\le g$ every term of $q(d)$ has
+the sign $\varphi(d)$ or vanishes, so $\gamma_d=0$ and
+$\delta_d=\varphi(d)(F(d)-q(d))=\varphi(d)G(d)$.  For $d>g$ write
+$\alpha=\sum_j\lambda_j|F_j(d)|$ and $\beta=\mu|w(d)|$; by \eqref{eq:runsigns}
+$q(d)=\varphi(d)(\alpha-\beta)$, so $\gamma_d=\alpha+\beta-|\alpha-\beta|$ and
+\[
+  \delta_d-\gamma_d=|F(d)|-\alpha-\beta=\varphi(d)G(d)-2\mu|w(d)| ,
+\]
+whatever the sign of $\alpha-\beta$.  Hence the difference is
+$\sum_{d\ge1}\varphi(d)G(d)-2\mu\sum_{d>g}|w(d)|$.  Since $G(0)=0$, and
+$\varphi(d)\ne\varphi(d-1)$ only when $d-1\in Z$, where $G$ vanishes,
+$\sum_{d\ge1}\varphi(d)G(d)=\sum_{d\ge1}\varphi(d)G(d-1)$.  With
+\eqref{eq:runsigns} and \eqref{eq:runG} this gives
+\begin{equation}\label{eq:runsplit}
+  \Tail(F)-\sum_j\lambda_j\Tail(F_j)-\mu\Tail(w)
+  =\sum_{d=1}^{g}|G(d-1)|+\sum_{d>g}\varphi(d)E(d),
+  \qquad E(d)=G(d-1)+2\mu\,w(d),
+\end{equation}
+and it remains to show $\varphi(d)E(d)\ge0$ for every integer $d>g$.
+
+\emph{Zeros of $E$.}  $E$ is an exponential sum on $y_{k+1},\ldots,y_L$, and
+its weight on $y_{k+1}$ is $\mu\omega(2-1/y_{k+1})$.  It vanishes at every $d$
+with $d-1\in\{0\}\cup Z$ and $d\in W$.  With $S=\{0\}\cup B_0\cup\{g\}$ that
+covers every $d$ with $d-1,d\in S$, and every $d\in A+1$.  Let $S$ consist of
+the maximal runs $R_1,\ldots,R_t$ of consecutive integers, $0\in R_1$ and
+$g\in R_t$.  At a gap start $h=r+1$ with $r\in S$, $r<g$ and $h\notin S$, we
+have $G(h-1)=0$ and $h\notin W$, so $E(h)=2\mu w(h)\ne0$, of sign
+$\varphi(h)$ by \eqref{eq:runsigns}.
+
+\emph{Counting.}  Suppose first $t\ge2$, with gap starts
+$h_1<\cdots<h_{t-1}$, and $E\not\equiv0$.  The run $R_1$ supplies $|R_1|-1$
+zeros below $h_1$; for $1\le j\le t-2$ the run $R_{j+1}\subseteq B_0$
+supplies $|R_{j+1}|-1$ zeros in $(h_j,h_{j+1})$, and since
+$\varphi(h_{j+1})=\varphi(h_j)(-1)^{|R_{j+1}|}$ that interval holds at least
+$|R_{j+1}|$ zeros counted with multiplicity; and beyond $h_{t-1}$ lie the
+known zeros $a+1,\ldots,g$, with $a=\min R_t$, and the $|A|$ points of $A+1$.
+In all $E$ has at least $|S|-2+|A|=|B_0|+|A|=L-k-2$ zeros, of which at least
+$|R_t|-1+|A|$ lie in $(h_{t-1},\infty)$.  At $h_{t-1}$ the sign of $E$ is
+$\varphi(h_{t-1})=(-1)^{|B_0|-|R_t|+1}$.  If $y_{k+1}<\tfrac12$ the weight on
+$y_{k+1}$ is nonzero, $E$ has at most $L-k-1$ zeros, hence at most
+$|R_t|+|A|$ in $(h_{t-1},\infty)$, and its sign at infinity is
+$-\sgn\omega=(-1)^{|B_0|+|A|}$; the number of its zeros in
+$(h_{t-1},\infty)$ is then congruent to $|R_t|-1+|A|$ modulo $2$, so it is
+exactly $|R_t|-1+|A|$.  If $y_{k+1}=\tfrac12$ the weight vanishes, $E$ is a
+sum on $L-k-1$ nodes with at most $L-k-2$ zeros, and again only the known
+zeros occur.  Either way the zeros of $E$ beyond $h_{t-1}$ are exactly
+$a+1,\ldots,g$ and the points of $A+1$, all simple.  So for an integer $d>g$
+outside $A+1$, where $d-1\notin A$ and hence $|(A+1)\cap(0,d)|=|A\cap(0,d)|$,
+\[
+  \sgn E(d)=(-1)^{|B_0|-|R_t|+1}(-1)^{|R_t|-1}(-1)^{|A\cap(0,d)|}
+  =(-1)^{|Z\cap(0,d)|}=\varphi(d),
+\]
+while $E$ vanishes on $A+1$.  If $t=1$, that is $B_0=\{1,\ldots,g-1\}$, the
+known zeros $1,\ldots,g$ and $A+1$ number $L-k-1$.  For $y_{k+1}<\tfrac12$
+they are all the zeros, simple, and counting down from the sign
+$(-1)^{|B_0|+|A|}$ at infinity gives $\sgn E(d)=\varphi(d)$ for $d>g$ outside
+$A+1$ as before; for $y_{k+1}=\tfrac12$ the bound $L-k-2$ forces
+$E\equiv0$.
+
+So $\varphi(d)E(d)\ge0$ for every $d>g$, and \eqref{eq:runsplit} proves
+\eqref{eq:runchord}.  Its first term vanishes exactly when $G$ vanishes on
+$\{1,\ldots,g-1\}$, that is when $B_0=\{1,\ldots,g-1\}$; then $E\equiv0$ if
+$y_{k+1}=\tfrac12$, and otherwise $\varphi(g+1)E(g+1)>0$, as $g+1\notin A+1$.
+\end{proof}
+
+Only the new node is held to the cutoff, and only through the sign of
+$2-1/y_{k+1}$; the nodes $y_{k+2},\ldots,y_L$ may be any distinct reals in
+$(0,y_{k+1})$.  For $y_{k+1}>\tfrac12$ that sign flips and
+\eqref{eq:runchord} can fail: with the nodes
+$(\tfrac34,\tfrac13,\tfrac14,\tfrac1{10},\tfrac1{11})$, $B_0=\{1,2\}$, $g=3$
+and $A=\{7\}$ its right side exceeds $\Tail(F)$.
+
+\begin{theorem}[The escaping placement is extremal]\label{thm:extremal}
+Let $2\le r_1<\cdots<r_L$ and $0\le u\le L-1$.  For every $0\le k<u$ and every
+set $X$ of $u-k$ positive integers,
+\begin{equation}\label{eq:step}
+  \tau_k(X)\le\tau_{k+1}\bigl(X\setminus\{\max X\}\bigr).
+\end{equation}
+Consequently $T=\tau^*$, and
+\[
+  \inf_Qb_{u+1}\Bigl(Q\prod_{i=1}^L(x-r_i)\Bigr)=\frac1{\tau^*}
+  =\min_M\max_{j\ge1}\bigl|S_j(P_uM)\bigr|
+\]
+over monic $Q,M\in\R[x]$.
+\end{theorem}
+
+\begin{proof}
+Fix $k$ and $X$, and put $g=\max X$ and $X'=X\setminus\{g\}$, a set of
+$u-k-1\le L-k-2$ integers.  By Lemma~\ref{lem:attainX} on
+$y_{k+2},\ldots,y_L$, $\tau_{k+1}(X')$ is attained by a full certificate $F$
+whose zero set $Z^-\supseteq X'$ has $L-k-2$ elements.  Every node is at most
+$\tfrac12$.
+
+If $g\in Z^-$, put $Z^+=Z^-\cup\{N\}$ with any $N>\max Z^-$; if $Z^-$ is
+empty or $g>\max Z^-$, put $Z^+=Z^-\cup\{g\}$.  Either way
+$Z^+\supseteq X$ has $L-k-1$ elements, its largest element is the one added,
+and the full certificate $v^+$ on $y_{k+1},\ldots,y_L$ with zero set $Z^+$ is a
+certificate for $X$.  Lemma~\ref{lem:delete}, with the largest node $y_{k+1}$
+and the largest zero deleted, gives
+$\tau_k(X)\le\Tail(v^+)\le\Tail(F)=\tau_{k+1}(X')$.
+
+Otherwise $g\notin Z^-$ and $g<\max Z^-$.  Put $B_0=Z^-\cap(0,g)$, which
+contains $X'$ because every element of $X'$ is below $g$, and
+$A=Z^-\cap(g,\infty)\ne\varnothing$; then $L-k-2=|Z^-|\ge1$, so $k\le L-3$.
+For a run $[s,e]$ of $A$ the neighbour $Z^-\setminus\{s\}\cup\{e+1\}$ has
+$L-k-2$ elements and contains $X'$, as $s>g$, so its full certificate is a
+certificate for $X'$ on $y_{k+2},\ldots,y_L$ and its tail is at least
+$\tau_{k+1}(X')=\Tail(F)$.  In \eqref{eq:runchord} every $\Tail(F_j)$ is
+therefore at least $\Tail(F)$, so
+$\Tail(F)\ge(1-\mu)\Tail(F)+\mu\Tail(w)$ with $\mu>0$, that is
+$\Tail(w)\le\Tail(F)$.  The zero set $B_0\cup\{g\}\cup(A+1)$ of $w$ contains
+$X$, so $\tau_k(X)\le\Tail(w)\le\tau_{k+1}(X')$.
+
+Chaining \eqref{eq:step} from $k=0$ upwards, each step deleting the largest
+remaining element, gives $\tau(X)=\tau_0(X)\le\tau_u(\varnothing)=\tau^*$ for
+every $X$ of size $u$, so $T\le\tau^*$, and Theorem~\ref{thm:value} gives the
+reverse inequality and the value $1/\tau^*$.  Proposition~\ref{prop:attain}
+makes \eqref{eq:multiplier} an equality at some monic $M$.
+\end{proof}
+
+For example, at $(2,3,5,7)$ with $u=1$ the surviving factor
+$(x-3)(x-5)(x-7)$ has partial sums $1,-14,57,-48$, so \eqref{eq:partial}
+fails and \eqref{eq:order} is not the infimum.  The full certificate on
+$(\tfrac13,\tfrac15,\tfrac17)$ with zero set $\{1,3\}$ has tail
+$\tfrac{31}{1704}$, and the multiplier $M=x+\tfrac9{62}$ has
+$\max_{j\ge1}|S_j(P_1M)|=\tfrac{1704}{31}$, so by \eqref{eq:dualpair} both
+attain $\tau^*=\tfrac{31}{1704}$ and Theorem~\ref{thm:extremal} gives
+\[
+  \inf_Qb_2\bigl(Q(x-2)(x-3)(x-5)(x-7)\bigr)=\frac{1704}{31}=54.967\ldots,
+\]
+strictly between the bound $48$ of \eqref{eq:order} and the value $57$ of the
+construction of Proposition~\ref{prop:partial}.
+
+\begin{corollary}[Repeated roots]\label{cor:extremalrep}
+Let $2\le r_1\le\cdots\le r_L$, repetitions allowed, and $0\le u\le L-1$.
+Then $T=\tau^*$ in Theorem~\ref{thm:valuerep}, and
+\[
+  \inf_Qb_{u+1}\Bigl(Q\prod_{i=1}^L(x-r_i)\Bigr)=\frac1{\tau^*}
+  =\min_M\max_{j\ge1}\bigl|S_j(P_uM)\bigr|
+\]
+over monic $Q,M\in\R[x]$, with $\tau^*$ taken on the Hermite space
+$\mathcal H_u$.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:valuerep} the infimum is $1/T\le1/\tau^*$, and
+Proposition~\ref{prop:attainrep} gives the multiplier value, so it suffices
+to show $b_{u+1}(F)\ge1/\tau^*$ for every monic multiple $F=QP$, where
+$P=\prod_i(x-r_i)$.  Perturb the roots: if $r_i$ is the $(j+1)$st copy, in the
+order of the indices, of a value $\rho$ of multiplicity $e$, put
+$r_{i,\varepsilon}=\rho e^{j\varepsilon}$ ($0\le j<e$).  For small
+$\varepsilon>0$ these are distinct, at least $2$, and increasing in $i$, and
+$P_\varepsilon=\prod_i(x-r_{i,\varepsilon})$ and $F_\varepsilon=QP_\varepsilon$
+are monic with coefficients tending to those of $P$ and $F$; so
+$b_{u+1}(F_\varepsilon)\to b_{u+1}(F)$.  Let $\tau^*_\varepsilon$ be $\tau^*$
+at the roots $r_{i,\varepsilon}$; by Theorem~\ref{thm:extremal},
+$b_{u+1}(F_\varepsilon)\ge1/\tau^*_\varepsilon$.
+
+It remains to show $\limsup_{\varepsilon\to0}\tau^*_\varepsilon\le\tau^*$.  By
+Proposition~\ref{prop:attainrep} some $v\in\mathcal H_u$ with $v_0=1$ has
+$\Tail(v)=\tau^*$; write
+$v_d=\sum_\rho\sum_{a<e'_\rho}c_{\rho,a}d^a\rho^{-d}$, where $e'_\rho$ is the
+number of indices $i>u$ with $r_i=\rho$.  Those indices carry the $e'_\rho$
+largest copies of $\rho$, so the surviving perturbed nodes at $\rho$ are
+$z_{\rho,\varepsilon}e^{-j\varepsilon}$, $0\le j<e'_\rho$, with
+$z_{\rho,\varepsilon}=\rho^{-1}e^{-(e_\rho-e'_\rho)\varepsilon}$.  Put
+\[
+  v^\varepsilon_d=\sum_\rho\sum_{a<e'_\rho}c_{\rho,a}\,
+  z_{\rho,\varepsilon}^{\,d}\Bigl(\frac{1-e^{-\varepsilon d}}{\varepsilon}\Bigr)^a .
+\]
+By the binomial expansion in the proof of Proposition~\ref{prop:confluent},
+$v^\varepsilon$ is an exponential sum on the surviving perturbed nodes, and
+$v^\varepsilon_0=\sum_\rho c_{\rho,0}=v_0=1$, so
+$\tau^*_\varepsilon\le\Tail(v^\varepsilon)$.  As $\varepsilon\to0$,
+$v^\varepsilon_d\to v_d$ for each $d$, and since
+$z_{\rho,\varepsilon}\le\rho^{-1}$ and
+$0\le(1-e^{-\varepsilon d})/\varepsilon\le d$, every $|v^\varepsilon_d|$ is
+at most $\sum_{\rho,a}|c_{\rho,a}|d^a\rho^{-d}$, which is summable; by
+dominated convergence $\Tail(v^\varepsilon)\to\Tail(v)=\tau^*$.  Hence
+$b_{u+1}(F)=\lim_\varepsilon b_{u+1}(F_\varepsilon)
+\ge\limsup_\varepsilon1/\Tail(v^\varepsilon)=1/\tau^*$.
+\end{proof}
+
+Below $2$ the deletion step fails, and so can the conclusion.
+
+\begin{proposition}[Below the cutoff]\label{prop:belowtwo}
+Let $P=(x-\tfrac{11}{10})(x-3)(x-5)(x-7)$ and $u=1$.  Then
+$\tau^*=\tfrac{31}{1704}$, while the monic multiple $F=QP$ with
+$Q=x^4+\tfrac52x^3+\tfrac{11}6x^2+\tfrac{13}{12}x+\tfrac5{12}$,
+\[
+  F=x^8-\tfrac{68}5x^7+\tfrac{589}{12}x^6+\tfrac{433}{60}x^5
+  -\tfrac{23863}{120}x^4+\tfrac{823}{20}x^3+\tfrac{997}{20}x^2
+  +\tfrac{293}6x+\tfrac{385}8,
+\]
+has $b_2(F)=\tfrac{997}{20}<\tfrac{1704}{31}=1/\tau^*$.  Hence
+$T>\tau^*$: the conclusion of Theorem~\ref{thm:extremal} fails at
+$r_1=\tfrac{11}{10}$.
+\end{proposition}
+
+\begin{proof}
+The surviving roots are those of the example after
+Theorem~\ref{thm:extremal}, whose certificate and multiplier give
+$\tau^*=\tfrac{31}{1704}$; that argument uses only \eqref{eq:dualpair},
+which holds for any roots above $1$.  Expanding $QP$ gives the displayed
+$F$; its nonleading coefficient magnitudes in decreasing order begin
+$\tfrac{23863}{120}>\tfrac{997}{20}$, so $b_2(F)=\tfrac{997}{20}=49.85$.  By
+Theorem~\ref{thm:value}, $1/T\le b_2(F)<1/\tau^*$.
+\end{proof}
+
+Lemma~\ref{lem:delete} fails at these roots, where $y_1=\tfrac{10}{11}$:
+lifting the escaping minimiser, with zero set $\{1,3\}$, by the zero $5$
+gives the full certificate on all four nodes with zero set $\{1,3,5\}$ and
+tail $\tfrac{96935}{3398808}=0.02852\ldots>\tfrac{31}{1704}$.  Numerically
+$X=\{5\}$ is the worst placement and $\{1,3,5\}$ its minimising zero set,
+which would make the infimum $\tfrac{3398808}{96935}=35.06\ldots$; we have
+not certified this.  The cutoff is sufficient but not necessary: at
+$(\tfrac32,3,5,7)$ a numerical search finds every placement up to distance
+$12$ strictly below $\tau^*$.
+
 \section{Scope and open questions}\label{sec:scope}
 
-\paragraph{What is left open here.}  When \eqref{eq:partial} fails, the
-infimum is $1/T$ with $T\ge\tau^*$, and $1/\tau^*$ is the multiplier value of
-Proposition~\ref{prop:attain}.  Whether $T=\tau^*$, that is, whether the
-escaping placement is the worst one, requires comparing $\tau^*$ with the
-cost of every finite placement; the arguments of this paper do not decide
-it, and we leave the determination of $T$ in general to further work.
+\paragraph{What is left open here.}  For roots at least $2$ the value of
+the infimum is settled: it is $1/\tau^*$, the multiplier value of
+Proposition~\ref{prop:attain} (Theorem~\ref{thm:extremal},
+Corollary~\ref{cor:extremalrep}).  Below $2$, Theorem~\ref{thm:value} still
+gives $1/T$ with $T\ge\tau^*$, and Proposition~\ref{prop:belowtwo} shows
+that $T>\tau^*$ can occur.  Which placement is then the worst, whether $T$
+is a finite computation, and for which roots below $2$ the escaping
+placement stays extremal (numerically it does at $(\tfrac32,3,5,7)$) are
+left open.
 
 \paragraph{Relation to the literature.}  The bounds here concern coefficient
 magnitudes, not ordinary length or height: they are uniform over the degree
