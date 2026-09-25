@@ -316,7 +316,7 @@ def test_annuli_ratio() -> None:
 
 
 def _lacunary(ns: list[int], ts: list[int]) -> Poly:
-    """``prop:annulisharp`` item 1: ``sum_a c_a x^(y_a)``."""
+    """``prop:annulisharp`` item 1: ``sum_a c_a x^(p_a)``."""
     f = [0] * (sum(ns) + 1)
     for a in range(len(ns) + 1):
         f[sum(ns[:a])] = prod(t**n for t, n in zip(ts[a:], ns[a:], strict=True))
