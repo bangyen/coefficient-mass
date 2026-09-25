@@ -42,10 +42,10 @@ a theorem of that type; nothing is assumed.  The guards in `scripts/` (the
 [lean-guards](https://github.com/bangyen/lean-guards) submodule) reject
 unfinished proofs and new axioms, so the build is honest at every commit.
 
-Proved so far: the zero bound (`zeroBound`), Lemma 2.1 (`consecutiveTail`),
-Corollary 3.3 from Theorem 3.2 (`complexOrderStatistics_of_orderStatistics`),
-and Corollary 3.4 from Corollary 3.3
-(`logarithmicMass_of_complexOrderStatistics`).
+Proved: the zero bound (`zeroBound`), Lemma 2.1 (`consecutiveTail`), and every
+step after Theorem 2.2, so `logarithmicMass_of_tailBound : TailBound →
+LogarithmicMass` reduces Corollary 3.4 to Theorem 2.2 alone.  Theorem 2.2
+(`TailBound`) is the one open statement.
 
 ```bash
 git submodule update --init
