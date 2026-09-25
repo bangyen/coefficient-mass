@@ -909,9 +909,9 @@ def _rows_all_margin(c: int, n: int) -> Fraction:
 
 
 def test_rows_positions_below() -> None:
-    """``lem:rowsbelow``: the row ``k`` needs the factor ``9 n_k`` only at the
-    ``k``-th separation, on seeded multiples with three annuli, the other
-    separation just above ``9``.
+    """``lem:rowsbelow``: the row ``k`` needs the factor ``3 rho_(n_k)`` (here
+    ``9 n_k``) only at the ``k``-th separation, on seeded multiples with three
+    annuli, the other separation just above ``9``.
 
     Control: the family of ``prop:rowsneedn`` with a third annulus far above
     misses the row ``2`` at ``T_2 = n_2 U_1``, so the check is not blind."""
@@ -1000,8 +1000,8 @@ def test_row_three_needs_the_lower_separation(h: int | Fraction, big_k: int) -> 
     p = h.denominator**2 * 2**big_k
     q_1, q_2, t = _rows_lower_zeros(h, big_k, p)
     f = _rows_lower(h, big_k, p)
-    assert f[-1] == 1 and q_1 > 3 and big_k >= max(3, 18 * h)
-    assert t == (big_k + h) * q_2
+    assert f[-1] == 1 and q_1 > 3 and big_k >= max(9, 18 * h)
+    assert t == (big_k + h) * q_2 > 9 * q_2  # thm:annuli applies
     assert 9 * q_1 < q_2 < (Fraction(big_k + 1, 2 * h) + 1) * q_1
     if h < Fraction(1, 2):
         assert (1 - 2 * h) * big_k**2 >= 1 and q_2 > (big_k + 1 + h) * q_1
