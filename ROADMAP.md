@@ -6,29 +6,36 @@ is open; an answer lands in the paper it extends, and the row leaves.
 ## Open at a glance
 
 - [attainment](papers/coefficient-mass-attainment.tex) (`sec:scope`): an a
-  priori bound on the zero set minimising one `tau({x})`; a half-mass
-  threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
-  the escaping placement extremal; the pieces along `(r,3,5,7)` for
-  `1 < r < 1.0745...`, where `thm:familylow` stops (infinitely many
-  accumulate at `r = 1` by `cor:familyone`; near 1, off the jumps, the
-  worst placement is `x*` with zero set `{1,x*,z}` by `thm:familyosc`, but
-  which `z`, and the transition near the jumps, are open).
+  priori bound on the zero set minimising one `tau({x})` at general roots
+  (along `(r,3,5,7)` it is `{1,x,z}` or `{1,z,x}`, `z` a half-mass point,
+  by `thm:familyzero`); a half-mass threshold like `thm:halfmass` for
+  `u >= 2`; which root sets below 2 keep the escaping placement extremal;
+  along `(r,3,5,7)` on `(1, 1.0745...)`, the order of the pieces (is the
+  worst placement monotone in `r`, does each boundary equation of
+  `thm:familyzero` have one root), explicit constants and a rate in
+  `thm:familyjump`, and whether the normalised excess is monotone across
+  each window.
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
   separation for the mass, between `2 + 1/18915` and 81 (at most
   `max(4, n_2 + 1)` for two annuli, `cor:twofixed`, and `5/2` for
   `n_2 <= 2`, `cor:twonear`), and whether 9
-  suffices, for two annuli with many roots above the gap in particular; the
-  least separation for the rows of `cor:annuli`, between `n_a` and
-  `min(n_a + 9, 3 rho_(n_a))` (`cor:rowsall`, `cor:fewabove`), that is,
-  the additive constant in `n_a + O(1)`, in particular whether
-  `T_a > (n_a + 1) U_(a-1)` gives every row (`sec:annuli`; for two annuli
-  it lies between `n_2/(1 - 2**(-n_2-1))` and `n_2 (1 + 3 * 2**(-n_2))`
-  for `n_2 >= 4`, `cor:twofixed`, and between `4/3` and
-  `4/3 + 2/(3 T_1)` for `n_2 = 1`, `cor:twonear`).
+  suffices, for two annuli with many roots above the gap in particular;
+  whether `T_a > (n_a + 1) U_(a-1)` gives every row of `cor:annuli` also
+  where `n_a < 30` and `S >= 3` (it does where `n_a >= 30`, and for large
+  `n_a` the additive constant is exactly 1/2, `cor:rowsplusone`,
+  `prop:rowslower`; below 30 only `min(n_a + 9, 3 rho_(n_a))` is known,
+  `cor:rowsall`; for two annuli the least separation lies between
+  `n_2/(1 - 2**(-n_2-1))` and `n_2 (1 + 3 * 2**(-n_2))` for `n_2 >= 4`,
+  `cor:twofixed`, and between `4/3` and `4/3 + 2/(3 T_1)` for `n_2 = 1`,
+  `cor:twonear`); the best constant `c` in
+  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` for `|alpha|` near 1
+  (in `[1/8, 1]`; at least `1 - 1/a_0` over `|alpha| >= a_0 >= 2`,
+  `prop:rowstwolarge`).
 - [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
-  for every `1 < r < 2`; closed forms or tree bounds for rows `k >= 3`
+  for every `1 < r < 2` (proved for `21/20 <= r <= 139/100`,
+  `thm:failinterval`); closed forms or tree bounds for rows `k >= 3`
   (`sec:finiterows`).
 - [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
   holds for integer multiples at Gaussian roots in a wide sector
@@ -36,7 +43,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   Gaussian points above the axis bounded independently of `rho_min` (fewer
   than `6 rho_min` by `prop:gausscircle`, at most `ord_0 H` per norm by
   `prop:gaussprimes`; `ord_0 H` itself is unbounded), and whether one norm
-  carries at most two (yes unless `H` is in `Z[y**4]`, or `n` has two
+  carries at most two (yes unless `H` is in `Z[y**4]`, and then
+  `deg H >= 16` by `prop:gaussfour`, or `n` has two
   primes `= 1 mod 4`, or one with `ord_p n <= 2 t_p`, `prop:gausssym`);
   whether
   small coefficients after the lowest one cost nearly as much as zeros at
@@ -106,21 +114,44 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `(inf b_2 - 24)(r-1)**(-alpha)` oscillates log-periodically: its limit
   points fill `[80 * 18**(-alpha), (400/3) 18**(-alpha)] = [20.865...,
   34.775...]`, the limit along `r = 1 + 18 * 3**(-n-w)` being
-  `80 * 18**(-alpha) (5/3)**w`.  Exactly at `r = 5701/5700`:
-  `T = tau({10})`, the tail of `{1,10,1335}`, `inf b_2 = 24.4788...`
-  (`tests/test_attainment.py`).  Along `(r,5,7)` it fails for every `r < 2`
+  `80 * 18**(-alpha) (5/3)**w`; this holds for `r <= 1 + (delta/10)**4`
+  when `delta <= w <= 1 - delta` (`prop:familyrdelta`).  Exactly at
+  `r = 5701/5700`: `T = tau({10})`, the tail of `{1,10,1335}`,
+  `inf b_2 = 24.4788...` (`tests/test_attainment.py`).  Every cost along
+  the family is explicit (Closed; `thm:familyzero`): for `x >= 2` and
+  `1 < r < 3`, with `H` the sum on the four nodes with weight 1 on `1/r`
+  vanishing at `0, 1, x`, the mass `F = sum_d |H_d|` is positive, and
+  flipping the witness of `{1,x}` at `(3,5,7)` from the far end, first past
+  `x` and then just below it, until half of `F` is used gives the exact
+  cost and the minimising zero set, `{1,x,z}` or `{1,z,x}`; with
+  `thm:halfmass` the infimum is a finite closed-form computation at every
+  `r` (e.g. `{1,4,5}`, `7627/314024` at `r = 5/4`; `{1,3,5}` at
+  `11/10`), and the piece boundaries are explicit equations.  The limit
+  profile (Closed; `thm:familylimit`): as `3**x (r-1) -> kappa`,
+  `tau({x}) -> G(kappa) = min(1/24, min_c (t(c) + ell(c)/kappa))`, the
+  minimum at the `c >= 3` with `k_c <= kappa <= k_(c-1)`,
+  `k_c = 18/(1 - 18*3**-c + 30*5**-c - 14*7**-c)` (`k_3 = 66150/1957`,
+  `k_c -> 18`, never `c = 2`), the zero set eventually `{1,c,x}` (and
+  `{1,x,z}` with `(r-1)z -> log(36/(18+kappa))` below 18), and
+  `1/24 - G(18(1+eta))` of order `eta**(1+alpha)` with an oscillating
+  ratio.  Across the jumps (Closed; `thm:familyjump`): the worst placement
+  is `x*` or `x* + 1`, and uniformly in `w`,
+  `(inf b_2 - 24)(r-1)**(-alpha) = min(Phi(w), Phi(w-1) + Gamma) + o(1)`
+  with `Gamma = 576 (r-1)**(-alpha) (1/24 - G(3**(x*+1)(r-1)))`; so the
+  drop by `3/5` happens in a window `1 - w ~ (r-1)**(alpha/(1+alpha))`
+  before each jump, and at `r = 101/100` the worst placement is `7 = x* +
+  1` with zero set `{1,4,7}` (`inf b_2 = 27.8209...`), at `r = 9842/9841`
+  it is `11` with `{1,7,11}`.  Along `(r,5,7)` it fails for every `r < 2`
   (`prop:cutoffsharp`).  Open (`sec:scope`): an a priori bound on the zero
-  set minimising one `tau({x})` (to make `u = 1` a finite computation
-  outright), a threshold like `N` for `u >= 2`, which root sets below 2
-  keep the escaping placement extremal (it depends on more than `r_1`),
-  the pieces along `(r,3,5,7)` on `(1, 1.0745...)` themselves (which `z` in
-  `{1,x*,z}`: a piece ends where the witness entry `s_z` reaches `+-1`), an
-  explicit range of `r` in `thm:familyosc` (a), and the transition near the
-  jumps, where `x*` and `x* + 1` compete (numerically with zero sets
-  `{1,c,x*+1}`, `c = 3, 4`; at `r = 101/100` the worst placement is 7, not
-  `x* = 6`): whether the constant minus its limit function tends to 0
-  uniformly for `0 < w <= 1 - delta`, and whether `tau({x})` tends to
-  `min_c (t(c) + ell(c)/kappa)` when `3**x (r-1) -> kappa > 18`.
+  set minimising one `tau({x})` at general roots (the argument of
+  `thm:familyzero` needs the minimiser at the fast nodes to be `{1,x}` with
+  a sign-stable witness), a threshold like `N` for `u >= 2`, which root sets
+  below 2 keep the escaping placement extremal (it depends on more than
+  `r_1`), and, along `(r,3,5,7)` below `1.0745...`, the order of the pieces
+  (is the worst placement monotone in `r`; does each boundary equation of
+  `thm:familyzero` have a single root), explicit constants and a rate in
+  `thm:familyjump`, and whether the normalised excess is monotone across
+  each window.
 
 - **Coefficient mass at complex roots.**  Purely imaginary pairs are Closed
   ([coefficient-mass-complex](papers/coefficient-mass-complex.tex), split
@@ -215,7 +246,26 @@ is open; an answer lands in the paper it extends, and the row leaves.
   same family at `t = Kq/(1 - 2**(-2K-4))`, `q >= 2**(3K+5)`, has
   `log b_1 + log b_2` below the mass bound, so a proof at a fixed
   separation for all `n_2` must charge a third nonleading position (there
-  the positions `2, ..., K`).  Closed for the mass at a fixed separation: every
+  the positions `2, ..., K`).  For `S >= 3`, two lower zeros close the gap
+  of `thm:rowsk` up to the leading constant
+  (`thm:rowspair`, `cor:rowsplusone`): a zero of `A_(k-2)` determines the
+  coefficient at `y_(k-2)` from the one at `y_(k-1)`, and eliminating it
+  leaves at `alpha` the truncation `S_M(alpha)`, of modulus at least
+  `lambda`, against `s = |alpha'|/|alpha|` times the next truncation term,
+  at most `binom(n+1, 2)(|alpha|/T)**2 ~ 1/2`; so the row `k` holds about
+  when `s < 2 lambda`, and `prop:rowslower` has `s/lambda -> 2`.  Hence the
+  row `k` holds at `T_a > (n_a + 1) U_(a-1)` once `n_k >= 30` (by hand; the
+  margin is positive from `n_k = 26` numerically), and at `n_a + c` for
+  every `c > 1/2` once `n_k` is large, while `prop:rowslower` with rational
+  `h < 1/2` fails with both separations above `n_a + h`: for large `n_a`
+  the additive constant is exactly 1/2 (for the row 2 every `c > 0`).
+  Every row and the mass hold at `T_a > sigma(n_a) U_(a-1)`,
+  `sigma(n) = n + 1` for `n >= 30` and `min(n + 9, 3 rho_n)` below.  For the
+  second row, summing the truncations against the powers of `|alpha|`
+  removes `gamma`: `b_2 >= lambda (1 - 1/|alpha|)**2 |f_D| prod |beta|` for
+  `|alpha| >= 2` (`prop:rowstwolarge`), while `(x - q)(x + t)**K` has
+  `b_2 = lambda prod |beta|`, so the best constant tends to 1 as `|alpha|`
+  grows.  Closed for the mass at a fixed separation: every
   multiple with `|f_D| >= 1` has mass at least
   `sum_s s K_s log(T_s/2) - S log 2` once `T_1 > 3` and
   `T_a > 81 U_(a-1)` (`thm:fixedgap`: where one central index falls
@@ -269,14 +319,14 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `t = Kq`; for `K_2 = 2`, whether the least separation at a given `T_1`
   exceeds 2 by order `1/T_1`, as `cor:twonear` allows, or by order
   `1/T_1**2`, as `prop:gaptwo` gives; for `K_2 = 1`, the least separation
-  for the mass, between `32/31` and `4/3 + 2/(3 T_1)`), and the least separation for the rows `k >= 3` when
-  `S >= 3`, between `n_a` and `min(n_a + 9, 3 rho_(n_a))` (`n_a + 9` for
-  `n_a >= 2`, 6 for `n_a = 1`); in particular whether
-  `T_a > (n_a + 1) U_(a-1)` suffices for every row (the family of
-  `prop:rowslower` fails only when `T_2/U_1` is about `n_2/(2h)`, and
-  `thm:rowsk` needs `T_2/U_1` about `3 n_2/h`), and the best constant `c` in
-  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` of `thm:rowstwo`,
-  between 1/8 and 1.
+  for the mass, between `32/31` and `4/3 + 2/(3 T_1)`), and whether
+  `T_a > (n_a + 1) U_(a-1)` gives every row also where `n_a < 30` and
+  `S >= 3`, where only `min(n_a + 9, 3 rho_(n_a))` is known (`n_a + 9` for
+  `n_a >= 2`, 6 for `n_a = 1`; at `n_a >= 30` it is `cor:rowsplusone`).
+  And the best constant `c` in
+  `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` of `thm:rowstwo`
+  as `|alpha| -> 1`, between 1/8 and 1 (at least `1 - 1/a_0` over
+  `|alpha| >= a_0 >= 2` by `prop:rowstwolarge`).
 
 - **Coefficient mass in sectors.**  The paper is
   [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), split out
@@ -383,7 +433,27 @@ is open; an answer lands in the paper it extends, and the row leaves.
   and `H` in `Z[y**4]`, or two primes `= 1 mod 4` in the norm, or one with
   `ord_p n <= 2 t_p`, `prop:gausssym`; for `H = A(y**4)` the question is
   whether one Gaussian `z = alpha**4` can be a root of `v + A` with the
-  coefficients of `A` below `|z|**(1/4)/2`).  The case left by separated moduli (`cor:annuli` of the
+  coefficients of `A` below `|z|**(1/4)/2`).  Partial answer
+  (`prop:gaussfour`): not with `deg A <= 3`, so a class of three or four
+  points needs `deg H >= 16`.  The proof writes `Im A(z) = 0` as
+  `a_1 + 2 a_2 X + a_3 (4X**2 - N**2) = 0`, `z = X + iY`, `N = |z|`, which
+  at these sizes forces `A = a_3 z (z - sigma j)**2`, `sigma = sign X`, with `2|X| = N + j`, and
+  `j = n**2 - 4w**2` is at least `n` when `N = n**2` is a square.  Sizes
+  alone cannot settle the question: at the square `z = beta**2` of a Pell
+  point `beta = a + ci`, `z (z - 1)**2 = -4c**2 (a**2 + c**2)**2` is real
+  with coefficients below `|z|**(1/4)/2` (this is `(y**3 - y)**2 = A(y**2)`),
+  and `(z - k)**4 - k**4` is real whenever `z - k` lies on a diagonal, as at
+  `alpha**4 = -119 + 120i`, `alpha = 3 + 2i`, `k = 1` (coefficients too
+  large there), so at `deg A >= 4` the question meets quartic Thue equations
+  such as `Re alpha**4 +- Im alpha**4 = k`.  On two classes of one norm,
+  numerical evidence only (exhaustive `fpylll` enumeration of the lattice of
+  multiples of degree at most `32` with nonleading coefficients below
+  `sqrt(n)/2`, every pair of classes of every norm `n <= 10000`): none; no
+  cubic `G` with `G(alpha) = G(alpha')` imaginary at two classes of one norm
+  `n <= 200000` makes `G**2` qualify; at `1 + 8i`, `4 + 7i` (norm `65`,
+  degree up to `25`) the shortest vector in `l2` of that lattice has
+  largest coefficient `211` against the bound `4`, and at `+-1 + 8i`, one
+  class, `41`.  The case left by separated moduli (`cor:annuli` of the
   complex paper) and common norms (`prop:gausslow`, item 3) is pairwise
   coprime norms in one annulus `[R, 2R]`; there valuations alone give only
   linear bounds (`prop:gaussadic`), and seeded lattice reduction at
@@ -416,8 +486,34 @@ is open; an answer lands in the paper it extends, and the row leaves.
   case `prop:gaussheavy` needs, exceptions to `C` slightly above `2` are
   not expected; exhaustive searches over all `|f_i| < rho_min/2` at
   `K = 3`, `m = 2, 3, 4, 6`, odd coprime norms in `[36, 144]`, 300 seeded
-  root sets, gave implied `C` at most `1.75` (`1.24` at `m = 6`).  Open: whether the step holds for
-  `m >= 2K`.
+  root sets, gave implied `C` at most `1.75` (`1.24` at `m = 6`).
+  Lines with a constant `P'(0)` (`prop:gaussline`): for `alpha_j = lambda_j s
+  + mu_j`, `P(0) = Lambda Q(s)` with `Q(s) = prod (s - w_j)(s - conj w_j)`,
+  `w_j = -mu_j/lambda_j`, and `P'(0)` is constant `-N` iff
+  `N lambda_j = Lambda Q'(w_j)` for all `j` (residues of `P'(0)/P(0)`); so
+  `P'(0) = 4` at `-(s+3) + (s+2)i`, `(s+1) + (s+2)i` (every `s >= -1`) and
+  `P'(0) = 90` at `-(s+3) + (s+2)i`, `-1 + (s+1)i`, `(s-1) + si` (odd
+  `s = 0, 3 mod 5`), which forces `C >= K` at `m = 2` along infinitely
+  many root sets in one annulus for `K = 2, 3`, and would for every `K`
+  given such lines with the `|lambda_j|` within a factor 2.  Numerical
+  evidence only: over nodes `w_j` in `(1/2) Z[i]` with `Re w_j` in a window
+  of width 12 and `-Im w_j <= 6`, taking `lambda_j` proportional to
+  `Q'(w_j)` with cofactors `lambda_j / den(w_j)` of odd pairwise coprime
+  norms, exhaustive search found only item 3 at `K = 3` (up to translation
+  and the scaling `mu_j -> 3 mu_j`, which multiplies `P'(0)` by
+  `3**(2K-1)`), and none at `K = 4` with width 7 and `-Im w_j <= 4`, nor with
+  `lambda_j` a unit times `den(w_j)` and width 8.
+  Light multiples (`prop:gausslight`): if every coefficient of `F` but the
+  lowest nonzero one is below `rho_min/2` (a level set of `prop:gaussheavy`
+  with small leading coefficient too, as the Pell triples), then
+  `deg F - e >= 2K` and `|f_e| < rho_min**(deg F - e + 1)`, so the step at
+  `m = deg F - e + 1` needs `C log rho_max > log P(0) - log rho_min >=
+  (2K - 1) log rho_min`; a yes answer at every `m >= 2K` would bound `K` on
+  such level sets at coprime norms by `(C + 1)/2 + O(C/log R)` in `[R, 2R]`,
+  so the step at `m >= 2K` contains the level-set question for them.
+  Open: whether the step holds for `m >= 2K`, and whether lines with a
+  constant `P'(0)` and the hypotheses of `prop:gausslow`, item 2, exist for
+  every `K`.
 
 - **Every row at other roots.**  The paper is
   [coefficient-mass-rows](papers/coefficient-mass-rows.tex), split out of
@@ -464,6 +560,17 @@ is open; an answer lands in the paper it extends, and the row leaves.
   (`prop:secondrowhyp`, `tests/test_rows.py`); the margins are below 0.3
   percent, and floating-point experiments find no failure under the
   hypothesis at `r = p/q >= 5/4`, `q <= 20`.
+  Failures on an interval (`lem:rootmono`, `prop:failinterval`,
+  `thm:failinterval`): every `mu_r(S,L)` decreases with `r`, so
+  `eta_sigma(n) > max(nu_1(n), nu_2(n))` at `r_1` (a vertex certificate)
+  against upper bounds at `r_0 < r_1` persists on `[r_0, r_1]`; 49 such
+  certificates (`tests/second_row_cover.json`, `n` from 68 down to 10,
+  always `sigma = 2`) show that for every `r` in `[21/20, 139/100]` the
+  prefix identity fails at `(r, n+1, 2)` for some `n`.  Numerically only,
+  the failures continue in narrow windows (`n = 9` on about
+  `[1.403, 1.429]`, `n = 8` near `1.466`), and a floating-point search
+  finds no second-row failure with `n <= 40` at `r = 1.400` and on most of
+  a `0.004`-grid of `[1.43, 1.5]`, nor with `n <= 30` at `1.6, ..., 1.9`.
   Every row (`sec:finiterows`): a threshold for up to `m` far zeros
   (`lem:farzeros`) cuts the exempted sets to a finite tree, so for all
   `r > 1`, `n, m >= 1`, `V_r(n+m,m+1) = min(V_r(n+m-1,m), min_(S in tree)
@@ -479,7 +586,12 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `V_{3/2}(10,3) = beta_{3/2}(8)`, the identity with minimum at `i = 1`.
   Open: a condition on `r` and `n` that gives the identity at `k = 2`;
   whether the worst finite position or set is always small; whether failures
-  occur for every `1 < r < 2`; closed forms, or bounds on the trees, for the
+  occur for every `1 < r < 2`, in particular for `1 < r < 21/20` (a
+  failure needs `beta_r(n) > 1`, so `n -> oo` as `r -> 1+` by
+  `thm:onepolyrows` and `lem:topnearone`) and
+  for `r` near `1.40` and above `1.43`, where the second row may satisfy the
+  identity on every diagonal and a failure would have to come from a row
+  `k >= 3`; closed forms, or bounds on the trees, for the
   rows `k >= 3` with `beta_r(n) > 1` -- `thm:finiterows` does not say how to
   find the minimizers `q_N` it branches on, and its thresholds do not
   decrease with `m`.
