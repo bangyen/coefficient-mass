@@ -11,7 +11,7 @@ from __future__ import annotations
 import random
 from fractions import Fraction
 from itertools import product
-from math import ceil, gcd, isqrt, prod
+from math import ceil, comb, gcd, isqrt, prod
 
 import pytest
 
@@ -152,7 +152,7 @@ def test_first_row_at_any_angle() -> None:
 
 
 # Several annuli (lem:central, lem:tropcount, thm:annuli, cor:annuli,
-# prop:annulisharp).
+# thm:fixedgap, prop:annulisharp).
 
 
 def _pair(a: int, b: int) -> Poly:
@@ -204,28 +204,48 @@ def test_central_index_control() -> None:
     assert abs(f[y]) < abs(f[-1]) * max(1, 2)
 
 
+def _count_criterion(n: int, kappa: int, x: Fraction) -> bool:
+    """The hypothesis of ``lem:tropcount`` at ``x = r/T``."""
+    tail = sum(Fraction(comb(n, m)) * x**m for m in range(n - kappa + 1, n + 1))
+    return tail < (1 - x) ** n
+
+
 def test_count_at_a_distance() -> None:
-    """``lem:tropcount``: ``n`` zeros of modulus ``>= R`` put every central index
-    at ``r < R/9^n`` at least ``n`` below the top."""
+    """``lem:tropcount``: ``n`` zeros of modulus ``>= T`` put every central
+    index at ``r`` at least ``kappa`` below the top whenever the criterion
+    holds, in particular ``n`` at ``r = T/(3n)`` and ``n/2`` at ``r = T/6``."""
     rng = random.Random(SEED + 12)
     for _ in range(200):
         pairs = [rng.choice(PYTHAGOREAN) for _ in range(rng.randint(1, 3))]
         f = _mul(_product([_pair(a, b) for a, b, _ in pairs]), _cofactor(rng))
-        n = 2 * len(pairs)
-        r = Fraction(min(rho for *_, rho in pairs), 9**n + 1)
-        assert all(len(f) - 1 - y >= n for y in _central(f, r))
+        n, big_t = 2 * len(pairs), min(rho for *_, rho in pairs)
+        assert _count_criterion(n, n, Fraction(1, 3 * n))
+        assert _count_criterion(n, -(-n // 2), Fraction(1, 6))
+        for den in (3 * n, 6, 4, 3, 2):
+            r = Fraction(big_t, den)
+            kappa = max(k for k in range(n + 1) if _count_criterion(n, k, r / big_t))
+            if den == 3 * n:
+                assert kappa == n
+            if den == 6:
+                assert 2 * kappa >= n
+            assert all(len(f) - 1 - y >= kappa for y in _central(f, r))
 
 
 def test_count_needs_distance() -> None:
-    """The control: at a constant distance the count fails.  ``(x - 10)^12`` has
-    ``12`` zeros of modulus ``10`` but a positive central index at ``10/11``."""
+    """The control: at a constant distance the full count fails, and at a
+    distance ratio below ``1`` so does the half count.  ``(x - 10)^12`` has
+    ``12`` zeros of modulus ``10`` but a positive central index at ``10/11``,
+    fewer than ``12`` positions above it at ``10/6``, and fewer than ``6`` at
+    ``20``; at ``10/36`` the count is full."""
     f = _product([[-10, 1]] * 12)
     assert all(len(f) - 1 - y < 12 for y in _central(f, Fraction(10, 11)))
-    assert all(len(f) - 1 - y >= 12 for y in _central(f, Fraction(10, 9**12 + 1)))
+    assert all(6 <= len(f) - 1 - y < 12 for y in _central(f, Fraction(10, 6)))
+    assert all(len(f) - 1 - y < 6 for y in _central(f, Fraction(20)))
+    assert all(len(f) - 1 - y >= 12 for y in _central(f, Fraction(10, 36)))
 
 
 def _annuli(rng: random.Random, gap: int) -> list[list[tuple[int, int, int]]]:
-    """Pairs in ``S`` annuli, ``T_a`` above ``(3 U_(a-1) + 1) 9^(n_a)`` if
+    """Pairs in ``S`` annuli, ``T_a`` above ``3 n_a (3 U_(a-1) + 1)`` if
     ``gap == 0`` (so ``r_a = 3 U_(a-1) + 1`` has ``k_a = n_a``), else above
     ``gap * U_(a-1)``."""
     small = [p for p in PYTHAGOREAN if p[2] >= 5]
@@ -235,7 +255,7 @@ def _annuli(rng: random.Random, gap: int) -> list[list[tuple[int, int, int]]]:
     for a in range(1, len(annuli)):
         n_a = 2 * sum(len(ann) for ann in annuli[a:])
         upper = max(p[2] for p in annuli[a - 1])
-        need = (3 * upper + 1) * 9**n_a if gap == 0 else gap * upper
+        need = 3 * n_a * (3 * upper + 1) if gap == 0 else gap * upper
         c = need // 5 + 1  # scale (3, 4, 5)-type pairs past ``need``
         annuli[a] = [(c * x, c * y, c * rho) for x, y, rho in annuli[a]]
         assert min(p[2] for p in annuli[a]) > need
@@ -244,7 +264,7 @@ def _annuli(rng: random.Random, gap: int) -> list[list[tuple[int, int, int]]]:
 
 def test_annuli_exact_counts() -> None:
     """``thm:annuli`` with ``k_a = n_a`` and ``cor:annuli`` item 1: positions,
-    counts, values, rows and mass, at separation ``3 * 9^(n_a)``."""
+    counts, values, rows and mass, at separation ``9 n_a``."""
     rng = random.Random(SEED + 13)
     for _ in range(60):
         annuli = _annuli(rng, 0)
@@ -300,7 +320,7 @@ def test_annuli_ratio() -> None:
             r = Fraction(3 * max(moduli[a - 1]) + 1)
             low = min(moduli[a])
             assert r < Fraction(low, 3)
-            kappa = max(k for k in range(64) if 9**k < low / r)
+            kappa = max(k for k in range(64) if 3 * k * r <= low)
             n_a = sum(map(len, moduli[a:]))
             k_a = min(n_a, max(kappa, big_s - a))
             bound = (
@@ -313,6 +333,74 @@ def test_annuli_ratio() -> None:
                 assert abs(f[y]) > bound
     f = _mul([-4, 1], _product([[-400, 1]] * 12))
     assert all(len(f) - 1 - y < 12 for y in _central(f, Fraction(100)))
+
+
+def _fixed_gap_annuli(rng: random.Random) -> list[list[int]]:
+    """Moduli (each twice, a conjugate pair) in ``S`` annuli, each ``T_a`` just
+    above ``162 U_(a-1)``; the top annulus may repeat one pair many times."""
+    small = [p for p in PYTHAGOREAN if p[2] >= 5]
+    annuli = [[rng.choice(small) for _ in range(rng.randint(1, 2))]]
+    for _ in range(rng.randint(1, 2)):
+        annuli.append([rng.choice(small)] * rng.randint(1, 7))
+    for a in range(1, len(annuli)):
+        upper = max(p[2] for p in annuli[a - 1])
+        c = (162 * upper + 60) // min(p[2] for p in annuli[a]) + 1
+        annuli[a] = [(c * x, c * y, c * rho) for x, y, rho in annuli[a]]
+    return annuli
+
+
+def test_fixed_gap() -> None:
+    """``thm:fixedgap`` at separation ``162``: the positions of its proof, at
+    ``r^- = 3 U_(a-1) + 1`` and ``r^+ = T_a/6``, are ordered and counted as
+    there, and the mass bound holds.
+
+    Control: one central index is not enough.  In some samples the central
+    index at ``T_a/6`` has fewer than ``n_a`` positions above it, so
+    ``lem:central`` alone charges it less than ``Z_a``; the second position
+    makes up the charge.
+    """
+    rng = random.Random(SEED + 15)
+    short = 0
+    for _ in range(80):
+        annuli = _fixed_gap_annuli(rng)
+        f = _mul(
+            _product([_pair(a, b) for ann in annuli for a, b, _ in ann]),
+            _cofactor(rng),
+        )
+        big_d, lead = len(f) - 1, abs(f[-1])
+        moduli = [[rho for *_, rho in ann for _ in range(2)] for ann in annuli]
+        big_s = len(moduli)
+        for a in range(1, big_s):
+            assert min(moduli[a]) > 162 * max(moduli[a - 1])
+        charge = [
+            Fraction(lead, 2) * prod(Fraction(rho, 2) for m in moduli[a:] for rho in m)
+            for a in range(big_s)
+        ]
+        y1 = max(_central(f, Fraction(1)))
+        positions = [y1]
+        assert abs(f[y1]) > charge[0]
+        for a in range(1, big_s):
+            n_a = sum(map(len, moduli[a:]))
+            lo = Fraction(3 * max(moduli[a - 1]) + 1)
+            hi = Fraction(min(moduli[a]), 6)
+            assert hi > 9 * lo
+            ys = sorted({max(_central(f, lo)), max(_central(f, hi))})
+            assert ys[0] > positions[-1]
+            assert all(2 * (big_d - y) >= n_a for y in ys)
+            if len(ys) == 1:
+                assert big_d - ys[0] >= n_a
+                assert abs(f[ys[0]]) > charge[a]
+            else:
+                value = abs(f[ys[0]] * f[ys[1]])
+                assert value > charge[a] * Fraction(lead, 2) * 3**n_a
+            short += big_d - ys[-1] < n_a
+            positions += ys
+        assert positions[-1] < big_d
+        bound = Fraction(lead ** (big_s + 1), 2**big_s) * prod(
+            Fraction(rho, 2) ** (s + 1) for s, m in enumerate(moduli) for rho in m
+        )
+        assert _mass(f) >= bound
+    assert short > 0
 
 
 def _lacunary(ns: list[int], ts: list[int]) -> Poly:

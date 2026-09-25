@@ -45,9 +45,9 @@ of modulus greater than one, while $b_2$ and every superlinear mass bound
 fail to hold uniformly over pairs within any fixed angle of the imaginary axis.  Rows and mass
 return, up to constants, when the moduli are separated by a factor $9$, by
 an Archimedean Newton polygon argument.  With $K_s$ roots of modulus in
-$[T_s,U_s]$ for $s=1,\ldots,S$, where $T_1>3$ and
-$T_s>3\cdot9^{K_s+\cdots+K_S}U_{s-1}$ (whether a fixed factor suffices is
-open), monic multiples have mass at least $\sum_ssK_s\log(T_s/2)-O(S)$,
+$[T_s,U_s]$ for $s=1,\ldots,S$, where $T_1>3$ and $T_s>162U_{s-1}$,
+multiples with leading coefficient of modulus at least $1$ have mass at least
+$\sum_ssK_s\log(T_s/2)-O(S)$,
 attained to leading order for suitable roots as $\min_sT_s\to\infty$: a root is charged once per annulus at or below it, and the
 cross terms $K_uK_s\log T_s$ of the real bound fail.  Real roots of both
 signs charge one
@@ -116,10 +116,13 @@ Separated moduli restore the rows and the mass up to constants, through an
 Archimedean Newton polygon (Theorem~\ref{thm:archnewton},
 Corollary~\ref{cor:separated}).  For $K_s$ roots in each of several separated
 annuli the central index charges a root once for every annulus at or below it,
-$\sum_ssK_s\log(T_s/2)-O(S)$ in all when the separation grows with the
-number of roots, attained for suitable roots as $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
+$\sum_ssK_s\log(T_s/2)-O(S)$ in all for multiples with $|f_D|\ge1$ at the
+fixed separation factor $162$, attained for suitable roots as $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
 (Theorem~\ref{thm:annuli},
-Corollary~\ref{cor:annuli}, Proposition~\ref{prop:annulisharp}).
+Corollary~\ref{cor:annuli}, Theorem~\ref{thm:fixedgap},
+Proposition~\ref{prop:annulisharp}).  Dividing out the roots counts them
+from a central index at a distance linear in their number
+(Lemma~\ref{lem:tropcount}).
 
 \paragraph{Both signs.}  For real roots of both signs, Rolle's theorem on
 each half-line charges one root of each sign per excluded coefficient
@@ -571,18 +574,28 @@ order terms, with a square term $\frac12K_s^2\log T_s$ inside each group and a
 cross term $K_uK_s\log T_s$ between the groups $u<s$.  At complex roots the
 square term is false (Proposition~\ref{prop:noangle}).  This section shows
 that the cross terms are false as well, and that the right count charges a
-root once for every annulus at or below it: when the separation grows with
-the number of roots, every monic multiple has mass at least
+root once for every annulus at or below it: when consecutive annuli are
+separated by the factor $162$, every multiple with $|f_D|\ge1$ has mass at least
 $\sum_ssK_s\log(T_s/2)-S\log2$, and for suitable roots this is
 attained to leading order (the ratio tends to $1$) as $\min_sT_s\to\infty$
-(Corollary~\ref{cor:annuli}, Proposition~\ref{prop:annulisharp}).
+(Theorem~\ref{thm:fixedgap}, Proposition~\ref{prop:annulisharp}).
 Corollary~\ref{cor:separated} is essentially the case $K_s=1$.
 
 For a nonzero $F$ and $r>0$ we call a position $y$ maximizing $|f_i|r^i$ a
 \emph{central index} at $r$.  In the notation of Theorem~\ref{thm:archnewton},
 the central index at $r=e^u$ is the vertex active at $u$ when $u$ is not a
 tropical root; at a tropical root it is any position $i$ of the corresponding
-edge with $\log|f_i|=\varphi(i)$, its two vertices included.
+edge with $\log|f_i|=\varphi(i)$, its two vertices included.  Every central
+index $y$ at $e^u$ satisfies
+\begin{equation}\label{eq:centralabove}
+  D-y\ \ge\ \sum_{\sigma_s>u}\ell_s .
+\end{equation}
+Indeed let $s$ be the largest index with
+$\sigma_s>u$ ($s=0$ if there is none, and then $v_0=D$ and there is nothing
+to prove); then $D-v_s=\sum_{t\le s}\ell_t$, and for $i>v_s$ the edge of
+slope $-\sigma_s$ gives
+$\log|f_i|+iu\le\log|f_{v_s}|+v_su-(\sigma_s-u)(i-v_s)<\log|f_{v_s}|+v_su$,
+so $y\le v_s$.
 
 \begin{lemma}[Central index]\label{lem:central}
 Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $r>0$, and let $y$ be a
@@ -617,43 +630,45 @@ $|\beta|/2$ only for as many zeros as there are positions above the central
 index.  The next lemma supplies such positions.
 
 \begin{lemma}[Counting at a distance]\label{lem:tropcount}
-Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $n\ge1$ and $u<w$ with
-$w-u>2n\log3$, and suppose that $F$ has at least $n$ zeros, counted with
-multiplicity, of modulus at least $e^w$.  Then every central index $y$ of $F$
-at $e^u$ satisfies $D-y\ge n$.
+Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $A$ be a sub-multiset of
+the zeros of $F$, counted with multiplicity, with $n=|A|\ge1$ and $|\beta|\ge
+T>0$ for $\beta\in A$, and let $0<r<T$ and $\theta=r/T$.  If $0\le\kappa\le n$ and
+\[
+  (1-\theta)^{-n}\sum_{m=n-\kappa+1}^n\binom nm\theta^m\ <\ 1,
+\]
+then every central index $y$ of $F$ at $r$ satisfies $D-y\ge\kappa$.  In
+particular $D-y\ge n$ if $T\ge3nr$, and $D-y\ge n/2$ if $T\ge6r$.
 \end{lemma}
 
 \begin{proof}
-We use the tropical roots $\sigma_1>\cdots>\sigma_L$, the vertices $v_s$ and
-the edge lengths $\ell_s$ of Theorem~\ref{thm:archnewton}.  Two facts first.
-(a) If $u<p$, $y$ is a central index at $e^u$ and $y'$ one at $e^p$, then
-$y\le y'$: otherwise $\log|f_y|+yu\ge\log|f_{y'}|+y'u$ and
-$\log|f_{y'}|+y'p\ge\log|f_y|+yp$ add up to $(y-y')(u-p)\ge0$, which is false
-for $y>y'$ and $u<p$.  (b) Every central index $y$ at $e^u$ satisfies
-$D-y\ge\sum_{\sigma_s>u}\ell_s$.  Indeed let $s$ be the largest index with
-$\sigma_s>u$ ($s=0$ if there is none, and then $v_0=D$ and there is nothing
-to prove); then $D-v_s=\sum_{t\le s}\ell_t$, and for $i>v_s$ the edge of
-slope $-\sigma_s$ gives
-$\log|f_i|+iu\le\log|f_{v_s}|+v_su-(\sigma_s-u)(i-v_s)<\log|f_{v_s}|+v_su$,
-so $y\le v_s$.
-
-Choose $0<\eta<w-u-2n\log3$ and let $I=[u+\log3+\eta,\,w-\log3]$, an interval
-of length greater than $2(n-1)\log3\ge0$.  If some $p\in I$ has
-$|p-\sigma_s|>\log3$ for every $s$, then by Theorem~\ref{thm:archnewton},
-item~1, $F$ has exactly $y'$ zeros in $|z|<e^p$ and none on $|z|=e^p$, where
-$y'$ is the vertex active at $p$.  The $n$ zeros of modulus at least
-$e^w>e^p$ lie outside, so $D-y'\ge n$, and $y\le y'$ by (a).  Otherwise the
-closed intervals $[\sigma_s-\log3,\sigma_s+\log3]$ that meet $I$ cover it, so
-their total length is at least the length of $I$, and there are at least $n$
-of them.  Their centres lie in $[u+\eta,w]$, so at least $n$ tropical roots
-exceed $u$, and (b) gives $D-y\ge n$.
+Let $H=\prod_{\beta\in A}(x-\beta)=\sum_mh_mx^m$ and $P=F/H=\sum_jp_jx^j$, a
+polynomial of degree $D-n$.  As $h_m=h_0(-1)^me_m(1/\beta)$ and $h_0\ne0$,
+$|h_m|r^m\le|h_0|\binom nm\theta^m$.  In $\mathbb C[[x]]$,
+$1/H=h_0^{-1}\prod_\beta(1-x/\beta)^{-1}=\sum_mq_mx^m$ with
+$|q_m|\le|h_0|^{-1}\binom{n+m-1}mT^{-m}$, and $P=F\cdot(1/H)$, so
+$p_j=\sum_{m\le j}f_{j-m}q_m$.  With $M=\max_{i\le D-n}|f_i|r^i$, for
+$j\le D-n$,
+\[
+  |p_j|r^j\ \le\ \sum_m|f_{j-m}|r^{j-m}\,|q_m|r^m
+  \ \le\ \frac M{|h_0|}\sum_m\binom{n+m-1}m\theta^m\ =\ \frac M{|h_0|}(1-\theta)^{-n};
+\]
+in particular $M>0$, as $P\ne0$.  For $i>D-\kappa$, $f_i=\sum_jp_jh_{i-j}$
+over $j\le D-n$, so $i-j>n-\kappa$ and
+\[
+  |f_i|r^i\ \le\ \sum_j|p_j|r^j\,|h_{i-j}|r^{i-j}
+  \ \le\ M(1-\theta)^{-n}\sum_{m>n-\kappa}\binom nm\theta^m\ <\ M .
+\]
+So no $i>D-\kappa$ is a central index.  If $T\ge3nr$ and $\kappa=n$, the sum
+is $(1+\theta)^n-1\le e^{1/3}-1<\frac23\le1-n\theta\le(1-\theta)^n$.  If $T\ge6r$ and
+$\kappa=\lceil n/2\rceil$, every $m>n-\kappa$ has $m\ge(n+1)/2$, so the left
+side is at most $(1-\theta)^{-n}2^n\theta^{(n+1)/2}\le6^{-1/2}(12/(5\sqrt6))^n<1$.
 \end{proof}
 
-The distance cannot be a constant: $(x-t)^K$ has $K$ zeros of modulus $t$, and
-at $r=t/c$ its terms are $t^K\binom Kic^{-i}$, so for $c<K$ the term $i=1$
-beats the term $i=0$ and the central index is positive.  So
-Lemma~\ref{lem:tropcount} needs $e^{w-u}$ at least about $n$; it asks for
-$9^n$.
+The factor $3n$ is sharp up to the $3$: $(x-t)^K$ has $K$ zeros of modulus
+$t$, and at $r=t/c$ its terms are $t^K\binom Kic^{-i}$, so for $c<K$ the term
+$i=1$ beats the term $i=0$ and the central index is positive.  At a constant
+distance only a fraction of the count survives: for $c\ge1$ the central
+index of $(x-t)^K$ at $t/c$ is about $K/(c+1)$.
 
 \begin{theorem}[Several annuli]\label{thm:annuli}
 Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $S\ge1$, and let
@@ -665,7 +680,7 @@ multiplicity, the moduli in $A_s$ lying in $[T_s,U_s]$, where
 Put $K_s=|A_s|$, $n_a=K_a+\cdots+K_S$ and $A_{\ge a}=A_a\cup\cdots\cup A_S$.
 Let $r_1=1$ and $k_1=n_1$, and for $2\le a\le S$ choose $r_a$ with
 $3U_{a-1}<r_a<T_a/3$, let $\kappa_a$ be the largest integer with
-$9^{\kappa_a}<T_a/r_a$, and put $k_a=\min\bigl(n_a,\max(\kappa_a,S-a+1)\bigr)$.
+$3\kappa_ar_a\le T_a$, and put $k_a=\min\bigl(n_a,\max(\kappa_a,S-a+1)\bigr)$.
 Then there are positions $y_1<y_2<\cdots<y_S<D$ with
 \[
   |f_{y_a}|\ >\ B_a=\frac{|f_D|}2\,r_a^{k_a-n_a}\prod_{\beta\in A_{\ge a}}\frac{|\beta|}2
@@ -680,7 +695,7 @@ Hence $b_k(F)>\min_{a\le k}B_a$ for $1\le k\le S$, and, if $|f_D|\ge1$,
 
 \begin{proof}
 Let $y_a$ be a central index of $F$ at $r_a$.  Since $r_a<T_a/3$,
-$\kappa_a\ge0$.
+$\kappa_a\ge1$.
 
 \emph{Order.}  For $1\le j\le S$ pick $\beta\in A_j$.  By
 Theorem~\ref{thm:archnewton}, item~2, some tropical root $\sigma^{(j)}$
@@ -689,8 +704,8 @@ $\log(T_j/3)\le\sigma^{(j)}\le\log(3U_j)$.  These intervals are disjoint, as
 $T_{j+1}>9U_j$, so the $\sigma^{(j)}$ are distinct.  For every $a$,
 $\log r_a<\log(T_a/3)\le\sigma^{(a)}$ (for $a=1$ because $T_1>3$), and for
 $a<S$ also $\sigma^{(a)}\le\log(3U_a)<\log r_{a+1}$.  Let
-$\sigma^{(a)}=\sigma_q$ in the numbering of Theorem~\ref{thm:archnewton}.  By
-fact~(b) in the proof of Lemma~\ref{lem:tropcount}, a central index at a
+$\sigma^{(a)}=\sigma_q$ in the numbering of Theorem~\ref{thm:archnewton}.  By the
+proof of \eqref{eq:centralabove}, a central index at a
 radius below $e^{\sigma_q}$ is at most the lower vertex $v_q$ of the edge of
 slope $-\sigma_q$; symmetrically, for $i<v_{q-1}$ the same edge gives
 $\log|f_i|+ip<\log|f_{v_{q-1}}|+v_{q-1}p$ when $p>\sigma_q$, so a central
@@ -700,11 +715,9 @@ $y_S\le v_q<v_0=D$ for $a=S$.
 
 \emph{Counts.}  Let $a\ge2$.  The $S-a+1$ distinct tropical roots
 $\sigma^{(a)},\ldots,\sigma^{(S)}$ exceed $\log r_a$, so
-$D-y_a\ge S-a+1$ by fact~(b) in the proof of Lemma~\ref{lem:tropcount}.  If
-$\kappa_a\ge1$, let $n=\min(n_a,\kappa_a)$; Lemma~\ref{lem:tropcount} with
-$u=\log r_a$ and $w=\log T_a$ applies, as $w-u=\log(T_a/r_a)>n\log9$ and the
-$n_a\ge n$ zeros in $A_{\ge a}$ have modulus at least $T_a$, and gives
-$D-y_a\ge n$.  So $D-y_a\ge k_a$ for every $a\ge2$.
+$D-y_a\ge S-a+1$ by \eqref{eq:centralabove}.  Let $n=\min(n_a,\kappa_a)$;
+Lemma~\ref{lem:tropcount} with $A$ any $n$ of the zeros in $A_{\ge a}$, of
+modulus at least $T_a\ge3nr_a$, gives $D-y_a\ge n$.  So $D-y_a\ge k_a$ for every $a\ge2$.
 
 \emph{Values.}  Every $r_a\ge1$ (for $a\ge2$, $r_a>3U_{a-1}\ge3T_1>9$).
 Lemma~\ref{lem:central} with $A=A_{\ge a}$ gives
@@ -723,7 +736,7 @@ $a=1$ has no power of $r_1$.
 \begin{corollary}[Annuli]\label{cor:annuli}
 In the setting of Theorem~\ref{thm:annuli}:
 \begin{enumerate}
-\item If moreover $T_a>3\cdot9^{n_a}U_{a-1}$ for $2\le a\le S$, then
+\item If moreover $T_a>9n_aU_{a-1}$ for $2\le a\le S$, then
 $b_k(F)>\frac{|f_D|}2\prod_{\beta\in A_{\ge k}}\frac{|\beta|}2$ for $1\le k\le S$,
 and, if $|f_D|\ge1$,
 \[
@@ -738,8 +751,8 @@ and, if $|f_D|\ge1$,
 \end{corollary}
 
 \begin{proof}
-1.  Choose $r_a$ with $3U_{a-1}<r_a<9^{-n_a}T_a$.  Then $r_a<T_a/3$ and
-$9^{n_a}<T_a/r_a$, so $k_a=n_a$ and
+1.  Choose $r_a$ with $3U_{a-1}<r_a<T_a/(3n_a)$.  Then $r_a<T_a/3$ and
+$\kappa_a\ge n_a$, so $k_a=n_a$ and
 $B_a=\frac{|f_D|}2\prod_{A_{\ge a}}\frac{|\beta|}2$.  Every factor
 $|\beta|/2$ exceeds $1$, so $B_a$ decreases with $a$ and
 $\min_{a\le k}B_a=B_k$.
@@ -750,16 +763,91 @@ The bound holds for every admissible $r_a$; let $r_a\downarrow3U_{a-1}$.
 \end{proof}
 
 Item~1 charges a root of $A_s$ once for each annulus at or below it, $s$
-times in all, at the price of a separation that grows exponentially with the
-number of roots above.  Item~2 needs only the factor $9$, but past the first
+times in all, at the price of a separation that grows linearly with the
+number of roots above; by the remark after Lemma~\ref{lem:tropcount}, a
+central index at $r_a$ can have fewer than $n_a$ positions above it when
+$T_a/r_a<n_a$.  Item~2 needs only the factor $9$, but past the first
 annulus it charges ratios $|\beta|/U_{a-1}$ instead of moduli.  With one root
 per annulus, $k_a=n_a=S-a+1$ at the separation $9$ of the theorem, which then
 gives Corollary~\ref{cor:separated}, item~1, with $\rho_j/2$ in place of
-$\rho_j/3$ and an extra factor $\frac12$ in each row.  Item~1 is sharp to
-leading order, the coefficient $s$ of each $K_s\log T_s$ being best possible, as $\min_sT_s\to\infty$ (Proposition~\ref{prop:annulisharp}
-has $\Lambda=\sum_ssN_s\log t_s$ against the bound
-$\sum_ssN_s\log(t_s/6)-S\log2$), and the cross terms $K_uK_s\log T_s$ of the real bound
-fail.
+$\rho_j/3$ and an extra factor $\frac12$ in each row.  For the mass alone a
+fixed separation suffices: where one central index falls short, two of them
+share the charge.
+
+\begin{theorem}[Annuli at a fixed separation]\label{thm:fixedgap}
+Let $F\in\mathbb C[x]$ be nonzero of degree $D$ with $|f_D|\ge1$, let
+$S\ge1$, and let $A_1,\ldots,A_S$ be nonempty sub-multisets of the zeros of
+$F$, counted with multiplicity, the moduli in $A_s$ lying in $[T_s,U_s]$,
+where
+\[
+  T_1>3,\qquad T_a>162\,U_{a-1}\quad(2\le a\le S).
+\]
+Then
+\[
+  \Lambda(F)\ \ge\ (S+1)\log|f_D|+\sum_{s=1}^Ss\sum_{\beta\in A_s}\log\frac{|\beta|}2-S\log2 .
+\]
+\end{theorem}
+
+\begin{proof}
+Use the notation of Theorem~\ref{thm:annuli} and put
+$Z_a=\sum_{\beta\in A_{\ge a}}\log(|\beta|/2)$, so that
+$\sum_aZ_a=\sum_ss\sum_{\beta\in A_s}\log(|\beta|/2)$ and
+$Z_a\ge n_a\log(T_a/2)$.  The Order step of that proof uses only
+$T_1>3$ and $T_{a}>9U_{a-1}$; it gives tropical roots
+$\sigma^{(1)}<\cdots<\sigma^{(S)}$ with
+$\log(T_a/3)\le\sigma^{(a)}\le\log(3U_a)$, and shows that a central index at
+a radius below $e^{\sigma^{(a)}}$ lies below every central index at a radius
+above it.  For $2\le a\le S$ choose
+$u_a^-<u_a^+$, neither a tropical root, with
+\[
+  \log(3U_{a-1})<u_a^-,\qquad u_a^-+2\log3<u_a^+\le\log(T_a/6);
+\]
+this is possible as $T_a/6>9\cdot3U_{a-1}$.  Let $Y_a$ be the set of the
+vertices active at $u_a^-$ and at $u_a^+$, and let $y_1$ be a central index
+at $1$.  As $\sigma^{(a-1)}<u_a^-<u_a^+<\sigma^{(a)}$ and $0<\sigma^{(1)}$,
+$y_1$ lies below every position in $Y_2$, every
+position in $Y_a$ below every position in $Y_{a+1}$, and every position in
+$Y_S$ below $D$.  So the positions in $\{y_1\}\cup Y_2\cup\cdots\cup Y_S$
+are distinct and nonleading.
+
+By Lemma~\ref{lem:central} at $r=1$ with $A=A_{\ge1}$,
+$\log|f_{y_1}|>\log(|f_D|/2)+Z_1$.  Let $a\ge2$ and let $y\in Y_a$ be active
+at $u\in\{u_a^-,u_a^+\}$, so $9<e^u\le T_a/6$.  Every $\beta\in A_{\ge a}$ has
+$|\beta|/2>e^u$, so Lemma~\ref{lem:central} with $A=A_{\ge a}$ gives
+$\log|f_y|>\log(|f_D|/2)+Z_a-(n_a-D+y)u$, and
+Lemma~\ref{lem:tropcount} with $A=A_{\ge a}$, $T=T_a\ge6e^u$, gives
+$D-y\ge n_a/2$.
+
+If $Y_a=\{y\}$, no tropical root lies in $[u_a^-,u_a^+]$ (one would separate
+the two vertices, as in the Order step), so the midpoint $u$
+of this interval is farther than $\log3$ from every tropical root, and $y$ is
+the vertex active at $u$.  By Theorem~\ref{thm:archnewton}, item~1, $F$ has
+exactly $D-y$ zeros in $|z|>e^u$; the $n_a$ zeros of $A_{\ge a}$ are among
+them, so $D-y\ge n_a$ and $\log|f_y|>\log(|f_D|/2)+Z_a$.  Otherwise $Y_a$
+has two positions, each with $n_a-D+y\le n_a/2$ at a level
+$u\le u_a^+\le\log(T_a/6)$, and their logarithms add up to more than
+\[
+  2\log\frac{|f_D|}2+2Z_a-n_a\log\frac{T_a}6
+  \ \ge\ 2\log\frac{|f_D|}2+Z_a+n_a\log3
+  \ \ge\ \log\frac{|f_D|}2+Z_a ,
+\]
+as $\log|f_D|\ge0$ and $n_a\log3>\log2$.  In both cases
+$\sum_{y\in Y_a}\log^+|f_y|\ge\log|f_D|+Z_a-\log2$, and
+\[
+  \Lambda(F)\ \ge\ \log^+|f_D|+\log^+|f_{y_1}|+\sum_{a=2}^S\sum_{y\in Y_a}\log^+|f_y|
+  \ \ge\ (S+1)\log|f_D|+\sum_{a=1}^SZ_a-S\log2 .
+\]
+\end{proof}
+
+Theorem~\ref{thm:fixedgap} bounds the mass only: in the second case the
+charge $Z_a$ is split over two coefficients, and whether the rows of
+Corollary~\ref{cor:annuli}, item~1, hold at a fixed separation is open.  The
+factor $162$ is not optimized.  The mass bound is sharp to leading order, the
+coefficient $s$ of each $K_s\log T_s$ being best possible, as
+$\min_sT_s\to\infty$ (Proposition~\ref{prop:annulisharp} has
+$\Lambda=\sum_ssN_s\log t_s$ against the bound
+$\sum_ssN_s\log(t_s/6)-S\log2$), and the cross terms $K_uK_s\log T_s$ of the
+real bound fail.
 
 \begin{proposition}[Sharpness for annuli]\label{prop:annulisharp}
 \leavevmode
@@ -774,10 +862,9 @@ multiplicity, in $t_s/3\le|z|\le3t_s$ for each $s$ and no other zeros, and
 \[
   \Lambda(F)=\sum_{s=1}^SsN_s\log t_s .
 \]
-If moreover $t_1>9$ and $t_a>27\cdot9^{n_a}t_{a-1}$, where
-$n_a=N_a+\cdots+N_S$, then Corollary~\ref{cor:annuli}, item~1, applies to $F$
-with $A_s$ the zeros of modulus in $[t_s/3,3t_s]$, and gives
-$\Lambda(F)\ge\sum_ssN_s\log(t_s/6)-S\log2$.
+If moreover $t_1>9$ and $t_a>1458\,t_{a-1}$, then
+Theorem~\ref{thm:fixedgap} applies to $F$ with $A_s$ the zeros of modulus in
+$[t_s/3,3t_s]$, and gives $\Lambda(F)\ge\sum_ssN_s\log(t_s/6)-S\log2$.
 \item Let $0<\delta<\pi/2$, let $M_1\ne M_2$ be odd integers at least $3$,
 and let $1<t_1<t_2$.  The monic real polynomial
 $(x^{2M_1}+t_1^{2M_1})(x^{2M_2}+t_2^{2M_2})$ is divisible, for $s=1,2$, by
@@ -812,9 +899,7 @@ $\Lambda(F)=\sum_{a<S}\log c_a=\sum_{a<S}\sum_{s>a}N_s\log t_s
 =\sum_ssN_s\log t_s$.
 
 For the last claim take $T_s=t_s/3$ and $U_s=3t_s$: then $T_1>3$,
-$T_a>3\cdot9^{n_a}U_{a-1}$ (which implies $T_a>9U_{a-1}$), $|A_s|=N_s$,
-$f_D=1$, and $|\beta|/2\ge t_s/6$ on $A_s$.  The central index $y_a$ of the
-theorem, at $r_a\in(9t_{a-1},t_a/9)$, is the vertex $p_{a-1}$ active there.
+$T_a>162U_{a-1}$, $|A_s|=N_s$, $f_D=1$, and $|\beta|/2\ge t_s/6$ on $A_s$.
 
 2.  By the proof of Proposition~\ref{prop:noangle}, item~1, each factor
 $x^{2M_s}+t_s^{2M_s}$ has $K_s$ conjugate pairs of modulus $t_s$ within
@@ -832,13 +917,13 @@ once $M_1$ and $M_2$, hence $K_1$ and $K_2$, are large.
 
 So at complex roots in separated annuli the analogue of $\sum_ii\log r_i$ is
 $\sum_ssK_s\log T_s$: the cross term between annuli $u<s$ is $K_s\log T_s$,
-linear in the number of roots above and independent of the number below.  It
-is proved when the separation grows like $9^{n_a}$
-(Corollary~\ref{cor:annuli}, item~1), and with ratios in place of moduli at
-the fixed separation $9$ (item~2).  Whether item~1 holds at a fixed
-separation is open; the only loss is in the second case of the proof of
-Lemma~\ref{lem:tropcount}, when tropical roots crowd the whole gap below an
-annulus.
+linear in the number of roots above and independent of the number below.  For
+the mass it is proved at the fixed separation $162$
+(Theorem~\ref{thm:fixedgap}), and with ratios in place of moduli at the
+separation $9$ (Corollary~\ref{cor:annuli}, item~2); the rows of item~1 are
+proved at the separation $9n_a$.  Open: whether the rows hold
+at a fixed separation, and the least fixed separation for the mass, in
+particular whether $9$ suffices.
 
 \section{Real roots of both signs}\label{sec:bothsigns}
 

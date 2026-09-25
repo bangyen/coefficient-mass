@@ -70,19 +70,25 @@ is open; an answer lands in the paper it extends, and the row leaves.
   exhaustive search finds no `H(x) - v` with small `H` at more than three
   prescribed roots.
   Open: whether `c K**2 log R` holds for all integer multiples at such Gaussian
-  roots in a wide sector (the question the paper's introduction leaves),
-  and whether the cross terms below need a separation growing with the
-  root counts.  Cross terms between annuli (`sec:annuli`): with `K_s` roots of
-  modulus in `[T_s, U_s]`, the central index (`lem:central`,
-  `lem:tropcount`) gives positions charging a root once per annulus at or
-  below it (`thm:annuli`), so every monic multiple has mass at least `sum_s s K_s log(T_s/2) - S log 2` once
-  `T_a > 3*9**n_a U_(a-1)`, `n_a` the roots from annulus `a` up, and
-  ratios `log(|beta|/6U_(a-1))` at the factor 9 (`cor:annuli`).  A
+  roots in a wide sector (the question the paper's introduction leaves).
+  Cross terms between annuli (`sec:annuli`): with `K_s` roots of
+  modulus in `[T_s, U_s]`, the central index (`lem:central`) charges a
+  root once per annulus at or below it.  Dividing out `n` roots of modulus
+  `>= T` puts every central index at `r <= T/(3n)` at least `n` below the
+  top, and at `r <= T/6` at least `n/2` (`lem:tropcount`; `(x - t)**K`
+  shows the factor `n` is needed), so the positions and rows of
+  `cor:annuli` item 1 hold once `T_a > 9 n_a U_(a-1)`, `n_a` the roots from
+  annulus `a` up.  CLOSED for the mass at a fixed separation: every
+  multiple with `|f_D| >= 1` has mass at least
+  `sum_s s K_s log(T_s/2) - S log 2` once `T_1 > 3` and
+  `T_a > 162 U_(a-1)` (`thm:fixedgap`: where one central index falls
+  short, two share the charge); ratios `log(|beta|/6U_(a-1))` at the
+  factor 9 (`cor:annuli` item 2).  A
   lacunary integer multiple at suitable roots attains `sum_s s K_s log t_s`
   exactly, so the constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
-  also for pairs near the imaginary axis (`prop:annulisharp`).  At a
-  constant separation `(x - t)**K` breaks the count of `lem:tropcount`,
-  though not necessarily `cor:annuli` item 1.
+  also for pairs near the imaginary axis (`prop:annulisharp`).  Open: the
+  rows of `cor:annuli` item 1 at a fixed separation, and the least fixed
+  separation for the mass (whether 9 suffices).
 
 - **Every row at other roots.**  The paper is
   [coefficient-mass-rows](coefficient-mass-rows.tex), split out of
