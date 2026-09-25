@@ -45,7 +45,7 @@ of modulus greater than one, while $b_2$ and every superlinear mass bound
 fail for pairs within any fixed angle of the imaginary axis.  Rows and mass
 return, up to constants, when the moduli are separated by a factor $9$, by
 an Archimedean Newton polygon argument.  With $K_s$ roots of modulus at
-least $T_s$ in the $s$-th of several sufficiently separated annuli, monic
+least $T_s$ in the $s$-th of $S$ sufficiently separated annuli, monic
 multiples have mass at least $\sum_ssK_s\log(T_s/2)-O(S)$, attained to
 leading order: a root is charged once per annulus at or below it, and the
 cross terms $K_uK_s\log T_s$ of the real bound fail.  Real roots of both
@@ -54,8 +54,8 @@ root of each sign per excluded coefficient, with the sharp constant
 $\frac14$ in the mass.  For $K$ roots of modulus at least $R$ in a sector of
 half-width $\delta$, the mass of multiples of degree $O(K)$ is of order
 $\min(K^2,K/\delta)\log R$, with the constants $\frac12$ of $K^2\log R$ (as
-$K\to\infty$ with $\delta K\to0$) and $\pi$ of $(K/\delta)\log R$ (at fixed
-$\delta$, $K\to\infty$) attained
+$K,R\to\infty$ with $\delta K\to0$) and $\pi$ of $(K/\delta)\log R$ (at fixed
+$\delta$, as $K,R\to\infty$) attained
 in the limit; at
 Gaussian-integer roots the degree restriction is removed for integer
 multiples.
@@ -1094,7 +1094,7 @@ and $\Lambda(B)\ge\Lambda(h_\theta)$.  Finally $m+1\ge K/2$ and $m\ge K/2-1$.
 
 The theorem uses no integrality, and its degree hypothesis cannot be
 dropped: $x^{2M}+\rho^{2M}$ in Proposition~\ref{prop:noangle} has about
-$2\delta M/\pi$ roots within $\delta$ of the imaginary axis and
+$2\delta M/\pi$ roots within $\delta$ of the positive imaginary axis and
 $b_2=0$, and its degree $2M$ exceeds $\pi K/(2E(2\delta))$.  At Gaussian roots
 the large-degree case is paid for by integrality, as the next section shows.
 
@@ -1385,7 +1385,7 @@ and every other contribution is nonnegative, gives
   \log\max_{|t|=\tau}|B^*(t)|\ \ge\ \log|b_d|+n\log(\tau r_1)\ \ge\ n\log r_1-1,
 \]
 using $n\log\frac{n+1}n\le1$.  On the other side
-$\max_{|t|=\tau}|B^*|\le\max_i|b_i|\sum_k\tau^k=(n+1)\max_i|b_i|$.  So
+$\max_{|t|=\tau}|B^*|\le\max_i|b_i|\sum_{k\ge0}\tau^k=(n+1)\max_i|b_i|$.  So
 $\Lambda(B)\ge\log\max_i|b_i|\ge n\log r_1-\log(n+1)-1\ge g(n)$.
 
 \emph{Crossings.}  Choose $\theta$ with $e^{-i\theta}b_de^{id\psi}=i|b_d|$.  As
@@ -1475,12 +1475,12 @@ common ray, $\prod_j(x-\rho_je^{i\varphi})$ with $\rho_j\in[R,2R]$ has
 $\Lambda\le\frac{K(K+1)}2\log(2R)+K^2\log2$.  So for complex multiples of
 degree $O(K)$ the infimum of $\Lambda$ is of order $\min(K^2,K/\delta)\log R$
 as $R\to\infty$, with both constants attained in the limit: $\frac12$ in
-$\frac12K^2\log R$ for fixed $T$ and $K\to\infty$ with $\delta K\to0$, from
-Theorem~\ref{thm:widesector} with $m=K-1-\lceil\omega+\delta K^2/(2\pi)\rceil$
+$\frac12K^2\log R$ as $R\to\infty$ and $K\to\infty$ with $\delta K\to0$, from
+Theorem~\ref{thm:widesector} with $T$ fixed and $m=K-1-\lceil\omega+\delta K^2/(2\pi)\rceil$
 (then $\omega=\kappa(\delta)d/\log T=o(K)$ as $\kappa(\delta)\to0$, so
 $m=K-o(K)$, and $\nu_m\ge K^2/2$), against the common ray; and $\pi$ in
 $\frac\pi\delta K\log R$, from Corollary~\ref{cor:wideconst} at fixed $\delta$
-and $K\to\infty$, against Proposition~\ref{prop:widesharp}.  In a wide
+as $K,R\to\infty$, against Proposition~\ref{prop:widesharp}.  In a wide
 sector, with $\delta$ fixed, it is linear in $K$, and
 $\Lambda\ge cK^2\log R$ fails already for the monic real multiple $x^N-\rho^N$.
 \begin{corollary}[Gaussian roots in sectors of every width]\label{cor:widegauss}
