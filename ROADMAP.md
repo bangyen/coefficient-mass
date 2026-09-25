@@ -10,10 +10,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
   the escaping placement extremal; whether the infimum along `(r,3,5,7)` is
   `beta(r)` on `[13/10, 29/20)`, where `thm:family` gives only `<=`.
-- [complex](papers/coefficient-mass-complex.tex): whether `c K**2 log R`
-  holds for integer multiples at Gaussian roots in a wide sector
-  (`sec:widesectors`); whether one level set `H(y) = -v` holds boundedly
-  many Gaussian points above the axis (`prop:gaussheavy`); the rows of
+- [complex](papers/coefficient-mass-complex.tex): the rows of
   `cor:annuli` item 1 at a fixed separation, and the least such separation
   for the mass (`sec:annuli`).
 - [rows](papers/coefficient-mass-rows.tex): whether `nu_2(n) >= nu_1(n)`
@@ -21,6 +18,10 @@ is open; an answer lands in the paper it extends, and the row leaves.
   worst finite position is always small, and failures occur for every
   `1 < r < 2`; closed forms or tree bounds for rows `k >= 3`
   (`sec:finiterows`).
+- [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
+  holds for integer multiples at Gaussian roots in a wide sector
+  (`sec:widesectors`); whether one level set `H(y) = -v` holds boundedly
+  many Gaussian points above the axis (`prop:gaussheavy`).
 
 ## Status
 
@@ -66,16 +67,42 @@ is open; an answer lands in the paper it extends, and the row leaves.
   degree (`thm:gausscharge`).  An Archimedean Newton polygon
   (`thm:archnewton`) gives rows and mass `sum j log(rho_j/3)` for every
   complex multiple with `|f_D| >= 1` once moduli grow by a factor 9 (`cor:separated`), and
-  at most `g` moduli per annulus `[R, 9R]` costs a factor `g**2`.  Crowded
+  at most `g` moduli per annulus `[R, 9R]` costs a factor `g**2`.  Real roots of both signs (`sec:bothsigns`):
+  Rolle on each half-line gives rows charging one root of each sign per
+  excluded coefficient (`thm:bothsigns`) and mass
+  `floor((L+1)**2/4) log(R/2)`, sharp at `+-s_j` (`cor:bothsignsmass`,
+  `prop:bothsignssharp`).  Roots in a sector are treated in
+  [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex) (next
+  entry).
+  Cross terms between annuli (`sec:annuli`): with `K_s` roots of
+  modulus in `[T_s, U_s]`, the central index (`lem:central`) charges a
+  root once per annulus at or below it.  Dividing out `n` roots of modulus
+  `>= T` puts every central index at `r <= T/(3n)` at least `n` below the
+  top, and at `r <= T/6` at least `n/2` (`lem:tropcount`; `(x - t)**K`
+  shows the factor `n` is needed), so the positions and rows of
+  `cor:annuli` item 1 hold once `T_a > 9 n_a U_(a-1)`, `n_a` the roots from
+  annulus `a` up.  Closed for the mass at a fixed separation: every
+  multiple with `|f_D| >= 1` has mass at least
+  `sum_s s K_s log(T_s/2) - S log 2` once `T_1 > 3` and
+  `T_a > 162 U_(a-1)` (`thm:fixedgap`: where one central index falls
+  short, two share the charge); ratios `log(|beta|/6U_(a-1))` at the
+  factor 9 (`cor:annuli` item 2).  A
+  lacunary integer multiple at suitable roots attains `sum_s s K_s log t_s`
+  exactly, so the constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
+  also for pairs near the imaginary axis (`prop:annulisharp`).  Open: the
+  rows of `cor:annuli` item 1 at a fixed separation, and the least fixed
+  separation for the mass (whether 9 suffices).
+
+- **Coefficient mass in sectors.**  The paper is
+  [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), split out
+  of [coefficient-mass-complex](papers/coefficient-mass-complex.tex), whose
+  block charging at Gaussian roots (`thm:gausscharge`) it uses.  Crowded
   roots in a thin sector are Closed (`lem:sectorcount`, `thm:thinsector`,
   `thm:thingauss`: the argument principle forces a real crossing
   polynomial with `K/2` large roots unless the degree is `>> K/delta`,
   which block charging pays; at such Gaussian roots `thm:thingauss` gives
-  order `K**2 log R` when `delta K log(1/delta) = O(1)`).  Real roots of both signs (`sec:bothsigns`):
-  Rolle on each half-line gives rows charging one root of each sign per
-  excluded coefficient (`thm:bothsigns`) and mass
-  `floor((L+1)**2/4) log(R/2)`, sharp at `+-s_j` (`cor:bothsignsmass`,
-  `prop:bothsignssharp`).  Wide sectors (`sec:widesectors`): multiples of degree `O(K)` pay
+  order `K**2 log R` when `delta K log(1/delta) = O(1)`).
+  Wide sectors (`sec:widesectors`): multiples of degree `O(K)` pay
   `(1/2 - o(1)) K**2 log R` as `K, R -> oo` with `delta K -> 0` (sharp on a
   common ray, `cor:thinconst`) and `(pi/delta - o(1)) K log R` at fixed
   `delta`, `K, R -> oo` (`thm:widesector`, `cor:wideconst`; `x^N - rho^N` attains `pi/delta`, `prop:widesharp`), so
@@ -97,27 +124,9 @@ is open; an answer lands in the paper it extends, and the row leaves.
   axis can share one (`(y**3 - y)**2 = -270400` at `+-7 + 4i`, `8i`, where
   `rho_min = 8`).
   Open: whether `c K**2 log R` holds for all integer multiples at such Gaussian
-  roots in a wide sector (the question the paper's introduction leaves),
+  roots in a wide sector (the question the introductions of both papers leave),
   and whether the number of Gaussian points above the axis in one such level
   set is bounded.
-  Cross terms between annuli (`sec:annuli`): with `K_s` roots of
-  modulus in `[T_s, U_s]`, the central index (`lem:central`) charges a
-  root once per annulus at or below it.  Dividing out `n` roots of modulus
-  `>= T` puts every central index at `r <= T/(3n)` at least `n` below the
-  top, and at `r <= T/6` at least `n/2` (`lem:tropcount`; `(x - t)**K`
-  shows the factor `n` is needed), so the positions and rows of
-  `cor:annuli` item 1 hold once `T_a > 9 n_a U_(a-1)`, `n_a` the roots from
-  annulus `a` up.  Closed for the mass at a fixed separation: every
-  multiple with `|f_D| >= 1` has mass at least
-  `sum_s s K_s log(T_s/2) - S log 2` once `T_1 > 3` and
-  `T_a > 162 U_(a-1)` (`thm:fixedgap`: where one central index falls
-  short, two share the charge); ratios `log(|beta|/6U_(a-1))` at the
-  factor 9 (`cor:annuli` item 2).  A
-  lacunary integer multiple at suitable roots attains `sum_s s K_s log t_s`
-  exactly, so the constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
-  also for pairs near the imaginary axis (`prop:annulisharp`).  Open: the
-  rows of `cor:annuli` item 1 at a fixed separation, and the least fixed
-  separation for the mass (whether 9 suffices).
 
 - **Every row at other roots.**  The paper is
   [coefficient-mass-rows](papers/coefficient-mass-rows.tex), split out of

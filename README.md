@@ -1,6 +1,6 @@
 # coefficient-mass
 
-Four papers on how small the coefficients of a polynomial multiple can be
+Five papers on how small the coefficients of a polynomial multiple can be
 when its roots are prescribed, with executable checks.
 
 | Paper | Subject |
@@ -8,7 +8,8 @@ when its roots are prescribed, with executable checks.
 | [coefficient-mass](papers/coefficient-mass.tex) | Displaced-zero certificates; the order-statistic tail bound and logarithmic mass (Corollary 3.4) |
 | [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex) | Sharpness of the order-statistic bound; the partial-sum criterion, the confluent analogue, the infimum `1/tau*` when it fails at roots `>= 2`, and the placement game below 2 |
 | [coefficient-mass-rows](papers/coefficient-mass-rows.tex) | Every row is a top row: order statistics of multiples of a power |
-| [coefficient-mass-complex](papers/coefficient-mass-complex.tex) | Complex roots, real roots of both signs, and sectors |
+| [coefficient-mass-complex](papers/coefficient-mass-complex.tex) | Complex roots: exact reductions, arbitrary angles, separated moduli and annuli, real roots of both signs, and degree charging at Gaussian roots |
+| [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex) | Roots in a sector: thin sectors, sectors of every width, and integer multiples at Gaussian roots |
 
 Open questions are in [ROADMAP](ROADMAP.md).
 
@@ -31,7 +32,8 @@ just pdf     # build the papers, failing on undefined references (needs tectonic
 | `tests/test_sweep.py` | the seeded certificate sweep and exact worked numbers of `coefficient-mass` and `-attainment` (`tests/sweep.py`) |
 | `tests/test_attainment.py` | the infimum `1704/31` at `(2,3,5,7)` approached by exact optima up to degree 30, with the constant term the best exempt position, the run chord behind the extremal escaping placement at roots `>= 2` (failing above the cutoff), the exact infimum `1704/31` at `(2,3,5,7)`, the multiple beating `1/tau*` at `(11/10,3,5,7)`, the aligned-lift identity at any roots above 1, the exact infimum `3398808/96935` at `(11/10,3,5,7)`, the threshold `r_c` along `(r,3,5,7)`, and the failure along `(r,5,7)` for every `r < 2` |
 | `tests/test_rows.py` | last rows, every row a top row at `r >= 2` on a window, the exact `r = 5/4` counterexample to the prefix identity, exact second rows at `r = 5/4` and `4/3` from vertex certificates, far-zero thresholds, and exact third rows at `r = 4/3` and `3/2` from certified trees |
-| `tests/test_complex.py` | multisection transfer, imaginary pairs, first row at Gaussian roots, Newton-polygon dominance and separated moduli, Gaussian blocks and heavy coefficients, several annuli, both signs, and wide sectors, on seeded integer multiples and exact optima |
+| `tests/test_complex.py` | multisection transfer, imaginary pairs, first row at Gaussian roots, Newton-polygon dominance and separated moduli, several annuli, both signs, and Gaussian blocks, on seeded integer multiples and exact optima |
+| `tests/test_sectors.py` | real crossings next to a sector (Sturm counts), thin and wide sectors, the sharp constant at `x^N - rho^N`, integer imitations of `x^N - rho^N`, heavy coefficients and level sets at Gaussian roots, and Gaussian integers in a disc |
 
 Each negative result carries a control: a false variant the same check must
 catch.
