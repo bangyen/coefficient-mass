@@ -137,8 +137,31 @@ is open; an answer lands in the paper it extends, and the row leaves.
   at `i = 1`, outside `thm:onepolyrows` and `thm:longdiag`.  Numerically
   (floating point, `sigma <= 8` on `2 <= n <= 20`): the identity at `k = 2`
   held whenever `nu_2(n) >= nu_1(n)`, and failed only for `r <= 4/3`, with
-  `beta_r(n) > 5`, by at most 19%, at `sigma = 2` or `3`.  Open: a proof
-  that `nu_2(n) >= nu_1(n)` implies the identity at `k = 2`; whether the
-  worst finite position is always small; whether failures occur for every
-  `1 < r < 2`; the rows `k >= 3` for small `k` and `beta_r(n) > 1`, where no
-  finite reduction like `thm:secondrow` is known.
+  `beta_r(n) > 5`, by at most 19%, at `sigma = 2` or `3`.
+  Every row (`sec:finiterows`): a threshold for up to `m` far zeros
+  (`lem:farzeros`) cuts the exempted sets to a finite tree, so for all
+  `r > 1`, `n, m >= 1`, `V_r(n+m,m+1) = min(V_r(n+m-1,m), min_(S in tree)
+  1/mu_r(S,n+m))` (`thm:finiterows` (a)); iterating, every row is a finite
+  minimum of vertex values.  Part (b) certifies `V_r(n+m,m+1) >= 1/B` from
+  upper bounds alone, a finite exact check for rational `r`.  Exact third
+  rows (`prop:thirdrowexact`, `tests/test_rows.py`): `V_{4/3}(14,3) =
+  7.7168... < V_{4/3}(13,2) = 1/nu_3(11) = 8.5482... < beta_{4/3}(12)`,
+  attained only at the pair `{2,3}`, whose optimum omits 1;
+  `V_{4/3}(16,3) = 1/nu_4(13) = 14.6268... < V_{4/3}(15,2) =
+  beta_{4/3}(14) = min_(i<=4) 1/nu_i(14)`, so the identity fails in the
+  third row while holding in the second (and at `k = 4` by `lem:rowmono`);
+  `V_{3/2}(10,3) = beta_{3/2}(8)`, the identity with minimum at `i = 1`.
+  Numerically (floating point, the full `m = 2` trees, `r` in
+  `{6/5, 5/4, 4/3}` with `2 <= n <= 18` and `r = 3/2` with `n <= 16`): the
+  identity at `k = 3` failed for `r <= 4/3` only, by up to 40% (at
+  `(5/4, 19, 3)`); a `k = 3` failure without a `k = 2` one only at
+  `(4/3, n = 14)`, and the reverse only at `(6/5, n = 17)`; where the third
+  row was below the second the worst pair was `{2,3}`; and the `k = 2`
+  identity held at all 30 points with `nu_2(n) >= nu_1(n)`, every position
+  below `sigma*` computed.
+  Open: a proof that `nu_2(n) >= nu_1(n)` implies the identity at `k = 2`;
+  whether the worst finite position or set is always small; whether failures
+  occur for every `1 < r < 2`; closed forms, or bounds on the trees, for the
+  rows `k >= 3` with `beta_r(n) > 1` -- `thm:finiterows` does not say how to
+  find the minimizers `q_N` it branches on, and its thresholds do not
+  decrease with `m`.

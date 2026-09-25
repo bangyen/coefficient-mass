@@ -1676,20 +1676,22 @@ Let $r=\frac43$ in (a) and (b).
 \end{align*}
 Then $V_r(14,3)=1/\Phi_r(Z_{2,3})=7.7168\ldots$,
 $V_r(13,2)=1/\Phi_r(Z_2)=1/\nu_3(11)=8.5482\ldots$ and
-$\min_{i\le3}1/\nu_i(12)=\beta_r(12)=1/\Phi_r(Y_{12})=8.8501\ldots$.  So
+$\min_{i\le4}1/\nu_i(12)=\beta_r(12)=1/\Phi_r(Y_{12})=8.8501\ldots$.  So
 $V_r(14,3)<V_r(13,2)<\min_{i\le3}1/\nu_i(12)$: the prefix identity fails at
 $(\frac43,13,2)$ and at $(\frac43,14,3)$, and the third row lies strictly
-below the second on this diagonal.  The pair $S=\{2,3\}$ is the only
+below the second on this diagonal.  By Lemma~\ref{lem:rowmono} it also
+fails at $(\frac43,15,4)$.  The pair $S=\{2,3\}$ is the only
 exempted set with $1/\mu_r(S,14)=V_r(14,3)$.
 \item[(b)] Let
 \begin{align*}
   Y_{14}&=\{1,3,5,8,11,15,20,26,32,40,50,62,77\},\\
   Z'_{2,3}&=\{1,2,3,6,9,13,17,22,27,34,41,50,60,73,89\}.
 \end{align*}
-Then $V_r(15,2)=\beta_r(14)=1/\Phi_r(Y_{14})=15.0390\ldots=\min_{i\le3}1/\nu_i(14)$
+Then $V_r(15,2)=\beta_r(14)=1/\Phi_r(Y_{14})=15.0390\ldots=\min_{i\le4}1/\nu_i(14)$
 and $V_r(16,3)=1/\Phi_r(Z'_{2,3})=1/\nu_4(13)=14.6268\ldots$.  So the
 prefix identity holds at $(\frac43,15,2)$, with its minimum at $i=1$, and
-fails at $(\frac43,16,3)$.  The pair $S=\{2,3\}$ is the only exempted set
+fails at $(\frac43,16,3)$ and, by Lemma~\ref{lem:rowmono}, at
+$(\frac43,17,4)$.  The pair $S=\{2,3\}$ is the only exempted set
 with $1/\mu_r(S,16)=V_r(16,3)$.
 \item[(c)] Let $r=\frac32$ and $Y_8=\{1,3,6,9,14,20,28\}$.  Then
 $V_r(10,3)=V_r(9,2)=\beta_r(8)=1/\Phi_r(Y_8)=8.0259\ldots=\min_{i\le3}1/\nu_i(8)$,
@@ -1726,10 +1728,12 @@ $V_r(14,3)=1/B$.  With $m=1$, $B=\Phi_r(Z_2)$ and the position $2$ given
 $Z_2$, the same check gives $V_r(13,2)\ge1/\Phi_r(Z_2)$, and $S=\{2\}$ gives
 equality.  Since $[1,2]\subseteq Z_2$,
 $\eta_2(12)\le\nu_3(11)=\mu_r([1,2],13)\le\Phi_r(Z_2)=\eta_2(12)$.  Finally
-the sets $\{1,3,5,8,12,16,21,28,35,44,56,71\}\ni1$ and
-$\{1,2,5,7,11,15,20,25,32,40,50,61,77\}\supseteq[1,2]$ give
-$\nu_2(12),\nu_3(12)<\nu_1(12)$, so
-$\min_{i\le3}1/\nu_i(12)=1/\nu_1(12)$.
+the sets $\{1,3,5,8,12,16,21,28,35,44,56,71\}\ni1$,
+$\{1,2,5,7,11,15,20,25,32,40,50,61,77\}\supseteq[1,2]$ and
+$\{1,2,3,7,10,14,18,23,29,37,45,55,67,83\}\supseteq[1,3]$ give
+$\nu_i(12)<\nu_1(12)$ for $i=2,3,4$, so
+$\min_{i\le4}1/\nu_i(12)=1/\nu_1(12)$, and Lemma~\ref{lem:rowmono} gives
+$V_r(15,4)\le V_r(14,3)$.
 
 (b) As in (a): Lemma~\ref{lem:vertexopt} gives
 $\mu_r(\{2,3\},16)=\Phi_r(Z'_{2,3})$ and $\nu_1(14)=\Phi_r(Y_{14})$, which is
@@ -1740,9 +1744,11 @@ attained only at $\{2,3\}$.  With $m=1$ and $B=\Phi_r(Y_{14})$ it gives
 $V_r(15,2)\ge\beta_r(14)$, and Proposition~\ref{prop:rowvalue}(c) gives
 equality.  Since $[1,3]\subseteq Z'_{2,3}$,
 $\mu_r(\{2,3\},16)\le\mu_r([1,3],16)=\nu_4(13)\le\Phi_r(Z'_{2,3})$, so all
-three are equal.  The sets $\{1,3,5,7,10,14,18,24,30,37,45,55,67,83\}\ni1$
-and $\{1,2,4,7,10,13,17,22,28,34,42,50,61,73,90\}\supseteq[1,2]$ give
-$\nu_2(14),\nu_3(14)<\nu_1(14)$.
+three are equal.  The sets $\{1,3,5,7,10,14,18,24,30,37,45,55,67,83\}\ni1$,
+$\{1,2,4,7,10,13,17,22,28,34,42,50,61,73,90\}\supseteq[1,2]$ and
+$\{1,2,3,6,9,12,16,21,26,32,39,46,55,66,79,96\}\supseteq[1,3]$ give
+$\nu_i(14)<\nu_1(14)$ for $i=2,3,4$, and Lemma~\ref{lem:rowmono} gives
+$V_r(17,4)\le V_r(16,3)$.
 
 (c) Lemma~\ref{lem:vertexopt} gives $\nu_1(8)=\Phi_r(Y_8)$.
 Theorem~\ref{thm:finiterows}(b) with $n=8$, $m=2$, $B=\Phi_r(Y_8)$, $Y=Y_8$,
@@ -1764,9 +1770,40 @@ $(\frac43,15,2)$ and $(\frac32,10,3)$ are outside
 Theorems~\ref{thm:onepolyrows} and~\ref{thm:longdiag}, which give
 $\nu_1(n)\le\nu_k(n)$.
 
+\paragraph{Numerical findings for the third row.}
+The following was found in floating point and is not proved.  For
+$r\in\{\frac65,\frac54,\frac43\}$ with $2\le n\le18$ and for $r=\frac32$ with
+$2\le n\le16$ ($66$ grid points), we computed $\nu_i(n)$ for $i\le3$,
+$\eta_\sigma(n)$ for $\sigma<t_2(p_*)$, and $\mu_r(S,n+2)$ for every pair $S$
+in the tree of Theorem~\ref{thm:finiterows}(a) with $m=2$, by the line
+search of Section~\ref{sec:secondrow}; each $q_N$ is the zero set found for
+$N$, and the thresholds were computed in floating point.  So each
+$V_r(n+2,3)$ and $V_r(n+1,2)$ below is the finite minimum of the theorem,
+with computed rather than certified terms.
+\begin{itemize}
+\item The prefix identity at $k=3$ failed at $(r,n+2,3)$ for $r=\frac65$,
+$n=18$; for $r=\frac54$, $14\le n\le18$; and for $r=\frac43$,
+$n\in\{11,12,13,14,18\}$.  The largest relative gap,
+$\min_{i\le3}1/\nu_i(n)$ over $V_r(n+2,3)$, was about $1.40$, at
+$(\frac54,19,3)$; on this grid the largest gap at $k=2$ was about $1.16$,
+at $(\frac54,16,2)$.
+\item On a diagonal $n$, the identity failed at $k=3$ but not at $k=2$ only
+for $(r,n)=(\frac43,14)$, the case of
+Proposition~\ref{prop:thirdrowexact}(b); it failed at $k=2$ but not at
+$k=3$ only for $(r,n)=(\frac65,17)$, where the third row was $1/\nu_3(17)$.
+\item In the failures with $r=\frac54$, $16\le n\le18$, and with
+$r=\frac43$, $12\le n\le14$, the third row was below the second, with the
+worst pair $\{2,3\}$; in the other failures it equalled the second row.
+\item Where the identity held at $k=3$, its minimum was at $i=3$, with the
+pair $\{1,2\}$ worst, or at $i=1$, the third row being the top row.
+\item At the $30$ grid points with $\nu_2(n)\ge\nu_1(n)$ the identity held
+at $k=2$, now with every position below $t_1(p_*)$ computed, which is
+further evidence for the conjecture of Section~\ref{sec:secondrow}.
+\end{itemize}
+
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.  The exact
-computations behind Proposition~\ref{prop:secondrowexact} are in
+computations behind Propositions~\ref{prop:secondrowexact} and~\ref{prop:thirdrowexact} are in
 \texttt{tests/test\_rows.py} of the accompanying repository.
 
 \begin{thebibliography}{9}
