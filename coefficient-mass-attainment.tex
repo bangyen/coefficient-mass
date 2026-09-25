@@ -316,8 +316,9 @@ coefficients of $P_u$ is $P_u(1)$.
 
 This makes the requirement explicit.  At $u=0$ both the criterion and this
 series are already in Dubickas and Jankauskas: their Corollary~7 gives
-$H(P)=|P(1)|$ under the same partial-sum condition, together with the one-sign
-proviso, and exhibits $\widetilde P/(1-y)$ as the extremal
+$H(P)=|P(1)|$ for the reduced height $H(P)$, the $u=0$ infimum, under the
+same partial-sum condition and their same-sign hypothesis (which Lemma~2.1
+removes), and exhibits $\widetilde P/(1-y)$ as the extremal
 series~\cite[Corollary~7]{dj}.  What is added here is the passage to $u\ge1$,
 where the $u$ exempt coefficients absorb the $u$ smallest roots.  The run is
 the $(u+1)$-st largest magnitude only if no partial sum exceeds the total,
@@ -426,8 +427,8 @@ tail less than $1/|R(1)|$.
 \end{lemma}
 
 \begin{proof}
-Put $y_{\max}=\max_iy_i$.  Let $\eta$ be the exponential sum on the nodes with $\eta_0=0$ and
-$\eta_i=[i=j]$ for $1\le i\le n-1$; it exists by the Vandermonde argument.
+Put $y_{\max}=\max_iy_i$.  Let $\eta$ be the exponential sum on the nodes with
+$\eta_d=[d=j]$ for $0\le d\le n-1$; it exists by the Vandermonde argument.
 With $\Pi(x)=\prod_i(1-x/\rho_i)=\sum_s\pi_sx^s$, its generating function is
 $N(x)/\Pi(x)$ with $\deg N\le n-1$, and $N$ is the truncation of
 $\Pi\sum_d\eta_dx^d$ below degree $n$, namely
@@ -457,7 +458,8 @@ repetitions allowed among the $\rho_i$, the nodes being replaced by the
 Hermite space of $R$.  The proof of Lemma~2.1 is a generating-function
 computation that uses only the denominator $\prod_i(1-y_ix)$, so with
 repetitions it still gives
-$v^*_d=(-1)^{n+1}(\prod_iy_i)h_{d-n}(y)$ for $d\ge n$ and
+$v^*_d=(-1)^{n+1}(\prod_iy_i)h_{d-n}(y)$ for $d\ge n$, with $h_j$ the complete
+homogeneous symmetric polynomial as in Lemma~2.1, and
 $\Tail(v^*)=1/|R(1)|$; the sum $\eta$ is given explicitly by its generating
 function $N(x)/\Pi(x)$, and the evaluation at $x=1$ is unchanged.  The only
 change is in the domination: if $y_{\max}$ has multiplicity $\mu$, then
@@ -623,7 +625,7 @@ produce one.  Put
 $n=L-k$ and $m=L-u$, so $|X_0|=u-k$; recall that $\mathcal H_k$ is the
 Hermite space of $r_{k+1},\ldots,r_L$.
 
-If $X_0=\varnothing$, $\mathcal H_u$ is the Hermite space of the roots of $P_u$, and
+If $X_0=\varnothing$, then $k=u$, so $\mathcal H_k=\mathcal H_u$ is the Hermite space of the roots of $P_u$, and
 since \eqref{eq:partial} fails, Lemma~\ref{lem:improve} (with repetitions)
 for $R=P_u$ and $X_0=\varnothing$ gives $\Tail(v^\infty)<1/|P_u(1)|=B$.
 
@@ -750,7 +752,7 @@ $\tau^*$.  Such a witness always exists.
 
 \begin{proposition}[Attainment with a multiplier witness]\label{prop:attain}
 Write $m=L-u$.  Then $\tau^*$ is attained by a full certificate $v$ on
-$y_{u+1},\ldots,y_L$.  At any such $v$ there are reals $s_d$ with
+$y_{u+1},\ldots,y_L$.  At any full certificate $v$ attaining $\tau^*$ there are reals $s_d$ with
 $|s_d|\le1$, $s_d=\sgn(v_d)$ whenever $v_d\ne0$, and
 $\sum_{d\ge1}s_dy_i^d=\tau^*$ for $u<i\le L$; then $w_0=1$,
 $w_d=-s_d/\tau^*$ is a witness as in \eqref{eq:dualpair} attaining equality,
@@ -1103,7 +1105,7 @@ $w(s_i)\ne0$, as $s_i>g$ and $s_i-1\notin A$ keep $s_i$ out of $\widehat Z$.  Pu
 $\rho_i=|w(s_i)|/|V_i(s_i)|$, $\mu=1/(1+\sum_i\rho_i)$, $\lambda_i=\mu\rho_i$
 and
 \[
-  q=\sum_{j=1}^p\lambda_jF_j+\mu w .
+  q=\sum_{j=1}^p\lambda_jV_j+\mu w .
 \]
 Then $q(0)=1$, and by \eqref{eq:runsigns}
 $q(s_i)=\varphi(s_i)\bigl(\lambda_i|V_i(s_i)|-\mu|w(s_i)|\bigr)=0$.  Every
