@@ -28,9 +28,10 @@ is open; an answer lands in the paper it extends, and the row leaves.
   holds for integer multiples at Gaussian roots in a wide sector
   (`sec:widesectors`); whether one level set `H(y) = -v` holds a number of
   Gaussian points above the axis bounded independently of `rho_min` (fewer
-  than `6 rho_min` by `prop:gausscircle`); whether small coefficients after
-  the lowest one cost nearly as much as zeros at pairwise coprime norms
-  (`prop:gaussadic`).
+  than `6 rho_min` by `prop:gausscircle`, at most `ord_0 H` per norm by
+  `prop:gaussprimes`), and whether one norm carries at most two; whether
+  small coefficients after the lowest one cost nearly as much as zeros at
+  pairwise coprime norms (`prop:gaussadic`).
 
 ## Status
 
@@ -209,17 +210,38 @@ is open; an answer lands in the paper it extends, and the row leaves.
   (`+-7 + 4i`, `8i` at `c = 4`).  The level set lies near one circle,
   `rho_min <= rho_j < rho_min Q**(1/deg H)` with
   `Q = (3 rho_min - 2)/(rho_min - 2)`, so `K < 6 rho_min` and
-  `Lambda(F) > 2K log(K/12)` (`prop:gausscircle`).  Numerical evidence only:
+  `Lambda(F) > 2K log(K/12)` (`prop:gausscircle`).  At each prime `p` the
+  lowest term `h_l y**l` of `H` bounds the roots (Newton polygon over
+  `Q_p`): at most `l` roots of `v + H` have `ord_p > ord_p(h_l)`, all with
+  one valuation; as `n_j > 4 h_l**2`, every norm has such a prime, so at
+  most `l = ord_0 H` of the `alpha_j` share a norm, `K <= l` when all share
+  one (e.g. `deg H >= 8 rho_min**2`), and `h_1 != 0` forces distinct norms
+  (`prop:gaussprimes`); `(y**3 + y)**2 = (8c**3 + 2c)**2` at `+-c + ai`
+  (Pell `a, c`) attains `K = l = 2` on one norm at every scale, and the
+  Pell triples show `K <= l` fails on two norms.  Numerical evidence only:
   exhaustive searches over `H` of degree `5` to `7` (nonleading coefficients
   up to `2` or `3`, points of height up to `60` to `100`), even `H` of degree
   `6` (coefficients up to `6`, height `300`) and even `H` of degree `8`
   (coefficients up to `3`, height `120`) found no level set with four points
   (four need degree `>= 8`), and every one with three came from
-  `(y**3 + p y)**2`, `p = -1, 2`, and a Pell equation.
+  `(y**3 + p y)**2`, `p = -1, 2`, and a Pell equation.  Lattice searches
+  (LLL, not exhaustive) for multiples of `P` of degree up to 40, with no
+  bound on the coefficients of `H` but `rho_min/2`: symmetric root sets
+  `{+-a + ci, ...}` of three points up to height 30 give only those two
+  families; symmetric sets of four points up to height 20, and sets of three
+  points of one norm `n <= 1000` (degree up to 24), give no multiple with
+  middle coefficients below `rho_min/2` (the least ratio found is 3.3, at
+  `rho_min**2 = 13`).  Odd quintics `G` for which all five roots of
+  `G(y) = iW` are Gaussian (the four-parameter family near a regular
+  pentagon, radius up to about 4800) all have a coefficient of `G` far
+  above `rho_min`, so `G**2` gives no five-point level set.
   Open: whether `c K**2 log R` holds for all integer multiples at such Gaussian
   roots in a wide sector (the question the introductions of both papers leave),
-  and whether the number of Gaussian points above the axis in one such level
-  set is bounded independently of `rho_min`.  The case left by separated moduli (`cor:annuli` of the
+  whether the number of Gaussian points above the axis in one such level
+  set is bounded independently of `rho_min` (the annulus and
+  `K <= deg H / 2` alone allow order `rho_min` points when `deg H` is of
+  order `rho_min`, so a bound `o(rho_min)` needs more than the positions),
+  and whether one norm carries at most two (three need `h_1 = h_2 = 0`).  The case left by separated moduli (`cor:annuli` of the
   complex paper) and common norms (`prop:gausslow`, item 3) is pairwise
   coprime norms in one annulus `[R, 2R]`; there valuations alone give only
   linear bounds (`prop:gaussadic`), and seeded lattice reduction at

@@ -917,6 +917,174 @@ def test_gaussian_integers_in_a_half_annulus() -> None:
     assert count == 5 > Fraction(22, 14) * (s * s - r * r)
 
 
+# Primes of a level set (prop:gaussprimes).
+
+
+def _factor(n: int) -> dict[int, int]:
+    out, p = {}, 2
+    while p * p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, 0) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+
+def _ord(n: int, p: int) -> int:
+    k = 0
+    while n % p == 0:
+        n //= p
+        k += 1
+    return k
+
+
+def _gauss_prime(p: int) -> Gauss:
+    """A Gaussian prime above ``p``: ``1 + i`` for 2, ``p`` if
+    ``p = 3 mod 4``, and ``x + yi`` with ``x^2 + y^2 = p`` otherwise
+    (Hermite-Serret)."""
+    if p == 2:
+        return (1, 1)
+    if p % 4 == 3:
+        return (p, 0)
+    g = 2
+    while pow(g, (p - 1) // 2, p) != p - 1:
+        g += 1
+    a, b = p, pow(g, (p - 1) // 4, p)
+    while b * b > p:
+        a, b = b, a % b
+    y = isqrt(p - b * b)
+    assert b * b + y * y == p
+    return (b, y)
+
+
+def _root_orders(z: Gauss, p: int) -> list[Fraction]:
+    """``ord_p`` of ``z`` and of its conjugate under an embedding of
+    ``Q(i)`` in ``C_p``, with ``ord_p(p) = 1``."""
+    pi = _gauss_prime(p)
+    norm = pi[0] ** 2 + pi[1] ** 2
+    scale = Fraction(1, 2) if p == 2 else Fraction(1)
+    out = []
+    for w in (z, (z[0], -z[1])):
+        k = 0
+        while True:
+            u = _gmul(w, (pi[0], -pi[1]))
+            if u[0] % norm or u[1] % norm:
+                break
+            w, k = (u[0] // norm, u[1] // norm), k + 1
+        out.append(k * scale)
+    return out
+
+
+def _first_edge(f: Poly, roots: list[Gauss]) -> bool:
+    """``prop:gaussprimes``, item 1, for any ``f`` with ``f(0) != 0`` and
+    Gaussian roots ``alpha_j`` above the axis, ``ell`` its least positive
+    exponent: at each prime ``p`` of a norm, at most ``ell`` of the ``2K``
+    numbers ``alpha_j``, ``conj(alpha_j)`` have ``ord_p > t_p =
+    ord_p(f_ell)``, all with ``ord_p = s_p = (ord_p f(0) - t_p)/ell``."""
+    ell = next(i for i in range(1, len(f)) if f[i])
+    for p in sorted({p for a, c in roots for p in _factor(a * a + c * c)}):
+        t = _ord(f[ell], p)
+        s = Fraction(_ord(f[0], p) - t, ell)
+        big = [o for z in roots for o in _root_orders(z, p) if o > t]
+        if len(big) > ell or any(o != s for o in big):
+            return False
+    return True
+
+
+def _prime_orders(f: Poly, roots: list[Gauss]) -> bool:
+    """``prop:gaussprimes`` for ``f = v + H``: item 1, and item 2 when
+    ``h_ell`` is not the leading coefficient: ``ord_p(n_j) > 2 t_p`` forces
+    ``ord_p(n_j) = 2 s_p`` or ``s_p <= ord_p(n_j) <= s_p + t_p``, every norm
+    has such a prime, and at most ``ell`` of the ``alpha_j`` share a
+    norm."""
+    f = _trim(f)
+    ell = next(i for i in range(1, len(f)) if f[i])
+    if not _first_edge(f, roots):
+        return False
+    if ell == len(f) - 1:
+        return True
+    norms = [a * a + c * c for a, c in roots]
+    witnessed = set()
+    for p in sorted({p for n in norms for p in _factor(n)}):
+        t = _ord(f[ell], p)
+        s = Fraction(_ord(f[0], p) - t, ell)
+        for n in norms:
+            e = _ord(n, p)
+            if e > 2 * t:
+                if not (e == 2 * s or s <= e <= s + t):
+                    return False
+                witnessed.add(n)
+    return set(norms) <= witnessed and all(norms.count(n) <= ell for n in norms)
+
+
+def test_primes_of_a_level_set() -> None:
+    """``prop:gaussprimes`` on the Pell triples (``ell = 2``: the pair
+    ``+-a + ci`` shares a norm, ``2ci`` is alone), on the pairs ``+-c + ai``
+    of one norm where ``(y^3 + y)^2 = (8c^3 + 2c)^2``, which attain item 3,
+    on the level sets of ``test_one_heavy_coefficient_is_one_level_set``,
+    and, for item 1, which holds for every integer polynomial with nonzero
+    constant term, on seeded multiples, even multiples and multiples in
+    ``y^4`` of products of Gaussian pairs.
+
+    Controls: at ``y^2 - 10y + 650``, with roots ``5 +- 25i``, two roots
+    have positive ``ord_5`` though ``ell = 1``, so the threshold ``t_5 = 1``
+    is needed; and the Pell triples have ``K = 3 > ell``, so item 3 needs
+    one norm.
+    """
+    h = [0, 0, 1, 0, -2, 0, 1]
+    h_rot = [0, 0, 1, 0, 2, 0, 1]
+    for a, c in _pell_triples(8):
+        k = 8 * c**3 + 2 * c
+        roots = [(a, c), (-a, c), (0, 2 * c)]
+        assert _prime_orders([k * k] + h[1:], roots)
+        assert len(roots) == 3 > 2 and len({x * x + y * y for x, y in roots}) == 2
+        pair = [(c, a), (-c, a)]
+        assert all(_horner(h_rot, z) == (k * k, 0) for z in pair)
+        assert 4 * 2**2 < a * a + c * c
+        assert _prime_orders([-k * k] + h_rot[1:], pair)
+    big_b, seen = 2, 0
+    for (g, value), ys in _level_sets(big_b, 4, 6).items():
+        if 4 * big_b**2 < min(a * a + b * b for a, b in ys):
+            assert _prime_orders([-value, *g], ys)
+            seen += 1
+    assert seen > 0
+    rng, ells = random.Random(SEED + 11), set()
+    box = [(a, c) for a in range(-9, 10) for c in range(1, 10) if a]
+    for _ in range(150):
+        s = rng.sample(box, rng.randint(1, 3))
+        q = [rng.randint(-6, 6) for _ in range(rng.randint(1, 4))]
+        if q[0] == 0:
+            q[0] = 1
+        sym = sorted(set(s) | {(-a, c) for a, c in s})
+        rot = {
+            w
+            for a, c in s
+            for w in ((a, c), (-a, c), (c, a), (-c, a), (c, -a), (-c, -a))
+            if w[1] > 0
+        }
+        rot = sorted(rot)
+        q2 = [x for y in q for x in (y, 0)][:-1]
+        for f, roots in (
+            (_mul(_pairs(s), q), s),
+            (_mul(_pairs(sym), q2), sym),
+            (_pairs(rot), rot),
+        ):
+            assert f[0] != 0 and _divides(_pairs(roots), f)
+            assert _first_edge(f, roots)
+            ells.add(next(i for i in range(1, len(f)) if f[i]))
+    assert {1, 2, 4} <= ells
+    assert [o > 0 for o in _root_orders((7, 4), 5) + _root_orders((-7, 4), 5)].count(
+        True
+    ) == 2
+    f, roots = _pairs([(5, 25)]), [(5, 25)]
+    assert f == [650, -10, 1]
+    assert _root_orders((5, 25), 5) == [1, 1] and _ord(f[1], 5) == 1
+    assert sum(o > 0 for o in _root_orders((5, 25), 5)) == 2 > 1
+    assert _prime_orders(f, roots)
+
+
 # Counting Gaussian integers (cor:gausscount).
 
 
