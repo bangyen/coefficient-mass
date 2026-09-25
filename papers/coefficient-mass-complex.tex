@@ -34,18 +34,18 @@ $F=\sum_{j\le D}f_jx^j$ and $\Lambda(F)=\sum_j\log^+|f_j|$.  At real roots
 $r_i\ge2$ a companion paper gives $b_k(F)\ge|f_D|\prod_{i\ge k}(r_i-1)$ for
 every multiple and charges the $i$-th smallest root $i$ times in $\Lambda$.
 Purely imaginary pairs $\pm ic$ reduce by multisection exactly to real roots
-$c^2$: every $b_k$ and $\Lambda$ have the same infima over monic multiples.
+$c^2$: every $b_k$ and $\Lambda$ have equal infima over monic multiples.
 Otherwise only the first row survives: $b_2$ can vanish and the mass be
 linear for pairs within any fixed angle of the imaginary axis.  An
 Archimedean Newton polygon restores rows and mass up to constants at moduli
 separated by a factor $9$; with several roots per annulus, separation $162$
 gives a sharp mass bound charging each root once per annulus at or below
-it, and the real cross terms fail.  Real roots of both signs charge one root
+it, and the real-root cross terms fail.  Real roots of both signs charge one root
 of each sign per excluded coefficient, with sharp mass constant $\frac14$.
 At distinct Gaussian integers of modulus at least $\rho>2$ above the
 axis, integer multiples split into blocks paying $\log(\rho/2)$ per unit of
 degree.  In a sector of fixed half-width $\delta<\pi/2$, multiples of degree
-$O(K)$ with $|f_D|\ge1$ at $K$ roots of modulus at least $R$ pay
+$O(K)$ with $|f_D|\ge1$ at $K$ roots of modulus $\ge R$ pay
 $(\frac\pi\delta-o(1))K\log R$ as $K,R\to\infty$, sharply.
 \end{abstract}
 
@@ -62,7 +62,9 @@ For a nonzero $F(x)=\sum_jf_jx^j$ of degree $D$ write
 \]
 for its logarithmic coefficient mass, and $b_k(F)$ for the $k$-th largest of
 the $D$ nonleading magnitudes $|f_j|$, $j<D$, counted with repetition and
-zeros included ($b_k(F)=0$ for $k>D$).  For real roots
+zeros included ($b_k(F)=0$ for $k>D$).
+
+For real roots
 $2\le r_1\le\cdots\le r_L$, repetitions allowed, the companion
 paper~\cite{coefficient-mass} proves that every nonzero real or complex
 multiple $F$ of $\prod_{i=1}^L(x-r_i)$ satisfies
@@ -76,16 +78,39 @@ the degree; we call the first bound at a given $k$ the row $k$.  The row
 $k=1$ needs only $r_1>1$.  This paper asks what remains of
 \eqref{eq:order} when the prescribed roots are complex.
 
+\paragraph{Main results.}  Purely imaginary pairs transfer exactly: a pair
+$\pm ic$ is worth one real root $c^2$, with the same infima of every $b_k$
+and of $\Lambda$ over monic multiples (Theorem~\ref{thm:transfer},
+Corollary~\ref{cor:imag}).  At arbitrary angles only the first row survives:
+it holds at every root set, while $b_2$ can vanish and the mass be linear in
+the number of pairs (Propositions~\ref{prop:rowone} and~\ref{prop:noangle}).
+Moduli separated by a factor $9$ restore the rows and the mass up to
+constants (Corollary~\ref{cor:separated}); with several roots per annulus,
+separation $162$ gives a mass bound, sharp to leading order, that charges
+each root once for every annulus at or below it, where the cross terms of
+\eqref{eq:order} fail (Theorem~\ref{thm:fixedgap},
+Proposition~\ref{prop:annulisharp}).  Real roots of both signs give a mass
+bound with the sharp leading constant $\frac14$
+(Corollary~\ref{cor:bothsignsmass}, Proposition~\ref{prop:bothsignssharp}).
+At distinct Gaussian-integer roots of modulus at least $\rho>2$ above the
+axis, integer multiples split into blocks paying $\log(\rho/2)$ per unit of
+degree (Theorem~\ref{thm:gausscharge}).  In a sector of fixed half-width
+$\delta<\pi/2$, multiples of degree $O(K)$ with leading coefficient of
+modulus at least $1$ at $K$ roots of modulus at least $R$ pay
+$(\frac\pi\delta-o(1))K\log R$ as $K,R\to\infty$, and the constant
+$\frac\pi\delta$ is sharp (Corollary~\ref{cor:wideconst},
+Proposition~\ref{prop:widesharp}).
+
 Reduced height and reduced length, the least height and length of a
 normalized multiple, have been studied for real and complex
 coefficients~\cite{dj,schinzel-complex}, and power series with restricted
-coefficients and a root on a given ray in~\cite{bbbp-ray}; the first row
+coefficients and a root on a given ray in~\cite{bbbp-ray}.  The first row
 below, $b_1(F)\ge|f_D|\prod_j(|\alpha_j|-1)$, is the complex analogue of the
 bound $H(P)\ge|P(1)|$ on the reduced height $H(P)$ (the infimum of the
 heights of the multiples $PQ$, $Q$ monic) obtained in~\cite{dj} for real roots
-greater than one under an extra sign condition~\cite[p.~333]{dj}, a
-condition removed by the $u=0$ clause of~\cite[Theorem~3.2]{coefficient-mass};
-the two agree at such roots, but at complex
+greater than one under an extra sign condition~\cite[p.~333]{dj}; that
+condition is removed by the $u=0$ clause of~\cite[Theorem~3.2]{coefficient-mass}.
+The two bounds agree at such roots, but at complex
 roots $|P(1)|$ is not a lower bound for $H(P)$: $P=x^2+\rho^2$ has $H(P)\le\rho^2$ (take $Q=1$),
 while $|P(1)|=1+\rho^2$ and $\prod_j(|\alpha_j|-1)=(\rho-1)^2$.
 
@@ -101,9 +126,13 @@ rows (Corollary~\ref{cor:ray}).
 (Proposition~\ref{prop:rowone}), but nothing more does in general: pairs
 within any fixed angle of the imaginary axis admit multiples with $b_2=0$
 and mass linear in the number of pairs (Proposition~\ref{prop:noangle}).
-Separated moduli restore the rows and the mass up to constants, through an
-Archimedean Newton polygon (Theorem~\ref{thm:archnewton},
-Corollary~\ref{cor:separated}).  For $K_s$ roots with moduli in $[T_s,U_s]$,
+
+\paragraph{Separated moduli.}  Moduli separated by a factor $9$ restore the
+rows and the mass up to constants (Corollary~\ref{cor:separated}), and with
+several roots per annulus a separation $162$ between annuli gives a mass
+bound charging each root once for every annulus at or below it
+(Theorem~\ref{thm:fixedgap}).  Both come from an Archimedean Newton polygon
+(Theorem~\ref{thm:archnewton}).  In detail, for $K_s$ roots with moduli in $[T_s,U_s]$,
 $1\le s\le S$, where $T_1>3$ and $T_s>162U_{s-1}$, the central index charges a
 root once for every annulus at or below it,
 $\sum_ssK_s\log(T_s/2)-O(S)$ in all for multiples with $|f_D|\ge1$, attained for suitable roots as $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
@@ -119,10 +148,14 @@ each half-line charges one root of each sign per excluded coefficient
 leading constant $\frac14$ (Corollary~\ref{cor:bothsignsmass},
 Proposition~\ref{prop:bothsignssharp}).
 
-\paragraph{Sectors.}  For $K$ roots of modulus at least $R$ in a sector, the
-argument principle along a ray next to the sector produces many real zeros
-of a real polynomial dominated coefficientwise by the multiple, to which
-\eqref{eq:order} applies.  In a sector of half-width $\delta\le\pi/4$ with
+\paragraph{Sectors.}  For $K$ roots of modulus at least $R$ in a sector of
+half-width $\delta$, multiples with leading coefficient of modulus at least
+$1$ pay mass of order $K^2\log R$ when the sector is thin and the degree
+small, and $(\frac\pi\delta-o(1))K\log R$, sharply, at fixed $\delta<\pi/2$
+and degree $O(K)$ as $K,R\to\infty$.  In both cases the argument principle
+along a ray next to the sector produces many real zeros of a real polynomial
+dominated coefficientwise by the multiple, to which \eqref{eq:order}
+applies.  In a sector of half-width $\delta\le\pi/4$ with
 $R\ge6$ this
 gives mass at least $\frac{K(K-2)}8\log(\frac R2-1)$ for multiples with
 leading coefficient of modulus at least $1$ and degree at most
@@ -148,7 +181,7 @@ Corollaries~\ref{cor:wideconst} and~\ref{cor:thinconst},
 Proposition~\ref{prop:widesharp}).  At distinct Gaussian roots in the upper
 half-plane and fixed $\delta$, integer multiples of every degree pay
 $(\frac\pi\delta-o(1))K\log R$ as $K,R\to\infty$
-(Corollary~\ref{cor:widegauss}), and, since fewer than $\pi(X+1)^2$ Gaussian
+(Corollary~\ref{cor:widegauss}), and, since at most $\pi(X+1)^2$ Gaussian
 integers have modulus below $X$, $(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$
 as $K\to\infty$, uniformly in $R$ (Corollary~\ref{cor:gausscount}).  Whether
 $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at distinct Gaussian roots
@@ -456,7 +489,11 @@ $\sigma_0=+\infty$ and $\sigma_{J+1}=-\infty$) is the one maximizing
 $\log|f_i|+iu$; we call it \emph{active} at $u$.
 
 \begin{theorem}[Archimedean Newton polygon]\label{thm:archnewton}
-Let $F\in\mathbb C[x]$ be nonzero, with tropical roots $\sigma_1>\cdots>\sigma_J$.
+Let $F\in\mathbb C[x]$ be nonzero, with tropical roots $\sigma_1>\cdots>\sigma_J$:
+the edges of the least concave majorant $\varphi$ of the points
+$(i,\log|f_i|)$, $f_i\ne0$, have slopes $-\sigma_1,\ldots,-\sigma_J$.  For
+$u\in\R$ other than a tropical root, the vertex \emph{active} at $u$ is the
+position maximizing $\log|f_i|+iu$.
 \begin{enumerate}
 \item Let $u\in\R$ satisfy $|u-\sigma_s|>\log3$ for every $s$, let $v$ be the
 vertex active at $u$, and $r=e^u$.  Then
@@ -583,15 +620,17 @@ not optimized.
 
 \section{Several annuli}\label{sec:annuli}
 
-For real roots the mass bound \eqref{eq:order} charges the $i$-th smallest
+At complex roots in separated annuli the sharp worst-case mass bound charges
+a root once for every annulus at or below it, and the cross terms between
+annuli that \eqref{eq:order} has at real roots fail.  For real roots the
+mass bound \eqref{eq:order} charges the $i$-th smallest
 root $i$ times: once for itself and once for every smaller root.  Group $K_s$
 real roots near $T_s$, with $T_1\ll\cdots\ll T_S$, and it reads
 $\sum_s\bigl(K_1+\cdots+K_{s-1}+\frac{K_s+1}2\bigr)K_s\log T_s$ up to lower
 order terms, with a square term $\frac12K_s^2\log T_s$ inside each group and a
 cross term $K_uK_s\log T_s$ between the groups $u<s$.  At complex roots the
-square term is false (Proposition~\ref{prop:noangle}).  This section shows
-that the cross terms are false as well, and that the sharp worst-case count charges a
-root once for every annulus at or below it: when the moduli of the $K_s$ roots
+square term is false (Proposition~\ref{prop:noangle}), and so are the cross
+terms: when the moduli of the $K_s$ roots
 of the $s$-th group lie in $[T_s,U_s]$, with $T_1>3$ and $T_s>162U_{s-1}$, every multiple with $|f_D|\ge1$ has mass at least
 $\sum_ssK_s\log(T_s/2)-S\log2$, and for suitable roots this is
 attained to leading order (the ratio tends to $1$) as $\min_sT_s\to\infty$
@@ -858,8 +897,9 @@ $\sum_{y\in Y_a}\log^+|f_y|\ge\log|f_D|+Z_a-\log2$, and
 \]
 \end{proof}
 
-Theorem~\ref{thm:fixedgap} bounds the mass only: in the second case the
-charge $Z_a$ is split over two coefficients, and whether the rows of
+Theorem~\ref{thm:fixedgap} bounds the mass only: below the $a$-th annulus
+the charge of the roots in the $a$-th and higher annuli may fall on two
+coefficients rather than one, and whether the rows of
 Corollary~\ref{cor:annuli}, item~1, hold at a fixed separation is open.  The
 factor $162$ is not optimized.  The mass bound is sharp to leading order, the
 coefficient $s$ of each $K_s\log T_s$ being best possible, as
@@ -1102,7 +1142,11 @@ $m(m+1)=\lfloor(2m+1)^2/4\rfloor$, $\sum_j\log\binom mj\le m^2\log2$.
 
 \section{Thin sectors}\label{sec:thin}
 
-Without separated moduli, a multiple may have a single tropical root
+This section proves that $K$ roots of modulus at least $R\ge6$ in a sector
+of half-width $\delta\le\pi/4$ force mass at least
+$\frac{K(K-2)}8\log(\frac R2-1)$ on every multiple with leading coefficient
+of modulus at least $1$ and degree at most $\pi K/(2E(2\delta))$, with $E$
+defined below (Theorem~\ref{thm:thinsector}).  Without separated moduli, a multiple may have a single tropical root
 (Theorem~\ref{thm:archnewton}) for all the prescribed roots of an annulus, as $x^{2M}+\rho^{2M}$ and
 $x^{2m}+x+a$ of Proposition~\ref{prop:noangle} do.  The angle mechanism of
 Proposition~\ref{prop:noangle} puts $K$ roots within an angle $\delta$ of a
@@ -1121,7 +1165,9 @@ with $t=\pi/(2x)$.
 Let $B\in\mathbb C[x]$ be nonzero of degree $d$, let $\varphi\in\R$,
 $0<\delta'\le\pi/2$ and $R>0$, and suppose that $B$ has no zero other than $0$
 on the two rays $\arg z=\varphi\pm\delta'$, and at least $K$ zeros, counted
-with multiplicity, in $\{z:|z|\ge R,\ |\arg z-\varphi|<\delta'\}$.  Then there are
+with multiplicity, in $\{z:|z|\ge R,\ |\arg z-\varphi|<\delta'\}$.  Put
+$E(x)=\frac{4x}{\log2}\bigl(1+\log\bigl(1+\frac{\pi}{2x}\bigr)\bigr)$ for
+$0<x\le\pi/2$.  Then there are
 $r_1\in[R/2,R)$ and $\psi\in\{\varphi-\delta',\varphi+\delta'\}$ such that for
 every $\theta\in\R$ the real polynomial
 \[
@@ -1197,7 +1243,8 @@ distinct zeros of $h_\theta$ in $(r_1,r_2)$.
 Let $B\in\mathbb C[x]$ have degree $d$ and $|b_d|\ge1$, let $\varphi\in\R$,
 $0<\delta\le\pi/4$ and $R\ge6$, and suppose that $B$ has at least $K$ zeros,
 counted with multiplicity, in $\{z:|z|\ge R,\ |\arg z-\varphi|\le\delta\}$.  If
-$d\,E(2\delta)\le\pi K/2$, then with $m=\lceil K/2\rceil-1$,
+$d\,E(2\delta)\le\pi K/2$, with $E$ as in Lemma~\ref{lem:sectorcount}, then
+with $m=\lceil K/2\rceil-1$,
 \[
   b_k(B)\ \ge\ |b_d|\Bigl(\frac R2-1\Bigr)^{m-k+1}\quad(1\le k\le m),
 \]
@@ -1272,9 +1319,11 @@ $B(0)\ne0$ and no split of $B$ is $P$-clean.
 
 \begin{lemma}[Gaussian carries]\label{lem:gausscarry}
 Let $F\in\mathbb Z[x]$ have degree $D$, let $\alpha\in\mathbb Z[i]$ with
-$F(\alpha)=0$, $\rho=|\alpha|$, and let $1\le m\le D$.  Then
+$F(\alpha)=0$, $\rho=|\alpha|$, and let $1\le m\le D$ (a split of $F$).  Write
+$F=F_{<m}+x^mG_m$ with $F_{<m}=\sum_{i<m}f_ix^i$ and
+$G_m=\sum_{i\ge m}f_ix^{i-m}$.  Then
 $G_m(\alpha)\in\mathbb Z[i]$ and $F_{<m}(\alpha)=-\alpha^mG_m(\alpha)$.  If the
-split $m$ is not clean at $\alpha$, then $|F_{<m}(\alpha)|\ge\rho^m$, and if
+split $m$ is not clean at $\alpha$, that is, if $G_m(\alpha)\ne0$, then $|F_{<m}(\alpha)|\ge\rho^m$, and if
 moreover $\rho>2$, some $i<m$ has
 \[
   |f_i|\ \ge\ (\rho/2)^{m-i}.
@@ -1298,11 +1347,13 @@ here small coefficients below the split play the role of the gap.  Here it is us
 not only at long gaps.
 
 \begin{lemma}[Blocks]\label{lem:gaussblocks}
-Every nonzero $F\in\mathbb Z[x]$ divisible by $P$ can be written
+In the setting of Section~\ref{sec:gaussian}, every nonzero
+$F\in\mathbb Z[x]$ divisible by $P$ can be written
 \[
   F=\sum_{s=1}^rx^{e_s}B_s,\qquad e_s+\deg B_s<e_{s+1},
 \]
-with every $B_s\in\mathbb Z[x]$ $P$-irreducible and divisible by $P$.
+with every $B_s\in\mathbb Z[x]$ divisible by $P$ and $P$-irreducible: $B_s(0)\ne0$
+and no split $m\in\{1,\ldots,\deg B_s\}$ of $B_s$ has $G_m(\alpha_j)=0$ for every $j$.
 Consequently $\Lambda(F)=\sum_s\Lambda(B_s)$, $|\operatorname{lead}B_s|\ge1$,
 and $b_k(F)\ge b_k(B_s)$ for every $s$ and $k$.
 \end{lemma}
@@ -1326,7 +1377,8 @@ coefficient of $B_s$, $s<r$, is a nonleading coefficient of $F$).
 \end{proof}
 
 \begin{theorem}[Degree charging]\label{thm:gausscharge}
-Assume $\rho_{\min}>2$, and let $B\in\mathbb Z[x]$ be $P$-irreducible and
+In the setting of Section~\ref{sec:gaussian}, assume $\rho_{\min}>2$, and
+let $B\in\mathbb Z[x]$ be $P$-irreducible and
 divisible by $P$, of degree $d$.  Then
 \[
   \sum_{i<d}\log^+|b_i|\ \ge\ d\log\frac{\rho_{\min}}2,
@@ -1357,8 +1409,10 @@ theorem gives; what the theorem forbids, at Gaussian roots, is a block of
 large degree and small mass.
 
 \begin{theorem}[Thin Gaussian clusters]\label{thm:thingauss}
-Let $\varphi\in\R$, $0<\delta\le\pi/4$ and $R\ge6$, and suppose that every
-$\alpha_j$ has $|\alpha_j|\ge R$ and $|\arg\alpha_j-\varphi|\le\delta$.  Every
+In the setting of Section~\ref{sec:gaussian}, let $\varphi\in\R$,
+$0<\delta\le\pi/4$ and $R\ge6$, and suppose that every
+$\alpha_j$ has $|\alpha_j|\ge R$ and $|\arg\alpha_j-\varphi|\le\delta$.  With
+$E$ as in Lemma~\ref{lem:sectorcount}, every
 nonzero $F\in\mathbb Z[x]$ divisible by $P$ satisfies $\Lambda(F)\ge2K\log R$
 and
 \[
@@ -1394,8 +1448,12 @@ $E(2\delta)\le(8\delta/\log2)(1+\log(\pi/(2\delta)))
 
 \section{Sectors of every width}\label{sec:widesectors}
 
-The loss $dE(\delta')/\pi$ in Lemma~\ref{lem:sectorcount} is what confines
-Theorem~\ref{thm:thinsector} to thin sectors.  This section replaces it by
+This section proves that in a sector of fixed half-width $\delta<\pi/2$,
+every multiple of degree $O(K)$ with $|f_D|\ge1$ at $K$ roots of modulus at
+least $R$ pays $(\pi/\delta-o(1))K\log R$ as $K,R\to\infty$, that this
+constant is attained, and that at Gaussian roots the degree restriction can
+be removed.  The loss $dE(\delta')/\pi$ in Lemma~\ref{lem:sectorcount} is what confines
+Theorem~\ref{thm:thinsector} to thin sectors; here it is replaced by
 $\delta'n/\pi$, where $n$ counts only the zeros of modulus above the inner
 arc, plus a degree term that becomes small when the inner radius is averaged
 over a long range of scales.  The rate $\delta'/\pi$ is the share of a
@@ -1403,13 +1461,11 @@ sector of opening $2\delta'$ in a full turn, and $x^N-\rho^N$ shows that no
 smaller rate is possible.  $K$ zeros of modulus at least $R$ in a sector of
 half-width $\delta<\pi/2$ then cost either about $\frac12m^2\log R$, where
 $m$ is the excess of $K$ over the share $\delta n/\pi$, or about $n\log R$
-through the Mahler measure.  So for fixed $\delta$ and $K,R\to\infty$
-every multiple of degree $O(K)$ with $|f_D|\ge1$ pays
-$(\pi/\delta-o(1))K\log R$, and this constant is attained
+through the Mahler measure, which gives the constant $\pi/\delta$
 (Theorem~\ref{thm:widesector}, Corollary~\ref{cor:wideconst},
-Proposition~\ref{prop:widesharp}); at Gaussian roots and fixed $\delta$ the
+Proposition~\ref{prop:widesharp}).  At Gaussian roots and fixed $\delta$ the
 degree restriction is removed by Theorem~\ref{thm:gausscharge}
-(Corollary~\ref{cor:widegauss}), and every such multiple pays
+(Corollary~\ref{cor:widegauss}), and every integer multiple pays
 $(\frac\pi{2\delta}-o(1))K\log K$ as $K\to\infty$, whatever $R$
 (Corollary~\ref{cor:gausscount}).
 In wide sectors a bound $\Lambda\ge cK^2\log R$ valid for all root sets is
@@ -1514,6 +1570,11 @@ Let $B\in\mathbb C[x]$ have degree $d$ and $|b_d|\ge1$, let $\varphi\in\R$,
 $0<\delta<\pi/2$, $T>1$ and $R\ge3T$, and suppose that $B$ has at least $K$
 zeros, counted with multiplicity, in
 $\{z:|z|\ge R,\ |\arg z-\varphi|\le\delta\}$.  Put
+\[
+  \kappa(\delta)=\frac1\pi\int_0^1\min\Bigl(2\arcsin q,\ \frac{2\delta q}{1-q}\Bigr)\frac{dq}q,
+\]
+so that $\kappa(\delta)\le\log2$ and
+$\kappa(\delta)\le\frac{2\delta}\pi(1+\log\frac\pi{2\delta})$,
 $\omega=\kappa(\delta)d/\log T$ and, for $\nu\ge0$,
 $g(\nu)=\nu\log(R/T)-\log(\nu+1)-1$.  For every integer $m\ge0$,
 \[
@@ -1663,7 +1724,7 @@ and $\sum_{k=0}^K\log\binom Kk\le(K-1)K\log2$.
 
 So for complex multiples of degree $O(K)$, as $K,R\to\infty$, both constants
 are attained: $\frac12$ in $\frac12K^2\log R$ when $\delta K\to0$
-(Corollary~\ref{cor:thinconst}), and $\pi$ in $\frac\pi\delta K\log R$ at
+(Corollary~\ref{cor:thinconst}), and $\frac\pi\delta$ in $\frac\pi\delta K\log R$ at
 fixed $\delta$ (Corollary~\ref{cor:wideconst} against
 Proposition~\ref{prop:widesharp}).  In between the degree bound matters:
 $x^N-\rho^N$ has degree about $\pi K/\delta$, which is not $O(K)$ uniformly
@@ -1768,13 +1829,13 @@ $\alpha_j$, whatever $N$ and $b$, where Proposition~\ref{prop:widesharp} needs
 $K$; more generally $A(x^N)$, whose mass is that of $A$
 (Theorem~\ref{thm:transfer}), carries at most $2\deg A$ of them.
 
-For the gap, recall $P(0)=\prod_j\rho_j^2$.  Expand
-$1/P(x)=\sum_{l\ge0}u_lx^l$ as a power series at $0$, which is possible since
-$P(0)\ne0$, and for $m\ge1$ let $d_m$ be the least positive integer with
-$d_mu_l\in\mathbb Z$ for every $l<m$.
+For the gap, recall $P(0)=\prod_j\rho_j^2$; as $P(0)\ne0$, $1/P$ is a power
+series at $0$.
 
 \begin{proposition}[The lowest coefficients]\label{prop:gausslow}
-In the setting of Section~\ref{sec:gaussian}, let $m\ge1$.
+In the setting of Section~\ref{sec:gaussian}, let $m\ge1$, write
+$1/P(x)=\sum_{l\ge0}u_lx^l$ as a power series at $0$, and let $d_m$ be the
+least positive integer with $d_mu_l\in\mathbb Z$ for every $l<m$.
 \begin{enumerate}
 \item For $f\in\mathbb Z$, some $F\in\mathbb Z[x]$ divisible by $P$ has
 $F\equiv f\pmod{x^m}$ if and only if $d_m\mid f$; and $d_m\mid P(0)^m$.
@@ -1847,15 +1908,15 @@ some multiple has lowest $m=O(K)$ coefficients $(d_m,0,\ldots,0)$, of mass
 $\log d_m\le(K+m-1)\log n$, and no bound that looks only at them gives order
 $K^2\log R$ at every root set.
 
-Over the reals $x^N-\rho^N$ has $b_2=0$.  At Gaussian roots a small second
-row confines the multiple to one level set of a polynomial with small
-nonleading coefficients.  Call a coefficient $f_i$ of $F$ \emph{heavy} if
-$|f_i|\ge\rho_{\min}/2$.
+At Gaussian roots a small second row confines an integer multiple to one
+level set of a polynomial with small nonleading coefficients, whereas over
+the reals $x^N-\rho^N$ has $b_2=0$.
 
 \begin{proposition}[One heavy coefficient]\label{prop:gaussheavy}
 In the setting of Section~\ref{sec:gaussian}, assume $\rho_{\min}>2$, and let
 $F\in\mathbb Z[x]$ be nonzero and divisible by $P$, with lowest nonzero
-coefficient $v=f_e$.
+coefficient $v=f_e$.  Call a coefficient $f_i$ of $F$ \emph{heavy} if
+$|f_i|\ge\rho_{\min}/2$.
 \begin{enumerate}
 \item For any decomposition of $F$ as in Lemma~\ref{lem:gaussblocks}, the
 lowest coefficient of every block is heavy and nonleading, so there are at most
@@ -1904,9 +1965,10 @@ No proof in this paper relies on computation.  The numerical thresholds after
 Theorem~\ref{thm:thinsector} describe its range and are not used elsewhere,
 and the value $-270400$ after Proposition~\ref{prop:gaussheavy} is a direct
 evaluation.  The file \texttt{tests/test\_complex.py} in the
-repository of~\cite{coefficient-mass} only checks the statements, on seeded
+repository of~\cite{coefficient-mass} checks the statements, on seeded
 random integer multiples and on the extremal examples, each group with a
-control showing that a false variant is caught.  Polynomial products,
+control showing that a false variant is caught; these checks test the
+statements and are not used in any proof.  Polynomial products,
 divisibility, coefficient magnitudes, central indices, Rouch\'e comparisons
 and Sturm counts of real zeros are computed in exact integer and rational
 arithmetic; floating point enters only in evaluating logarithms, in the
