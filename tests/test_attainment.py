@@ -49,7 +49,7 @@ def _runs(values: list[int]) -> list[tuple[int, int]]:
 def _chord(
     big: Fraction, small: list[Fraction], b0: list[int], g: int, a: list[int]
 ) -> tuple[Fraction, Fraction]:
-    """Both sides of ``eq:runchord``: ``Tail(F)`` and the combination."""
+    """Both sides of ``eq:runchord``: ``Tail(V)`` and the combination."""
     zeros = sorted(b0 + a)
     tail_f = _tail_of(small, zeros)
     nodes = [big, *small]
@@ -63,7 +63,7 @@ def _chord(
         tails.append(_tail(small, zj, aj))
         rhos.append(abs(_u(nodes, aw, s)) / abs(_u(small, aj, s)))
     mu = 1 / (1 + sum(rhos))
-    # q = sum lambda_j F_j + mu w must vanish on Z, as in the proof.
+    # q = sum lambda_j V_j + mu w must vanish on Z, as in the proof.
     for z in zeros:
         q = mu * _u(nodes, aw, z)
         for (s, e), rho in zip(_runs(a), rhos, strict=True):

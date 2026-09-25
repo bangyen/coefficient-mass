@@ -486,7 +486,7 @@ def _check_converse(failures: list[str]) -> int:
 
     Exact checks of its three lemmas and its worked numbers: the signed
     partial-sum formula (``lem:signs``), the directional identity
-    ``sum_{d>=n} delta_d = -S_j/Q(1)`` (``lem:improve``), the two failing
+    ``sum_{d>=n} eta_d = -S_j/Q(1)`` (``lem:improve``), the two failing
     indices of ``(x-2)P_1`` the ``u = 1, r_1 = 2`` case needs, and the
     ``(2,3,5,7)`` certificate whose tail ``31/1704`` beats ``1/48``.
     """
@@ -523,12 +523,12 @@ def _check_converse(failures: list[str]) -> int:
         nodes = [Fraction(1, r) for r in rhos]
         sums = _partial_sums([Fraction(r) for r in rhos])
         for j in range(1, n):
-            delta = _solve(
+            eta = _solve(
                 [[y**d for y in nodes] for d in range(n)],
                 [Fraction(int(d == j)) for d in range(n)],
             )
-            total = sum(ai / (1 - y) for ai, y in zip(delta, nodes, strict=True))
-            head = sum(_u(nodes, delta, d) for d in range(n))
+            total = sum(ai / (1 - y) for ai, y in zip(eta, nodes, strict=True))
+            head = sum(_u(nodes, eta, d) for d in range(n))
             if total - head != -sums[j] / sums[n]:
                 failures.append(f"lem:improve identity at {rhos}, j={j}")
             checks += 1
