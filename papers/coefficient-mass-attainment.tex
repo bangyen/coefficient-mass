@@ -2174,8 +2174,8 @@ $\{1,2,z\}$ enter only through these signs.
 The pieces follow a pattern.  As $r$ decreases from $r_c$ the zero set
 minimising $\tau(\{4\})$ moves up, $\{1,3,4\},\{1,4,5\},\ldots,\{1,4,8\}$.
 For $\{1,4,z\}$ the entry $s_z$ of the witness passes from $-1$ at the
-upper end of its piece to $1$ at the lower end, where $\{1,4,z+1\}$ takes
-over with the same tail; at $\rho_7$ the entries $s_3$ of $\{1,3,4\}$ and
+upper end of its piece to $1$ at the lower end, where, for $z\le7$,
+$\{1,4,z+1\}$ takes over with the same tail; at $\rho_7$ the entries $s_3$ of $\{1,3,4\}$ and
 $s_5$ of $\{1,4,5\}$ are both $-1$.  The cost of $\{5\}$ overtakes that
 of $\{4\}$ at $\rho_3$.
 At $r=\tfrac{11}{10}$ the worst placement $\{5\}$ and its zero set
@@ -2424,8 +2424,9 @@ $T\le\tfrac1{24}-\tfrac1{16}(\tfrac35)^X$, and
 $\inf_Qb_2(QP_r)=1/T\ge24+36(\tfrac35)^X$.  If $X=4$, $(\tfrac35)^X>\tfrac1{23}$.
 If $X>4$, minimality gives $(3/r)^X<\tfrac{945}{2r^2\varepsilon}\le\tfrac{945}{2\varepsilon}$,
 so $X<\log\tfrac{945}{2\varepsilon}/\log\tfrac{300}{101}$; as
-$\log r\le\varepsilon$ and $\varepsilon\log\tfrac{945}{2\varepsilon}\le\tfrac1{100}\log47250<\tfrac{27}{250}$,
-$r^X<e^{1/10}<\tfrac{111}{100}$, so $3^X<\tfrac{111}{100}\cdot\tfrac{945}{2\varepsilon}<\tfrac{525}\varepsilon$
+$\log r\le\varepsilon$, $\varepsilon\log\tfrac{945}{2\varepsilon}\le\tfrac1{100}\log47250<\tfrac{27}{250}$
+(the left side increases on $(0,\tfrac1{100}]$) and $\log\tfrac{300}{101}>\tfrac{27}{25}$,
+$X\log r<\tfrac1{10}$ and $r^X<e^{1/10}<\tfrac{111}{100}$, so $3^X<\tfrac{111}{100}\cdot\tfrac{945}{2\varepsilon}<\tfrac{525}\varepsilon$
 and $(\tfrac35)^X=3^{-\alpha X}>(\varepsilon/525)^\alpha>\varepsilon^\alpha/23$,
 as $\alpha<\tfrac12$ ($25<27$).  Either way $\inf_Qb_2(QP_r)\ge24+\tfrac{36}{23}\varepsilon^\alpha$.
 
@@ -2848,7 +2849,7 @@ every position $\sigma_d$ is $-1$ below $x$ and $1$ above it, so
 $\sigma_dV_d=-|V_d|$ and $\sigma_dH_d=|H_d|$; with $V_1=1$, $V_x=0$ and
 $H_1=H_x=0$ the two sums read $s_1-\sum_d|V_d|=0$ and $\sum_d|H_d|=F$.
 
-For $F>0$ put $p(a)=(1-a)(\sum_{d\ge1}\sigma_da^d-t)$, the polynomial
+To see $F>0$, put $p(a)=(1-a)(\sum_{d\ge1}\sigma_da^d-t)$, the polynomial
 \[
   p(a)=-t+(s_1+t)a-(s_1+1)a^2+(s_x+1)a^x+(1-s_x)a^{x+1}
 \]
@@ -3018,9 +3019,9 @@ Summing the geometric part of $\sum_{d>x}H_d$,
   E:=F-2\sum_{d>x}H_d
   =s_1y+(s_x+1)y^x-\frac{y^2}{1-y}-t+2\sum_{d>x}(U_d+yV_d+y^xV'_d),
 \]
-where $\sum_{d>x}|U_d|\le t$, $\sum_{d>x}|V_d|\le s_1$ by
-Theorem~\ref{thm:familyzero}(a), and
-$0<\sum_{d>x}V'_d=(\tfrac32A-\tfrac52B+\tfrac76C)/D<1$.  As
+where $0<\sum_{d>x}U_d\le t$, and $V_d<0$ for $d>x$ with
+$\sum_{d>x}|V_d|\le s_1$, by Theorem~\ref{thm:familyzero}(a), and
+$0<\sum_{d>x}V'_d=(\tfrac32A-\tfrac52B+\tfrac76C)/D<1$ for $x\ge3$.  As
 $y^2/(1-y)=1/(r\varepsilon)$, this gives $E\le s_x+4-1/(r\varepsilon)$, and,
 if $\kappa>0$, $3^{-x}E\to\tfrac1{18}-\tfrac1\kappa$.  Below $x$, $V_d>0$,
 $-1<U_d<0$ and $y^d<1$, so for $2\le d<x$
@@ -3306,7 +3307,13 @@ $1/t(x^*)\le\inf_Qb_2(QP_r)\le1/(t(x^*)-14\cdot3^{-x^*-3})$.
 
 \begin{proof}
 Write $x=x^*$, $\kappa=3^x\varepsilon=18\cdot3^{-\omega}$ and
-$\beta=(\tfrac35)^x$, and let $\varepsilon\le(\delta/10)^4\le20^{-4}$.  As
+$\beta=(\tfrac35)^x$, and let $\varepsilon\le(\delta/10)^4\le20^{-4}$.  We
+use $0.4649<\alpha<0.465$, so $1/\alpha<2.151$, $\log_3\tfrac73>0.77$ and
+$\tfrac12\log_35>0.73$.  Each bound below of a power of $\varepsilon$ by a
+multiple of $\delta$ is used at $\varepsilon=(\delta/10)^4$, where its two
+sides have a ratio increasing in $\delta$ (a positive power of $\delta$,
+times a logarithm for the bound on $x\varepsilon$); so it suffices to check
+it at $\delta=\tfrac12$.  As
 $3^{x+1}\varepsilon\ge18$, $3^x\ge6/\varepsilon\ge960000$, so $x\ge13$ and
 $3^{-x}\le\varepsilon/6$; hence $\beta=(3^{-x})^\alpha\le(\varepsilon/6)^\alpha
 \le\delta/250$, $(\tfrac37)^x\le(\varepsilon/6)^{0.77}$ and
@@ -3538,8 +3545,12 @@ identities of rational functions of $A,B,C$ (multiplied by $D$, each side
 is a polynomial of degree at most $2$ in each variable, so agreement on a
 $4\times4\times4$ grid proves it), together with the rational inequalities
 behind Lemma~\ref{lem:threenode}(c) and the witness at
-$r=\tfrac{101}{100}$; the estimates with logarithms in the proof of
-Theorem~\ref{thm:familyone} are by hand.  In
+$r=\tfrac{101}{100}$.  The estimates with logarithms in the proof of
+Theorem~\ref{thm:familyone}, and those with powers $\alpha$ and
+$1/\alpha$ in the proofs of Theorem~\ref{thm:familyjump}(b) and
+Proposition~\ref{prop:familyrdelta}, reduce to comparisons of integer
+powers, with $e$ bounded by its series and $\alpha$ bracketed as
+$0.4649<\alpha<0.465$; \texttt{test\_family\_hand\_estimates} checks them.  In
 \texttt{test\_family\_oscillation} the solution for $p,q,\theta'$, the
 constants $15,6,14$, the identity at the start of the path in
 Lemma~\ref{lem:eighteen}(a), the closed forms in (c) with $K_c>18$ for
@@ -3557,8 +3568,7 @@ $\{1,10,1335\}$ at $r=\tfrac{5701}{5700}$ are recovered.  In
 checked on a grid as above, the $k_c$ and $M_c$ for $c\le40$, and the
 rational constants in the proofs of Theorems~\ref{thm:familylimit}
 and~\ref{thm:familyjump} and Proposition~\ref{prop:familyrdelta} for
-$c\le60$ or $x\le60$; the limits, and the estimates with logarithms and
-powers $\alpha$, are by hand.  The file also holds tests used in no
+$c\le60$ or $x\le60$; the limits are by hand.  The file also holds tests used in no
 proof: seeded random exact checks of
 Proposition~\ref{prop:runchord} and of the identity in
 Theorem~\ref{thm:halfmass}(b), and exact linear programs over monic
