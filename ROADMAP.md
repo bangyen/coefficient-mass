@@ -62,8 +62,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   whenever `beta_r(n) <= 1` (`thm:onepolyrows`), in particular for
   `r - 1 <= e**(-4n-2)/C_n` (`lem:topnearone`).  It is false in general
   for `1 < r < 2`: at `r = 5/4`, `L = 16`, `k = 2` a monic multiple has
-  `b_2 <= 6.5694 < 7.6492 = min_(i<=2) 1/nu_i` (exact rational
-  arithmetic).  Long diagonals (`sec:longdiag`,
+  `b_2 <= 6.5695 < 7.6492 <= min_(i<=2) 1/nu_i` (exact rational
+  arithmetic, `tests/test_rows.py`).  Long diagonals (`sec:longdiag`,
   `lem:farprefix`, `thm:longdiag`, `prop:longdiagexplicit`): for each
   `1 < r < 2` there are `alpha`, `K` with the prefix identity holding for
   `k >= max(K, alpha(n-1))`, so every diagonal fails in at most finitely

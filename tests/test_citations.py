@@ -16,7 +16,7 @@ import re
 
 import pytest
 
-from tests.numbering import PAPERS, numbering
+from tools.numbering import PAPERS, numbering
 
 #: Every numbered cross-reference between the papers, as
 #: ``(citing file, cited paper, number) -> (word, label)``.  The test also

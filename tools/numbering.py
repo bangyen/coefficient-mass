@@ -10,7 +10,7 @@ does -- one counter shared by the four theorem environments, reset per
 Run as a script, it prints the numbering of every result another repository
 cites, for pinning there:
 
-    python tests/numbering.py coefficient-mass:3.4 coefficient-mass-complex:2.1
+    python tools/numbering.py coefficient-mass:3.4 coefficient-mass-complex:2.1
 """
 
 from __future__ import annotations

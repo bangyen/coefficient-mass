@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you cite these papers, please cite a tagged version."
+title: "coefficient-mass: papers and executable checks on the coefficient mass of polynomial multiples"
+type: software
+authors:
+  - family-names: Pham
+    given-names: Bangyen
+    orcid: "https://orcid.org/0009-0006-9928-2088"
+repository-code: "https://github.com/bangyen/coefficient-mass"
+license: [CC-BY-4.0, MIT]
+version: 1.0.0
+date-released: 2026-09-25
+keywords:
+  - polynomial multiples
+  - coefficient mass
+  - reduced height

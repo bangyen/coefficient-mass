@@ -1,6 +1,7 @@
 """The certificate sweeps behind the two coefficient-mass papers.
 
-Run:  just sweep   (or python tests/sweep.py)
+Run:  just sweep   (or python tests/sweep.py); ``just test`` runs each check
+as a pytest test.
 
 ``coefficient-mass.tex`` proves the displaced-zero tail bound
 (Theorem 2.2) under the node cutoff ``y_i <= 1/2``;
@@ -284,8 +285,6 @@ def _simplex_min_t(rows: list[list[Fraction]], const: list[Fraction]) -> Fractio
 
 def _min_bk(roots: list[Fraction], k: int, cap: int) -> Fraction:
     """``min b_k`` over monic multiples of degree at most ``cap``, exactly."""
-    import itertools
-
     poly = [Fraction(1)]
     for r in roots:  # ascending coefficients
         nxt = [Fraction(0)] * (len(poly) + 1)
@@ -293,7 +292,15 @@ def _min_bk(roots: list[Fraction], k: int, cap: int) -> Fraction:
             nxt[i] -= r * c
             nxt[i + 1] += c
         poly = nxt
-    deg_p = len(roots)
+    return min_bk_of(poly, k, cap)
+
+
+def min_bk_of(poly: list[Fraction], k: int, cap: int) -> Fraction:
+    """``min b_k`` over monic multiples of the monic ``poly`` (ascending
+    coefficients) of degree at most ``cap``, exactly."""
+    import itertools
+
+    deg_p = len(poly) - 1
     best = None
     for degree in range(max(deg_p, k), cap + 1):
         n = degree - deg_p
@@ -655,32 +662,16 @@ def _check_repaired(failures: list[str]) -> int:
     return checks + 1
 
 
-def main() -> int:
-    failures: list[str] = []
-    controls = _check_controls(failures)
-    searches = _check_searches(failures)
-    ordering = _check_ordering(failures)
-    worked = _check_worked_numbers(failures)
-    converse = _check_converse(failures)
-    repaired = _check_repaired(failures)
-    value = _check_value(failures)
-    print(f"  positive controls fired                     : {controls}")
-    print(f"  search optima equal their family members    : {searches}")
-    print(f"  sharp235 ordering degrees checked exactly   : {ordering}")
-    print(f"  worked numbers of the paper checked exactly : {worked}")
-    print(f"  converse lemmas checked exactly             : {converse}")
-    print(f"  repaired sharpness checked exactly          : {repaired}")
-    print(f"  infima past the criterion checked exactly   : {value}")
-    rng = random.Random(SEED)
-    totals = {}
-    for label, pool in _POOLS.items():
-        stated, repaired, rev, dele = _sweep(pool, 150, rng, failures, label)
-        totals[label] = (stated, repaired, rev, dele)
-        print(
-            f"  {label:<18} 150 draws: stated {stated:>3}, "
-            f"repaired {repaired}, deletion reversed {rev}/{dele}"
-        )
+def _check_draws(failures: list[str]) -> dict[str, tuple[int, int, int, int]]:
+    """The seeded sweep: ``(stated, repaired, reversed, deletions)`` per pool.
 
+    The stated bound and the deletion step hold below the cutoff and are seen
+    to fail above it; the repaired bound and step never fail.
+    """
+    rng = random.Random(SEED)
+    totals = {
+        label: _sweep(pool, 150, rng, failures, label) for label, pool in _POOLS.items()
+    }
     below = totals["y <= 1/2"]
     if below[0]:
         failures.append(f"stated bound broken {below[0]}x below the cutoff")
@@ -690,7 +681,31 @@ def main() -> int:
         failures.append("no stated-bound violation above the cutoff; sweep is blind")
     if not any(totals[k][2] for k in totals if k != "y <= 1/2"):
         failures.append("no deletion reversal above the cutoff; sweep is blind")
+    return totals
 
+
+#: Every exact check, in the order ``main`` prints them.  ``test_sweep.py``
+#: runs each as its own test.
+CHECKS = {
+    "positive controls fired": _check_controls,
+    "search optima equal their family members": _check_searches,
+    "sharp235 ordering degrees checked exactly": _check_ordering,
+    "worked numbers of the paper checked exactly": _check_worked_numbers,
+    "converse lemmas checked exactly": _check_converse,
+    "repaired sharpness checked exactly": _check_repaired,
+    "infima past the criterion checked exactly": _check_value,
+}
+
+
+def main() -> int:
+    failures: list[str] = []
+    for label, check in CHECKS.items():
+        print(f"  {label:<43} : {check(failures)}")
+    for label, (stated, repaired, rev, dele) in _check_draws(failures).items():
+        print(
+            f"  {label:<18} 150 draws: stated {stated:>3}, "
+            f"repaired {repaired}, deletion reversed {rev}/{dele}"
+        )
     if failures:
         for line in failures:
             print(f"  FAIL: {line}")

@@ -15,14 +15,22 @@ Open questions are in [ROADMAP](ROADMAP.md).
 ## Checks
 
 ```bash
-just check   # lint, cross-reference test, certificate sweep
-just pdf     # build the papers (needs tectonic)
+uv sync      # pinned dev tools (pytest, ruff)
+just check   # lint and every test (~5s)
+just sweep   # the coefficient-mass sweep with its printed tallies
+just pdf     # build the papers, failing on undefined references (needs tectonic)
 ```
 
-- `tests/test_citations.py` recomputes each paper's LaTeX numbering and holds
-  every numbered citation between the papers to the label it means.
-- `tests/sweep.py` is a seeded certificate sweep plus exact rational checks of
-  every number the papers work out by hand (~2s).
+| Test | Checks |
+| --- | --- |
+| `tests/test_citations.py` | every numbered citation between the papers names the label it means, by recomputing LaTeX's numbering (`tools/numbering.py`) |
+| `tests/test_roadmap.py` | every label the roadmap cites exists in a paper its entry links |
+| `tests/test_sweep.py` | the seeded certificate sweep and exact worked numbers of `coefficient-mass` and `-attainment` (`tests/sweep.py`) |
+| `tests/test_rows.py` | last rows, every row a top row at `r >= 2` on a window, and the exact `r = 5/4` counterexample to the prefix identity |
+| `tests/test_complex.py` | multisection transfer, imaginary pairs, first row at Gaussian roots, both signs, and wide sectors, on seeded integer multiples and exact optima |
+
+Each negative result carries a control: a false variant the same check must
+catch.
 
 ## Citing from elsewhere
 
@@ -34,3 +42,8 @@ that renumbers a cited result, tag a new version and regenerate the pins:
 ```bash
 just pin coefficient-mass:3.4 coefficient-mass-complex:2.1
 ```
+
+## License
+
+Papers CC BY 4.0, code MIT; see [LICENSE](LICENSE).  Citation metadata is in
+[CITATION.cff](CITATION.cff).
