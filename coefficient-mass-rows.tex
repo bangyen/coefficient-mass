@@ -1492,8 +1492,8 @@ the prefix identity allows, although only one position is exempted.
 
 \paragraph{Numerical findings.}
 The following was found in floating point and is not proved.  We computed
-$\nu_1(n)$, $\nu_2(n)$ and $\eta_\sigma(n)$ by exact line search over integer
-zero sets, one zero at a time (in exact arithmetic a set admitting no
+$\nu_1(n)$, $\nu_2(n)$ and $\eta_\sigma(n)$ in floating point by line
+search over integer zero sets, one zero at a time (in exact arithmetic a set admitting no
 improving move is optimal, by the proof of Lemma~\ref{lem:vertexopt}), for
 $r\in\{\frac65,\frac54,\frac{13}{10},\frac43,\frac75,\frac32,\frac85,\frac53,
 \frac74,\frac95,\frac{19}{10}\}$, $2\le n\le20$ and $2\le\sigma\le8$, and for
@@ -1505,13 +1505,13 @@ $\max\{\nu_1(n),\nu_2(n)\}$; the positions between $8$ and $\sigma_*$ were
 not all computed there.
 \begin{itemize}
 \item Whenever $\nu_2(n)\ge\nu_1(n)$ (45 of the 209 grid points), the prefix
-identity held at $(r,n+1,2)$, with the worst position $\sigma=1$, although
-$\Lambda_2(n)>\nu_2(n)$ at several of them (for instance $r=\frac54$,
-$7\le n\le10$), so Theorem~\ref{thm:onepoly} does not explain it.
+identity held at $(r,n+1,2)$, with the worst position $\sigma=1$.
 \item The identity failed only for $r\le\frac43$: at $r=\frac65$ for
 $17\le n\le20$, at $r=\frac54$ for $14\le n\le18$, at $r=\frac{13}{10}$ for
 $n\in\{12,13,14,20\}$ and at $r=\frac43$ for $n\in\{11,12,13,18\}$, always
-with $\beta_r(n)>5$, by at most $19\%$, and with worst position $\sigma=2$
+with $\beta_r(n)>5$, with the ratio of $\min_{i\le2}1/\nu_i(n)$ to
+$V_r(n+1,2)$ at most $1.19$ among the computed positions (uncomputed
+positions could only raise it), and with worst position $\sigma=2$
 except at $(\frac{13}{10},20)$ and $(\frac43,18)$, where it is $\sigma=3$.
 \item At the other $147$ grid points, including all with $r\ge\frac75$,
 the identity held with $\nu_2(n)<\nu_1(n)$, so the second row was the top
