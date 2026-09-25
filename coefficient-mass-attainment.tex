@@ -55,7 +55,8 @@ where $S_j$ is the sum of the $j+1$ leading coefficients.  For roots at least $2
 included, the escaping placement is the worst one, so the infimum is exactly
 $1/\tau^*$; below $2$ it can be strictly smaller.  For distinct roots
 above $1$ and one exempt coefficient, $T$ is the larger of $\tau^*$ and
-finitely many single-placement values; with an explicit multiplier this gives the infimum
+finitely many single-placement values; with an explicit multiplier and
+finitely many exact certificates this gives the infimum
 $\tfrac{3398808}{96935}$ at $(\tfrac{11}{10},3,5,7)$, and along
 $(r,3,5,7)$, $1<r<3$, the escaping placement is the worst one exactly when
 $r\ge r_c=1.4658\ldots$, while along $(r,5,7)$ it is not for any
@@ -113,8 +114,8 @@ $b_{u+1}$ ignores.
 which is condition \eqref{eq:partial} below (Proposition~\ref{prop:partial},
 Theorem~\ref{thm:converse} and Corollary~\ref{cor:charrep}).  For distinct roots the multiples
 approaching the bound carry a short prefix $S_1(P_u),\ldots,S_{m-1}(P_u)$, a
-long run of the value $P_u(1)$, and the $u$ exempt coefficients at the
-bottom; at repeated roots sufficiency comes from duality instead.
+long run of the value $P_u(1)$, and $u$ free coefficients at the bottom,
+which the bound on $b_{u+1}$ discards; at repeated roots sufficiency comes from duality instead.
 
 \emph{The value.}  For $1<r_1\le\cdots\le r_L$ the infimum is $1/T$, where
 $T$ is the supremum, over placements $X\subset\N_{>0}$ of the $u$ exempt coefficients, $X$ being
@@ -216,16 +217,16 @@ For fixed $\varepsilon>0$, the binomial expansion gives
 \]
 so each $\phi_{i,k,\varepsilon}$ is a finite linear combination of the
 ordinary exponentials $d\mapsto z^d$ at the distinct nodes
-$z_{i,j}=y_i\exp(-j\varepsilon)$.  For all sufficiently small $\varepsilon>0$ the $m$
-nodes $z_{i,j}$ are distinct, lie in $(0,1/2]$, and stay separated between
+$\zeta_{i,j}=y_i\exp(-j\varepsilon)$.  For all sufficiently small $\varepsilon>0$ the $m$
+nodes $\zeta_{i,j}$ are distinct, lie in $(0,1/2]$, and stay separated between
 distinct $i$.  Within one group $i$ the change of basis from
-$\{z_{i,j}^{d}\}_{j<m_i}$ to
+$\{\zeta_{i,j}^{d}\}_{j<m_i}$ to
 $\{\phi_{i,k,\varepsilon}\}_{k<m_i}$ is triangular with diagonal entries
 $(-1)^k\varepsilon^{-k}$, hence invertible for $\varepsilon>0$, and the same
 function space is spanned either way.
 
 For such an $\varepsilon$ let $\xi^{(\varepsilon)}$ be the unique exponential
-sum on the nodes $z_{i,j}$ with $\xi^{(\varepsilon)}_0=1$ and
+sum on the nodes $\zeta_{i,j}$ with $\xi^{(\varepsilon)}_0=1$ and
 $\xi^{(\varepsilon)}|_Z=0$; existence and uniqueness are the
 Vandermonde argument opening~\cite[Section~2]{coefficient-mass}.
 The comparison~\cite[Theorem~2.2]{coefficient-mass} applies with the same $\ell$ and gives
@@ -274,9 +275,10 @@ tends to $\prod_{j=1}^{\ell+1}y_{(j)}/(1-y_{(j)})$.
 
 \paragraph{The displaced step.}  Lemmas~\ref{lem:confstrict}
 and~\ref{lem:delete} below use one step of the proof
-of~\cite[Theorem~2.2]{coefficient-mass}, which we restate.  Let
-$0<y_1<\cdots<y_c\le1/2$, let $Z$ be a set of $c-1$ positive integers,
-$z=\max Z$ and $Z'=Z\setminus\{z\}$, and let $w$ be the sum on all $c$
+of~\cite[Theorem~2.2]{coefficient-mass}, which we restate.  Let $c\ge2$ and
+$0<y_1<\cdots<y_c\le1/2$, let $Z\ne\{1,\ldots,c-1\}$ be a set of $c-1$
+positive integers, so that its leading run is below $c-1$ as that step
+assumes, $z=\max Z$ and $Z'=Z\setminus\{z\}$, and let $w$ be the sum on all $c$
 nodes with $w_0=1$ and $w|_Z=0$.  Let $V$ be the sum on
 $y_1,\ldots,y_{c-1}$, all nodes but the largest, with $V_0=1$ and
 $V|_{Z'}=0$, and $G$ the sum on all $c$ nodes with
@@ -293,13 +295,15 @@ proves the splitting identity and the correction-ratio bound
   \qquad
   \Gamma_G(z)\le\frac{\Gamma_V(z)}{1-y_c}\le2\Gamma_V(z),
 \]
-using only the zero bound, the distinctness of the nodes and, in the last
-inequality, $y_c\le1/2$, not the induction hypothesis of that proof.
+the identity from the zero bound and the distinctness of the nodes, and the
+bound from~\cite[Lemma~2.3]{coefficient-mass}, proved by weak alternation,
+and, in its last inequality, $y_c\le1/2$; neither uses the induction
+hypothesis of that proof.
 Together they give
 \[
   \Tail(w)\le\Tail(V)-\mu\Sigma_G ,
 \]
-and the same step shows $\Sigma_G>0$ when $Z\ne\{1,\ldots,c-1\}$.
+and the same step shows $\Sigma_G>0$.
 
 \begin{lemma}[Strictness at confluent nodes]\label{lem:confstrict}
 In Proposition~\ref{prop:confluent} the inequality is strict unless
@@ -309,7 +313,7 @@ $Z=\{1,\ldots,m-1\}$.
 \begin{proof}
 Suppose $Z\ne\{1,\ldots,m-1\}$.  Then $\ell\le m-2$, the largest element
 $z=\max Z$ satisfies $z\ge m$, and $Z'=Z\setminus\{z\}$ has the same leading
-run $\ell$.  Keep the perturbed nodes $z_{i,j}=y_i\exp(-j\varepsilon)$ of the
+run $\ell$.  Keep the perturbed nodes $\zeta_{i,j}=y_i\exp(-j\varepsilon)$ of the
 proof of Proposition~\ref{prop:confluent}; the largest of them is
 $y_c$ itself ($j=0$), and it is strictly larger than all the others.  Run the
 displaced step above once at these $m$ distinct nodes, all at most $1/2$:
@@ -359,8 +363,9 @@ companion paper already exhibits monic multiples of $(x-2)(x-3)$ whose
 $b_2$ decreases to $2$~\cite[Proposition~4.4]{coefficient-mass}, so the $u=1$
 bound is an infimum there.  The general construction writes the multiple
 from the top: one leading $1$, a short free prefix, a long run of a single
-value $t$, and $u$ exempt coefficients at the bottom.  After division by
-$r_i^D$ the exempt coefficients matter only at the $u$ smallest roots,
+value $t$, and $u$ free coefficients at the bottom, which the bound on
+$b_{u+1}$ discards.  After division by
+$r_i^D$ these matter only at the $u$ smallest roots,
 which they absorb; the run must therefore satisfy the remaining $L-u$ roots
 alone.
 
@@ -385,7 +390,7 @@ $H(P)=|P(1)|$ for the reduced height $H(P)$, the $u=0$ infimum, under the
 same partial-sum condition and their same-sign hypothesis (which~\cite[Lemma~2.1]{coefficient-mass}
 removes), and exhibits $\widetilde P/(1-y)$ as the extremal
 series~\cite[Corollary~7]{dj}.  What is added here is the passage to $u\ge1$,
-where the $u$ exempt coefficients absorb the $u$ smallest roots.  The run is
+where the $u$ free bottom coefficients absorb the $u$ smallest roots.  The run is
 the $(u+1)$-st largest magnitude only if no partial sum exceeds the total,
 \begin{equation}\label{eq:partial}
   |S_j|\le|S_m|\qquad(1\le j<m),
@@ -406,7 +411,7 @@ the $L$ unknowns fixed by $F_D(r_i)=0$.  This linear system is
 nonsingular: if $H$ is a kernel element, the polynomial $(x-1)H$ has at most
 $L+1$ nonzero terms, hence at most $L$ positive roots by Descartes' rule,
 yet it vanishes at the $L+1$ positive numbers $1,r_1,\ldots,r_L$, so $H=0$.
-Divide by $r_i^D$, sum the run, and trade the exempt coefficients for their
+Divide by $r_i^D$, sum the run, and trade the coefficients of $C$ for their
 values $\sigma_i=r_i^{-D}C(r_i)$ ($i\le u$), a Vandermonde change of
 variables: with $\ell_1,\ldots,\ell_u$ the Lagrange basis at $r_1,\ldots,r_u$,
 $C=\sum_{q\le u}\sigma_qr_q^D\ell_q$.  In the unknowns $a_k$, $t$, $\sigma_q$
@@ -417,7 +422,8 @@ and with $y_i=1/r_i$, the equation at $r_i$ reads
 \]
 where the last sum is $\sigma_i$ for $i\le u$.  As $D\to\infty$ the
 coefficient matrix converges entrywise: $y_i^{D-u+1}\to0$, and for $i>u$ the
-cross coefficients are $O((r_u/r_{u+1})^D)\to0$.  In the limiting matrix
+cross coefficients are $O((r_u/r_{u+1})^D)\to0$ (for $u\ge1$; at $u=0$ there
+is no $C$).  In the limiting matrix
 each row $i\le u$ has coefficient $1$ on $\sigma_i$ and $0$ on the other
 $\sigma_q$, and each row $i>u$ has $0$ on every $\sigma_q$, so it is block
 triangular.  Multiplied by $r_i^{m-1}(r_i-1)$, a limiting surviving row says
@@ -426,13 +432,13 @@ $A=x^{m-1}+a_1x^{m-2}+\cdots+a_{m-1}$, vanishes at $r_i$.  Every monic $R$ of
 degree $m$ is $(x-1)A+t$ for exactly one such pair, namely the quotient and
 remainder of $R$ by $x-1$, and exactly one monic $R$ of degree $m$ vanishes
 at the $m$ distinct surviving roots, namely $P_u$.  So the surviving block
-is nonsingular, hence the limiting matrix is, and since matrix inversion is
+is nonsingular, being square with a unique solution, hence the
+limiting matrix is, and since matrix inversion is
 continuous on the invertible matrices the solutions converge: as
 $D\to\infty$,
 \[
   t\to P_u(1),\qquad
-  a_k\to S_k\quad(1\le k<m),\qquad
-  \sigma_i\to-\frac{r_i^{1-m}P_u(r_i)}{r_i-1},
+  a_k\to S_k\quad(1\le k<m),
 \]
 since $(P_u-P_u(1))/(x-1)$ has as coefficients the prefix
 $S_1,\ldots,S_{m-1}$ of \eqref{eq:wgen}.  The nonleading coefficients of
@@ -444,7 +450,7 @@ so
 \]
 which is $|S_m|$ when \eqref{eq:partial} holds.  Distinctness enters three
 times---the Descartes step, the Vandermonde change, and the surviving
-block---and $r_u<r_{u+1}$ is what kills the cross terms.
+block---and $r_u<r_{u+1}$ (for $u\ge1$) is what kills the cross terms.
 \end{proof}
 
 The conclusion does not need distinct roots (Corollary~\ref{cor:charrep}).
@@ -703,11 +709,13 @@ suffices to find $\delta>0$ such that every $X\subset\N_{>0}$ of size $u$ has
 a certificate on $\mathcal H_0$ with $\Tail\le B-\delta$.  Suppose not, and
 take $X_\nu$ whose certificates on $\mathcal H_0$ all have
 $\Tail\ge B-1/\nu$.  Passing to a subsequence, $X_\nu=X_0\cup E_\nu$ with
-$X_0$ fixed, $|E_\nu|=k$ and $\min E_\nu\to\infty$.  By
-Proposition~\ref{prop:farrep}(c), a certificate $v^\infty$ for $X_0$ on
+$X_0$ fixed, $|E_\nu|=k$ and, if $k\ge1$, $\min E_\nu\to\infty$.  If
+$k\ge1$, by Proposition~\ref{prop:farrep}(c) a certificate $v^\infty$ for $X_0$ on
 $\mathcal H_k$ with $\Tail(v^\infty)<B$ yields certificates for $X_\nu$
-with tails tending to $\Tail(v^\infty)$, a contradiction; so it suffices to
-produce one.  Put
+with tails tending to $\Tail(v^\infty)$, a contradiction; if $k=0$, then
+$E_\nu=\varnothing$, $X_\nu=X_0$, and $v^\infty$ itself is a certificate for
+$X_\nu$ on $\mathcal H_0$ with tail below $B-1/\nu$ for large $\nu$, again a
+contradiction.  So it suffices to produce one.  Put
 $n=L-k$ and $m=L-u$, so $|X_0|=u-k$; recall that $\mathcal H_k$ is the
 Hermite space of $r_{k+1},\ldots,r_L$.
 
@@ -777,16 +785,20 @@ over monic $Q\in\R[x]$.
 \end{theorem}
 
 \begin{proof}
-First, $T<\infty$.  Take $u$-sets $X_\nu$ with $\tau(X_\nu)\to T$.  Each
-coordinate of $X_\nu$, listed in increasing order, is bounded or not along
-any subsequence, so after passing to one, $X_\nu=X_0\cup E_\nu$ with $X_0$
-fixed and either $E_\nu=\varnothing$, and we put $j=0$, or $|E_\nu|=j\ge1$
-and $\min E_\nu\to\infty$.  A full certificate on $y_{j+1},\ldots,y_L$ whose
-zero set contains $X_0$ exists, since $|X_0|=u-j\le L-j-1$; call it
-$v^\infty$.  If $E_\nu=\varnothing$, then $T=\tau(X_0)\le\Tail(v^\infty)$.
-Otherwise Proposition~\ref{prop:farrep}(c), with $k=j$, gives certificates
-for $X_\nu$ with tails tending to $\Tail(v^\infty)$, so
-$T\le\Tail(v^\infty)$.  Either way $T<\infty$.
+First, $T<\infty$.  Take $u$-sets $X_\nu$ with $\tau(X_\nu)\to T$.
+Passing to a subsequence, each coordinate of $X_\nu$, listed in increasing
+order, is either constant or tends to $\infty$, and the constant ones come
+first.  Let $X_0$ be the set of the constant ones and $E'_\nu$ the rest, the
+escaping part, and put $p=|E'_\nu|$, so $X_\nu=X_0\cup E'_\nu$, $|X_0|=u-p$,
+and $\min E'_\nu\to\infty$ if $p\ge1$.  Since $u-p\le L-p-1$, enlarge $X_0$
+to a set $Z$ of $L-p-1$ positive integers.  The interpolation system on
+$y_{p+1},\ldots,y_L$ at the $L-p$ distinct points $\{0\}\cup Z$ is
+nonsingular by the zero bound, so there is a full certificate $v^\infty$ on
+these nodes with zero set $Z\supseteq X_0$.  If $p=0$, then
+$T=\tau(X_0)\le\Tail(v^\infty)$.  Otherwise
+Proposition~\ref{prop:farrep}(c), with $k=p$ and $E'_\nu$ in place of
+$E_\nu$, gives certificates for $X_\nu$ with tails tending to
+$\Tail(v^\infty)$, so $T\le\Tail(v^\infty)$.  Either way $T<\infty$.
 
 The lower bound $b_{u+1}(F)\ge1/\tau(X_F)\ge1/T$ is \eqref{eq:weak}.
 
@@ -970,8 +982,9 @@ over monic $Q\in\R[x]$.
 
 \begin{proof}
 $T<\infty$ by the first paragraph of the proof of Theorem~\ref{thm:value},
-with $v^\infty$ a full certificate on $\mathcal H_j$ whose zero set contains
-$X_0$, which exists by unisolvence, and Proposition~\ref{prop:farrep}(c),
+with $v^\infty$ a full certificate on $\mathcal H_p$ whose zero set
+$Z$ contains $X_0$, which exists by unisolvence of $\mathcal H_p$ at the
+$L-p$ distinct points $\{0\}\cup Z$, and Proposition~\ref{prop:farrep}(c),
 which is stated for repeated roots.
 
 The lower bound is \eqref{eq:weak}, which holds for every certificate on
@@ -1557,11 +1570,12 @@ lemma $\tau_{k+j}(X_0)\le\Tail(v)\le\liminf_\nu\tau_k(X_0\cup E_\nu)$.
 
 For $k<u$ and $|X_0|=u-k-1$ this with $E_\nu=\{\nu\}$ gives
 $\tau_{k+1}(X_0)=\lim_\nu\tau_k(X_0\cup\{\nu\})\le T_k$, so $T_{k+1}\le T_k$.
-Now fix $k$ and take $(u-k)$-sets $X_\nu$ with $\tau_k(X_\nu)\to T_k$.  Each
-coordinate of $X_\nu$, listed in increasing order, is bounded or not along
-any subsequence, so after passing to one, $X_\nu=X_0\cup E_\nu$ with $X_0$
-fixed and either $E_\nu=\varnothing$ or $|E_\nu|=j\ge1$ and
-$\min E_\nu\to\infty$.  In the first case $T_k=\tau_k(X_0)$; in the second
+Now fix $k$ and take $(u-k)$-sets $X_\nu$ with $\tau_k(X_\nu)\to T_k$.
+Passing to a subsequence, each coordinate of $X_\nu$, listed in increasing
+order, is either constant or tends to $\infty$, and the constant ones come
+first.  Let $X_0$ be the set of the constant ones and $E_\nu$ the rest, the
+escaping part, so $X_\nu=X_0\cup E_\nu$ and either $E_\nu=\varnothing$ or
+$|E_\nu|=j\ge1$ and $\min E_\nu\to\infty$.  In the first case $T_k=\tau_k(X_0)$; in the second
 $|X_0|+j=u-k\le L-k-1$, and $T_k=\tau_{k+j}(X_0)$.  Both are finite, since
 full certificates exist.  If $T>T_1$, the second case at $k=0$ would give
 $T=\tau_j(X_0)\le T_j\le T_1$.
@@ -1942,6 +1956,7 @@ B.~Pham,
 multiples,
 \newblock manuscript in preparation;
 Lemma~2.1 (Consecutive zero set), Theorem~2.2 (Displaced-zero tail bound),
+Lemma~2.3 (Ratio bound for the correction sum),
 Lemma~3.1 (Certificate with excluded positions), Theorem~3.2 (Coefficient order statistics),
 Proposition~4.4 (Sharpness of the row $k=2$ at $(2,3)$).
 \end{thebibliography}
