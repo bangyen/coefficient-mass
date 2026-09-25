@@ -171,7 +171,9 @@ with Mathlib, in the directory \texttt{CoefficientMass} of the repository
 The formal proofs follow the ones given here.  Two clauses are not
 formalized: the equality case of Theorem~\ref{thm:tail}, and the relaxation
 of $r_1\ge2$ to $r_1>1$ in the first row of Lemma~\ref{lem:slack} and
-Theorem~\ref{thm:order}.
+Theorem~\ref{thm:order}.  The zero bound is formalized for distinct zeros,
+the sign changes at prescribed zeros being derived there from weak
+alternation, and the worked examples are not formalized.
 
 \paragraph{Conventions.}
 All logarithms are natural, $\N_{>0}=\{1,2,\ldots\}$, and every asymptotic
@@ -210,8 +212,8 @@ A form of the zero bound that needs no local analysis at the zeros is
 \emph{weak alternation}: if a nonzero sum $f$ on $r$ distinct positive nodes
 satisfies $\varepsilon(-1)^kf(t_k)\ge0$ at points $t_0<t_1<\cdots<t_n$, for a
 fixed sign $\varepsilon$, then $n+1\le r$.  Divide by the exponential of one
-node, which keeps the hypothesis, and apply the mean value theorem on each
-$[t_{k-1},t_k]$: the derivative, a sum on the other $r-1$ nodes, satisfies
+node, giving a function $g$ that keeps the hypothesis, and apply the mean
+value theorem to $g$ on each $[t_{k-1},t_k]$: the derivative, a sum on the other $r-1$ nodes, satisfies
 $\varepsilon(-1)^kg'(s_k)\ge0$ at some $s_k\in(t_{k-1},t_k)$, so it weakly
 alternates at the $n$ points $s_1<\cdots<s_n$, and induction on $r$ applies.
 If the derivative vanishes identically, $f$ is a single exponential, which has
@@ -276,11 +278,12 @@ and $\Tail(w)=\frac3{10}$.  At $(\rho_1,\rho_2)=(5,3)$, however, $Z=\{1\}$
 gives $\frac18$ and $Z=\{2\}$ gives $\frac9{64}$, so the theorem does not
 compare zero sets at fixed nodes.  Instead its proof removes the displaced
 zeros one at a time, starting with the largest, each time together with the
-largest node $y_c=1/\rho_c$.  The hard step is the following comparison of a
-correction sum with its value just past the prescribed zeros, proved by
-weak alternation.
+largest node $y_c=1/\rho_c$.  The hard step is the following bound: for the
+correction sum $G$, the ratio $E_d/\widehat V_d$ with $E_d=G_d-y_cG_{d-1}$
+never exceeds its value at $d=m+1$, just past the marked points; it is
+proved by weak alternation.
 
-\begin{lemma}[Interlacing of the correction sum]\label{lem:interlace}
+\begin{lemma}[Ratio bound for the correction sum]\label{lem:interlace}
 Let $c\ge2$ and $0<y_1<\cdots<y_c$, let $Z'\subset\N_{>0}$ satisfy $|Z'|=c-2$, and put
 $m=\max(Z'\cup\{0\})$; the points of $\{0\}\cup Z'$ are the marked
 points.  Let $\widehat V$ be the exponential sum on
@@ -385,8 +388,7 @@ show
   \frac{G_z}{\widehat V_z}\qquad(d\ge z>m).
 \end{equation}
 
-Set $A=\{0\}\cup Z'=\{\alpha_1=0<\cdots<\alpha_{c-1}=m\}$,
-$\sigma=G_{m+1}/\widehat V_{m+1}$, and
+Set $\sigma=G_{m+1}/\widehat V_{m+1}$ and
 $\Delta_d=\sigma\widehat V_d-E_d$.  Both $\widehat V$ and $G$ are positive for
 $d>m$, the latter because $G_z=1$ with $z>m$, so Lemma~\ref{lem:interlace}
 applies and gives $\Delta_d\ge0$ for $d\ge m+1$, that is,
