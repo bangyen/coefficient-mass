@@ -30,7 +30,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   Gaussian points above the axis bounded independently of `rho_min` (fewer
   than `6 rho_min` by `prop:gausscircle`); whether small coefficients after
   the lowest one cost nearly as much as zeros at pairwise coprime norms
-  (`prop:gaussadic`).
+  when their number is at least `2K` (at two coefficients they need not,
+  `prop:gausscong`).
 
 ## Status
 
@@ -232,6 +233,28 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `prop:gaussadic`, item 3, shows it is sharp up to `C`; a yes answer makes
   every multiple of `prop:gaussheavy`, item 2, at such norms in one annulus
   pay order `K**2 log R` as `K -> oo`.
+  Partial answer (`prop:gausscong`): whenever `gcd(P(0), P'(0)) = 1`, which
+  holds at such norms, the lowest `m` coefficients of the multiples are
+  exactly the `f` with `sum f_i t**i = 0 mod P(0)**m`, `t` the root of `P`
+  modulo `P(0)**m` reached by Newton's method from `0` (so `P(0) | t`); this
+  recovers `d_m = P(0)**m` of `prop:gausslow`.  At `m = 2` it reads
+  `P(0) | f_0`, `f_1 = P'(0) f_0 / P(0) mod P(0)`, so `F = P` defeats the
+  step unless `C >= log P(0) / (2 log rho_max)` whenever
+  `|P'(0)| < rho_min/2`; at `-26 + 35i`, `-1 + 60i`, `29 + 62i`, `47 + 62i`
+  (norms `1901, 3601, 4685, 6053`) `P'(0) = 6`, so `C > 3.77`, close to the
+  trivial `C = K` that `P(0) | f_e` gives at `m = 2`.  Numerical evidence
+  only: a meet-in-the-middle search found such `P` with `K = 3` (prime norms
+  in `[3600, 14400]`, e.g. `45 + 86i`, `47 + 80i`, `-95 + 16i`,
+  `P'(0) = -6`, `C > 2.98`) and `K = 4` (odd coprime norms in
+  `[1600, 6400]`, four up to reflection); a random model, `P'(0)` of size
+  `P(0)/R` at about `(c R**2)**K / K!` root sets in `[R, 2R]`, predicts about
+  `R**2 c**K / K!` of them for every `K`, which would make the step false at
+  `m = 2` for every `C`.  The same model predicts that at `m >= 2K`, the
+  case `prop:gaussheavy` needs, exceptions to `C` slightly above `2` are
+  not expected; exhaustive searches over all `|f_i| < rho_min/2` at
+  `K = 3`, `m = 2, 3, 4, 6`, odd coprime norms in `[36, 144]`, 300 seeded
+  root sets, gave implied `C` at most `1.75` (`1.24` at `m = 6`).  Open: whether the step holds for
+  `m >= 2K`.
 
 - **Every row at other roots.**  The paper is
   [coefficient-mass-rows](papers/coefficient-mass-rows.tex), split out of

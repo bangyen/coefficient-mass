@@ -1065,6 +1065,79 @@ $m$ of $F/x^e$ is unclean at some $\alpha_j$,
 \cite[Lemma~6.1]{coefficient-mass-complex} gives only
 $|f_e|\ge(\rho_{\min}/2)^m$, since no $f_i$ with $e<i<e+m$ can be the large one.
 
+The lowest $m$ coefficients of the multiples are cut out by one congruence,
+modulo $P(0)^m$, at a root of $P$ found by Newton's method from $0$; this
+holds for every monic $P$ with $\gcd(P(0),P'(0))=1$, and so recovers
+Proposition~\ref{prop:gausslow}, item~2.
+
+\begin{proposition}[One congruence]\label{prop:gausscong}
+Let $P\in\mathbb Z[x]$ be monic with $D=P(0)\ne0$, and let $m\ge1$.
+\begin{enumerate}
+\item If $\gcd(D,P'(0))=1$, there is $t\in\mathbb Z$ with $D\mid t$ and
+$P(t)\equiv0\pmod{D^m}$, and for $(f_0,\ldots,f_{m-1})\in\mathbb Z^m$ some
+$F\in\mathbb Z[x]$ divisible by $P$ has $F\equiv\sum_{i<m}f_ix^i\pmod{x^m}$
+if and only if
+\[
+  \sum_{i<m}f_it^i\ \equiv\ 0\pmod{D^m}.
+\]
+In particular $d_m=D^m$ in the notation of Proposition~\ref{prop:gausslow}.
+In the setting of Section~\ref{sec:gaussian} with odd pairwise coprime norms
+$n_j$ and $\gcd(a_j,c_j)=1$, $\gcd(D,P'(0))=1$.
+\item Some $F\in\mathbb Z[x]$ divisible by $P$ has $F\equiv f_0+f_1x\pmod{x^2}$
+if and only if $D\mid f_0$ and $f_1\equiv P'(0)f_0/D\pmod D$.
+\item In the setting of Section~\ref{sec:gaussian}, if
+$|P'(0)|<\rho_{\min}/2$, then $F=P$ has $|p_1|<\rho_{\min}/2$ and
+$\log|p_0|=\log P(0)$, so a constant $C$ with
+$\log|f_e|\ge2\log P(0)-2C\log\rho_{\max}$ for every integer multiple with
+$|f_{e+1}|<\rho_{\min}/2$ has $C\ge\log P(0)/(2\log\rho_{\max})$.  At the
+four points $-26+35i$, $-1+60i$, $29+62i$, $47+62i$, of norms $1901$,
+$3601=13\cdot277$, $4685=5\cdot937$, $6053$, which are odd and pairwise
+coprime, with $\gcd(a_j,c_j)=1$ and $43<\rho_j<78$, $P'(0)=6$, and so
+$C>3.77$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+1.  Put $t_1=0$, and given $t_k$ with $D\mid t_k$ and $D^k\mid P(t_k)$, note
+$P'(t_k)\equiv P'(0)\pmod D$, so there is $w\in\mathbb Z$ with
+$wP'(t_k)\equiv1\pmod{D^m}$; put $h=-wP(t_k)$ and $t_{k+1}=t_k+h$.  Then
+$D\mid t_{k+1}$, and $P(t_k+h)=P(t_k)+P'(t_k)h+h^2Q$ with $Q\in\mathbb Z$,
+so $P(t_{k+1})\equiv P(t_k)(1-wP'(t_k))\equiv0\pmod{D^{k+1}}$, as
+$D^k\mid P(t_k)$ and $D^k\mid h$.  Take $t=t_m$.  If $F=PS$ with
+$S\in\mathbb Z[x]$ and $F=\sum_{i<m}f_ix^i+x^mG$, then
+$\sum_{i<m}f_it^i=P(t)S(t)-t^mG(t)\equiv0\pmod{D^m}$, as $D^m\mid t^m$.  So
+the lattice $L_m$ of the proof of Proposition~\ref{prop:gaussadic}, item~3,
+lies in the kernel of $f\mapsto\sum_{i<m}f_it^i\bmod D^m$, a homomorphism
+$\mathbb Z^m\to\mathbb Z/D^m$ that is onto, as $f=(r,0,\ldots,0)$ maps to
+$r$.  Both have index $D^m$, so they are equal, and $(f,0,\ldots,0)$ lies in
+$L_m$ exactly when $D^m\mid f$.  In the setting of Section~\ref{sec:gaussian},
+$P=\prod_j(x^2-2a_jx+n_j)$ gives $P'(0)=-\sum_j2a_jD/n_j$, and a prime $p$
+dividing $D$ divides exactly one $n_j$, is odd and divides neither $a_j$
+(otherwise $p\mid\gcd(a_j,c_j)$) nor $D/n_j$, so
+$P'(0)\equiv-2a_jD/n_j\not\equiv0\pmod p$.
+
+2.  In the notation of the proof of Proposition~\ref{prop:gaussadic}, item~3,
+$L_2$ is spanned by $\mathbf p_0=(D,P'(0))$ and $\mathbf p_1=(0,D)$, so its
+vectors are $(sD,sP'(0)+s'D)$ with $s,s'\in\mathbb Z$.
+
+3.  $P$ is divisible by $P$, with $p_0=P(0)$ and $p_1=P'(0)$; the inequality
+at $F=P$, $e=0$, reads $\log P(0)\ge2\log P(0)-2C\log\rho_{\max}$.  For the
+example, $P'(0)=-2\sum_ja_jD/n_j=6<\rho_{\min}/2$, as $\rho_{\min}^2=1901$,
+and $\log D/(2\log\rho_{\max})>3.77$ with $D=194126805235805$ and
+$\rho_{\max}^2=6053$.
+\end{proof}
+
+So at $m=2$ the divisibility $P(0)\mid f_e$ is, at such root sets, all that
+holds: a bound $\log|f_e|\ge m\log P(0)-Cm\log\rho_{\max}$ for all
+integer multiples with $|f_i|<\rho_{\min}/2$ for $e<i<e+m$ needs, at $m=2$,
+$C\ge\log P(0)/(2\log\rho_{\max})$, which is nearly $K$ for points in one
+annulus, whenever the multiple $P$ itself has $|P'(0)|<\rho_{\min}/2$, that
+is, whenever $\bigl|\sum_ja_j/n_j\bigr|<\rho_{\min}/(4P(0))$.  Whether this
+happens for every $K$ is open.  The multiples of
+Proposition~\ref{prop:gaussheavy}, item~2, need the step only at
+$m=\deg H\ge2K$, where the congruence of item~1 involves $m-1\ge2K-1$ small
+coefficients.
+
 At Gaussian roots a small second row confines an integer multiple to one
 level set of a polynomial with small nonleading coefficients, whereas over
 the reals $x^N-\rho^N$ has $b_2=0$.
@@ -1173,7 +1246,8 @@ No datasets were generated or analyzed in this study.
 No proof in this paper relies on computation.  The numerical thresholds after
 Theorem~\ref{thm:thinsector} describe its range and are not used elsewhere,
 and the value $-270400$ after Proposition~\ref{prop:gaussheavy} is a direct
-evaluation.  The file \texttt{tests/test\_sectors.py} in the
+evaluation, as are the values $P'(0)=6$ and $P(0)$ in
+Proposition~\ref{prop:gausscong}, item~3.  The file \texttt{tests/test\_sectors.py} in the
 repository of~\cite{coefficient-mass} checks the statements, on seeded
 random Gaussian and integer multiples and on the extremal examples, each
 group with a control showing that a false variant is caught; these checks
