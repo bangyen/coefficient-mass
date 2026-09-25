@@ -38,7 +38,7 @@ $c^2$: every $b_k$ and $\Lambda$ have equal infima over monic multiples.
 Otherwise only the first row survives: $b_2$ can vanish and the mass be
 linear for pairs within any fixed angle of the imaginary axis.  An
 Archimedean Newton polygon restores rows and mass up to constants at moduli
-separated by a factor $9$; with several roots per annulus, separation $162$
+separated by a factor $9$; with several roots per annulus, separation $81$
 gives a sharp mass bound charging each root once per annulus at or below
 it, and the real-root cross terms fail.  Real roots of both signs charge one root
 of each sign per excluded coefficient, with sharp mass constant $\frac14$.
@@ -84,7 +84,7 @@ it holds at every root set, while $b_2$ can vanish and the mass be linear in
 the number of pairs (Propositions~\ref{prop:rowone} and~\ref{prop:noangle}).
 Moduli separated by a factor $9$ restore the rows and the mass up to
 constants (Corollary~\ref{cor:separated}); with several roots per annulus,
-separation $162$ gives a mass bound, sharp to leading order, that charges
+separation $81$ gives a mass bound, sharp to leading order, that charges
 each root once for every annulus at or below it, where the cross terms of
 \eqref{eq:order} fail (Theorem~\ref{thm:fixedgap},
 Proposition~\ref{prop:annulisharp}).  Real roots of both signs give a mass
@@ -122,18 +122,22 @@ and mass linear in the number of pairs (Proposition~\ref{prop:noangle}).
 
 \paragraph{Separated moduli.}  Moduli separated by a factor $9$ restore the
 rows and the mass up to constants (Corollary~\ref{cor:separated}), and with
-several roots per annulus a separation $162$ between annuli gives a mass
+several roots per annulus a separation $81$ between annuli gives a mass
 bound charging each root once for every annulus at or below it
 (Theorem~\ref{thm:fixedgap}).  Both come from an Archimedean Newton polygon
 (Theorem~\ref{thm:archnewton}).  In detail, for $K_s$ roots with moduli in $[T_s,U_s]$,
-$1\le s\le S$, where $T_1>3$ and $T_s>162U_{s-1}$, the central index charges a
+$1\le s\le S$, where $T_1>3$ and $T_s>81U_{s-1}$, the central index charges a
 root once for every annulus at or below it,
 $\sum_ssK_s\log(T_s/2)-O(S)$ in all for multiples with $|f_D|\ge1$, attained for suitable roots as $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
 (Theorem~\ref{thm:annuli},
 Corollary~\ref{cor:annuli}, Theorem~\ref{thm:fixedgap},
 Proposition~\ref{prop:annulisharp}).  A central index at radius $r$ has at
 least $n$ positions above it once $n$ roots have modulus at least $3nr$
-(Lemma~\ref{lem:tropcount}).
+(Lemma~\ref{lem:tropcount}), and the rows of Corollary~\ref{cor:annuli}
+need a separation growing with the number of roots above: at the
+separation $n_a$, $(x-q)(x+Kq)^K$ has $b_2$ below the row by a factor that
+tends to $0$ (Proposition~\ref{prop:rowsneedn}).  The mass bound fails at
+the separation $2$ (Proposition~\ref{prop:gaptwo}).
 
 \paragraph{Both signs.}  For real roots of both signs, Rolle's theorem on
 each half-line charges one root of each sign per excluded coefficient
@@ -152,11 +156,10 @@ many real zeros of a real polynomial dominated coefficientwise by the
 multiple, are treated in~\cite{coefficient-mass-sectors}, which uses
 Theorem~\ref{thm:gausscharge} for integer multiples of large degree.
 
-\paragraph{Open questions.}  Two questions are left open.  First, whether
-the rows of Corollary~\ref{cor:annuli}, item~1, hold at a fixed separation
-of the annuli, and what the least fixed separation for the mass is, in
-particular whether the separation $9$ of Corollary~\ref{cor:annuli}, item~2,
-suffices (Section~\ref{sec:annuli}).  Second, whether
+\paragraph{Open questions.}  Two questions are left open.  First, what the
+least fixed separation of the annuli for the mass is: it lies between $2$
+and $81$, and whether the separation $9$ of Corollary~\ref{cor:annuli},
+item~2, suffices is open (Section~\ref{sec:annuli}).  Second, whether
 $\Lambda(F)\ge cK^2\log R$ holds for every integer multiple $F$ at $K$
 distinct Gaussian-integer roots of modulus at least $R$ in the upper
 half-plane within a sector of fixed half-width $\delta<\pi/2$.  For real multiples it
@@ -598,7 +601,7 @@ order terms, with a square term $\frac12K_s^2\log T_s$ inside each group and a
 cross term $K_uK_s\log T_s$ between the groups $u<s$.  At complex roots the
 square term is false (Proposition~\ref{prop:noangle}), and so are the cross
 terms: when the moduli of the $K_s$ roots
-of the $s$-th group lie in $[T_s,U_s]$, with $T_1>3$ and $T_s>162U_{s-1}$, every multiple with $|f_D|\ge1$ has mass at least
+of the $s$-th group lie in $[T_s,U_s]$, with $T_1>3$ and $T_s>81U_{s-1}$, every multiple with $|f_D|\ge1$ has mass at least
 $\sum_ssK_s\log(T_s/2)-S\log2$, and for suitable roots this is
 attained to leading order (the ratio tends to $1$) as $\min_sT_s\to\infty$
 (Theorem~\ref{thm:fixedgap}, Proposition~\ref{prop:annulisharp}).
@@ -660,7 +663,9 @@ T>0$ for $\beta\in A$, and let $0<r<T$ and $\theta=r/T$.  If $0\le\kappa\le n$ a
   (1-\theta)^{-n}\sum_{m=n-\kappa+1}^n\binom nm\theta^m\ <\ 1,
 \]
 then every central index $y$ of $F$ at $r$ satisfies $D-y\ge\kappa$.  In
-particular $D-y\ge n$ if $T\ge3nr$, and $D-y\ge n/2$ if $T\ge6r$.
+particular $D-y\ge n$ if $T\ge3nr$, and $D-y\ge n/2$ if $T\ge6r$; and
+$n-(D-y)\le\lfloor0.82\,n\rfloor$ if $T\ge3r$, and
+$n-(D-y)\le\lfloor0.13\,n\rfloor$ if $T\ge27r$.
 \end{lemma}
 
 \begin{proof}
@@ -685,6 +690,13 @@ So no $i>D-\kappa$ is a central index.  If $T\ge3nr$ and $\kappa=n$, the sum
 is $(1+\theta)^n-1\le e^{1/3}-1<\frac23\le1-n\theta\le(1-\theta)^n$.  If $T\ge6r$ and
 $\kappa=\lceil n/2\rceil$, every $m>n-\kappa$ has $m\ge(n+1)/2$, so the left
 side is at most $(1-\theta)^{-n}2^n\theta^{(n+1)/2}\le6^{-1/2}(12/(5\sqrt6))^n<1$.
+For the last two claims let $0<c<1$, $M=\lfloor cn\rfloor+1>cn$ and
+$\kappa=n-M+1=n-\lfloor cn\rfloor$.  For every $x\ge1$,
+$\sum_{m\ge M}\binom nm\theta^m\le x^{-M}\sum_m\binom nm(\theta x)^m$, so the
+left side is at most $x^{-M}\bigl((1+\theta x)/(1-\theta)\bigr)^n$, which
+increases with $\theta$.  At $\theta=\frac13$, $x=16$, $c=0.82$ it is below
+$(\frac{19}2\cdot16^{-0.82})^n<1$; at $\theta=\frac1{27}$, $x=4$, $c=0.13$ it
+is below $(\frac{31}{26}\cdot4^{-0.13})^n<1$.
 \end{proof}
 
 The factor $3n$ is sharp up to the $3$: $(x-t)^K$ has $K$ zeros of modulus
@@ -790,7 +802,8 @@ Item~1 charges a root of $A_s$ once for each annulus at or below it, $s$
 times in all, at the price of a separation that grows linearly with the
 number of roots above; by the remark after Lemma~\ref{lem:tropcount}, a
 central index at $r_a$ can have fewer than $n_a$ positions above it when
-$T_a/r_a<n_a$.  Item~2 needs only the factor $9$, but past the first
+$T_a/r_a<n_a$, and the rows themselves fail at $T_a=n_aU_{a-1}$
+(Proposition~\ref{prop:rowsneedn}).  Item~2 needs only the factor $9$, but past the first
 annulus it charges ratios $|\beta|/U_{a-1}$ instead of moduli.  With one root
 per annulus, $k_a=n_a=S-a+1$ at the separation $9$ of the theorem, which then
 gives Corollary~\ref{cor:separated}, item~1, when $\rho_1>3$ (the corollary
@@ -805,7 +818,7 @@ $S\ge1$, and let $A_1,\ldots,A_S$ be nonempty sub-multisets of the zeros of
 $F$, counted with multiplicity, the moduli in $A_s$ lying in $[T_s,U_s]$,
 where
 \[
-  T_1>3,\qquad T_a>162\,U_{a-1}\quad(2\le a\le S).
+  T_1>3,\qquad T_a>81\,U_{a-1}\quad(2\le a\le S).
 \]
 Then
 \[
@@ -825,9 +838,10 @@ a radius below $e^{\sigma^{(a)}}$ lies below every central index at a radius
 above it.  For $2\le a\le S$ choose
 $u_a^-<u_a^+$, neither a tropical root, with
 \[
-  \log(3U_{a-1})<u_a^-,\qquad u_a^-+2\log3<u_a^+\le\log(T_a/6);
+  \log(3U_{a-1})<u_a^-,\qquad u_a^-+2\log3<u_a^+\le\log(T_a/3);
 \]
-this is possible as $T_a/6>9\cdot3U_{a-1}$.  Let $Y_a$ be the set of the
+this is possible as $T_a/3>9\cdot3U_{a-1}$.  In particular
+$e^{u_a^-}<T_a/27$.  Let $Y_a$ be the set of the
 vertices active at $u_a^-$ and at $u_a^+$, and let $y_1$ be a central index
 at $1$.  As $\sigma^{(a-1)}<u_a^-<u_a^+<\sigma^{(a)}$ and $0<\sigma^{(1)}$,
 $y_1$ lies below every position in $Y_2$, every
@@ -837,11 +851,12 @@ are distinct and nonleading.
 
 By Lemma~\ref{lem:central} at $r=1$ with $A=A_{\ge1}$,
 $\log|f_{y_1}|>\log(|f_D|/2)+Z_1$.  Let $a\ge2$ and let $y\in Y_a$ be active
-at $u\in\{u_a^-,u_a^+\}$, so $9<e^u\le T_a/6$.  Every $\beta\in A_{\ge a}$ has
+at $u\in\{u_a^-,u_a^+\}$, so $9<e^u\le T_a/3$.  Every $\beta\in A_{\ge a}$ has
 $|\beta|/2>e^u$, so Lemma~\ref{lem:central} with $A=A_{\ge a}$ gives
-$\log|f_y|>\log(|f_D|/2)+Z_a-(n_a-D+y)u$, and
-Lemma~\ref{lem:tropcount} with $A=A_{\ge a}$, $T=T_a\ge6e^u$, gives
-$D-y\ge n_a/2$.
+$\log|f_y|>\log(|f_D|/2)+Z_a-\delta u$, where $\delta=n_a-D+y$, and
+Lemma~\ref{lem:tropcount} with $A=A_{\ge a}$ and $T=T_a$ gives
+$\delta\le0.82\,n_a$ at $u_a^+$, where $T_a\ge3e^u$, and $\delta\le0.13\,n_a$
+at $u_a^-$, where $T_a\ge27e^u$.
 
 If $Y_a=\{y\}$, no tropical root lies in $[u_a^-,u_a^+]$ (one would separate
 the two vertices, as in the Order step), so the midpoint $u$
@@ -849,14 +864,15 @@ of this interval is farther than $\log3$ from every tropical root, and $y$ is
 the vertex active at $u$.  By Theorem~\ref{thm:archnewton}, item~1, $F$ has
 exactly $D-y$ zeros in $|z|>e^u$; the $n_a$ zeros of $A_{\ge a}$ are among
 them, so $D-y\ge n_a$ and $\log|f_y|>\log(|f_D|/2)+Z_a$.  Otherwise $Y_a$
-has two positions, each with $n_a-D+y\le n_a/2$ at a level
-$u\le u_a^+\le\log(T_a/6)$, and their logarithms add up to more than
+has two positions, active at $u_a^+\le\log(T_a/3)$ and at
+$u_a^-<\log(T_a/27)$, and their logarithms add up to more than
 \[
-  2\log\frac{|f_D|}2+2Z_a-n_a\log\frac{T_a}6
-  \ \ge\ 2\log\frac{|f_D|}2+Z_a+n_a\log3
-  \ \ge\ \log\frac{|f_D|}2+Z_a ,
+  2\log\frac{|f_D|}2+2Z_a-n_a\Bigl(0.82\log\frac{T_a}3+0.13\log\frac{T_a}{27}\Bigr)
+  \ \ge\ 2\log\frac{|f_D|}2+Z_a+n_a\bigl(0.05\log T_a+1.21\log3-\log2\bigr),
 \]
-as $\log|f_D|\ge0$ and $n_a\log3>\log2$.  In both cases
+as $Z_a\ge n_a\log(T_a/2)$.  Since $T_a>81U_{a-1}\ge81T_1>3^5$, the last
+bracket exceeds $1.46\log3-\log2>\log2$, and as $\log|f_D|\ge0$ the sum
+exceeds $\log(|f_D|/2)+Z_a$.  In both cases
 $\sum_{y\in Y_a}\log^+|f_y|\ge\log|f_D|+Z_a-\log2$, and
 \[
   \Lambda(F)\ \ge\ \log^+|f_D|+\log^+|f_{y_1}|+\sum_{a=2}^S\sum_{y\in Y_a}\log^+|f_y|
@@ -866,9 +882,10 @@ $\sum_{y\in Y_a}\log^+|f_y|\ge\log|f_D|+Z_a-\log2$, and
 
 Theorem~\ref{thm:fixedgap} bounds the mass only: below the $a$-th annulus
 the charge of the roots in the $a$-th and higher annuli may fall on two
-coefficients rather than one, and whether the rows of
-Corollary~\ref{cor:annuli}, item~1, hold at a fixed separation is open.  The
-factor $162$ is not optimized.  The mass bound is sharp to leading order, the
+coefficients rather than one, and the rows of Corollary~\ref{cor:annuli},
+item~1, fail at every fixed separation (Proposition~\ref{prop:rowsneedn}).
+The factor $81$ cannot be lowered to $2$ (Proposition~\ref{prop:gaptwo});
+the least admissible factor is open.  The mass bound is sharp to leading order, the
 coefficient $s$ of each $K_s\log T_s$ being best possible, as
 $\min_sT_s\to\infty$ (Proposition~\ref{prop:annulisharp} has
 $\Lambda=\sum_ssN_s\log t_s$ against the bound
@@ -888,7 +905,7 @@ multiplicity, in $t_s/3\le|z|\le3t_s$ for each $s$ and no other zeros, and
 \[
   \Lambda(F)=\sum_{s=1}^SsN_s\log t_s .
 \]
-If moreover $t_1>9$ and $t_a>1458\,t_{a-1}$, then
+If moreover $t_1>9$ and $t_a>729\,t_{a-1}$, then
 Theorem~\ref{thm:fixedgap} applies to $F$ with $A_s$ the zeros of modulus in
 $[t_s/3,3t_s]$, and gives $\Lambda(F)\ge\sum_ssN_s\log(t_s/6)-S\log2$.
 \item Let $0<\delta<\pi/2$, let $M_1\ne M_2$ be odd integers at least $3$,
@@ -925,7 +942,7 @@ $\Lambda(F)=\sum_{a<S}\log c_a=\sum_{a<S}\sum_{s>a}N_s\log t_s
 =\sum_ssN_s\log t_s$.
 
 For the last claim take $T_s=t_s/3$ and $U_s=3t_s$: then $T_1>3$,
-$T_a>162U_{a-1}$, $|A_s|=N_s$, $f_D=1$, and $|\beta|/2\ge t_s/6$ on $A_s$.
+$T_a>81U_{a-1}$, $|A_s|=N_s$, $f_D=1$, and $|\beta|/2\ge t_s/6$ on $A_s$.
 
 2.  By the proof of Proposition~\ref{prop:noangle}, item~1, each factor
 $x^{2M_s}+t_s^{2M_s}$ has $K_s$ conjugate pairs of modulus $t_s$ within
@@ -944,11 +961,72 @@ once $M_1$ and $M_2$, hence $K_1$ and $K_2$, are large.
 So at complex roots in separated annuli the sharp worst-case analogue of
 $\sum_ii\log r_i$ is $\sum_ssK_s\log T_s$: the cross term between annuli $u<s$ is $K_s\log T_s$,
 linear in the number of roots above and independent of the number below.  For
-the mass it is proved at the fixed separation $162$
+the mass it is proved at the fixed separation $81$
 (Theorem~\ref{thm:fixedgap}), and with ratios in place of moduli at the
 separation $9$ (Corollary~\ref{cor:annuli}, item~2); the rows of item~1 are
-proved at the separation $9n_a$.  Open: whether the rows hold
-at a fixed separation, and the least fixed separation for the mass, in
+proved at the separation $9n_a$, and the factor $n_a$ cannot be dropped.
+
+\begin{proposition}[Rows need the factor $n_a$]\label{prop:rowsneedn}
+Let $K\ge10$ and $q\ge4^K$ be integers and $F=(x-q)(x+Kq)^K$.  Then
+Theorem~\ref{thm:annuli} applies to the monic $F\in\mathbb Z[x]$ with
+$S=2$, $A_1=\{q\}$ and $A_2$ the $K$-fold zero $-Kq$, so that
+$T_2=U_2=Kq=n_2U_1$, and
+\[
+  f_1=0,\qquad b_2(F)\ <\ 2^K(Kq)^{K-1}\ \le\ \frac12\prod_{\beta\in A_2}\frac{|\beta|}2 .
+\]
+So the row $k=2$ of Corollary~\ref{cor:annuli}, item~1, fails at $T_2=n_2U_1$.
+Moreover $b_2(F)<2^K(Kq)^{-1}\prod_{\beta\in A_2}|\beta|$, so for no $g$ and
+$\varepsilon>0$ does $b_2(F)\ge\varepsilon|f_D|\prod_{\beta\in A_2}|\beta|$
+hold for all $F$ with $T_1>3$ and $T_2>gU_1$: take $K>g$ and $q\to\infty$.
+\end{proposition}
+
+\begin{proof}
+Let $h_i=\binom Ki(Kq)^{K-i}$ be the coefficients of $(x+Kq)^K$.  Then
+$f_0=-qh_0$, $f_{K+1}=1$ and, for $1\le i\le K$,
+\[
+  f_i=h_{i-1}-qh_i=q(Kq)^{K-i}\Bigl(K\binom K{i-1}-\binom Ki\Bigr).
+\]
+The bracket vanishes at $i=1$, and for $2\le i\le K$ it lies in
+$[0,K\binom K{i-1})$, as $\binom Ki/\binom K{i-1}=(K-i+1)/i\le K$; since
+$\binom K{i-1}<2^K$ and $(Kq)^{K-i}\le(Kq)^{K-2}$,
+$0\le f_i<2^KKq(Kq)^{K-2}=2^K(Kq)^{K-1}$.  Every nonleading position other
+than $0$ is one of these, so $b_2(F)<2^K(Kq)^{K-1}$, and
+$2^K(Kq)^{K-1}\le(Kq)^K/2^{K+1}$ as $Kq\ge K4^K\ge2^{2K+1}$.  The
+hypotheses of Theorem~\ref{thm:annuli} hold: $T_1=q>3$ and $T_2=Kq>9U_1$.
+\end{proof}
+
+Here $\sum_{\beta\in A_2}1/\beta=-1/q$, which is why $f_1$ vanishes: the
+zeros above cancel the one below at the position next to the constant term,
+the full charge of $A_2$ below the second annulus is left on $f_0$ alone,
+and every other nonleading coefficient carries fewer than $K$ zeros of
+$A_2$.  The cancellation needs $|\sum_{\beta\in A_2}1/\beta|=1/q$, hence
+$T_2\le n_2U_1$.  So the separation the rows of Corollary~\ref{cor:annuli},
+item~1, need grows linearly with $n_a$: it is at most $9n_a$, and not at
+most $n_a$.  For the mass the same cancellation with $K=2$ breaks
+Theorem~\ref{thm:fixedgap} at the separation $2$.
+
+\begin{proposition}[Separation $2$ does not suffice]\label{prop:gaptwo}
+Let $q\ge97$ be an integer, $\delta=1/(2q+1)$, $t=2q+\delta$ and
+$F=(x-q)(x+t)^2$.  With $S=2$, $A_1=\{q\}$ and $A_2$ the double zero $-t$,
+$T_1=U_1=q>3$ and $T_2=U_2=t>2U_1$, but
+\[
+  \sum_{s=1}^2s\sum_{\beta\in A_s}\log\frac{|\beta|}2-2\log2-\Lambda(F)
+  \ =\ \log\frac{t^2}{128(3q+2\delta)}\ >\ 0 ,
+\]
+and the difference tends to $\infty$ with $q$.  So
+Theorem~\ref{thm:fixedgap} fails at the separation $2$, by an unbounded
+amount, and its factor $81$ cannot be replaced by any $g\le2$.
+\end{proposition}
+
+\begin{proof}
+$F=x^3+(2t-q)x^2+t(t-2q)x-qt^2$, and $t(t-2q)=t\delta=(2q+\delta)/(2q+1)$
+lies in $(0,1)$, so $\Lambda(F)=\log(qt^2)+\log(3q+2\delta)$.  The bound is
+$\log(q/2)+4\log(t/2)-2\log2=\log(qt^4/128)$, and the difference is as
+stated.  As $t>2q$ and $\delta<1$, $t^2>4q^2>128(3q+2)$ once
+$q^2-96q-64>0$, which holds for $q\ge97$; and $t^2/(3q+2\delta)\to\infty$.
+\end{proof}
+
+Open: the least fixed separation for the mass, between $2$ and $81$, in
 particular whether $9$ suffices.
 
 \section{Real roots of both signs}\label{sec:bothsigns}
