@@ -550,9 +550,11 @@ def test_third_row_below_second() -> None:
     assert _vertex_optimal(_ETA12, {2}, r)
     assert _vertex_optimal(_Y12, set(), r)
     assert top < eta < pair
-    # nu_2(12) and nu_3(12) are below nu_1(12).
+    # nu_2(12), nu_3(12) and nu_4(12) are below nu_1(12), so by lem:rowmono
+    # the prefix identity fails at (4/3, 15, 4) as well.
     assert _phi(_FULL12[12][0], r) < top
     assert _phi((1, 2, 5, 7, 11, 15, 20, 25, 32, 40, 50, 61, 77), r) < top
+    assert _phi((1, 2, 3, 7, 10, 14, 18, 23, 29, 37, 45, 55, 67, 83), r) < top
     # The second row: every position is certified at eta_2(12).
     assert _row_cover(r, 12, 1, eta, _Y12, _FULL12, {(2,): _ETA12}) == []
     # The third row: every pair, strictly below mu({2,3}) except {2,3}.
@@ -586,9 +588,11 @@ def test_third_row_fails_alone() -> None:
     assert _vertex_optimal(_PAIR14, {2, 3}, r)
     assert _vertex_optimal(_Y14, set(), r)
     assert top < pair
-    # nu_2(14) and nu_3(14) are below nu_1(14).
+    # nu_2(14), nu_3(14) and nu_4(14) are below nu_1(14), so by lem:rowmono
+    # the prefix identity fails at (4/3, 17, 4) as well.
     assert _phi(_FULL14[14][0], r) < top
     assert _phi((1, 2, 4, 7, 10, 13, 17, 22, 28, 34, 42, 50, 61, 73, 90), r) < top
+    assert _phi((1, 2, 3, 6, 9, 12, 16, 21, 26, 32, 39, 46, 55, 66, 79, 96), r) < top
     # The second row is the top row: every position is certified at nu_1(14).
     assert _row_cover(r, 14, 1, top, _Y14, _FULL14, {}) == []
     # The third row: every pair, strictly below mu({2,3}, 16) except {2,3}.
