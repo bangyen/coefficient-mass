@@ -616,6 +616,100 @@ def test_family_threshold() -> None:
     assert _theta(Fraction(3, 2)) < tau
 
 
+def _window_roots(x: Fraction) -> list[Fraction]:
+    return [x, Fraction(3), Fraction(5), Fraction(7)]
+
+
+def test_family_window() -> None:
+    """``thm:family`` on ``[13/10, 29/20)``: ``inf b_2 = beta(r)`` there too.
+
+    Over ``Q(r)``: the half-mass point is at most 6 (``c_6``), and the full
+    certificates with zero sets {1, 2, 5} and {1, 3, 5} cost less than
+    ``1/beta(r)`` (``d_2``, ``d_5``), so by ``thm:halfmass`` only the placement
+    4 reaches ``1/beta(r)``.  The weights of {1, 3, 5}, ``H_6`` and the sum of
+    ``H`` past 6 are the closed forms of ``sec:familydata``.  Controls: at
+    ``r = 5/4`` the half-mass point is 7 and the multiplier of the lower bound
+    exceeds ``beta``, so the argument stops short of 13/10 for both reasons.
+    """
+    tau = Fraction(31, 1704)
+    r = _Rat([0, 1])
+    nodes = [1 / r, *(_Rat.of(Fraction(1, k)) for k in (3, 5, 7))]
+    beta = 48 * (r - 1) * (15 * r + 71) / (49 * r - 34)
+    p = (3 - r) * (5 - r) * (7 - r)
+    q = 3466 * r**2 + 7455 * r + 11025
+    q5 = 960 * r**2 + 5041 * r + 7455
+    c6 = 23062470 * r**4 - 598283 * r**3 - 7874752 * r**2 - 16937760 * r - 25048800
+    d2 = 105829 * r**3 - 131556 * r**2 + 14850 * r + 41991
+    d5 = -1670 * r**3 - 23167 * r**2 + 30517 * r + 34080
+    # The certificate {1, 3, 5}: weights, values and tail.
+    a = _certificate(nodes, [1, 3, 5])
+    assert a == [
+        -960 * r**5 / (p * q5),
+        729 * (r + 5) * (r + 7) / (2 * (3 - r) * q5),
+        -15625 * (r + 3) * (r + 7) / (2 * (5 - r) * q5),
+        16807 * (r + 3) * (r + 5) / ((7 - r) * q5),
+    ]
+    assert [_u(nodes, a, d) for d in range(6)] == [
+        1,
+        0,
+        -(71 * r + 105) / q5,
+        0,
+        (r + 15) / q5,
+        0,
+    ]
+    past = sum((ai * y**6 / (1 - y) for ai, y in zip(a, nodes, strict=True)), _Rat([0]))
+    assert past == -(7 * r**2 + 98 * r + 375) / (24 * (r - 1) * q5)
+    t135 = _signed_tail(nodes, [1, 3, 5], a)
+    t125 = _signed_tail(nodes, [1, 2, 5], _certificate(nodes, [1, 2, 5]))
+    assert t135 == 5 * (347 * r**2 + 250 * r - 501) / (24 * (r - 1) * q5)
+    assert 1 / beta - t125 == d2 / (48 * (r - 1) * (15 * r + 71) * q)
+    assert 1 / beta - t135 == d5 / (16 * (r - 1) * (15 * r + 71) * q5)
+    # The half-mass point: 2 sum_{d<=6} |H_d| - Tail(H), from H_2 < 0 < H_d (d > 3).
+    h = _correction(nodes, [1, 3])
+    h6 = _u(nodes, h, 6)
+    beyond = sum(
+        (hi * y**7 / (1 - y) for hi, y in zip(h, nodes, strict=True)), _Rat([0])
+    )
+    assert h6 == p * (44535 * r**3 + 246086 * r**2 + 529305 * r + 782775) / (
+        82191375 * r**6
+    )
+    assert beyond == p * (
+        430890 * r**4 + 2035579 * r**3 + 3937376 * r**2 + 8468880 * r + 12524400
+    ) / (1315062000 * r**6 * (r - 1))
+    gap = -_u(nodes, h, 2) + _u(nodes, h, 4) + _u(nodes, h, 5) + h6 - beyond
+    assert gap == c6 * p / (1315062000 * r**6 * (r - 1))
+    # Signs: c_6 and d_2 increase on r >= 1, d_5 decreases, via the bounds
+    # quoted in the proof, and the end values.
+    assert 92249880 - 1794849 - 15749504 - 16937760 == 57767767
+    assert 317487 - 263112 == 54375
+    assert -5010 - 46334 + 30517 < 0
+    assert c6.at(Fraction(13, 10)) == Fraction(522259242, 125) > 0
+    # c_2 and c_5 of test_family_threshold are negative at 13/10: the window
+    # needs the extra term of H and the certificate bound 1/beta, not tau*.
+    x = Fraction(13, 10)
+    assert 214892 * x**3 - 55639 * x**2 - 138630 * x - 266709 < 0
+    assert 206070 * x**3 - 67123 * x**2 - 161312 * x - 238560 < 0
+    assert d2.at(Fraction(1)) == 31114
+    assert d5.at(Fraction(3, 2)) == Fraction(44187, 2)
+    # The same facts at sample points of the window, against absolute values.
+    for k in range(130, 145):
+        x = Fraction(k, 100)
+        points = _roots_to_nodes(_window_roots(x))
+        assert _tail_of(points, [1, 3, 5]) == t135.at(x) < _theta(x)
+        assert _tail_of(points, [1, 2, 5]) == t125.at(x) < _theta(x)
+        assert _tail_of(points, [1, 3, 4]) == _theta(x) > tau
+        assert _half_mass_point(points, [1, 3]) <= 6
+    # Controls: the multiples of small degree stay above beta at 13/10, and at
+    # 5/4 both the half-mass bound and the lower-bound multiplier fail.
+    x = Fraction(13, 10)
+    assert min_bk_of(_family(x), 2, 8) > 1 / _theta(x)
+    x = Fraction(5, 4)
+    assert c6.at(x) < 0
+    assert _half_mass_point(_roots_to_nodes(_window_roots(x)), [1, 3]) == 7
+    mult = [(105 - 34 * x) / (49 * x - 34), Fraction(1)]
+    assert _exempt_max(_multiply(_family(x), mult), 4) > 1 / _theta(x)
+
+
 def test_cutoff_sharp() -> None:
     """``prop:cutoffsharp``: at (r, 5, 7), ``T > tau* = 1/24`` for every r < 2.
 

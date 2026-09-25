@@ -143,7 +143,7 @@ $\tfrac{3398808}{96935}=35.06\ldots$, against $1/\tau^*=\tfrac{1704}{31}$
 (Theorem~\ref{thm:elevenvalue}).  Along $(r,3,5,7)$ with $1<r<3$ and
 $u=1$, the escaping placement is the worst one exactly when
 $930r^2-7r-1988\ge0$, that is, $r\ge r_c=1.4658\ldots$; for
-$\tfrac{29}{20}\le r\le r_c$ the infimum is $48(r-1)(15r+71)/(49r-34)$
+$\tfrac{13}{10}\le r\le r_c$ the infimum is $48(r-1)(15r+71)/(49r-34)$
 (Theorem~\ref{thm:family}).  Both proofs end in a finite exact computation,
 over $\mathbb Q$ and over $\mathbb Q(r)$ respectively, described in the
 paragraph on computer assistance before the appendix.  Along $(r,5,7)$ the
@@ -1841,15 +1841,14 @@ $r_c\le r<3$.  More precisely, with $\beta(r)=48(r-1)(15r+71)/(49r-34)$,
 \[
   \inf_Qb_2(QP_r)\ \begin{cases}
     \le\tfrac{209}{4}, & 1<r\le\tfrac{13}{10},\\[2pt]
-    \le\beta(r)<\tfrac{1704}{31}, & \tfrac{13}{10}\le r<r_c,\\[2pt]
-    =\beta(r), & \tfrac{29}{20}\le r\le r_c,\\[2pt]
+    =\beta(r), & \tfrac{13}{10}\le r\le r_c,\\[2pt]
     =\tfrac{1704}{31}, & r_c\le r<3,
   \end{cases}
 \]
-over monic $Q$.  For $\tfrac{29}{20}\le r<r_c$, moreover,
-$T=\tau(\{4\})=1/\beta(r)$ and $\tau(\{x\})\le\tau^*<T$ for every
-positive integer $x\ne4$.  On $[\tfrac{13}{10},\tfrac{29}{20})$ only the
-upper bound $\beta(r)$ is proved (Section~\ref{sec:scope}).
+over monic $Q$, where $\beta(r)<\tfrac{1704}{31}$ for $r<r_c$.  For
+$\tfrac{13}{10}\le r<r_c$, moreover, $T=\tau(\{4\})=1/\beta(r)$ and
+$\tau(\{x\})<T$ for every positive integer $x\ne4$; for
+$\tfrac{29}{20}\le r<r_c$ even $\tau(\{x\})\le\tau^*$.
 \end{theorem}
 
 \begin{proof}
@@ -1885,10 +1884,9 @@ There $\tau(\{4\})\ge1/\beta(r)$, and
 \]
 has the sign of $1988+7r-930r^2$, positive exactly for $r<r_c$.
 
-\emph{Upper bounds.}  Let $\tfrac{29}{20}\le r<3$, so
-$\tfrac13<y\le\tfrac{20}{29}$ and $y$ is the largest node.  Solving the
-$4\times4$ systems, with the sign patterns given by the zero bound
-(Appendix~\ref{sec:familydata} lists the solutions), the full
+\emph{Upper bounds.}  For $1<r<3$, $y>\tfrac13$ is the largest node.
+Solving the $4\times4$ systems, with the sign patterns given by the zero
+bound (Appendix~\ref{sec:familydata} lists the solutions), the full
 certificates with zero sets $\{1,3,4\}$ and $\{1,2,5\}$ have tails
 \[
   \frac1{\beta(r)}\quad\text{and}\quad
@@ -1920,16 +1918,56 @@ three quadratics of the lower bounds as identities in $r$.  Both cubics
 increase on $r\ge1$, since there $r\le r^2$ and $1\le r^2$ give
 $c_2'(r)=644676r^2-111278r-138630\ge394768r^2>0$ and
 $c_5'(r)=618210r^2-134246r-161312\ge322652r^2>0$, and both are positive
-at $\tfrac{29}{20}$, so the certificate $\{1,2,5\}$ gives
-$\tau(\{2\})\le\tau^*$ and $N\le5$.  By Theorem~\ref{thm:halfmass},
+at $\tfrac{29}{20}$, so for $\tfrac{29}{20}\le r<3$ the certificate
+$\{1,2,5\}$ gives $\tau(\{2\})\le\tau^*$ and $N\le5$.  By Theorem~\ref{thm:halfmass},
 $T=\max(\tau^*,\tau(\{2\}),\tau(\{4\}))\le\max(\tau^*,1/\beta(r))$.
 
-For $r_c\le r<3$ this is $\tau^*$, so $T=\tau^*$.  For
+Now let $\tfrac{13}{10}\le r<\tfrac{29}{20}$, where $c_2$ and $c_5$ are
+negative at the left end, and take one more term of $H$.  By the same sign
+pattern and Appendix~\ref{sec:familydata},
+\[
+  2\sum_{d\le6}|H_d|-\Tail(H)=-H_2+H_4+H_5+H_6-\sum_{d\ge7}H_d
+  =\frac{c_6(r)(3-r)(5-r)(7-r)}{1315062000\,r^6(r-1)}
+\]
+on $(1,3)$, with
+$c_6(r)=23062470r^4-598283r^3-7874752r^2-16937760r-25048800$.  On $r\ge1$,
+$c_6'(r)\ge(92249880-1794849-15749504-16937760)r^3=57767767r^3>0$, and
+$c_6(\tfrac{13}{10})=\tfrac{522259242}{125}>0$, so $N\le6$.  The full
+certificate with zero set $\{1,3,5\}$ has tail
+\[
+  t_5(r)=\frac{5(347r^2+250r-501)}{24(r-1)q_5(r)},\qquad
+  q_5(r)=960r^2+5041r+7455,
+\]
+and, with $q(r)=3466r^2+7455r+11025$,
+\[
+  \frac1{\beta(r)}-t_2(r)=\frac{d_2(r)}{48(r-1)(15r+71)q(r)},\qquad
+  \frac1{\beta(r)}-t_5(r)=\frac{d_5(r)}{16(r-1)(15r+71)q_5(r)},
+\]
+where $d_2(r)=105829r^3-131556r^2+14850r+41991$ and
+$d_5(r)=-1670r^3-23167r^2+30517r+34080$.  For $r\ge1$,
+$d_2'(r)=317487r^2-263112r+14850\ge54375r^2+14850>0$ and $d_2(1)=31114$, while
+$d_5'(r)=-5010r^2-46334r+30517\le-20827$ and
+$d_5(\tfrac32)=\tfrac{44187}2$; so $t_2(r)<1/\beta(r)$ and
+$t_5(r)<1/\beta(r)$ on $[1,\tfrac32]$.  These three identities are checked
+over $\mathbb Q(r)$ in \texttt{test\_family\_window}
+(\texttt{tests/test\_attainment.py}), as those above.  By
+Theorem~\ref{thm:halfmass}, as $\{1,3\}=Z^*$,
+$T=\max(\tau^*,\tau(\{2\}),\tau(\{4\}),\tau(\{5\}))
+\le\max(\tau^*,t_2(r),1/\beta(r),t_5(r))=1/\beta(r)$, since $\tau^*<1/\beta(r)$
+for $r<r_c$.
+
+For $r_c\le r<3$ the bound $T\le\max(\tau^*,1/\beta(r))$ for
+$r\ge\tfrac{29}{20}$ is $\tau^*$, so $T=\tau^*$.  For
 $\tfrac{29}{20}\le r<r_c$ the lower bound gives $T\ge\tau(\{4\})\ge1/\beta(r)>\tau^*$,
 so $T=\tau(\{4\})=1/\beta(r)$, and every other placement costs at most
 $\tau^*$: $\{1\}$ and $\{3\}$ by Theorem~\ref{thm:halfmass}(a), $\{2\}$ by
 the certificate $\{1,2,5\}$, and $\{x\}$ with $x\ge5\ge N$ by
-Theorem~\ref{thm:halfmass}(c).  Theorem~\ref{thm:value} turns these into the stated infima.
+Theorem~\ref{thm:halfmass}(c).  For $\tfrac{13}{10}\le r<\tfrac{29}{20}$
+likewise $T\ge\tau(\{4\})\ge1/\beta(r)$, so $T=\tau(\{4\})=1/\beta(r)$, and
+every other placement costs less: $\{1\}$ and $\{3\}$ at most
+$\tau^*<1/\beta(r)$, $\{2\}$ and $\{5\}$ at most $t_2(r)$ and $t_5(r)$, and
+$\{x\}$ with $x\ge6\ge N$ less than $\tau^*$.  Theorem~\ref{thm:value} turns
+these into the stated infima.
 \end{proof}
 
 So the escaping placement stays extremal at some roots below $2$, here down
@@ -1973,9 +2011,11 @@ proved.
 \item A description of the root sets below $2$ at which the escaping
 placement stays extremal, which depends on more than $r_1$
 (Theorem~\ref{thm:family} and Proposition~\ref{prop:cutoffsharp}).
-\item Whether the infimum along $(r,3,5,7)$ equals $\beta(r)$ on
-$[\tfrac{13}{10},\tfrac{29}{20})$, where Theorem~\ref{thm:family} gives
-only the upper bound.
+\item The infimum along $(r,3,5,7)$ for $1<r<\tfrac{13}{10}$, where
+Theorem~\ref{thm:family} gives only the upper bound $\tfrac{209}4$; at
+$r=\tfrac54$ its proof breaks twice, as the multiplier $x+\kappa$ of the
+lower bound gives $\max_{j\ne4}|S_j|>\beta(r)$ and the half-mass point is
+$7$.
 \end{itemize}
 
 \paragraph{Relation to the literature.}  The nearest work is the reduced
@@ -2021,9 +2061,10 @@ and the tails of the seven full certificates for the placements
 $x=2,4,6,7,8,9,10$, with their comparisons with $\theta$, are computed over
 $\mathbb Q$ in \texttt{test\_value\_eleven\_tenths}.  In
 Theorem~\ref{thm:family}, the tails of the full certificates with zero sets
-$\{1,3,4\}$ and $\{1,2,5\}$ and the closed form of
-$2\sum_{d\le5}|H_d|-\Tail(H)$ are identities in $\mathbb Q(r)$, verified with
-$r$ an indeterminate in \texttt{test\_family\_threshold};
+$\{1,3,4\}$, $\{1,2,5\}$ and $\{1,3,5\}$ and the closed forms of
+$2\sum_{d\le n}|H_d|-\Tail(H)$ for $n=5,6$ are identities in $\mathbb Q(r)$,
+verified with $r$ an indeterminate in \texttt{test\_family\_threshold} and
+\texttt{test\_family\_window};
 Appendix~\ref{sec:familydata} lists the solutions of the linear systems, from
 which they can also be checked by hand.  The statement after
 Proposition~\ref{prop:runchord} that \eqref{eq:runchord} can fail above the
@@ -2041,7 +2082,7 @@ $\{1,3,5\}$ after it (\texttt{test\_below\_two}); the partial sums of $PM$
 in Theorem~\ref{thm:elevenvalue} and the comparisons in the remark after it
 (\texttt{test\_value\_eleven\_tenths}); the partial sums, quadratics and
 cubics of the proof of Theorem~\ref{thm:family}
-(\texttt{test\_family\_threshold}); and
+(\texttt{test\_family\_threshold} and \texttt{test\_family\_window}); and
 Proposition~\ref{prop:cutoffsharp} (\texttt{test\_cutoff\_sharp}).  The file
 also holds tests used in no proof: seeded random exact checks of
 Proposition~\ref{prop:runchord} and of the identity in
@@ -2068,8 +2109,8 @@ Theorem~\ref{thm:family} as rational functions of $r$, written with
 \[
   p(r)=(3-r)(5-r)(7-r),\qquad q(r)=3466r^2+7455r+11025 ,
 \]
-so that the tails $1/\beta(r)$ and
-$t_2(r)=(4267r^2+5070r-5871)/\bigl(48(r-1)q(r)\bigr)$ there can be checked
+so that the tails $1/\beta(r)$,
+$t_2(r)=(4267r^2+5070r-5871)/\bigl(48(r-1)q(r)\bigr)$ and $t_5(r)$ there can be checked
 by hand or by any computer algebra system.  Let $1<r<3$, so that
 $\tfrac1r$ is the largest of the nodes
 $\tfrac1r,\tfrac13,\tfrac15,\tfrac17$; then $p(r)$ and $q(r)$ are positive.  Each sum below has the form
@@ -2122,6 +2163,26 @@ with $v_3,v_4>0$ and $v_d<0$ for $d\ge6$, so
   =\frac{4267r^2+5070r-5871}{48(r-1)q(r)}=t_2(r).
 \]
 
+\paragraph{The certificate with zero set $\{1,3,5\}$.}  With
+$q_5(r)=960r^2+5041r+7455$, its weights are
+\begin{gather*}
+  \lambda_1=-\frac{960r^5}{p(r)q_5(r)},\qquad
+  \lambda_3=\frac{729(r+5)(r+7)}{2(3-r)q_5(r)},\\
+  \lambda_5=-\frac{15625(r+3)(r+7)}{2(5-r)q_5(r)},\qquad
+  \lambda_7=\frac{16807(r+3)(r+5)}{(7-r)q_5(r)},
+\end{gather*}
+and $v_0=1$, $v_1=v_3=v_5=0$,
+\[
+  v_2=-\frac{71r+105}{q_5(r)},\qquad
+  v_4=\frac{r+15}{q_5(r)},\qquad
+  \sum_{d\ge6}v_d=-\frac{7r^2+98r+375}{24(r-1)q_5(r)},
+\]
+with $v_2<0$, $v_4>0$ and $v_d<0$ for $d\ge6$, so
+\[
+  \Tail(v)=-v_2+v_4-\sum_{d\ge6}v_d
+  =\frac{5(347r^2+250r-501)}{24(r-1)q_5(r)}=t_5(r).
+\]
+
 \paragraph{The sum $H$ of Theorem~\ref{thm:halfmass}.}  With weight $1$ on
 $\tfrac1r$, $H_0=0$ and $H|_{Z^*}=0$, its weights are
 \[
@@ -2140,7 +2201,13 @@ and $H_0=H_1=H_3=0$,
 \end{gather*}
 So $\Tail(H)=-H_2+\sum_{d\ge4}H_d$ and $\sum_{d\le5}|H_d|=-H_2+H_4+H_5$,
 which give the identity for $2\sum_{d\le5}|H_d|-\Tail(H)$ in the proof of
-Theorem~\ref{thm:family}.
+Theorem~\ref{thm:family}.  For the identity with $d\le6$ there,
+\[
+  H_6=\frac{p(r)(44535r^3+246086r^2+529305r+782775)}{82191375r^6},\qquad
+  \sum_{d\ge7}H_d=\frac{p(r)\,e_7(r)}{1315062000r^6(r-1)},
+\]
+with $e_7(r)=430890r^4+2035579r^3+3937376r^2+8468880r+12524400$, and
+$\sum_{d\le6}|H_d|=-H_2+H_4+H_5+H_6$.
 
 \begin{thebibliography}{9}
 \small
