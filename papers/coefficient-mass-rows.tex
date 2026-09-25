@@ -51,7 +51,7 @@ certificates at $r=\frac54$ and $r=\frac43$ show that the prefix
 description fails in general and can fail in the third row of a diagonal
 while holding in the second, and finitely many certificates on intervals
 of roots show that it fails in the second row of some diagonal for every
-$r\in[\frac{11}{10},\frac{139}{100}]$.
+$r\in[\frac{21}{20},\frac{139}{100}]$.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient order
@@ -133,7 +133,7 @@ $r=\frac{177}{167}$, $V_r(51,2)<1/\nu_2(50)<1/\nu_1(50)$
 $\mu_r(S,L)$ decrease with $r$, a failure certified at two roots holds
 between them, and finitely many certificates show that the identity fails
 in the second row of some diagonal for every
-$r\in[\frac{11}{10},\frac{139}{100}]$ (Theorem~\ref{thm:failinterval}).
+$r\in[\frac{21}{20},\frac{139}{100}]$ (Theorem~\ref{thm:failinterval}).
 Every row $k\ge2$ is likewise the minimum of $V_r(L-1,k-1)$ and finitely many
 exempted-set terms (Theorem~\ref{thm:finiterows}), and exact certificates
 give $V_{4/3}(16,3)<V_{4/3}(15,2)=\min_{i\le3}1/\nu_i(14)$
@@ -1507,8 +1507,8 @@ this determines rows on both sides of the prefix identity
 shows that the identity can fail although $\nu_2(n)>\nu_1(n)$
 (Proposition~\ref{prop:secondrowhyp}).  Since $\eta_\sigma(n)$ and
 $\nu_i(n)$ decrease with $r$, one certificate covers an interval of roots,
-and $37$ of them show that the identity fails in the second row of some
-diagonal at every $r\in[\frac{11}{10},\frac{139}{100}]$
+and $49$ of them show that the identity fails in the second row of some
+diagonal at every $r\in[\frac{21}{20},\frac{139}{100}]$
 (Theorem~\ref{thm:failinterval}).
 
 \begin{lemma}[Dropping a far exempted position]\label{lem:rowmono}
@@ -1936,8 +1936,8 @@ Only $Z$ needs an optimality certificate; $Y$ and $Y'$ only give upper
 bounds, and need not be optimal at either root.
 
 \begin{theorem}[Second-row failures on an interval]\label{thm:failinterval}
-For every $r\in[\frac{11}{10},\frac{139}{100}]$ there is an $n$ with
-$10\le n\le36$ such that $\eta_2(n)>\max\{\nu_1(n),\nu_2(n)\}$ at the root
+For every $r\in[\frac{21}{20},\frac{139}{100}]$ there is an $n$ with
+$10\le n\le68$ such that $\eta_2(n)>\max\{\nu_1(n),\nu_2(n)\}$ at the root
 $r$; so $V_r(n+1,2)\le1/\eta_2(n)<\min_{i\le2}1/\nu_i(n)$, and the prefix
 identity~\eqref{eq:prefixid} fails at $(r,n+1,2)$.
 \end{theorem}
@@ -1947,21 +1947,21 @@ The proof is computer-assisted, by exact rational arithmetic as in
 Proposition~\ref{prop:secondrowexact}, in
 \texttt{test\_second\_row\_fails\_on\_an\_interval} of
 \texttt{tests/test\_rows.py}.  The file \texttt{tests/second\_row\_cover.json}
-lists $37$ tuples $(r_0,r_1,n,2,Y,Y',Z)$, with rational endpoints over
-denominators dividing $10^4$ and $n$ decreasing from $36$ to $10$.  The
+lists $49$ tuples $(r_0,r_1,n,2,Y,Y',Z)$, with rational endpoints over
+denominators dividing $2\cdot10^4$ and $n$ nonincreasing from $68$ to $10$.  The
 test checks that each tuple satisfies the hypotheses of
 Proposition~\ref{prop:failinterval} with $\sigma=2$: the sizes, $1\in Y'$,
 $2\in Z$, the vertex test for $Z$ at $r_1$, and the strict comparison.  It
-also checks that the first interval starts at $\frac{11}{10}$, that each
+also checks that the first interval starts at $\frac{21}{20}$, that each
 starts at or below the largest right end before it, and that the last one
 ends at or above $\frac{139}{100}$.  So the intervals $[r_0,r_1]$ cover
-$[\frac{11}{10},\frac{139}{100}]$, and Proposition~\ref{prop:failinterval}
+$[\frac{21}{20},\frac{139}{100}]$, and Proposition~\ref{prop:failinterval}
 applies at every root there.
 \end{proof}
 
 So the failures of Proposition~\ref{prop:secondrowexact} at $\frac54$ and
 $\frac43$ are not isolated: the second row misses the prefix identity at
-every root of $[\frac{11}{10},\frac{139}{100}]$, each time at the position
+every root of $[\frac{21}{20},\frac{139}{100}]$, each time at the position
 $2$ and a diagonal $n$ that moves with $r$.  The certificates were found by
 floating-point search, which played no part in the proof.  The same
 search, also not used in any proof, finds no second-row failure with
@@ -1970,8 +1970,10 @@ $1.472,\ldots,1.5$ (step $0.004$), nor with $n\le30$ at $1.6$, $1.7$,
 $1.8$ and $1.9$; between these the failures continue in narrow windows
 of $r$ for single $n$, such as $n=9$ on $[1.403,1.429]$ and $n=8$ near
 $1.466$.  Whether every $1<r<2$ has a failure in some row, and whether
-there is one for $1<r<\frac{11}{10}$, where the certificates would need
-$n>36$, remain open.
+there is one for every $1<r<\frac{21}{20}$, remain open.  There a failure
+at $(r,n+1,2)$ needs $\beta_r(n)>1$ (Theorem~\ref{thm:onepolyrows}), so by
+Lemma~\ref{lem:topnearone} its diagonal $n$ tends to infinity as
+$r\to1^+$.
 
 \subsection{Every row is a finite minimum}\label{sec:finiterows}
 

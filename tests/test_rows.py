@@ -460,9 +460,9 @@ def test_second_row_hypothesis_fails() -> None:
 
 
 # ``thm:failinterval``: a chain of certificates of ``prop:failinterval``, each
-# ``(r_0, r_1, n, sigma, Y, Y', Z)``, covers every root in ``[11/10, 139/100]``.
+# ``(r_0, r_1, n, sigma, Y, Y', Z)``, covers every root in ``[21/20, 139/100]``.
 _COVER_FILE = Path(__file__).with_name("second_row_cover.json")
-_COVER_ENDS = (Fraction(11, 10), Fraction(139, 100))
+_COVER_ENDS = (Fraction(21, 20), Fraction(139, 100))
 
 
 def _cover() -> list[tuple]:
@@ -501,25 +501,25 @@ def _chain_covers(cover: list[tuple], ends: tuple[Fraction, Fraction]) -> bool:
 
 
 def test_second_row_fails_on_an_interval() -> None:
-    """``thm:failinterval``: for every ``r`` in ``[11/10, 139/100]`` the prefix
+    """``thm:failinterval``: for every ``r`` in ``[21/20, 139/100]`` the prefix
     identity fails at ``(r, n+1, 2)`` for some ``n``, at the position 2."""
     cover = _cover()
     assert _chain_covers(cover, _COVER_ENDS)
     assert all(_fails_on_interval(cert) for cert in cover)
-    # The facts quoted in the paper: 37 certificates, n from 36 down to 10,
-    # always the position 2, endpoints over denominators dividing 10^4.
-    assert len(cover) == 37
-    assert [c[2] for c in (cover[0], cover[-1])] == [36, 10]
+    # The facts quoted in the paper: 49 certificates, n from 68 down to 10,
+    # always the position 2, endpoints over denominators dividing 2 * 10^4.
+    assert len(cover) == 49
+    assert [c[2] for c in (cover[0], cover[-1])] == [68, 10]
     assert all(c[2] >= d[2] for c, d in zip(cover, cover[1:], strict=False))
     assert {c[3] for c in cover} == {2}
-    assert all(10**4 % c[i].denominator == 0 for c in cover for i in (0, 1))
+    assert all(2 * 10**4 % c[i].denominator == 0 for c in cover for i in (0, 1))
     # The controls: a certificate stretched to the root 3/2, one with the
     # largest zero of Z moved by one, and the chain with a link dropped.
     lo, hi, n, sigma, y, y1, z = cover[-1]
     assert not _fails_on_interval((lo, Fraction(3, 2), n, sigma, y, y1, z))
     assert not _fails_on_interval((lo, hi, n, sigma, y, y1, (*z[:-1], z[-1] + 1)))
     assert not _chain_covers(cover[:5] + cover[6:], _COVER_ENDS)
-    assert not _chain_covers(cover, (Fraction(109, 100), _COVER_ENDS[1]))
+    assert not _chain_covers(cover, (Fraction(26, 25), _COVER_ENDS[1]))
 
 
 # Every row (``sec:finiterows``).  For a polynomial ``q_N`` through the
