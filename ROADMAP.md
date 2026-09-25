@@ -42,7 +42,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   excluded coefficient (`thm:bothsigns`) and mass
   `floor((L+1)**2/4) log(R/2)`, sharp at `+-s_j` (`cor:bothsignsmass`,
   `prop:bothsignssharp`).  Wide sectors (`sec:widesectors`): for multiples of degree `O(K)` the order is
-  `min(K**2, K/delta) log R` with both constants sharp (`thm:widesector`,
+  `min(K**2, K/delta) log R` with both constants sharp (`1/2` of `K**2 log R`
+  as `delta K -> 0`, on a common ray; `pi` of `(K/delta) log R`) (`thm:widesector`,
   `cor:wideconst`; `x^N - rho^N` attains `pi/delta`, `prop:widesharp`), so
   `c K**2 log R` is false over the reals; at Gaussian roots
   `(pi/delta - o(1)) K log R` holds unconditionally (`cor:widegauss`).
