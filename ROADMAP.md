@@ -3,6 +3,26 @@
 Research questions the papers leave open.  Each names what is proved and what
 is open; an answer lands in the paper it extends, and the row leaves.
 
+## Open at a glance
+
+- [attainment](papers/coefficient-mass-attainment.tex) (`sec:scope`): an a
+  priori bound on the zero set minimising one `tau({x})`; a half-mass
+  threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
+  the escaping placement extremal.
+- [complex](papers/coefficient-mass-complex.tex): whether `c K**2 log R`
+  holds for integer multiples at Gaussian roots in a wide sector
+  (`sec:widesectors`); whether one level set `H(y) = -v` holds boundedly
+  many Gaussian points above the axis (`prop:gaussheavy`); the rows of
+  `cor:annuli` item 1 at a fixed separation, and the least such separation
+  for the mass (`sec:annuli`).
+- [rows](papers/coefficient-mass-rows.tex): whether `nu_2(n) >= nu_1(n)`
+  implies the prefix identity at `k = 2` (`sec:secondrow`); whether the
+  worst finite position is always small, and failures occur for every
+  `1 < r < 2`; closed forms or tree bounds for rows `k >= 3`
+  (`sec:finiterows`).
+
+## Status
+
 - **Coefficient-mass sharpness, residue.**
   [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex)
   proves the partial-sum criterion at repeated roots (`thm:converse`,

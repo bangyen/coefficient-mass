@@ -21,10 +21,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: extractions/setup-just@v3
+      - name: Install chktex
+        run: sudo apt-get install -y --no-install-recommends chktex
+      - run: just tex
       - name: Install tectonic
         run: |
           curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net | sh
           sudo mv tectonic /usr/local/bin/
+      # tectonic's TeX bundle, fetched on first use, is most of the job's time
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/Tectonic
+          key: tectonic-${{ hashFiles('papers/*.tex') }}
+          restore-keys: tectonic-
       - run: just pdf
       - uses: actions/upload-artifact@v4
         with:

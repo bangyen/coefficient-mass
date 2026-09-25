@@ -16,7 +16,8 @@ Open questions are in [ROADMAP](ROADMAP.md).
 
 ```bash
 uv sync      # pinned dev tools (pytest, ruff)
-just check   # lint and every test (~10s)
+just check   # lint, spelling and every test (~10s)
+just tex     # chktex on the papers (needs chktex)
 just sweep   # the coefficient-mass sweep with its printed tallies
 just pdf     # build the papers, failing on undefined references (needs tectonic)
 ```
@@ -25,6 +26,8 @@ just pdf     # build the papers, failing on undefined references (needs tectonic
 | --- | --- |
 | `tests/test_citations.py` | every numbered citation between the papers names the label it means, by recomputing LaTeX's numbering (`tools/numbering.py`) |
 | `tests/test_roadmap.py` | every label the roadmap cites exists in a paper its entry links |
+| `tests/test_lean.py` | every result number a Lean docstring cites names the label it means, and each headline Lean theorem proves the statement of the result it is listed against |
+| `tests/test_metadata.py` | `CITATION.cff` and `pyproject.toml` carry the same version |
 | `tests/test_sweep.py` | the seeded certificate sweep and exact worked numbers of `coefficient-mass` and `-attainment` (`tests/sweep.py`) |
 | `tests/test_attainment.py` | the run chord behind the extremal escaping placement at roots `>= 2` (failing above the cutoff), the exact infimum `1704/31` at `(2,3,5,7)`, the multiple beating `1/tau*` at `(11/10,3,5,7)`, the aligned-lift identity at any roots above 1, the exact infimum `3398808/96935` at `(11/10,3,5,7)`, the threshold `r_c` along `(r,3,5,7)`, and the failure along `(r,5,7)` for every `r < 2` |
 | `tests/test_rows.py` | last rows, every row a top row at `r >= 2` on a window, the exact `r = 5/4` counterexample to the prefix identity, exact second rows at `r = 5/4` and `4/3` from vertex certificates, far-zero thresholds, and exact third rows at `r = 4/3` and `3/2` from certified trees |
@@ -66,6 +69,10 @@ that renumbers a cited result, tag a new version and regenerate the pins:
 ```bash
 just pin coefficient-mass:3.4 coefficient-mass-complex:2.1
 ```
+
+Pushing a tag `vN` (or `vN.M.K`) runs the release workflow: it checks the tag
+against the version in `pyproject.toml`, runs the checks, and attaches the
+compiled papers to a GitHub release, so a cited version keeps its PDFs.
 
 ## License
 

@@ -1,4 +1,5 @@
 PAPERS := "coefficient-mass coefficient-mass-attainment coefficient-mass-complex coefficient-mass-rows"
+CHKTEX_OFF := "-n1 -n2 -n3 -n8 -n9 -n12 -n17 -n24 -n25 -n36 -n40 -n44"
 
 # lint, then every test: citations, roadmap labels, certificate sweeps
 check: lint test
@@ -6,6 +7,15 @@ check: lint test
 lint:
     uv run ruff format --check tests tools
     uv run ruff check tests tools
+    uv run codespell papers tests tools CoefficientMass README.md ROADMAP.md
+
+# chktex on the papers; the disabled warnings are ones the house style
+# contradicts (`~` before references, dashes in DOIs, `{}` around brackets)
+tex:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    out=$(chktex -q -v0 {{CHKTEX_OFF}} papers/*.tex)
+    if [ -n "$out" ]; then echo "$out" >&2; exit 1; fi
 
 # every test, the certificate sweeps included (~10s)
 test:
