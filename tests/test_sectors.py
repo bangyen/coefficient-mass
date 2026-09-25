@@ -653,6 +653,123 @@ def test_one_heavy_coefficient_is_one_level_set() -> None:
         assert n_min**d <= 4**d * value * value
 
 
+def _pell_triples(count: int) -> list[tuple[int, int]]:
+    """``(a, c)`` with ``a + c sqrt 3 = (2 + sqrt 3)^n``, ``n = 2, 3, ...``."""
+    out, (a, c) = [], (7, 4)
+    for _ in range(count):
+        out.append((a, c))
+        a, c = 2 * a + 3 * c, a + 2 * c
+    return out
+
+
+def test_three_points_at_every_scale() -> None:
+    """After ``prop:gaussheavy``: at ``a^2 - 3c^2 = 1``, ``c >= 4``,
+    ``(y^3 - y)^2 = -(8c^3 + 2c)^2`` at ``+-a + ci`` and ``2ci``, which have
+    ``rho_min = 2c > 4``, and ``y^3 - y - (8c^3 + 2c)i`` factors as quoted.
+
+    Control: at ``(a, c) = (8, 4)``, off the Pell equation, ``8 + 4i`` is
+    not in the level set.
+    """
+    h = [0, 0, 1, 0, -2, 0, 1]
+    for a, c in _pell_triples(8):
+        assert a * a - 3 * c * c == 1 and c >= 4
+        k = 8 * c**3 + 2 * c
+        roots = [(a, c), (-a, c), (0, 2 * c)]
+        assert all(_horner([0, -1, 0, 1], z) == (0, k) for z in roots[:2])
+        assert _horner([0, -1, 0, 1], roots[2]) == (0, -k)
+        assert all(_horner(h, z) == (-k * k, 0) for z in roots)
+        f = [k * k] + h[1:]
+        n_min = min(x * x + y * y for x, y in roots)
+        assert n_min == 4 * c * c and 4 * _b(f)[1] ** 2 < n_min
+        assert _divides(_pairs(roots), f)
+        cubic = [(0, -k), (-1, 0), (0, 0), (1, 0)]
+        fiber = [(a, c), (-a, c), (0, -2 * c)]
+        linear = [[(-x, -y), (1, 0)] for x, y in fiber]
+        assert _gpoly_product(linear) == cubic
+    assert _pell_triples(1) == [(7, 4)] and 8 * 4**3 + 2 * 4 == 520
+    assert _horner(h, (8, 4)) != _horner(h, (0, 8))
+
+
+def _circle_q_lower(n: int) -> Fraction:
+    """A rational lower bound for ``Q = (3 rho - 2)/(rho - 2)``,
+    ``rho = sqrt n > 2``, which decreases in ``rho``."""
+    rho_up = Fraction(isqrt(n * 10**12) + 1, 10**6)
+    return (3 * rho_up - 2) / (rho_up - 2)
+
+
+def _near_one_circle(h: Poly, roots: list[Gauss], ratio: Fraction | None) -> bool:
+    """``(rho_j / rho_min)^d < Q`` for every root, with ``Q`` replaced by
+    ``ratio`` when given, and ``K < 6 rho_min``."""
+    norms = [a * a + b * b for a, b in roots]
+    n_min, d = min(norms), len(h) - 1
+    q = _circle_q_lower(n_min) if ratio is None else ratio
+    return (
+        all(Fraction(m, n_min) ** d < q * q for m in norms)
+        and len(roots) ** 2 < 36 * n_min
+    )
+
+
+def test_level_set_near_one_circle() -> None:
+    """``prop:gausscircle``: the prescribed roots of ``v + H`` have
+    ``rho_min <= rho_j < rho_min Q^(1/d)`` and number fewer than
+    ``6 rho_min``; checked on the Pell triples, on the level sets of
+    ``test_one_heavy_coefficient_is_one_level_set``, and on the arithmetic
+    that closes the proof, ``K < 5.8 rho`` once ``d >= 12 rho``.
+
+    Control: ``Q = 1``, all the roots on one circle, fails at
+    ``+-7 + 4i``, ``8i``.
+    """
+    h = [0, 0, 1, 0, -2, 0, 1]
+    for a, c in _pell_triples(8):
+        assert _near_one_circle(h, [(a, c), (-a, c), (0, 2 * c)], None)
+    big_b, seen = 2, 0
+    for (g, _), ys in _level_sets(big_b, 4, 6).items():
+        if 4 * big_b**2 < min(a * a + b * b for a, b in ys):
+            assert _near_one_circle([0, *g], ys, None)
+            seen += 1
+    assert seen > 0
+    for n in range(5, 20000):
+        rho = n**0.5
+        q, d = (3 * rho - 2) / (rho - 2), 12 * rho
+        count = (
+            pi
+            / 2
+            * (rho * rho * (q ** (2 / d) - 1) + 2**0.5 * rho * (1 + q ** (1 / d)))
+        )
+        assert count < 5.8 * rho
+    assert not _near_one_circle(h, [(7, 4), (-7, 4), (0, 8)], Fraction(1))
+
+
+def test_gaussian_integers_in_a_half_annulus() -> None:
+    """``prop:gausscircle``: fewer than
+    ``(pi/2)(r'^2 - r^2 + sqrt 2 (r + r'))`` Gaussian integers above the axis
+    have ``r <= |z| < r'``, checked with ``333/106 < pi`` and
+    ``1414/1000 < sqrt 2``.
+
+    Control: without the ``sqrt 2`` term the bound fails at ``r = 5``,
+    ``r' = 501/100``, where ``3 + 4i``, ``4 + 3i``, ``5i`` and their
+    reflections give five points (checked with ``22/7 > pi``).
+    """
+    for p in range(9, 120):
+        r = Fraction(p, 4)
+        for w in (Fraction(1, 100), Fraction(1, 3), Fraction(2), Fraction(p, 8)):
+            s = r + w
+            m = ceil(s)
+            count = sum(
+                1
+                for a in range(-m, m + 1)
+                for b in range(1, m + 1)
+                if r * r <= a * a + b * b < s * s
+            )
+            bound = s * s - r * r + Fraction(1414, 1000) * (r + s)
+            assert count <= Fraction(333, 212) * bound
+    r, s = Fraction(5), Fraction(501, 100)
+    count = sum(
+        1 for a in range(-6, 7) for b in range(1, 7) if r * r <= a * a + b * b < s * s
+    )
+    assert count == 5 > Fraction(22, 14) * (s * s - r * r)
+
+
 # Counting Gaussian integers (cor:gausscount).
 
 
