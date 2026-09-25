@@ -19,8 +19,10 @@ to see anything cannot pass.
 
 from __future__ import annotations
 
+import json
 from fractions import Fraction
 from itertools import combinations
+from pathlib import Path
 
 import pytest
 
@@ -455,6 +457,69 @@ def test_second_row_hypothesis_fails() -> None:
     # moved by one, and the constrained optimum Y'_50 offered for nu_1(51).
     assert not _vertex_optimal((*_FIVE50[:-1], 1577), {5}, r)
     assert not _vertex_optimal(_ONE50, set(), r)
+
+
+# ``thm:failinterval``: a chain of certificates of ``prop:failinterval``, each
+# ``(r_0, r_1, n, sigma, Y, Y', Z)``, covers every root in ``[21/20, 139/100]``.
+_COVER_FILE = Path(__file__).with_name("second_row_cover.json")
+_COVER_ENDS = (Fraction(21, 20), Fraction(139, 100))
+
+
+def _cover() -> list[tuple]:
+    return [
+        (Fraction(lo), Fraction(hi), n, sigma, tuple(y), tuple(y1), tuple(z))
+        for lo, hi, n, sigma, y, y1, z in json.loads(_COVER_FILE.read_text())
+    ]
+
+
+def _fails_on_interval(cert: tuple) -> bool:
+    """The hypotheses of ``prop:failinterval``: ``Z`` passes the vertex test
+    for ``eta_sigma(n)`` at ``r_1``, and ``Phi_{r_1}(Z)`` exceeds
+    ``Phi_{r_0}(Y)`` and ``Phi_{r_0}(Y')``."""
+    lo, hi, n, sigma, y, y1, z = cert
+    return (
+        1 < lo < hi
+        and sigma >= 2
+        and (len(set(y)), len(set(y1)), len(set(z))) == (n - 1, n, n)
+        and (len(y), len(y1), len(z)) == (n - 1, n, n)
+        and min((*y, *y1, *z)) >= 1
+        and 1 in y1
+        and sigma in z
+        and _phi(z, hi) > max(_phi(y, lo), _phi(y1, lo))
+        and _vertex_optimal(z, {sigma}, hi)
+    )
+
+
+def _chain_covers(cover: list[tuple], ends: tuple[Fraction, Fraction]) -> bool:
+    """Whether the intervals ``[r_0, r_1]`` cover ``ends`` without a gap."""
+    reach = ends[0]
+    for lo, hi, *_ in cover:
+        if lo > reach:
+            return False
+        reach = max(reach, hi)
+    return reach >= ends[1] and cover[0][0] <= ends[0]
+
+
+def test_second_row_fails_on_an_interval() -> None:
+    """``thm:failinterval``: for every ``r`` in ``[21/20, 139/100]`` the prefix
+    identity fails at ``(r, n+1, 2)`` for some ``n``, at the position 2."""
+    cover = _cover()
+    assert _chain_covers(cover, _COVER_ENDS)
+    assert all(_fails_on_interval(cert) for cert in cover)
+    # The facts quoted in the paper: 49 certificates, n from 68 down to 10,
+    # always the position 2, endpoints over denominators dividing 2 * 10^4.
+    assert len(cover) == 49
+    assert [c[2] for c in (cover[0], cover[-1])] == [68, 10]
+    assert all(c[2] >= d[2] for c, d in zip(cover, cover[1:], strict=False))
+    assert {c[3] for c in cover} == {2}
+    assert all(2 * 10**4 % c[i].denominator == 0 for c in cover for i in (0, 1))
+    # The controls: a certificate stretched to the root 3/2, one with the
+    # largest zero of Z moved by one, and the chain with a link dropped.
+    lo, hi, n, sigma, y, y1, z = cover[-1]
+    assert not _fails_on_interval((lo, Fraction(3, 2), n, sigma, y, y1, z))
+    assert not _fails_on_interval((lo, hi, n, sigma, y, y1, (*z[:-1], z[-1] + 1)))
+    assert not _chain_covers(cover[:5] + cover[6:], _COVER_ENDS)
+    assert not _chain_covers(cover, (Fraction(26, 25), _COVER_ENDS[1]))
 
 
 # Every row (``sec:finiterows``).  For a polynomial ``q_N`` through the

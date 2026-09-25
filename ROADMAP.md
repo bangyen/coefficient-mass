@@ -26,7 +26,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
 - [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
-  for every `1 < r < 2`; closed forms or tree bounds for rows `k >= 3`
+  for every `1 < r < 2` (proved for `21/20 <= r <= 139/100`,
+  `thm:failinterval`); closed forms or tree bounds for rows `k >= 3`
   (`sec:finiterows`).
 - [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
   holds for integer multiples at Gaussian roots in a wide sector
@@ -444,6 +445,17 @@ is open; an answer lands in the paper it extends, and the row leaves.
   (`prop:secondrowhyp`, `tests/test_rows.py`); the margins are below 0.3
   percent, and floating-point experiments find no failure under the
   hypothesis at `r = p/q >= 5/4`, `q <= 20`.
+  Failures on an interval (`lem:rootmono`, `prop:failinterval`,
+  `thm:failinterval`): every `mu_r(S,L)` decreases with `r`, so
+  `eta_sigma(n) > max(nu_1(n), nu_2(n))` at `r_1` (a vertex certificate)
+  against upper bounds at `r_0 < r_1` persists on `[r_0, r_1]`; 49 such
+  certificates (`tests/second_row_cover.json`, `n` from 68 down to 10,
+  always `sigma = 2`) show that for every `r` in `[21/20, 139/100]` the
+  prefix identity fails at `(r, n+1, 2)` for some `n`.  Numerically only,
+  the failures continue in narrow windows (`n = 9` on about
+  `[1.403, 1.429]`, `n = 8` near `1.466`), and a floating-point search
+  finds no second-row failure with `n <= 40` at `r = 1.400` and on most of
+  a `0.004`-grid of `[1.43, 1.5]`, nor with `n <= 30` at `1.6, ..., 1.9`.
   Every row (`sec:finiterows`): a threshold for up to `m` far zeros
   (`lem:farzeros`) cuts the exempted sets to a finite tree, so for all
   `r > 1`, `n, m >= 1`, `V_r(n+m,m+1) = min(V_r(n+m-1,m), min_(S in tree)
@@ -459,7 +471,12 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `V_{3/2}(10,3) = beta_{3/2}(8)`, the identity with minimum at `i = 1`.
   Open: a condition on `r` and `n` that gives the identity at `k = 2`;
   whether the worst finite position or set is always small; whether failures
-  occur for every `1 < r < 2`; closed forms, or bounds on the trees, for the
+  occur for every `1 < r < 2`, in particular for `1 < r < 21/20` (a
+  failure needs `beta_r(n) > 1`, so `n -> oo` as `r -> 1+` by
+  `thm:onepolyrows` and `lem:topnearone`) and
+  for `r` near `1.40` and above `1.43`, where the second row may satisfy the
+  identity on every diagonal and a failure would have to come from a row
+  `k >= 3`; closed forms, or bounds on the trees, for the
   rows `k >= 3` with `beta_r(n) > 1` -- `thm:finiterows` does not say how to
   find the minimizers `q_N` it branches on, and its thresholds do not
   decrease with `m`.
