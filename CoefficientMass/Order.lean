@@ -66,6 +66,6 @@ through `Polynomial.map (algebraMap ℝ ℂ)`. -/
 def LogarithmicMass : Prop :=
   ∀ (L : ℕ) (r : Fin L → ℝ) (F : ℂ[X]),
     Monotone r → (∀ i, 2 ≤ r i) → F ≠ 0 → rootProduct ℂ r ∣ F →
-      (L + 1) * Real.log ‖F.leadingCoeff‖ + ∑ i, ((i : ℕ) + 1) * Real.log (r i - 1) ≤ mass F
+      (L + 1) * Real.log ‖F.leadingCoeff‖ + ∑ i : Fin L, ((i : ℕ) + 1 : ℝ) * Real.log (r i - 1) ≤ mass F
 
 end CoefficientMass

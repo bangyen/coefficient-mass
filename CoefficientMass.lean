@@ -6,7 +6,9 @@ Authors: Bangyen Pham
 
 import CoefficientMass.Defs
 import CoefficientMass.ExpSum
+import CoefficientMass.Mass
 import CoefficientMass.Order
+import CoefficientMass.RealPart
 
 /-!
 # CoefficientMass
