@@ -144,16 +144,19 @@ leading coefficient of modulus at least $1$ and degree at most
 $\pi K/(2E(2\delta))$, where
 $E(2\delta)\le(8\delta/\log2)\log(e\pi/(2\delta))$ (Section~\ref{sec:thin},
 Theorem~\ref{thm:thinsector}); since the degree is at least $K$, this
-needs $E(2\delta)\le\pi/2$, which forces $\delta<0.033$, so the theorem is
-for $\delta\to0$.  At distinct Gaussian-integer roots in the
+needs $E(2\delta)\le\pi/2$, which forces $\delta<0.033$ (and
+$\delta<0.0134$ for real multiples, whose zeros off the axis come in
+conjugate pairs), so the theorem is for $\delta\to0$.  At distinct Gaussian-integer roots in the
 upper half-plane, where a carry
 argument charges degree against mass (Theorem~\ref{thm:gausscharge}), every
 integer multiple pays the smaller of this and
 $\pi K\log(R/2)/(2E(2\delta))$ (Theorem~\ref{thm:thingauss}), which is of
-order $K^2\log R$ when $\delta K\log(e\pi/(2\delta))=O(1)$.  In a sector of
+order $K^2\log R$ when $\delta K\log(e\pi/(2\delta))=O(1)$; the second
+term improves on the trivial bound $2K\log R$ only for
+$\delta<0.0134$.  In a sector of
 half-width $\delta<\pi/2$ the crossings
 are counted against the equidistributed share $\delta/\pi$ of the
-large zeros; as $K,R\to\infty$, multiples of degree $O(K)$ with leading coefficient of modulus at least $1$ pay
+large zeros, in the spirit of the Erd\H{o}s--Tur\'an theorem~\cite{erdos-turan}; as $K,R\to\infty$, multiples of degree $O(K)$ with leading coefficient of modulus at least $1$ pay
 $(\frac\pi\delta-o(1))K\log R$ at fixed $\delta$ and $(\frac12-o(1))K^2\log R$
 if $\delta K\to0$, both sharp (Theorem~\ref{thm:widesector},
 Corollaries~\ref{cor:wideconst} and~\ref{cor:thinconst},
@@ -501,6 +504,12 @@ $u=\log|\beta|$ shows $F(\beta)\ne0$.
 
 Item~2 is the Archimedean form of the Newton polygon theorem: up to the
 factor $3$, the moduli of the roots can only sit at the tropical roots.
+Bounds of this kind are classical: they go back to Hadamard and to
+Ostrowski's analysis of the Graeffe method~\cite{ostrowski}; item~1 is
+Pellet's theorem~\cite{marden} at the active vertex; and the tropical roots
+and log-majorization of root moduli by them are developed
+in~\cite{akian-gaubert-sharify}.  We include the short proof to fix the
+constant $3$.
 Unlike the non-Archimedean case, the roots of modulus near $e^{\sigma_s}$ need not
 number $\ell_s$; $(x-1)^D$ has all its roots on $|z|=1$ but
 tropical roots $\log\frac{i+1}{D-i}$ spread over $[-\log D,\log D]$.
@@ -605,7 +614,7 @@ attained to leading order (the ratio tends to $1$) as $\min_sT_s\to\infty$
 Corollary~\ref{cor:separated} is essentially the case $K_s=1$.
 
 For a nonzero $F$ and $r>0$ we call a position $y$ maximizing $|f_i|r^i$ a
-\emph{central index} at $r$.  In the notation of Theorem~\ref{thm:archnewton},
+\emph{central index} at $r$, as in Wiman--Valiron theory~\cite{hayman}.  In the notation of Theorem~\ref{thm:archnewton},
 the central index at $r=e^u$ is the vertex active at $u$ when $u$ is not a
 tropical root; at a tropical root it is any position $i$ of the corresponding
 edge with $\log|f_i|=\varphi(i)$, its two vertices included.  Every central
@@ -1093,7 +1102,8 @@ roots $\pm s_j$, all of modulus at least $R$, and
   \Lambda(P)\ \le\ \Bigl\lfloor\frac{(L+1)^2}4\Bigr\rfloor\log(\lambda R)+m^2\log2 .
 \]
 So the coefficient $\lfloor(L+1)^2/4\rfloor\sim\frac14L^2$ of $\log R$ in
-\eqref{eq:bothmass} cannot be increased, while for roots of one sign
+\eqref{eq:bothmass} cannot be increased as $R\to\infty$ with $m$ and
+$\lambda$ fixed, where $m^2\log2$ is of lower order, while for roots of one sign
 \cite[Corollary~3.4]{coefficient-mass} gives $\frac{L(L+1)}2\log(R-1)$.
 \end{proposition}
 
@@ -1215,7 +1225,10 @@ and $\frac{m(m+1)}2\ge\frac{K(K-2)}8$.
 Since $d\ge K$, the degree hypothesis can hold only when
 $E(2\delta)\le\pi/2$, which forces $\delta<0.033$ (at $\delta=0.033$,
 $8\delta/\log2>0.38$ and $1+\log(1+\pi/(4\delta))>1+\log24.7>4.2$, so
-$E(2\delta)>1.596>\pi/2$, and $E$ is increasing): the theorem is meant for
+$E(2\delta)>1.596>\pi/2$, and $E$ is increasing; numerically the threshold
+is $\delta=0.0321\ldots$).  If $B$ is real and the sector misses the real
+axis, the conjugates of the $K$ zeros give $d\ge2K$, so the hypothesis needs
+$E(2\delta)\le\pi/4$, that is $\delta<0.0134$: the theorem is meant for
 $\delta\to0$, and Section~\ref{sec:widesectors} treats wider sectors.
 
 \begin{proof}
@@ -1903,6 +1916,12 @@ No datasets were generated or analyzed in this study.
 
 \begin{thebibliography}{99}
 \small
+\bibitem{akian-gaubert-sharify}
+M.~Akian, S.~Gaubert and M.~Sharify,
+\newblock Log-majorization of the moduli of the eigenvalues of a matrix
+polynomial by tropical roots,
+\newblock \emph{Linear Algebra and its Applications} 528 (2017), 394--435.
+
 \bibitem{bbbp-ray}
 F.~Beaucoup, P.~Borwein, D.~W. Boyd and C.~Pinner,
 \newblock Power series with restricted coefficients and a root on a given ray,
@@ -1914,7 +1933,7 @@ F.~Beaucoup, P.~Borwein, D.~W. Boyd and C.~Pinner,
 B.~Pham,
 \newblock Displaced-zero certificates and the coefficient mass of polynomial
 multiples,
-\newblock manuscript in preparation.
+\newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
 
 \bibitem{dj}
 A.~Dubickas and J.~Jankauskas,
@@ -1923,11 +1942,33 @@ A.~Dubickas and J.~Jankauskas,
 \newblock \href{https://doi.org/10.5486/PMD.2007.3728}
 {doi:10.5486/PMD.2007.3728}.
 
+\bibitem{erdos-turan}
+P.~Erd\H{o}s and P.~Tur\'an,
+\newblock On the distribution of roots of polynomials,
+\newblock \emph{Annals of Mathematics} (2) 51 (1950), 105--119.
+
+\bibitem{hayman}
+W.~K. Hayman,
+\newblock The local growth of power series: a survey of the Wiman--Valiron
+method,
+\newblock \emph{Canadian Mathematical Bulletin} 17 (1974), 317--358.
+
 \bibitem{lenstra-lacunary}
 H.~W. Lenstra, Jr.,
 \newblock Finding small degree factors of lacunary polynomials,
 \newblock in \emph{Number Theory in Progress}, Vol.~1 (Zakopane, 1997),
 de Gruyter, 1999, 267--276.
+
+\bibitem{marden}
+M.~Marden,
+\newblock \emph{Geometry of Polynomials}, 2nd ed.,
+\newblock Mathematical Surveys 3, American Mathematical Society, 1966.
+
+\bibitem{ostrowski}
+A.~Ostrowski,
+\newblock Recherches sur la m\'ethode de Graeffe et les z\'eros des
+polynomes et des s\'eries de Laurent,
+\newblock \emph{Acta Mathematica} 72 (1940), 99--155.
 
 \bibitem{schinzel-complex}
 A.~Schinzel,

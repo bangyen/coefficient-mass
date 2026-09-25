@@ -11,7 +11,7 @@ from __future__ import annotations
 import random
 from fractions import Fraction
 from itertools import product
-from math import ceil, comb, gcd, isqrt, prod
+from math import ceil, comb, gcd, isqrt, log, prod
 
 import pytest
 
@@ -865,3 +865,83 @@ def test_gaussian_integers_in_a_disc() -> None:
     x = Fraction(101, 100)
     count = sum(1 for a in range(-2, 3) for b in range(-2, 3) if a * a + b * b < x * x)
     assert count == 5 > Fraction(22, 7) * x * x
+
+
+# The Archimedean Newton polygon (thm:archnewton, cor:separated).
+
+
+def _tropical_roots(f: Poly) -> list[float]:
+    """The tropical roots ``sigma_1 > sigma_2 > ...``: walking the upper
+    concave hull of ``(i, log|f_i|)`` down from the top degree, the next
+    vertex is the one reached by the steepest rise, and ``sigma`` is that
+    rise per step."""
+    logs = {i: log(abs(c)) for i, c in enumerate(f) if c != 0}
+    v, sigmas = len(f) - 1, []
+    while any(j < v for j in logs):
+        sigma, j = max(((logs[j] - logs[v]) / (v - j), -j) for j in logs if j < v)
+        sigmas.append(sigma)
+        v = -j
+    return sigmas
+
+
+def _active(f: Poly, r: Fraction) -> int:
+    """The position maximizing ``|f_i| r^i``, the largest one on a tie."""
+    return max(range(len(f)), key=lambda i: (abs(f[i]) * r**i, i))
+
+
+def _dominates(f: Poly, r: Fraction) -> bool:
+    v = _active(f, r)
+    return abs(f[v]) * r**v > sum(abs(c) * r**i for i, c in enumerate(f) if i != v)
+
+
+def test_newton_polygon_dominance() -> None:
+    """At ``r = e^u`` farther than ``log 3`` from every tropical root, the
+    active term exceeds the sum of all the others, exactly (item 1).
+
+    Control: at distance ``log(5/2)`` on both sides the term need not
+    dominate, as the coefficients ``5^(n-|i-n|) 2^|i-n|`` show at ``r = 1``.
+    """
+    rng = random.Random(SEED)
+    checked = 0
+    for _ in range(400):
+        f = [rng.choice([-1, 1]) * 10 ** rng.randint(0, 12) * rng.randint(1, 9)]
+        f += [rng.choice([0, 1]) * rng.randint(-(10**9), 10**9) for _ in range(8)]
+        f.append(rng.choice([-1, 1]) * rng.randint(1, 9))
+        sigmas = _tropical_roots(f)
+        for _ in range(20):
+            r = Fraction(rng.randint(1, 10**6), rng.randint(1, 10**6))
+            u = log(r)
+            if all(abs(u - s) > log(3) + 1e-9 for s in sigmas):
+                assert _dominates(f, r)
+                checked += 1
+    assert checked >= 500
+    n = 6
+    g = [5 ** (n - abs(i - n)) * 2 ** abs(i - n) for i in range(2 * n + 1)]
+    sigmas = _tropical_roots(g)
+    assert all(abs(abs(s) - log(Fraction(5, 2))) < 1e-9 for s in sigmas)
+    assert not _dominates(g, Fraction(1))
+
+
+def test_separated_moduli() -> None:
+    """Real roots ``rho_1 >= 3`` with ``rho_(j+1) > 9 rho_j`` force
+    ``b_k >= |f_D| prod_(i>=k) rho_i/3`` for every multiple (cor:separated,
+    item 1), on seeded multiples with random cofactors.
+
+    Control: the same bound without the factor ``1/3`` fails on some of them.
+    """
+    rng = random.Random(SEED)
+    failures = 0
+    for _ in range(300):
+        size = rng.randint(1, 3)
+        rhos = [rng.randint(3, 6)]
+        for _ in range(size - 1):
+            rhos.append(9 * rhos[-1] + rng.randint(1, 5))
+        roots = [rng.choice([-1, 1]) * rho for rho in rhos]
+        f = _mul(_product([[-s, 1] for s in roots]), _cofactor(rng))
+        b = _b(f)
+        lead = abs(f[-1])
+        for k in range(1, size + 1):
+            tail = prod(rhos[k - 1 :])
+            assert b[k - 1] * 3 ** (size - k + 1) >= lead * tail
+            failures += b[k - 1] < lead * tail
+    assert failures > 0
