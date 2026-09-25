@@ -4,7 +4,9 @@ Thin sectors and sectors of every width are checked on seeded random
 Gaussian-integer multiples, with real zeros along the rays counted exactly by
 Sturm sequences; the integer imitations of ``x^N - rho^N`` and the heavy
 coefficients at Gaussian roots on seeded integer multiples; polynomials in a
-power and symmetric root sets exactly.  Every group has
+power and symmetric root sets exactly; ``p``-adic Newton polygons at the primes
+over coprime norms on seeded multiples, and small coefficients after the
+lowest one by exhausting the cofactor.  Every group has
 a control that a false variant of its statement is caught.  The polynomial
 helpers and the block decomposition of ``lem:gaussblocks`` (a result of
 ``coefficient-mass-complex.tex``) are those of ``tests/test_complex.py``.
@@ -565,6 +567,151 @@ def test_lowest_coefficients_common_norm() -> None:
             assert norm ** (big_k + m - 1) % d == 0
             if m >= 2:
                 assert d < p[0] ** m
+
+
+# Valuations at the primes over the norms (prop:gaussadic).
+
+#: Odd, pairwise coprime norms ``125 = 5^3``, ``13``, ``17``, ``89`` with
+#: ``gcd(a, c) = 1``: a prime power beside the primes of ``COPRIME``.
+COPRIME_POWER = [(2, 11), (-2, 3), (4, 1), (8, 5)]
+
+
+def _val(n: int, p: int) -> int:
+    k = 0
+    while n % p == 0:
+        n //= p
+        k += 1
+    return k
+
+
+def _prime_powers(n: int) -> list[tuple[int, int]]:
+    out, p = [], 2
+    while p * p <= n:
+        if n % p == 0:
+            out.append((p, _val(n, p)))
+            n //= p ** out[-1][1]
+        p += 1
+    return out + ([(n, 1)] if n > 1 else [])
+
+
+def _slope_end(f: Poly, p: int, w: int) -> int | None:
+    """The right endpoint of the edge of slope ``-w`` of the lower convex hull
+    of the points ``(i, v_p(f_i))``, ``f_i != 0``, or ``None``."""
+    pts = [(i, _val(c, p)) for i, c in enumerate(f) if c]
+    hull: list[tuple[int, int]] = []
+    for q in pts:
+        while len(hull) >= 2:
+            (x1, y1), (x2, y2) = hull[-2], hull[-1]
+            if (y2 - y1) * (q[0] - x1) >= (q[1] - y1) * (x2 - x1):
+                hull.pop()
+            else:
+                break
+        hull.append(q)
+    for (x1, y1), (x2, y2) in zip(hull, hull[1:], strict=False):
+        if y1 - y2 == w * (x2 - x1):
+            return x2
+    return None
+
+
+def _adic_charge(f: Poly, roots: list[Gauss]) -> int:
+    """``exp`` of the middle term of ``prop:gaussadic``, item 2, after
+    checking item 1 at every ``(j, p)``."""
+    support = [i for i, c in enumerate(f) if c]
+    e2 = support[1]
+    charge = 1
+    for z in roots:
+        for p, w in _prime_powers(_norm(z)):
+            y = _slope_end(f, p, w)
+            assert y is not None and y >= e2 and f[y]
+            assert all(f[i] % p ** (w * (y - i)) == 0 for i in range(y))
+            charge *= p ** (w * sum(y - i for i in support if i < y))
+    return charge
+
+
+def _power_multiple(roots: list[Gauss], n: int) -> Poly:
+    """The least ``A(x^N)`` divisible by ``P``: ``A`` the product of the
+    minimal polynomials of the classes of ``alpha_j^N``."""
+    minimal: dict[Gauss, Poly] = {}
+    for z in roots:
+        u, v = _gpow(z, n)
+        minimal[(u, abs(v))] = [-u, 1] if v == 0 else [u * u + v * v, -2 * u, 1]
+    return _in_power(_product(list(minimal.values())), n)
+
+
+def test_valuations_at_the_norms() -> None:
+    """``prop:gaussadic``, items 1-2: at every ``(j, p)`` the ``p``-adic
+    Newton polygon has an edge of slope ``-v_p(n_j)`` ending at a nonzero
+    ``f_y`` with ``y >= e_2``, ``p^(w(y-i)) | f_i`` below it, and ``Lambda``
+    bounds the charge, which is at least ``P(0)^(e_2 - e)``; on seeded
+    multiples at ``COPRIME`` and ``COPRIME_POWER``, polynomials in ``x^N``
+    (which pay ``P(0)^N``), and ``P``, where the charge is ``P(0)``.
+
+    Control: ``p^(w(y-i)+1) | f_i`` fails at ``F = P``, ``i = 0``.
+    """
+    rng = random.Random(SEED + 11)
+    for base in (COPRIME, COPRIME_POWER):
+        for big_k in range(1, len(base) + 1):
+            roots = base[:big_k]
+            p = _pairs(roots)
+            assert _adic_charge(p, roots) == p[0]
+            for _ in range(40):
+                f = _block_multiples(rng, p)
+                f = [0] * rng.randint(0, 2) + f
+                support = [i for i, c in enumerate(f) if c]
+                charge = _adic_charge(f, roots)
+                assert _mass(f) >= charge >= p[0] ** (support[1] - support[0])
+            for n in range(1, 6):
+                f = _power_multiple(roots, n)
+                assert _divides(p, f)
+                assert _mass(f) >= _adic_charge(f, roots) >= p[0] ** n
+    p = _pairs(COPRIME)
+    for z in COPRIME:
+        for q, w in _prime_powers(_norm(z)):
+            assert _slope_end(p, q, w) == 1
+            assert p[0] % q ** (w + 1) != 0
+
+
+def _light_run(p: Poly, m: int, v: int, limit: int) -> Poly | None:
+    """A multiple ``P S`` with ``0 < s_0 <= limit`` and ``|f_i| <= V`` for
+    ``0 < i < m``, found by exhausting the ``s_k`` in turn, least ``s_0``
+    first."""
+    for s0 in range(1, limit + 1):
+        stack = [[s0]]
+        while stack:
+            s = stack.pop()
+            k = len(s)
+            if k == m:
+                return _mul(p, s)
+            c = sum(p[i] * s[k - i] for i in range(1, min(k, len(p) - 1) + 1))
+            stack.extend(
+                [*s, t] for t in range(-((v + c) // p[0]), (v - c) // p[0] + 1)
+            )
+    return None
+
+
+def test_small_coefficients_after_the_lowest() -> None:
+    """``prop:gaussadic``, item 3: some multiple has ``|f_i| <= V`` for
+    ``0 < i < m`` and ``P(0) <= |f_0| <= P(0)^m / V^(m-1)``, at ``COPRIME``,
+    ``K <= 3``, ``m <= 3``; the least such ``|f_0|`` is exhibited.
+
+    Control: already at ``K = 2``, ``m = 3``, ``V = 2`` the least ``|f_0|``
+    is ``18330 < P(0)^3``, so ``prop:gausslow``, item 2, fails with small
+    coefficients in place of zeros.
+    """
+    for big_k in range(1, 4):
+        p = _pairs(COPRIME[:big_k])
+        for m in range(1, 4):
+            for v in (1, 2, 5, 20):
+                if v >= p[0]:
+                    continue
+                bound = p[0] ** m // v ** (m - 1)
+                f = _light_run(p, m, v, bound // p[0])
+                assert f is not None and _divides(p, f)
+                assert p[0] <= f[0] <= bound and len(f) <= m + 2 * big_k
+                assert all(abs(c) <= v for c in f[1:m])
+    p = _pairs(COPRIME[:2])
+    f = _light_run(p, 3, 2, p[0] ** 2)
+    assert f is not None and f[0] == 18330 < p[0] ** 3
 
 
 def _level_sets(big_b: int, degree: int, box: int) -> dict[tuple, list[Gauss]]:

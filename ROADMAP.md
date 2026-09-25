@@ -21,7 +21,9 @@ is open; an answer lands in the paper it extends, and the row leaves.
 - [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
   holds for integer multiples at Gaussian roots in a wide sector
   (`sec:widesectors`); whether one level set `H(y) = -v` holds boundedly
-  many Gaussian points above the axis (`prop:gaussheavy`).
+  many Gaussian points above the axis (`prop:gaussheavy`); whether small
+  coefficients after the lowest one cost nearly as much as zeros at
+  pairwise coprime norms (`prop:gaussadic`).
 
 ## Status
 
@@ -125,7 +127,19 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `Lambda(P) <= (1 + o(1)) K**2 log R` (`(1/2 + o(1)) K**2 log R`), so a
   constant `c` in `c K**2 log R` is at most 1, and at most 1/2 when
   `delta > pi/4` (`prop:gausspower`; the root sets lie near one or two
-  rays, where `thm:thingauss` gives order `K**2 log R`).  If
+  rays, where `thm:thingauss` gives order `K**2 log R`).  At such coprime
+  norms the `p`-adic Newton polygon at each prime `p | n_j` has an edge of
+  slope `-v_p(n_j)` ending at some `y_(j,p)`, with `p**(v_p(n_j)(y-i)) | f_i`
+  below it; so `Lambda(F)` is at least the sum over `j`, `p` of
+  `v_p(n_j) log p` times the distances to `y_(j,p)` of the nonzero positions
+  below it, at least `(e_2 - e) log P(0)`, and `A(x^N)` pays `N log P(0)`
+  (`prop:gaussadic`).  The valuations alone stay linear in `K`: at `F = P`
+  every `y_(j,p) = 1` and the bound is `log P(0)`.  With coefficients of
+  modulus at most `V < P(0)` in place of the gap, some multiple has
+  `P(0) <= |f_0| <= P(0)**m / V**(m-1)` (Minkowski; `prop:gaussadic`, item
+  3), e.g. `|f_0| = 18330 < 65**3` at the norms `5, 13`, `m = 3`, `V = 2`,
+  while the sizes alone (`lem:gausscarry` of the complex paper) give only
+  `(rho_min/2)**m`.  If
   `rho_min > 2` and `b_2(F) < rho_min/2`, `F = x**e (v + H)` with every
   nonleading coefficient of `H` below `rho_min/2`, so all the roots lie in one
   level set `H(y) = -v` (`prop:gaussheavy`); three Gaussian points above the
@@ -134,7 +148,19 @@ is open; an answer lands in the paper it extends, and the row leaves.
   Open: whether `c K**2 log R` holds for all integer multiples at such Gaussian
   roots in a wide sector (the question the introductions of both papers leave),
   and whether the number of Gaussian points above the axis in one such level
-  set is bounded.
+  set is bounded.  The case left by separated moduli (`cor:annuli` of the
+  complex paper) and common norms (`prop:gausslow`, item 3) is pairwise
+  coprime norms in one annulus `[R, 2R]`; there valuations alone give only
+  linear bounds (`prop:gaussadic`), and seeded lattice reduction at
+  `K = 3..6`, `R = 20, 60`, prime norms, found no multiple cheaper than `P`
+  (`2.3` to `2.7` times `K**2 log R`).  A precise step: at odd pairwise coprime norms
+  with `gcd(a_j, c_j) = 1`, is there an absolute `C` such that
+  `|f_i| < rho_min/2` for `e < i < e + m` forces
+  `log |f_e| >= m log P(0) - C m log rho_max`?  With zeros in place of the
+  small coefficients this holds with `C = 0` (`prop:gausslow`), and
+  `prop:gaussadic`, item 3, shows it is sharp up to `C`; a yes answer makes
+  every multiple of `prop:gaussheavy`, item 2, at such norms in one annulus
+  pay order `K**2 log R` as `K -> oo`.
 
 - **Every row at other roots.**  The paper is
   [coefficient-mass-rows](papers/coefficient-mass-rows.tex), split out of
