@@ -92,13 +92,26 @@ is open; an answer lands in the paper it extends, and the row leaves.
   supermultiplicative (`lem:prefixshift`), so the prefix identity
   `V_r(L,k) = min_(i<=k) 1/nu_i(n)` (`eq:prefixid`) holds for every `k`
   whenever `beta_r(n) <= 1` (`thm:onepolyrows`), in particular for
-  `r - 1 <= e**(-4n-2)/C_n` (`lem:topnearone`).  It is false in general
-  for `1 < r < 2`: at `r = 5/4`, `L = 16`, `k = 2` a monic multiple has
-  `b_2 <= 6.5695 < 7.6492 <= min_(i<=2) 1/nu_i` (exact rational
-  arithmetic, `tests/test_rows.py`).  Long diagonals (`sec:longdiag`,
-  `lem:farprefix`, `thm:longdiag`, `prop:longdiagexplicit`): for each
-  `1 < r < 2` there are `alpha`, `K` with the prefix identity holding for
-  `k >= max(K, alpha(n-1))`, so every diagonal fails in at most finitely
-  many rows (`cor:longdiagfinite`).  Open: the value of `V_r(L,k)` for
-  `1 < r < 2`, small `k` and `beta_r(n) > 1`, where one polynomial cannot suffice and the prefix
-  identity can fail.
+  `r - 1 <= e**(-4n-2)/C_n` (`lem:topnearone`).  Long diagonals
+  (`sec:longdiag`, `lem:farprefix`, `thm:longdiag`,
+  `prop:longdiagexplicit`): for each `1 < r < 2` there are `alpha`, `K`
+  with the prefix identity holding for `k >= max(K, alpha(n-1))`, so every
+  diagonal fails in at most finitely many rows (`cor:longdiagfinite`).
+  The second row (`sec:secondrow`): with `mu_sigma(n) = mu_r({sigma}, n+1)`,
+  `V_r(n+1,2) = min(1/nu_1(n), min_(sigma < sigma*) 1/mu_sigma(n))` for an
+  explicit tail threshold `sigma*` (`thm:secondrow`), each term certified
+  exactly by a vertex test (`lem:vertexopt`), and `V_r(L,k)` does not
+  increase along a diagonal (`lem:rowmono`).  Exact values
+  (`prop:secondrowexact`, `tests/test_rows.py`): `V_{5/4}(16,2) =
+  1/nu_3(14) = 6.5694... < beta_{5/4}(15) = 7.6492...`, so the prefix
+  identity fails at `(5/4, 16, 2)` and `(5/4, 17, 3)`; `V_{4/3}(19,2) =
+  41.38... < beta_{4/3}(18) = 42.34...` with worst position `sigma = 3`;
+  and `V_{5/4}(14,2) = beta_{5/4}(13) > 1`, the identity with its minimum
+  at `i = 1`, outside `thm:onepolyrows` and `thm:longdiag`.  Numerically
+  (floating point, `sigma <= 8` on `2 <= n <= 20`): the identity at `k = 2`
+  held whenever `nu_2(n) >= nu_1(n)`, and failed only for `r <= 4/3`, with
+  `beta_r(n) > 5`, by at most 19%, at `sigma = 2` or `3`.  Open: a proof
+  that `nu_2(n) >= nu_1(n)` implies the identity at `k = 2`; whether the
+  worst finite position is always small; whether failures occur for every
+  `1 < r < 2`; the rows `k >= 3` for small `k` and `beta_r(n) > 1`, where no
+  finite reduction like `thm:secondrow` is known.

@@ -44,7 +44,9 @@ exempted positions beyond the first gap of a minimizer by one crossing step,
 and bounds the cost of that step by first-order optimality.  For $1<r<2$ the
 rows are not top rows.  We show that they are given by
 prefix-constrained problems whenever the top row is at most one, and on each diagonal $L-k=\mathrm{const}$ for all but finitely many
-rows.
+rows.  The second row is a minimum over finitely many exempted positions,
+each of which can be certified exactly; at $r=\frac54$ and $r=\frac43$ this shows that the
+prefix description fails in general.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient order
@@ -102,6 +104,11 @@ We prove that the upper bound is attained for
 every $k$ whenever $\beta_r(n)\le1$ (Theorem~\ref{thm:onepolyrows}).  We
 also prove it whenever $k\ge\max(K,\alpha(n-1))$ for constants depending on
 $r$ (Theorem~\ref{thm:longdiag}, Proposition~\ref{prop:longdiagexplicit}).
+It is not attained in general.  The second row $k=2$ is a minimum over
+finitely many exempted positions (Theorem~\ref{thm:secondrow}), and exact
+certificates give $V_{5/4}(16,2)=1/\nu_3(14)<\min_{i\le2}1/\nu_i(15)$ and
+$V_{4/3}(19,2)<\min_{i\le2}1/\nu_i(18)$
+(Proposition~\ref{prop:secondrowexact}).
 
 \paragraph{Method.}
 Divisibility by $(x-r)^L$ is a set of linear conditions on the
@@ -477,7 +484,7 @@ of~\eqref{eq:prefixsandwich} is attained:
 \begin{equation}\label{eq:prefixid}
   V_r(L,k)=\min_{1\le i\le k}\frac1{\nu_i(n)}\qquad(n=L-k+1).
 \end{equation}
-We do not claim it for every $1<r<2$.
+It is false for some $1<r<2$ (Proposition~\ref{prop:secondrowexact}).
 For $r\ge2$ it follows from Theorem~\ref{thm:allrowstwo} (see the remark
 after it).  For $1<r<2$, Theorems~\ref{thm:onepolyrows}
 and~\ref{thm:longdiag} prove it in two regimes, in both with the minimum at
@@ -834,7 +841,8 @@ gives only $V_r(L,k)\ge(r-1)^{k-1}\beta_r(n)$.  The prefix identity~\eqref{eq:pr
 would give $\min_{i\le k}1/\nu_i(n)$.  This section proves it in two regimes: for
 every $k$ when $\beta_r(n)\le1$ (Section~\ref{sec:onepoly}), and for every
 $n$ once $k$ is large compared with $n$ (Section~\ref{sec:longdiag}).  In
-both the minimum is at $i=k$.
+both the minimum is at $i=k$.  Section~\ref{sec:secondrow} treats the
+second row for every $n$ and shows that the identity can fail.
 
 \subsection{One polynomial for all exempted sets}\label{sec:onepoly}
 
@@ -1001,7 +1009,9 @@ claim since $\beta_r(n)=1/\nu_1(n)$.
 \end{proof}
 
 Beyond $\beta_r(n)\le1$, where no single polynomial serves all prefixes,
-we do not know when the prefix identity holds.  Section~\ref{sec:longdiag} shows that a
+we do not know in general when the prefix identity holds;
+Section~\ref{sec:secondrow} reduces the case $k=2$ to finitely many exempted
+positions.  Section~\ref{sec:longdiag} shows that a
 single polynomial does serve all prefixes once $k$ is large compared with
 $n$.
 
@@ -1174,10 +1184,268 @@ This sharpens Corollary~\ref{cor:belowtwo}, which gives
 $V_r(L,k)=(1+o(1))/\nu_k(n)$ as $k\to\infty$ with $n$ fixed: the factor
 $1+o(1)$ is exactly $1$ once $k\ge\max\{K,\alpha(n-1)\}$, uniformly in $n$.
 What remains open for $1<r<2$ are the rows with $\beta_r(n)>1$ and $k$
-below these thresholds.
+below these thresholds.  The next subsection treats the first of them,
+$k=2$.
+
+\subsection{The second row}\label{sec:secondrow}
+
+This subsection treats $k=2$ with no condition on $\beta_r(n)$.  The
+exempted set is one position $\sigma$, and a polynomial vanishing there is
+$(1-s/\sigma)p$ with $p\in\mathcal Q_n$, so we write
+\[
+  \mu_\sigma(n)=\mu_r(\{\sigma\},n+1)
+  =\inf_{p\in\mathcal Q_n}\sum_{s\ge1}\Bigl|1-\frac s\sigma\Bigr||p(s)|\,r^{-s}
+  \qquad(\sigma\ge1).
+\]
+Then $\mu_1(n)=\nu_2(n)$, and Proposition~\ref{prop:rowvalue}(b) gives
+$V_r(n+1,2)=\inf_\sigma1/\mu_\sigma(n)$.  Far positions cost no more than
+the limit $\nu_1(n)$, so the second row is a minimum over finitely many
+positions (Theorem~\ref{thm:secondrow}), and each term can be certified
+exactly (Lemma~\ref{lem:vertexopt}).  At $r=\frac54$ and $r=\frac43$
+this determines rows on both sides of the prefix identity
+(Proposition~\ref{prop:secondrowexact}).
+
+\begin{lemma}[Dropping a far exempted position]\label{lem:rowmono}
+Let $r>1$ and $2\le k\le L$.  Then $V_r(L,k)\le V_r(L-1,k-1)$.  So
+$V_r(n+k-1,k)$ does not increase with $k$, for each $n\ge1$.
+\end{lemma}
+
+\begin{proof}
+Let $S'\subset\N_{>0}$ with $|S'|=k-2$, let $N>\max(S'\cup\{0\})$ and
+$S_N=S'\cup\{N\}$.  A real $q$ admissible for $\mu_r(S_N,L)$ factors as
+$q=(1-s/N)q_0$ with $q_0$ admissible for $\mu_r(S',L-1)$.  For
+$1\le s\le M<N$ we have $1-s/N\ge1-M/N$, so
+$\Phi_r(q)\ge(1-M/N)\,\mu_{r,M}(S',L-1)$.  Hence
+$\liminf_N\mu_r(S_N,L)\ge\mu_{r,M}(S',L-1)$ for every $M$, and by the
+convergence in the proof of Proposition~\ref{prop:rowvalue}(b) it is at
+least $\mu_r(S',L-1)$.  Proposition~\ref{prop:rowvalue}(b) gives
+$V_r(L,k)\le\inf_N1/\mu_r(S_N,L)\le1/\mu_r(S',L-1)$, and the infimum over
+$S'$ is $V_r(L-1,k-1)$, again by Proposition~\ref{prop:rowvalue}(b).
+\end{proof}
+
+With $V_r(n+i-1,i)\le1/\mu_r([1,i-1],n+i-1)=1/\nu_i(n)$ this recovers the
+upper bound of Theorem~\ref{thm:prefixrows}.  It also propagates failures
+along a diagonal: if $V_r(n+1,2)<\min_{i\le k}1/\nu_i(n)$, then the prefix
+identity fails at $(r,n+k-1,k)$.
+
+\begin{lemma}[Certifying a vertex]\label{lem:vertexopt}
+Let $r>1$, let $S\subseteq Z$ be finite subsets of $\N_{>0}$ and
+$L=|Z|+1$.  For $y\in Z\setminus S$ put $e_y(s)=s\,r_{Z\setminus\{y\}}(s)$
+and
+\[
+  G_y=\sum_{s\ge1,\ s\notin Z}\sgn\bigl(r_Z(s)\bigr)\,e_y(s)\,r^{-s}.
+\]
+Then $\Phi_r(Z)=\mu_r(S,L)$ if and only if $|G_y|\le|e_y(y)|\,r^{-y}$ for
+every $y\in Z\setminus S$.
+\end{lemma}
+
+\begin{proof}
+The polynomials admissible for $\mu_r(S,L)$ form the affine space
+$r_Z+E$, where $E$ is the space of real $d$ with $\deg d\le L-1$, $d(0)=0$
+and $d|_S=0$, of dimension $L-1-|S|=|Z\setminus S|$.  Each $e_y$ lies in
+$E$, and $e_y(y')=0\ne e_y(y)$ for $y\ne y'$ in $Z\setminus S$, so the $e_y$
+form a basis and $d=\sum_yc_ye_y$ has $d(y)=c_ye_y(y)$.  The function
+$\Phi_r$ is convex and finite on $r_Z+E$, so $r_Z$ is a minimizer if and
+only if every one-sided derivative $\Phi_r'(r_Z;d)$ is nonnegative.  For
+$s\notin Z$ we have $r_Z(s)\ne0$ and
+$(|r_Z(s)+\varepsilon d(s)|-|r_Z(s)|)/\varepsilon\to\sgn(r_Z(s))\,d(s)$ as
+$\varepsilon\downarrow0$; for $s\in S$ both terms vanish; for
+$s=y\in Z\setminus S$ the quotient is $|d(y)|$.  The quotients are bounded
+by $|d(s)|$ and $\sum_s|d(s)|r^{-s}<\infty$, so by dominated convergence
+\[
+  \Phi_r'(r_Z;d)=\sum_{y\in Z\setminus S}\bigl(c_yG_y+|c_y|\,|e_y(y)|\,r^{-y}\bigr).
+\]
+This is nonnegative for all $c$ if and only if it is for each $c$
+supported on one $y$, with either sign, that is, if and only if
+$|G_y|\le|e_y(y)|r^{-y}$ for every $y$.
+\end{proof}
+
+Beyond $\max Z$ the sign of $r_Z$ is $(-1)^{|Z|}$, and
+$\sum_{s\ge0}P(s)x^s=\sum_j(\Delta^jP)(0)\,x^j/(1-x)^{j+1}$ for a
+polynomial $P$.  So for rational $r$ both $\Phi_r(Z)$ and the $G_y$ are
+rational numbers computable exactly, and the lemma is a finite test.
+
+For $p\in\mathcal Q_n$ and $\sigma\ge1$ put
+\[
+  M(p)=\sum_{s\ge1}s\,|p(s)|\,r^{-s},\qquad
+  T_p(\sigma)=\sum_{s>\sigma}(s-\sigma)\,|p(s)|\,r^{-s}.
+\]
+
+\begin{theorem}[The second row is a finite minimum]\label{thm:secondrow}
+Let $r>1$ and $n\ge1$.
+\begin{enumerate}
+\item[(a)] For every $p\in\mathcal Q_n$ and $\sigma\ge1$,
+\[
+  \mu_\sigma(n)\le A_1(p)-\frac{M(p)-2T_p(\sigma)}\sigma .
+\]
+\item[(b)] Some $p_*\in\mathcal Q_n$ has $A_1(p_*)=\nu_1(n)$.  Let
+$\sigma_*$ be the least $\sigma\ge1$ with $2T_{p_*}(\sigma)\le M(p_*)$.
+Then $\mu_\sigma(n)\le\nu_1(n)$ for $\sigma\ge\sigma_*$, with strict
+inequality for $\sigma>\sigma_*$, and
+\[
+  V_r(n+1,2)=\min\Bigl\{\frac1{\nu_1(n)},\
+  \min_{1\le\sigma<\sigma_*}\frac1{\mu_\sigma(n)}\Bigr\}.
+\]
+\item[(c)] The prefix identity~\eqref{eq:prefixid} fails at $(r,n+1,2)$
+if and only if $\mu_\sigma(n)>\max\{\nu_1(n),\nu_2(n)\}$ for some
+$2\le\sigma<\sigma_*$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) For real $x$, $|x|=x+2\max\{-x,0\}$; with $x=1-s/\sigma$ this is
+$|1-s/\sigma|=1-s/\sigma+2(s/\sigma-1)^+$.  Multiply by $|p(s)|r^{-s}$
+and sum; all three series converge absolutely.  This gives
+$\Phi_r((1-s/\sigma)p)=A_1(p)-M(p)/\sigma+2T_p(\sigma)/\sigma$, and
+$(1-s/\sigma)p$ is admissible for $\mu_\sigma(n)$.
+
+(b) For $n=1$, $\mathcal Q_1=\{1\}$.  For $n\ge2$, the values
+$p(1),\ldots,p(n-1)$ are affine coordinates on $\mathcal Q_n$ and
+$A_1(p)\ge r^{-(n-1)}\sum_{s<n}|p(s)|$, so the sublevel sets of $A_1$ are
+bounded; $A_1$ is convex and finite on $\mathcal Q_n$, hence continuous,
+and a minimizer $p_*$ exists.  Since $s\ge1$, $M(p_*)\ge A_1(p_*)>0$, while
+$T_{p_*}(\sigma)\le\sum_{s>\sigma}s|p_*(s)|r^{-s}\to0$, so $\sigma_*$
+exists.  Moreover
+$T_{p_*}(\sigma)-T_{p_*}(\sigma+1)=\sum_{s>\sigma}|p_*(s)|r^{-s}>0$, since
+$p_*\ne0$ has finitely many zeros.  So $M(p_*)-2T_{p_*}(\sigma)\ge0$ for
+$\sigma\ge\sigma_*$, strictly for $\sigma>\sigma_*$, and (a) with $p=p_*$
+gives the first claim.  By Proposition~\ref{prop:rowvalue}(b) and (c),
+$V_r(n+1,2)=\inf_\sigma1/\mu_\sigma(n)$ and
+$V_r(n+1,2)\le\beta_r(n)=1/\nu_1(n)$, while the positions
+$\sigma\ge\sigma_*$ contribute terms at least $1/\nu_1(n)$.
+
+(c) The prefix identity at $k=2$ reads
+$V_r(n+1,2)=\min\{1/\nu_1(n),1/\nu_2(n)\}$.  If $\sigma_*>1$, then
+$1/\nu_2(n)=1/\mu_1(n)$ is one of the terms in (b); if $\sigma_*=1$, then
+$\nu_2(n)=\mu_1(n)\le\nu_1(n)$ by (b).  So by (b) the identity fails
+exactly when some term with $2\le\sigma<\sigma_*$ is smaller than both.
+\end{proof}
+
+Part (a) needs no optimality: any $p\in\mathcal Q_n$ and any $\sigma_0$
+with $2T_p(\sigma_0)\le M(p)$ give $\mu_\sigma(n)\le A_1(p)$ for all
+$\sigma\ge\sigma_0$, since $T_p$ decreases.  The next proposition handles
+the far positions this way.
+
+\begin{proposition}[Second rows at the roots $\frac54$ and $\frac43$]\label{prop:secondrowexact}
+Let $r=\frac54$ in (a)--(c), and let
+\begin{align*}
+  Z_*&=\{1,2,5,8,12,17,22,28,35,44,53,65,78,94,115\},\\
+  Y_{15}&=\{1,3,6,9,13,18,24,30,38,47,58,71,87,107\},\\
+  Y_{13}&=\{1,3,6,10,15,21,27,36,45,57,72,91\}.
+\end{align*}
+\begin{enumerate}
+\item[(a)] $V_r(16,2)=1/\Phi_r(Z_*)=1/\nu_3(14)=6.5694\ldots$, while
+$\min_{i\le2}1/\nu_i(15)=\beta_r(15)=1/\Phi_r(Y_{15})=7.6492\ldots$.
+\item[(b)] $V_r(17,3)\le1/\Phi_r(Z_*)<\beta_r(15)=\min_{i\le3}1/\nu_i(15)$.
+So the prefix identity fails at $(\frac54,16,2)$ and at $(\frac54,17,3)$.
+\item[(c)] $V_r(14,2)=\beta_r(13)=1/\Phi_r(Y_{13})=4.6297\ldots>1$ and
+$\nu_2(13)<\nu_1(13)$.  So the prefix identity holds at $(\frac54,14,2)$
+with its minimum at $i=1$: the second row is the top row of
+$(x-\frac54)^{13}$.
+\item[(d)] Let $r=\frac43$,
+$Z_3=\{1,2,3,6,8,11,15,18,23,28,34,41,48,57,66,78,91,109\}$ and
+$Y_{18}=\{1,2,4,6,9,12,16,20,25,30,36,44,52,61,72,85,103\}$.  Then
+$V_r(19,2)=1/\mu_3(18)=1/\Phi_r(Z_3)=1/\nu_4(16)=41.38\ldots$, while
+$\mu_2(18)<\nu_1(18)$ and
+$\min_{i\le2}1/\nu_i(18)=\beta_r(18)=1/\Phi_r(Y_{18})=42.34\ldots$.  So the
+prefix identity fails at $(\frac43,19,2)$, and a worst exempted position
+is $\sigma=3$, while $\sigma=2$ is not one.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+All numbers below are exact rationals, computed as described after
+Lemma~\ref{lem:vertexopt}; the computation is in
+\texttt{tests/test\_rows.py}.
+
+(a) Lemma~\ref{lem:vertexopt} with $S=\{2\}$ shows
+$\mu_2(15)=\Phi_r(Z_*)$, and with $S=\varnothing$ that
+$\nu_1(15)=\Phi_r(Y_{15})$, which is less than $\Phi_r(Z_*)$.  The tail
+condition $2T_p(\sigma_0)\le M(p)$ holds for $p=r_{Y_{15}}$ at
+$\sigma_0=107$, so $\mu_\sigma(15)\le\Phi_r(Y_{15})$ for $\sigma\ge107$ by
+the remark after Theorem~\ref{thm:secondrow}.  For every other
+$\sigma<107$ an explicit set $Z\ni\sigma$ of $15$ integers has
+$\Phi_r(Z)\le\Phi_r(Z_*)$: the set
+$Y'_{15}=\{1,3,5,8,12,17,22,28,36,44,54,65,78,94,115\}$ when it contains
+$\sigma$, and otherwise $\mathrm{ins}(Y_{15},\sigma)$ or $Y'_{15}$ with
+one element replaced by $\sigma$.  Hence
+$\sup_\sigma\mu_\sigma(15)=\Phi_r(Z_*)$, and
+Proposition~\ref{prop:rowvalue}(b) gives $V_r(16,2)=1/\Phi_r(Z_*)$.  Since
+$[1,2]\subseteq Z_*$,
+$\mu_2(15)\le\nu_3(14)=\mu_r([1,2],16)\le\Phi_r(Z_*)=\mu_2(15)$.  Finally
+$\nu_2(15)\le\Phi_r(Y'_{15})<\nu_1(15)$, as $1\in Y'_{15}$.
+
+(b) Lemma~\ref{lem:rowmono} and (a) give the first inequality.  With (a),
+the set $\{1,2,5,8,11,16,21,26,33,41,50,60,71,85,102,123\}\supseteq[1,2]$
+gives $\nu_3(15)<\nu_1(15)$, so
+$\min_{i\le3}1/\nu_i(15)=1/\nu_1(15)=\beta_r(15)$, which exceeds
+$1/\Phi_r(Z_*)$ by (a).
+
+(c) Lemma~\ref{lem:vertexopt} gives $\nu_1(13)=\Phi_r(Y_{13})<1$.  The
+tail condition holds for $p=r_{Y_{13}}$ at $\sigma_0=91$, and every
+$\sigma<91$ lies in a set of $13$ integers with
+$\Phi_r\le\Phi_r(Y_{13})$, built as in (a) from $Y_{13}$ and
+$Y'_{13}=\{1,3,6,9,14,19,25,33,41,52,64,79,99\}$.  So
+$\sup_\sigma\mu_\sigma(13)=\nu_1(13)$, and
+Proposition~\ref{prop:rowvalue}(b) gives $V_r(14,2)=\beta_r(13)$.  Since
+$1\in Y'_{13}$, $\nu_2(13)\le\Phi_r(Y'_{13})<\nu_1(13)$.
+
+(d) As in (a): Lemma~\ref{lem:vertexopt} gives $\mu_3(18)=\Phi_r(Z_3)$
+and $\nu_1(18)=\Phi_r(Y_{18})<\Phi_r(Z_3)$; the tail condition holds for
+$p=r_{Y_{18}}$ at $\sigma_0=103$; and every $\sigma<103$ other than $3$
+lies in a set of $18$ integers with $\Phi_r\le\Phi_r(Z_3)$, built from
+$Y_{18}$ and
+$Y'_{18}=\{1,2,4,6,8,11,15,19,23,28,34,41,48,57,66,78,91,109\}$.  Since
+$\{1,2\}\subseteq Y'_{18}$, $\mu_2(18)$ and $\nu_2(18)$ are at most
+$\Phi_r(Y'_{18})<\nu_1(18)$, and $[1,3]\subseteq Z_3$ gives
+$\mu_3(18)=\nu_4(16)=\mu_r([1,3],19)$ as in (a).
+\end{proof}
+
+Neither Theorem~\ref{thm:onepolyrows} nor Theorem~\ref{thm:longdiag}
+reaches (c), since both place the minimum at $i=k$.  In (a) and (d) the
+row is attained at a position $\sigma$ with an optimum containing all of
+$[1,\sigma]$.  So there the second row equals the prefix value
+$1/\nu_{\sigma+1}(n+1-\sigma)$, of a longer prefix and a smaller degree than
+the prefix identity allows, although only one position is exempted.
+
+\paragraph{Numerical findings.}
+The following was found in floating point and is not proved.  We computed
+$\nu_1(n)$, $\nu_2(n)$ and $\mu_\sigma(n)$ by exact line search over integer
+zero sets, one zero at a time (in exact arithmetic a set admitting no
+improving move is optimal, by the proof of Lemma~\ref{lem:vertexopt}), for
+$r\in\{\frac65,\frac54,\frac{13}{10},\frac43,\frac75,\frac32,\frac85,\frac53,
+\frac74,\frac95,\frac{19}{10}\}$, $2\le n\le20$ and $2\le\sigma\le8$, and for
+$\sigma\le30$ at $r\in\{\frac{11}{10},\frac54,\frac43,\frac32,\frac74,
+\frac{19}{10}\}$, $n\le10$, and $\sigma\le20$ at
+$r\in\{\frac54,\frac43,\frac32\}$, $11\le n\le16$.  On the grid, ``the
+identity held'' means that no computed $\mu_\sigma(n)$ exceeded
+$\max\{\nu_1(n),\nu_2(n)\}$; the positions between $8$ and $\sigma_*$ were
+not all computed there.
+\begin{itemize}
+\item Whenever $\nu_2(n)\ge\nu_1(n)$ (45 of the 209 grid points), the prefix
+identity held at $(r,n+1,2)$, with the worst position $\sigma=1$, although
+$\Lambda_2(n)>\nu_2(n)$ at several of them (for instance $r=\frac54$,
+$7\le n\le10$), so Theorem~\ref{thm:onepoly} does not explain it.
+\item The identity failed only for $r\le\frac43$: at $r=\frac65$ for
+$17\le n\le20$, at $r=\frac54$ for $14\le n\le18$, at $r=\frac{13}{10}$ for
+$n\in\{12,13,14,20\}$ and at $r=\frac43$ for $n\in\{11,12,13,18\}$, always
+with $\beta_r(n)>5$, by at most $19\%$, and with worst position $\sigma=2$
+except at $(\frac{13}{10},20)$ and $(\frac43,18)$, where it is $\sigma=3$.
+\item At the other $147$ grid points, including all with $r\ge\frac75$,
+the identity held with $\nu_2(n)<\nu_1(n)$, so the second row was the top
+row $\beta_r(n)$, as in Proposition~\ref{prop:secondrowexact}(c).
+\end{itemize}
+So at a fixed root the failures at $\sigma=2$ come in runs of consecutive
+$n$, and those at $\sigma=3$ appear later and in isolation.  We
+conjecture that the prefix identity holds at $(r,n+1,2)$ whenever
+$\nu_2(n)\ge\nu_1(n)$.  Whether a worst finite position is always small,
+and whether failures occur for every $1<r<2$ or only near $1$, we do not
+know.
 
 \paragraph{Data availability.}
-No datasets were generated or analyzed in this study.
+No datasets were generated or analyzed in this study.  The exact
+computations behind Proposition~\ref{prop:secondrowexact} are in
+\texttt{tests/test\_rows.py} of the accompanying repository.
 
 \begin{thebibliography}{9}
 

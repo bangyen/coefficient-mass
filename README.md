@@ -16,7 +16,7 @@ Open questions are in [ROADMAP](ROADMAP.md).
 
 ```bash
 uv sync      # pinned dev tools (pytest, ruff)
-just check   # lint and every test (~5s)
+just check   # lint and every test (~10s)
 just sweep   # the coefficient-mass sweep with its printed tallies
 just pdf     # build the papers, failing on undefined references (needs tectonic)
 ```
@@ -27,7 +27,7 @@ just pdf     # build the papers, failing on undefined references (needs tectonic
 | `tests/test_roadmap.py` | every label the roadmap cites exists in a paper its entry links |
 | `tests/test_sweep.py` | the seeded certificate sweep and exact worked numbers of `coefficient-mass` and `-attainment` (`tests/sweep.py`) |
 | `tests/test_attainment.py` | the run chord behind the extremal escaping placement at roots `>= 2` (failing above the cutoff), the exact infimum `1704/31` at `(2,3,5,7)`, and the multiple beating `1/tau*` at `(11/10,3,5,7)` |
-| `tests/test_rows.py` | last rows, every row a top row at `r >= 2` on a window, and the exact `r = 5/4` counterexample to the prefix identity |
+| `tests/test_rows.py` | last rows, every row a top row at `r >= 2` on a window, the exact `r = 5/4` counterexample to the prefix identity, and exact second rows at `r = 5/4` and `4/3` from vertex certificates |
 | `tests/test_complex.py` | multisection transfer, imaginary pairs, first row at Gaussian roots, several annuli, both signs, and wide sectors, on seeded integer multiples and exact optima |
 
 Each negative result carries a control: a false variant the same check must
