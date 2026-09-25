@@ -38,7 +38,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `1704/31` at `(2,3,5,7)`, `u = 1`.  False below 2: at `(11/10,3,5,7)`,
   `u = 1`, a degree-8 multiple has `b_2 = 997/20 < 1704/31 = 1/tau*`
   (`prop:belowtwo`, `tests/test_attainment.py`).  Below 2 (`sec:belowtwo`,
-  distinct roots): `T` is attained at some level, `T_0 >= T_1 >= ... >=
+  distinct roots): `T` is a maximum, achieved at some level, `T_0 >= T_1 >= ... >=
   tau*` (`prop:attainT`); a multiplier with exempt positions bounds
   `tau(X)` below (`lem:exemptpair`); for `u = 1` an exact identity for the
   aligned lift makes every placement past an explicit half-mass point `N`
