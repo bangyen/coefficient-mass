@@ -8,7 +8,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
 - [attainment](papers/coefficient-mass-attainment.tex) (`sec:scope`): an a
   priori bound on the zero set minimising one `tau({x})`; a half-mass
   threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
-  the escaping placement extremal.
+  the escaping placement extremal; whether the infimum along `(r,3,5,7)` is
+  `beta(r)` on `[13/10, 29/20)`, where `thm:family` gives only `<=`.
 - [complex](papers/coefficient-mass-complex.tex): whether `c K**2 log R`
   holds for integer multiples at Gaussian roots in a wide sector
   (`sec:widesectors`); whether one level set `H(y) = -v` holds boundedly
