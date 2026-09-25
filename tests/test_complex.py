@@ -152,7 +152,7 @@ def test_first_row_at_any_angle() -> None:
 
 
 # Several annuli (lem:central, lem:tropcount, thm:annuli, cor:annuli,
-# thm:fixedgap, prop:annulisharp).
+# thm:fixedgap, prop:annulisharp, prop:rowsneedn, prop:gaptwo).
 
 
 def _pair(a: int, b: int) -> Poly:
@@ -210,10 +210,26 @@ def _count_criterion(n: int, kappa: int, x: Fraction) -> bool:
     return tail < (1 - x) ** n
 
 
+def _deficit(c100: int, n: int) -> int:
+    """``floor(c n)`` for ``c = c100/100``: the most ``lem:tropcount`` lets the
+    count fall short of ``n`` at ``T >= 3r`` (``c = 0.82``) or ``T >= 27r``
+    (``c = 0.13``)."""
+    return c100 * n // 100
+
+
 def test_count_at_a_distance() -> None:
     """``lem:tropcount``: ``n`` zeros of modulus ``>= T`` put every central
     index at ``r`` at least ``kappa`` below the top whenever the criterion
-    holds, in particular ``n`` at ``r = T/(3n)`` and ``n/2`` at ``r = T/6``."""
+    holds, in particular ``n`` at ``r = T/(3n)``, ``n/2`` at ``r = T/6``,
+    ``n - floor(0.82 n)`` at ``T/3`` and ``n - floor(0.13 n)`` at ``T/27``.
+
+    The last two come from the exact inequalities ``16^0.82 > 19/2`` and
+    ``4^0.13 > 31/26`` behind the Chernoff step, and the criterion itself is
+    checked exactly for ``n <= 120``."""
+    assert 16**82 * 2**100 > 19**100 and 4**13 * 26**100 > 31**100
+    for n in range(1, 121):
+        assert _count_criterion(n, n - _deficit(82, n), Fraction(1, 3))
+        assert _count_criterion(n, n - _deficit(13, n), Fraction(1, 27))
     rng = random.Random(SEED + 12)
     for _ in range(200):
         pairs = [rng.choice(PYTHAGOREAN) for _ in range(rng.randint(1, 3))]
@@ -221,13 +237,17 @@ def test_count_at_a_distance() -> None:
         n, big_t = 2 * len(pairs), min(rho for *_, rho in pairs)
         assert _count_criterion(n, n, Fraction(1, 3 * n))
         assert _count_criterion(n, -(-n // 2), Fraction(1, 6))
-        for den in (3 * n, 6, 4, 3, 2):
+        for den in (3 * n, 27, 6, 4, 3, 2):
             r = Fraction(big_t, den)
             kappa = max(k for k in range(n + 1) if _count_criterion(n, k, r / big_t))
             if den == 3 * n:
                 assert kappa == n
             if den == 6:
                 assert 2 * kappa >= n
+            if den == 3:
+                assert kappa >= n - _deficit(82, n)
+            if den == 27:
+                assert kappa >= n - _deficit(13, n)
             assert all(len(f) - 1 - y >= kappa for y in _central(f, r))
 
 
@@ -236,12 +256,17 @@ def test_count_needs_distance() -> None:
     distance ratio below ``1`` so does the half count.  ``(x - 10)^12`` has
     ``12`` zeros of modulus ``10`` but a positive central index at ``10/11``,
     fewer than ``12`` positions above it at ``10/6``, and fewer than ``6`` at
-    ``20``; at ``10/36`` the count is full."""
+    ``20``; at ``10/36`` the count is full.  At ``10/3`` it falls short by
+    ``3``, more than the ``floor(0.13 n)`` allowed at ``T/27``."""
     f = _product([[-10, 1]] * 12)
     assert all(len(f) - 1 - y < 12 for y in _central(f, Fraction(10, 11)))
     assert all(6 <= len(f) - 1 - y < 12 for y in _central(f, Fraction(10, 6)))
     assert all(len(f) - 1 - y < 6 for y in _central(f, Fraction(20)))
     assert all(len(f) - 1 - y >= 12 for y in _central(f, Fraction(10, 36)))
+    # At ``T/3`` the count falls short by 3, within ``floor(0.82 * 12)`` but not
+    # within the ``floor(0.13 * 12)`` allowed only from ``T/27`` on.
+    (y,) = _central(f, Fraction(10, 3))
+    assert 12 - (len(f) - 1 - y) == 3 > _deficit(13, 12)
 
 
 def _annuli(rng: random.Random, gap: int) -> list[list[tuple[int, int, int]]]:
@@ -337,26 +362,26 @@ def test_annuli_ratio() -> None:
 
 def _fixed_gap_annuli(rng: random.Random) -> list[list[int]]:
     """Moduli (each twice, a conjugate pair) in ``S`` annuli, each ``T_a`` just
-    above ``162 U_(a-1)``; the top annulus may repeat one pair many times."""
+    above ``81 U_(a-1)``; the top annulus may repeat one pair many times."""
     small = [p for p in PYTHAGOREAN if p[2] >= 5]
     annuli = [[rng.choice(small) for _ in range(rng.randint(1, 2))]]
     for _ in range(rng.randint(1, 2)):
         annuli.append([rng.choice(small)] * rng.randint(1, 7))
     for a in range(1, len(annuli)):
         upper = max(p[2] for p in annuli[a - 1])
-        c = (162 * upper + 60) // min(p[2] for p in annuli[a]) + 1
+        c = (81 * upper + 30) // min(p[2] for p in annuli[a]) + 1
         annuli[a] = [(c * x, c * y, c * rho) for x, y, rho in annuli[a]]
     return annuli
 
 
 def _fixed_gap_positions(f: Poly, moduli: list[list[int]]) -> bool:
     """The positions of the proof of ``thm:fixedgap``, at ``r^- = 3 U_(a-1) + 1``
-    and ``r^+ = T_a/6``, ordered, counted and charged as there; returns whether
-    some central index at ``T_a/6`` has fewer than ``n_a`` positions above it."""
+    and ``r^+ = T_a/3``, ordered, counted and charged as there; returns whether
+    some central index at ``T_a/3`` has fewer than ``n_a`` positions above it."""
     big_d, lead = len(f) - 1, abs(f[-1])
     big_s = len(moduli)
     for a in range(1, big_s):
-        assert min(moduli[a]) > 162 * max(moduli[a - 1])
+        assert min(moduli[a]) > 81 * max(moduli[a - 1])
     charge = [
         Fraction(lead, 2) * prod(Fraction(rho, 2) for m in moduli[a:] for rho in m)
         for a in range(big_s)
@@ -368,17 +393,19 @@ def _fixed_gap_positions(f: Poly, moduli: list[list[int]]) -> bool:
     for a in range(1, big_s):
         n_a = sum(map(len, moduli[a:]))
         lo = Fraction(3 * max(moduli[a - 1]) + 1)
-        hi = Fraction(min(moduli[a]), 6)
+        hi = Fraction(min(moduli[a]), 3)
         assert hi > 9 * lo
-        ys = sorted({max(_central(f, lo)), max(_central(f, hi))})
-        assert ys[0] > positions[-1]
-        assert all(2 * (big_d - y) >= n_a for y in ys)
+        y_lo, y_hi = max(_central(f, lo)), max(_central(f, hi))
+        assert y_lo > positions[-1]
+        assert n_a - (big_d - y_hi) <= _deficit(82, n_a)
+        assert n_a - (big_d - y_lo) <= _deficit(13, n_a)
+        ys = sorted({y_lo, y_hi})
         if len(ys) == 1:
             assert big_d - ys[0] >= n_a
             assert abs(f[ys[0]]) > charge[a]
         else:
             value = abs(f[ys[0]] * f[ys[1]])
-            assert value > charge[a] * Fraction(lead, 2) * 3**n_a
+            assert value > charge[a] * Fraction(lead, 2) * 2**n_a
         short |= big_d - ys[-1] < n_a
         positions += ys
     assert positions[-1] < big_d
@@ -402,12 +429,12 @@ def _cross_term_bound(moduli: list[list[int]]) -> Fraction:
 
 
 def test_fixed_gap() -> None:
-    """``thm:fixedgap`` at separation ``162`` on random multiples: the
+    """``thm:fixedgap`` at separation ``81`` on random multiples: the
     positions of its proof are ordered and counted as there, and the mass
     bound holds.
 
     Control: one central index is not enough.  In some samples the central
-    index at ``T_a/6`` has fewer than ``n_a`` positions above it, so
+    index at ``T_a/3`` has fewer than ``n_a`` positions above it, so
     ``lem:central`` alone charges it less than ``Z_a``; the second position
     makes up the charge.
     """
@@ -428,7 +455,7 @@ def test_fixed_gap() -> None:
 def test_fixed_gap_near_extremal() -> None:
     """``thm:fixedgap`` where it is nearly attained: ``prod_s (x^(N_s) +- t_s^(N_s))``
     has its ``N_s`` zeros of modulus exactly ``t_s``, ``t_1 > 3`` and
-    ``t_a > 162 t_(a-1) + 54`` (the ``+ 54`` leaves room for the radii
+    ``t_a > 81 t_(a-1) + 27`` (the ``+ 27`` leaves room for the radii
     below), and, the subset sums of the ``N_s`` being distinct, mass
     ``prod_s t_s^(2^(S-1) N_s)``: exactly ``prod_s t_s^((2^(S-1) - s) N_s)
     2^(sum_s s N_s + S)`` times the bound, so within ``N_1 log t_1 + O(D)``
@@ -445,7 +472,7 @@ def test_fixed_gap_near_extremal() -> None:
     for _ in range(80):
         ts = [rng.randint(4, 9)]
         for _ in range(rng.randint(0, 2)):
-            ts.append(162 * ts[-1] + rng.randint(55, 90))
+            ts.append(81 * ts[-1] + rng.randint(28, 60))
         ns = rng.sample(range(1, 9), len(ts))
         while len({sum(c) for c in product(*([0, n] for n in ns))}) < 2 ** len(ns):
             ns = rng.sample(range(1, 9), len(ts))  # distinct subset sums
@@ -533,6 +560,56 @@ def test_annuli_sector_control() -> None:
     assert _mass(f) == ts[0] ** (4 * ms[0]) * ts[1] ** (4 * ms[1])
     assert _mass(f) <= (ts[0] ** (ks[0] + 1) * ts[1] ** (ks[1] + 1)) ** 8
     assert _mass(f) < ts[1] ** (ks[0] * ks[1])
+
+
+def _rows_need_n(big_k: int, q: int, lam: int) -> Poly:
+    """``(x - q)(x + lam q)^K``: ``prop:rowsneedn`` at ``lam = K``."""
+    return _mul([-q, 1], _product([[lam * q, 1]] * big_k))
+
+
+@pytest.mark.parametrize("big_k", [10, 11, 12])
+def test_rows_need_n(big_k: int) -> None:
+    """``prop:rowsneedn``: at ``T_2 = n_2 U_1`` the row ``k = 2`` of
+    ``cor:annuli`` item 1 fails, ``f_1 = 0`` and ``b_2 < 2^K (Kq)^(K-1)``,
+    below the row ``(Kq)^K / 2^(K+1)``; the first row holds.
+
+    Control: the same family at ``T_2 = (9K + 1) U_1``, inside ``cor:annuli``
+    item 1, meets the row ``k = 2``, so the check is not blind.
+    """
+    q = 4**big_k
+    f = _rows_need_n(big_k, q, big_k)
+    assert f[-1] == 1 and q > 3 and big_k * q > 9 * q  # thm:annuli applies
+    assert f[1] == 0
+    b = _b(f)
+    assert b[1] < 2**big_k * (big_k * q) ** (big_k - 1)
+    assert b[1] * 2 ** (big_k + 1) < (big_k * q) ** big_k
+    assert b[0] * 2 ** (big_k + 2) > q * (big_k * q) ** big_k
+    lam = 9 * big_k + 1
+    g = _rows_need_n(big_k, q, lam)
+    assert _b(g)[1] * 2 ** (big_k + 1) > (lam * q) ** big_k
+
+
+def test_mass_fails_at_separation_two() -> None:
+    """``prop:gaptwo``: ``(x - q)(x + t)^2`` with ``t = 2q + 1/(2q + 1)`` has
+    ``T_2 > 2 U_1`` and mass below the bound of ``thm:fixedgap``, by the exact
+    factor ``t^2 / (128 (3q + 2 delta))``, which grows with ``q``.
+
+    Control: at ``t = 82 q``, inside ``thm:fixedgap``, the bound holds.
+    """
+    ratios = []
+    for q in (97, 1000, 10**6):
+        delta = Fraction(1, 2 * q + 1)
+        t = 2 * q + delta
+        f = _mul([Fraction(-q), Fraction(1)], _mul([t, Fraction(1)], [t, Fraction(1)]))
+        assert t > 2 * q and 0 < f[1] < 1
+        bound = Fraction(q, 2) * (t / 2) ** 4 / 4  # exp of the bound, S = 2
+        assert _mass(f) == q * t * t * (3 * q + 2 * delta)
+        ratios.append(bound / _mass(f))
+        assert ratios[-1] == t * t / (128 * (3 * q + 2 * delta)) > 1
+    assert ratios == sorted(ratios) and ratios[-1] > 10**4
+    q = 97
+    g = _rows_need_n(2, q, 82)
+    assert _mass(g) >= Fraction(q, 2) * Fraction(82 * q, 2) ** 4 / 4
 
 
 # Real roots of both signs (cor:bothsignsmass, prop:bothsignssharp).
