@@ -59,7 +59,8 @@ $(\frac12-o(1))K^2\log R$ if $\delta K\to0$ and at least $(\frac\pi\delta-o(1))K
 at fixed $\delta$, as $K,R\to\infty$, with both constants attained; at
 distinct Gaussian-integer roots in the upper half-plane and fixed $\delta$ the degree restriction is removed
 for integer multiples, which pay $(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$
-as $K\to\infty$, uniformly in $R$.
+as $K\to\infty$, uniformly in $R$; whether they must pay order $K^2\log R$ is
+open.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; complex
@@ -172,8 +173,10 @@ multiple $F$ has $b_2(F)<\min_j|\alpha_j|/2$, all the $\alpha_j$ lie in one leve
 $\{y:H(y)=-v\}$, $v$ the lowest nonzero coefficient of $F$, of a polynomial
 $H$ with small nonleading coefficients
 (Proposition~\ref{prop:gaussheavy}); an exhaustive search over $H$ of degree
-at most $s\in\{8,10,11\}$ whose coefficients, the leading one included, are all small
-finds no level set with more than three Gaussian points above the axis
+at most $s$ with all coefficients, the leading one included, of modulus at
+most $B$, and over Gaussian $y$ with $|\operatorname{Re}y|\le Y$ and
+$1\le\operatorname{Im}y\le Y$, for $(B,s,Y)=(1,11,30)$, $(2,8,40)$,
+$(2,10,20)$, $(3,8,30)$, finds no level set with more than three such $y$
 (numerical evidence only).
 
 \paragraph{Conventions.}
@@ -1861,15 +1864,16 @@ nonleading coefficient of $F$, so $i=0$ and $|v|\ge(\rho_{\min}/2)^d$.
 \end{proof}
 
 So, when $\rho_{\min}>2$, $b_2(F)\ge\rho_{\min}/2$ unless every $\alpha_j$
-lies in one level set $\{y:H(y)=-v\}$ of such an $H$.  Numerically, level
-sets of polynomials with small coefficients are small.  An exhaustive
+lies in one level set $\{y:H(y)=-v\}$ of such an $H$.  In a finite search, level
+sets of polynomials with coefficients at most $3$, the leading one included,
+contain at most three Gaussian points of a bounded box.  An exhaustive
 search over the $H\in\mathbb Z[y]$ with $H(0)=0$, positive leading coefficient,
 coefficients at most $B$ in absolute value and degree at most $s$, and over the
 $y$ with $|\operatorname{Re}y|\le Y$ and $1\le\operatorname{Im}y\le Y$, for
 $(B,s,Y)=(1,11,30)$, $(2,8,40)$, $(2,10,20)$ and $(3,8,30)$, finds no real
-value taken at more than three such $y$.  A real $F$ of degree below $8$ has at
-most three roots above the axis, so only these ranges, with $s\ge8$, are
-informative.  Three such $y$ occur, in these ranges and in
+value taken at more than three such $y$.  For $H$ of degree below $8$, $H+v$ is a real polynomial of
+degree at most $7$, so each level set of $H$ has at most three points above
+the axis; only these ranges, with $s\ge8$, are informative.  Three such $y$ occur, in these ranges and in
 $(3,6,50)$, $(5,5,60)$ and $(10,4,80)$, only for $H=y^6-2y^4+y^2=(y^3-y)^2$, at $\{\pm2+i,2i\}$,
 $\{\pm7+4i,8i\}$ and $\{\pm26+15i,30i\}$, and for $H=y^8+3y^4$, at
 $\{\pm1+i,i\}$.  With
