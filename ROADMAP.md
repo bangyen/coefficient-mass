@@ -6,13 +6,15 @@ is open; an answer lands in the paper it extends, and the row leaves.
 ## Open at a glance
 
 - [attainment](papers/coefficient-mass-attainment.tex) (`sec:scope`): an a
-  priori bound on the zero set minimising one `tau({x})`; a half-mass
-  threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
-  the escaping placement extremal; the pieces along `(r,3,5,7)` for
-  `1 < r < 1.0745...`, where `thm:familylow` stops (infinitely many
-  accumulate at `r = 1` by `cor:familyone`; near 1, off the jumps, the
-  worst placement is `x*` with zero set `{1,x*,z}` by `thm:familyosc`, but
-  which `z`, and the transition near the jumps, are open).
+  priori bound on the zero set minimising one `tau({x})` at general roots
+  (along `(r,3,5,7)` it is `{1,x,z}` or `{1,z,x}`, `z` a half-mass point,
+  by `thm:familyzero`); a half-mass threshold like `thm:halfmass` for
+  `u >= 2`; which root sets below 2 keep the escaping placement extremal;
+  along `(r,3,5,7)` on `(1, 1.0745...)`, the order of the pieces (is the
+  worst placement monotone in `r`, does each boundary equation of
+  `thm:familyzero` have one root), explicit constants and a rate in
+  `thm:familyjump`, and whether the normalised excess is monotone across
+  each window.
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
   separation for the mass, between `2 + 1/18915` and 81 (at most 9 for two
   annuli with `n_2 <= 8`, `cor:rowstwo`), and whether 9 suffices; the least
@@ -98,21 +100,44 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `(inf b_2 - 24)(r-1)**(-alpha)` oscillates log-periodically: its limit
   points fill `[80 * 18**(-alpha), (400/3) 18**(-alpha)] = [20.865...,
   34.775...]`, the limit along `r = 1 + 18 * 3**(-n-w)` being
-  `80 * 18**(-alpha) (5/3)**w`.  Exactly at `r = 5701/5700`:
-  `T = tau({10})`, the tail of `{1,10,1335}`, `inf b_2 = 24.4788...`
-  (`tests/test_attainment.py`).  Along `(r,5,7)` it fails for every `r < 2`
+  `80 * 18**(-alpha) (5/3)**w`; this holds for `r <= 1 + (delta/10)**4`
+  when `delta <= w <= 1 - delta` (`prop:familyrdelta`).  Exactly at
+  `r = 5701/5700`: `T = tau({10})`, the tail of `{1,10,1335}`,
+  `inf b_2 = 24.4788...` (`tests/test_attainment.py`).  Every cost along
+  the family is explicit (Closed; `thm:familyzero`): for `x >= 2` and
+  `1 < r < 3`, with `H` the sum on the four nodes with weight 1 on `1/r`
+  vanishing at `0, 1, x`, the mass `F = sum_d |H_d|` is positive, and
+  flipping the witness of `{1,x}` at `(3,5,7)` from the far end, first past
+  `x` and then just below it, until half of `F` is used gives the exact
+  cost and the minimising zero set, `{1,x,z}` or `{1,z,x}`; with
+  `thm:halfmass` the infimum is a finite closed-form computation at every
+  `r` (e.g. `{1,4,5}`, `7627/314024` at `r = 5/4`; `{1,3,5}` at
+  `11/10`), and the piece boundaries are explicit equations.  The limit
+  profile (Closed; `thm:familylimit`): as `3**x (r-1) -> kappa`,
+  `tau({x}) -> G(kappa) = min(1/24, min_c (t(c) + ell(c)/kappa))`, the
+  minimum at the `c >= 3` with `k_c <= kappa <= k_(c-1)`,
+  `k_c = 18/(1 - 18*3**-c + 30*5**-c - 14*7**-c)` (`k_3 = 66150/1957`,
+  `k_c -> 18`, never `c = 2`), the zero set eventually `{1,c,x}` (and
+  `{1,x,z}` with `(r-1)z -> log(36/(18+kappa))` below 18), and
+  `1/24 - G(18(1+eta))` of order `eta**(1+alpha)` with an oscillating
+  ratio.  Across the jumps (Closed; `thm:familyjump`): the worst placement
+  is `x*` or `x* + 1`, and uniformly in `w`,
+  `(inf b_2 - 24)(r-1)**(-alpha) = min(Phi(w), Phi(w-1) + Gamma) + o(1)`
+  with `Gamma = 576 (r-1)**(-alpha) (1/24 - G(3**(x*+1)(r-1)))`; so the
+  drop by `3/5` happens in a window `1 - w ~ (r-1)**(alpha/(1+alpha))`
+  before each jump, and at `r = 101/100` the worst placement is `7 = x* +
+  1` with zero set `{1,4,7}` (`inf b_2 = 27.8209...`), at `r = 9842/9841`
+  it is `11` with `{1,7,11}`.  Along `(r,5,7)` it fails for every `r < 2`
   (`prop:cutoffsharp`).  Open (`sec:scope`): an a priori bound on the zero
-  set minimising one `tau({x})` (to make `u = 1` a finite computation
-  outright), a threshold like `N` for `u >= 2`, which root sets below 2
-  keep the escaping placement extremal (it depends on more than `r_1`),
-  the pieces along `(r,3,5,7)` on `(1, 1.0745...)` themselves (which `z` in
-  `{1,x*,z}`: a piece ends where the witness entry `s_z` reaches `+-1`), an
-  explicit range of `r` in `thm:familyosc` (a), and the transition near the
-  jumps, where `x*` and `x* + 1` compete (numerically with zero sets
-  `{1,c,x*+1}`, `c = 3, 4`; at `r = 101/100` the worst placement is 7, not
-  `x* = 6`): whether the constant minus its limit function tends to 0
-  uniformly for `0 < w <= 1 - delta`, and whether `tau({x})` tends to
-  `min_c (t(c) + ell(c)/kappa)` when `3**x (r-1) -> kappa > 18`.
+  set minimising one `tau({x})` at general roots (the argument of
+  `thm:familyzero` needs the minimiser at the fast nodes to be `{1,x}` with
+  a sign-stable witness), a threshold like `N` for `u >= 2`, which root sets
+  below 2 keep the escaping placement extremal (it depends on more than
+  `r_1`), and, along `(r,3,5,7)` below `1.0745...`, the order of the pieces
+  (is the worst placement monotone in `r`; does each boundary equation of
+  `thm:familyzero` have a single root), explicit constants and a rate in
+  `thm:familyjump`, and whether the normalised excess is monotone across
+  each window.
 
 - **Coefficient mass at complex roots.**  Purely imaginary pairs are Closed
   ([coefficient-mass-complex](papers/coefficient-mass-complex.tex), split
