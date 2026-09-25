@@ -125,9 +125,10 @@ is open; an answer lands in the paper it extends, and the row leaves.
   with the prefix identity holding for `k >= max(K, alpha(n-1))`, so every
   diagonal fails in at most finitely many rows (`cor:longdiagfinite`).
   The second row (`sec:secondrow`): with `eta_sigma(n) = mu_r({sigma}, n+1)`,
-  `V_r(n+1,2) = min(1/nu_1(n), min_(sigma < sigma*) 1/eta_sigma(n))` for an
-  explicit tail threshold `sigma*` (`thm:secondrow`), each term certified
-  exactly by a vertex test (`lem:vertexopt`), and `V_r(L,k)` does not
+  `V_r(n+1,2) = min(1/nu_1(n), min_(sigma < sigma*) 1/eta_sigma(n))` for a
+  tail threshold `sigma*` computed from any minimizer of `nu_1(n)`
+  (`thm:secondrow`); a candidate optimum for each term can be checked exactly
+  for rational `r` by a vertex test (`lem:vertexopt`); and `V_r(L,k)` does not
   increase along a diagonal (`lem:rowmono`).  Exact values
   (`prop:secondrowexact`, `tests/test_rows.py`): `V_{5/4}(16,2) =
   1/nu_3(14) = 6.5694... < beta_{5/4}(15) = 7.6492...`, so the prefix
@@ -135,9 +136,11 @@ is open; an answer lands in the paper it extends, and the row leaves.
   41.38... < beta_{4/3}(18) = 42.34...` with worst position `sigma = 3`;
   and `V_{5/4}(14,2) = beta_{5/4}(13) > 1`, the identity with its minimum
   at `i = 1`, outside `thm:onepolyrows` and `thm:longdiag`.  Numerically
-  (floating point, `sigma <= 8` on `2 <= n <= 20`): the identity at `k = 2`
-  held whenever `nu_2(n) >= nu_1(n)`, and failed only for `r <= 4/3`, with
-  `beta_r(n) > 5`, by at most 19%, at `sigma = 2` or `3`.
+  (floating point, eleven `r` from `6/5` to `19/10`, `sigma <= 8` on
+  `2 <= n <= 20`): the identity at `k = 2` held whenever `nu_2(n) >= nu_1(n)`,
+  and failed only for `r <= 4/3`, with `beta_r(n) > 5`, at `sigma = 2` or `3`,
+  with ratio at most 1.19 among the computed positions (uncomputed ones could
+  only raise it).
   Every row (`sec:finiterows`): a threshold for up to `m` far zeros
   (`lem:farzeros`) cuts the exempted sets to a finite tree, so for all
   `r > 1`, `n, m >= 1`, `V_r(n+m,m+1) = min(V_r(n+m-1,m), min_(S in tree)
