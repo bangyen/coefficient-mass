@@ -16,10 +16,22 @@ is open; an answer lands in the paper it extends, and the row leaves.
   (`prop:runchord`); so the infimum is `min_M max_j |S_j(P_u M)|`, e.g.
   `1704/31` at `(2,3,5,7)`, `u = 1`.  False below 2: at `(11/10,3,5,7)`,
   `u = 1`, a degree-8 multiple has `b_2 = 997/20 < 1704/31 = 1/tau*`
-  (`prop:belowtwo`, `tests/test_attainment.py`).  Open (`sec:scope`): the
-  value `T` below 2 (numerically the placement `{5}` there, `~35.06`), and
-  for which roots below 2 the escaping placement stays extremal
-  (numerically it does at `(3/2,3,5,7)`).
+  (`prop:belowtwo`, `tests/test_attainment.py`).  Below 2 (`sec:belowtwo`,
+  distinct roots): `T` is attained at some level, `T_0 >= T_1 >= ... >=
+  tau*` (`prop:attainT`); a multiplier with exempt positions bounds
+  `tau(X)` below (`lem:exemptpair`); for `u = 1` an exact identity for the
+  aligned lift makes every placement past an explicit half-mass point `N`
+  cheaper than `tau*`, so `T = max(tau*, tau({x}) : x < N)`
+  (`thm:halfmass`).  Hence `inf b_2 = 3398808/96935` at `(11/10,3,5,7)`,
+  worst placement `{5}`, `N = 11` (`thm:elevenvalue`); along `(r,3,5,7)`
+  the escaping placement is extremal exactly for `r >= r_c = 1.4658...`
+  (root of `930r^2 - 7r - 1988`), with `inf = 48(r-1)(15r+71)/(49r-34)` on
+  `[29/20, r_c]` (`thm:family`); along `(r,5,7)` it fails for every
+  `r < 2` (`prop:cutoffsharp`).  Open (`sec:scope`): an a priori bound on
+  the zero set minimising one `tau({x})` (to make `u = 1` a finite
+  computation outright), a threshold like `N` for `u >= 2`, and which root
+  sets below 2 keep the escaping placement extremal (it depends on more
+  than `r_1`).
 
 - **Coefficient mass at complex roots.**  Purely imaginary pairs are CLOSED
   ([coefficient-mass-complex](coefficient-mass-complex.tex), split
