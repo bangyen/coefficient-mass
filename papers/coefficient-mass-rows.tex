@@ -32,28 +32,24 @@
 \maketitle
 
 \begin{abstract}
-For a real polynomial $F=\sum_jf_jx^j$ of degree $D$ let $b_k(F)$ be the
-$k$-th entry of the magnitudes $|f_j|$, $j<D$, listed in decreasing order
-with multiplicity.  Fix
-a real $r>1$ and let $V_r(L,k)$ be the infimum of $b_k(F)$ over monic
-multiples $F$ of $(x-r)^L$.  We show that for every $r\ge2$ every row is a
-top row: $V_r(L,k)=V_r(L-k+1,1)$ for $1\le k\le L$.  Exempting the $k-1$
-largest coefficients thus costs exactly $k-1$ of the $L$ roots.  At $r=2$
-this sharpens the bound $b_k\ge L-k+1$, strictly for some rows.  The proof reduces each row to an
-$\ell^1$ problem for polynomials with prescribed integer zeros, handles the last
-exempted position, wherever it lies, by one crossing step at the first gap of
-a minimizer, inducting on the number of exempted positions,
-and bounds the cost of that step by first-order optimality.  For $1<r<2$ the
-rows are not all top rows.  We show that they are given by
-prefix-constrained problems whenever the top row $\beta_r(L-k+1)$ of the diagonal is at most one, and on each diagonal $L-k=\mathrm{const}$ for all but finitely many
-rows.  The second row $V_r(L,2)$ is the minimum of the top row $\beta_r(L-1)$ of its diagonal and finitely many terms, one
-for each nearby exempted position.  More generally, row $k\ge2$ is the minimum
-of row $k-1$ on the same diagonal and finitely many terms, one for each
-exempted set in a finite tree cut off by thresholds for several far zeros.
-Each term is attained by a polynomial with integer zeros whose optimality, for
-rational $r$, is a finite exact check.  At $r=\frac54$ and $r=\frac43$ this shows that the
-prefix description fails in general, and at $r=\frac43$ that it can fail in
-the third row while holding in the second row of the same diagonal.
+For a real polynomial $F$ let $b_k(F)$ be the $k$-th largest of the
+magnitudes of its nonleading coefficients, counted with multiplicity.
+For $r>1$ let $V_r(L,k)$ be the infimum of $b_k(F)$ over monic multiples
+$F$ of $(x-r)^L$.  We prove that for $r\ge2$ every row is a top row:
+$V_r(L,k)=V_r(L-k+1,1)$ for $1\le k\le L$, so exempting the $k-1$ largest
+coefficients costs exactly $k-1$ roots.  Linear-programming duality turns
+each row into a weighted $\ell^1$ problem for polynomials with prescribed
+integer zeros, and convexity together with first-order optimality shows
+that each exempted position costs at most one root.  For $1<r<2$ the rows
+are not all top rows.  On each diagonal $L-k=\mathrm{const}$ they equal
+the values of explicit prefix-constrained problems in all but finitely
+many rows, and in every row when the diagonal's top row is at most one.
+Every row $k\ge2$ is the minimum of the preceding row on its diagonal and
+finitely many terms, each attained by a polynomial with integer zeros
+whose optimality, for rational $r$, is a finite exact check.  Exact
+certificates at $r=\frac54$ and $r=\frac43$ show that the prefix
+description fails in general and can fail in the third row of a diagonal
+while holding in the second.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient order
@@ -61,7 +57,7 @@ statistics; reduced height; linear programming duality.
 
 \noindent\textbf{2020 Mathematics Subject Classification.} Primary 11C08; Secondary 26C05, 90C05.
 
-\section{Introduction}
+\section{Introduction}\label{sec:intro}
 
 Let $F=\sum_jf_jx^j$ be a nonzero real polynomial of degree $D$, and write
 $b_k(F)$ for the $k$-th entry of its nonleading coefficient magnitudes
@@ -182,7 +178,87 @@ All logarithms are natural, $\N_{>0}=\{1,2,\ldots\}$, and $[u,v]$ denotes
 the integers in that range.  For a finite set
 $Z\subset\N_{>0}$ we write $r_Z(s)=\prod_{z\in Z}(1-s/z)$, so $r_Z(0)=1$
 and $\deg r_Z=|Z|$.  Results of the companion paper are cited by their
-numbers there.
+numbers there.  Table~\ref{tab:notation} lists the notation used in more
+than one place, with the section or result where it is defined; symbols
+used only inside one proof are defined there.
+
+\begin{table}[tp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l p{0.47\textwidth} l@{}}
+\hline
+Symbol & Meaning & Defined in\\
+\hline
+$b_k(F)$ & $k$-th largest nonleading coefficient magnitude of $F$
+  & Section~\ref{sec:intro}\\
+$V_r(L,k)$ & row $k$: $\inf b_k(F)$ over monic multiples $F$ of $(x-r)^L$
+  & Section~\ref{sec:rowvalues}\\
+$\beta_r(n)$ & top row $V_r(n,1)$ & Section~\ref{sec:rowvalues}\\
+$n$ & $L-k+1$; $\beta_r(n)$ is the top row of the diagonal $L-k=n-1$
+  & Section~\ref{sec:rowvalues}\\
+$a$ & $1/(r-1)$ & Section~\ref{sec:rowvalues}\\
+$r_Z(s)$ & $\prod_{z\in Z}(1-s/z)$ & Conventions\\
+$\Phi_r(q)$, $\Phi_r(Z)$ & $\sum_{s\ge1}|q(s)|r^{-s}$, and $\Phi_r(r_Z)$
+  & Section~\ref{sec:rowvalues}\\
+$\mu_r(S,L)$ & $\inf\Phi_r(q)$ over real $q$, $\deg q<L$, $q(0)=1$, $q|_S=0$
+  & Section~\ref{sec:rowvalues}\\
+worst exempted set & $S$ with $|S|=k-1$ and $V_r(L,k)=1/\mu_r(S,L)$
+  & Section~\ref{sec:rowvalues}\\
+$\Tail(w)$, leading run & $\sum_{d\ge1}|w_d|$; largest $\ell$ with
+  $[1,\ell]\subseteq Z$ & Section~\ref{sec:rowvalues}\\
+$\nu_i(n)$ & prefix value $\mu_r([1,i-1],n+i-1)$ & Section~\ref{sec:prefix}\\
+$m_i(n)$ & $\nu_i(n)/a^i$, a negative-binomial expectation
+  & Section~\ref{sec:prefix}\\
+$W_k$ & pointwise bound for $|r_S|$ over $|S|\le k-1$
+  & Section~\ref{sec:prefix}\\
+$\Omega_k(n)$ & $\inf_p\sum_sW_k(s)r^{-s}|p(s)|$, $\deg p<n$, $p(0)=1$
+  & Section~\ref{sec:prefix}\\
+$E_k(r)$ & loss from the first $2k-2$ positions & Section~\ref{sec:prefix}\\
+prefix identity & $V_r(L,k)=\min_{i\le k}1/\nu_i(n)$
+  & \eqref{eq:prefixid}\\
+$\mathrm{ins}(Z,c)$ & $Z$ with $c$ inserted and the elements from $c$ on
+  moved up by one & Section~\ref{sec:crossing}\\
+$h_t(W)$ & least integer above $t$ not in $W$ & Section~\ref{sec:crossing}\\
+$\Phi_{r,D}$, $\mu_{r,D}$ & $\Phi_r$ and $\mu_r$ with the sum cut at $s\le D$
+  & Section~\ref{sec:allrowstwo}\\
+$\Phi_{r,D}^{<c}$, $\Phi_{r,D}^{>c}$ & the parts of $\Phi_{r,D}$ with
+  $s<c$ and $s>c$ & Section~\ref{sec:allrowstwo}\\
+$\omega_i(s)$ & $\binom{s-1}{i-1}r^{-s}$ & Section~\ref{sec:onepoly}\\
+$\mathcal Q_n$ & real $p$ with $\deg p\le n-1$ and $p(0)=1$
+  & Section~\ref{sec:onepoly}\\
+$A_i(p)$ & $\sum_s\omega_i(s)|p(s)|=\Phi_r(r_{[1,i-1]}p)$
+  & Section~\ref{sec:onepoly}\\
+$\Lambda_k(n)$ & $\inf_{p\in\mathcal Q_n}\max_{i\le k}A_i(p)$
+  & Theorem~\ref{thm:onepoly}\\
+$w_k$ & $\omega_k-\omega_{k-1}$ & Section~\ref{sec:longdiag}\\
+$\tau_k(n)$ & $\inf_{p\in\mathcal Q_n}\sum_{s\ge2k-2}w_k(s)|p(s)|$
+  & Section~\ref{sec:longdiag}\\
+$N_k(r)$ & largest excess of an $\omega_i$, $i<k$, over $\omega_k$ on
+  $[1,2k-3]$ & Section~\ref{sec:longdiag}\\
+$\theta$ & $4(r-1)/r^2$ & Corollary~\ref{cor:belowtwo}\\
+$M_k$ & a mode of $\omega_k$ & Lemma~\ref{lem:nbmass}\\
+$\Xi(k)$, $\rho(\alpha)$ & explicit bounds for long diagonals
+  & Proposition~\ref{prop:longdiagexplicit}\\
+$\eta_\sigma(n)$ & $\mu_r(\{\sigma\},n+1)$, one exempted position
+  & Section~\ref{sec:secondrow}\\
+$\Psi_r(p)$, $R_p(\sigma)$ & $\sum_ss|p(s)|r^{-s}$;
+  $\sum_{s>\sigma}(s-\sigma)|p(s)|r^{-s}$ & Section~\ref{sec:secondrow}\\
+$e_y$, $G_y$ & the vertex test & Lemma~\ref{lem:vertexopt}\\
+$p_*$, $\sigma_*$ & a minimizer for $\nu_1(n)$; its tail threshold
+  & Theorem~\ref{thm:secondrow}\\
+$Y_n$, $Y'_n$, $Z_S(n)$ & named zero sets of the exact certificates
+  & Section~\ref{sec:secondrow}\\
+$\phi_m(s,t)$, $\Delta_{q,m}(t)$ & weight and gap for $m$ far zeros
+  & Section~\ref{sec:finiterows}\\
+$t_m(q)$ & least integer $t\ge1$ with $\Delta_{q,m}(t)\le0$
+  & Lemma~\ref{lem:farzeros}\\
+$T(N)$, $\mathcal S$ & thresholds and the finite tree of exempted sets
+  & Theorem~\ref{thm:finiterows}\\
+\hline
+\end{tabular}
+\caption{Notation.}\label{tab:notation}
+\end{table}
 
 \section{Row values and the dual problem}\label{sec:rowvalues}
 
@@ -507,8 +583,9 @@ $p=\prod_{y\in Y}(1-s/y)$ with $|Y|=n-1$.
 Hence some such $p_D$ has $f_D(p_D)=\min_{\mathcal A}f_D\le
 \sum_s\omega(s)|p(s)|$ for all $p\in\mathcal A$.  Since
 $|p_D(s)|\le(1+s)^{n-1}$, the full sum at $p_D$ exceeds $f_D(p_D)$ by at
-most $\tau_D=\sum_{s>D}\omega(s)(1+s)^{n-1}\to0$.  So the infimum lies
-between $\min f_D$ and $\min f_D+\tau_D$, and the truncated minima increase
+most $\sum_{s>D}\omega(s)(1+s)^{n-1}$, which tends to $0$.  So the
+infimum lies between $\min f_D$ and $\min f_D$ plus this tail, and the
+truncated minima increase
 to it.
 \end{proof}
 
@@ -663,9 +740,9 @@ signs there (Lemma~\ref{lem:crossing}).  And an insertion reverses the sign
 of $r_W$ at every later position that lies in neither set
 (Lemma~\ref{lem:insflip}).
 
-For finite $Z\subset\N_{>0}$ and an integer $\tau\ge1$ let
+For finite $Z\subset\N_{>0}$ and an integer $c\ge1$ let
 \[
-  \mathrm{ins}(Z,\tau)=\{z\in Z:z<\tau\}\cup\{\tau\}\cup\{z+1:z\in Z,\ z\ge\tau\}.
+  \mathrm{ins}(Z,c)=\{z\in Z:z<c\}\cup\{c\}\cup\{z+1:z\in Z,\ z\ge c\}.
 \]
 
 For a finite $W\subset\N_{>0}$ and an integer $t\ge0$ put
@@ -1032,8 +1109,9 @@ $\deg p\le n-1$ and $p(0)=1$, and put
 \]
 for real polynomials $p$, so that $\nu_i(n)=\inf_{p\in\mathcal Q_n}A_i(p)$.
 The second expression holds because $|r_{[1,i-1]}(s)|=\binom{s-1}{i-1}$
-for $s\ge1$.  For finite $S\subset\N_{>0}$ let $\ell(S)$ be the largest
-$\ell\ge0$ with $[1,\ell]\subseteq S$.
+for $s\ge1$.  For finite $S\subset\N_{>0}$ let $\ell(S)$ be its leading
+run (Section~\ref{sec:rowvalues}), the largest $\ell\ge0$ with
+$[1,\ell]\subseteq S$.
 
 \begin{lemma}[Pushing exempted positions into the prefix]\label{lem:prefixpush}
 Let $r>1$, let $p$ be a real polynomial and let $S\subset\N_{>0}$ be finite.
@@ -1961,6 +2039,49 @@ computations behind Propositions~\ref{prop:secondrowexact} and~\ref{prop:thirdro
 \texttt{tests/test\_rows.py} of the repository
 \href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass};
 they need Python~3.12 or later.
+
+\paragraph{Computer assistance.}
+Propositions~\ref{prop:secondrowexact} and~\ref{prop:thirdrowexact} are the
+only computer-assisted results; every other result is proved by hand.  Their
+proofs reduce each claim, through Lemma~\ref{lem:vertexopt},
+Theorem~\ref{thm:secondrow}(a) and Theorem~\ref{thm:finiterows}(b), to
+finitely many comparisons of explicit rational numbers: the vertex test of
+Lemma~\ref{lem:vertexopt} for each named zero set, the sign of
+$\Delta_{q,m}$ at each threshold, the bound $\Phi_r(Z)\le B$ (or $<B$) for
+a zero set through each exempted position or set below the thresholds, and
+the comparisons with the stated decimals.  The tests
+\texttt{test\_second\_row\_*} and \texttt{test\_third\_row\_*} in
+\texttt{tests/test\_rows.py} carry out these comparisons in exact rational
+arithmetic (Python's \texttt{fractions} module), evaluating $\Phi_r$, $G_y$
+and $\Delta_{q,m}$ through the closed form described after
+Lemma~\ref{lem:vertexopt}, with no floating point; these computations are
+steps of the proofs.  The zero sets were found by search, and only their
+verification is part of the proofs.  The value $\sigma_*=25$ and the
+comparison for the zeros $25$ and $26$ quoted in
+Section~\ref{sec:finiterows} are computed in the same way
+(\texttt{test\_far\_zeros}) and are illustrations, not used in any proof.
+The remaining tests are checks, not proof steps.
+\texttt{test\_prefix\_identity\_fails\_below\_two} builds from
+$Z_2(15)$, by complementary slackness, an explicit monic multiple of
+$(x-\frac54)^{16}$ of degree $300$ with rational coefficients, verifies the
+divisibility by $16$ exact synthetic divisions, and checks that its second
+largest nonleading coefficient magnitude is at most $6.5695$, an
+independent primal check of the upper bound in
+Proposition~\ref{prop:secondrowexact}(a).  Other tests compare
+Corollary~\ref{cor:lastrowr} and Theorem~\ref{thm:allrowstwo} with
+exhaustive minima over zero sets in a window for small $L$, and test the
+closed form for $\Phi_r$ and the vertex test on known cases.  Each check
+is paired with a control that it must reject.  The whole file runs in a
+few seconds.
+
+\paragraph{Use of AI tools.}
+Large language model assistants (Claude, Anthropic) were used in drafting
+and revising the text, the proofs and the verification code. The author has checked the mathematics and is responsible
+for the content.
+
+\paragraph{Funding and competing interests.}
+The author received no specific funding for this work and has no competing
+interests to declare.
 
 \begin{thebibliography}{9}
 
