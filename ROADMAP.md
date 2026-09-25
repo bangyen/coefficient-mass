@@ -155,8 +155,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `{6/5, 5/4, 4/3}` with `2 <= n <= 18` and `r = 3/2` with `n <= 16`): the
   identity at `k = 3` failed for `r <= 4/3` only, by up to 40% (at
   `(5/4, 19, 3)`); a `k = 3` failure without a `k = 2` one only at
-  `(4/3, n = 14)`, and the reverse only at `(6/5, n = 17)`; where the third
-  row was below the second the worst pair was `{2,3}`; and the `k = 2`
+  `(4/3, n = 14)`, and the reverse only at `(6/5, n = 17)`; in the failures
+  where the third row was below the second, the worst pair was `{2,3}`; and the `k = 2`
   identity held at all 30 points with `nu_2(n) >= nu_1(n)`, every position
   below `sigma*` computed.
   Open: a proof that `nu_2(n) >= nu_1(n)` implies the identity at `k = 2`;

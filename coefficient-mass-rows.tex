@@ -44,8 +44,8 @@ exempted position, wherever it lies, by one crossing step at the first gap of
 a minimizer, inducting on the number of exempted positions,
 and bounds the cost of that step by first-order optimality.  For $1<r<2$ the
 rows are not all top rows.  We show that they are given by
-prefix-constrained problems whenever the top row is at most one, and on each diagonal $L-k=\mathrm{const}$ for all but finitely many
-rows.  The second row is the minimum of the top row and finitely many terms, one
+prefix-constrained problems whenever the top row $\beta_r(L-k+1)$ of the diagonal is at most one, and on each diagonal $L-k=\mathrm{const}$ for all but finitely many
+rows.  The second row $V_r(L,2)$ is the minimum of the top row $\beta_r(L-1)$ of its diagonal and finitely many terms, one
 for each nearby exempted position.  More generally, row $k\ge2$ is the minimum
 of row $k-1$ on the same diagonal and finitely many terms, one for each
 exempted set in a finite tree cut off by thresholds for several far zeros.
@@ -118,8 +118,8 @@ We prove that the upper bound is attained for
 every $k$ whenever $\beta_r(n)\le1$ (Theorem~\ref{thm:onepolyrows}).  We
 also prove it whenever $k\ge\max(K,\alpha(n-1))$ for constants depending on
 $r$ (Theorem~\ref{thm:longdiag}, Proposition~\ref{prop:longdiagexplicit}).
-It is not attained in general.  The second row $k=2$ is the minimum of the top
-row and finitely many exempted-position terms (Theorem~\ref{thm:secondrow}), and exact
+It is not attained in general.  The second row $V_r(n+1,2)$ is the minimum of the top
+row $\beta_r(n)$ and finitely many exempted-position terms (Theorem~\ref{thm:secondrow}), and exact
 certificates give $V_{5/4}(16,2)=1/\nu_3(14)<\min_{i\le2}1/\nu_i(15)$ and
 $V_{4/3}(19,2)<\min_{i\le2}1/\nu_i(18)$
 (Proposition~\ref{prop:secondrowexact}).  Every row $k\ge2$ is likewise
@@ -1440,7 +1440,7 @@ Lemma~\ref{lem:vertexopt}; the computation is in
 $\eta_2(15)=\Phi_r(Z_2)$, and with $S=\varnothing$ that
 $\nu_1(15)=\Phi_r(Y_{15})$, which is less than $\Phi_r(Z_2)$.  The tail
 condition $2R_p(\sigma_0)\le\Psi_r(p)$ holds for $p=r_{Y_{15}}$ at
-$\sigma_0=107$, so $\eta_\sigma(15)\le\Phi_r(Y_{15})$ for $\sigma\ge107$ by
+$\sigma_0=107$ (an admissible $\sigma_0\ge\sigma_*$; the least is $\sigma_*=25$, Section~\ref{sec:finiterows}), so $\eta_\sigma(15)\le\Phi_r(Y_{15})$ for $\sigma\ge107$ by
 the remark after Theorem~\ref{thm:secondrow}.  For every
 $\sigma<107$ other than $2$, one of the following sets $Z\ni\sigma$ of $15$ integers has
 $\Phi_r(Z)\le\Phi_r(Z_2)$:
@@ -1614,10 +1614,10 @@ $V_r(n+m,m+1)\ge1/B$.
 \end{theorem}
 
 \begin{proof}
-Both parts rest on one step.  Let $S=\{\sigma_1<\cdots<\sigma_m\}$, put
-$N_j=\{\sigma_1,\ldots,\sigma_j\}$, and let $q$ be real with
-$\deg q\le n+j-1$, $q(0)=1$, $q|_{N_j}=0$ and
-$\Delta_{q,m-j}(\sigma_{j+1})\le0$ for some $j<m$.  The set
+Both parts rest on one step.  Let $S=\{\sigma_1<\cdots<\sigma_m\}$ and
+put $N_j=\{\sigma_1,\ldots,\sigma_j\}$ for $0\le j\le m$.  Fix $j<m$ and
+let $q$ be real with $\deg q\le n+j-1$, $q(0)=1$, $q|_{N_j}=0$ and
+$\Delta_{q,m-j}(\sigma_{j+1})\le0$.  The set
 $F=S\setminus N_j$ has $m-j$ elements, all at least $\sigma_{j+1}$, so
 Lemma~\ref{lem:farzeros}(b) gives $\Phi_r(q\,r_F)\le\Phi_r(q)$.  The
 polynomial $q\,r_F$ has degree at most $n+m-1$, takes the value $1$ at $0$
@@ -1640,10 +1640,12 @@ $V_r(n+j,j+1)\ge V_r(n+m-1,m)$ since $j\le m-1$.  So every $S$ has
 $1/\mu_r(S,n+m)$ at least the right side, and
 Proposition~\ref{prop:rowvalue}(b) gives the reverse inequality.
 
-(b) Let $|S|=m$.  We have $N_0\in\mathcal T$.  If $N_j\in\mathcal T$ and
-$\sigma_{j+1}<T_{N_j}$, then $N_{j+1}\in\mathcal T$ when $j\le m-2$, and
-$\mu_r(S,n+m)\le B$ by hypothesis when $j=m-1$.  Otherwise some $j<m$ has
-$N_j\in\mathcal T$ and $\sigma_{j+1}\ge T_{N_j}$.  Then
+(b) Let $|S|=m$, and let $j<m$ be least with $\sigma_{j+1}\ge T_{N_j}$, if
+any; then $N_0,\ldots,N_j\in\mathcal T$ by induction, since
+$N_0=\varnothing\in\mathcal T$, and $N_i\in\mathcal T$,
+$\sigma_{i+1}<T_{N_i}$, $i\le m-2$ give $N_{i+1}\in\mathcal T$.  If there
+is none, then likewise $N_{m-1}\in\mathcal T$ and $\sigma_m<T_{N_{m-1}}$,
+so $\mu_r(S,n+m)\le B$ by the leaf hypothesis.  Otherwise
 $\Delta_{q_{N_j},m-j}(\sigma_{j+1})\le\Delta_{q_{N_j},m-j}(T_{N_j})\le0$ by
 Lemma~\ref{lem:farzeros}(a), and~\eqref{eq:farstep} gives
 $\mu_r(S,n+m)\le\Phi_r(q_{N_j})\le B$.  Proposition~\ref{prop:rowvalue}(b)
@@ -1709,11 +1711,14 @@ $n+|N|-1$ integers, and $T_N$ the least integer with
 $\Delta_{q_N,m-|N|}(T_N)\le0$; a leaf $N\cup\{\sigma\}$ is checked through a
 set $Z\supseteq N\cup\{\sigma\}$ of at most $n+m-1$ integers with
 $\Phi_r(Z)\le B$.  The test builds the tree.  For each child
-$N\cup\{\sigma\}$ it tries a few sets: that of $N$ with a nearby element
-replaced by $\sigma$ or with $\sigma$ added, and one fixed set of each size
-with the elements nearest to the positions of $N\cup\{\sigma\}$ moved there.
-It keeps the one with the least $\Phi_r$, unless the child is given a named
-set.
+$N\cup\{\sigma\}$ it tries $Z_N$ with one of the three elements outside $N$
+nearest to $\sigma$ replaced by $\sigma$, or with $\sigma$ added, and the
+fixed set of $n+|N|$ integers (\texttt{\_FULL12}, \texttt{\_FULL14} and
+\texttt{\_FULL8} in the test, for (a)--(c)) with each position of
+$N\cup\{\sigma\}$ that it misses put in place of one of the two elements
+outside $N\cup\{\sigma\}$ nearest to it, in every combination.  It keeps
+the one of at most $n+|N|$ elements with the least $\Phi_r$, unless the
+child is given a named set.
 
 (a) Lemma~\ref{lem:vertexopt} with $S=\{2,3\}$, $\{2\}$ and $\varnothing$
 gives $\mu_r(\{2,3\},14)=\Phi_r(Z_{2,3})$, $\eta_2(12)=\Phi_r(Z_2)$ and
