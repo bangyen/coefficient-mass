@@ -3,7 +3,8 @@
 Thin sectors and sectors of every width are checked on seeded random
 Gaussian-integer multiples, with real zeros along the rays counted exactly by
 Sturm sequences; the integer imitations of ``x^N - rho^N`` and the heavy
-coefficients at Gaussian roots on seeded integer multiples.  Every group has
+coefficients at Gaussian roots on seeded integer multiples; polynomials in a
+power and symmetric root sets exactly.  Every group has
 a control that a false variant of its statement is caught.  The polynomial
 helpers and the block decomposition of ``lem:gaussblocks`` (a result of
 ``coefficient-mass-complex.tex``) are those of ``tests/test_complex.py``.
@@ -29,6 +30,7 @@ from tests.test_complex import (
     _cofactor,
     _divides,
     _gmul,
+    _mass,
     _mul,
     _pairs,
     _product,
@@ -345,7 +347,8 @@ def test_wide_sector_constant() -> None:
             assert mass < wide and mass < const
 
 
-# Integer imitations of x^N - rho^N (lem:gaussbinom, prop:gausslow).
+# Integer imitations of x^N - rho^N (lem:gaussbinom, prop:gausspower,
+# prop:gausslow).
 
 
 def _gpow(z: Gauss, n: int) -> Gauss:
@@ -377,6 +380,132 @@ def test_polynomials_in_a_power() -> None:
                     assert (c - t, d) in {(-(a - t), -b), (-b, a - t), (b, -(a - t))}
     assert _gpow((1, 1), 4) == _gpow((-1, 1), 4) == (-4, 0)
     assert _product([[2, -2, 1], [2, 2, 1]]) == [4, 0, 0, 0, 1]
+
+
+def _in_power(a: Poly, n: int) -> Poly:
+    """``A(x^N)``."""
+    out = [0] * (n * (len(a) - 1) + 1)
+    out[::n] = a
+    return out
+
+
+def _norm(z: Gauss) -> int:
+    return z[0] * z[0] + z[1] * z[1]
+
+
+def test_polynomials_in_a_power_pay() -> None:
+    """``prop:gausspower``, item 1: a multiple ``A(x^N)`` of ``P`` has
+    ``Lambda >= (N/2) sum log rho_j``, that is ``exp(Lambda)^4 >= prod
+    |alpha_j|^(2N)``, on the least such ``A`` (the product of the minimal
+    polynomials of the classes of ``alpha_j^N``) and seeded multiples of it;
+    equality at ``x^4 + 4k^4``.
+
+    Control: the same with ``N`` for ``N/2`` fails at ``x^4 + 4``.
+    """
+    rng = random.Random(SEED + 9)
+    points = _upper(6)
+    for _ in range(150):
+        n = rng.randint(1, 9)
+        roots = rng.sample(points, rng.randint(1, 5))
+        minimal: dict[Gauss, Poly] = {}
+        for z in roots:
+            u, v = _gpow(z, n)
+            minimal[(u, abs(v))] = [-u, 1] if v == 0 else [u * u + v * v, -2 * u, 1]
+        least = _product(list(minimal.values()))
+        for a in (least, _mul(least, _cofactor(rng))):
+            f = _in_power(a, n)
+            assert _divides(_pairs(roots), f)
+            assert _mass(f) ** 4 >= prod(_norm(z) ** n for z in roots)
+    for k in range(1, 6):
+        f = _in_power([4 * k**4, 1], 4)
+        assert _divides(_pairs([(k, k), (-k, k)]), f)
+        assert _mass(f) ** 4 == (2 * k * k) ** 8
+    assert _mass([4, 0, 0, 0, 1]) ** 2 < 2**8
+
+
+def _dihedral(a: int) -> list[Gauss]:
+    """The four points of ``prop:gausspower``, item 3, at ``a``."""
+    return [(a, a - 1), (-(a - 1), a), (-a, a - 1), (a - 1, a)]
+
+
+def _within(z: Gauss, cot: Fraction) -> bool:
+    """``|arg z - pi/2| <= delta`` for ``cot(delta) = cot``, ``Im z > 0``."""
+    return abs(z[0]) * cot <= z[1]
+
+
+def _log2_binomials(k: int) -> int:
+    """The exponent ``(k-1)^2`` of 2 bounding ``prod_(0<j<k) binom(k, j)``."""
+    return max(k - 1, 0) ** 2
+
+
+def test_symmetric_root_sets() -> None:
+    """``prop:gausspower``, items 2-3: root sets with ``-Z = Z`` (``iZ = Z``)
+    make ``P`` a polynomial in ``x^2`` (``x^4``) with the stated mass bounds,
+    on the families of item 3 in sectors with ``cot delta = 3, 1/2`` and on
+    seeded symmetrized sets.
+
+    Control: the families exceed half the stated leading terms, ``K^2/2 log
+    rho_max`` and ``K^2/4 log rho_max``; and ``{alpha, i alpha, -conj(alpha)}``
+    has ``i alpha_j`` among the roots for every ``j`` but ``iZ != Z``, and its
+    ``P`` (``K = 3``) is not a polynomial in ``x^4``.
+    """
+    for s in range(1, 9):
+        for big_r in (max(s, 3), 3 * s + 5, 40):
+            if big_r < s:
+                continue
+            roots = [(e, c) for c in range(big_r, big_r + s) for e in (1, -1)]
+            big_k = len(roots)
+            assert all(_within(z, Fraction(3)) for z in roots)
+            assert all(big_r**2 <= _norm(z) <= 4 * big_r**2 for z in roots)
+            p = _pairs(roots)
+            assert all(c == 0 for c in p[1::2])
+            top = max(_norm(z) for z in roots)
+            assert _mass(p) ** 2 <= top ** (big_k * (big_k + 1)) * 4 ** (
+                big_k**2 - big_k
+            )
+            assert _mass(p) <= (2 * big_r) ** (big_k * (big_k + 1)) * 2 ** (
+                big_k * (big_k - 1)
+            )
+            assert _mass(p) ** 4 > top ** (big_k * big_k)
+            if big_r < 2:
+                continue
+            roots = [z for a in range(big_r, big_r + s) for z in _dihedral(a)]
+            big_k = len(roots)
+            assert len(set(roots)) == big_k
+            assert all(_within(z, Fraction(1, 2)) for z in roots)
+            assert all(big_r**2 <= _norm(z) <= 8 * big_r**2 for z in roots)
+            p = _pairs(roots)
+            assert all(c == 0 for i, c in enumerate(p) if i % 4)
+            top = max(_norm(z) for z in roots)
+            half = big_k // 2
+            assert _mass(p) ** 2 <= top ** (2 * half * half + 2 * half) * 4 ** (
+                _log2_binomials(half)
+            )
+            assert _mass(p) ** 2 <= (8 * big_r**2) ** (big_k**2 // 2 + big_k) * 2 ** (
+                big_k**2 // 2
+            )
+            assert _mass(p) ** 8 > top ** (big_k * big_k)
+    rng = random.Random(SEED + 10)
+    for _ in range(40):
+        base = rng.sample([(a, b) for a, b in _upper(9) if a > 0], rng.randint(1, 4))
+        for roots, step in (
+            ([z for a, b in base for z in ((a, b), (-a, b))], 2),
+            ([z for a, b in base for z in ((a, b), (-b, a), (-a, b), (b, a))], 4),
+        ):
+            roots = list(dict.fromkeys(roots))
+            big_k, p = len(roots), _pairs(roots)
+            assert all(c == 0 for i, c in enumerate(p) if i % step)
+            top = max(_norm(z) for z in roots)
+            k = 2 * big_k // step
+            assert _mass(p) ** 2 <= top ** (step * k * (k + 1) // 2) * 4 ** (
+                _log2_binomials(k)
+            )
+    alpha = (2, 1)
+    roots = [alpha, _gmul((0, 1), alpha), (-2, 1)]
+    zset = set(roots) | {(a, -b) for a, b in roots}
+    assert all(_gmul((0, 1), z) in zset for z in roots)
+    assert any(_gmul((0, 1), z) not in zset for z in zset)
+    assert any(c for i, c in enumerate(_pairs(roots)) if i % 4)
 
 
 def _inverse_series(p: Poly, m: int) -> list[Fraction]:
