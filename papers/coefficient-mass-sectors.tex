@@ -150,7 +150,9 @@ $\{y:H(y)=-v\}$, $v$ the lowest nonzero coefficient of $F$, of a polynomial
 $H$ with small nonleading coefficients (Proposition~\ref{prop:gaussheavy}).
 The $\alpha_j$ then lie near one circle, so $K<6\min_j|\alpha_j|$
 (Proposition~\ref{prop:gausscircle}), and three Gaussian points above the
-axis share such a level set at arbitrarily large $\min_j|\alpha_j|$.
+axis share such a level set at arbitrarily large $\min_j|\alpha_j|$.  At
+each prime the lowest term $h_\ell y^\ell$ of $H$ controls the roots, and at
+most $\ell$ of them share a norm (Proposition~\ref{prop:gaussprimes}).
 Whether the number of points is bounded independently of
 $\min_j|\alpha_j|$ is open.
 
@@ -1051,11 +1053,88 @@ Proposition~\ref{prop:gaussheavy}, and $\rho/2>K/12$.
 
 The count uses only the annulus, whose width is of order $\rho_{\min}/d$,
 and not the integrality of $H$; when $d\ge8\rho_{\min}^2$ it gives
-$\rho_j^2<\rho_{\min}^2+1$, so all the $\alpha_j$ share one norm.  Whether the number
-of Gaussian points above the axis in one level set of a polynomial with
-small nonleading coefficients is bounded independently of $\rho_{\min}$,
-and whether $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at
-Gaussian roots in a wide sector, remain open.
+$\rho_j^2<\rho_{\min}^2+1$, so all the $\alpha_j$ share one norm.  The
+integrality of $H$ acts at each prime, through the lowest term of $H$.  For
+a prime $p$ let $\operatorname{ord}_p$ be the valuation of $\mathbb C_p$ with
+$\operatorname{ord}_p(p)=1$, and fix an embedding of $\mathbb Q(i)$ in
+$\mathbb C_p$.
+
+\begin{proposition}[Primes of a level set]\label{prop:gaussprimes}
+In the setting of Proposition~\ref{prop:gaussheavy}, item~2, write
+$H=\sum_{i=1}^dh_iy^i$ with $h_d\ne0$, let $\ell$ be the least $i\ge1$ with
+$h_i\ne0$, put $n_j=\rho_j^2$, and for a prime $p$ put
+$t_p=\operatorname{ord}_p(h_\ell)$ and
+$s_p=(\operatorname{ord}_p(v)-t_p)/\ell$.
+\begin{enumerate}
+\item For every prime $p$, at most $\ell$ roots of $v+H$ in $\mathbb C_p$,
+counted with multiplicity, have valuation greater than $t_p$, and each of
+them has valuation $s_p$.
+\item Let $\ell<d$.  For every prime $p$, at most $\ell$ of the $\alpha_j$ have
+$\operatorname{ord}_p(n_j)>2t_p$, and at most $\ell/2$ if $p=2$ or
+$p\equiv3\pmod4$; each of them has $\operatorname{ord}_p(n_j)=2s_p$ or
+$s_p\le\operatorname{ord}_p(n_j)\le s_p+t_p$.  Every $n_j$ has such a prime,
+so at most $\ell$ of the $\alpha_j$ share one norm, and $K\le\ell N$ if the
+$n_j$ take $N$ values.
+\item If all the $\alpha_j$ share one norm, in particular if
+$d\ge8\rho_{\min}^2$, then $K\le\ell$ when $\ell<d$, and $K\le2$ when $\ell=d$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+1.  Let $V=\operatorname{ord}_p(v)$.  The Newton polygon of $v+H$ over
+$\mathbb Q_p$ is the lower convex hull of $(0,V)$ and the points
+$(i,\operatorname{ord}_p(h_i))$ with $h_i\ne0$; none has $0<i<\ell$, and all
+have ordinate at least $0$, the coefficients being integers.  For each edge
+of slope $-\sigma$ and horizontal length $\lambda$, exactly $\lambda$ roots
+in $\mathbb C_p$, counted with multiplicity, have valuation $\sigma$
+\cite[Chapter~II, Proposition~6.3]{neukirch}.  Let the first edge run from
+$(0,V)$ to $(i_1,y_1)$ with slope $-\sigma_1$, so $i_1\ge\ell$ and $y_1\ge0$.
+If $i_1>\ell$, the point $(\ell,t_p)$ lies on or above this edge, so
+$t_p\ge y_1+\sigma_1(i_1-\ell)\ge\sigma_1$, and by convexity no root has
+valuation above $\sigma_1\le t_p$.  If $i_1=\ell$, the first edge carries
+$\ell$ roots of valuation $(V-t_p)/\ell=s_p$.  Every later edge of negative
+slope starts at an abscissa at least $\ell$, where the polygon, decreasing
+from $(\ell,t_p)$, has ordinate at most $t_p$; it has horizontal length at
+least $1$ and ends at ordinate at least $0$, so its roots have valuation at
+most $t_p$.
+
+2.  Fix $p$ and $j$ with $e=\operatorname{ord}_p(n_j)>2t_p$.  The Gaussian
+integers $\alpha_j$ and $\bar\alpha_j$ have nonnegative valuations with sum
+$\operatorname{ord}_p(\alpha_j\bar\alpha_j)=e$, so one of them exceeds
+$t_p$.  If $p=2$ or $p\equiv3\pmod4$, $-1$ is not a square in $\mathbb Q_p$,
+the nontrivial automorphism of the quadratic extension $\mathbb Q_p(i)$
+restricts to complex conjugation on $\mathbb Q(i)$, and the valuation, being
+unique on $\mathbb Q_p(i)$, is invariant under it; so
+$\operatorname{ord}_p(\alpha_j)=\operatorname{ord}_p(\bar\alpha_j)=e/2>t_p$.
+The $2K$ numbers $\alpha_j,\bar\alpha_j$ are distinct roots of $v+H$, so
+item~1 gives the two counts.  By item~1 again each of
+$\alpha_j,\bar\alpha_j$ of valuation above $t_p$ has valuation $s_p$: if
+both do, $e=2s_p$, and otherwise one has valuation $s_p$ and the other at
+most $t_p$, so $s_p\le e\le s_p+t_p$.  Since $\ell<d$, $h_\ell$ is a
+nonleading coefficient of $F$, so $0<|h_\ell|<\rho_{\min}/2$ and
+$\prod_pp^{2t_p}=h_\ell^2<\rho_{\min}^2\le n_j$; hence some $p$ has
+$\operatorname{ord}_p(n_j)>2t_p$.  Taking the least such $p$, which depends
+only on $n_j$, the $\alpha_j$ of one norm are counted at one prime.
+
+3.  The first case is item~2 with $N=1$, and $d\ge8\rho_{\min}^2$ gives one
+norm by the remark before the proposition.  If $\ell=d$, then
+$v+H=A(y^d)$ with $A(z)=h_dz+v$, and Lemma~\ref{lem:gaussbinom} with $t=0$
+leaves at most two roots above the axis.
+\end{proof}
+
+In the Pell family after Proposition~\ref{prop:gaussheavy}, $\ell=2$, and
+the three points have norms $4c^2+1$, twice, and $4c^2$: item~2 is attained,
+and the bound $K\le\ell$ of item~3 fails on two norms.  Item~3 is attained
+at every scale: for $w=a+ci$ on the Pell equation, $y=i\bar w=c+ai$ gives
+$y^3+y=-i\,\overline{(w^3-w)}=-(8c^3+2c)$, so $(y^3+y)^2$, with nonleading
+coefficients $2$ and $1$, takes the value $(8c^3+2c)^2$ at the two points
+$\pm c+ai$ of one norm.  So three points of one norm need $h_1=h_2=0$, and
+if $h_1\ne0$ the $\alpha_j$ have distinct norms.  Whether the number of
+Gaussian points above the axis in one level set of a polynomial with small
+nonleading coefficients is bounded independently of $\rho_{\min}$, whether
+one norm carries at most two of them, and whether $\Lambda(F)\ge cK^2\log R$
+holds for all integer multiples at Gaussian roots in a wide sector, remain
+open.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.
@@ -1100,6 +1179,11 @@ B.~Pham,
 P.~Erd\H{o}s and P.~Tur\'an,
 \newblock On the distribution of roots of polynomials,
 \newblock \emph{Annals of Mathematics} (2) 51 (1950), 105--119.
+
+\bibitem{neukirch}
+J.~Neukirch,
+\newblock \emph{Algebraic Number Theory},
+\newblock Springer, Berlin, 1999.
 \end{thebibliography}
 
 \end{document}
