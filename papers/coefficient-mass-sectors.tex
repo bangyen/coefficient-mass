@@ -45,7 +45,8 @@ first.  At distinct Gaussian-integer roots in the upper half-plane, degree
 charging removes the degree restriction: integer multiples of every degree
 pay $(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$ as $K\to\infty$.  Two integer imitations of
 $x^N-\rho^N$ are limited, and a small second row confines the roots to one
-level set of a polynomial with small nonleading coefficients.
+level set of a polynomial with small nonleading coefficients and near one
+circle, so there are fewer than six times their least modulus.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; complex
@@ -137,8 +138,11 @@ $\min_j|\alpha_j|>2$ and an integer multiple $F$ has
 $b_2(F)<\min_j|\alpha_j|/2$, all the $\alpha_j$ lie in one level set
 $\{y:H(y)=-v\}$, $v$ the lowest nonzero coefficient of $F$, of a polynomial
 $H$ with small nonleading coefficients (Proposition~\ref{prop:gaussheavy}).
-Whether such a level set holds boundedly many Gaussian points above the
-axis is open.
+The $\alpha_j$ then lie near one circle, so $K<6\min_j|\alpha_j|$
+(Proposition~\ref{prop:gausscircle}), and three Gaussian points above the
+axis share such a level set at arbitrarily large $\min_j|\alpha_j|$.
+Whether the number of points is bounded independently of
+$\min_j|\alpha_j|$ is open.
 
 \paragraph{Conventions.}
 All logarithms are natural.  For $F\in\mathbb C[x]$ of degree $D$ we write
@@ -415,7 +419,7 @@ therefore false for real multiples.  For integer
 multiples at Gaussian roots it is open; Section~\ref{sec:imitations} gives two
 limits on integer imitations of $x^N-\rho^N$ (Lemma~\ref{lem:gaussbinom},
 Proposition~\ref{prop:gausslow}) and a reduction of the second row to level
-sets (Proposition~\ref{prop:gaussheavy}).
+sets (Propositions~\ref{prop:gaussheavy} and~\ref{prop:gausscircle}).
 
 For $0<\delta\le\pi/2$ put
 \[
@@ -892,14 +896,66 @@ nonleading coefficient of $F$, so $i=0$ and $|v|\ge(\rho_{\min}/2)^d$.
 
 So, when $\rho_{\min}>2$, $b_2(F)\ge\rho_{\min}/2$ unless every $\alpha_j$
 lies in one level set $\{y:H(y)=-v\}$ of such an $H$.  Three Gaussian points
-above the axis can share such a level set: $(y^3-y)^2$, with nonleading
-coefficients $-2$ and $1$, takes the value $-270400$ at $\pm7+4i$ and $8i$,
-since $y^3-y$ is $\pm520i$ there, and these points have
-$\rho_{\min}=8>4$.  Whether the number of Gaussian points above the
-axis in one level set
-of a polynomial with small nonleading coefficients is bounded, and whether
-$\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots in
-a wide sector, remain open.
+above the axis can share such a level set, at arbitrarily large
+$\rho_{\min}$.  Let $a^2-3c^2=1$ with $a>0$ and $c\ge4$; these solutions are
+$a+c\sqrt3=(2+\sqrt3)^n$, $n\ge2$, so $c=4,15,56,\ldots$.  Then
+\[
+  y^3-y-(8c^3+2c)i=(y+2ci)\bigl(y^2-2ciy-(4c^2+1)\bigr)
+  =(y+2ci)(y-a-ci)(y+a-ci),
+\]
+so $y^3-y$ is $(8c^3+2c)i$ at $\pm a+ci$ and $-(8c^3+2c)i$ at $2ci$, and
+$(y^3-y)^2$, with nonleading coefficients $-2$ and $1$, takes the value
+$-(8c^3+2c)^2$ at the three points $\pm a+ci$, $2ci$, which have
+$\rho_{\min}=2c>4$.  At $c=4$ these are $\pm7+4i$, $8i$ and the value is
+$-270400$.  In the other direction, the $\alpha_j$ lie near one circle, so
+there are fewer than $6\rho_{\min}$ of them.
+
+\begin{proposition}[Near one circle]\label{prop:gausscircle}
+In the setting of Proposition~\ref{prop:gaussheavy}, item~2, let
+$d=\deg H$ and $Q=(3\rho_{\min}-2)/(\rho_{\min}-2)$.  Then
+$\rho_{\min}\le\rho_j<\rho_{\min}Q^{1/d}$ for every $j$, and
+$K<6\rho_{\min}$.  Consequently
+$\Lambda(F)\ge2K\log(\rho_{\min}/2)>2K\log(K/12)$.
+\end{proposition}
+
+\begin{proof}
+Write $\rho=\rho_{\min}$, $H=\sum_{i=1}^dh_iy^i$ and
+$B=\max_{0<i<d}|h_i|<\rho/2$, and put $\kappa=\rho/(2(\rho-1))$, so
+$\kappa<1$ as $\rho>2$, and $(1+\kappa)/(1-\kappa)=Q$.  For each $j$, with
+$r=\rho_j\ge\rho$, $H(\alpha_j)=-v$ gives
+\[
+  |h_d\alpha_j^d+v|=\Bigl|\sum_{0<i<d}h_i\alpha_j^i\Bigr|
+  \le B\,\frac{r^d-r}{r-1}<\frac{\rho}{2(\rho-1)}\,r^d\le\kappa|h_d|r^d,
+\]
+so $(1-\kappa)|h_d|\rho_j^d<|v|<(1+\kappa)|h_d|\rho_j^d$.  The upper bound at a
+$j$ with $\rho_j=\rho$ and the lower bound at any $j$ give
+$(\rho_j/\rho)^d<Q$.
+
+Since $\rho^2$ is an integer above $4$, $\rho\ge\sqrt5$, so
+$Q=3+4/(\rho-2)\le11+4\sqrt5<20$ and $\log Q<3<\frac32\rho$.  Suppose
+$K\ge6\rho$.  The $2K$ distinct roots $\alpha_j,\bar\alpha_j$ of $v+H$ give
+$d\ge2K\ge12\rho$, so $t=(\log Q)/d$ satisfies $t<\frac18$ and
+$t<\frac3{12\rho}$.  Put $\rho'=\rho Q^{1/d}=\rho e^t$.  The unit squares
+centred at the $\alpha_j$ are disjoint and lie in the upper half of the
+annulus $\rho-1/\sqrt2\le|w|\le\rho'+1/\sqrt2$, so
+\[
+  K\ \le\ \frac\pi2\Bigl(\rho'^2-\rho^2+\sqrt2(\rho+\rho')\Bigr)
+  =\frac\pi2\rho\Bigl(\rho(e^{2t}-1)+\sqrt2(1+e^t)\Bigr).
+\]
+Here $e^{2t}-1\le2te^{2t}<2.6\,t$ and $e^t<1.14$, so
+$\rho(e^{2t}-1)<2.6\cdot\frac3{12}<0.66$ and
+$K<\frac\pi2\rho(0.66+3.03)<5.8\rho$, a contradiction.  Finally
+$\Lambda(F)\ge\log|v|\ge d\log(\rho/2)\ge2K\log(\rho/2)$ by
+Proposition~\ref{prop:gaussheavy}, and $\rho/2>K/12$.
+\end{proof}
+
+The count uses only the annulus, whose width is of order $\rho_{\min}/d$,
+and not the integrality of $H$; when $d\ge8\rho_{\min}^2$ it gives
+$\rho_j^2<\rho_{\min}^2+1$, so all the $\alpha_j$ share one norm.  Whether the number
+of Gaussian points above the axis in one level set of a polynomial with
+small nonleading coefficients is bounded independently of $\rho_{\min}$,
+and whether $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at
+Gaussian roots in a wide sector, remain open.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.
