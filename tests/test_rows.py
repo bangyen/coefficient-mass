@@ -191,3 +191,174 @@ def test_prefix_identity_fails_below_two() -> None:
     assert b[1] <= Fraction(65695, 10**4)
     assert 1 / _phi(_Y1, BELOW) >= Fraction(76492, 10**4)
     assert 1 / _phi(_Y2, BELOW) >= Fraction(76492, 10**4)
+
+
+# The second row (``sec:secondrow``).  ``lem:vertexopt`` certifies a vertex
+# exactly, ``thm:secondrow`` (a) disposes of every exempted position from a
+# tail threshold on, and each position below it gets an explicit zero set.
+
+
+def _series_tail(f, deg: int, x: Fraction, start: int) -> Fraction:
+    """``sum_{s>start} f(s) x^s`` for a polynomial ``f`` of degree ``<= deg``."""
+    values = [Fraction(f(s)) for s in range(deg + 1)]
+    whole = sum(
+        sum((-1) ** (j - i) * comb(j, i) * values[i] for i in range(j + 1))
+        * x**j
+        / (1 - x) ** (j + 1)
+        for j in range(deg + 1)
+    )
+    return whole - sum(f(s) * x**s for s in range(start + 1))
+
+
+def _vertex_optimal(zeros: tuple[int, ...], fixed: set[int], r: Fraction) -> bool:
+    """``lem:vertexopt``: whether ``Phi_r(Z) = mu_r(S, |Z|+1)``, ``S = fixed``."""
+    x, top, sign = 1 / r, max(zeros), (-1) ** len(zeros)
+    signs = {
+        s: (1 if _rz(zeros, s) > 0 else -1) for s in range(1, top + 1) if s not in zeros
+    }
+    for y in set(zeros) - fixed:
+        rest = tuple(z for z in zeros if z != y)
+
+        def e(s: int, rest: tuple[int, ...] = rest) -> Fraction:
+            return s * _rz(rest, s)
+
+        g = sum(sg * e(s) * x**s for s, sg in signs.items())
+        g += sign * _series_tail(e, len(zeros), x, top)
+        if abs(g) > abs(e(y)) * x**y:
+            return False
+    return True
+
+
+def _tail_threshold(zeros: tuple[int, ...], r: Fraction) -> int:
+    """The least ``sigma >= max Z`` with ``2 T_p(sigma) <= M(p)``, ``p = r_Z``."""
+    x, top, sign = 1 / r, max(zeros), (-1) ** len(zeros)
+    deg = len(zeros) + 1
+    moment = sum(s * abs(_rz(zeros, s)) * x**s for s in range(1, top + 1))
+    moment += sign * _series_tail(lambda s: s * _rz(zeros, s), deg, x, top)
+    sigma = top
+    while True:
+
+        def f(s: int, sigma: int = sigma) -> Fraction:
+            return (s - sigma) * _rz(zeros, s)
+
+        tail = _series_tail(f, deg, x, sigma)
+        if 2 * sign * tail <= moment:
+            return sigma
+        sigma += 1
+
+
+def _candidates(sigma: int, full: tuple[int, ...], short: tuple[int, ...]):
+    """Zero sets of size ``|full|`` through ``sigma``: ``full`` itself, the
+    insertion ``ins(short, sigma)``, and ``full`` with one zero moved."""
+    if sigma in full:
+        yield full
+    if sigma not in short:
+        yield tuple(
+            [z for z in short if z < sigma]
+            + [sigma]
+            + [z + 1 for z in short if z > sigma]
+        )
+    for z in sorted(full, key=lambda z: abs(z - sigma)):
+        if sigma not in full:
+            yield tuple(sorted(set(full) - {z} | {sigma}))
+
+
+def _second_row_bounded(
+    r: Fraction,
+    short: tuple[int, ...],
+    full: tuple[int, ...],
+    bound: Fraction,
+    exceptions: dict[int, tuple[int, ...]],
+) -> list[int]:
+    """The positions below the tail threshold of ``short`` that no zero set
+    certifies ``mu_sigma(n) <= bound`` at.
+
+    ``short`` has ``n-1`` zeros; when ``Phi_r(short) <= bound``,
+    ``thm:secondrow`` (a) with ``p = r_short`` covers every ``sigma`` from its
+    tail threshold on.  Below it each ``sigma`` needs a zero set of size ``n``
+    through ``sigma`` with ``Phi_r <= bound``.
+    """
+    uncovered = []
+    for sigma in range(1, _tail_threshold(short, r)):
+        if sigma in exceptions:
+            zs = exceptions[sigma]
+            assert sigma in zs and len(zs) == len(full) and _phi(zs, r) <= bound
+            continue
+        if not any(_phi(zs, r) <= bound for zs in _candidates(sigma, full, short)):
+            uncovered.append(sigma)
+    return uncovered
+
+
+def test_vertex_certificate() -> None:
+    """``lem:vertexopt`` accepts the optima and rejects a displaced zero."""
+    assert _vertex_optimal(_VERTEX, {2}, BELOW)
+    assert _vertex_optimal(_VERTEX, {1, 2}, BELOW)
+    assert _vertex_optimal(_Y1, set(), BELOW)
+    assert _vertex_optimal(_Y2, {1}, BELOW)
+    # The controls: a displaced zero, and the constrained optimum offered as
+    # an unconstrained one.
+    assert not _vertex_optimal((*_VERTEX[:-2], 95, 115), {2}, BELOW)
+    assert not _vertex_optimal(_VERTEX, set(), BELOW)
+
+
+def test_tail_threshold() -> None:
+    """``thm:secondrow`` (a): past the threshold, ``Phi_r((1-s/sigma) p)`` is
+    at most ``Phi_r(p)``, for ``p`` the ``nu_1(15)``-optimum."""
+    threshold = _tail_threshold(_Y1, BELOW)
+    for sigma in (threshold, threshold + 5, 3 * threshold):
+        assert _phi(tuple(sorted({*_Y1, sigma})), BELOW) <= _phi(_Y1, BELOW)
+    # The control: at sigma = 2 the extra zero costs, it does not save.
+    assert _phi((*_Y1[:1], 2, *_Y1[1:]), BELOW) > _phi(_Y1, BELOW)
+
+
+def test_second_row_at_five_fourths_fails() -> None:
+    """``prop:secondrowexact`` (a), (b): ``V(16,2) = 1/Phi(Z*) = 1/nu_3(14)``,
+    below ``beta(15) = min_{i<=3} 1/nu_i(15)``."""
+    top = _phi(_VERTEX, BELOW)
+    assert _vertex_optimal(_VERTEX, {2}, BELOW)
+    assert _vertex_optimal(_Y1, set(), BELOW)
+    assert _phi(_Y1, BELOW) < top
+    assert _tail_threshold(_Y1, BELOW) == 107
+    assert _second_row_bounded(BELOW, _Y1, _Y2, top, {2: _VERTEX}) == []
+    assert Fraction(65694, 10**4) < 1 / top < Fraction(65695, 10**4)
+    assert Fraction(76492, 10**4) < 1 / _phi(_Y1, BELOW) < Fraction(76493, 10**4)
+    # (b): nu_2(15), nu_3(15) <= nu_1(15) < Phi(Z*), so k = 3 fails too.
+    nu3 = (1, 2, 5, 8, 11, 16, 21, 26, 33, 41, 50, 60, 71, 85, 102, 123)
+    assert _phi(_Y2, BELOW) < _phi(_Y1, BELOW)
+    assert _phi(nu3, BELOW) < _phi(_Y1, BELOW)
+    # The control: the prefix bound nu_1(15) of eq:prefixid fails at sigma = 2.
+    assert _second_row_bounded(BELOW, _Y1, _Y2, _phi(_Y1, BELOW), {}) == [2]
+
+
+def test_second_row_at_five_fourths_holds() -> None:
+    """``prop:secondrowexact`` (c): ``V(14,2) = beta(13) > 1`` with
+    ``nu_2(13) < nu_1(13)``, the prefix identity with its minimum at ``i = 1``."""
+    short = (1, 3, 6, 10, 15, 21, 27, 36, 45, 57, 72, 91)
+    full = (1, 3, 6, 9, 14, 19, 25, 33, 41, 52, 64, 79, 99)
+    nu1 = _phi(short, BELOW)
+    assert _vertex_optimal(short, set(), BELOW)
+    assert _tail_threshold(short, BELOW) == 91
+    assert _second_row_bounded(BELOW, short, full, nu1, {}) == []
+    assert _phi(full, BELOW) < nu1 < 1
+    assert Fraction(46297, 10**4) < 1 / nu1 < Fraction(46298, 10**4)
+    # The control: the bound nu_2(13) of a minimum at i = k fails at sigma = 2.
+    assert 2 in _second_row_bounded(BELOW, short, full, _phi(full, BELOW), {})
+
+
+def test_second_row_at_four_thirds() -> None:
+    """``prop:secondrowexact`` (d): at ``r = 4/3`` a worst position is ``3``:
+    ``V(19,2) = 1/Phi(Z) = 1/nu_4(16) < beta(18)``, and ``mu_2(18) < nu_1(18)``."""
+    r = Fraction(4, 3)
+    short = (1, 2, 4, 6, 9, 12, 16, 20, 25, 30, 36, 44, 52, 61, 72, 85, 103)
+    full = (1, 2, 4, 6, 8, 11, 15, 19, 23, 28, 34, 41, 48, 57, 66, 78, 91, 109)
+    worst = (1, 2, 3, 6, 8, 11, 15, 18, 23, 28, 34, 41, 48, 57, 66, 78, 91, 109)
+    top = _phi(worst, r)
+    assert _vertex_optimal(worst, {3}, r)
+    assert _vertex_optimal(short, set(), r)
+    assert _phi(full, r) < _phi(short, r) < top
+    assert _tail_threshold(short, r) == 103
+    assert _second_row_bounded(r, short, full, top, {3: worst}) == []
+    assert Fraction(4138, 100) < 1 / top < Fraction(4139, 100)
+    assert Fraction(4234, 100) < 1 / _phi(short, r) < Fraction(4235, 100)
+    # The control: the prefix bound nu_1(18) fails at sigma = 3 and only there.
+    assert _second_row_bounded(r, short, full, _phi(short, r), {}) == [3]

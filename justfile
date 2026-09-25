@@ -7,7 +7,7 @@ lint:
     uv run ruff format --check tests tools
     uv run ruff check tests tools
 
-# every test, the certificate sweeps included (~5s)
+# every test, the certificate sweeps included (~10s)
 test:
     uv run pytest -q
 
