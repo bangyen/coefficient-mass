@@ -29,39 +29,24 @@
 \maketitle
 
 \begin{abstract}
-For a nonzero polynomial $F=\sum_jf_jx^j$ of degree $D$, let $b_k(F)$ be the
-$k$-th largest nonleading coefficient magnitude and
-$\Lambda(F)=\sum_j\log^+|f_j|$ its logarithmic coefficient mass.  For real
-roots $2\le r_1\le\cdots\le r_L$ a companion paper proves
-$b_k(F)\ge|f_D|\prod_{i\ge k}(r_i-1)$ for every multiple of
-$\prod_i(x-r_i)$, and hence a mass bound that charges the $i$-th root $i$ times.  We ask what
-survives for complex roots.  For fixed $m$, all $m$-th roots of real
-numbers $s_j$ of one sign, in particular purely imaginary pairs $\pm ic$
-(the square roots of $-c^2$), reduce exactly to real roots: the infimum of
-every $b_k$ and of $\Lambda$ over monic multiples is the same as at the real
-roots $|s_j|$ ($c^2$ for $\pm ic$).  Without such structure only the
-first row survives uniformly in the angles: $b_1(F)\ge|f_D|\prod_j(|\alpha_j|-1)$ at arbitrary roots
-of modulus greater than one, while $b_2$ and every superlinear mass bound
-fail to hold uniformly over pairs within any fixed angle of the imaginary axis.  Rows and mass
-return, up to constants, when single moduli are separated by a factor $9$, by
-an Archimedean Newton polygon argument; with several roots per annulus the
-mass needs the separation $162$.  With $K_s$ roots of modulus in
-$[T_s,U_s]$ for $s=1,\ldots,S$, where $T_1>3$ and $T_s>162U_{s-1}$,
-multiples with leading coefficient of modulus at least $1$ have mass at least
-$\sum_ssK_s\log(T_s/2)-O(S)$,
-attained to leading order for suitable roots as $\min_sT_s\to\infty$: a root is charged once per annulus at or below it, and the
-cross terms $K_uK_s\log T_s$ of the real bound fail.  Real roots of both
-signs charge one
-root of each sign per excluded coefficient, with the sharp constant
-$\frac14$ in the mass.  For $K$ roots of modulus at least $R$ in a sector of
-half-width $\delta<\pi/2$, multiples of degree $O(K)$ with leading
-coefficient of modulus at least $1$ have mass at least
-$(\frac12-o(1))K^2\log R$ if $\delta K\to0$ and at least $(\frac\pi\delta-o(1))K\log R$
-at fixed $\delta$, as $K,R\to\infty$, with both constants attained; at
-distinct Gaussian-integer roots in the upper half-plane and fixed $\delta$ the degree restriction is removed
-for integer multiples, which pay $(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$
-as $K\to\infty$, uniformly in $R$; whether they must pay order $K^2\log R$ is
-open.
+Let $b_k(F)$ be the $k$-th largest nonleading coefficient magnitude of
+$F=\sum_{j\le D}f_jx^j$ and $\Lambda(F)=\sum_j\log^+|f_j|$.  At real roots
+$r_i\ge2$ a companion paper gives $b_k(F)\ge|f_D|\prod_{i\ge k}(r_i-1)$ for
+every multiple and charges the $i$-th smallest root $i$ times in $\Lambda$.
+Purely imaginary pairs $\pm ic$ reduce by multisection exactly to real roots
+$c^2$: every $b_k$ and $\Lambda$ have the same infima over monic multiples.
+Otherwise only the first row survives: $b_2$ can vanish and the mass be
+linear for pairs within any fixed angle of the imaginary axis.  An
+Archimedean Newton polygon restores rows and mass up to constants at moduli
+separated by a factor $9$; with several roots per annulus, separation $162$
+gives a sharp mass bound charging each root once per annulus at or below
+it, and the real cross terms fail.  Real roots of both signs charge one root
+of each sign per excluded coefficient, with sharp mass constant $\frac14$.
+At distinct Gaussian integers of modulus at least $\rho>2$ above the
+axis, integer multiples split into blocks paying $\log(\rho/2)$ per unit of
+degree.  In a sector of fixed half-width $\delta<\pi/2$, multiples of degree
+$O(K)$ with $|f_D|\ge1$ at $K$ roots of modulus at least $R$ pay
+$(\frac\pi\delta-o(1))K\log R$ as $K,R\to\infty$, sharply.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; complex
@@ -1913,6 +1898,28 @@ a wide sector, remain open.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.
+
+\paragraph{Computer assistance.}
+No proof in this paper relies on computation.  The numerical thresholds after
+Theorem~\ref{thm:thinsector} describe its range and are not used elsewhere,
+and the value $-270400$ after Proposition~\ref{prop:gaussheavy} is a direct
+evaluation.  The file \texttt{tests/test\_complex.py} in the
+repository of~\cite{coefficient-mass} only checks the statements, on seeded
+random integer multiples and on the extremal examples, each group with a
+control showing that a false variant is caught.  Polynomial products,
+divisibility, coefficient magnitudes, central indices, Rouch\'e comparisons
+and Sturm counts of real zeros are computed in exact integer and rational
+arithmetic; floating point enters only in evaluating logarithms, in the
+right-hand sides of mass bounds, the constant $E$ and the tropical roots.
+
+\paragraph{Use of AI tools.}
+Large language model assistants (Claude, Anthropic) were used in drafting and
+revising the text, the proofs and the verification code.  The author has checked the mathematics and is responsible for
+the content.
+
+\paragraph{Funding and competing interests.}
+The author received no specific funding for this work and has no competing
+interests to declare.
 
 \begin{thebibliography}{99}
 \small
