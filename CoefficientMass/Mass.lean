@@ -51,7 +51,7 @@ theorem sum_log_le_sum_logPlus {n : ℕ} (s : Finset ℕ) (v : ℕ → ℝ) (t :
     · intro u
       have h := hcount u.succ
       rw [Fin.val_succ] at h
-      show u.val + 1 ≤ ((s.erase j).filter fun j' => t u.succ ≤ v j').card
+      change u.val + 1 ≤ ((s.erase j).filter fun j' => t u.succ ≤ v j').card
       rw [Finset.filter_erase]
       exact le_trans (by omega) Finset.pred_card_le_card_erase
 
