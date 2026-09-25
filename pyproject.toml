@@ -5,10 +5,15 @@ description = "Papers and executable checks on the coefficient mass of polynomia
 requires-python = ">=3.12"
 
 [dependency-groups]
-dev = ["pytest", "ruff"]
+dev = ["codespell", "pytest", "ruff"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+[tool.codespell]
+# Lean's `numer` and hypothesis names, and the label `lem:optins`.
+ignore-words-list = "numer,hda,optins"
+skip = "*.lock,./.lake,./scripts"
