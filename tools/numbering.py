@@ -19,8 +19,9 @@ import re
 import sys
 from pathlib import Path
 
-#: The papers live at the repository root.
-PAPERS = Path(__file__).resolve().parents[1]
+#: The repository root, and the directory the papers live in.
+ROOT = Path(__file__).resolve().parents[1]
+PAPERS = ROOT / "papers"
 
 #: The environments sharing one counter, from the ``\newtheorem`` block at the
 #: head of each paper, mapped to the word a citation spells.

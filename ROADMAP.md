@@ -4,7 +4,7 @@ Research questions the papers leave open.  Each names what is proved and what
 is open; an answer lands in the paper it extends, and the row leaves.
 
 - **Coefficient-mass sharpness, residue.**
-  [coefficient-mass-attainment](coefficient-mass-attainment.tex)
+  [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex)
   proves the partial-sum criterion at repeated roots (`thm:converse`,
   `cor:charrep`, Descartes at infinity) and non-attainment
   (`thm:noattain`).  When the criterion fails the infimum is `1/T` with
@@ -34,8 +34,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   than `r_1`).
 
 - **Coefficient mass at complex roots.**  Purely imaginary pairs are CLOSED
-  ([coefficient-mass-complex](coefficient-mass-complex.tex), split
-  out of [coefficient-mass](coefficient-mass.tex); `thm:transfer`,
+  ([coefficient-mass-complex](papers/coefficient-mass-complex.tex), split
+  out of [coefficient-mass](papers/coefficient-mass.tex); `thm:transfer`,
   `cor:imag`: by multisection a pair `+-ci` is worth exactly one real root
   `c**2`, rows, mass and sharpness included), and the first row holds at
   every root set (`prop:rowone`).  Beyond that no bound can depend on the
@@ -99,8 +99,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   separation for the mass (whether 9 suffices).
 
 - **Every row at other roots.**  The paper is
-  [coefficient-mass-rows](coefficient-mass-rows.tex), split out of
-  [coefficient-mass](coefficient-mass.tex).  The last row is exact
+  [coefficient-mass-rows](papers/coefficient-mass-rows.tex), split out of
+  [coefficient-mass](papers/coefficient-mass.tex).  The last row is exact
   for every `r > 1` (`cor:lastrowr`), and `thm:tailgen` extends `thm:tail`
   to all roots above 1.  For `1 < r < 2` the rows are pinned up to a
   factor `1 + O(k**(n-1/2) theta**k)` (`thm:prefixrows`, `cor:belowtwo`).

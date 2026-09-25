@@ -24,8 +24,8 @@ pdf:
         exit 1
     }
     for paper in {{PAPERS}}; do
-        tectonic "$paper.tex" 2>&1 | tee "$paper.build.log"
-        if grep -E "(Reference|Citation) .* undefined" "$paper.build.log"; then
+        tectonic "papers/$paper.tex" 2>&1 | tee "papers/$paper.build.log"
+        if grep -E "(Reference|Citation) .* undefined" "papers/$paper.build.log"; then
             echo "$paper: undefined reference" >&2
             exit 1
         fi
