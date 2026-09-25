@@ -8,8 +8,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
 - [attainment](papers/coefficient-mass-attainment.tex) (`sec:scope`): an a
   priori bound on the zero set minimising one `tau({x})`; a half-mass
   threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
-  the escaping placement extremal; whether the infimum along `(r,3,5,7)` is
-  `beta(r)` on `[13/10, 29/20)`, where `thm:family` gives only `<=`.
+  the escaping placement extremal; the infimum along `(r,3,5,7)` for
+  `1 < r < 13/10`, where `thm:family` gives only `<= 209/4`.
 - [complex](papers/coefficient-mass-complex.tex): the rows of
   `cor:annuli` item 1 at a fixed separation, and the least such separation
   for the mass (`sec:annuli`).
@@ -48,12 +48,13 @@ is open; an answer lands in the paper it extends, and the row leaves.
   worst placement `{5}`, `N = 11` (`thm:elevenvalue`); along `(r,3,5,7)`
   the escaping placement is extremal exactly for `r >= r_c = 1.4658...`
   (root of `930r^2 - 7r - 1988`), with `inf = 48(r-1)(15r+71)/(49r-34)` on
-  `[29/20, r_c]` (`thm:family`); along `(r,5,7)` it fails for every
+  `[13/10, r_c]` (`thm:family`: past the half-mass point `N <= 6`, the
+  placements 2 and 5 cost less than placement 4); along `(r,5,7)` it fails for every
   `r < 2` (`prop:cutoffsharp`).  Open (`sec:scope`): an a priori bound on
   the zero set minimising one `tau({x})` (to make `u = 1` a finite
-  computation outright), a threshold like `N` for `u >= 2`, and which root
+  computation outright), a threshold like `N` for `u >= 2`, which root
   sets below 2 keep the escaping placement extremal (it depends on more
-  than `r_1`).
+  than `r_1`), and the infimum along `(r,3,5,7)` for `1 < r < 13/10`.
 
 - **Coefficient mass at complex roots.**  Purely imaginary pairs are Closed
   ([coefficient-mass-complex](papers/coefficient-mass-complex.tex), split
