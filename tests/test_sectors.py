@@ -1338,6 +1338,73 @@ def test_symmetries_of_a_level_set() -> None:
     assert len(norm125) == 2 > 1
 
 
+def _real_levels(z: Gauss, degree: int, bound: int) -> list[Poly]:
+    """Every ``A = sum_(k=1)^degree a_k z^k`` with ``a_degree != 0``, ``A(z)``
+    real and ``|a_k| <= bound`` for ``0 < k < degree``: the top coefficient is
+    fixed by the others, as ``Im z^degree != 0``."""
+    powers = [(1, 0)]
+    for _ in range(degree):
+        powers.append(_gmul(powers[-1], z))
+    top = powers[degree][1]
+    assert top != 0
+    out = []
+    for low in product(range(-bound, bound + 1), repeat=degree - 1):
+        im = sum(a * powers[k + 1][1] for k, a in enumerate(low))
+        if im and im % top == 0:
+            out.append([0, *low, -im // top])
+    return out
+
+
+def _below_half(n: int) -> int:
+    """The largest ``b`` with ``4 b^2 < n``, the bound ``b < sqrt(n)/2``."""
+    b = 0
+    while 4 * (b + 1) ** 2 < n:
+        b += 1
+    return b
+
+
+def test_four_points_of_one_class() -> None:
+    """``prop:gaussfour``: at every ``alpha`` off the axes and diagonals with
+    ``|alpha|^2 <= 400``, ``|Re alpha^4| >= |alpha|^2`` and no ``A`` of degree
+    at most 3 with nonleading coefficients below ``|alpha|/2`` is real at
+    ``alpha^4``, and ``A(y^4)`` agrees with it at ``alpha``; ``j = 2|X| - N``
+    has ``|j| >= n``; a class meeting the axes or diagonals holds at
+    most two points above the axis.
+
+    Control: at the square ``z = beta^2`` of a Pell point ``beta = a + ci``
+    (``a^2 - 3c^2 = 1``), not a fourth power, ``z(z - 1)^2`` is real, equal
+    to ``-4c^2 (a^2 + c^2)^2``, with coefficients below ``|z|^(1/4)/2`` once
+    ``|z| > 256``, and the search of the degree-3 case finds it.
+    """
+    for alpha in _upper(20):
+        a, c = alpha
+        n = _norm(alpha)
+        if a == 0 or abs(a) == c or n > 400:
+            continue
+        beta = _gmul(alpha, alpha)
+        x, y = _gmul(beta, beta)
+        assert y != 0 and abs(x) >= n and x * x + y * y == n**4
+        j = 2 * abs(x) - n * n
+        assert abs(j) >= n
+        for degree in (1, 2, 3):
+            assert _real_levels((x, y), degree, _below_half(n)) == []
+        h = [0, 0, 0, 0, 5, 0, 0, 0, -2, 0, 0, 0, 1]
+        assert _horner(h, alpha) == _horner([0, 5, -2, 1], (x, y))
+        cls = _class(alpha)
+        assert sum(z[1] > 0 for z in cls) == 4
+    for alpha in [(0, 3), (3, 3), (-5, 5), (0, 7)]:
+        assert sum(z[1] > 0 for z in _class(alpha)) <= 2
+    for a, c in _pell_triples(3):
+        z = _gmul((a, c), (a, c))
+        big_n = _norm((a, c))
+        assert isqrt(big_n) ** 2 != big_n
+        assert _horner([0, 1, -2, 1], z) == (-4 * c * c * big_n**2, 0)
+        if big_n > 256:
+            bound = max(b for b in range(100) if 16 * b**4 < big_n)
+            assert bound >= 2
+            assert [0, 1, -2, 1] in _real_levels(z, 3, bound)
+
+
 # Counting Gaussian integers (cor:gausscount).
 
 
