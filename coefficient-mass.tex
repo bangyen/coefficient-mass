@@ -43,9 +43,10 @@ this, giving $\inf\Lambda\asymp L^2+\sum_ii\log(r_i-1)$ over monic
 multiples at every root set with $L\ge2$.  The row $k=2$ is
 sharp at $(2,3)$, and for monic multiples of $(x-2)^L$ the $k$-th
 largest nonleading magnitude is at least $L-k+1$.  The key tool compares the
-$\ell^1$ tails of normalized exponential sums with prescribed
-positive-integer zeros: deleting the largest zero together with the largest
-node strictly increases the tail, and iterating gives a product bound over
+$\ell^1$ tails of normalized exponential sums in the reciprocal roots
+$1/r_i$ with prescribed positive-integer zeros: deleting the largest zero
+together with the largest node, the reciprocal of the smallest root,
+strictly increases the tail, and iterating gives a product bound over
 the initial run of consecutive zeros, with equality only when all the zeros
 are consecutive.  As a by-product, the same-sign hypothesis under which
 Dubickas and Jankauskas evaluate the consecutive case holds at all distinct
@@ -82,8 +83,8 @@ height~\cite{dj} and costs nothing for integer multiples.
 \paragraph{Main results.}
 Let $2\le r_1\le\cdots\le r_L$ be real, repetitions allowed, let
 $P=\prod_{i=1}^L(x-r_i)$, and let $F$ be a nonzero real multiple of $P$.
-Write $b_k(F)$ for the $k$-th largest of the nonleading coefficient
-magnitudes $|f_j|$, $j<D$.  Theorem~\ref{thm:order} and
+Write $b_k(F)$ for the $k$-th largest of the $D$ numbers $|f_j|$, $j<D$,
+counted with repetition, zeros included.  Theorem~\ref{thm:order} and
 Corollary~\ref{cor:mass} give
 \[
   b_k(F)\ge|f_D|\prod_{i=k}^{L}(r_i-1)
@@ -119,7 +120,8 @@ exponential sum in the reciprocal roots, the certificate, vanishing there
 and at enough initial positions (Lemma~\ref{lem:slack}).  Its $\ell^1$ tail
 is bounded, uniformly in the zero set, by Theorem~\ref{thm:tail}, whose
 engine is a strict deletion step: deleting a displaced largest zero together
-with the largest reciprocal node strictly increases the tail.
+with the largest node, the reciprocal of the smallest root, strictly
+increases the tail.
 
 \paragraph{Relation to earlier work.}
 Reduced length and reduced height minimize the two classical coefficient
@@ -143,8 +145,8 @@ arbitrary integer zero sets, and with it the rows $k\ge2$.
 
 \paragraph{Sharpness and companion papers.}
 Section~\ref{sec:sharp} asks how close the rows are to optimal.  The loss
-in the row $k=1$ is unbounded: every monic multiple has
-$b_1\ge(r_1+\cdots+r_L)/2$, which exceeds $|P(1)|$ by a factor of order $L$
+in the row $k=1$ is unbounded: if $r_1\ge2$, every monic
+multiple has $b_1\ge(r_1+\cdots+r_L)/2$, which exceeds $|P(1)|$ by a factor of order $L$
 at suitable distinct roots (Proposition~\ref{prop:unbounded}).  The row
 $k=2$ is an infimum at $(2,3)$ (Proposition~\ref{prop:sharp23}), so the rows
 $k\ge2$ cannot be improved by any constant factor in general; the companion
@@ -192,13 +194,13 @@ real-analytic function $d\mapsto\sum_ia_iy_i^d$; all statements about zeros
 and signs of an exponential sum refer to this function of the real variable.
 
 \paragraph{Zero bound.}
-A nonzero exponential sum on $r$ distinct positive nodes has at most $r-1$
+A nonzero exponential sum on $n$ distinct positive nodes has at most $n-1$
 real zeros, counted with multiplicity: write it as $\sum_ia_ie^{\lambda_id}$
-with distinct $\lambda_i$, factor out one exponential, and induct on $r$ by
+with distinct $\lambda_i$, factor out one exponential, and induct on $n$ by
 Rolle's theorem, the derivative being a sum on one fewer
 node~\cite[Part~Five, Ch.~1]{polya-szego}; equivalently, the $e^{\lambda d}$
 form a Chebyshev system~\cite{karlin}.
-Consequently a nonzero $r$-node sum with $r-1$
+Consequently a nonzero $n$-node sum with $n-1$
 distinct prescribed real zeros has exactly those zeros, each is simple, and the sum
 changes sign at each of them.
 
@@ -260,9 +262,9 @@ Then
 \begin{equation}\label{eq:tail}
   \Tail(w)=\sum_{d\ge1}|w_d|
   \le \prod_{i=1}^{\ell+1}\frac{y_i}{1-y_i}
-  =\frac{1}{\prod_{i=1}^{\ell+1}(\rho_i-1)}.
+  =\frac{1}{\prod_{i=1}^{\ell+1}(\rho_i-1)},
 \end{equation}
-Equality holds exactly when $Z=\{1,\ldots,c-1\}$.
+a product over the $\ell+1$ largest $\rho_i$.  Equality holds exactly when $Z=\{1,\ldots,c-1\}$.
 \end{theorem}
 
 For example, at the nodes $(\rho_1,\rho_2)=(3,2)$ the zero set $Z=\{1\}$
@@ -272,28 +274,28 @@ and $\Tail(w)=\frac3{10}$.  At $(\rho_1,\rho_2)=(5,3)$, however, $Z=\{1\}$
 gives $\frac18$ and $Z=\{2\}$ gives $\frac9{64}$, so the theorem does not
 compare zero sets at fixed nodes.  Instead its proof removes the displaced
 zeros one at a time, starting with the largest, each time together with the
-largest reciprocal node.  The hard step is the following comparison of a
+largest node $y_c=1/\rho_c$.  The hard step is the following comparison of a
 correction sum with its value just past the prescribed zeros, proved by
 weak alternation.
 
 \begin{lemma}[Interlacing of the correction sum]\label{lem:interlace}
 Let $c\ge2$ and $0<y_1<\cdots<y_c$, let $Z'\subset\N_{>0}$ satisfy $|Z'|=c-2$, and put
 $m=\max(Z'\cup\{0\})$; the points of $\{0\}\cup Z'$ are the marked
-points.  Let $\widehat F$ be the exponential sum on
+points.  Let $\widehat V$ be the exponential sum on
 $y_1,\ldots,y_{c-1}$ vanishing on $Z'$, and $G$ the sum on
 $y_1,\ldots,y_c$ vanishing on $\{0\}\cup Z'$.  Each is determined by those
 conditions up to a scalar and, by the zero bound, has constant sign for
 $d>m$; normalize both to be positive there.  Write $E_d=G_d-y_cG_{d-1}$,
-$\sigma=G_{m+1}/\widehat F_{m+1}$, and
+$\sigma=G_{m+1}/\widehat V_{m+1}$, and
 \[
-  \Delta_d=\sigma\widehat F_d-E_d.
+  \Delta_d=\sigma\widehat V_d-E_d.
 \]
 Then $\Delta_d\ge0$ for every $d\ge m+1$.  No upper bound on the nodes is
 needed.
 \end{lemma}
 
 \begin{proof}
-The sums $E$ and $\widehat F$ both live on the $c-1$ nodes
+The sums $E$ and $\widehat V$ both live on the $c-1$ nodes
 $y_1,\ldots,y_{c-1}$: writing $G_d=\sum_ia_iy_i^d$ gives
 \[
   E_d=\sum_{i=1}^{c-1}a_i(y_i-y_c)y_i^{\,d-1}
@@ -305,7 +307,7 @@ coefficients possibly zero.
 
 We record its values at the points of $Z'$ and at $m+1$.  First,
 $\Delta_{m+1}=0$, because $G_m=0$ gives $E_{m+1}=G_{m+1}=\sigma\widehat
-F_{m+1}$.  Next let $p\in Z'$.  Then $\widehat F_p=G_p=0$, so
+V_{m+1}$.  Next let $p\in Z'$.  Then $\widehat V_p=G_p=0$, so
 $\Delta_p=-E_p=y_cG_{p-1}$.  By the zero bound $G$ has exactly the simple
 zeros $\{0\}\cup Z'$ and is positive past $m$, so on the component of
 $(0,\infty)\setminus Z'$ just below $p$ it has the sign $(-1)^{a(p)}$, where
@@ -332,75 +334,75 @@ Lemma~\ref{lem:consecutive}; the cutoff $y_c\le1/2$ is not used there.
 
 \emph{Displaced step.}  Suppose $\ell<c-1$ and set $z=\max Z$, so
 $z\ge c\ge\ell+2$.  Put $Z'=Z\setminus\{z\}$ and $m=\max(Z'\cup\{0\})$.  Let
-$F$ be the sum on $y_1,\ldots,y_{c-1}$ with $F_0=1$ and $F|_{Z'}=0$, and $G$
+$V$ be the sum on $y_1,\ldots,y_{c-1}$ with $V_0=1$ and $V|_{Z'}=0$, and $G$
 the sum on all $c$ nodes with $G|_{\{0\}\cup Z'}=0$ and $G_z=1$.  Then
-$w=F-F_zG$, both sides satisfying the same $c$ interpolation conditions.
+$w=V-V_zG$, both sides satisfying the same $c$ interpolation conditions.
 The set $Z'$ has the same leading run $\ell$ as $Z$, so by induction
-$\Tail(F)$ is bounded by the right side of \eqref{eq:tail}, and it remains
-to prove $\Tail(w)<\Tail(F)$.
+$\Tail(V)$ is bounded by the right side of \eqref{eq:tail}, and it remains
+to prove $\Tail(w)<\Tail(V)$.
 
 \emph{Sign comparison.}  By the zero bound, $G$ has exactly the simple zeros
-$\{0\}\cup Z'$, $F$ exactly $Z'$, and $w$ exactly $Z$.  Write
-$\eta=\sgn(F_z)$ and $\mu=|F_z|$, so $w=F-\eta\mu G$.  Since $F$ and $G$ flip
-at the same points, $\sgn(F_d/G_d)$ is constant on $(0,\infty)\setminus Z'$,
+$\{0\}\cup Z'$, $V$ exactly $Z'$, and $w$ exactly $Z$.  Write
+$\eta=\sgn(V_z)$ and $\mu=|V_z|$, so $w=V-\eta\mu G$.  Since $V$ and $G$ flip
+at the same points, $\sgn(V_d/G_d)$ is constant on $(0,\infty)\setminus Z'$,
 equal to its value $\eta$ at $d=z$; hence
-$w_d=\eta\sgn(G_d)\bigl(|F_d|-\mu|G_d|\bigr)$ for $d>0$.  The sign of
-$\varphi(d)=|F_d|-\mu|G_d|$ is thus that of $\eta\sgn(G_d)w_d$, which does
+$w_d=\eta\sgn(G_d)\bigl(|V_d|-\mu|G_d|\bigr)$ for $d>0$.  The sign of
+$\varphi(d)=|V_d|-\mu|G_d|$ is thus that of $\eta\sgn(G_d)w_d$, which does
 not change across $Z'$, where $w$ and $G$ both flip, and does change at $z$,
 where only $w$ flips.  As $\varphi(0)=1$ and $\varphi$ has no zero in
 $(0,\min Z)$, we get
 \[
-  |F_d|>\mu|G_d|\quad(1\le d<z,\ d\notin Z'),
+  |V_d|>\mu|G_d|\quad(1\le d<z,\ d\notin Z'),
   \qquad
-  |F_d|<\mu|G_d|\quad(d>z),
+  |V_d|<\mu|G_d|\quad(d>z),
 \]
-with $|w_d|=\bigl||F_d|-\mu|G_d|\bigr|$ throughout and equality at the
+with $|w_d|=\bigl||V_d|-\mu|G_d|\bigr|$ throughout and equality at the
 zeros of $w$.
 
-For an exponential sum $V$, write
+For $X\in\{V,G\}$ write
 \[
-  \Gamma_V(z)=\frac{\sum_{d\ge z}|V_d|}{|V_z|},
+  \Gamma_X(z)=\frac{\sum_{d\ge z}|X_d|}{|X_z|},
   \qquad \Sigma_G=\sum_{1\le d<z}|G_d|.
 \]
-Splitting $\Tail(F)-\Tail(w)$ at $z$ and using the two displayed
-inequalities, $|F_z|=\mu|G_z|$ and $|G_z|=1$, gives
+Splitting $\Tail(V)-\Tail(w)$ at $z$ and using the two displayed
+inequalities, $|V_z|=\mu|G_z|$ and $|G_z|=1$, gives
 \begin{equation}\label{eq:split}
-  \Tail(F)-\Tail(w)
-  =\mu\bigl(2\Gamma_F(z)-\Gamma_G(z)+\Sigma_G\bigr).
+  \Tail(V)-\Tail(w)
+  =\mu\bigl(2\Gamma_V(z)-\Gamma_G(z)+\Sigma_G\bigr).
 \end{equation}
 
 \emph{The correction ratio.}  We claim
 \begin{equation}\label{eq:gamma}
-  \Gamma_G(z)\le\frac{\Gamma_F(z)}{1-y_c}\le2\Gamma_F(z).
+  \Gamma_G(z)\le\frac{\Gamma_V(z)}{1-y_c}\le2\Gamma_V(z).
 \end{equation}
-Let $\widehat F_d=\eta F_d>0$ for $d>m$ and
+Let $\widehat V_d=\eta V_d>0$ for $d>m$ and
 $E_d=G_d-y_cG_{d-1}$, an exponential sum on the first $c-1$ nodes.  We first
 show
 \begin{equation}\label{eq:drive}
-  \frac{E_d}{\widehat F_d}\le
-  \frac{G_z}{\widehat F_z}\qquad(d\ge z>m).
+  \frac{E_d}{\widehat V_d}\le
+  \frac{G_z}{\widehat V_z}\qquad(d\ge z>m).
 \end{equation}
 
 Set $A=\{0\}\cup Z'=\{\alpha_1=0<\cdots<\alpha_{c-1}=m\}$,
-$\sigma=G_{m+1}/\widehat F_{m+1}$, and
-$\Delta_d=\sigma\widehat F_d-E_d$.  Both $\widehat F$ and $G$ are positive for
+$\sigma=G_{m+1}/\widehat V_{m+1}$, and
+$\Delta_d=\sigma\widehat V_d-E_d$.  Both $\widehat V$ and $G$ are positive for
 $d>m$, the latter because $G_z=1$ with $z>m$, so Lemma~\ref{lem:interlace}
 applies and gives $\Delta_d\ge0$ for $d\ge m+1$, that is,
-$E_d/\widehat F_d\le\sigma$ for $d\ge m+1$.  Next, $\sigma\le G_z/\widehat F_z$, with equality
-when $z=m+1$.  So let $z>m+1$, put $\tau=G_z/\widehat F_z>0$, and consider
+$E_d/\widehat V_d\le\sigma$ for $d\ge m+1$.  Next, $\sigma\le G_z/\widehat V_z$, with equality
+when $z=m+1$.  So let $z>m+1$, put $\tau=G_z/\widehat V_z>0$, and consider
 the $c$-node sum
 \[
-  \Theta_d=G_d-\tau\widehat F_d .
+  \Theta_d=G_d-\tau\widehat V_d .
 \]
 It vanishes on $Z'$ and at $z$, which is $c-1$ points, and
-$\Theta_0=-\tau\widehat F_0=-\tau\eta\ne0$, so by the zero bound $\Theta$
+$\Theta_0=-\tau\widehat V_0=-\tau\eta\ne0$, so by the zero bound $\Theta$
 changes sign exactly at those points.  The $c-2$ points of $Z'$ lie in
 $(0,m+1)$ and $z$ does not, so $\sgn\Theta_{m+1}=(-1)^{c}\sgn\Theta_0
-=-(-1)^{c}\eta$.  And $\eta=(-1)^{c}$, since $F_0=1$ and $F$ flips at each of
+=-(-1)^{c}\eta$.  And $\eta=(-1)^{c}$, since $V_0=1$ and $V$ flips at each of
 the $c-2$ points of $Z'$, all below $z$.  Hence $\Theta_{m+1}<0$, that is,
 $\sigma<\tau$.  Therefore
 \[
-  \frac{E_d}{\widehat F_d}\le\sigma\le\frac{G_z}{\widehat F_z}
+  \frac{E_d}{\widehat V_d}\le\sigma\le\frac{G_z}{\widehat V_z}
   \qquad(d\ge z>m),
 \]
 which is \eqref{eq:drive}.
@@ -410,7 +412,7 @@ Induction in $G_d=y_cG_{d-1}+E_d$, with $G_z=1$ and
 \[
   \frac{G_{z+t}}{G_z}
   \le\sum_{j=0}^t y_c^{t-j}
-       \frac{\widehat F_{z+j}}{\widehat F_z}.
+       \frac{\widehat V_{z+j}}{\widehat V_z}.
 \]
 Summing over $t$ (a geometric series in $y_c$) proves the first inequality
 in \eqref{eq:gamma}; the second uses $y_c\le1/2$.
@@ -418,8 +420,8 @@ in \eqref{eq:gamma}; the second uses $y_c\le1/2$.
 \emph{Strictness.}  It remains to see that $\Sigma_G>0$.  If $z>m+1$, then
 $G_{m+1}\ne0$.  If $z=m+1$, then $|Z'|=c-2<z-1$, so some $1\le d<z$ avoids
 $\{0\}\cup Z'$ and $G_d\ne0$.  So \eqref{eq:split} is positive and
-$\Tail(w)<\Tail(F)$: deleting the largest prescribed zero together with the
-largest node strictly increases the tail.  This completes the induction, and
+$\Tail(w)<\Tail(V)$: deleting the largest prescribed zero together with the
+largest node $y_c=1/\rho_c$ strictly increases the tail.  This completes the induction, and
 equality in \eqref{eq:tail} occurs only in the base case.
 \end{proof}
 
@@ -700,7 +702,7 @@ between a certificate bound and $|P(1)|$ is unbounded in $L$.
 \begin{proof}
 Assume first that the roots are distinct.  Take $Z=\{2,\ldots,L\}$, of size
 $L-1$, and let $w$ be the certificate on the
-nodes $y_i=r_i^{-1}$, so $w_0=1$ and $w_2=\cdots=w_L=0$.  Write
+nodes $y_i=r_i^{-1}$, in any order, as nothing below depends on it, so $w_0=1$ and $w_2=\cdots=w_L=0$.  Write
 $W(t)=\sum_{d\ge0}w_dt^d=N(t)/\Pi(t)$ with $\Pi(t)=\prod_i(1-y_it)$ and
 $\deg N\le L-1$.  Then $N(t)-(1+w_1t)\Pi(t)$ has degree at most $L+1$ and is
 divisible by $t^{L+1}$, hence equals $\kappa t^{L+1}$, so
@@ -749,9 +751,9 @@ than all being bounded.
 \label{prop:quadratic}
 Let $2\le r_1\le\cdots\le r_L$, repetitions allowed.  Every monic real
 multiple $F$ of $\prod_{i=1}^L(x-r_i)$ satisfies, for every
-$\tfrac12<\rho<1$,
+$\tfrac12<R<1$,
 \begin{equation}\label{eq:jensen}
-  b_k(F)\ \ge\ \frac{(2\rho)^{L-k+1}-1}{(1-\rho)^{-k}-1},\qquad 1\le k\le L,
+  b_k(F)\ \ge\ \frac{(2R)^{L-k+1}-1}{(1-R)^{-k}-1},\qquad 1\le k\le L,
 \end{equation}
 and hence $\Lambda(F)\ge L^2/80$ for $L\ge8$.
 \end{proposition}
@@ -791,21 +793,21 @@ integers, so $z_i\ge i$ and
   \le\prod_{i=1}^{k-1}\Bigl(1+\frac di\Bigr)=\binom{d+k-1}{k-1} .
 \]
 Hence $|[t^d]g|\le b_k(F)\binom{d+k-1}{k-1}$ for $d\ge1$, and since
-$\sum_{d\ge0}\binom{d+k-1}{k-1}x^d=(1-x)^{-k}$, taking $x=\rho$ gives
+$\sum_{d\ge0}\binom{d+k-1}{k-1}x^d=(1-x)^{-k}$, taking $x=R$ gives
 \[
-  \max_{|t|=\rho}|g(t)|\ \le\ 1+b_k(F)\bigl((1-\rho)^{-k}-1\bigr).
+  \max_{|t|=R}|g(t)|\ \le\ 1+b_k(F)\bigl((1-R)^{-k}-1\bigr).
 \]
-Jensen's formula for $g$ on $|t|\le\rho$, with $g(0)=1$ and at least
+Jensen's formula for $g$ on $|t|\le R$, with $g(0)=1$ and at least
 $L-k+1$ zeros of modulus at most $\tfrac12$, gives
-$(2\rho)^{L-k+1}\le\max_{|t|=\rho}|g|$, which is \eqref{eq:jensen}.
+$(2R)^{L-k+1}\le\max_{|t|=R}|g|$, which is \eqref{eq:jensen}.
 
-Now take $\rho=\tfrac9{10}$, let $L\ge8$ and $1\le k\le\lfloor L/8\rfloor$,
-and put $\ell=L/8\ge1$.  Then $L-k+1\ge7\ell\ge7$ and $10^k-1<10^\ell$.
+Now take $R=\tfrac9{10}$, let $L\ge8$ and $1\le k\le\lfloor L/8\rfloor$,
+and put $\lambda=L/8\ge1$.  Then $L-k+1\ge7\lambda\ge7$ and $10^k-1<10^\lambda$.
 Since $9^7=4782969>61\cdot5^7$, we have $(9/5)^7>61$, so
-$(9/5)^{L-k+1}-1\ge(9/5)^{7\ell}\bigl(1-\tfrac1{61}\bigr)$ and
+$(9/5)^{L-k+1}-1\ge(9/5)^{7\lambda}\bigl(1-\tfrac1{61}\bigr)$ and
 \[
-  b_k(F)\ \ge\ \frac{60}{61}\Bigl(\frac{(9/5)^7}{10}\Bigr)^{\ell}
-  \ \ge\ \frac{60}{61}\Bigl(\frac{61}{50}\Bigr)^{\ell}5^\ell\ \ge\ 5^\ell\ >\ e^{L/5},
+  b_k(F)\ \ge\ \frac{60}{61}\Bigl(\frac{(9/5)^7}{10}\Bigr)^{\lambda}
+  \ \ge\ \frac{60}{61}\Bigl(\frac{61}{50}\Bigr)^{\lambda}5^\lambda\ \ge\ 5^\lambda\ >\ e^{L/5},
 \]
 the last step because $e<\tfrac{68}{25}$ and $68^8<5^5\cdot25^8$ give $e^8<5^5$.  These $\lfloor L/8\rfloor$
 magnitudes sit at distinct positions and exceed $1$, and
@@ -838,8 +840,8 @@ $r_i/(r_i-1)\le2$, so
 $\Lambda(P)\le2L^2\log2+\sum_ii\log(r_i-1)$.
 \end{proof}
 
-The bound \eqref{eq:jensen} is useful only while $(1-\rho)^{-k}$ has not
-overtaken $(2\rho)^{L-k+1}$, that is, for $k$ up to a constant multiple of
+The bound \eqref{eq:jensen} is useful only while $(1-R)^{-k}$ has not
+overtaken $(2R)^{L-k+1}$, that is, for $k$ up to a constant multiple of
 $L$; it says nothing about the last rows.  For monic multiples of $(x-2)^L$,
 Theorem~\ref{thm:everyrow} at the end of this section proves every row
 $b_k\ge L-k+1$, which interpolates between $b_1\ge L$ and the row $b_L\ge1$
@@ -931,7 +933,7 @@ because every position outside the $k-1$ largest has magnitude at most
 $b_k(F)$.
 \end{proof}
 
-So row $k$ at $L$ follows, for every $D$, from the statement $T(n)$ with
+So row $k$ at $L$ follows, for every $D$, from the statement $(\ast_n)$ with
 $n=L-k+1$: \emph{for every finite $A\subset\N_{>0}$ there is a finite
 $Z\supseteq A$ with $|Z|\le|A|+n-1$ and $\Phi(Z)\le1/n$.}  Two tools
 evaluate $\Phi$.
@@ -947,9 +949,9 @@ $Z$.
 Put $c=|Z|+1$ and $Z'=Z\setminus\{\max Z\}$.  For small $\varepsilon>0$ take
 the nodes $y_i=\tfrac12-(c-i)\varepsilon$, so $0<y_1<\cdots<y_c=\tfrac12$,
 let $w^\varepsilon$ be the sum on $y_1,\ldots,y_c$ with $w_0=1$ and
-$w|_Z=0$, and $F^\varepsilon$ the sum on $y_1,\ldots,y_{c-1}$ with $F_0=1$
-and $F|_{Z'}=0$.  As $Z$ is not $\{1,\ldots,c-1\}$, the deletion step in the
-proof of Theorem~\ref{thm:tail} gives $\Tail(w^\varepsilon)<\Tail(F^\varepsilon)$.
+$w|_Z=0$, and $V^\varepsilon$ the sum on $y_1,\ldots,y_{c-1}$ with $V_0=1$
+and $V|_{Z'}=0$.  As $Z$ is not $\{1,\ldots,c-1\}$, the deletion step in the
+proof of Theorem~\ref{thm:tail} gives $\Tail(w^\varepsilon)<\Tail(V^\varepsilon)$.
 
 Now let $\varepsilon\to0$.  Write $w^\varepsilon_d=\sum_{i=1}^c\alpha_i
 [y_1,\ldots,y_i](y^d)$ in Newton form, the bracket being the divided
@@ -964,7 +966,7 @@ $0\le h_{d-i+1}(y_1,\ldots,y_i)\le\binom d{i-1}2^{-(d-i+1)}$, the terms
 $|w^\varepsilon_d|$ are dominated by $Cd^{\,c}2^{-d}$.  The limit
 $w^0_d=p(d)2^{-d}$ has $\deg p<c$, $p(0)=1$ and $p|_Z=0$, so $p=r_Z$, and by
 dominated convergence $\Tail(w^\varepsilon)\to\Phi(Z)$.  Likewise
-$\Tail(F^\varepsilon)\to\Phi(Z')$, which proves the inequality.
+$\Tail(V^\varepsilon)\to\Phi(Z')$, which proves the inequality.
 
 Finally $|r_{\{1,\ldots,\ell\}}(s)|=\binom{s-1}\ell$ for $s>\ell$ and $0$ for
 $1\le s\le\ell$, and $\sum_{s>\ell}\binom{s-1}\ell2^{-s}=1$.  Deleting the
@@ -978,44 +980,44 @@ rows we compute $\Phi$ exactly on sets that are full up to a few holes.
 
 \begin{lemma}[Hole integral]\label{lem:holeint}
 Let $C\subset\N_{>0}$ be finite and nonempty, $m=\max C$, and for
-$c\in C$ put $w_c=\prod_{c'\in C}c'\big/\prod_{c'\in C\setminus\{c\}}(c-c')$.
-For every $x\ge m$,
+$c\in C$ put $\pi_c=\prod_{c'\in C}c'\big/\prod_{c'\in C\setminus\{c\}}(c-c')$.
+For every $N\ge m$,
 \[
-  \Phi\bigl(\{1,\ldots,x\}\setminus C\bigr)=\int_0^1v^{x-m}M_C(v)\,dv,
+  \Phi\bigl(\{1,\ldots,N\}\setminus C\bigr)=\int_0^1v^{N-m}M_C(v)\,dv,
   \qquad
-  M_C(v)=\sum_{c\in C}2^{-c}v^{m-c}\bigl(w_c(1+v)^{c-1}+|w_c|(1-v)^{c-1}\bigr).
+  M_C(v)=\sum_{c\in C}2^{-c}v^{m-c}\bigl(\pi_c(1+v)^{c-1}+|\pi_c|(1-v)^{c-1}\bigr).
 \]
 \end{lemma}
 
 \begin{proof}
-Let $P=\{1,\ldots,x\}\setminus C$ and $r=r_P$.  For $s>x$ every factor of
-$r(s)$ is negative and
-$|r(s)|=\binom{s-1}x\prod_{c\in C}\frac c{s-c}=\binom{s-1}x\sum_{c\in C}\frac{w_c}{s-c}$,
+Let $Y=\{1,\ldots,N\}\setminus C$ and $\psi=r_Y$.  For $s>N$ every factor of
+$\psi(s)$ is negative and
+$|\psi(s)|=\binom{s-1}N\prod_{c\in C}\frac c{s-c}=\binom{s-1}N\sum_{c\in C}\frac{\pi_c}{s-c}$,
 the last step by partial fractions.  Using $\frac1{s-c}=\int_0^1u^{s-c-1}du$,
-$\sum_{s>x}\binom{s-1}x y^s=y^{x+1}(1-y)^{-x-1}$ and then $v=u/(2-u)$,
+$\sum_{s>N}\binom{s-1}N y^s=y^{N+1}(1-y)^{-N-1}$ and then $v=u/(2-u)$,
 \[
-  \sum_{s>x}\binom{s-1}x\frac{2^{-s}}{s-c}
-  =\int_0^1\frac{u^{x-c}\,du}{(2-u)^{x+1}}
-  =2^{-c}\int_0^1v^{x-c}(1+v)^{c-1}\,dv .
+  \sum_{s>N}\binom{s-1}N\frac{2^{-s}}{s-c}
+  =\int_0^1\frac{u^{N-c}\,du}{(2-u)^{N+1}}
+  =2^{-c}\int_0^1v^{N-c}(1+v)^{c-1}\,dv .
 \]
-For $s\le x$, $r(s)=0$ unless $s\in C$, and for $c\in C$,
+For $s\le N$, $\psi(s)=0$ unless $s\in C$, and for $c\in C$,
 \[
-  |r(c)|=\frac{\prod_{p\le x,\,p\ne c}|p-c|/p}{\prod_{c'\in C\setminus\{c\}}|c'-c|/c'}
-  =\frac1{\binom xc}\cdot\frac{|w_c|}c
-  =|w_c|\int_0^1v^{x-c}(1-v)^{c-1}\,dv .
+  |\psi(c)|=\frac{\prod_{p\le N,\,p\ne c}|p-c|/p}{\prod_{c'\in C\setminus\{c\}}|c'-c|/c'}
+  =\frac1{\binom Nc}\cdot\frac{|\pi_c|}c
+  =|\pi_c|\int_0^1v^{N-c}(1-v)^{c-1}\,dv .
 \]
 Summing the finitely many series gives the formula.
 \end{proof}
 
 For $C=\{1\}$ and $C=\{2\}$ one finds $M_C\equiv1$, so
 \begin{equation}\label{eq:onehole}
-  \Phi(\{2,\ldots,x\})=\frac1x,\qquad
-  \Phi(\{1,\ldots,x\}\setminus\{2\})=\frac1{x-1};
+  \Phi(\{2,\ldots,N\})=\frac1N,\qquad
+  \Phi(\{1,\ldots,N\}\setminus\{2\})=\frac1{N-1};
 \end{equation}
 the first is the identity
 $\sum_{s\ge1}|\prod_{z=2}^n(1-s/z)|2^{-s}=1/n$ behind
 Proposition~\ref{prop:unbounded}.  For $C=\{3,b\}$ with $b\ge4$,
-$w_b=-w_3=3b/(b-3)$, and with $(1+v)^2-(1-v)^2=4v$,
+$\pi_b=-\pi_3=3b/(b-3)$, and with $(1+v)^2-(1-v)^2=4v$,
 \begin{equation}\label{eq:twohole}
   M_{\{3,b\}}(v)=\frac{3b}{b-3}\Bigl(2^{-b}\bigl((1+v)^{b-1}+(1-v)^{b-1}\bigr)
                    -\tfrac12v^{b-2}\Bigr).
@@ -1052,36 +1054,36 @@ Let $n\ge1$ and let $A\subset\N_{>0}$ be finite with
 $\{1,2,3\}\not\subseteq A$.  Then some finite $Z\supseteq A$ has
 $|Z|\le|A|+n-1$ and $\Phi(Z)\le1/n$.  Consequently, if $F$ is a monic
 multiple of $(x-2)^L$ of degree $D$ and $1\le k\le L$, and the $k-1$ largest
-nonleading magnitudes can be chosen at positions not including all of
-$D-1,D-2,D-3$, then $b_k(F)\ge L-k+1$.
+nonleading magnitudes can be chosen at positions whose set does not contain all
+three of $D-1,D-2,D-3$, then $b_k(F)\ge L-k+1$.
 \end{proposition}
 
 \begin{proof}
 For $n=1$ take $Z=A$ and use Lemma~\ref{lem:confdel}.  Let $n\ge2$, let $j$
 be the leading run of $A$ (so $j\le2$), and let $c_1=j+1<c_2<\cdots$ be the
 positive integers outside $A$.  Keep the holes
-$K=\{1\}$, $\{2\}$, $\{3,c_2\}$ for $j=0,1,2$, fill the next $n-1$ of them,
-and put
+$K=\{1\}$, $\{2\}$, $\{3,c_2\}$ for $j=0,1,2$, fill the next $n-1$ holes
+after $K$, and put
 \[
-  x=c_{|K|+n-1},\qquad P=\{1,\ldots,x\}\setminus K,\qquad Z=P\cup A .
+  N=c_{|K|+n-1},\qquad Y=\{1,\ldots,N\}\setminus K,\qquad Z=Y\cup A .
 \]
-Then $P\supseteq A\cap[1,x]$, the elements of $Z\setminus A$ are the $n-1$
+Then $Y\supseteq A\cap[1,N]$, the elements of $Z\setminus A$ are the $n-1$
 filled holes, and $|Z|\le|A|+n-1$.
 
-\emph{From $Z$ to $P$.}  List the elements of $Z$ above $x$ increasingly and
-add them to $P$ one at a time.  Every set so obtained has the hole
+\emph{From $Z$ to $Y$.}  List the elements of $Z$ above $N$ increasingly and
+add them to $Y$ one at a time.  Every set so obtained has the hole
 $\min K\le3$ below an element larger than it, so it is not of the form
 $\{1,\ldots,t\}$; reading the additions backwards, Lemma~\ref{lem:confdel}
-gives $\Phi(Z)\le\Phi(P)$.
+gives $\Phi(Z)\le\Phi(Y)$.
 
-\emph{The base.}  For $j=0$, $P=\{2,\ldots,x\}$ with $x=c_n\ge n$, and
-\eqref{eq:onehole} gives $\Phi(P)=1/x\le1/n$.  For $j=1$,
-$P=\{1,\ldots,x\}\setminus\{2\}$ with $x=c_n\ge n+1$, and
-$\Phi(P)=1/(x-1)\le1/n$.  For $j=2$ put $b=c_2\ge4$; the $n-1$ filled holes
-exceed $b$, so $x\ge b+n-1$.  The sets
-$\{1,\ldots,t\}\setminus\{3,b\}$, $b+n-1\le t\le x$, contain $b+1$ and miss
+\emph{The base.}  For $j=0$, $Y=\{2,\ldots,N\}$ with $N=c_n\ge n$, and
+\eqref{eq:onehole} gives $\Phi(Y)=1/N\le1/n$.  For $j=1$,
+$Y=\{1,\ldots,N\}\setminus\{2\}$ with $N=c_n\ge n+1$, and
+$\Phi(Y)=1/(N-1)\le1/n$.  For $j=2$ put $b=c_2\ge4$; the $n-1$ filled holes
+exceed $b$, so $N\ge b+n-1$.  The sets
+$\{1,\ldots,t\}\setminus\{3,b\}$, $b+n-1\le t\le N$, contain $b+1$ and miss
 $3$, so Lemma~\ref{lem:confdel} and Lemma~\ref{lem:twohole} with $k=n-1$ give
-$\Phi(P)\le\Phi(\{1,\ldots,b+n-1\}\setminus\{3,b\})\le1/n$.
+$\Phi(Y)\le\Phi(\{1,\ldots,b+n-1\}\setminus\{3,b\})\le1/n$.
 
 The consequence is Lemma~\ref{lem:rowcert} with $A=S$: here $|S|=k-1$, so
 $|Z|\le L-1$, and $\{1,2,3\}\not\subseteq S$ is the hypothesis on the
@@ -1089,19 +1091,19 @@ positions.
 \end{proof}
 
 \paragraph{The top three positions.}
-There remains $T(n)$ for $A\supseteq\{1,2,3\}$, that is, a leading run
+There remains $(\ast_n)$ for $A\supseteq\{1,2,3\}$, that is, a leading run
 $j\ge3$.  The construction is the one above with the first $j+1$ holes kept.
 The two parts of $\Phi$ that appear in the proof of Lemma~\ref{lem:holeint}
 are bounded separately: the values at the kept holes by comparison with the
-consecutive block $\{j+1,\ldots,2j+1\}$, and the tail beyond $x$ by a Beta
+consecutive block $\{j+1,\ldots,2j+1\}$, and the tail beyond $N$ by a Beta
 integral.  Throughout, $j\ge0$, $C=\{c_1<\cdots<c_{j+1}\}\subset\N_{>0}$ with
-$c_1=j+1$, $m=c_{j+1}$, $k\ge0$, $x=m+k$, $P=\{1,\ldots,x\}\setminus C$ and
-$r=r_P$.  Then $m\ge2j+1$, and by the proof of Lemma~\ref{lem:holeint}
-$\Phi(P)=H(C,k)+T(C,k)$, where
+$c_1=j+1$, $m=c_{j+1}$, $k\ge0$, $N=m+k$, $Y=\{1,\ldots,N\}\setminus C$ and
+$\psi=r_Y$.  Then $m\ge2j+1$, and by the proof of Lemma~\ref{lem:holeint}
+$\Phi(Y)=H(C,k)+T(C,k)$, where
 \[
-  H(C,k)=\sum_{c\in C}|r(c)|\,2^{-c},\qquad
-  T(C,k)=\sum_{s>x}|r(s)|\,2^{-s}
-        =\sum_{s>x}\binom{s-1}x2^{-s}\prod_{c\in C}\frac c{s-c}.
+  H(C,k)=\sum_{c\in C}|\psi(c)|\,2^{-c},\qquad
+  T(C,k)=\sum_{s>N}|\psi(s)|\,2^{-s}
+        =\sum_{s>N}\binom{s-1}N2^{-s}\prod_{c\in C}\frac c{s-c}.
 \]
 
 \begin{lemma}[Values at the kept holes]\label{lem:holevals}
@@ -1110,31 +1112,31 @@ $H(C,k)\le\dfrac1{2(k+1)}$.
 
 \begin{proof}
 Fix $1\le i\le j+1$, put $c=c_i$ and $i'=j+1-i$, the number of kept holes
-above $c$, and write $|r(c)|=\prod_{p\in P}|p-c|/p$.
+above $c$, and write $|\psi(c)|=\prod_{p\in Y}|p-c|/p$.
 
-\emph{Factors below $c$.}  $P\cap[1,c)$ consists of $\{1,\ldots,j\}$ and a
-set $\Lambda\subseteq\{j+2,\ldots,c-1\}$ that avoids the $i-2$ holes
-$c_2,\ldots,c_{i-1}$, so $|\Lambda|=a:=c-j-i$.  The factor $(c-p)/p$ is
-positive and decreasing in $p$ on $p<c$, so the product over $\Lambda$ is at
+\emph{Factors below $c$.}  $Y\cap[1,c)$ consists of $\{1,\ldots,j\}$ and a
+set $E\subseteq\{j+2,\ldots,c-1\}$ that avoids the $i-2$ holes
+$c_2,\ldots,c_{i-1}$, so $|E|=a:=c-j-i$.  The factor $(c-p)/p$ is
+positive and decreasing in $p$ on $p<c$, so the product over $E$ is at
 most the product over the $a$ smallest candidates $j+2,\ldots,j+1+a$.
 Together with $p\le j$ this is $\prod_{p=1}^{q}(c-p)/p=\binom{c-1}q$ at
 $q=j+1+a=c-i+1$, divided by the factor $(c-j-1)/(j+1)$ of the missing
 $p=j+1$; as $\binom{c-1}{c-i+1}=\binom{c-1}{i-2}$, this gives
 \[
-  \prod_{p\in P,\,p<c}\frac{c-p}p\le\lambda_i(c):=
+  \prod_{p\in Y,\,p<c}\frac{c-p}p\le\lambda_i(c):=
   \frac{j+1}{c-j-1}\binom{c-1}{i-2}\quad(i\ge2),\qquad\lambda_1(j+1)=1,
 \]
 the second because for $i=1$ the product is
 $\prod_{p=1}^{j}(j+1-p)/p=1$.
 
-\emph{Factors above $c$.}  $P\cap(c,x]$ is $(c,x]$ with the $i'$ holes
+\emph{Factors above $c$.}  $Y\cap(c,N]$ is $(c,N]$ with the $i'$ holes
 $c_{i+1},\ldots,c_{j+1}$ removed.  The factor $(p-c)/p$ lies in $(0,1)$ and
 increases with $p$, so the product is at most the product over the
-$x-c-i'$ largest integers of $(c,x]$, which is
-$\prod_{p=c+i'+1}^{x}(p-c)/p=\binom{c+i'}c\big/\binom xc$.  Since
-$m\ge c+i'$, we have $x\ge c+i'+k$, and hence
+$N-c-i'$ largest integers of $(c,N]$, which is
+$\prod_{p=c+i'+1}^{N}(p-c)/p=\binom{c+i'}c\big/\binom Nc$.  Since
+$m\ge c+i'$, we have $N\ge c+i'+k$, and hence
 \[
-  2^{-c}|r(c)|\le U_i(c):=2^{-c}\lambda_i(c)
+  2^{-c}|\psi(c)|\le U_i(c):=2^{-c}\lambda_i(c)
         \binom{c+i'}c\Big/\binom{c+i'+k}c .
 \]
 
@@ -1145,19 +1147,19 @@ $m\ge c+i'$, we have $x\ge c+i'+k$, and hence
   \le\frac c{2(c-i+2)}\le1,
 \]
 the last step because $c\ge j+i\ge2i-1$ (as $i\le j+1$).  Since
-$c_i\ge j+i$, we get $2^{-c_i}|r(c_i)|\le U_i(j+i)$ for every $i$; for $i=1$
+$c_i\ge j+i$, we get $2^{-c_i}|\psi(c_i)|\le U_i(j+i)$ for every $i$; for $i=1$
 this is the bound itself.
 
 \emph{The block.}  For $C^\circ=\{j+1,\ldots,2j+1\}$ with the same $k$, all
-three bounds are equalities: $\Lambda=\varnothing$, the holes above
-$c_i^\circ=j+i$ are $j+i+1,\ldots,2j+1$, and $x^\circ=2j+1+k=c_i^\circ+i'+k$.
-So $2^{-c_i}|r_P(c_i)|\le2^{-c_i^\circ}|r_{P^\circ}(c_i^\circ)|$ term by term,
+three bounds are equalities: $E=\varnothing$, the holes above
+$c_i^\circ=j+i$ are $j+i+1,\ldots,2j+1$, and $N^\circ=2j+1+k=c_i^\circ+i'+k$.
+So $2^{-c_i}|r_Y(c_i)|\le2^{-c_i^\circ}|r_{Y^\circ}(c_i^\circ)|$ term by term,
 and $H(C,k)\le H(C^\circ,k)$.  By the proof of Lemma~\ref{lem:holeint},
-$H(C^\circ,k)=\int_0^1v^k\sum_{c\in C^\circ}|w_c|2^{-c}v^{2j+1-c}(1-v)^{c-1}\,dv$
-with $|w_{j+i}|=(2j+1)!/\bigl(j!\,(i-1)!\,(j+1-i)!\bigr)$, and the binomial
+$H(C^\circ,k)=\int_0^1v^k\sum_{c\in C^\circ}|\pi_c|2^{-c}v^{2j+1-c}(1-v)^{c-1}\,dv$
+with $|\pi_{j+i}|=(2j+1)!/\bigl(j!\,(i-1)!\,(j+1-i)!\bigr)$, and the binomial
 theorem gives
 \[
-  \sum_{i=1}^{j+1}|w_{j+i}|2^{-j-i}v^{j+1-i}(1-v)^{j+i-1}
+  \sum_{i=1}^{j+1}|\pi_{j+i}|2^{-j-i}v^{j+1-i}(1-v)^{j+i-1}
   =\frac{(2j+1)!}{j!^2\,2^{j+1}}(1-v)^j\Bigl(v+\frac{1-v}2\Bigr)^j
   =\frac{\gamma_j}2(1-v^2)^j,
 \]
@@ -1172,22 +1174,22 @@ If $j\ge1$ and $k\ge1$, then $T(C,k)\le\dfrac{j+1}{e\,j\,(k+1)}$.
 \end{lemma}
 
 \begin{proof}
-Let $s>x$.  Every $c\in C$ is below $s$, and $c/(s-c)$ increases with $c$.
+Let $s>N$.  Every $c\in C$ is below $s$, and $c/(s-c)$ increases with $c$.
 Since $c_1=j+1$ and $c_i\le m-(j+1-i)$ for $i\ge2$,
 \[
   \prod_{c\in C}\frac c{s-c}
   \le\frac{j+1}{s-j-1}\prod_{l=1}^{j}\frac{m-j+l}{s-m+j-l}
   =\frac{j+1}{s-j-1}\binom mj\Big/\binom{s-m-1+j}j .
 \]
-Apply $1/\binom Nj=(N+1)\int_0^1t^j(1-t)^{N-j}\,dt$ with $N=s-m-1+j$, and
-note that $N+1=s-m+j\le s-j-1$ because $m\ge2j+1$:
+Apply $1/\binom\nu j=(\nu+1)\int_0^1t^j(1-t)^{\nu-j}\,dt$ with $\nu=s-m-1+j$, and
+note that $\nu+1=s-m+j\le s-j-1$ because $m\ge2j+1$:
 \[
   \prod_{c\in C}\frac c{s-c}\le(j+1)\binom mj\int_0^1t^j(1-t)^{s-m-1}\,dt .
 \]
-Multiply by $\binom{s-1}x2^{-s}$ and sum over $s>x$.  With
-$\sum_{s>x}\binom{s-1}xy^s=\bigl(y/(1-y)\bigr)^{x+1}$ at $y=(1-t)/2$, the
-sum of $\binom{s-1}x2^{-s}(1-t)^{s-m-1}$ is
-$(1-t)^{-m-1}\bigl((1-t)/(1+t)\bigr)^{x+1}$, so
+Multiply by $\binom{s-1}N2^{-s}$ and sum over $s>N$.  With
+$\sum_{s>N}\binom{s-1}N y^s=\bigl(y/(1-y)\bigr)^{N+1}$ at $y=(1-t)/2$, the
+sum of $\binom{s-1}N2^{-s}(1-t)^{s-m-1}$ is
+$(1-t)^{-m-1}\bigl((1-t)/(1+t)\bigr)^{N+1}$, so
 \[
   T(C,k)\le(j+1)\binom mj\int_0^1t^j
      \Bigl(\frac{1-t}{1+t}\Bigr)^k(1+t)^{-m-1}\,dt .
@@ -1212,17 +1214,17 @@ $j\ge3$ be the leading run of $A$, and let $c_1=j+1<c_2<\cdots$ be the
 positive integers outside $A$.  Keep $C=\{c_1,\ldots,c_{j+1}\}$, fill the
 next $n-1$ holes, and put
 \[
-  x=c_{j+n},\qquad P=\{1,\ldots,x\}\setminus C,\qquad Z=P\cup A .
+  N=c_{j+n},\qquad Y=\{1,\ldots,N\}\setminus C,\qquad Z=Y\cup A .
 \]
-Then $P\supseteq A\cap[1,x]$, the elements of $Z\setminus A$ are the $n-1$
+Then $Y\supseteq A\cap[1,N]$, the elements of $Z\setminus A$ are the $n-1$
 filled holes $c_{j+2},\ldots,c_{j+n}$, and $|Z|\le|A|+n-1$.  As in the proof
-of Proposition~\ref{prop:rowsfree}, adding the elements of $Z$ above $x$ to
-$P$ one at a time never produces a set $\{1,\ldots,t\}$, because the hole
+of Proposition~\ref{prop:rowsfree}, adding the elements of $Z$ above $N$ to
+$Y$ one at a time never produces a set $\{1,\ldots,t\}$, because the hole
 $j+1$ lies below them, so Lemma~\ref{lem:confdel} gives
-$\Phi(Z)\le\Phi(P)$.  Put $m=c_{j+1}$ and $k=x-m\ge n-1\ge1$.  By
+$\Phi(Z)\le\Phi(Y)$.  Put $m=c_{j+1}$ and $k=N-m\ge n-1\ge1$.  By
 Lemmas~\ref{lem:holevals} and~\ref{lem:holetail},
 \[
-  \Phi(P)=H(C,k)+T(C,k)\le\frac1{k+1}\Bigl(\frac12+\frac{j+1}{e\,j}\Bigr)
+  \Phi(Y)=H(C,k)+T(C,k)\le\frac1{k+1}\Bigl(\frac12+\frac{j+1}{e\,j}\Bigr)
   \le\frac1{k+1}\Bigl(\frac12+\frac4{3e}\Bigr)<\frac1{k+1}\le\frac1n,
 \]
 because $(j+1)/j\le4/3$ for $j\ge3$ and $8<3e$.
