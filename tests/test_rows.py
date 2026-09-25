@@ -230,7 +230,7 @@ def _vertex_optimal(zeros: tuple[int, ...], fixed: set[int], r: Fraction) -> boo
 
 
 def _tail_threshold(zeros: tuple[int, ...], r: Fraction) -> int:
-    """The least ``sigma >= max Z`` with ``2 T_p(sigma) <= M(p)``, ``p = r_Z``."""
+    """The least ``sigma >= max Z`` with ``2 R_p(sigma) <= Psi_r(p)``, ``p = r_Z``."""
     x, top, sign = 1 / r, max(zeros), (-1) ** len(zeros)
     deg = len(zeros) + 1
     moment = sum(s * abs(_rz(zeros, s)) * x**s for s in range(1, top + 1))
@@ -271,7 +271,7 @@ def _second_row_bounded(
     exceptions: dict[int, tuple[int, ...]],
 ) -> list[int]:
     """The positions below the tail threshold of ``short`` that no zero set
-    certifies ``mu_sigma(n) <= bound`` at.
+    certifies ``eta_sigma(n) <= bound`` at.
 
     ``short`` has ``n-1`` zeros; when ``Phi_r(short) <= bound``,
     ``thm:secondrow`` (a) with ``p = r_short`` covers every ``sigma`` from its
@@ -312,7 +312,7 @@ def test_tail_threshold() -> None:
 
 
 def test_second_row_at_five_fourths_fails() -> None:
-    """``prop:secondrowexact`` (a), (b): ``V(16,2) = 1/Phi(Z*) = 1/nu_3(14)``,
+    """``prop:secondrowexact`` (a), (b): ``V(16,2) = 1/Phi(Z_2) = 1/nu_3(14)``,
     below ``beta(15) = min_{i<=3} 1/nu_i(15)``."""
     top = _phi(_VERTEX, BELOW)
     assert _vertex_optimal(_VERTEX, {2}, BELOW)
@@ -322,7 +322,7 @@ def test_second_row_at_five_fourths_fails() -> None:
     assert _second_row_bounded(BELOW, _Y1, _Y2, top, {2: _VERTEX}) == []
     assert Fraction(65694, 10**4) < 1 / top < Fraction(65695, 10**4)
     assert Fraction(76492, 10**4) < 1 / _phi(_Y1, BELOW) < Fraction(76493, 10**4)
-    # (b): nu_2(15), nu_3(15) <= nu_1(15) < Phi(Z*), so k = 3 fails too.
+    # (b): nu_2(15), nu_3(15) <= nu_1(15) < Phi(Z_2), so k = 3 fails too.
     nu3 = (1, 2, 5, 8, 11, 16, 21, 26, 33, 41, 50, 60, 71, 85, 102, 123)
     assert _phi(_Y2, BELOW) < _phi(_Y1, BELOW)
     assert _phi(nu3, BELOW) < _phi(_Y1, BELOW)
@@ -347,7 +347,7 @@ def test_second_row_at_five_fourths_holds() -> None:
 
 def test_second_row_at_four_thirds() -> None:
     """``prop:secondrowexact`` (d): at ``r = 4/3`` a worst position is ``3``:
-    ``V(19,2) = 1/Phi(Z) = 1/nu_4(16) < beta(18)``, and ``mu_2(18) < nu_1(18)``."""
+    ``V(19,2) = 1/Phi(Z_3) = 1/nu_4(16) < beta(18)``, and ``eta_2(18) < nu_1(18)``."""
     r = Fraction(4, 3)
     short = (1, 2, 4, 6, 9, 12, 16, 20, 25, 30, 36, 44, 52, 61, 72, 85, 103)
     full = (1, 2, 4, 6, 8, 11, 15, 19, 23, 28, 34, 41, 48, 57, 66, 78, 91, 109)
