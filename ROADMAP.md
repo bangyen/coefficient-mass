@@ -32,7 +32,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   Gaussian points above the axis bounded independently of `rho_min` (fewer
   than `6 rho_min` by `prop:gausscircle`, at most `ord_0 H` per norm by
   `prop:gaussprimes`; `ord_0 H` itself is unbounded), and whether one norm
-  carries at most two (yes unless `H` is in `Z[y**4]`, or `n` has two
+  carries at most two (yes unless `H` is in `Z[y**4]`, and then
+  `deg H >= 16` by `prop:gaussfour`, or `n` has two
   primes `= 1 mod 4`, or one with `ord_p n <= 2 t_p`, `prop:gausssym`);
   whether
   small coefficients after the lowest one cost nearly as much as zeros at
@@ -342,7 +343,27 @@ is open; an answer lands in the paper it extends, and the row leaves.
   and `H` in `Z[y**4]`, or two primes `= 1 mod 4` in the norm, or one with
   `ord_p n <= 2 t_p`, `prop:gausssym`; for `H = A(y**4)` the question is
   whether one Gaussian `z = alpha**4` can be a root of `v + A` with the
-  coefficients of `A` below `|z|**(1/4)/2`).  The case left by separated moduli (`cor:annuli` of the
+  coefficients of `A` below `|z|**(1/4)/2`).  Partial answer
+  (`prop:gaussfour`): not with `deg A <= 3`, so a class of three or four
+  points needs `deg H >= 16`.  The proof writes `Im A(z) = 0` as
+  `a_1 + 2 a_2 X + a_3 (4X**2 - N**2) = 0`, `z = X + iY`, `N = |z|`, which
+  at these sizes forces `A = a_3 z (z - sigma j)**2`, `sigma = sign X`, with `2|X| = N + j`, and
+  `j = n**2 - 4w**2` is at least `n` when `N = n**2` is a square.  Sizes
+  alone cannot settle the question: at the square `z = beta**2` of a Pell
+  point `beta = a + ci`, `z (z - 1)**2 = -4c**2 (a**2 + c**2)**2` is real
+  with coefficients below `|z|**(1/4)/2` (this is `(y**3 - y)**2 = A(y**2)`),
+  and `(z - k)**4 - k**4` is real whenever `z - k` lies on a diagonal, as at
+  `alpha**4 = -119 + 120i`, `alpha = 3 + 2i`, `k = 1` (coefficients too
+  large there), so at `deg A >= 4` the question meets quartic Thue equations
+  such as `Re alpha**4 +- Im alpha**4 = k`.  On two classes of one norm,
+  numerical evidence only (exhaustive `fpylll` enumeration of the lattice of
+  multiples of degree at most `32` with nonleading coefficients below
+  `sqrt(n)/2`, every pair of classes of every norm `n <= 10000`): none; no
+  cubic `G` with `G(alpha) = G(alpha')` imaginary at two classes of one norm
+  `n <= 200000` makes `G**2` qualify; at `1 + 8i`, `4 + 7i` (norm `65`,
+  degree up to `25`) the shortest vector in `l2` of that lattice has
+  largest coefficient `211` against the bound `4`, and at `+-1 + 8i`, one
+  class, `41`.  The case left by separated moduli (`cor:annuli` of the
   complex paper) and common norms (`prop:gausslow`, item 3) is pairwise
   coprime norms in one annulus `[R, 2R]`; there valuations alone give only
   linear bounds (`prop:gaussadic`), and seeded lattice reduction at

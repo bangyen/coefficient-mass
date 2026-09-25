@@ -1392,12 +1392,73 @@ item~2 gives the last statement.
 \end{proof}
 
 The pairs above attain item~2 with $H$ even, at every scale.  So three
-points of one norm need, besides $h_1=h_2=0$, that $H\in\mathbb Z[y^4]$, or
+points of one norm need, besides $h_1=h_2=0$, that $H\in\mathbb Z[y^4]$
+(and then $\deg H\ge16$, Proposition~\ref{prop:gaussfour} below), or
 that $n$ has two primes $p\equiv1\pmod4$ with
 $\operatorname{ord}_p(n)\ne2s_p$ (three if $H$ is not even), or one with
 $\operatorname{ord}_p(n)\le2t_p$.  Item~1 needs
 the small coefficients: $H=y^5+y^4+6y^3+6y^2+25y$ is $-25$ at $\pm(1+2i)$
-and is not even.  Whether the number of Gaussian points above the axis in
+and is not even.
+
+A class meeting an axis or a diagonal holds at most two points above the
+axis, so by item~2 a class holds three or four of the $\alpha_j$ only if
+$H=A(y^4)$ with $A\in\mathbb Z[z]$ and the class meets neither; then
+$z=\alpha_j^4$ is a Gaussian integer off the real axis with $A(z)=-v$ real,
+and the nonleading coefficients of $A$ lie below $|z|^{1/4}/2$.  If $H\in\mathbb
+Z[y^4]$ and the $\alpha_j$ of one norm are three, one of them lies on neither
+an axis nor a diagonal, since at most two Gaussian integers above the axis of one norm lie on the
+axes and diagonals.
+
+\begin{proposition}[Four points of one class]\label{prop:gaussfour}
+In the setting of Proposition~\ref{prop:gaussheavy}, item~2, let
+$H\in\mathbb Z[y^4]$ and let some $\alpha_j$ lie on neither axis nor
+diagonal.  Then $\deg H\ge16$.
+\end{proposition}
+
+\begin{proof}
+Write $H=A(y^4)$ with $A=\sum_{k=1}^Da_kz^k$ and $a_D\ne0$, so
+$\deg H=4D$, and put $b=\max_{0<k<D}|a_k|$ ($b=0$ if $D=1$), $\alpha=\alpha_j=a+ic$,
+$\rho=|\alpha|$ and $n=\rho^2$; then $b<\rho_{\min}/2\le\rho/2$.  Let
+$\beta=\alpha^2=\mu+i\nu$ and $z=\alpha^4=\beta^2=X+iY$, so
+$X=\mu^2-\nu^2$, $Y=2\mu\nu$ and $N=|z|=\mu^2+\nu^2=n^2$.  If $Y=0$ then
+$(\alpha/\bar\alpha)^4=z/\bar z=1$, so $\alpha/\bar\alpha\in\{\pm1,\pm i\}$
+and $\alpha$ lies on an axis or a diagonal; so $Y\ne0$.  The integers
+$\mu\pm\nu=a^2\pm2ac-c^2$ are nonzero, as $c\ge1$ and $t^2\pm2t-1$ has no
+rational root, and $(\mu+\nu)^2+(\mu-\nu)^2=2n^2$, so
+\begin{equation}\label{eq:gaussfourX}
+  |X|=|\mu+\nu|\,|\mu-\nu|\ \ge\ \max(|\mu+\nu|,|\mu-\nu|)\ \ge\ n .
+\end{equation}
+Suppose $D\le3$ and set $a_k=0$ for $k>D$.  As $v$ is real,
+$\operatorname{Im}A(z)=0$; here $\operatorname{Im}z^2=2XY$ and
+$\operatorname{Im}z^3=Y(3X^2-Y^2)=Y(4X^2-N^2)$, so dividing by $Y$,
+\[
+  a_1+2a_2X+a_3(4X^2-N^2)=0 .
+\]
+If $D=1$ this says $a_1=0$.  If $D=2$ it gives $2|X|\le|a_1|\le b<\rho/2<n$,
+against \eqref{eq:gaussfourX}.  Let $D=3$, put $j=2|X|-N$ and
+$\sigma=X/|X|$, so $2X=\sigma(N+j)$ and
+$4X^2-N^2=j(2|X|+N)=j(2N+j)$.  Then
+$|a_3j|(2|X|+N)=|a_1+2a_2X|\le b(1+2|X|)$, so $|j|\le|a_3j|\le b$, and
+\[
+  N(2a_3j+\sigma a_2)=-(a_3j^2+\sigma a_2j+a_1),
+\]
+where the right side has modulus at most $2b^2+b<N$, as $b<\rho/2=N^{1/4}/2$.
+So both sides vanish: $\sigma a_2=-2a_3j$ and $a_1=a_3j^2$.  If $j=0$ then
+$4X^2=N^2$ and $4Y^2=3N^2$, which is impossible; so $1\le|j|\le|a_1|\le
+b<\rho/2$.  But $j$ is $\mu^2-3\nu^2=n^2-4\nu^2$ if $X>0$ and
+$\nu^2-3\mu^2=n^2-4\mu^2$ if $X<0$, so $j=(n-2w)(n+2w)$ with $w\ge0$ an
+integer, and $j\ne0$ gives $|j|\ge n+2w\ge n>\rho/2$, a contradiction.  So
+$D\ge4$.
+\end{proof}
+
+The last step is where $z$ being a fourth power, and not only a square,
+enters: it makes $N=|\beta|^2$ a square.  If $\beta=a+ci$ with $a^2-3c^2=1$,
+then $\beta^2-1=2c^2+2aci=2ci\bar\beta$, so $A(z)=z(z-1)^2=z^3-2z^2+z$ is
+$-4c^2(a^2+c^2)^2$ at $z=\beta^2$, real, with nonleading coefficients $-2$,
+$1$ below $|z|^{1/4}/2$ once $|z|=a^2+c^2>256$; here $A(y^2)=(y^3-y)^2$ and
+the $\beta$ are the Pell points after Proposition~\ref{prop:gaussheavy}.  So
+the sizes of the coefficients against $|z|$ do not bound $\deg A$ by
+themselves.  Whether the number of Gaussian points above the axis in
 one level set of a polynomial with small nonleading coefficients is bounded
 independently of $\rho_{\min}$, whether one norm carries at most two of
 them, and whether $\Lambda(F)\ge cK^2\log R$ holds for all integer
