@@ -41,14 +41,13 @@ is open; an answer lands in the paper it extends, and the row leaves.
   Rolle on each half-line gives rows charging one root of each sign per
   excluded coefficient (`thm:bothsigns`) and mass
   `floor((L+1)**2/4) log(R/2)`, sharp at `+-s_j` (`cor:bothsignsmass`,
-  `prop:bothsignssharp`).  Wide sectors (`sec:widesectors`): for multiples of degree `O(K)` the order is
-  `min(K**2, K/delta) log R` with both constants sharp (`1/2` of `K**2 log R`
-  as `K, R -> oo` with `delta K -> 0`, on a common ray; `pi` of `(K/delta) log R`
-  at fixed `delta`, `K, R -> oo`) (`thm:widesector`,
+  `prop:bothsignssharp`).  Wide sectors (`sec:widesectors`): multiples of degree `O(K)` pay
+  `(1/2 - o(1)) K**2 log R` as `K, R -> oo` with `delta K -> 0` (sharp on a
+  common ray) and `(pi/delta - o(1)) K log R` at fixed `delta`, `K, R -> oo` (`thm:widesector`,
   `cor:wideconst`; `x^N - rho^N` attains `pi/delta`, `prop:widesharp`), so
-  `c K**2 log R` is false over the reals; at Gaussian roots
-  `(pi/delta - o(1)) K log R` holds unconditionally (`cor:widegauss`).
-  Integer imitations of `x^N - rho^N` are not cheap: `A((x-t)^N)` has at most
+  `c K**2 log R` is false over the reals; at Gaussian roots and fixed
+  `delta`, `(pi/delta - o(1)) K log R` holds at every degree (`cor:widegauss`).
+  Two integer imitations of `x^N - rho^N` are limited: `A((x-t)^N)` has at most
   `2 deg A` Gaussian roots above the axis, so `x^N - b` at most two
   (`lem:gaussbinom`); at pairwise coprime odd norms with
   `gcd(a_j, c_j) = 1` a multiple can be `f mod x^m` exactly when
@@ -67,7 +66,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `T_a > 3*9**n_a U_(a-1)`, `n_a` the roots from annulus `a` up, and
   ratios `log(|beta|/6U_(a-1))` at the factor 9 (`cor:annuli`).  A
   lacunary integer multiple attains `sum_s s K_s log t_s` exactly, so the
-  constant 1 is sharp and the real cross terms `K_s K_t log t` are false,
+  constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
   also for pairs near the imaginary axis (`prop:annulisharp`).  At a
   constant separation `(x - t)**K` breaks the count of `lem:tropcount`,
   though not necessarily `cor:annuli` item 1.

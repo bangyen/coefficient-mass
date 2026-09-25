@@ -47,18 +47,16 @@ return, up to constants, when the moduli are separated by a factor $9$, by
 an Archimedean Newton polygon argument.  With $K_s$ roots of modulus at
 least $T_s$ in the $s$-th of $S$ sufficiently separated annuli, monic
 multiples have mass at least $\sum_ssK_s\log(T_s/2)-O(S)$, attained to
-leading order: a root is charged once per annulus at or below it, and the
+leading order as $\min_sT_s\to\infty$: a root is charged once per annulus at or below it, and the
 cross terms $K_uK_s\log T_s$ of the real bound fail.  Real roots of both
 signs charge one
 root of each sign per excluded coefficient, with the sharp constant
 $\frac14$ in the mass.  For $K$ roots of modulus at least $R$ in a sector of
-half-width $\delta$, the mass of multiples of degree $O(K)$ is of order
-$\min(K^2,K/\delta)\log R$, with the constants $\frac12$ of $K^2\log R$ (as
-$K,R\to\infty$ with $\delta K\to0$) and $\pi$ of $(K/\delta)\log R$ (at fixed
-$\delta$, as $K,R\to\infty$) attained
-in the limit; at
-Gaussian-integer roots the degree restriction is removed for integer
-multiples.
+half-width $\delta$, multiples of degree $O(K)$ have mass
+$(\frac12-o(1))K^2\log R$ if $\delta K\to0$ and $(\frac\pi\delta-o(1))K\log R$
+at fixed $\delta$, as $K,R\to\infty$, with both constants attained; at
+Gaussian-integer roots and fixed $\delta$ the degree restriction is removed
+for integer multiples.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; complex
@@ -97,8 +95,9 @@ below is the complex form of the bound $H(P)\ge|P(1)|$ of~\cite{dj}.
 $R(x^m)$, multisection reduces every multiple to a multiple of $R$ with a
 subset of the coefficients (Theorem~\ref{thm:transfer}).  In particular a
 purely imaginary pair $\pm ic$ is worth exactly one real root $c^2$, and all
-the real-root results transfer (Corollary~\ref{cor:imag}); the same holds for
-roots on a common ray (Corollary~\ref{cor:ray}).
+the real-root results transfer (Corollary~\ref{cor:imag}).  A rotation
+reduces roots on a common ray to real roots at their moduli, which gives the
+rows (Corollary~\ref{cor:ray}).
 
 \paragraph{Arbitrary angles.}  The first row survives at every root set
 (Proposition~\ref{prop:rowone}), but nothing more does in general: pairs
@@ -109,7 +108,7 @@ Archimedean Newton polygon (Theorem~\ref{thm:archnewton},
 Corollary~\ref{cor:separated}).  For $K_s$ roots in each of several separated
 annuli the central index charges a root once for every annulus at or below it,
 $\sum_ssK_s\log T_s$ in all, sharply when the separation grows with the
-number of roots; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
+number of roots and $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
 (Theorem~\ref{thm:annuli},
 Corollary~\ref{cor:annuli}, Proposition~\ref{prop:annulisharp}).
 
@@ -128,12 +127,13 @@ at Gaussian-integer roots, where a carry argument charges degree against
 mass (Theorem~\ref{thm:gausscharge}), for all integer multiples
 (Theorem~\ref{thm:thingauss}).  In a sector of half-width $\delta$ the
 crossings are counted against the equidistributed share $\delta/\pi$ of the
-large zeros, and the mass of multiples of degree $O(K)$ is of order
-$\min(K^2,K/\delta)\log R$ (Theorem~\ref{thm:widesector},
+large zeros; as $K,R\to\infty$, multiples of degree $O(K)$ pay
+$(\frac\pi\delta-o(1))K\log R$ at fixed $\delta$ and $(\frac12-o(1))K^2\log R$
+if $\delta K\to0$, both sharp (Theorem~\ref{thm:widesector},
 Corollary~\ref{cor:wideconst}, Proposition~\ref{prop:widesharp}).  Whether
 $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots
-in a wide sector is open.  The integer imitations of $x^N-\rho^N$ give no
-counterexample: $A((x-t)^N)$ has at most two Gaussian roots in the upper
+in a wide sector is open.  Two integer imitations of $x^N-\rho^N$ are
+limited: $A((x-t)^N)$ has at most two Gaussian roots in the upper
 half-plane per root of $A$ (Lemma~\ref{lem:gaussbinom}), and at odd,
 pairwise coprime norms $|\alpha_j|^2$ with
 $\gcd(\operatorname{Re}\alpha_j,\operatorname{Im}\alpha_j)=1$ a gap $m$ after
@@ -274,8 +274,10 @@ at its rank.  This is the right count.  By item~3 the product
 $P_{\rm im}$ itself is within $O(K^2)$ of the infimum
 (\cite[Corollary~3.7]{coefficient-mass}), and $\Lambda(P_{\rm im})=\Lambda(P_{\rm re})$; so a
 bound of the form $\sum_{i\le2K}i\log\rho_{(i)}$ over the $2K$ roots
-counted separately, which would be about twice as large, is false already
-for $P_{\rm im}$.
+counted separately, which would be about twice as large, is false for
+$P_{\rm im}$ once $\min_jc_j$ is large: it exceeds the bound
+$\Lambda(P_{\rm im})\le\sum_j\log\binom Kj+\sum_j2j\log c_j$ by at least
+$K^2\log c_1-\sum_j\log\binom Kj$.
 
 The same proof applies to every factor of the form $R(x^m)$ with $R$ real
 and all roots of $R$ of one sign: the real roots $\pm r$ in pairs
@@ -366,7 +368,7 @@ angles nothing more is true.
 \item Let $M\ge3$ be odd, $\rho>1$, and $0<\delta<\pi/2$.  The monic
 polynomial $x^{2M}+\rho^{2M}$ is divisible by the product of the
 $K=2\lfloor\delta M/\pi\rfloor+1$ conjugate pairs of modulus $\rho$ with
-arguments $\pm(\frac\pi2+t\frac\pi M)$, $|t|\le\delta M/\pi$, all within
+arguments $\pm(\frac\pi2+t\frac\pi M)$ for the integers $|t|\le\delta M/\pi$, all within
 $\delta$ of the imaginary axis; yet
 \[
   b_2(x^{2M}+\rho^{2M})=0,\qquad
@@ -550,7 +552,7 @@ square term is false (Proposition~\ref{prop:noangle}).  This section shows
 that the cross terms are false as well, and that the right count charges a
 root once for every annulus at or below it: when the separation grows with
 the number of roots, the mass is $\sum_ssK_s\log T_s$ up to lower order
-terms, with the constant $1$ attained in the limit
+terms, with the constant $1$ attained as $\min_sT_s\to\infty$
 (Corollary~\ref{cor:annuli}, Proposition~\ref{prop:annulisharp}).
 Corollary~\ref{cor:separated} is essentially the case $K_s=1$.
 
@@ -732,7 +734,9 @@ annulus it charges ratios $|\beta|/U_{a-1}$ instead of moduli.  With one root
 per annulus, $k_a=n_a=S-a+1$ at the separation $9$ of the theorem, which then
 gives Corollary~\ref{cor:separated}, item~1, with $\rho_j/2$ in place of
 $\rho_j/3$ and an extra factor $\frac12$ in each row.  Item~1 is sharp,
-constant included, and the cross terms $K_uK_s\log T_s$ of the real bound
+constant included, as $\min_sT_s\to\infty$ (Proposition~\ref{prop:annulisharp}
+has $\Lambda=\sum_ssN_s\log t_s$ against the bound
+$\sum_ssN_s\log(t_s/6)-S\log2$), and the cross terms $K_uK_s\log T_s$ of the real bound
 fail.
 
 \begin{proposition}[Sharpness for annuli]\label{prop:annulisharp}
@@ -1255,12 +1259,13 @@ through the Mahler measure.  So for fixed $\delta$ and $K,R\to\infty$
 every multiple of degree $O(K)$ pays $(\pi/\delta-o(1))K\log R$, and this
 constant is attained
 (Theorem~\ref{thm:widesector}, Corollary~\ref{cor:wideconst},
-Proposition~\ref{prop:widesharp}); at Gaussian roots the degree restriction
-is removed by Theorem~\ref{thm:gausscharge} (Corollary~\ref{cor:widegauss}).
+Proposition~\ref{prop:widesharp}); at Gaussian roots and fixed $\delta$ the
+degree restriction is removed by Theorem~\ref{thm:gausscharge}
+(Corollary~\ref{cor:widegauss}).
 In wide sectors a bound $\Lambda\ge cK^2\log R$ is therefore false for real
-multiples, the correct order being $\min(K^2,K/\delta)\log R$.  For integer
-multiples at Gaussian roots it is open; the section ends by showing that the
-integer imitations of $x^N-\rho^N$ are not cheap (Lemma~\ref{lem:gaussbinom},
+multiples.  For integer
+multiples at Gaussian roots it is open; the section ends with two limits on
+integer imitations of $x^N-\rho^N$ (Lemma~\ref{lem:gaussbinom},
 Proposition~\ref{prop:gausslow}).
 
 For $0<\delta\le\pi/2$ put
@@ -1473,16 +1478,17 @@ applies with $\lambda=\pi/\delta+1$: the constant $\pi/\delta$ of the angle
 mechanism is sharp in every sector.  The thin-sector term is sharp too: on a
 common ray, $\prod_j(x-\rho_je^{i\varphi})$ with $\rho_j\in[R,2R]$ has
 $\Lambda\le\frac{K(K+1)}2\log(2R)+K^2\log2$.  So for complex multiples of
-degree $O(K)$ the infimum of $\Lambda$ is of order $\min(K^2,K/\delta)\log R$
-as $R\to\infty$, with both constants attained in the limit: $\frac12$ in
-$\frac12K^2\log R$ as $R\to\infty$ and $K\to\infty$ with $\delta K\to0$, from
+degree $O(K)$, as $K,R\to\infty$, both constants are attained: $\frac12$ in
+$\frac12K^2\log R$ when $\delta K\to0$, from
 Theorem~\ref{thm:widesector} with $T$ fixed and $m=K-1-\lceil\omega+\delta K^2/(2\pi)\rceil$
 (then $\omega=\kappa(\delta)d/\log T=o(K)$ as $\kappa(\delta)\to0$, so
 $m=K-o(K)$, and $\nu_m\ge K^2/2$), against the common ray; and $\pi$ in
 $\frac\pi\delta K\log R$, from Corollary~\ref{cor:wideconst} at fixed $\delta$
 as $K,R\to\infty$, against Proposition~\ref{prop:widesharp}.  In a wide
-sector, with $\delta$ fixed, it is linear in $K$, and
+sector, with $\delta$ fixed, the infimum is linear in $K$, and
 $\Lambda\ge cK^2\log R$ fails already for the monic real multiple $x^N-\rho^N$.
+In between the degree bound matters: $x^N-\rho^N$ has degree about
+$\pi K/\delta$, which is not $O(K)$ uniformly in $\delta$.
 \begin{corollary}[Gaussian roots in sectors of every width]\label{cor:widegauss}
 In the setting of Section~\ref{sec:gaussian}, let $\varphi\in\R$,
 $0<\delta<\pi/2$, $T>1$, $R\ge3T$ and $\lambda>0$, suppose that every
@@ -1514,10 +1520,10 @@ $\lambda=\pi/\delta$ and argue as in Corollary~\ref{cor:wideconst}.
 leaves open whether $\Lambda(F)\ge cK^2\log R$ for every integer multiple at
 Gaussian roots in a wide sector.  Over the reals the bound fails because of
 $x^N-\rho^N$, whose mass sits in a single coefficient after a gap of length
-$N$.  Neither of its two integer imitations is cheap at Gaussian roots: a
-polynomial in $(x-t)^N$ has few Gaussian roots, and at pairwise coprime norms
-(under the hypotheses of Proposition~\ref{prop:gausslow}, item~2) a long gap
-after the lowest coefficient is expensive.
+$N$.  Its two integer imitations are limited at Gaussian roots: a
+polynomial $A((x-t)^N)$ has at most $2\deg A$ Gaussian roots in the upper
+half-plane, and under the hypotheses of Proposition~\ref{prop:gausslow},
+item~2, a long gap after the lowest coefficient is expensive.
 
 \begin{lemma}[Polynomials in $(x-t)^N$]\label{lem:gaussbinom}
 Let $A\in\mathbb Z[y]$ be nonzero of degree $s$, $t\in\mathbb Z$ and $N\ge1$.
