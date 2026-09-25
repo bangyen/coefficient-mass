@@ -706,18 +706,6 @@ def _level_sets(big_b: int, degree: int, box: int) -> dict[tuple, list[Gauss]]:
     return out
 
 
-def test_one_heavy_coefficient() -> None:
-    """The search reported after ``prop:gaussheavy``, on a small range: no real
-    value of ``g`` is taken at three Gaussian ``y`` above the axis.
-
-    Control: ``y^6 - 2y^4 + y^2`` takes the value ``-100`` at ``+-2 + i`` and
-    ``2i``, and the same search finds it.
-    """
-    assert max(len(ys) for ys in _level_sets(1, 5, 8).values()) <= 2
-    found = _level_sets(2, 6, 3)
-    assert sorted(found[((0, 1, 0, -2, 0, 1), -100)]) == [(-2, 1), (0, 2), (2, 1)]
-
-
 # Blocks and heavy coefficients at Gaussian roots (lem:gausscarry,
 # lem:gaussblocks, thm:gausscharge, prop:gaussheavy).
 
@@ -818,10 +806,10 @@ def test_one_heavy_coefficient_is_one_level_set() -> None:
     ``v + H`` with ``H(alpha_j) = -v`` and ``(rho_min/2)^deg H <= |v|``.
 
     Checked at ``y^6 - 2y^4 + y^2 + 270400``, whose roots include
-    ``+-7 + 4i`` and ``8i``, and at every multiple ``g(x) - v`` found by a
-    small level-set search with ``rho_min > 2B``.  Control: at the first,
-    ``rho_min^6 > |v|``, so the degree bound fails with ``rho_min`` in place
-    of ``rho_min/2``.
+    ``+-7 + 4i`` and ``8i``, and at every multiple ``g(x) - v`` with small
+    coefficients whose Gaussian roots in a box have ``rho_min > 2B``.
+    Control: at the first, ``rho_min^6 > |v|``, so the degree bound fails
+    with ``rho_min`` in place of ``rho_min/2``.
     """
     h = [0, 0, 1, 0, -2, 0, 1]
     roots = [(7, 4), (-7, 4), (0, 8)]

@@ -72,14 +72,12 @@ is open; an answer lands in the paper it extends, and the row leaves.
   coefficients can be `n**(K+m-1), 0, ..., 0` (`prop:gausslow`).  If
   `rho_min > 2` and `b_2(F) < rho_min/2`, `F = x**e (v + H)` with every
   nonleading coefficient of `H` below `rho_min/2`, so all the roots lie in one
-  level set `H(y) = -v` (`prop:gaussheavy`); numerically (exhaustive search,
-  all coefficients of `H` at most `B`, small degree) no such level set has more
-  than three points, so in the searched ranges four roots in the box with
-  `rho_min > 2B` and all coefficients but one at most `B` force a block of
-  degree above `s`.
+  level set `H(y) = -v` (`prop:gaussheavy`); three Gaussian points above the
+  axis can share one (`(y**3 - y)**2 = -100` at `+-2 + i`, `2i`).
   Open: whether `c K**2 log R` holds for all integer multiples at such Gaussian
   roots in a wide sector (the question the paper's introduction leaves),
-  and whether the level sets above stay bounded.
+  and whether the number of Gaussian points above the axis in one such level
+  set is bounded.
   Cross terms between annuli (`sec:annuli`): with `K_s` roots of
   modulus in `[T_s, U_s]`, the central index (`lem:central`) charges a
   root once per annulus at or below it.  Dividing out `n` roots of modulus
@@ -135,12 +133,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   identity fails at `(5/4, 16, 2)` and `(5/4, 17, 3)`; `V_{4/3}(19,2) =
   41.38... < beta_{4/3}(18) = 42.34...` with worst position `sigma = 3`;
   and `V_{5/4}(14,2) = beta_{5/4}(13) > 1`, the identity with its minimum
-  at `i = 1`, outside `thm:onepolyrows` and `thm:longdiag`.  Numerically
-  (floating point, eleven `r` from `6/5` to `19/10`, `sigma <= 8` on
-  `2 <= n <= 20`): the identity at `k = 2` held whenever `nu_2(n) >= nu_1(n)`,
-  and failed only for `r <= 4/3`, with `beta_r(n) > 5`, at `sigma = 2` or `3`,
-  with ratio at most 1.19 among the computed positions (uncomputed ones could
-  only raise it).
+  at `i = 1`, outside `thm:onepolyrows` and `thm:longdiag`.
   Every row (`sec:finiterows`): a threshold for up to `m` far zeros
   (`lem:farzeros`) cuts the exempted sets to a finite tree, so for all
   `r > 1`, `n, m >= 1`, `V_r(n+m,m+1) = min(V_r(n+m-1,m), min_(S in tree)
@@ -154,15 +147,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   beta_{4/3}(14) = min_(i<=4) 1/nu_i(14)`, so the identity fails in the
   third row while holding in the second (and at `k = 4` by `lem:rowmono`);
   `V_{3/2}(10,3) = beta_{3/2}(8)`, the identity with minimum at `i = 1`.
-  Numerically (floating point, the full `m = 2` trees, `r` in
-  `{6/5, 5/4, 4/3}` with `2 <= n <= 18` and `r = 3/2` with `n <= 16`): the
-  identity at `k = 3` failed for `r <= 4/3` only, by up to 40% (at
-  `(5/4, 19, 3)`); a `k = 3` failure without a `k = 2` one only at
-  `(4/3, n = 14)`, and the reverse only at `(6/5, n = 17)`; in the failures
-  where the third row was below the second, the worst pair was `{2,3}`; and the `k = 2`
-  identity held at all 30 points with `nu_2(n) >= nu_1(n)`, every position
-  below `sigma*` computed.
-  Open: a proof that `nu_2(n) >= nu_1(n)` implies the identity at `k = 2`;
+  Open: a proof that `nu_2(n) >= nu_1(n)` implies the identity at `k = 2`
+  (conjectured in `sec:secondrow`);
   whether the worst finite position or set is always small; whether failures
   occur for every `1 < r < 2`; closed forms, or bounds on the trees, for the
   rows `k >= 3` with `beta_r(n) > 1` -- `thm:finiterows` does not say how to

@@ -172,12 +172,7 @@ the lowest coefficient costs $2Km\log\min_j|\alpha_j|$
 multiple $F$ has $b_2(F)<\min_j|\alpha_j|/2$, all the $\alpha_j$ lie in one level set
 $\{y:H(y)=-v\}$, $v$ the lowest nonzero coefficient of $F$, of a polynomial
 $H$ with small nonleading coefficients
-(Proposition~\ref{prop:gaussheavy}); an exhaustive search over $H$ of degree
-at most $s$ with all coefficients, the leading one included, of modulus at
-most $B$, and over Gaussian $y$ with $|\operatorname{Re}y|\le Y$ and
-$1\le\operatorname{Im}y\le Y$, for $(B,s,Y)=(1,11,30)$, $(2,8,40)$,
-$(2,10,20)$, $(3,8,30)$, finds no level set with more than three such $y$
-(numerical evidence only).
+(Proposition~\ref{prop:gaussheavy}).
 
 \paragraph{Conventions.}
 All logarithms are natural.  For $F\in\mathbb C[x]$ of degree $D$ we write
@@ -1864,34 +1859,16 @@ nonleading coefficient of $F$, so $i=0$ and $|v|\ge(\rho_{\min}/2)^d$.
 \end{proof}
 
 So, when $\rho_{\min}>2$, $b_2(F)\ge\rho_{\min}/2$ unless every $\alpha_j$
-lies in one level set $\{y:H(y)=-v\}$ of such an $H$.  In a finite search, level
-sets of polynomials with coefficients at most $3$, the leading one included,
-contain at most three Gaussian points of a bounded box.  An exhaustive
-search over the $H\in\mathbb Z[y]$ with $H(0)=0$, positive leading coefficient,
-coefficients at most $B$ in absolute value and degree at most $s$, and over the
-$y$ with $|\operatorname{Re}y|\le Y$ and $1\le\operatorname{Im}y\le Y$, for
-$(B,s,Y)=(1,11,30)$, $(2,8,40)$, $(2,10,20)$ and $(3,8,30)$, finds no real
-value taken at more than three such $y$.  For $H$ of degree below $8$, $H+v$ is a real polynomial of
-degree at most $7$, so each level set of $H$ has at most three points above
-the axis; only these ranges, with $s\ge8$, are informative.  Three such $y$ occur, in these ranges and in
-$(3,6,50)$, $(5,5,60)$ and $(10,4,80)$, only for $H=y^6-2y^4+y^2=(y^3-y)^2$, at $\{\pm2+i,2i\}$,
-$\{\pm7+4i,8i\}$ and $\{\pm26+15i,30i\}$, and for $H=y^8+3y^4$, at
-$\{\pm1+i,i\}$.  With
-Proposition~\ref{prop:gaussheavy}, item~2, applied to $\pm F$, the ranges with $s\ge8$ give: if
-$K\ge4$, $2B<\rho_{\min}$, every
-$\alpha_j$ lies in the box, and every coefficient of $F$ but one has modulus at
-most $B$ (the exception is $f_e$, as $|f_e|\ge P(0)>B$), then
-$\deg F-e>s$, so $|f_e|\ge(\rho_{\min}/2)^{s+1}$.  This is numerical evidence
-only; whether the level sets stay bounded, and whether
+lies in one level set $\{y:H(y)=-v\}$ of such an $H$.  Three Gaussian points
+above the axis can share such a level set: $(y^3-y)^2$ takes the value
+$-100$ at $\pm2+i$ and $2i$, and $y^8+3y^4$ the value $4$ at $\pm1+i$ and
+$i$.  Whether the number of Gaussian points above the axis in one level set
+of a polynomial with small nonleading coefficients is bounded, and whether
 $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots in
 a wide sector, remain open.
 
-
 \paragraph{Data availability.}
-No datasets were generated or analyzed in this study.  The search of
-Section~\ref{sec:widesectors} is \texttt{tools/levelsets.py} of the
-accompanying repository, and its small cases are rechecked in
-\texttt{tests/test\_complex.py}.
+No datasets were generated or analyzed in this study.
 
 \begin{thebibliography}{99}
 \small
