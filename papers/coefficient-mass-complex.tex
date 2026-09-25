@@ -163,8 +163,8 @@ $\lambda(1-1/|\alpha|)^2$ times its charge, $\lambda=1-n|\alpha|/T$, with
 the constant $1$ attained as $|\alpha|\to\infty$
 (Proposition~\ref{prop:rowstwolarge}).  The mass bound fails with
 $T_2=(2+\frac1{18915})U_1$ (Proposition~\ref{prop:gaptwo}), with two roots
-above the gap, where the separation $\frac52$ suffices, and
-$2+\frac2{T_1}$, so that the least separation tends to $2$ as $T_1$ grows
+above the gap, where the separation $2+\frac1{T_1}\le\frac73$ suffices,
+so that the least separation tends to $2$ as $T_1$ grows
 (Corollary~\ref{cor:twonear}); for two annuli with many roots above the
 gap, a fixed separation below $81$ would have to charge three nonleading
 positions.
@@ -189,7 +189,7 @@ Theorem~\ref{thm:gausscharge} for integer multiples of large degree.
 \paragraph{Open questions.}  Two questions are left open.  First, what the
 least fixed separation of the annuli for the mass is: it lies between
 $2+\frac1{18915}$ and $81$ (and at most $\max(4,n_2+1)$ for two annuli
-with $n_2$ roots in the upper one, $\frac52$ if $n_2\le2$), and whether the separation $9$ of Corollary~\ref{cor:annuli},
+with $n_2$ roots in the upper one, $\frac73$ if $n_2\le2$), and whether the separation $9$ of Corollary~\ref{cor:annuli},
 item~2, suffices is open (Section~\ref{sec:annuli}).  Second, whether
 $\Lambda(F)\ge cK^2\log R$ holds for every integer multiple $F$ at $K$
 distinct Gaussian-integer roots of modulus at least $R$ in the upper
@@ -936,7 +936,7 @@ coefficients rather than one, and the rows of Corollary~\ref{cor:annuli},
 item~1, fail at every fixed separation (Proposition~\ref{prop:rowsneedn}).
 The factor $81$ cannot be lowered below $2+\frac1{18915}$
 (Proposition~\ref{prop:gaptwo}), and for two annuli $\max(4,n_2+1)$
-suffices (Corollary~\ref{cor:twofixed}), and $\frac52$ when $n_2\le2$
+suffices (Corollary~\ref{cor:twofixed}), and $\frac73$ when $n_2\le2$
 (Corollary~\ref{cor:twonear});
 the least admissible factor is open.  The mass bound is sharp to leading order, the
 coefficient $s$ of each $K_s\log T_s$ being best possible, as
@@ -1775,7 +1775,7 @@ So for the mass at two annuli with two roots in the upper one, the case of
 Proposition~\ref{prop:gaptwo}, the least separation lies between
 $2+\frac1{18915}$ and $12$, by Corollary~\ref{cor:rowstwo} even $9$, and
 by Corollaries~\ref{cor:twofixed} and~\ref{cor:twonear} below even $4$ and
-$\frac52$; with one root in the upper annulus it is at
+$\frac73$; with one root in the upper annulus it is at
 least $\frac{32}{31}$, since $F=(x-q)(x+t)$ has
 $\Lambda(F)=\log(qt(t-q))$ against the bound $\log(qt^2/32)$ when
 $1\le t-q<t/32$, for instance at $q=100$, $t=103$.  For the rows,
@@ -1888,7 +1888,7 @@ need $n_2/(1-2^{-n_2-1})>n_2+n_22^{-n_2-1}$ (item~2 with $K=n_2$): the
 least separation for the rows lies between these, and exceeds $n_2$ by an
 amount exponentially small in $n_2$.  For the mass with $K_2=1$ or $K_2=2$
 the least separation lies in $[\frac{32}{31},\frac{14}9]$ and
-$[2+\frac1{18915},\frac52]$ (Corollary~\ref{cor:twonear} below).  At a fixed separation $g$ and $n_2=K\ge g$ two
+$[2+\frac1{18915},\frac73]$ (Corollary~\ref{cor:twonear} below).  At a fixed separation $g$ and $n_2=K\ge g$ two
 nonleading positions no longer suffice: by the proof of item~2,
 $F=(x-q)(x+t)^K$ with $t=Kq/(1-2^{-2K-4})$ and $q\ge2^{3K+5}$ has
 $b_1(F)=qt^K$ and $b_2(F)\le2^{-2K-4}t^K$, so
@@ -1950,9 +1950,8 @@ $b_2(F)>\frac{|f_D|}2\cdot\frac{|\beta|}2$ for the zero $\beta$ of $A_2$, and
 the rows and the mass bound of Corollary~\ref{cor:annuli}, item~1, hold.
 The factor $\frac43$ cannot be lowered: for $3<q<t<\frac43q$,
 $F=(x-q)(x+t)$ has $b_2(F)=t-q<\frac t4$.
-\item If $K_2=2$, $|f_D|\ge1$ and $T_2>gU_1$ with
-$g=\min(\frac52,2+\frac2{T_1})$, the mass bound of
-Theorem~\ref{thm:fixedgap} holds.
+\item If $K_2=2$, $|f_D|\ge1$ and $T_2>(2+\frac1{T_1})U_1$, the mass bound
+of Theorem~\ref{thm:fixedgap} holds.
 \end{enumerate}
 \end{corollary}
 
@@ -1982,25 +1981,34 @@ with $A=A_1\cup A_2$, and the two rows give the mass as in
 Corollary~\ref{cor:rowstwo}.  Finally $(x-q)(x+t)=x^2+(t-q)x-qt$ has
 $T_1=U_1=q$, $T_2=t$ and $b_2=t-q$.
 
-2.  It suffices to treat $g=\frac52$ and $g=2+\frac2\tau$ separately.  Let
-$\Pi$ be the product of the moduli of the two zeros of $A_2$, so
-$\Pi\le b^2$.  By Lemma~\ref{lem:central} at $r=1$ with $A=A_1\cup A_2$, a
-central index at $1$ has modulus above
+2.  Here $g=2+\frac1\tau$, so $g\tau=2\tau+1$, $1-\frac1g=\frac{\tau+1}{2\tau+1}$
+and $1-\frac2g=\frac1{2\tau+1}$.  Let $\Pi$ be the product of the moduli of
+the two zeros of $A_2$, so $\Pi\le b^2$.  By Lemma~\ref{lem:central} at $r=1$
+with $A=A_1\cup A_2$, a central index at $1$ has modulus above
 $\frac{|f_D|}2\prod_{A_1\cup A_2}\frac{|\beta|}2\ge|f_D|aT_2^2/16>|f_D|$, so
-it is not $D$, and we take it for $j$.  First, $j\le D-2$.  Otherwise $j=D-1$ carries the largest value of the
-concave majorant, so the edge from $D-1$ to $D$ has the tropical root
-$\sigma_1=\log(|f_{D-1}|/|f_D|)>0$ and every other tropical root is at most
-$0$.  If $\sigma_1>2\log3$, take $u$ with $\log3<u<\min(\log a,\sigma_1-\log3)$:
-it is farther than $\log3$ from every tropical root, the vertex active at $u$
-is $D-1$, and Theorem~\ref{thm:archnewton}, item~1, puts $D-1$ zeros in
-$|z|<e^u$, although $\alpha$ and the two zeros of $A_2$ lie outside.  So
-$|f_{D-1}|\le9|f_D|$, against $|f_{D-1}|>|f_D|aT_2^2/16>|f_D|g^2\tau^3/16$,
-as $g^2\tau^3\ge144$: it exceeds $27\cdot\frac{25}4$ for $g=\frac52$, and is
-$4\tau(\tau+1)^2>192$ for $g=2+\frac2\tau$.
+it is not $D$, and we take it for $j$.  First, $j\le D-2$.  Otherwise
+$j=D-1$ carries the largest value of the concave majorant, so the edge from
+$D-1$ to $D$ has the tropical root $\sigma_1=\log(|f_{D-1}|/|f_D|)>0$ and
+every other tropical root is at most $0$.  If $\sigma_1>2\log3$, take $u$
+with $\log3<u<\min(\log a,\sigma_1-\log3)$: it is farther than $\log3$ from
+every tropical root, the vertex active at $u$ is $D-1$, and
+Theorem~\ref{thm:archnewton}, item~1, puts $D-1$ zeros in $|z|<e^u$,
+although $\alpha$ and the two zeros of $A_2$ lie outside.  So
+$|f_{D-1}|\le9|f_D|$, against
+$|f_{D-1}|>|f_D|aT_2^2/16>|f_D|g^2\tau^3/16$, where
+$g^2\tau^3=\tau(2\tau+1)^2>147$.
 
-Lemma~\ref{lem:twobelow} with $A=A_2$, $n=2$ and $T=T_2$ applies, as $a<T_2/2$;
-let $m$ be the largest $|f_l|$ over $l\le D-2$, $l\ne j$, so
-$m\ge|f_D|\Pi/\Gamma$.  If $m\ge|f_D|\Pi/8$, its position alone carries
+The proof of Proposition~\ref{prop:rowstwolarge}, with $A=A_2$, $n=2$ and
+$T=T_2$ (as $a<T_2/2$), uses only the positions $l\le D-2$ other than an
+arbitrary position $j$: it gives some $l\le D-2$, $l\ne j$, with
+$|f_l|\ge\varepsilon|f_D|\Pi$, where $\varepsilon$ is the minimum there.  In
+its first term $\lambda>\frac1{2\tau+1}$, $\frac{a-1}{a-\lambda}\ge1-\frac1a>\frac23$
+and $(1-\frac1{T_2})^{-2}<(\frac{2\tau+1}{2\tau})^2\le(\frac76)^2$; the second
+exceeds $\frac12$, as $(2a-1)\bigl((1-\frac1{T_2})^{-2}-1\bigr)
+=(2a-1)(2T_2-1)/(T_2-1)^2<3$ by $T_2>2a$.  So
+$\varepsilon\ge\frac{24}{49(2\tau+1)}$.  Let $m$ be the largest $|f_l|$ over
+$l\le D-2$, $l\ne j$, so $m\ge\varepsilon|f_D|\Pi$.  If
+$m\ge|f_D|\Pi/8$, its position alone carries
 $\log(|f_D|/2)+\sum_{A_2}\log(|\beta|/2)$.  Otherwise
 Lemma~\ref{lem:twozeros} with $\alpha$, $\beta$ and $j\le D-2$ gives
 $(1+\rho)|f_{D-1}|>|f_D|b(1-\rho^2)-|f_D|b^2W/8$, with $W$ its weight
@@ -2010,26 +2018,15 @@ $\frac{1+\rho}{b-1}+\frac1{b(a-1)}$, so $|f_{D-1}|>|f_D|b\kappa$ with
   \ \le\ 1-\rho-\frac18\Bigl(\frac b{b-1}+\frac1{a-1}\Bigr),
 \]
 and then the positions $D-1$ and that of $m$, distinct from each other and
-from $j$, carry $\log(|f_{D-1}|m)\ge\log(|f_D|\Pi/8)$ as soon as $g\tau\kappa\ge\Gamma/8$, as
-$|f_D|\ge1$ and $b>g\tau$.  By the bounds on $a$ and $T_2$,
+from $j$, carry $\log(|f_{D-1}|m)\ge\log(|f_D|\Pi/8)$ as soon as
+$g\tau\kappa\ge1/(8\varepsilon)$, as $|f_D|\ge1$ and $b>g\tau$.  As
+$\frac{2\tau+1}{2\tau}\le\frac76$ and $\frac{2\tau+1}{\tau-1}\le\frac72$,
 \[
-  \Gamma\ <\ \gamma=\Bigl(1-\frac1g\Bigr)^{-2}\frac{\tau}{(\tau-1)(1-2/g)}
-  +\Bigl(1-\frac1{g\tau}\Bigr)^{-2}.
+  g\tau\kappa=\tau+1-\frac{2\tau+1}8\Bigl(\frac{2\tau+1}{2\tau}+\frac1{\tau-1}\Bigr)
+  \ \ge\ \tau+1-\frac{7(2\tau+1)}{48}-\frac7{16}=\frac{34\tau+20}{48},
 \]
-For $g=\frac52$, as $g\tau>\frac{15}2$ and $\tau>3$,
-$\kappa\ge\frac35-\frac18(\frac{15}{13}+\frac12)=\frac{409}{1040}$ and
-$g\tau\kappa>\frac{1227}{416}>2.9$, while
-$\gamma<\frac{125}6+(\frac{15}{13})^2<22.2<8\cdot2.9$.  For
-$g=2+\frac2\tau$, $1-\frac1g=\frac{\tau+2}{2\tau+2}$, $1-\frac2g=\frac1{\tau+1}$
-and $g\tau=2\tau+2$, so, as $\frac{2\tau+2}{2\tau+1}\le\frac87$ and
-$\frac{\tau+1}{\tau-1}\le2$,
-\[
-  g\tau\kappa=\tau+2-\frac{\tau+1}4\Bigl(\frac{2\tau+2}{2\tau+1}+\frac1{\tau-1}\Bigr)
-  \ \ge\ \frac{10\tau+17}{14},
-\]
-while $\gamma=\frac{4\tau(\tau+1)^3}{(\tau+2)^2(\tau-1)}+(\frac{2\tau+2}{2\tau+1})^2
-<4(\tau+3)+\frac{64}{49}$, as $\frac{\tau(\tau+1)}{\tau-1}=\tau+2+\frac2{\tau-1}$;
-and $\frac{10\tau+17}{14}-\frac{\tau+3}2-\frac8{49}=\frac{3\tau-4}{14}-\frac8{49}>0$.
+while $\frac1{8\varepsilon}\le\frac{49(2\tau+1)}{192}$, and
+$4(34\tau+20)-49(2\tau+1)=38\tau+31>0$.
 
 In both cases the positions other than $j$ and $D$ carry at least
 $\log(|f_D|/2)+\sum_{A_2}\log(|\beta|/2)$, and $j$ carries
@@ -2040,9 +2037,9 @@ this is the bound of Theorem~\ref{thm:fixedgap} for $S=2$.
 So with one root above the gap the second row needs a separation between
 $\frac43$ and $\frac43+\frac2{3T_1}\le\frac{14}9$, and $\frac43$ is its limit
 as $T_1\to\infty$; the mass needs between $\frac{32}{31}$ and the same.  With
-two roots above the gap the mass holds at $\frac52$, and at $2+\frac2{T_1}$,
+two roots above the gap the mass holds at $2+\frac1{T_1}\le\frac73$,
 while Proposition~\ref{prop:gaptwo} breaks it at $2+\frac1{q(2q+1)}$ for
-integers $T_1=q\ge97$: the least separation lies in $[2+\frac1{18915},\frac52]$,
+integers $T_1=q\ge97$: the least separation lies in $[2+\frac1{18915},\frac73]$,
 and tends to $2$ as $T_1\to\infty$, the upper bound exceeding $2$ by order
 $1/T_1$ and the lower by order $1/T_1^2$.  The argument does not extend to
 many roots above the gap: Lemma~\ref{lem:twobelow} charges $k$ zeros above
@@ -2065,7 +2062,7 @@ the charge of the two zeros $-t$, with one position above it.
 
 Open: the least fixed separation for the mass, between $2+\frac1{18915}$
 and $81$, in particular whether $9$ suffices; for two annuli it is at most
-$\max(4,n_2+1)$ (Corollary~\ref{cor:twofixed}), and $\frac52$ for
+$\max(4,n_2+1)$ (Corollary~\ref{cor:twofixed}), and $\frac73$ for
 $n_2\le2$ (Corollary~\ref{cor:twonear}), and whether a separation
 below $81$ independent of $n_2$ suffices there is open.
 

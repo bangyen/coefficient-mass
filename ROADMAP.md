@@ -17,7 +17,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   each window.
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
   separation for the mass, between `2 + 1/18915` and 81 (at most
-  `max(4, n_2 + 1)` for two annuli, `cor:twofixed`, and `5/2` for
+  `max(4, n_2 + 1)` for two annuli, `cor:twofixed`, and `7/3` for
   `n_2 <= 2`, `cor:twonear`), and whether 9
   suffices, for two annuli with many roots above the gap in particular;
   whether `T_a > (n_a + 1) U_(a-1)` gives every row of `cor:annuli` also
@@ -237,12 +237,13 @@ is open; an answer lands in the paper it extends, and the row leaves.
   a lower position) with no factor `lambda` (`lem:twozeros`).  So for
   `K_2 = 1` the second row holds at `T_2 > (4/3 + 2/(3 T_1)) U_1`, and
   `(x - q)(x + t)`, `t < 4q/3`, misses it: the least separation for the rows
-  is `4/3 + O(1/T_1)`.  For `K_2 = 2` it gives, with `lem:twobelow` and the
-  first row at a position `<= D - 2`, the mass at
-  `T_2 > min(5/2, 2 + 2/T_1) U_1` (`cor:twonear`).  For the mass,
+  is `4/3 + O(1/T_1)`.  For `K_2 = 2` it gives, with the second position
+  of the proof of `prop:rowstwolarge` (which excludes any given position)
+  and the first row at a position `<= D - 2`, the mass at
+  `T_2 > (2 + 1/T_1) U_1` (`cor:twonear`).  For the mass,
   `K_2 = 1` lies in `[32/31, 4/3 + 2/(3 T_1)]` (at most `14/9`) and
-  `K_2 = 2` in `[2 + 1/18915, 5/2]`, tending to 2 as `T_1 -> oo`: at
-  `T_1 = q >= 97` it lies in `[2 + 1/(q(2q+1)), 2 + 2/q]`.  At a fixed separation `g` and `n_2 = K >= g`, the
+  `K_2 = 2` in `[2 + 1/18915, 7/3]`, tending to 2 as `T_1 -> oo`: at
+  `T_1 = q >= 97` it lies in `[2 + 1/(q(2q+1)), 2 + 1/q]`.  At a fixed separation `g` and `n_2 = K >= g`, the
   same family at `t = Kq/(1 - 2**(-2K-4))`, `q >= 2**(3K+5)`, has
   `log b_1 + log b_2` below the mass bound, so a proof at a fixed
   separation for all `n_2` must charge a third nonleading position (there
@@ -282,7 +283,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   holds at `T_2 > 12 U_1` when `K_2 = 2`, the case of `prop:gaptwo`, and at
   `T_2 > 6 U_1` when `K_2 = 1`, where `(x - q)(x + t)` fails for
   `1 <= t - q < t/32` (separations up to `32/31`); both at `4 U_1` by
-  `cor:twofixed`, and at `5/2` and `14/9` by `cor:twonear`.  Below 81 the proof of
+  `cor:twofixed`, and at `7/3` and `14/9` by `cor:twonear`.  Below 81 the proof of
   `thm:fixedgap` breaks down where only one vertex above those charged for
   the lower annuli is active in the gap, between tropical roots less than
   `2 log 3` apart, with fewer than `n_a` positions above it; that is how
@@ -308,7 +309,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   also for pairs near the imaginary axis (`prop:annulisharp`).  Open: the
   least fixed separation for the mass, between `2 + 1/18915` and 81
   (whether 9 suffices; for two annuli it is at most `max(4, n_2 + 1)` by
-  `cor:twofixed`, and `5/2` for `n_2 <= 2` by `cor:twonear`, and whether a
+  `cor:twofixed`, and `7/3` for `n_2 <= 2` by `cor:twonear`, and whether a
   separation below 81 independent of `n_2` suffices there is open: for
   `n_2 >= g` the first two rows fall short of the mass at the separation
   `g`, and a third position must be charged; `lem:twobelow` charges `k`

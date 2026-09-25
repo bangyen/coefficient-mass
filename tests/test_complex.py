@@ -1505,7 +1505,7 @@ def test_two_zeros_one_excluded_position() -> None:
 
     Control: without the factor ``1 - rho^(D - j)`` the inequality fails
     there."""
-    rng = random.Random(SEED + 36)
+    rng = random.Random(SEED + 46)
     for _ in range(300):
         low, a = _zero_factor(rng, Fraction(rng.randint(1, 20)))
         high, b = _zero_factor(rng, Fraction(a * rng.randint(11, 40), 10))
@@ -1535,14 +1535,15 @@ def test_two_annuli_near_the_least_separation() -> None:
     seeded multiples with a zero or pair of modulus ``a`` below and one zero
     (possibly of a pair) at ``T_2`` just above ``(4/3 + 2/(3a)) a``, and on
     ``(x - q)(x + t)``: the second row; item 2 likewise with two zeros above
-    ``min(5/2, 2 + 2/a) a``, and on ``(x - q)(x + t)^2``: the mass bound, a
-    largest nonleading coefficient at most at ``D - 2``, and the positions of
-    the proof.
+    ``(2 + 1/a) a``, and on ``(x - q)(x + t)^2``: the mass bound, a
+    largest nonleading coefficient at most at ``D - 2``, the positions of
+    the proof, and the second position of ``prop:rowstwolarge`` excluding
+    every position in turn.
 
     Control: ``(x - q)(x + t)`` just below ``t = 4q/3`` misses the row, also
     at ``q = 3 * 10^6``, so ``4/3`` cannot be lowered; and
     ``prop:gaptwo`` misses the mass at ``T_2 = (2 + 1/(q(2q + 1))) U_1``,
-    below ``2 + 2/q``."""
+    below ``2 + 1/q``."""
     # Item 1: the identity behind the case j <= D - 2, and its sign.
     for tau in (
         Fraction(3),
@@ -1558,13 +1559,7 @@ def test_two_annuli_near_the_least_separation() -> None:
             2 * (2 * tau + 1) * (4 * tau - 1) * (tau - 1)
         )
         assert diff > 0 and g * tau > 4 and 4 * (1 - 1 / g) >= 1
-    # Item 2: the numbers for g = 5/2, and for g = 2 + 2/tau.
-    g = Fraction(5, 2)
-    kappa = 1 - 1 / g - (Fraction(15, 13) + Fraction(1, 2)) / 8
-    assert kappa == Fraction(409, 1040) and g * 3 * kappa == Fraction(1227, 416)
-    gamma = (1 - 1 / g) ** -2 * Fraction(3, 2) / (1 - 2 / g) + Fraction(15, 13) ** 2
-    assert gamma < Fraction(111, 5) < 8 * Fraction(29, 10) < 8 * g * 3 * kappa
-    assert 27 * g * g >= 144
+    # Item 2: the numbers for g = 2 + 1/tau.
     for tau in (
         Fraction(3),
         Fraction(31, 10),
@@ -1572,21 +1567,18 @@ def test_two_annuli_near_the_least_separation() -> None:
         Fraction(97),
         Fraction(10**6),
     ):
-        g = 2 + 2 / tau
+        g = 2 + 1 / tau
         bt = g * tau
-        assert 1 - 1 / g == (tau + 2) / (2 * tau + 2) and 1 - 2 / g == 1 / (tau + 1)
+        assert bt == 2 * tau + 1 and 1 - 2 / g == 1 / (2 * tau + 1)
+        assert 1 - 1 / g == (tau + 1) / (2 * tau + 1)
+        assert g * g * tau**3 == tau * (2 * tau + 1) ** 2 >= 147
+        assert bt / (bt - 1) <= Fraction(7, 6) and bt / (tau - 1) <= Fraction(7, 2)
+        eps = Fraction(24, 49) / (2 * tau + 1)
+        assert eps == (1 - 2 / g) * Fraction(2, 3) / Fraction(7, 6) ** 2
         kappa = 1 - 1 / g - (bt / (bt - 1) + 1 / (tau - 1)) / 8
-        gamma = (1 - 1 / g) ** -2 * tau / ((tau - 1) * (1 - 2 / g)) + (1 - 1 / bt) ** -2
-        assert (
-            gamma
-            == 4 * tau * (tau + 1) ** 3 / ((tau + 2) ** 2 * (tau - 1))
-            + (bt / (bt - 1)) ** 2
-        )
-        assert bt * kappa >= (10 * tau + 17) / 14
-        assert gamma < 4 * (tau + 3) + Fraction(64, 49)
-        assert (10 * tau + 17) / 14 - (tau + 3) / 2 - Fraction(8, 49) > 0
-        assert g * g * tau**3 == 4 * tau * (tau + 1) ** 2 > 144
-    rng = random.Random(SEED + 37)
+        assert bt * kappa >= (34 * tau + 20) / 48 > 1 / (8 * eps)
+        assert 4 * (34 * tau + 20) - 49 * (2 * tau + 1) == 38 * tau + 31
+    rng = random.Random(SEED + 47)
     for _ in range(150):
         low, a = _zero_factor(rng, Fraction(rng.randint(3, 30)))
         g1 = Fraction(4, 3) + Fraction(2, 3 * a)
@@ -1597,7 +1589,7 @@ def test_two_annuli_near_the_least_separation() -> None:
         assert 2 * bs[0] > lead * prod(
             Fraction(r, 2) for r in [a] * (len(low) - 1) + [b]
         )
-        g2 = min(Fraction(5, 2), 2 + Fraction(2, a))
+        g2 = 2 + Fraction(1, a)
         highs = [_zero_factor(rng, g2 * a)]
         if len(highs[0][0]) == 2:
             highs.append(_zero_factor(rng, g2 * a * rng.choice([1, 2])))
@@ -1621,8 +1613,18 @@ def test_two_annuli_near_the_least_separation() -> None:
         m = max(abs(f[i]) for i in range(big_d - 1) if i != j)
         pi8 = Fraction(lead * prod(up), 8)
         assert m >= pi8 or abs(f[-2]) * m >= pi8
+        # The second position of prop:rowstwolarge, excluding any position.
+        big_t, gp = min(up), (1 - Fraction(1, min(up))) ** -2
+        lam = 1 - Fraction(2 * a, big_t)
+        eps = min(
+            lam * (a - 1) / (gp * (a - lam)), (a - 1) / (1 + (2 * a - 1) * (gp - 1))
+        )
+        assert eps >= Fraction(24, 49) / (2 * a + 1)
+        for j in range(big_d + 1):
+            others = [abs(f[i]) for i in range(big_d - 1) if i != j]
+            assert max(others) >= eps * lead * prod(up)
     for q in (4, 5, 97, 10**4):
-        t = int(min(Fraction(5, 2), 2 + Fraction(2, q)) * q) + 1
+        t = 2 * q + 2
         f = _mul([-q, 1], _mul([t, 1], [t, 1]))
         assert _mass(f) >= Fraction(q, 2) * Fraction(t, 2) ** 4 / 4
         assert _central(f, Fraction(1)) == [0] and 8 * abs(f[1]) * f[2] >= t * t
@@ -1633,7 +1635,7 @@ def test_two_annuli_near_the_least_separation() -> None:
         assert 4 * _b(_mul([-q, 1], [t, 1]))[1] < t
     for q in (97, 1000):
         t = 2 * q + Fraction(1, 2 * q + 1)
-        assert 2 < t / q < 2 + Fraction(2, q)
+        assert 2 < t / q < 2 + Fraction(1, q)
         f = _mul([Fraction(-q), Fraction(1)], _mul([t, Fraction(1)], [t, Fraction(1)]))
         assert _mass(f) < Fraction(q, 2) * (t / 2) ** 4 / 4
 
