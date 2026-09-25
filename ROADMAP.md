@@ -26,8 +26,10 @@ is open; an answer lands in the paper it extends, and the row leaves.
 - [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
-  for every `1 < r < 2` (proved for `21/20 <= r <= 139/100`,
-  `thm:failinterval`); closed forms or tree bounds for rows `k >= 3`
+  for every `1 < r < 2` (proved in some row for `21/20 <= r <= 19/10`,
+  `thm:failinterval`, `thm:blockinterval`; open below `21/20` and above
+  `19/10`), and whether the least failing row tends to infinity as
+  `r -> 2`; closed forms or tree bounds for rows `k >= 3`
   (`sec:finiterows`).
 - [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
   holds for integer multiples at Gaussian roots in a wide sector
@@ -469,14 +471,34 @@ is open; an answer lands in the paper it extends, and the row leaves.
   beta_{4/3}(14) = min_(i<=4) 1/nu_i(14)`, so the identity fails in the
   third row while holding in the second (and at `k = 4` by `lem:rowmono`);
   `V_{3/2}(10,3) = beta_{3/2}(8)`, the identity with minimum at `i = 1`.
+  Higher rows on an interval (`lem:block`, `prop:blockinterval`,
+  `thm:blockinterval`): the block `S = [2,k]` has `mu_r([2,k], n+k-1) <=
+  min(nu_{k+1}(n-1), (1 + nu_k(n))/(kr))`, with equality in the first when
+  its minimizer vanishes at 1, so a block failure is a longer prefix of
+  smaller degree beating every `nu_i(n)`, `i <= k`, and needs
+  `k < (beta_r(n) + 1)/r`.  A vertex certificate at `r_1` against upper
+  bounds at `r_0`, with `nu_i <= a**(i-j) nu_j` (`eq:prefixup`) between a few
+  listed anchors `j`, covers `[r_0, r_1]`; 27 such certificates
+  (`tests/block_row_cover.json`, `n` from 13 to 22, `k` from
+  9 to 384, always `1 in Z`) show that for every `r` in
+  `[139/100, 19/10]` the identity fails at some `(r, n+k-1, k)`.  So it
+  fails in some row at every `r` in `[21/20, 19/10]`.  The rows grow as
+  `r -> 2` and the intervals shrink roughly like `2 - r`.  Numerically only
+  (floating point): at `r = 1.9` block failures for `n = 14` in the rows
+  `210..254` and for `n = 17` in `267..330`, and at `r = 1.8` for every
+  `10 <= n <= 20`, from row 46 at `n = 10`; so there is no sign of a
+  threshold `r_* < 2` above which the identity holds in every row.
   Open: a condition on `r` and `n` that gives the identity at `k = 2`;
   whether the worst finite position or set is always small; whether failures
-  occur for every `1 < r < 2`, in particular for `1 < r < 21/20` (a
-  failure needs `beta_r(n) > 1`, so `n -> oo` as `r -> 1+` by
-  `thm:onepolyrows` and `lem:topnearone`) and
-  for `r` near `1.40` and above `1.43`, where the second row may satisfy the
-  identity on every diagonal and a failure would have to come from a row
-  `k >= 3`; closed forms, or bounds on the trees, for the
+  occur for every `1 < r < 2`, that is, for `1 < r < 21/20` (a
+  failure in any row needs `beta_r(n) > 1`, so `n -> oo` as `r -> 1+` by
+  `thm:onepolyrows` and `lem:topnearone`; a parametric family of
+  certificates with `n ~ c/(r-1)` would be needed) and for
+  `19/10 < r < 2` (for each `r` a block failure would do; certificates
+  there need rows `k` in the hundreds and grow without bound as `r -> 2`);
+  whether the least row `k(r)` with a failure at the root `r` tends to
+  infinity as `r -> 2` (at `r = 2` every row holds, `thm:allrowstwo`, but
+  continuity in `r` is not uniform in `n`); closed forms, or bounds on the trees, for the
   rows `k >= 3` with `beta_r(n) > 1` -- `thm:finiterows` does not say how to
   find the minimizers `q_N` it branches on, and its thresholds do not
   decrease with `m`.
