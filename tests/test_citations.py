@@ -30,6 +30,10 @@ CITATIONS = {
         "Theorem",
         "thm:tail",
     ),
+    ("coefficient-mass-attainment.tex", "coefficient-mass", "2.3"): (
+        "Lemma",
+        "lem:interlace",
+    ),
     ("coefficient-mass-attainment.tex", "coefficient-mass", "3.1"): (
         "Lemma",
         "lem:slack",
