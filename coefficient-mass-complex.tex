@@ -55,8 +55,8 @@ signs charge one
 root of each sign per excluded coefficient, with the sharp constant
 $\frac14$ in the mass.  For $K$ roots of modulus at least $R$ in a sector of
 half-width $\delta<\pi/2$, multiples of degree $O(K)$ with leading
-coefficient of modulus at least $1$ have mass
-$(\frac12-o(1))K^2\log R$ if $\delta K\to0$ and $(\frac\pi\delta-o(1))K\log R$
+coefficient of modulus at least $1$ have mass at least
+$(\frac12-o(1))K^2\log R$ if $\delta K\to0$ and at least $(\frac\pi\delta-o(1))K\log R$
 at fixed $\delta$, as $K,R\to\infty$, with both constants attained; at
 Gaussian-integer roots and fixed $\delta$ the degree restriction is removed
 for integer multiples.
@@ -74,7 +74,8 @@ For a nonzero $F(x)=\sum_jf_jx^j$ of degree $D$ write
   \Lambda(F)=\sum_{j:f_j\ne0}\log^+|f_j|,\qquad \log^+x=\max(0,\log x),
 \]
 for its logarithmic coefficient mass, and $b_k(F)$ for the $k$-th largest of
-the nonleading magnitudes $|f_j|$, $j<D$.  For real roots
+the $D$ nonleading magnitudes $|f_j|$, $j<D$, counted with repetition and
+zeros included ($b_k(F)=0$ for $k>D$).  For real roots
 $2\le r_1\le\cdots\le r_L$, repetitions allowed, the companion
 paper~\cite{coefficient-mass} proves that every nonzero real or complex
 multiple $F$ of $\prod_{i=1}^L(x-r_i)$ satisfies
@@ -124,9 +125,10 @@ Proposition~\ref{prop:bothsignssharp}).
 \paragraph{Sectors.}  For $K$ roots of modulus at least $R$ in a sector, the
 argument principle along a ray next to the sector produces many real zeros
 of a real polynomial dominated coefficientwise by the multiple, to which
-\eqref{eq:order} applies.  In a sector of half-width $\delta\le\pi/4$ this
+\eqref{eq:order} applies.  In a sector of half-width $\delta\le\pi/4$ with
+$R\ge6$ this
 gives mass at least $\frac{K(K-2)}8\log(\frac R2-1)$ for multiples with
-$|b_d|\ge1$ of degree at most
+leading coefficient of modulus at least $1$ and degree at most
 $\pi K/(2E(2\delta))$, where
 $E(2\delta)\le(8\delta/\log2)\log(e\pi/(2\delta))$ (Section~\ref{sec:thin},
 Theorem~\ref{thm:thinsector}).  At Gaussian-integer roots, where a carry
@@ -136,7 +138,7 @@ $\pi K\log(R/2)/(2E(2\delta))$ (Theorem~\ref{thm:thingauss}), which is of
 order $K^2\log R$ when $\delta K\log(e\pi/(2\delta))=O(1)$.  In a sector of
 half-width $\delta<\pi/2$ the crossings
 are counted against the equidistributed share $\delta/\pi$ of the
-large zeros; as $K,R\to\infty$, multiples of degree $O(K)$ with $|b_d|\ge1$ pay
+large zeros; as $K,R\to\infty$, multiples of degree $O(K)$ with leading coefficient of modulus at least $1$ pay
 $(\frac\pi\delta-o(1))K\log R$ at fixed $\delta$ and $(\frac12-o(1))K^2\log R$
 if $\delta K\to0$, both sharp (Theorem~\ref{thm:widesector},
 Corollaries~\ref{cor:wideconst} and~\ref{cor:thinconst},
@@ -1486,7 +1488,7 @@ real polynomial $x^N-\rho^N$.
 
 Its degree is at most $(\pi/\delta+1)K$, so Corollary~\ref{cor:wideconst}
 applies with $\lambda=\pi/\delta+1$: the constant $\pi/\delta$ of the angle
-mechanism is sharp in every sector.  In a sector of fixed half-width the
+mechanism is sharp in every sector of half-width $\delta<\pi/2$.  In a sector of fixed half-width the
 infimum is therefore linear in $K$, and $\Lambda\ge cK^2\log R$ fails already
 for the monic real multiple $x^N-\rho^N$.  The thin-sector term is sharp too.
 
