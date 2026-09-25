@@ -45,14 +45,16 @@ of modulus greater than one, while $b_2$ and every superlinear mass bound
 fail for pairs within any fixed angle of the imaginary axis.  Rows and mass
 return, up to constants, when the moduli are separated by a factor $9$, by
 an Archimedean Newton polygon argument.  With $K_s$ roots of modulus at
-least $T_s$ in the $s$-th of $S$ sufficiently separated annuli, monic
+least $T_s$ in the $s$-th of $S$ annuli, consecutive annuli separated by
+factors $3\cdot9^{K_s+\cdots+K_S}$ growing with the number of roots
+(whether a fixed factor suffices is open), monic
 multiples have mass at least $\sum_ssK_s\log(T_s/2)-O(S)$, attained to
 leading order as $\min_sT_s\to\infty$: a root is charged once per annulus at or below it, and the
 cross terms $K_uK_s\log T_s$ of the real bound fail.  Real roots of both
 signs charge one
 root of each sign per excluded coefficient, with the sharp constant
 $\frac14$ in the mass.  For $K$ roots of modulus at least $R$ in a sector of
-half-width $\delta$, multiples of degree $O(K)$ have mass
+half-width $\delta<\pi/2$, multiples of degree $O(K)$ have mass
 $(\frac12-o(1))K^2\log R$ if $\delta K\to0$ and $(\frac\pi\delta-o(1))K\log R$
 at fixed $\delta$, as $K,R\to\infty$, with both constants attained; at
 Gaussian-integer roots and fixed $\delta$ the degree restriction is removed
@@ -121,18 +123,24 @@ Proposition~\ref{prop:bothsignssharp}).
 \paragraph{Sectors.}  For $K$ roots of modulus at least $R$ in a sector, the
 argument principle along a ray next to the sector produces many real zeros
 of a real polynomial dominated coefficientwise by the multiple, to which
-\eqref{eq:order} applies.  In a thin sector this gives mass of order
-$K^2\log R$ for multiples of small degree (Theorem~\ref{thm:thinsector}), and
-at Gaussian-integer roots, where a carry argument charges degree against
-mass (Theorem~\ref{thm:gausscharge}), for all integer multiples
-(Theorem~\ref{thm:thingauss}).  In a sector of half-width $\delta$ the
-crossings are counted against the equidistributed share $\delta/\pi$ of the
+\eqref{eq:order} applies.  In a sector of half-width $\delta\le\pi/4$ this
+gives mass at least $\frac{K(K-2)}8\log(\frac R2-1)$ for multiples of degree at most
+$\pi K/(2E(2\delta))$, where
+$E(2\delta)\le(8\delta/\log2)\log(e\pi/(2\delta))$ (Section~\ref{sec:thin},
+Theorem~\ref{thm:thinsector}).  At Gaussian-integer roots, where a carry
+argument charges degree against mass (Theorem~\ref{thm:gausscharge}), every
+integer multiple pays the smaller of this and
+$\pi K\log(R/2)/(2E(2\delta))$ (Theorem~\ref{thm:thingauss}), which is of
+order $K^2\log R$ when $\delta K\log(e\pi/(2\delta))=O(1)$.  In a sector of
+half-width $\delta<\pi/2$ the crossings
+are counted against the equidistributed share $\delta/\pi$ of the
 large zeros; as $K,R\to\infty$, multiples of degree $O(K)$ pay
 $(\frac\pi\delta-o(1))K\log R$ at fixed $\delta$ and $(\frac12-o(1))K^2\log R$
 if $\delta K\to0$, both sharp (Theorem~\ref{thm:widesector},
-Corollary~\ref{cor:wideconst}, Proposition~\ref{prop:widesharp}).  Whether
+Corollaries~\ref{cor:wideconst} and~\ref{cor:thinconst},
+Proposition~\ref{prop:widesharp}).  Whether
 $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots
-in a wide sector is open.  Two integer imitations of $x^N-\rho^N$ are
+in a sector of fixed half-width is open.  Two integer imitations of $x^N-\rho^N$ are
 limited: $A((x-t)^N)$ has at most two Gaussian roots in the upper
 half-plane per root of $A$ (Lemma~\ref{lem:gaussbinom}), and at odd,
 pairwise coprime norms $|\alpha_j|^2$ with
@@ -1109,7 +1117,8 @@ For roots in $\mathbb Z[i]$ and integer multiples there is one more piece of
 information: an integer polynomial takes Gaussian-integer values at them,
 and a nonzero Gaussian integer has modulus at least one.  This charges the
 degree of a multiple against its mass (Theorem~\ref{thm:gausscharge}), which
-removes the degree hypothesis of Theorem~\ref{thm:thinsector}.
+replaces the degree hypothesis of Theorem~\ref{thm:thinsector} by the
+alternative bound $\pi K\log(R/2)/(2E(2\delta))$ (Theorem~\ref{thm:thingauss}).
 
 Throughout, $\alpha_1,\ldots,\alpha_K\in\mathbb Z[i]$ are distinct, with
 $\alpha_j=a_j+ic_j$ and $c_j\ge1$; put $\rho_j=|\alpha_j|$,
@@ -1475,20 +1484,45 @@ real polynomial $x^N-\rho^N$.
 
 Its degree is at most $(\pi/\delta+1)K$, so Corollary~\ref{cor:wideconst}
 applies with $\lambda=\pi/\delta+1$: the constant $\pi/\delta$ of the angle
-mechanism is sharp in every sector.  The thin-sector term is sharp too: on a
-common ray, $\prod_j(x-\rho_je^{i\varphi})$ with $\rho_j\in[R,2R]$ has
-$\Lambda\le\frac{K(K+1)}2\log(2R)+K^2\log2$.  So for complex multiples of
-degree $O(K)$, as $K,R\to\infty$, both constants are attained: $\frac12$ in
-$\frac12K^2\log R$ when $\delta K\to0$, from
-Theorem~\ref{thm:widesector} with $T$ fixed and $m=K-1-\lceil\omega+\delta K^2/(2\pi)\rceil$
-(then $\omega=\kappa(\delta)d/\log T=o(K)$ as $\kappa(\delta)\to0$, so
-$m=K-o(K)$, and $\nu_m\ge K^2/2$), against the common ray; and $\pi$ in
-$\frac\pi\delta K\log R$, from Corollary~\ref{cor:wideconst} at fixed $\delta$
-as $K,R\to\infty$, against Proposition~\ref{prop:widesharp}.  In a wide
-sector, with $\delta$ fixed, the infimum is linear in $K$, and
-$\Lambda\ge cK^2\log R$ fails already for the monic real multiple $x^N-\rho^N$.
-In between the degree bound matters: $x^N-\rho^N$ has degree about
-$\pi K/\delta$, which is not $O(K)$ uniformly in $\delta$.
+mechanism is sharp in every sector.  In a sector of fixed half-width the
+infimum is therefore linear in $K$, and $\Lambda\ge cK^2\log R$ fails already
+for the monic real multiple $x^N-\rho^N$.  The thin-sector term is sharp too.
+
+\begin{corollary}[The constant $\frac12$]\label{cor:thinconst}
+In Theorem~\ref{thm:widesector} suppose $d\le\lambda K$ with $\lambda>0$, and
+let $m=K-1-\lceil\omega+\delta K^2/(2\pi)\rceil$.  If $m\ge0$, then
+\[
+  \Lambda(B)\ \ge\ \min\Bigl\{\frac{m(m+1)}2\log\Bigl(\frac RT-1\Bigr),\
+  \frac{K^2}2\log\frac RT-\log\Bigl(\frac{K^2}2+1\Bigr)-1\Bigr\}.
+\]
+Consequently, for fixed $\lambda$ and $T$, $\Lambda(B)\ge(\frac12-o(1))K^2\log R$
+as $K\to\infty$, $R\to\infty$ and $\delta K\to0$.  Conversely, for
+$\rho_1,\ldots,\rho_K\in[R,2R]$ the monic multiple
+$\prod_j(x-\rho_je^{i\varphi})$ of degree $K$ has
+$\Lambda\le\frac{K(K+1)}2\log(2R)+K^2\log2$.
+\end{corollary}
+
+\begin{proof}
+$K-1-m-\omega=\lceil\omega+\delta K^2/(2\pi)\rceil-\omega\ge\delta K^2/(2\pi)$,
+so $\nu_m\ge K^2/2$, and $g(\nu_m)\ge g(K^2/2)$ since $g$ is increasing;
+Theorem~\ref{thm:widesector} gives the bound.  For the limit,
+$\omega\le\kappa(\delta)\lambda K/\log T$ with
+$\kappa(\delta)\le\frac{2\delta}\pi(1+\log\frac\pi{2\delta})\to0$, as
+$\delta\le\delta K\to0$; so $\omega=o(K)$, $\delta K^2=o(K)$,
+$m\ge K-2-\omega-\delta K^2/(2\pi)=K-o(K)$, and both terms are
+$(\frac12-o(1))K^2\log R$.  For the example, the coefficient of
+$x^{K-k}$ has modulus $e_k(\rho_1,\ldots,\rho_K)\in[R^k,\binom Kk(2R)^k]$,
+and $\sum_{k=0}^K\log\binom Kk\le(K-1)K\log2$.
+\end{proof}
+
+So for complex multiples of degree $O(K)$, as $K,R\to\infty$, both constants
+are attained: $\frac12$ in $\frac12K^2\log R$ when $\delta K\to0$
+(Corollary~\ref{cor:thinconst}), and $\pi$ in $\frac\pi\delta K\log R$ at
+fixed $\delta$ (Corollary~\ref{cor:wideconst} against
+Proposition~\ref{prop:widesharp}).  In between the degree bound matters:
+$x^N-\rho^N$ has degree about $\pi K/\delta$, which is not $O(K)$ uniformly
+in $\delta$.
+
 \begin{corollary}[Gaussian roots in sectors of every width]\label{cor:widegauss}
 In the setting of Section~\ref{sec:gaussian}, let $\varphi\in\R$,
 $0<\delta<\pi/2$, $T>1$, $R\ge3T$ and $\lambda>0$, suppose that every
