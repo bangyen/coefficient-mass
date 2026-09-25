@@ -22,6 +22,22 @@ from tools.numbering import PAPERS, numbering
 #: ``(citing file, cited paper, number) -> (word, label)``.  The test also
 #: checks the reverse: that every such reference in a citing file is listed.
 CITATIONS = {
+    ("coefficient-mass-attainment.tex", "coefficient-mass", "2.1"): (
+        "Lemma",
+        "lem:consecutive",
+    ),
+    ("coefficient-mass-attainment.tex", "coefficient-mass", "2.2"): (
+        "Theorem",
+        "thm:tail",
+    ),
+    ("coefficient-mass-attainment.tex", "coefficient-mass", "3.1"): (
+        "Lemma",
+        "lem:slack",
+    ),
+    ("coefficient-mass-attainment.tex", "coefficient-mass", "3.2"): (
+        "Theorem",
+        "thm:order",
+    ),
     ("coefficient-mass-attainment.tex", "coefficient-mass", "4.4"): (
         "Proposition",
         "prop:sharp23",
