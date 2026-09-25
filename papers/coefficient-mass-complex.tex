@@ -141,10 +141,13 @@ as a truncation of $\prod(1-x/\beta)^{-1}$ stays away from $0$ below $T/n$
 (Lemma~\ref{lem:trunc}, Theorem~\ref{thm:rowstwo},
 Corollary~\ref{cor:rowstwo}), and at the separation $n_a$,
 $(x-q)(x+Kq)^K$ has $b_2$ below the row by a factor that tends to $0$
-(Proposition~\ref{prop:rowsneedn}).  The mass bound fails with
+(Proposition~\ref{prop:rowsneedn}); for two annuli, keeping the exact bound
+on the truncations, the least separation for the rows exceeds $n_2$ by
+between $n_22^{-n_2-1}$ and $3n_22^{-n_2}$ once $n_2\ge4$
+(Lemma~\ref{lem:twobelow}, Corollary~\ref{cor:twofixed}).  The mass bound fails with
 $T_2=(2+\frac1{18915})U_1$ (Proposition~\ref{prop:gaptwo}), with two
-roots above the gap, where the separation $9$ suffices
-(Corollary~\ref{cor:rowstwo}).
+roots above the gap, where the separation $4$ suffices
+(Corollary~\ref{cor:twofixed}).
 
 \paragraph{Both signs.}  For real roots of both signs, Rolle's theorem on
 each half-line charges one root of each sign per excluded coefficient
@@ -165,8 +168,8 @@ Theorem~\ref{thm:gausscharge} for integer multiples of large degree.
 
 \paragraph{Open questions.}  Two questions are left open.  First, what the
 least fixed separation of the annuli for the mass is: it lies between
-$2+\frac1{18915}$ and $81$ (and at most $9$ for two annuli with at most
-eight roots in the upper one), and whether the separation $9$ of Corollary~\ref{cor:annuli},
+$2+\frac1{18915}$ and $81$ (and at most $\max(4,n_2+1)$ for two annuli
+with $n_2$ roots in the upper one), and whether the separation $9$ of Corollary~\ref{cor:annuli},
 item~2, suffices is open (Section~\ref{sec:annuli}).  Second, whether
 $\Lambda(F)\ge cK^2\log R$ holds for every integer multiple $F$ at $K$
 distinct Gaussian-integer roots of modulus at least $R$ in the upper
@@ -908,8 +911,8 @@ the charge of the roots in the $a$-th and higher annuli may fall on two
 coefficients rather than one, and the rows of Corollary~\ref{cor:annuli},
 item~1, fail at every fixed separation (Proposition~\ref{prop:rowsneedn}).
 The factor $81$ cannot be lowered below $2+\frac1{18915}$
-(Proposition~\ref{prop:gaptwo}), and for two annuli $9$ suffices with at
-most eight roots above the gap (Corollary~\ref{cor:rowstwo});
+(Proposition~\ref{prop:gaptwo}), and for two annuli $\max(4,n_2+1)$
+suffices (Corollary~\ref{cor:twofixed});
 the least admissible factor is open.  The mass bound is sharp to leading order, the
 coefficient $s$ of each $K_s\log T_s$ being best possible, as
 $\min_sT_s\to\infty$ (Proposition~\ref{prop:annulisharp} has
@@ -1143,8 +1146,9 @@ This contradiction proves $b_2(F)\ge\varepsilon\Pi$.
 
 Some power of $\lambda$ is needed: $(x-q)(x+t)^K$ with $t=Kq/(1-\lambda)$ has
 $f_1=\lambda t^K$, so $b_2(F)=\lambda\prod_{\beta\in A}|\beta|$ once $q$ is
-large, and at $\lambda=0$ this is Proposition~\ref{prop:rowsneedn}.  Whether
-$\lambda^2$ can be replaced by $\lambda$ we do not know.
+large, and at $\lambda=0$ this is Proposition~\ref{prop:rowsneedn}.  For
+$n\ge2$, $\lambda^2$ can be replaced by $\lambda$ at the price of a
+constant (Lemma~\ref{lem:twobelow} below); for $n=1$ we do not know.
 
 \begin{corollary}[Rows for two annuli]\label{cor:rowstwo}
 In the setting of Theorem~\ref{thm:annuli} with $S\ge2$, let $C>1$.  If
@@ -1258,12 +1262,122 @@ $3\rho_1=6$ and $3\rho_2=12$.
 
 So for the mass at two annuli with two roots in the upper one, the case of
 Proposition~\ref{prop:gaptwo}, the least separation lies between
-$2+\frac1{18915}$ and $12$, and by Corollary~\ref{cor:rowstwo} even $9$; with one root in the upper annulus it is at
+$2+\frac1{18915}$ and $12$, and by Corollary~\ref{cor:rowstwo} even $9$
+(by Corollary~\ref{cor:twofixed} below even $4$); with one root in the upper annulus it is at
 least $\frac{32}{31}$, since $F=(x-q)(x+t)$ has
 $\Lambda(F)=\log(qt(t-q))$ against the bound $\log(qt^2/32)$ when
 $1\le t-q<t/32$, for instance at $q=100$, $t=103$.  For the rows,
 Proposition~\ref{prop:rowsneedn} and Corollary~\ref{cor:fewabove} put the
 least separation between $n_a$ and $3\rho_{n_a}<7n_a$.
+
+For two annuli the charge of $A_2$ needs one position besides the central
+index at $1$, and the proof of Theorem~\ref{thm:rowstwo} loses a factor
+$\lambda$ by bounding every truncation above by $1/\lambda$.  Keeping the
+bound $(1-|\alpha|/T)^{-n}$, which stays below $4$ for $n\ge2$, gives a
+second position linear in $\lambda$, and with it the rows and the mass at a
+fixed separation when few roots lie above the gap.
+
+\begin{lemma}[A second position below the gap]\label{lem:twobelow}
+Let $F$, $A$, $n$, $T$ and $\alpha$ be as in Theorem~\ref{thm:rowstwo}, and
+put $a=|\alpha|$, $\lambda=1-na/T$, $\Pi=\prod_{\beta\in A}|\beta|$ and
+\[
+  \Gamma=\Bigl(1-\frac aT\Bigr)^{-n}\frac a{(a-1)\lambda}+\Bigl(1-\frac1T\Bigr)^{-n}.
+\]
+For every position $j$ some position $l\le D-n$ with $l\ne j$ has
+$|f_l|\ge|f_D|\Pi/\Gamma$.  In particular $b_2(F)\ge|f_D|\Pi/\Gamma$, and
+if $n\ge2$, then $b_2(F)\ge\frac\lambda8(1-\frac1a)|f_D|\Pi$.
+\end{lemma}
+
+\begin{proof}
+Let $H$, $P=F/H$, $d=D-n$, $w_k$ and $S_m$ be as in the proof of
+Theorem~\ref{thm:rowstwo}; $P$ has leading coefficient $f_D$ and
+$P(\alpha)=0$, so $d\ge1$.  The coefficient of $x^d$ in
+$H(0)P(x)=\sum_{l\le d}f_lx^lS_{d-l}(x)$, and its value at $\alpha$, give
+\[
+  H(0)f_D=\sum_{l\le d}f_lw_{d-l},\qquad0=\sum_{l\le d}f_l\alpha^lS_{d-l}(\alpha),
+\]
+where $\sum_k|w_k|\le\sum_k\binom{n+k-1}kT^{-k}=(1-1/T)^{-n}$,
+$|S_m(\alpha)|\le(1-a/T)^{-n}$, and $|S_m(\alpha)|\ge\lambda$ by
+Lemma~\ref{lem:trunc}.  Let $m$ be the largest $|f_l|$ over $l\le d$,
+$l\ne j$.  If $j>d$, the first identity gives
+$|f_D|\Pi\le m(1-1/T)^{-n}\le m\Gamma$.  Let $j\le d$ and $M=d-j$.  The
+second identity gives
+\[
+  |f_j|a^j\lambda\ \le\ \Bigl(1-\frac aT\Bigr)^{-n}\sum_{l\le d,\,l\ne j}|f_l|a^l
+  \ <\ m\Bigl(1-\frac aT\Bigr)^{-n}\frac{a^{d+1}}{a-1},
+\]
+and $a^M|w_M|\le\binom{n+M-1}M(a/T)^M\le(na/T)^M\le1$, as
+$\binom{n+M-1}M\le n^M$.  So the first identity gives
+$|f_D|\Pi\le|f_j||w_M|+m(1-1/T)^{-n}\le m\Gamma$.  For $b_2(F)$ take for
+$j$ a position of a largest nonleading coefficient; then $l\ne j$ and
+$l<D$.  If $n\ge2$, then $a/T<1/n$ and
+$(1-1/T)^{-n}<(1-a/T)^{-n}<(1-1/n)^{-n}\le4$, so
+$\Gamma<4(a+(a-1)\lambda)/((a-1)\lambda)\le8a/((a-1)\lambda)$.
+\end{proof}
+
+The order $\lambda$ is right: $(x-q)(x+t)^K$ with $t=Kq/(1-\lambda)$ has
+$b_2=\lambda\prod_{\beta\in A}|\beta|$ for large $q$.  For $n=1$,
+$(1-a/T)^{-1}=1/\lambda$ and $\Gamma$ is of order $\lambda^{-2}$ again.
+
+\begin{corollary}[Two annuli at a fixed separation]\label{cor:twofixed}
+Let $F$, $A_1$, $A_2$ and $n_2=K_2$ be as in Theorem~\ref{thm:annuli} with
+$S=2$, except that only $T_1>3$ is assumed of the moduli.  Let $g=4$ if
+$n_2\le3$ and $g=n_2(1+3\cdot2^{-n_2})$ if $n_2\ge4$, so that
+$g\le\max(4,n_2+1)$.
+\begin{enumerate}
+\item If $T_2>gU_1$, then
+$b_2(F)>\frac{|f_D|}2\prod_{\beta\in A_2}\frac{|\beta|}2$, and the rows and
+the mass bound of Corollary~\ref{cor:annuli}, item~1, hold.
+\item Let $K\ge1$, $q\ge4^{K+1}$ and $t=Kq/(1-2^{-K-1})$.  Then
+$F=(x-q)(x+t)^K$, with $A_1=\{q\}$ and $A_2$ the $K$-fold zero $-t$, has
+$T_1=U_1=q$ and $T_2=t=KU_1/(1-2^{-K-1})$, but
+$b_2(F)\le\frac12\prod_{\beta\in A_2}\frac{|\beta|}2$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+1.  Take $\alpha\in A_1$, so $3<a=|\alpha|\le U_1$, and
+Lemma~\ref{lem:twobelow} with $A=A_2$, $n=n_2$ and $T=T_2$; as $g>n$,
+$a<T/n$.  Since $a/(a-1)<\frac32$, $a/T<1/g$, $\lambda>1-n/g$ and
+$T>gT_1>3g$,
+\[
+  \Gamma\ <\ \gamma_n=\frac32\Bigl(1-\frac1g\Bigr)^{-n}\frac g{g-n}+\Bigl(1-\frac1{3g}\Bigr)^{-n},
+\]
+and it remains that $\gamma_n\le2^{n+1}$: then
+$b_2(F)\ge|f_D|\Pi/\Gamma>|f_D|\Pi2^{-n-1}$.  For $n\le3$, $g=4$ and
+$\gamma_1=\frac83+\frac{12}{11}<4$, $\gamma_2=\frac{16}3+(\frac{12}{11})^2<8$,
+$\gamma_3=\frac{128}9+(\frac{12}{11})^3<16$.  For $n\ge4$,
+$g/(g-n)=1+2^n/3$, and as $(1-\frac1n)^{-n}$ and $(1-\frac1{3n})^{-n}$
+decrease with $n$ (their logarithms are $\sum_kn^{1-k}/k$ and
+$\sum_kn^{1-k}/(k3^k)$), $(1-\frac1g)^{-n}\le(\frac43)^4<\frac{19}6$ and
+$(1-\frac1{3g})^{-n}\le(\frac{12}{11})^4<\frac{17}{12}$; so
+$\gamma_n<\frac{19}4(1+\frac{2^n}3)+\frac{17}{12}=\frac{19}{12}2^n+\frac{37}6$,
+which is at most $2^{n+1}$ as $\frac5{12}2^n\ge\frac{20}3>\frac{37}6$.  The
+row $k=1$ is Lemma~\ref{lem:central} at $r=1$ with $A=A_1\cup A_2$, and the
+two rows give the mass as in Corollary~\ref{cor:rowstwo}.
+
+2.  Here $f_1=t^{K-1}(t-Kq)=2^{-K-1}t^K$, and for $2\le i\le K$,
+$f_i=\binom K{i-1}t^{K-i+1}-q\binom Kit^{K-i}$, so
+$|f_i|<2^Kt^{K-1}+2^Kqt^{K-2}\le2^{K+1}t^{K-1}\le2^{-K-1}t^K$, as $q<t$ and
+$t>4^{K+1}$.  So every nonleading coefficient but $f_0$ has modulus at most
+$2^{-K-1}t^K=\frac12\prod_{\beta\in A_2}\frac{|\beta|}2$, which bounds $b_2(F)$.
+\end{proof}
+
+So for two annuli the second row, and with it the mass bound of
+Theorem~\ref{thm:fixedgap}, holds at the separation $4$ with at most three
+roots above the gap, and at $n_2+3n_22^{-n_2}$ otherwise, while the rows
+need $n_2/(1-2^{-n_2-1})>n_2+n_22^{-n_2-1}$ (item~2 with $K=n_2$): the
+least separation for the rows lies between these, and exceeds $n_2$ by an
+amount exponentially small in $n_2$.  For the mass with $K_2=1$ or $K_2=2$
+the least separation lies in $[\frac{32}{31},4]$ and
+$[2+\frac1{18915},4]$.  At a fixed separation $g$ and $n_2=K\ge g$ two
+nonleading positions no longer suffice: by the proof of item~2,
+$F=(x-q)(x+t)^K$ with $t=Kq/(1-2^{-2K-4})$ and $q\ge2^{3K+5}$ has
+$b_1(F)=qt^K$ and $b_2(F)\le2^{-2K-4}t^K$, so
+$\log b_1(F)+\log b_2(F)$ falls short of the mass bound
+$\log(q/2)+2K\log(t/2)-2\log2$ by at least $\log2$, and the positions
+$2,\ldots,K$ carry the rest.  So a mass bound at a fixed separation for
+all $n_2$ must charge three or more nonleading positions.
 
 Below the separation $81$ the proof of Theorem~\ref{thm:fixedgap} breaks
 down where only one vertex above those charged for the lower annuli is
@@ -1277,7 +1391,9 @@ tropical roots $\log(t/\sqrt{3+2\delta/q})$ and $\log(3q+2\delta)$, carries
 the charge of the two zeros $-t$, with one position above it.
 
 Open: the least fixed separation for the mass, between $2+\frac1{18915}$
-and $81$, in particular whether $9$ suffices.
+and $81$, in particular whether $9$ suffices; for two annuli it is at most
+$\max(4,n_2+1)$ (Corollary~\ref{cor:twofixed}), and whether a separation
+below $81$ independent of $n_2$ suffices there is open.
 
 \section{Real roots of both signs}\label{sec:bothsigns}
 
