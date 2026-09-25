@@ -749,3 +749,75 @@ def test_third_row_is_top_row() -> None:
     # The control: a bound a millionth below nu_1(8) is not certified.
     below = top * (1 - Fraction(1, 10**6))
     assert _row_cover(r, 8, 2, below, _Y8, _FULL8, {(2, 3): _PAIR8}) == [()]
+
+
+# ``thm:blockinterval``: certificates of ``prop:blockinterval``, each
+# ``(r_0, r_1, n, k, Z - [2,k], anchors)``, cover every root in
+# ``[139/100, 19/10]``: the block ``S = [2, k]`` beats every prefix value.
+_BLOCK_FILE = Path(__file__).with_name("block_row_cover.json")
+_BLOCK_ENDS = (Fraction(139, 100), Fraction(19, 10))
+
+
+def _block_cover() -> list[tuple]:
+    return [
+        (Fraction(lo), Fraction(hi), n, k, tuple(z), [(j, tuple(y)) for j, y in marks])
+        for lo, hi, n, k, z, marks in json.loads(_BLOCK_FILE.read_text())
+    ]
+
+
+def _block_fails(cert: tuple) -> bool:
+    """The hypotheses of ``prop:blockinterval``: ``Z = [2,k] + free`` passes the
+    vertex test for ``S = [2,k]`` at ``r_1``, and at ``r_0`` every ``nu_i(n)``,
+    ``i <= k``, is below ``Phi_{r_1}(Z)``, through the last anchor ``j <= i``
+    and ``nu_i <= a^(i-j) nu_j`` (``eq:prefixup``)."""
+    lo, hi, n, k, free, anchors = cert
+    block = tuple(range(2, k + 1))
+    zeros = tuple(sorted({*block, *free}))
+    starts = [j for j, _ in anchors]
+    if not (
+        1 < lo < hi
+        and n >= 2
+        and k >= 2
+        and len(zeros) == n + k - 2
+        and min(zeros) >= 1
+        and starts[0] == 1
+        and starts == sorted(set(starts))
+        and starts[-1] <= k
+    ):
+        return False
+    top, a = _phi(zeros, hi), 1 / (lo - 1)
+    bounds = {}
+    for j, extra in anchors:
+        full = tuple(sorted({*range(1, j), *extra}))
+        if len(full) != n + j - 2 or min(full) < 1:
+            return False
+        bounds[j] = _phi(full, lo)
+    j = 1
+    for i in range(1, k + 1):
+        j = i if i in bounds else j
+        if a ** (i - j) * bounds[j] >= top:
+            return False
+    return _vertex_optimal(zeros, set(block), hi)
+
+
+def test_block_rows_fail_on_an_interval() -> None:
+    """``thm:blockinterval``: for every ``r`` in ``[139/100, 19/10]`` the
+    prefix identity fails at ``(r, n+k-1, k)`` for some ``n``, ``k``."""
+    cover = _block_cover()
+    assert _chain_covers(cover, _BLOCK_ENDS)
+    assert all(_block_fails(cert) for cert in cover)
+    # The facts quoted in the paper: the number of certificates, the ranges
+    # of n and k, and 1 in every Z, so that mu_{r_1}([2,k]) = nu_{k+1}(n-1).
+    assert len(cover) == 27
+    assert (min(c[2] for c in cover), max(c[2] for c in cover)) == (13, 22)
+    assert (min(c[3] for c in cover), max(c[3] for c in cover)) == (9, 384)
+    assert all(1 in c[4] for c in cover)
+    assert all(2 * 10**4 % c[i].denominator == 0 for c in cover for i in (0, 1))
+    # The controls: a certificate stretched to the root 2, one with the
+    # largest zero of Z moved by one, one with its last anchor dropped, and
+    # the chain with a link dropped.
+    lo, hi, n, k, free, anchors = cover[0]
+    assert not _block_fails((lo, Fraction(2), n, k, free, anchors))
+    assert not _block_fails((lo, hi, n, k, (*free[:-1], free[-1] + 1), anchors))
+    assert not _block_fails((lo, hi, n, k, free, anchors[:-1]))
+    assert not _chain_covers(cover[:3] + cover[4:], _BLOCK_ENDS)
