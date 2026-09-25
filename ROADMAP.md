@@ -6,13 +6,15 @@ is open; an answer lands in the paper it extends, and the row leaves.
 ## Open at a glance
 
 - [attainment](papers/coefficient-mass-attainment.tex) (`sec:scope`): an a
-  priori bound on the zero set minimising one `tau({x})`; a half-mass
-  threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
-  the escaping placement extremal; the pieces along `(r,3,5,7)` for
-  `1 < r < 1.0745...`, where `thm:familylow` stops (infinitely many
-  accumulate at `r = 1` by `cor:familyone`; near 1, off the jumps, the
-  worst placement is `x*` with zero set `{1,x*,z}` by `thm:familyosc`, but
-  which `z`, and the transition near the jumps, are open).
+  priori bound on the zero set minimising one `tau({x})` at general roots
+  (along `(r,3,5,7)` it is `{1,x,z}` or `{1,z,x}`, `z` a half-mass point,
+  by `thm:familyzero`); a half-mass threshold like `thm:halfmass` for
+  `u >= 2`; which root sets below 2 keep the escaping placement extremal;
+  along `(r,3,5,7)` on `(1, 1.0745...)`, the order of the pieces (is the
+  worst placement monotone in `r`, does each boundary equation of
+  `thm:familyzero` have one root), explicit constants and a rate in
+  `thm:familyjump`, and whether the normalised excess is monotone across
+  each window.
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
   separation for the mass, between `2 + 1/18915` and 81 (at most
   `max(4, n_2 + 1)` for two annuli, `cor:twofixed`), and whether 9
@@ -39,7 +41,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   Gaussian points above the axis bounded independently of `rho_min` (fewer
   than `6 rho_min` by `prop:gausscircle`, at most `ord_0 H` per norm by
   `prop:gaussprimes`; `ord_0 H` itself is unbounded), and whether one norm
-  carries at most two (yes unless `H` is in `Z[y**4]`, or `n` has two
+  carries at most two (yes unless `H` is in `Z[y**4]`, and then
+  `deg H >= 16` by `prop:gaussfour`, or `n` has two
   primes `= 1 mod 4`, or one with `ord_p n <= 2 t_p`, `prop:gausssym`);
   whether
   small coefficients after the lowest one cost nearly as much as zeros at
@@ -109,21 +112,44 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `(inf b_2 - 24)(r-1)**(-alpha)` oscillates log-periodically: its limit
   points fill `[80 * 18**(-alpha), (400/3) 18**(-alpha)] = [20.865...,
   34.775...]`, the limit along `r = 1 + 18 * 3**(-n-w)` being
-  `80 * 18**(-alpha) (5/3)**w`.  Exactly at `r = 5701/5700`:
-  `T = tau({10})`, the tail of `{1,10,1335}`, `inf b_2 = 24.4788...`
-  (`tests/test_attainment.py`).  Along `(r,5,7)` it fails for every `r < 2`
+  `80 * 18**(-alpha) (5/3)**w`; this holds for `r <= 1 + (delta/10)**4`
+  when `delta <= w <= 1 - delta` (`prop:familyrdelta`).  Exactly at
+  `r = 5701/5700`: `T = tau({10})`, the tail of `{1,10,1335}`,
+  `inf b_2 = 24.4788...` (`tests/test_attainment.py`).  Every cost along
+  the family is explicit (Closed; `thm:familyzero`): for `x >= 2` and
+  `1 < r < 3`, with `H` the sum on the four nodes with weight 1 on `1/r`
+  vanishing at `0, 1, x`, the mass `F = sum_d |H_d|` is positive, and
+  flipping the witness of `{1,x}` at `(3,5,7)` from the far end, first past
+  `x` and then just below it, until half of `F` is used gives the exact
+  cost and the minimising zero set, `{1,x,z}` or `{1,z,x}`; with
+  `thm:halfmass` the infimum is a finite closed-form computation at every
+  `r` (e.g. `{1,4,5}`, `7627/314024` at `r = 5/4`; `{1,3,5}` at
+  `11/10`), and the piece boundaries are explicit equations.  The limit
+  profile (Closed; `thm:familylimit`): as `3**x (r-1) -> kappa`,
+  `tau({x}) -> G(kappa) = min(1/24, min_c (t(c) + ell(c)/kappa))`, the
+  minimum at the `c >= 3` with `k_c <= kappa <= k_(c-1)`,
+  `k_c = 18/(1 - 18*3**-c + 30*5**-c - 14*7**-c)` (`k_3 = 66150/1957`,
+  `k_c -> 18`, never `c = 2`), the zero set eventually `{1,c,x}` (and
+  `{1,x,z}` with `(r-1)z -> log(36/(18+kappa))` below 18), and
+  `1/24 - G(18(1+eta))` of order `eta**(1+alpha)` with an oscillating
+  ratio.  Across the jumps (Closed; `thm:familyjump`): the worst placement
+  is `x*` or `x* + 1`, and uniformly in `w`,
+  `(inf b_2 - 24)(r-1)**(-alpha) = min(Phi(w), Phi(w-1) + Gamma) + o(1)`
+  with `Gamma = 576 (r-1)**(-alpha) (1/24 - G(3**(x*+1)(r-1)))`; so the
+  drop by `3/5` happens in a window `1 - w ~ (r-1)**(alpha/(1+alpha))`
+  before each jump, and at `r = 101/100` the worst placement is `7 = x* +
+  1` with zero set `{1,4,7}` (`inf b_2 = 27.8209...`), at `r = 9842/9841`
+  it is `11` with `{1,7,11}`.  Along `(r,5,7)` it fails for every `r < 2`
   (`prop:cutoffsharp`).  Open (`sec:scope`): an a priori bound on the zero
-  set minimising one `tau({x})` (to make `u = 1` a finite computation
-  outright), a threshold like `N` for `u >= 2`, which root sets below 2
-  keep the escaping placement extremal (it depends on more than `r_1`),
-  the pieces along `(r,3,5,7)` on `(1, 1.0745...)` themselves (which `z` in
-  `{1,x*,z}`: a piece ends where the witness entry `s_z` reaches `+-1`), an
-  explicit range of `r` in `thm:familyosc` (a), and the transition near the
-  jumps, where `x*` and `x* + 1` compete (numerically with zero sets
-  `{1,c,x*+1}`, `c = 3, 4`; at `r = 101/100` the worst placement is 7, not
-  `x* = 6`): whether the constant minus its limit function tends to 0
-  uniformly for `0 < w <= 1 - delta`, and whether `tau({x})` tends to
-  `min_c (t(c) + ell(c)/kappa)` when `3**x (r-1) -> kappa > 18`.
+  set minimising one `tau({x})` at general roots (the argument of
+  `thm:familyzero` needs the minimiser at the fast nodes to be `{1,x}` with
+  a sign-stable witness), a threshold like `N` for `u >= 2`, which root sets
+  below 2 keep the escaping placement extremal (it depends on more than
+  `r_1`), and, along `(r,3,5,7)` below `1.0745...`, the order of the pieces
+  (is the worst placement monotone in `r`; does each boundary equation of
+  `thm:familyzero` have a single root), explicit constants and a rate in
+  `thm:familyjump`, and whether the normalised excess is monotone across
+  each window.
 
 - **Coefficient mass at complex roots.**  Purely imaginary pairs are Closed
   ([coefficient-mass-complex](papers/coefficient-mass-complex.tex), split
@@ -419,7 +445,27 @@ is open; an answer lands in the paper it extends, and the row leaves.
   and `H` in `Z[y**4]`, or two primes `= 1 mod 4` in the norm, or one with
   `ord_p n <= 2 t_p`, `prop:gausssym`; for `H = A(y**4)` the question is
   whether one Gaussian `z = alpha**4` can be a root of `v + A` with the
-  coefficients of `A` below `|z|**(1/4)/2`).  The case left by separated moduli (`cor:annuli` of the
+  coefficients of `A` below `|z|**(1/4)/2`).  Partial answer
+  (`prop:gaussfour`): not with `deg A <= 3`, so a class of three or four
+  points needs `deg H >= 16`.  The proof writes `Im A(z) = 0` as
+  `a_1 + 2 a_2 X + a_3 (4X**2 - N**2) = 0`, `z = X + iY`, `N = |z|`, which
+  at these sizes forces `A = a_3 z (z - sigma j)**2`, `sigma = sign X`, with `2|X| = N + j`, and
+  `j = n**2 - 4w**2` is at least `n` when `N = n**2` is a square.  Sizes
+  alone cannot settle the question: at the square `z = beta**2` of a Pell
+  point `beta = a + ci`, `z (z - 1)**2 = -4c**2 (a**2 + c**2)**2` is real
+  with coefficients below `|z|**(1/4)/2` (this is `(y**3 - y)**2 = A(y**2)`),
+  and `(z - k)**4 - k**4` is real whenever `z - k` lies on a diagonal, as at
+  `alpha**4 = -119 + 120i`, `alpha = 3 + 2i`, `k = 1` (coefficients too
+  large there), so at `deg A >= 4` the question meets quartic Thue equations
+  such as `Re alpha**4 +- Im alpha**4 = k`.  On two classes of one norm,
+  numerical evidence only (exhaustive `fpylll` enumeration of the lattice of
+  multiples of degree at most `32` with nonleading coefficients below
+  `sqrt(n)/2`, every pair of classes of every norm `n <= 10000`): none; no
+  cubic `G` with `G(alpha) = G(alpha')` imaginary at two classes of one norm
+  `n <= 200000` makes `G**2` qualify; at `1 + 8i`, `4 + 7i` (norm `65`,
+  degree up to `25`) the shortest vector in `l2` of that lattice has
+  largest coefficient `211` against the bound `4`, and at `+-1 + 8i`, one
+  class, `41`.  The case left by separated moduli (`cor:annuli` of the
   complex paper) and common norms (`prop:gausslow`, item 3) is pairwise
   coprime norms in one annulus `[R, 2R]`; there valuations alone give only
   linear bounds (`prop:gaussadic`), and seeded lattice reduction at
@@ -452,8 +498,34 @@ is open; an answer lands in the paper it extends, and the row leaves.
   case `prop:gaussheavy` needs, exceptions to `C` slightly above `2` are
   not expected; exhaustive searches over all `|f_i| < rho_min/2` at
   `K = 3`, `m = 2, 3, 4, 6`, odd coprime norms in `[36, 144]`, 300 seeded
-  root sets, gave implied `C` at most `1.75` (`1.24` at `m = 6`).  Open: whether the step holds for
-  `m >= 2K`.
+  root sets, gave implied `C` at most `1.75` (`1.24` at `m = 6`).
+  Lines with a constant `P'(0)` (`prop:gaussline`): for `alpha_j = lambda_j s
+  + mu_j`, `P(0) = Lambda Q(s)` with `Q(s) = prod (s - w_j)(s - conj w_j)`,
+  `w_j = -mu_j/lambda_j`, and `P'(0)` is constant `-N` iff
+  `N lambda_j = Lambda Q'(w_j)` for all `j` (residues of `P'(0)/P(0)`); so
+  `P'(0) = 4` at `-(s+3) + (s+2)i`, `(s+1) + (s+2)i` (every `s >= -1`) and
+  `P'(0) = 90` at `-(s+3) + (s+2)i`, `-1 + (s+1)i`, `(s-1) + si` (odd
+  `s = 0, 3 mod 5`), which forces `C >= K` at `m = 2` along infinitely
+  many root sets in one annulus for `K = 2, 3`, and would for every `K`
+  given such lines with the `|lambda_j|` within a factor 2.  Numerical
+  evidence only: over nodes `w_j` in `(1/2) Z[i]` with `Re w_j` in a window
+  of width 12 and `-Im w_j <= 6`, taking `lambda_j` proportional to
+  `Q'(w_j)` with cofactors `lambda_j / den(w_j)` of odd pairwise coprime
+  norms, exhaustive search found only item 3 at `K = 3` (up to translation
+  and the scaling `mu_j -> 3 mu_j`, which multiplies `P'(0)` by
+  `3**(2K-1)`), and none at `K = 4` with width 7 and `-Im w_j <= 4`, nor with
+  `lambda_j` a unit times `den(w_j)` and width 8.
+  Light multiples (`prop:gausslight`): if every coefficient of `F` but the
+  lowest nonzero one is below `rho_min/2` (a level set of `prop:gaussheavy`
+  with small leading coefficient too, as the Pell triples), then
+  `deg F - e >= 2K` and `|f_e| < rho_min**(deg F - e + 1)`, so the step at
+  `m = deg F - e + 1` needs `C log rho_max > log P(0) - log rho_min >=
+  (2K - 1) log rho_min`; a yes answer at every `m >= 2K` would bound `K` on
+  such level sets at coprime norms by `(C + 1)/2 + O(C/log R)` in `[R, 2R]`,
+  so the step at `m >= 2K` contains the level-set question for them.
+  Open: whether the step holds for `m >= 2K`, and whether lines with a
+  constant `P'(0)` and the hypotheses of `prop:gausslow`, item 2, exist for
+  every `K`.
 
 - **Every row at other roots.**  The paper is
   [coefficient-mass-rows](papers/coefficient-mass-rows.tex), split out of
