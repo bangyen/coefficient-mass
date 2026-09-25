@@ -7,7 +7,7 @@
   pdfauthor={Bangyen Pham},
   pdftitle={Every Row Is a Top Row: Coefficient Order Statistics of Multiples of a Power},
   pdfsubject={Exact coefficient order statistics of polynomial multiples of (x-r)^L},
-  pdfkeywords={polynomial multiples, coefficient mass, reduced height, Chebyshev systems, exponential sums},
+  pdfkeywords={polynomial multiples, coefficient mass, reduced height, linear programming duality, exponential sums},
   pdflang={en-US}
 }
 
@@ -32,28 +32,24 @@
 \maketitle
 
 \begin{abstract}
-For a real polynomial $F=\sum_jf_jx^j$ of degree $D$ let $b_k(F)$ be the
-$k$-th entry of the magnitudes $|f_j|$, $j<D$, listed in decreasing order
-with multiplicity.  Fix
-a real $r>1$ and let $V_r(L,k)$ be the infimum of $b_k(F)$ over monic
-multiples $F$ of $(x-r)^L$.  We show that for every $r\ge2$ every row is a
-top row: $V_r(L,k)=V_r(L-k+1,1)$ for $1\le k\le L$.  Exempting the $k-1$
-largest coefficients thus costs exactly $k-1$ of the $L$ roots.  At $r=2$
-this sharpens the bound $b_k\ge L-k+1$, strictly for some rows.  The proof reduces each row to an
-$\ell^1$ problem for polynomials with prescribed integer zeros, handles the last
-exempted position, wherever it lies, by one crossing step at the first gap of
-a minimizer, inducting on the number of exempted positions,
-and bounds the cost of that step by first-order optimality.  For $1<r<2$ the
-rows are not all top rows.  We show that they are given by
-prefix-constrained problems whenever the top row $\beta_r(L-k+1)$ of the diagonal is at most one, and on each diagonal $L-k=\mathrm{const}$ for all but finitely many
-rows.  The second row $V_r(L,2)$ is the minimum of the top row $\beta_r(L-1)$ of its diagonal and finitely many terms, one
-for each nearby exempted position.  More generally, row $k\ge2$ is the minimum
-of row $k-1$ on the same diagonal and finitely many terms, one for each
-exempted set in a finite tree cut off by thresholds for several far zeros.
-Each term is attained by a polynomial with integer zeros whose optimality, for
-rational $r$, is a finite exact check.  At $r=\frac54$ and $r=\frac43$ this shows that the
-prefix description fails in general, and at $r=\frac43$ that it can fail in
-the third row while holding in the second row of the same diagonal.
+For a real polynomial $F$ let $b_k(F)$ be the $k$-th largest of the
+magnitudes of its nonleading coefficients, counted with multiplicity.
+For $r>1$ let $V_r(L,k)$ be the infimum of $b_k(F)$ over monic multiples
+$F$ of $(x-r)^L$.  We prove that for $r\ge2$ every row is a top row:
+$V_r(L,k)=V_r(L-k+1,1)$ for $1\le k\le L$, so exempting the $k-1$ largest
+coefficients costs exactly $k-1$ roots.  Linear-programming duality turns
+each row into a weighted $\ell^1$ problem for polynomials with prescribed
+integer zeros, and convexity together with first-order optimality shows
+that each exempted position costs at most one root.  For $1<r<2$ the rows
+are not all top rows.  On each diagonal $L-k=\mathrm{const}$ they equal
+the values of explicit prefix-constrained problems in all but finitely
+many rows, and in every row when the diagonal's top row is at most one.
+Every row $k\ge2$ is the minimum of the preceding row on its diagonal and
+finitely many terms, each attained by a polynomial with integer zeros
+whose optimality, for rational $r$, is a finite exact check.  Exact
+certificates at $r=\frac54$ and $r=\frac43$ show that the prefix
+description fails in general and can fail in the third row of a diagonal
+while holding in the second.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient order
@@ -61,7 +57,7 @@ statistics; reduced height; linear programming duality.
 
 \noindent\textbf{2020 Mathematics Subject Classification.} Primary 11C08; Secondary 26C05, 90C05.
 
-\section{Introduction}
+\section{Introduction}\label{sec:intro}
 
 Let $F=\sum_jf_jx^j$ be a nonzero real polynomial of degree $D$, and write
 $b_k(F)$ for the $k$-th entry of its nonleading coefficient magnitudes
@@ -100,11 +96,12 @@ $q(s)=(1-\frac s2)(1-\frac s5)$ is admissible for $\beta_2(3)$ and has
 $\sum_{s\ge1}|q(s)|2^{-s}=\frac{11}{40}$, so
 $\beta_2(3)\ge\frac{40}{11}>3$.
 
-For $1<r<2$ the rows are not all top rows.  The last row is
+For $1<r<2$ we compare the rows with the prefix values $\nu_i(n)$: the
+least weighted $\ell^1$ norm $\sum_{s\ge1}|q(s)|r^{-s}$ of a polynomial $q$
+with $q(0)=1$ and $\deg q\le n+i-2$ that vanishes on $[1,i-1]$.  There the
+rows are not all top rows; the last row is
 $V_r(L,L)=(r-1)^L<\beta_r(1)$ for $L\ge2$ (Corollary~\ref{cor:lastrowr}).
-The natural comparison values are the prefix values $\nu_i(n)$: the least
-weighted $\ell^1$ norm $\sum_{s\ge1}|q(s)|r^{-s}$ of a polynomial $q$ with
-$q(0)=1$ and $\deg q\le n+i-2$ that vanishes on $[1,i-1]$.  They satisfy
+The prefix values satisfy
 \[
   \frac1{\nu_k(n)+E_k(r)}\ \le\ V_r(L,k)\ \le\ \min_{1\le i\le k}\frac1{\nu_i(n)},
   \qquad n=L-k+1,
@@ -113,21 +110,26 @@ with an explicit loss $E_k(r)$ from the first $2k-2$ positions
 (Theorem~\ref{thm:prefixrows}).  For $1<r<2$ and fixed $n$ (indeed
 $n=o(k/\log k)$), $E_k(r)/\nu_k(n)\to0$ as $k\to\infty$
 (Corollary~\ref{cor:belowtwo}).
-We prove that the upper bound is attained for
-every $k$ whenever $\beta_r(n)\le1$ (Theorem~\ref{thm:onepolyrows}).  We
-also prove it whenever $k\ge\max(K,\alpha(n-1))$, where $\alpha\ge1$ is any
-constant with $\rho(\alpha)<1$ for an explicit function $\rho$ depending on
-$r$, and $K$ depends on $r$ and the chosen $\alpha$
+
+The prefix identity, equality in the upper bound, holds for every $k$
+whenever $\beta_r(n)\le1$ (Theorem~\ref{thm:onepolyrows}), and on every
+diagonal in all but finitely many rows (Corollary~\ref{cor:longdiagfinite}).
+More precisely, it holds whenever $k\ge\max(K,\alpha(n-1))$, where
+$\alpha\ge1$ is any constant with $\rho(\alpha)<1$ for an explicit function
+$\rho$ depending on $r$, and $K$ depends on $r$ and the chosen $\alpha$
 (Theorem~\ref{thm:longdiag}, Proposition~\ref{prop:longdiagexplicit}).
-It is not attained in general.  The second row $V_r(n+1,2)$ is the minimum of the top
-row $\beta_r(n)$ and finitely many exempted-position terms (Theorem~\ref{thm:secondrow}), and exact
-certificates give $V_{5/4}(16,2)=1/\nu_3(14)<\min_{i\le2}1/\nu_i(15)$ and
+
+The prefix identity fails in general: exact certificates give
+$V_{5/4}(16,2)=1/\nu_3(14)<\min_{i\le2}1/\nu_i(15)$ and
 $V_{4/3}(19,2)<\min_{i\le2}1/\nu_i(18)$
-(Proposition~\ref{prop:secondrowexact}).  Every row $k\ge2$ is likewise
-the minimum of $V_r(L-1,k-1)$ and finitely many exempted-set terms
-(Theorem~\ref{thm:finiterows}), and exact certificates give
-$V_{4/3}(16,3)<V_{4/3}(15,2)=\min_{i\le3}1/\nu_i(14)$
-(Proposition~\ref{prop:thirdrowexact}).  The proofs of these two
+(Proposition~\ref{prop:secondrowexact}).  They rest on a finite reduction:
+the second row $V_r(n+1,2)$ is the minimum of the top row $\beta_r(n)$ and
+finitely many exempted-position terms (Theorem~\ref{thm:secondrow}).  Every
+row $k\ge2$ is likewise the minimum of $V_r(L-1,k-1)$ and finitely many
+exempted-set terms (Theorem~\ref{thm:finiterows}), and exact certificates
+give $V_{4/3}(16,3)<V_{4/3}(15,2)=\min_{i\le3}1/\nu_i(14)$
+(Proposition~\ref{prop:thirdrowexact}), so the identity can fail in the
+third row of a diagonal while holding in the second.  The proofs of these two
 propositions are computer-assisted: they list the certifying zero sets and
 reduce the claims to finitely many comparisons of explicit rationals, which
 the accompanying tests carry out in exact arithmetic.
@@ -156,6 +158,19 @@ Below $2$ this factor exceeds $1$, and the proofs use instead one
 polynomial for all exempted sets (Theorem~\ref{thm:onepoly}) and the
 supermultiplicativity of the prefix values (Lemma~\ref{lem:prefixshift}).
 
+\paragraph{Relation to the literature.}
+The rows $k\ge2$, which exempt the largest coefficients, are an
+order-statistic variant, introduced in the companion
+paper~\cite{coefficient-mass}, of the reduced height.  The top row
+$\beta_r(n)=V_r(n,1)$ is the reduced height of $(x-r)^n$ in the sense of
+Dubickas and Jankauskas~\cite{dj}, the infimum of the heights of its monic
+multiples; the reduced length~\cite{schinzel} is the $\ell^1$ analogue.
+Lower bounds for the coefficients of polynomials with a root of high
+multiplicity go back to the work of Beaucoup, Borwein, Boyd and Pinner on
+multiple roots of power series with bounded
+coefficients~\cite{bbbp-multiple}, which bounds the multiplicity at a
+given point in terms of the coefficient size.
+
 \paragraph{Organization.}
 Section~\ref{sec:rowvalues} sets up the row values and their dual
 problems, extends the tail bound of~\cite{coefficient-mass} to arbitrary
@@ -166,29 +181,110 @@ Section~\ref{sec:allrowstwo} proves that every row is a top row at
 $r\ge2$, and Section~\ref{sec:belowtwo} treats $1<r<2$.
 
 \paragraph{Conventions.}
-All logarithms are natural, $\N_{>0}=\{1,2,\ldots\}$, and $[u,v]$ denotes
-the integers in that range.  For a finite set
-$Z\subset\N_{>0}$ we write $r_Z(s)=\prod_{z\in Z}(1-s/z)$, so $r_Z(0)=1$
-and $\deg r_Z=|Z|$.  Results of the companion paper are cited by their
-numbers there.
+For a finite set $Z$ of positive integers we write
+$r_Z(s)=\prod_{z\in Z}(1-s/z)$, so $r_Z(0)=1$ and $\deg r_Z=|Z|$;
+Table~\ref{tab:notation} lists this and the other notation used in more
+than one place, with the section or result where it is defined, and
+symbols used only inside one proof are defined there.  All logarithms are
+natural, $\N_{>0}=\{1,2,\ldots\}$, and $[u,v]$ denotes the integers in that
+range.  Results of the companion paper are cited by their numbers there.
+
+\begin{table}[tp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l p{0.47\textwidth} l@{}}
+\hline
+Symbol & Meaning & Defined in\\
+\hline
+$b_k(F)$ & $k$-th largest nonleading coefficient magnitude of $F$
+  & Section~\ref{sec:intro}\\
+$V_r(L,k)$ & row $k$: $\inf b_k(F)$ over monic multiples $F$ of $(x-r)^L$
+  & Section~\ref{sec:rowvalues}\\
+$\beta_r(n)$ & top row $V_r(n,1)$ & Section~\ref{sec:rowvalues}\\
+$n$ & $L-k+1$; $\beta_r(n)$ is the top row of the diagonal $L-k=n-1$
+  & Section~\ref{sec:rowvalues}\\
+$a$ & $1/(r-1)$ & Section~\ref{sec:rowvalues}\\
+$r_Z(s)$ & $\prod_{z\in Z}(1-s/z)$ & Conventions\\
+$\Phi_r(q)$, $\Phi_r(Z)$ & $\sum_{s\ge1}|q(s)|r^{-s}$, and $\Phi_r(r_Z)$
+  & Section~\ref{sec:rowvalues}\\
+$\mu_r(S,L)$ & $\inf\Phi_r(q)$ over real $q$, $\deg q<L$, $q(0)=1$, $q|_S=0$
+  & Section~\ref{sec:rowvalues}\\
+worst exempted set & $S$ with $|S|=k-1$ and $V_r(L,k)=1/\mu_r(S,L)$
+  & Section~\ref{sec:rowvalues}\\
+$\Tail(w)$, leading run & $\sum_{d\ge1}|w_d|$; largest $\ell$ with
+  $[1,\ell]\subseteq Z$ & Section~\ref{sec:rowvalues}\\
+$\nu_i(n)$ & prefix value $\mu_r([1,i-1],n+i-1)$ & Section~\ref{sec:prefix}\\
+$m_i(n)$ & $\nu_i(n)/a^i$, a negative-binomial expectation
+  & Section~\ref{sec:prefix}\\
+$W_k$ & pointwise bound for $|r_S|$ over $|S|\le k-1$
+  & Section~\ref{sec:prefix}\\
+$\Omega_k(n)$ & $\inf_p\sum_sW_k(s)r^{-s}|p(s)|$, $\deg p<n$, $p(0)=1$
+  & Section~\ref{sec:prefix}\\
+$E_k(r)$ & loss from the first $2k-2$ positions & Section~\ref{sec:prefix}\\
+prefix identity & $V_r(L,k)=\min_{i\le k}1/\nu_i(n)$
+  & \eqref{eq:prefixid}\\
+$\mathrm{ins}(Z,c)$ & $Z$ with $c$ inserted and the elements from $c$ on
+  moved up by one & Section~\ref{sec:crossing}\\
+$h_t(W)$ & least integer above $t$ not in $W$ & Section~\ref{sec:crossing}\\
+$\Phi_{r,D}$, $\mu_{r,D}$ & $\Phi_r$ and $\mu_r$ with the sum cut at $s\le D$
+  & Section~\ref{sec:allrowstwo}\\
+$\Phi_{r,D}^{<c}$, $\Phi_{r,D}^{>c}$ & the parts of $\Phi_{r,D}$ with
+  $s<c$ and $s>c$ & Section~\ref{sec:allrowstwo}\\
+$\omega_i(s)$ & $\binom{s-1}{i-1}r^{-s}$ & Section~\ref{sec:onepoly}\\
+$\mathcal Q_n$ & real $p$ with $\deg p\le n-1$ and $p(0)=1$
+  & Section~\ref{sec:onepoly}\\
+$A_i(p)$ & $\sum_s\omega_i(s)|p(s)|=\Phi_r(r_{[1,i-1]}p)$
+  & Section~\ref{sec:onepoly}\\
+$\Lambda_k(n)$ & $\inf_{p\in\mathcal Q_n}\max_{i\le k}A_i(p)$
+  & Theorem~\ref{thm:onepoly}\\
+$w_k$ & $\omega_k-\omega_{k-1}$ & Section~\ref{sec:longdiag}\\
+$\tau_k(n)$ & $\inf_{p\in\mathcal Q_n}\sum_{s\ge2k-2}w_k(s)|p(s)|$
+  & Section~\ref{sec:longdiag}\\
+$N_k(r)$ & largest excess of an $\omega_i$, $i<k$, over $\omega_k$ on
+  $[1,2k-3]$ & Section~\ref{sec:longdiag}\\
+$\theta$ & $4(r-1)/r^2$ & Corollary~\ref{cor:belowtwo}\\
+$M_k$ & a mode of $\omega_k$ & Lemma~\ref{lem:nbmass}\\
+$\Xi(k)$, $\rho(\alpha)$ & explicit bounds for long diagonals
+  & Proposition~\ref{prop:longdiagexplicit}\\
+$\eta_\sigma(n)$ & $\mu_r(\{\sigma\},n+1)$, one exempted position
+  & Section~\ref{sec:secondrow}\\
+$\Psi_r(p)$, $R_p(\sigma)$ & $\sum_ss|p(s)|r^{-s}$;
+  $\sum_{s>\sigma}(s-\sigma)|p(s)|r^{-s}$ & Section~\ref{sec:secondrow}\\
+$e_y$, $G_y$ & the vertex test & Lemma~\ref{lem:vertexopt}\\
+$p_*$, $\sigma_*$ & a minimizer for $\nu_1(n)$; its tail threshold
+  & Theorem~\ref{thm:secondrow}\\
+$Y_n$, $Y'_n$, $Z_S(n)$ & named zero sets of the exact certificates
+  & Section~\ref{sec:secondrow}\\
+$\phi_m(s,t)$, $\Delta_{q,m}(t)$ & weight and gap for $m$ far zeros
+  & Section~\ref{sec:finiterows}\\
+$t_m(q)$ & least integer $t\ge1$ with $\Delta_{q,m}(t)\le0$
+  & Lemma~\ref{lem:farzeros}\\
+$T(N)$, $\mathcal S$ & thresholds and the finite tree of exempted sets
+  & Theorem~\ref{thm:finiterows}\\
+\hline
+\end{tabular}
+\caption{Notation.}\label{tab:notation}
+\end{table}
 
 \section{Row values and the dual problem}\label{sec:rowvalues}
 
-Let $r>1$ be real.  Throughout the paper
+Throughout the paper $r>1$ is real, and for real polynomials $q$ and
+finite $Z\subset\N_{>0}$ we put
 \[
   a=\frac1{r-1},\qquad
   \Phi_r(q)=\sum_{s\ge1}|q(s)|\,r^{-s},\qquad
   \Phi_r(Z)=\Phi_r(r_Z),
 \]
-for real polynomials $q$ and finite $Z\subset\N_{>0}$, so $\Phi_2$ is the sum $\Phi$ of \cite[Section~4.4]{coefficient-mass} and
-$\Phi_r(\varnothing)=a$.  For
+and for finite $S\subset\N_{>0}$ and integers $L>|S|$ we let
+$\mu_r(S,L)$ be the infimum of $\Phi_r(q)$ over real $q$ with $\deg q\le L-1$,
+$q(0)=1$ and $q|_S=0$.  So $\Phi_2$ is the sum $\Phi$ of
+\cite[Section~4.4]{coefficient-mass} and $\Phi_r(\varnothing)=a$.  For
 $1\le k\le L$ put $n=L-k+1$ and
 \[
   V_r(L,k)=\inf\{b_k(F): F\text{ a monic real multiple of }(x-r)^L\},
 \]
-the exact value of the row.  For finite $S\subset\N_{>0}$ with $|S|<L$ let
-$\mu_r(S,L)$ be the infimum of $\Phi_r(q)$ over real $q$ with $\deg q\le L-1$,
-$q(0)=1$ and $q|_S=0$, and recall $\beta_r(n)=V_r(n,1)$.  At
+the exact value of the row, and recall $\beta_r(n)=V_r(n,1)$.  At
 $r=2$, \cite[Theorem~4.13]{coefficient-mass} says $V_2(L,k)\ge n$.
 
 \begin{proposition}[The row values]\label{prop:rowvalue}
@@ -260,11 +356,13 @@ $V_r(L,k)$ if it attains the infimum in Proposition~\ref{prop:rowvalue}(b), that
 $V_r(L,k)=1/\mu_r(S,L)$, and for $k=2$ we call its element a \emph{worst
 exempted position}.  Such a set need not exist or be unique.
 
-The lower bounds come from certificates.  We first extend the
-displaced-zero tail bound of \cite{coefficient-mass} to arbitrary nodes
-in $(0,1)$; there it is proved for nodes $y_i\le\frac12$.  At the root $r$
-it bounds the cost of deleting the largest zero (Lemma~\ref{lem:confdelr}),
-which is used in the remark after Theorem~\ref{thm:crossing}; the last row
+We next extend the displaced-zero tail bound
+\cite[Theorem~2.2]{coefficient-mass}, proved there for nodes
+$y_i\le\frac12$, to all nodes in $(0,1)$ (Theorem~\ref{thm:tailgen}), and
+at the root $r$ we deduce that deleting the largest zero costs at most the
+factor $\max(1,a)$ (Lemma~\ref{lem:confdelr}).  Such certificates give
+lower bounds; Lemma~\ref{lem:confdelr} is used in the remark after
+Theorem~\ref{thm:crossing}, while the last row
 (Corollary~\ref{cor:lastrowr}) needs only convexity.
 
 As in \cite[Section~2]{coefficient-mass}, for distinct nodes
@@ -287,37 +385,87 @@ $\Tail(w)\le\max(1,\varphi_c)\Tail(u)$.
 \end{theorem}
 
 \begin{proof}
-The sum $w$ exists and is unique for any distinct positive nodes, by the
-Vandermonde argument at the start of \cite[Section~2]{coefficient-mass}.  Induct on $c-1-\ell$ as in
-the proof of \cite[Theorem~2.2]{coefficient-mass}.  The base case $Z=[1,c-1]$ is
-\cite[Lemma~2.1]{coefficient-mass}, which gives $\prod_{i=1}^c\varphi_i$ and needs
-no cutoff.  In the displaced step, with $z=\max Z$ and $u$ as in the
-statement (the sum called $V$ there), let $G$ be the sum on all $c$ nodes with
-$G|_{\{0\}\cup(Z\setminus\{z\})}=0$ and $G_z=1$, put $\xi=|u_z|$, so that
-$w=u-u_zG$, and put $\Gamma_X(z)=\sum_{d\ge z}|X_d|/|X_z|$ for
-$X\in\{u,G\}$ and $\Sigma_G=\sum_{1\le d<z}|G_d|$, the notation of the proof of
-\cite[Theorem~2.2]{coefficient-mass}.  That proof derives the identity
-\cite[eq.~(2)]{coefficient-mass},
-$\Tail(u)-\Tail(w)=\xi(2\Gamma_u(z)-\Gamma_G(z)+\Sigma_G)$, and the first
-inequality of \cite[eq.~(3)]{coefficient-mass},
-$\Gamma_G(z)\le\Gamma_u(z)/(1-y_c)$, from the zero bound of
-\cite[Section~2]{coefficient-mass}, \cite[Lemma~2.3]{coefficient-mass}
-(which needs no upper bound on the nodes) and $y_c<1$ only; the cutoff
-$y_c\le\frac12$ enters there only through the second inequality of
-\cite[eq.~(3)]{coefficient-mass}.  So both hold here.  If $y_c\le\frac12$,
-that second inequality holds as well, and the proof of
-\cite[Theorem~2.2]{coefficient-mass} gives
-$\Tail(w)<\Tail(u)$.  If $y_c>\frac12$, then $\Sigma_G\ge0$ and
-the identity give
+We use the zero bound of \cite[Section~2]{coefficient-mass}: a nonzero
+exponential sum on $n$ distinct positive nodes has at most $n-1$ real
+zeros, counted with multiplicity, so a nonzero sum on these nodes with
+$n-1$ prescribed distinct real zeros has exactly those zeros, each simple
+and a change of sign.  In particular a kernel vector of the $c$ conditions
+defining $w$ would be a nonzero $c$-node sum with the $c$ zeros
+$\{0\}\cup Z$, so $w$ exists and is unique; this needs only distinct
+positive nodes.  As in \cite[Section~2]{coefficient-mass}, sums are
+regarded as functions of the real variable $d\ge0$.  We induct on
+$c-1-\ell$.
+
+\emph{Base case.}  If $Z=[1,c-1]$, then $\ell=c-1$ and
+\cite[Lemma~2.1]{coefficient-mass}, which needs no cutoff, gives
+$\Tail(w)=\prod_{i=1}^c\varphi_i$.
+
+\emph{Displaced step.}  Let $\ell<c-1$.  Then $Z\ne[1,c-1]$, so $c\ge2$ and
+$z=\max Z\ge c\ge\ell+2$.  Put $Z'=Z\setminus\{z\}$ and
+$m=\max(Z'\cup\{0\})<z$, and let $u$ be as in the statement:
+the sum on $y_1,\ldots,y_{c-1}$ with $u_0=1$ and $u|_{Z'}=0$.  Let $G$ be a
+nonzero sum on all $c$ nodes vanishing on $\{0\}\cup Z'$, which exists
+since these are $c-1$ linear conditions on $c$ coefficients; $G_z\ne0$, as
+otherwise $G$ would have $c$ zeros, so we normalize $G_z=1$.  Put
+$\xi=|u_z|$.  If $\xi=0$, then $u$, a sum on the $c$ nodes with coefficient
+$0$ at $y_c$, satisfies the conditions defining $w$, so $w=u$ and
+$\Tail(w)\le\max(1,\varphi_c)\Tail(u)$.  Otherwise let $\eta=\sgn(u_z)$; then $w=u-\eta\xi G$,
+both sides satisfying the same $c$ conditions.
+
+By the zero bound, $G$ has exactly the simple zeros $\{0\}\cup Z'$, $u$
+exactly $Z'$, and $w$ exactly $Z$.  So $u/G$ has constant sign on
+$(0,\infty)\setminus Z'$, equal to its sign $\eta$ at $z$, and
+$w_d=\eta\sgn(G_d)\psi(d)$ there, where $\psi(d)=|u_d|-\xi|G_d|$.  The
+function $\psi$ is continuous, vanishes on $Z'$, has $\psi(0)=1$ and has no
+zero in $(0,\min Z)$, where $w$ has none; so $\psi>0$ there.  Off $Z$, the
+sign of $\psi$ does not change across a point of $Z'$, where $w$ and $G$
+both change sign, and changes across $z$, where only $w$ does.  Hence
+$|u_d|>\xi|G_d|$ for $1\le d<z$, $d\notin Z'$, and $|u_d|<\xi|G_d|$ for
+$d>z$, with $|w_d|=\bigl||u_d|-\xi|G_d|\bigr|$ for all $d\ge1$.  Splitting
+the tails at $z$ and using $|u_z|=\xi|G_z|$ gives
 \[
-  \Tail(w)\le\Tail(u)+\xi\Gamma_u(z)\Bigl(\frac1{1-y_c}-2\Bigr),
+  \Tail(u)-\Tail(w)=\xi\sum_{1\le d<z}|G_d|
+  +\sum_{d\ge z}\bigl(2|u_d|-\xi|G_d|\bigr),
 \]
-where the bracket is positive, and
-$\xi\Gamma_u(z)=\sum_{d\ge z}|u_d|\le\Tail(u)$ (if $u_z=0$ then $w=u$), so
-$\Tail(w)\le(\frac1{1-y_c}-1)\Tail(u)=\varphi_c\Tail(u)$.  In both cases
-$\Tail(w)\le\max(1,\varphi_c)\Tail(u)$.  The set $Z\setminus\{\max Z\}$ has
-the same leading run $\ell$ and $\ell+1\le c-1$, so the induction hypothesis
-for $u$ on $y_1,\ldots,y_{c-1}$ gives the bound.
+all series converging because the nodes are below $1$.  Therefore
+\begin{equation}\label{eq:tailsplit}
+  \Tail(w)\le\Tail(u)+\xi\sum_{d\ge z}|G_d|-2\sum_{d\ge z}|u_d|.
+\end{equation}
+
+We bound the middle term.  Put $\hat u=\eta u$, $\tau=G_z/\hat u_z=1/\xi$,
+and $E_d=G_d-y_cG_{d-1}$ for $d\ge1$.  By the zero bound, $\hat u$ and $G$
+are positive for $d>m$: neither has a zero there, and $\hat u_z,G_z>0$.
+Writing $G_d=\sum_ig_iy_i^d$ gives
+$E_d=\sum_{i<c}g_i(1-y_c/y_i)y_i^d$, a sum on $y_1,\ldots,y_{c-1}$.  With
+the marked points $\{0\}\cup Z'$ and $\widehat V=\hat u$,
+\cite[Lemma~2.3]{coefficient-mass}, which needs no upper bound on the
+nodes, gives $E_d\le\sigma\hat u_d$ for $d\ge m+1$, where
+$\sigma=G_{m+1}/\hat u_{m+1}$.  We claim $\sigma\le\tau$.  If $z=m+1$ they
+are equal.  If $z>m+1$, the $c$-node sum $\Theta=G-\tau\hat u$ vanishes on
+the $c-1$ points $Z'\cup\{z\}$ and has $\Theta_0=-\tau\eta\ne0$, so it
+changes sign exactly at those points.  The $c-2$ points of $Z'$ lie in
+$(0,m+1)$, so $\sgn\Theta_{m+1}=(-1)^c\sgn\Theta_0=-(-1)^c\eta$, and
+$\eta=(-1)^c$ because $u_0=1$ and $u$ changes sign at the $c-2$ points of
+$Z'$, all below $z$.  So $\Theta_{m+1}<0$, that is, $\sigma<\tau$.  Hence
+$E_d\le\tau\hat u_d$ for $d\ge z$, and induction on $t$ in
+$G_{z+t}=y_cG_{z+t-1}+E_{z+t}$, starting from $G_z=\tau\hat u_z$, gives
+\[
+  G_{z+t}\le\tau\sum_{j=0}^ty_c^{\,t-j}\hat u_{z+j}\qquad(t\ge0).
+\]
+Summing over $t$,
+$\xi\sum_{d\ge z}|G_d|\le\frac1{1-y_c}\sum_{d\ge z}|u_d|$, and
+\eqref{eq:tailsplit} becomes
+\[
+  \Tail(w)\le\Tail(u)+\Bigl(\frac1{1-y_c}-2\Bigr)\sum_{d\ge z}|u_d|.
+\]
+If $y_c\le\frac12$ the bracket is at most $0$ and $\Tail(w)\le\Tail(u)$.
+If $y_c>\frac12$ the bracket is $\varphi_c-1>0$, and
+$\sum_{d\ge z}|u_d|\le\Tail(u)$ gives $\Tail(w)\le\varphi_c\Tail(u)$.  In
+both cases $\Tail(w)\le\max(1,\varphi_c)\Tail(u)$.  Finally $z>\ell+1$, so
+$Z'$ has the same leading run $\ell$ as $Z$, and $\ell\le c-2=|Z'|$; the
+induction hypothesis for $u$ on $y_1,\ldots,y_{c-1}$ bounds $\Tail(u)$ by
+$\prod_{i=1}^{\ell+1}\varphi_i\prod_{i=\ell+2}^{c-1}\max(1,\varphi_i)$,
+which gives the bound for $w$.
 \end{proof}
 
 For $y_c\le\frac12$ every $\max(1,\varphi_i)$ is $1$ and this is
@@ -334,23 +482,49 @@ $\Phi_r(Z)\le a^{|Z|+1}$ when $1<r\le2$.
 \end{lemma}
 
 \begin{proof}
-$|r_{[1,\ell]}(s)|=\binom{s-1}\ell$ for $s>\ell$ and
-$\sum_{s>\ell}\binom{s-1}\ell r^{-s}=(r^{-1}/(1-r^{-1}))^{\ell+1}=a^{\ell+1}$;
-this also settles $Z=[1,\ell]$, the ratio being $a$.  For
-$Z\ne[1,|Z|]$ put $c=|Z|+1$ and run the limit in the proof of
-\cite[Lemma~4.6]{coefficient-mass} with
-the nodes $y_i=\frac1r-(c-i)\varepsilon$ and the comparison
-$\Tail(w^\varepsilon)\le\max(1,\varphi_c)\Tail(u^\varepsilon)$ of
-Theorem~\ref{thm:tailgen} for its sums $w$, $u$ on these nodes; the
-domination of the divided differences, with $h_j$ the complete homogeneous
-symmetric polynomial,
-$0\le h_{d-i+1}(y_1,\ldots,y_i)\le\binom d{i-1}r^{-(d-i+1)}$ and the
-invertibility of the limit matrix are as there, and $\varphi_c\to a$.  The
-consequences follow by deleting the largest element repeatedly: for $r\ge2$
-each step does not increase $\Phi_r$, and for $r\le2$ each of the $|Z|$
-steps from $Z$ to $\varnothing$ costs at most the factor $a$, with
+For $x=1/r$ we have $\sum_{s>\ell}\binom{s-1}\ell x^s=(x/(1-x))^{\ell+1}$
+and $x/(1-x)=a$; since $|r_{[1,\ell]}(s)|=\binom{s-1}\ell$ for $s>\ell$ and
+$r_{[1,\ell]}$ vanishes on $[1,\ell]$, this is $\Phi_r([1,\ell])=a^{\ell+1}$.
+It settles the inequality for $Z=[1,|Z|]$, the ratio being $a$.
+
+Now let $Z\ne[1,|Z|]$, put $c=|Z|+1$ and $Z'=Z\setminus\{\max Z\}$.  For
+small $\varepsilon>0$ take the nodes $y_i=\frac1r-(c-i)\varepsilon$, so
+$0<y_1<\cdots<y_c=\frac1r<1$ and $\varphi_c=a$.  Let $w^\varepsilon$ be the
+sum on $y_1,\ldots,y_c$ with $w_0=1$ and $w|_Z=0$, and $u^\varepsilon$ the
+sum on $y_1,\ldots,y_{c-1}$ with $u_0=1$ and $u|_{Z'}=0$.  Since
+$Z\ne[1,c-1]$, Theorem~\ref{thm:tailgen} gives
+$\Tail(w^\varepsilon)\le\max(1,a)\Tail(u^\varepsilon)$.
+
+Let $\varepsilon\to0$.  The divided difference of $y\mapsto y^d$ at
+$y_1,\ldots,y_i$ is $N_i(d)=h_{d-i+1}(y_1,\ldots,y_i)$, with $h_j$ the
+complete homogeneous symmetric polynomial ($h_j=0$ for $j<0$), and it is a
+combination of $y_1^d,\ldots,y_i^d$ with nonzero coefficient on $y_i^d$.  So
+$w^\varepsilon_d=\sum_{i=1}^c\alpha_iN_i(d)$ for unique $\alpha_i$, and the
+$c$ conditions at $d\in\{0\}\cup Z$ form a linear system for $\alpha$ whose
+matrix $(N_i(d))$ tends to the matrix with entries
+$\binom d{i-1}r^{-(d-i+1)}$, the value of $h_{d-i+1}$ at $i$ arguments equal
+to $\frac1r$.  The limit matrix is invertible: after scaling rows by $r^d$
+and columns by $r^{-(i-1)}$ its entries are $\binom d{i-1}$, and the
+polynomials $\binom s{i-1}$, $i\le c$, form a basis of the polynomials of
+degree below $c$, none of which but $0$ vanishes at the $c$ points
+$\{0\}\cup Z$.  Hence $\alpha$ converges, to $\alpha^0$ say.  Since the $y_j$
+are positive and at most $\frac1r$,
+$0\le h_{d-i+1}(y_1,\ldots,y_i)\le\binom d{i-1}r^{-(d-i+1)}$, so
+$|w^\varepsilon_d|\le C(d+1)^{c-1}r^{-d}$ with $C$ independent of
+$\varepsilon$ and $d$.  The limit is $w^0_d=p(d)r^{-d}$ with
+$p(s)=\sum_i\alpha^0_ir^{i-1}\binom s{i-1}$, so $\deg p\le|Z|$, $p(0)=1$
+and $p|_Z=0$, which forces $p=r_Z$.  By dominated convergence
+$\Tail(w^\varepsilon)\to\Phi_r(Z)$, and in the same way, on the nodes
+$y_1,\ldots,y_{c-1}$, $\Tail(u^\varepsilon)\to\Phi_r(Z')$.  This proves the
+inequality.
+
+The consequences follow by deleting the largest element repeatedly: for
+$r\ge2$ each step does not increase $\Phi_r$, and for $r\le2$ each of the
+$|Z|$ steps from $Z$ to $\varnothing$ costs at most the factor $a$, with
 $\Phi_r(\varnothing)=a$.
 \end{proof}
+
+At $r=2$, where $a=1$, this is \cite[Lemma~4.6]{coefficient-mass}.
 
 \begin{corollary}[The last row]\label{cor:lastrowr}
 $V_r(L,L)=r-1$ for $r\ge2$, and $V_r(L,L)=(r-1)^L$ for $1<r\le2$.
@@ -384,18 +558,32 @@ For $i\ge1$ and $n\ge1$ put
 \]
 so $\nu_1(n)=\mu_r(\varnothing,n)=1/\beta_r(n)$ (Proposition~\ref{prop:rowvalue}(c)).  Since
 $|r_{[1,i-1]}(s)|=\binom{s-1}{i-1}$ for $s\ge1$, we have
-$\nu_i(n)=\mu_r([1,i-1],i+n-1)$.  Moreover
-$\binom{s-1}{i-1}r^{-s}=a^i\Pr(X_i=s)$, where $X_i$ counts the trials up to
-the $i$-th success at success probability $1-1/r$.  So
-$\nu_i(n)=a^im_i(n)$ with $m_i(n)=\inf_p\mathbb E|p(X_i)|$, and
-$1/\nu_i(n)$ is a top-row value for a transformed measure.  Put also
+$\nu_i(n)=\mu_r([1,i-1],i+n-1)$.
+
+The normalized prefix values $m_i(n)=\nu_i(n)/a^i$ are negative-binomial
+expectations: $m_i(n)=\inf_p\mathbb E|p(X_i)|$, where $X_i$ counts the
+trials up to the $i$-th success at success probability $1-1/r$, because
+$\binom{s-1}{i-1}r^{-s}=a^i\Pr(X_i=s)$.  So $1/\nu_i(n)$ is a top-row value
+for a transformed measure.
+
+The weight
 \[
-  W_k(s)=\binom{s-1}{\min(k-1,\lfloor(s-1)/2\rfloor)},\qquad
-  \Omega_k(n)=\inf_p\sum_{s\ge1}W_k(s)r^{-s}|p(s)|,\qquad
-  E_k(r)=\sum_{s=1}^{2k-2}\binom{s-1}{\lfloor(s-1)/2\rfloor}r^{-s},
+  W_k(s)=\binom{s-1}{\min(k-1,\lfloor(s-1)/2\rfloor)}
+  =\max\Bigl\{\binom{s-1}j:0\le j\le\min(k-1,s-1)\Bigr\},
 \]
-with $p$ as in $\nu_i$.  Since the binomial coefficients are unimodal,
-$W_k(s)=\max\{\binom{s-1}j:0\le j\le\min(k-1,s-1)\}$.
+the second form by unimodality of the binomial coefficients, bounds
+$|r_S(s)|$ for every $S$ with $|S|\le k-1$ (Lemma~\ref{lem:rowpointwise}).
+
+The weighted problem
+$\Omega_k(n)=\inf_p\sum_{s\ge1}W_k(s)r^{-s}|p(s)|$, with $p$ as in $\nu_i$,
+gives the lower bound for the rows.
+
+The loss
+\[
+  E_k(r)=\sum_{s=1}^{2k-2}\binom{s-1}{\lfloor(s-1)/2\rfloor}r^{-s}
+\]
+collects the first $2k-2$ positions, where $W_k$ can exceed
+$\binom{s-1}{k-1}$.
 
 \begin{lemma}[Integer zero sets suffice]\label{lem:intzeros}
 Let $i,n\ge1$ and let $\omega(s)\ge0$ ($s\ge1$) vanish for $s<i$, be
@@ -419,8 +607,9 @@ $p=\prod_{y\in Y}(1-s/y)$ with $|Y|=n-1$.
 Hence some such $p_D$ has $f_D(p_D)=\min_{\mathcal A}f_D\le
 \sum_s\omega(s)|p(s)|$ for all $p\in\mathcal A$.  Since
 $|p_D(s)|\le(1+s)^{n-1}$, the full sum at $p_D$ exceeds $f_D(p_D)$ by at
-most $\tau_D=\sum_{s>D}\omega(s)(1+s)^{n-1}\to0$.  So the infimum lies
-between $\min f_D$ and $\min f_D+\tau_D$, and the truncated minima increase
+most $\sum_{s>D}\omega(s)(1+s)^{n-1}$, which tends to $0$.  So the
+infimum lies between $\min f_D$ and $\min f_D$ plus this tail, and the
+truncated minima increase
 to it.
 \end{proof}
 
@@ -552,13 +741,14 @@ $\varepsilon$; the last form uses $\nu_k(n)=\mu_r([1,k-1],L)$.  And
 $\theta<1$ is $(r-2)^2>0$.
 \end{proof}
 
-For $r\ge2$ the loss $E_k(r)$ is not small.  We say that the
-\emph{prefix identity} holds at $(r,L,k)$ if the upper bound
-of~\eqref{eq:prefixsandwich} is attained:
+We say that the \emph{prefix identity} holds at $(r,L,k)$ if the upper
+bound of~\eqref{eq:prefixsandwich} is attained, that is, if
+$V_r(L,k)$ equals $\min_{i\le k}1/\nu_i(n)$ with $n=L-k+1$:
 \begin{equation}\label{eq:prefixid}
   V_r(L,k)=\min_{1\le i\le k}\frac1{\nu_i(n)}\qquad(n=L-k+1).
 \end{equation}
-It is false for some $1<r<2$ (Proposition~\ref{prop:secondrowexact}).
+For $r\ge2$ the loss $E_k(r)$ is not small, and the lower bound
+of~\eqref{eq:prefixsandwich} does not give the identity.  It is false for some $1<r<2$ (Proposition~\ref{prop:secondrowexact}).
 For $r\ge2$ it follows from Theorem~\ref{thm:allrowstwo} (see the remark
 after it).  For $1<r<2$, Theorems~\ref{thm:onepolyrows}
 and~\ref{thm:longdiag} prove it in two regimes, in both with the minimum at
@@ -567,17 +757,17 @@ $i=k$.
 \section{Crossing an exempted position}\label{sec:crossing}
 
 This section shows that the last exempted position costs at most one
-insertion, made at a place that does not depend on that position.  Two
-facts give this.  The polynomials admissible for
-Proposition~\ref{prop:rowvalue}(a) with $\Phi_r\le\varphi$ form a convex set,
-so a position is covered as soon as two admissible polynomials take opposite
-signs there (Lemma~\ref{lem:crossing}).  And an insertion reverses the sign
-of $r_W$ at every later position that lies in neither set
+insertion, made at a place that does not depend on that position.  It
+rests on two facts: the polynomials admissible for
+Proposition~\ref{prop:rowvalue}(a) with $\Phi_r\le\varphi$ form a convex
+set, so a position is covered as soon as two admissible polynomials take
+opposite signs there (Lemma~\ref{lem:crossing}); and an insertion reverses
+the sign of $r_W$ at every later position that lies in neither set
 (Lemma~\ref{lem:insflip}).
 
-For finite $Z\subset\N_{>0}$ and an integer $\tau\ge1$ let
+For finite $Z\subset\N_{>0}$ and an integer $c\ge1$ let
 \[
-  \mathrm{ins}(Z,\tau)=\{z\in Z:z<\tau\}\cup\{\tau\}\cup\{z+1:z\in Z,\ z\ge\tau\}.
+  \mathrm{ins}(Z,c)=\{z\in Z:z<c\}\cup\{c\}\cup\{z+1:z\in Z,\ z\ge c\}.
 \]
 
 For a finite $W\subset\N_{>0}$ and an integer $t\ge0$ put
@@ -680,13 +870,12 @@ $\mu_r(S,|W|+2)$.  Proposition~\ref{prop:rowvalue}(a) gives
 $b_k(F)\Phi_r(q)\ge1$ for each of them.
 \end{proof}
 
-No condition on $r$ is needed.  When $h>\max W$ the second set is
-$W\cup\{h\}$, and for $r\ge2$ Lemma~\ref{lem:confdelr} gives
-$\Phi_r(W\cup\{h\})\le\Phi_r(W)$.  So a set $W$ without gaps in
-$(t,\max W]$ handles every later position for free.  In general the theorem
-reduces the last exempted position to one insertion at the first gap above
-the previous ones, and Section~\ref{sec:allrowstwo} bounds its cost when
-$W$ is a minimizer.
+The theorem, which needs no condition on $r$, reduces the last exempted
+position to one insertion at the first gap above the previous ones, and
+Section~\ref{sec:allrowstwo} bounds its cost when $W$ is a minimizer.
+When $h>\max W$ the second set is $W\cup\{h\}$, and for $r\ge2$
+Lemma~\ref{lem:confdelr} gives $\Phi_r(W\cup\{h\})\le\Phi_r(W)$.  So a set
+$W$ without gaps in $(t,\max W]$ handles every later position for free.
 
 \section{Every row is a top row at roots at least \texorpdfstring{$2$}{2}}\label{sec:allrowstwo}
 
@@ -695,12 +884,13 @@ This section proves the prefix identity~\eqref{eq:prefixid} at every root $r\ge2
 to bound the cost of one insertion at the first gap of a minimizer, and we
 do this, in a truncated form, by a first-order optimality argument.
 
-The idea is as follows.  Insert at a gap $c$ of a minimizer $W$.  The zeros of $W$
-above $c$ move up by one, and above $c$ the new polynomial is essentially
-the old one shifted by one position.  Measured against the first moment
-$\sum_ss|r_W(s)|r^{-s}$, the shift costs at most the factor $1/r$.  The
-first moment is in turn bounded by optimality, in the direction that trades
-the leading coefficient of $r_{\mathrm{ins}(W,c)}$ against that of $s\,r_W$.
+An insertion at a gap $c$ of a minimizer $W$ is paid for by the first
+moment $\sum_ss|r_W(s)|r^{-s}$, which the optimality of $W$ bounds.  The
+zeros of $W$ above $c$ move up by one, and above $c$ the new polynomial is
+essentially the old one shifted by one position.  Measured against the
+first moment, the shift costs at most the factor $1/r$.  The first moment
+is in turn bounded by optimality, in the direction that trades the leading
+coefficient of $r_{\mathrm{ins}(W,c)}$ against that of $s\,r_W$.
 
 For $D\in\N_{>0}\cup\{\infty\}$ and a real polynomial $q$ put
 \[
@@ -831,10 +1021,12 @@ For $r\ge2$ use $\Phi_{r,D}^{<c}(Q)\le\varphi$.  For $r<2$ drop the
 nonpositive term.
 \end{proof}
 
-Only the optimality of $W$ in the single direction $H$ is used.
+Only the optimality of $W$ in a single direction is used: the difference
+$r_W-r_{\mathrm{ins}(W,c)}$ minus the multiple of $s\,r_W$ that cancels its
+coefficient of degree $|W|+1$.
 
-\begin{theorem}[All rows at every root at least $2$]\label{thm:allrowstwo}
-Let $r>1$ and $n\ge1$.  For every finite $S\subset\N_{>0}$,
+\begin{theorem}[Every row against the top row, with equality at roots at least $2$]\label{thm:allrowstwo}
+Let $r>1$, $a=1/(r-1)$ and $n\ge1$.  For every finite $S\subset\N_{>0}$,
 \[
   \mu_r\bigl(S,|S|+n\bigr)\le\frac{\max\{1,a\}^{|S|}}{\beta_r(n)} .
 \]
@@ -889,8 +1081,10 @@ root $r\ge2$ are
   V_r(L,k)=\beta_r(L-k+1)\qquad(1\le k\le L),
 \]
 the top row of a multiple of $(x-r)^{L-k+1}$.  At $r=2$ this sharpens
-\cite[Theorem~4.13]{coefficient-mass} to $b_k(F)\ge\beta_2(L-k+1)$.  What
-remains open at a single root $r\ge2$ is the value of $\beta_r(n)$ itself.
+\cite[Theorem~4.13]{coefficient-mass} to $b_k(F)\ge\beta_2(L-k+1)$.
+
+What remains open at a single root $r\ge2$ is the value of $\beta_r(n)$
+itself.
 
 For $1<r<2$ the theorem gives $V_r(L,k)\ge(r-1)^{k-1}\beta_r(L-k+1)$.  By
 Corollary~\ref{cor:lastrowr} this is an equality for $k=L$, where both sides
@@ -900,13 +1094,17 @@ $(r-1)^{k-1}\beta_r(n)$.  Section~\ref{sec:onepoly} proves~\eqref{eq:prefixid}
 for $1<r<2$ whenever $\beta_r(n)\le1$, and Section~\ref{sec:longdiag}
 whenever $k$ is large compared with $n$.
 
-Lemma~\ref{lem:optins} also bounds the prefix values from above.  Take
+For every $r>1$ and all $i,n\ge1$ the prefix values satisfy
+\begin{equation}\label{eq:prefixup}
+  \nu_{i+1}(n)\le a\,\nu_i(n),
+\end{equation}
+by Lemma~\ref{lem:optins}.  Take
 $T=[1,i-1]$, a set $W$ given by Lemma~\ref{lem:truncvertex} for
-$\mu_{r,D}([1,i-1],i-1+m)$, and $c=h_{i-1}(W)$.  Then $W\supseteq[1,c-1]$,
+$\mu_{r,D}([1,i-1],i-1+n)$, and $c=h_{i-1}(W)$.  Then $W\supseteq[1,c-1]$,
 so $\Phi_{r,D}^{<c}(r_{\mathrm{ins}(W,c)})=0$, and
 $\mathrm{ins}(W,c)\supseteq[1,i]$.  The lemma gives
-$\mu_{r,D}([1,i],i+m)\le a\,\mu_{r,D}([1,i-1],i-1+m)$, and letting
-$D\to\infty$ gives $\nu_{i+1}(m)\le a\,\nu_i(m)$ for every $r>1$.
+$\mu_{r,D}([1,i],i+n)\le a\,\mu_{r,D}([1,i-1],i-1+n)$, and letting
+$D\to\infty$ gives~\eqref{eq:prefixup}.
 
 \section{Rows below the root \texorpdfstring{$2$}{2}}\label{sec:belowtwo}
 
@@ -927,12 +1125,13 @@ This subsection proves~\eqref{eq:prefixid} for $1<r<2$ whenever $\beta_r(n)\le1$
 for every $k$ (Theorem~\ref{thm:onepolyrows}).  There the minimum is at
 $i=k$: the prefix $[1,k-1]$ is a worst exempted set.
 
-Two facts give this.  First, Lemma~\ref{lem:crossing}(b) pushes every
-exempted position down into an initial block while a fixed polynomial factor
-rides along.  So one polynomial $p$ serves all exempted sets at once, at the
-cost of the largest of its prefix sums (Theorem~\ref{thm:onepoly}).  Second,
-these prefix sums grow at least by the factor $\nu_1(n)=1/\beta_r(n)$ from
-one index to the next (Lemma~\ref{lem:prefixshift}).  Nothing is inserted,
+It rests on two facts: one polynomial $p$ serves all exempted sets at
+once, at the cost of the largest of its prefix sums
+(Theorem~\ref{thm:onepoly}); and these prefix sums grow at least by the
+factor $\nu_1(n)=1/\beta_r(n)$ from one index to the next
+(Lemma~\ref{lem:prefixshift}).  For the first,
+Lemma~\ref{lem:crossing}(b) pushes every exempted position down into an
+initial block while the fixed factor $p$ rides along.  Nothing is inserted,
 and the only optimality used is that of $p$ for the last index.
 
 Put $\omega_i(s)=\binom{s-1}{i-1}r^{-s}$ for $i\ge1$ (zero for $s<i$),
@@ -944,8 +1143,9 @@ $\deg p\le n-1$ and $p(0)=1$, and put
 \]
 for real polynomials $p$, so that $\nu_i(n)=\inf_{p\in\mathcal Q_n}A_i(p)$.
 The second expression holds because $|r_{[1,i-1]}(s)|=\binom{s-1}{i-1}$
-for $s\ge1$.  For finite $S\subset\N_{>0}$ let $\ell(S)$ be the largest
-$\ell\ge0$ with $[1,\ell]\subseteq S$.
+for $s\ge1$.  For finite $S\subset\N_{>0}$ let $\ell(S)$ be its leading
+run (Section~\ref{sec:rowvalues}), the largest $\ell\ge0$ with
+$[1,\ell]\subseteq S$.
 
 \begin{lemma}[Pushing exempted positions into the prefix]\label{lem:prefixpush}
 Let $r>1$, let $p$ be a real polynomial and let $S\subset\N_{>0}$ be finite.
@@ -1029,8 +1229,7 @@ This proves the inequality.  Taking the infimum over $p\in\mathcal Q_n$
 gives $\nu_{i+m}(n)\ge\nu_m(n)\nu_i(n)$, and $\nu_1(n)=1/\beta_r(n)$.
 \end{proof}
 
-Together with the inequality $\nu_{i+1}(n)\le a\,\nu_i(n)$ noted after
-Theorem~\ref{thm:allrowstwo},
+Together with~\eqref{eq:prefixup},
 $\nu_1(n)\,\nu_i(n)\le\nu_{i+1}(n)\le a\,\nu_i(n)$, and both inequalities are
 equalities at $n=1$, where $\nu_i(1)=a^i$.
 
@@ -1054,13 +1253,15 @@ $V_r(L,k)\ge1/(\nu_k(n)+\varepsilon)$.  The upper bound
 $V_r(L,k)\le\min_i1/\nu_i(n)\le1/\nu_k(n)$ is Theorem~\ref{thm:prefixrows}.
 \end{proof}
 
-Since $\nu_1(n+1)\le\nu_1(n)$, we have $\beta_r(n)\ge\beta_r(1)=r-1$.  So the
+The hypothesis $\beta_r(n)\le1$ holds for $r$ in an interval with left end
+$1$, which is $(1,2]$ for $n=1$, shrinks as $n$ grows, and is nonempty for
+every $n$ (Lemma~\ref{lem:topnearone}).  Indeed, since
+$\nu_1(n+1)\le\nu_1(n)$, we have $\beta_r(n)\ge\beta_r(1)=r-1$.  So the
 hypothesis forces $r\le2$, and at $r=2$ it holds only for $n=1$, since
 $\beta_2(n)\ge n$ by \cite[Theorem~4.13]{coefficient-mass}.  For each
 $q\in\mathcal Q_n$ the sum $\Phi_r(q)$ decreases in $r$, term by term, so
-$\nu_1(n)$ does not increase with $r$.  Hence
-$\{r>1:\beta_r(n)\le1\}$ is an interval with left end $1$, it shrinks as $n$
-grows, and for $n=1$ it is $(1,2]$.  It is nonempty for every $n$ (Lemma~\ref{lem:topnearone}).
+$\nu_1(n)$ does not increase with $r$, and the set
+$\{r>1:\beta_r(n)\le1\}$ is an interval with left end $1$.
 
 \begin{lemma}[The top row near the root $1$]\label{lem:topnearone}
 Let $n\ge1$, $1<r\le2$ and $C_n=\prod_{i=1}^n(2i+1)$.  Then
@@ -1105,7 +1306,11 @@ Proposition~\ref{prop:longdiagexplicit}).  So on every diagonal
 $L-k=n-1$ the prefix identity can fail in at most finitely many rows
 (Corollary~\ref{cor:longdiagfinite}).
 
-The mechanism is simple.  By Lemma~\ref{lem:intzeros} the polynomials for
+The earlier weights $\omega_i$, $i<k$, can exceed $\omega_k$ only on
+$[1,2k-3]$, where a suitable polynomial for $\nu_k(n)$ is bounded by $1$;
+when this excess is small, the $k$-th prefix sum of that polynomial is the
+largest.  By
+Lemma~\ref{lem:intzeros} the polynomials for
 $\nu_k(n)$ may be taken with all zeros at least $k$, and such a polynomial is
 bounded by $1$ on $[1,2k-3]$.  There the weights $\omega_i$, $i<k$, exceed
 $\omega_k$ by an amount that is exponentially small compared with $\nu_k(n)$
@@ -1269,9 +1474,10 @@ many exempted sets.
 
 \subsection{The second row}\label{sec:secondrow}
 
-This subsection treats $k=2$ with no condition on $\beta_r(n)$.  The
-exempted set is one position $\sigma$, and a polynomial vanishing there is
-$(1-s/\sigma)p$ with $p\in\mathcal Q_n$, so we write
+This subsection treats the second row, $k=2$, with no condition on
+$\beta_r(n)$, through the values $\eta_\sigma(n)=\mu_r(\{\sigma\},n+1)$ of
+single exempted positions $\sigma$.  A polynomial vanishing at $\sigma$ is
+$(1-s/\sigma)p$ with $p\in\mathcal Q_n$, so
 \[
   \eta_\sigma(n)=\mu_r(\{\sigma\},n+1)
   =\inf_{p\in\mathcal Q_n}\sum_{s\ge1}\Bigl|1-\frac s\sigma\Bigr||p(s)|\,r^{-s}
@@ -1397,7 +1603,8 @@ to find it.
 
 
 \begin{theorem}[The second row is a finite minimum]\label{thm:secondrow}
-Let $r>1$ and $n\ge1$.
+Let $r>1$ and $n\ge1$, and put $\eta_\sigma(n)=\mu_r(\{\sigma\},n+1)$ for
+$\sigma\in\N_{>0}$.
 \begin{enumerate}
 \item[(a)] For every $p\in\mathcal Q_n$ and $\sigma\in\N_{>0}$,
 \[
@@ -1570,19 +1777,21 @@ $\Phi_r(Y'_{18})<\nu_1(18)$, and $[1,3]\subseteq Z_3(18)$ gives
 $\eta_3(18)=\nu_4(16)=\mu_r([1,3],19)$ as in (a).
 \end{proof}
 
-Neither Theorem~\ref{thm:onepolyrows} nor Theorem~\ref{thm:longdiag}
-reaches (c), since both place the minimum at $i=k$.  In (a) and (d) the
-row is attained at a position $\sigma$ for which the unique minimizer
-$r_Z$ of $\eta_\sigma(n)$ has all of $[1,\sigma]$ among its zeros.  So there the second row equals the prefix value
-$1/\nu_{\sigma+1}(n+1-\sigma)$, of a longer prefix and a smaller degree than
-the prefix identity allows, although only one position is exempted.
+In (a) and (d) the second row equals a prefix value of a longer prefix and
+a smaller degree than the prefix identity allows, $1/\nu_3(14)$ and
+$1/\nu_4(16)$, although only one position is exempted.  The reason is that
+the row is attained at a position $\sigma$ for which the unique minimizer
+$r_Z$ of $\eta_\sigma(n)$ has all of $[1,\sigma]$ among its zeros, so that
+$\eta_\sigma(n)\le\mu_r([1,\sigma],n+1)\le\Phi_r(Z)=\eta_\sigma(n)$ and the
+row is $1/\mu_r([1,\sigma],n+1)=1/\nu_{\sigma+1}(n+1-\sigma)$.  Neither
+Theorem~\ref{thm:onepolyrows} nor Theorem~\ref{thm:longdiag} reaches (c),
+since both place the minimum at $i=k$.
 
 \paragraph{A conjecture.}
 We conjecture that the prefix identity holds at $(r,n+1,2)$ whenever
-$\nu_2(n)\ge\nu_1(n)$.  Whether a worst exempted position, when one
-exists, is always small, and whether the identity fails for every $1<r<2$
-or only near $1$, we do not
-know.
+$\nu_2(n)\ge\nu_1(n)$, and we do not know whether a worst exempted
+position, when one exists, is always small, or whether the identity fails
+for every $1<r<2$ or only near $1$.
 
 \subsection{Every row is a finite minimum}\label{sec:finiterows}
 
@@ -1740,8 +1949,9 @@ Let $r=\frac43$ in (a) and (b).
 \end{align*}
 Then $V_r(14,3)=1/\Phi_r(Z_{2,3}(12))=7.7168\ldots$,
 $V_r(13,2)=1/\Phi_r(Z_2(12))=1/\nu_3(11)=8.5482\ldots$ and
-$\min_{i\le4}1/\nu_i(12)=\beta_r(12)=1/\Phi_r(Y_{12})=8.8501\ldots$.  So
-$V_r(14,3)<V_r(13,2)<\min_{i\le3}1/\nu_i(12)$: the prefix identity fails at
+$\beta_r(12)=1/\Phi_r(Y_{12})=8.8501\ldots$, and
+$\min_{i\le k}1/\nu_i(12)=\beta_r(12)$ for $k=2,3,4$.  So
+$V_r(14,3)<V_r(13,2)<\beta_r(12)$: the prefix identity fails at
 $(\frac43,13,2)$ and at $(\frac43,14,3)$, and the third row lies strictly
 below the second on this diagonal.  By Lemma~\ref{lem:rowmono} it also
 fails at $(\frac43,15,4)$.  The pair $S=\{2,3\}$ is the only
@@ -1874,13 +2084,78 @@ computations behind Propositions~\ref{prop:secondrowexact} and~\ref{prop:thirdro
 \href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass};
 they need Python~3.12 or later.
 
+\paragraph{Computer assistance.}
+Propositions~\ref{prop:secondrowexact} and~\ref{prop:thirdrowexact} are the
+only computer-assisted results; every other result is proved by hand.  Their
+proofs reduce each claim, through Lemma~\ref{lem:vertexopt},
+Theorem~\ref{thm:secondrow}(a) and Theorem~\ref{thm:finiterows}(b), to
+finitely many comparisons of explicit rational numbers: the vertex test of
+Lemma~\ref{lem:vertexopt} for each named zero set, the sign of
+$\Delta_{q,m}$ at each threshold, the bound $\Phi_r(Z)\le B$ (or $<B$) for
+a zero set through each exempted position or set below the thresholds, and
+the comparisons with the stated decimals.  The tests
+\texttt{test\_second\_row\_*} and \texttt{test\_third\_row\_*} in
+\texttt{tests/test\_rows.py} carry out these comparisons in exact rational
+arithmetic (Python's \texttt{fractions} module), evaluating $\Phi_r$, $G_y$
+and $\Delta_{q,m}$ through the closed form described after
+Lemma~\ref{lem:vertexopt}, with no floating point; these computations are
+steps of the proofs.  The zero sets were found by search, and only their
+verification is part of the proofs.  The value $\sigma_*=25$ and the
+comparison for the zeros $25$ and $26$ quoted in
+Section~\ref{sec:finiterows} are computed in the same way
+(\texttt{test\_far\_zeros}) and are illustrations, not used in any proof.
+The remaining tests are checks, not proof steps.
+\texttt{test\_prefix\_identity\_fails\_below\_two} builds from
+$Z_2(15)$, by complementary slackness, an explicit monic multiple of
+$(x-\frac54)^{16}$ of degree $300$ with rational coefficients, verifies the
+divisibility by $16$ exact synthetic divisions, and checks that its second
+largest nonleading coefficient magnitude is at most $6.5695$, an
+independent primal check of the upper bound in
+Proposition~\ref{prop:secondrowexact}(a).  Other tests compare
+Corollary~\ref{cor:lastrowr} and Theorem~\ref{thm:allrowstwo} with
+exhaustive minima over zero sets in a window for small $L$, and test the
+closed form for $\Phi_r$ and the vertex test on known cases.  Each check
+is paired with a control that it must reject.  The whole file runs in a
+few seconds.
+
+\paragraph{Use of AI tools.}
+Large language model assistants (Claude, Anthropic) were used in drafting
+and revising the text, the proofs and the verification code. The author has checked the mathematics and is responsible
+for the content.
+
+\paragraph{Funding and competing interests.}
+The author received no specific funding for this work and has no competing
+interests to declare.
+
 \begin{thebibliography}{9}
+
+\bibitem{bbbp-multiple}
+F.~Beaucoup, P.~Borwein, D.~W. Boyd and C.~Pinner,
+\newblock Multiple roots of $[-1,1]$ power series,
+\newblock \emph{Journal of the London Mathematical Society} (2) 57 (1998), 135--147,
+\newblock \href{https://doi.org/10.1112/S0024610798005857}
+{doi:10.1112/S0024610798005857}.
+
+\bibitem{dj}
+A.~Dubickas and J.~Jankauskas,
+\newblock On the reduced height of a polynomial,
+\newblock \emph{Publicationes Mathematicae Debrecen} 71 (2007), 325--348,
+\newblock \href{https://doi.org/10.5486/PMD.2007.3728}
+{doi:10.5486/PMD.2007.3728}.
 
 \bibitem{coefficient-mass}
 B.~Pham,
 \newblock Displaced-zero certificates and the coefficient mass of polynomial
 multiples,
-\newblock manuscript in preparation.
+\newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
+
+\bibitem{schinzel}
+A.~Schinzel,
+\newblock On the reduced length of a polynomial with real coefficients,
+\newblock \emph{Functiones et Approximatio Commentarii Mathematici} 35
+(2006), 271--306,
+\newblock \href{https://doi.org/10.7169/facm/1229442629}
+{doi:10.7169/facm/1229442629}.
 
 \end{thebibliography}
 
