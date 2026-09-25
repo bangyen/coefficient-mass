@@ -49,7 +49,9 @@ finitely many terms, each attained by a polynomial with integer zeros
 whose optimality, for rational $r$, is a finite exact check.  Exact
 certificates at $r=\frac54$ and $r=\frac43$ show that the prefix
 description fails in general and can fail in the third row of a diagonal
-while holding in the second.
+while holding in the second, and finitely many certificates on intervals
+of roots show that it fails in the second row of some diagonal for every
+$r\in[\frac{21}{20},\frac{139}{100}]$.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient order
@@ -127,13 +129,18 @@ the second row $V_r(n+1,2)$ is the minimum of the top row $\beta_r(n)$ and
 finitely many exempted-position terms (Theorem~\ref{thm:secondrow}).  The
 identity can fail in the second row even when $\nu_2(n)>\nu_1(n)$: at
 $r=\frac{177}{167}$, $V_r(51,2)<1/\nu_2(50)<1/\nu_1(50)$
-(Proposition~\ref{prop:secondrowhyp}).  Every
-row $k\ge2$ is likewise the minimum of $V_r(L-1,k-1)$ and finitely many
+(Proposition~\ref{prop:secondrowhyp}).  Since the values
+$\mu_r(S,L)$ decrease with $r$, a failure certified at two roots holds
+between them, and finitely many certificates show that the identity fails
+in the second row of some diagonal for every
+$r\in[\frac{21}{20},\frac{139}{100}]$ (Theorem~\ref{thm:failinterval}).
+Every row $k\ge2$ is likewise the minimum of $V_r(L-1,k-1)$ and finitely many
 exempted-set terms (Theorem~\ref{thm:finiterows}), and exact certificates
 give $V_{4/3}(16,3)<V_{4/3}(15,2)=\min_{i\le3}1/\nu_i(14)$
 (Proposition~\ref{prop:thirdrowexact}), so the identity can fail in the
-third row of a diagonal while holding in the second.  The proofs of these three
-propositions are computer-assisted: they list the certifying zero sets and
+third row of a diagonal while holding in the second.  The proofs of these
+three propositions and of Theorem~\ref{thm:failinterval} are
+computer-assisted: they list the certifying zero sets and
 reduce the claims to finitely many comparisons of explicit rationals, which
 the accompanying tests carry out in exact arithmetic.
 
@@ -1118,7 +1125,8 @@ every $k$ when $\beta_r(n)\le1$ (Section~\ref{sec:onepoly}), and for every
 $n$ once $k$ is large compared with $n$ (Section~\ref{sec:longdiag}).  In
 both the minimum is at $i=k$.  Section~\ref{sec:secondrow} treats the
 second row for every $n$ and shows that the identity can fail, also
-when $\nu_2(n)>\nu_1(n)$, and
+when $\nu_2(n)>\nu_1(n)$, and fails somewhere in the second row at every
+root of an interval, and
 Section~\ref{sec:finiterows} reduces every row to finitely many exempted
 sets and shows that it can fail in the third row of a diagonal whose second
 row satisfies it.
@@ -1497,7 +1505,11 @@ such a $Z$ can be certified exactly
 this determines rows on both sides of the prefix identity
 (Proposition~\ref{prop:secondrowexact}), and at $r=\frac{177}{167}$ it
 shows that the identity can fail although $\nu_2(n)>\nu_1(n)$
-(Proposition~\ref{prop:secondrowhyp}).
+(Proposition~\ref{prop:secondrowhyp}).  Since $\eta_\sigma(n)$ and
+$\nu_i(n)$ decrease with $r$, one certificate covers an interval of roots,
+and $49$ of them show that the identity fails in the second row of some
+diagonal at every $r\in[\frac{21}{20},\frac{139}{100}]$
+(Theorem~\ref{thm:failinterval}).
 
 \begin{lemma}[Dropping a far exempted position]\label{lem:rowmono}
 Let $r>1$ and $2\le k\le L$.  Then $V_r(L,k)\le V_r(L-1,k-1)$.  So
@@ -1865,8 +1877,103 @@ $n=4$ to $0.9998$ at $n=42$, $1.0017$ at $n=46$ and $1.0054$ at $n=58$,
 with the maximum at $\sigma=3$ for $n\le12$ and at $\sigma=5$ from $n=13$
 on; Proposition~\ref{prop:secondrowhyp} takes $r$ just below $r_{50}$.
 We do not know whether a worst exempted position, when one exists, is
-always small, whether the identity fails for every $1<r<2$ or only near
-$1$, or which condition on $r$ and $n$ gives it at $k=2$.
+always small, or which condition on $r$ and $n$ gives the identity at
+$k=2$.
+
+\paragraph{Failures on an interval of roots.}
+The failures above are at single rational roots.  Since every $\mu_r(S,L)$
+decreases with $r$, a failure certified at two roots persists between
+them (Proposition~\ref{prop:failinterval}), and finitely many such
+certificates show that the identity fails somewhere in the second row for
+every root in an interval (Theorem~\ref{thm:failinterval}).
+
+\begin{lemma}[Monotone in the root]\label{lem:rootmono}
+Let $1<r\le r'$, let $S\subset\N_{>0}$ be finite and $L>|S|$.  Then
+$\Phi_{r'}(q)\le\Phi_r(q)$ for every real polynomial $q$, and
+$\mu_{r'}(S,L)\le\mu_r(S,L)$.  In particular $\nu_i(n)$ and
+$\eta_\sigma(n)$ do not increase with $r$.
+\end{lemma}
+
+\begin{proof}
+Term by term, $|q(s)|r'^{-s}\le|q(s)|r^{-s}$ for $s\ge1$.  The admissible
+set of $\mu_r(S,L)$ does not depend on $r$, so the infima compare in the
+same way; $\nu_i(n)=\mu_r([1,i-1],n+i-1)$ and
+$\eta_\sigma(n)=\mu_r(\{\sigma\},n+1)$.
+\end{proof}
+
+\begin{proposition}[A failure certified on an interval]\label{prop:failinterval}
+Let $1<r_0<r_1$, $n\ge2$ and $\sigma\ge2$.  Let $Y$, $Y'$ and $Z$ be sets
+of $n-1$, $n$ and $n$ positive integers with $1\in Y'$ and $\sigma\in Z$.
+Suppose that $Z$ passes the test of Lemma~\ref{lem:vertexopt} for
+$S=\{\sigma\}$ at the root $r_1$, and that
+\[
+  \Phi_{r_1}(Z)>\max\bigl\{\Phi_{r_0}(Y),\ \Phi_{r_0}(Y')\bigr\}.
+\]
+Then for every $r\in[r_0,r_1]$, $\eta_\sigma(n)>\max\{\nu_1(n),\nu_2(n)\}$
+at the root $r$, so
+\[
+  V_r(n+1,2)\le\frac1{\eta_\sigma(n)}<\min_{i\le2}\frac1{\nu_i(n)},
+\]
+and the prefix identity~\eqref{eq:prefixid} fails at $(r,n+1,2)$.
+\end{proposition}
+
+\begin{proof}
+Write $\eta_\sigma(n;r)$ and $\nu_i(n;r)$ for the values at the root $r$.
+Lemma~\ref{lem:vertexopt} with $L=|Z|+1=n+1$ gives
+$\eta_\sigma(n;r_1)=\mu_{r_1}(\{\sigma\},n+1)=\Phi_{r_1}(Z)$, and
+Lemma~\ref{lem:rootmono} gives $\eta_\sigma(n;r)\ge\Phi_{r_1}(Z)$.  The
+polynomial $r_Y$ lies in $\mathcal Q_n$, and $r_{Y'}$ has degree $n$, takes
+the value $1$ at $0$ and vanishes at $1$, so it is admissible for
+$\nu_2(n;r)=\mu_r(\{1\},n+1)$.  By Lemma~\ref{lem:rootmono},
+$\nu_1(n;r)\le\Phi_r(Y)\le\Phi_{r_0}(Y)$ and
+$\nu_2(n;r)\le\Phi_r(Y')\le\Phi_{r_0}(Y')$.  So
+$\eta_\sigma(n;r)>\max\{\nu_1(n;r),\nu_2(n;r)\}$, and
+Proposition~\ref{prop:rowvalue}(b) with $S=\{\sigma\}$ gives
+$V_r(n+1,2)\le1/\eta_\sigma(n;r)$.
+\end{proof}
+
+Only $Z$ needs an optimality certificate; $Y$ and $Y'$ only give upper
+bounds, and need not be optimal at either root.
+
+\begin{theorem}[Second-row failures on an interval]\label{thm:failinterval}
+For every $r\in[\frac{21}{20},\frac{139}{100}]$ there is an $n$ with
+$10\le n\le68$ such that $\eta_2(n)>\max\{\nu_1(n),\nu_2(n)\}$ at the root
+$r$; so $V_r(n+1,2)\le1/\eta_2(n)<\min_{i\le2}1/\nu_i(n)$, and the prefix
+identity~\eqref{eq:prefixid} fails at $(r,n+1,2)$.
+\end{theorem}
+
+\begin{proof}
+The proof is computer-assisted, by exact rational arithmetic as in
+Proposition~\ref{prop:secondrowexact}, in
+\texttt{test\_second\_row\_fails\_on\_an\_interval} of
+\texttt{tests/test\_rows.py}.  The file \texttt{tests/second\_row\_cover.json}
+lists $49$ tuples $(r_0,r_1,n,2,Y,Y',Z)$, with rational endpoints over
+denominators dividing $2\cdot10^4$ and $n$ nonincreasing from $68$ to $10$.  The
+test checks that each tuple satisfies the hypotheses of
+Proposition~\ref{prop:failinterval} with $\sigma=2$: the sizes, $1\in Y'$,
+$2\in Z$, the vertex test for $Z$ at $r_1$, and the strict comparison.  It
+also checks that the first interval starts at $\frac{21}{20}$, that each
+starts at or below the largest right end before it, and that the last one
+ends at or above $\frac{139}{100}$.  So the intervals $[r_0,r_1]$ cover
+$[\frac{21}{20},\frac{139}{100}]$, and Proposition~\ref{prop:failinterval}
+applies at every root there.
+\end{proof}
+
+So the failures of Proposition~\ref{prop:secondrowexact} at $\frac54$ and
+$\frac43$ are not isolated: the second row misses the prefix identity at
+every root of $[\frac{21}{20},\frac{139}{100}]$, each time at the position
+$2$ and a diagonal $n$ that moves with $r$.  The certificates were found by
+floating-point search, which played no part in the proof.  The same
+search, also not used in any proof, finds no second-row failure with
+$n\le40$ at the roots $1.400$ and $1.432$, $1.436,\ldots,1.460$,
+$1.472,\ldots,1.5$ (step $0.004$), nor with $n\le30$ at $1.6$, $1.7$,
+$1.8$ and $1.9$; between these the failures continue in narrow windows
+of $r$ for single $n$, such as $n=9$ on $[1.403,1.429]$ and $n=8$ near
+$1.466$.  Whether every $1<r<2$ has a failure in some row, and whether
+there is one for every $1<r<\frac{21}{20}$, remain open.  There a failure
+at $(r,n+1,2)$ needs $\beta_r(n)>1$ (Theorem~\ref{thm:onepolyrows}), so by
+Lemma~\ref{lem:topnearone} its diagonal $n$ tends to infinity as
+$r\to1^+$.
 
 \subsection{Every row is a finite minimum}\label{sec:finiterows}
 
@@ -2155,23 +2262,31 @@ $\nu_1(n)\le\nu_k(n)$.
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.  The exact
 computations behind Propositions~\ref{prop:secondrowexact},
-\ref{prop:secondrowhyp} and~\ref{prop:thirdrowexact} are in
-\texttt{tests/test\_rows.py} of the repository
+\ref{prop:secondrowhyp} and~\ref{prop:thirdrowexact} and
+Theorem~\ref{thm:failinterval} are in \texttt{tests/test\_rows.py}, with
+the certificates of Theorem~\ref{thm:failinterval} in
+\texttt{tests/second\_row\_cover.json}, of the repository
 \href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass};
 they need Python~3.12 or later.
 
 \paragraph{Computer assistance.}
 Propositions~\ref{prop:secondrowexact}, \ref{prop:secondrowhyp}
-and~\ref{prop:thirdrowexact} are the only computer-assisted results; every other result is proved by hand.  Their
+and~\ref{prop:thirdrowexact} and Theorem~\ref{thm:failinterval} are the
+only computer-assisted results; every other result is proved by hand.  Their
 proofs reduce each claim, through Lemma~\ref{lem:vertexopt},
-Theorem~\ref{thm:secondrow}(a) and Theorem~\ref{thm:finiterows}(b), to
+Theorem~\ref{thm:secondrow}(a), Theorem~\ref{thm:finiterows}(b) and
+Proposition~\ref{prop:failinterval}, to
 finitely many comparisons of explicit rational numbers: the vertex test of
 Lemma~\ref{lem:vertexopt} for each named zero set, the sign of
 $\Delta_{q,m}$ at each threshold, the bound $\Phi_r(Z)\le B$ (or $<B$) for
-a zero set through each exempted position or set below the thresholds, and
-the comparisons with the stated decimals.  The tests
+a zero set through each exempted position or set below the thresholds,
+the comparisons with the stated decimals, and, for
+Theorem~\ref{thm:failinterval}, the comparison of
+Proposition~\ref{prop:failinterval} for each listed tuple and the order of
+their endpoints.  The tests
 \texttt{test\_second\_row\_*} (including
-\texttt{test\_second\_row\_hypothesis\_fails}) and \texttt{test\_third\_row\_*} in
+\texttt{test\_second\_row\_hypothesis\_fails} and
+\texttt{test\_second\_row\_fails\_on\_an\_interval}) and \texttt{test\_third\_row\_*} in
 \texttt{tests/test\_rows.py} carry out these comparisons in exact rational
 arithmetic (Python's \texttt{fractions} module), evaluating $\Phi_r$, $G_y$
 and $\Delta_{q,m}$ through the closed form described after
@@ -2182,8 +2297,9 @@ comparison for the zeros $25$ and $26$ quoted in
 Section~\ref{sec:finiterows} are computed in the same way
 (\texttt{test\_far\_zeros}) and are illustrations, not used in any proof.
 The floating-point experiments reported after
-Proposition~\ref{prop:secondrowhyp} are not part of any proof or test; they
-only guided the search for its zero sets.
+Proposition~\ref{prop:secondrowhyp} and after
+Theorem~\ref{thm:failinterval} are not part of any proof or test; they
+only guided the search for the zero sets and the intervals.
 The remaining tests are checks, not proof steps.
 \texttt{test\_prefix\_identity\_fails\_below\_two} builds from
 $Z_2(15)$, by complementary slackness, an explicit monic multiple of
