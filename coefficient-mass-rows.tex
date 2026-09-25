@@ -1490,38 +1490,10 @@ $[1,\sigma]$.  So there the second row equals the prefix value
 $1/\nu_{\sigma+1}(n+1-\sigma)$, of a longer prefix and a smaller degree than
 the prefix identity allows, although only one position is exempted.
 
-\paragraph{Numerical findings.}
-The following was found in floating point and is not proved.  We computed
-$\nu_1(n)$, $\nu_2(n)$ and $\eta_\sigma(n)$ in floating point by line
-search over integer zero sets, one zero at a time (in exact arithmetic a set admitting no
-improving move is optimal, by the proof of Lemma~\ref{lem:vertexopt}), for
-$r\in\{\frac65,\frac54,\frac{13}{10},\frac43,\frac75,\frac32,\frac85,\frac53,
-\frac74,\frac95,\frac{19}{10}\}$, $2\le n\le20$ and $2\le\sigma\le8$, and for
-$\sigma\le30$ at $r\in\{\frac{11}{10},\frac54,\frac43,\frac32,\frac74,
-\frac{19}{10}\}$, $n\le10$, and $\sigma\le20$ at
-$r\in\{\frac54,\frac43,\frac32\}$, $11\le n\le16$.  On the grid, ``the
-identity held'' means that no computed $\eta_\sigma(n)$ exceeded
-$\max\{\nu_1(n),\nu_2(n)\}$; the positions between $8$ and $\sigma_*$ were
-not all computed there.
-\begin{itemize}
-\item Whenever $\nu_2(n)\ge\nu_1(n)$ (45 of the 209 grid points), the prefix
-identity held at $(r,n+1,2)$, with the worst position $\sigma=1$.
-\item The identity failed only for $r\le\frac43$: at $r=\frac65$ for
-$17\le n\le20$, at $r=\frac54$ for $14\le n\le18$, at $r=\frac{13}{10}$ for
-$n\in\{12,13,14,20\}$ and at $r=\frac43$ for $n\in\{11,12,13,18\}$, always
-with $\beta_r(n)>5$, with the ratio of $\min_{i\le2}1/\nu_i(n)$ to
-$V_r(n+1,2)$ at most $1.19$ among the computed positions (uncomputed
-positions could only raise it), and with worst position $\sigma=2$
-except at $(\frac{13}{10},20)$ and $(\frac43,18)$, where it is $\sigma=3$.
-\item At the other $147$ grid points, including all with $r\ge\frac75$,
-the identity held with $\nu_2(n)<\nu_1(n)$, so the second row was the top
-row $\beta_r(n)$, as in Proposition~\ref{prop:secondrowexact}(c).
-\end{itemize}
-So at a fixed root the failures at $\sigma=2$ come in runs of consecutive
-$n$, and those at $\sigma=3$ appear later and in isolation.  We
-conjecture that the prefix identity holds at $(r,n+1,2)$ whenever
+\paragraph{A conjecture.}
+We conjecture that the prefix identity holds at $(r,n+1,2)$ whenever
 $\nu_2(n)\ge\nu_1(n)$.  Whether a worst finite position is always small,
-and whether failures occur for every $1<r<2$ or only near $1$, we do not
+and whether the identity fails for every $1<r<2$ or only near $1$, we do not
 know.
 
 \subsection{Every row is a finite minimum}\label{sec:finiterows}
@@ -1774,37 +1746,6 @@ $[1,\sigma]$; in (a) $Z_{2,3}$ omits $1$.  The identities at
 $(\frac43,15,2)$ and $(\frac32,10,3)$ are outside
 Theorems~\ref{thm:onepolyrows} and~\ref{thm:longdiag}, which give
 $\nu_1(n)\le\nu_k(n)$.
-
-\paragraph{Numerical findings for the third row.}
-The following was found in floating point and is not proved.  For
-$r\in\{\frac65,\frac54,\frac43\}$ with $2\le n\le18$ and for $r=\frac32$ with
-$2\le n\le16$ ($66$ grid points), we computed $\nu_i(n)$ for $i\le3$,
-$\eta_\sigma(n)$ for $\sigma<t_2(p_*)$, and $\mu_r(S,n+2)$ for every pair $S$
-in the tree of Theorem~\ref{thm:finiterows}(a) with $m=2$, by the line
-search of Section~\ref{sec:secondrow}; each $q_N$ is the zero set found for
-$N$, and the thresholds were computed in floating point.  So each
-$V_r(n+2,3)$ and $V_r(n+1,2)$ below is the finite minimum of the theorem,
-with computed rather than certified terms.
-\begin{itemize}
-\item The prefix identity at $k=3$ failed at $(r,n+2,3)$ for $r=\frac65$,
-$n=18$; for $r=\frac54$, $14\le n\le18$; and for $r=\frac43$,
-$n\in\{11,12,13,14,18\}$.  The largest relative gap,
-$\min_{i\le3}1/\nu_i(n)$ over $V_r(n+2,3)$, was about $1.40$, at
-$(\frac54,19,3)$; on this grid the largest gap at $k=2$ was about $1.16$,
-at $(\frac54,16,2)$.
-\item On a diagonal $n$, the identity failed at $k=3$ but not at $k=2$ only
-for $(r,n)=(\frac43,14)$, the case of
-Proposition~\ref{prop:thirdrowexact}(b); it failed at $k=2$ but not at
-$k=3$ only for $(r,n)=(\frac65,17)$, where the third row was $1/\nu_3(17)$.
-\item In the failures with $r=\frac54$, $16\le n\le18$, and with
-$r=\frac43$, $12\le n\le14$, the third row was below the second, with the
-worst pair $\{2,3\}$; in the other failures it equalled the second row.
-\item Where the identity held at $k=3$, its minimum was at $i=3$, with the
-pair $\{1,2\}$ worst, or at $i=1$, the third row being the top row.
-\item At the $30$ grid points with $\nu_2(n)\ge\nu_1(n)$ the identity held
-at $k=2$, now with every position below $t_1(p_*)$ computed, which is
-further evidence for the conjecture of Section~\ref{sec:secondrow}.
-\end{itemize}
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.  The exact
