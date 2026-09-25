@@ -10,6 +10,7 @@ import CoefficientMass.ExpSum
 import CoefficientMass.Mass
 import CoefficientMass.Order
 import CoefficientMass.RealPart
+import CoefficientMass.ZeroBound
 
 /-!
 # CoefficientMass
