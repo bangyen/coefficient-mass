@@ -799,7 +799,7 @@ def test_small_derivative_at_zero() -> None:
     p = _pairs(roots)
     assert p[0] == prod(norms) == 194126805235805 and p[1] == 6
     assert 4 * p[1] ** 2 < min(norms)
-    assert log(p[0]) / log(max(norms)) > 3.77
+    assert p[0] ** 100 > max(norms) ** 377
     q = _pairs([(-26, 35), (-1, 60), (29, 62), (48, 62)])
     assert 4 * q[1] ** 2 > 10**6 * min(_norm(z) for z in roots)
 
@@ -1071,6 +1071,49 @@ def _near_one_circle(h: Poly, roots: list[Gauss], ratio: Fraction | None) -> boo
         all(Fraction(m, n_min) ** d < q * q for m in norms)
         and len(roots) ** 2 < 36 * n_min
     )
+
+
+def _e_bounds() -> tuple[Fraction, Fraction]:
+    """``sum_(k <= 12) 1/k! < e < sum_(k <= 12) 1/k! + 1/(12! 12)``."""
+    partial, term = Fraction(0), Fraction(1)
+    for k in range(13):
+        partial += term
+        term /= k + 1
+    return partial, partial + term * 13 / 12
+
+
+def test_near_one_circle_constants() -> None:
+    """The constants that close ``prop:gausscircle`` and the remark after
+    it, in rationals (``e`` bounded by its series, ``pi < 22/7``): at
+    ``rho^2 >= 5``, ``Q <= 3 + 4/(sqrt 5 - 2) < 20``, ``log Q < 3``; ``t <
+    1/(4 rho) < 1/8``; ``e^(1/4) < 1.3`` (so ``2t e^(2t) < 2.6t``), ``e^(1/8)
+    < 1.14``, ``2.6 * 3/12 < 0.66``, ``sqrt 2 (1 + 1.14) < 3.03`` and
+    ``(pi/2)(0.66 + 3.03) < 5.8``; and at ``d >= 8 rho^2``, ``rho_j^2 <
+    rho^2 Q^(2/d) < rho^2 + 1`` as ``(3/4) e^(3/20) < 1``.
+
+    Control: ``Q < 20`` fails with ``rho^2 = 5`` replaced by ``4.99``, and
+    ``log Q < 2.9`` fails at ``rho^2 = 5``.
+    """
+    e_low, e_up = _e_bounds()
+    assert Fraction(2718, 1000) < e_low < e_up < Fraction(2719, 1000)
+    # 4/(sqrt 5 - 2) < 17 iff 17 sqrt 5 > 38; Q = 3 + 4/(rho - 2) decreases.
+    assert 17**2 * 5 > 38**2 and e_low**3 > 20
+    assert 4**2 * 5 > 8**2
+    assert e_up < Fraction(13, 10) ** 4 and e_up < Fraction(114, 100) ** 8
+    assert Fraction(2) * Fraction(13, 10) <= Fraction(26, 10)
+    assert Fraction(26, 10) * Fraction(3, 12) < Fraction(66, 100)
+    assert 2 * Fraction(214, 100) ** 2 < Fraction(303, 100) ** 2
+    assert Fraction(22, 7) / 2 * (Fraction(66, 100) + Fraction(303, 100)) < Fraction(
+        58, 10
+    )
+    # rho^2 (e^(3/(4n)) - 1) <= (3/4) e^(3/(4n)) <= (3/4) e^(3/20) < 1.
+    assert e_up**3 < Fraction(4, 3) ** 20
+    # Controls: sqrt 4.99 < 2.234 gives Q > 20; sqrt 5 > 2.236 gives Q > 19.944
+    # there, and e^2.9 < 19.944.
+    assert Fraction(2234, 1000) ** 2 > Fraction(499, 100)
+    assert 3 + 4 / (Fraction(2234, 1000) - 2) > 20
+    q5 = 11 + 4 * Fraction(2236, 1000)
+    assert Fraction(2236, 1000) ** 2 < 5 and e_up**29 < q5**10
 
 
 def test_level_set_near_one_circle() -> None:

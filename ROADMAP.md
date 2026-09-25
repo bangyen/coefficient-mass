@@ -473,7 +473,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   points needs `deg H >= 16`.  The proof writes `Im A(z) = 0` as
   `a_1 + 2 a_2 X + a_3 (4X**2 - N**2) = 0`, `z = X + iY`, `N = |z|`, which
   at these sizes forces `A = a_3 z (z - sigma j)**2`, `sigma = sign X`, with `2|X| = N + j`, and
-  `j = n**2 - 4w**2` is at least `n` when `N = n**2` is a square.  Sizes
+  `j = n**2 - 4w**2`, nonzero, has `|j| >= n` when `N = n**2` is a square.  Sizes
   alone cannot settle the question: at the square `z = beta**2` of a Pell
   point `beta = a + ci`, `z (z - 1)**2 = -4c**2 (a**2 + c**2)**2` is real
   with coefficients below `|z|**(1/4)/2` (this is `(y**3 - y)**2 = A(y**2)`),

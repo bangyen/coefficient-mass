@@ -807,7 +807,7 @@ $x^4$, which bounds the constant of any bound of order $K^2\log R$.
 \begin{proposition}[Polynomials in a power]\label{prop:gausspower}
 In the setting of Section~\ref{sec:gaussian}, put $\rho_{\max}=\max_j\rho_j$.
 \begin{enumerate}
-\item If $F=A(x^N)$ with $N\ge1$ and $A\in\mathbb Z[y]$ is nonzero and
+\item If $F=A(x^N)$ with $N\ge1$ and $A\in\mathbb Z[y]$ nonzero, and $F$ is
 divisible by $P$, then $\Lambda(F)\ge\frac N2\sum_j\log\rho_j$, with equality
 for $x^4+4k^4$, $k\ge1$, whose roots above the axis are $k(\pm1+i)$.
 \item Let $Z=\{\alpha_j,\bar\alpha_j\}_j$ be the set of the $2K$ roots of $P$.
@@ -1053,9 +1053,10 @@ for $0<i<m$, and $\deg F<m+2K$.
 By item~2 a polynomial in $x^N$ pays $2N\sum_j\log\rho_j$ at such norms, four
 times the bound of Proposition~\ref{prop:gausspower}, item~1, whose equality
 case $x^4+4k^4$ has a common norm.  The valuations cannot do more than
-item~2 says: the middle term of the display charges $\log n_j$ once for every
-root of $F/x^e$ that is at least as divisible by $p$ as $\alpha_j$, other
-than $\alpha_j$ itself, and roots of $F/P$ need not be; at $F=P$ it is
+item~2 says: the term $i=e$ of the middle term of the display charges
+$v_p(n_j)\log p$ once for every root of $F/x^e$ that is at least as divisible
+by $p$ as $\alpha_j$, $\alpha_j$ included, and roots of $F/P$ need not be; at
+$F=P$ the middle term is
 $\log P(0)\le2K\log\rho_{\max}$, linear in $K$.  A bound of order
 $K^2\log R$ at pairwise coprime norms therefore has to combine the
 valuations with the sizes of the coefficients.  Item~3 bounds what such a
@@ -1150,7 +1151,7 @@ $s$ let $P_s=\prod_j(x-\alpha_j)(x-\bar\alpha_j)$ with
 $\alpha_j=\lambda_js+\mu_j$.  Put $\Lambda=\prod_j|\lambda_j|^2$ and
 $Q(s)=\prod_j(s-w_j)(s-\bar w_j)$.  Then $P_s(0)=\Lambda Q(s)$, and $P_s'(0)$
 is a polynomial in $s$ with integer coefficients and degree less than $2K$,
-equal to a constant $-N$ if and only if $N\lambda_j=\Lambda Q'(w_j)$ for
+equal to a constant $-N$, $N\in\mathbb R$, if and only if $N\lambda_j=\Lambda Q'(w_j)$ for
 every $j$.
 \item In the setting of Section~\ref{sec:gaussian}, at $\alpha_1=-(s+3)+(s+2)i$
 and $\alpha_2=(s+1)+(s+2)i$,
@@ -1545,7 +1546,7 @@ $\operatorname{Im}z^3=Y(3X^2-Y^2)=Y(4X^2-N^2)$, so dividing by $Y$,
 \[
   a_1+2a_2X+a_3(4X^2-N^2)=0 .
 \]
-If $D=1$ this says $a_1=0$.  If $D=2$ it gives $2|X|\le|a_1|\le b<\rho/2<n$,
+If $D=1$ this says $a_1=0$, against $a_D\ne0$.  If $D=2$ it gives $2|X|\le|a_1|\le b<\rho/2<n$,
 against \eqref{eq:gaussfourX}.  Let $D=3$, put $j=2|X|-N$ and
 $\sigma=X/|X|$, so $2X=\sigma(N+j)$ and
 $4X^2-N^2=j(2|X|+N)=j(2N+j)$.  Then
