@@ -7,9 +7,19 @@ is open; an answer lands in the paper it extends, and the row leaves.
   [coefficient-mass-attainment](coefficient-mass-attainment.tex)
   proves the partial-sum criterion at repeated roots (`thm:converse`,
   `cor:charrep`, Descartes at infinity) and non-attainment
-  (`thm:noattain`).  Open (`sec:scope`): when the criterion fails the
-  infimum is `1/T` with `T >= tau*`; whether `T = tau*`, that is, whether
-  the escaping placement is the worst one.
+  (`thm:noattain`).  When the criterion fails the infimum is `1/T` with
+  `T >= tau*` (`thm:value`).  CLOSED for roots `>= 2`, repeated roots
+  included (`sec:extremal`): the escaping placement is the worst one, `T =
+  tau*` (`thm:extremal`, `cor:extremalrep`), by lifting the minimiser for
+  one fewer exempt coefficient by one node, through the deletion step when
+  the new zero is aligned (`lem:delete`) and the run chord when it straddles
+  (`prop:runchord`); so the infimum is `min_M max_j |S_j(P_u M)|`, e.g.
+  `1704/31` at `(2,3,5,7)`, `u = 1`.  False below 2: at `(11/10,3,5,7)`,
+  `u = 1`, a degree-8 multiple has `b_2 = 997/20 < 1704/31 = 1/tau*`
+  (`prop:belowtwo`, `tests/test_attainment.py`).  Open (`sec:scope`): the
+  value `T` below 2 (numerically the placement `{5}` there, `~35.06`), and
+  for which roots below 2 the escaping placement stays extremal
+  (numerically it does at `(3/2,3,5,7)`).
 
 - **Coefficient mass at complex roots.**  Purely imaginary pairs are CLOSED
   ([coefficient-mass-complex](coefficient-mass-complex.tex), split
