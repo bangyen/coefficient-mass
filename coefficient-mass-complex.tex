@@ -92,7 +92,9 @@ Reduced height and reduced length, the least height and length of a
 normalized multiple, have been studied for real and complex
 coefficients~\cite{dj,schinzel-complex}, and power series with restricted
 coefficients and a root on a given ray in~\cite{bbbp-ray}; the first row
-below is the complex form of the bound $H(P)\ge|P(1)|$ of~\cite{dj}.
+below, $b_1(F)\ge|f_D|\prod_j(|\alpha_j|-1)$, is the complex analogue of the
+bound $H(P)\ge|P(1)|$ of~\cite{dj}; the two agree at real roots greater than
+one, but $|P(1)|$ can be larger at complex roots ($x^2+\rho^2$).
 
 \paragraph{Exact reductions.}  If the prescribed factor has the form
 $R(x^m)$, multisection reduces every multiple to a multiple of $R$ with a
@@ -110,8 +112,8 @@ Separated moduli restore the rows and the mass up to constants, through an
 Archimedean Newton polygon (Theorem~\ref{thm:archnewton},
 Corollary~\ref{cor:separated}).  For $K_s$ roots in each of several separated
 annuli the central index charges a root once for every annulus at or below it,
-$\sum_ssK_s\log T_s$ in all when the separation grows with the number of
-roots, attained for suitable roots as $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
+$\sum_ssK_s\log(T_s/2)-O(S)$ in all when the separation grows with the
+number of roots, attained for suitable roots as $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
 (Theorem~\ref{thm:annuli},
 Corollary~\ref{cor:annuli}, Proposition~\ref{prop:annulisharp}).
 
@@ -285,7 +287,8 @@ the pair has two roots of modulus $c$, and the mass charges $\log c^2$ once
 at its rank.  This is the right count.  By item~3 the product
 $P_{\rm im}$ itself is within $O(K^2)$ of the infimum
 (\cite[Corollary~3.7]{coefficient-mass}), and $\Lambda(P_{\rm im})=\Lambda(P_{\rm re})$; so a
-bound of the form $\sum_{i\le2K}i\log\rho_{(i)}$ over the $2K$ roots
+bound of the form $\sum_{i\le2K}i\log\rho_{(i)}$, where
+$\rho_{(1)}\le\cdots\le\rho_{(2K)}$ are the moduli of the $2K$ roots
 counted separately, which would be about twice as large, is false for
 $P_{\rm im}$ once $\min_jc_j$ is large: it exceeds the bound
 $\Lambda(P_{\rm im})\le\sum_j\log\binom Kj+\sum_j2j\log c_j$ by at least
@@ -564,7 +567,7 @@ square term is false (Proposition~\ref{prop:noangle}).  This section shows
 that the cross terms are false as well, and that the right count charges a
 root once for every annulus at or below it: when the separation grows with
 the number of roots, every monic multiple has mass at least
-$\sum_ssK_s\log T_s$ up to lower order terms, and for suitable roots this is
+$\sum_ssK_s\log(T_s/2)-S\log2$, and for suitable roots this is
 attained, constant included, as $\min_sT_s\to\infty$
 (Corollary~\ref{cor:annuli}, Proposition~\ref{prop:annulisharp}).
 Corollary~\ref{cor:separated} is essentially the case $K_s=1$.
