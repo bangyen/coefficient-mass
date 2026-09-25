@@ -155,9 +155,10 @@ the next annulus down gives $n_a+1$ once $n_a\ge30$, and for large $n_a$ the
 additive constant is exactly $\frac12$: $n_a+c$ suffices for every
 $c>\frac12$ and fails for every $c<\frac12$ (Theorem~\ref{thm:rowspair},
 Corollary~\ref{cor:rowsplusone}, Proposition~\ref{prop:rowslower}).  At a
-lower zero $\alpha$ the second row is at least
-$\lambda(1-1/|\alpha|)^2$ times its charge, $\lambda=1-n|\alpha|/T$, with
-the constant $1$ attained as $|\alpha|\to\infty$
+lower zero $\alpha$ with $|\alpha|\ge2$, $b_2(F)$ is at least
+$\lambda(1-1/|\alpha|)^2|f_D|\prod_\beta|\beta|$ over the $n$ zeros $\beta$
+of modulus at least $T$, $\lambda=1-n|\alpha|/T$, with
+the constant $1$ approached as $|\alpha|\to\infty$
 (Proposition~\ref{prop:rowstwolarge}).  The mass bound fails with
 $T_2=(2+\frac1{18915})U_1$ (Proposition~\ref{prop:gaptwo}), with two roots
 above the gap, where the separation $4$ suffices
@@ -1456,7 +1457,7 @@ the zero below it.
 
 \begin{proposition}[The row $3$ needs the lower separation]\label{prop:rowslower}
 Let $h=u/v>0$ with coprime positive integers $u$ and $v$, let
-$K\ge\max(3,18h)$ be an integer and $p\ge2^K$ a multiple of $v^2$, and put
+$K\ge\max(9,18h)$ be an integer and $p\ge2^K$ a multiple of $v^2$, and put
 $q_1=2h(K+h)p$, $q_2=K(K+1+2h)p$, $t=(K+h)q_2$ and
 $F=(x-q_1)(x-q_2)(x+t)^K$.  Then Theorem~\ref{thm:annuli} applies to the
 monic $F\in\mathbb Z[x]$ with $S=3$, $A_1=\{q_1\}$, $A_2=\{q_2\}$ and $A_3$
@@ -1475,7 +1476,7 @@ $T_a>(n_a+c)U_{a-1}$ for $a=2,3$ give it.
 \end{proposition}
 
 \begin{proof}
-Here $n_3=K$ and $n_2=K+1$, $T_3=U_3=t=(K+h)q_2$, and
+Here $n_3=K$ and $n_2=K+1$, $T_3=U_3=t=(K+h)q_2>9U_2$ as $K\ge9$, and
 $q_1=2u(Kv+u)p/v^2$, $q_2=K(Kv+v+2u)p/v$ and $t=(Kv+u)q_2/v$ are integers,
 as $v^2\mid p$.  Further $T_2/U_1=q_2/q_1=K(K+1+2h)/(2h(K+h))$, which is below
 $(K+1+2h)/(2h)=\frac{n_2}{2h}+1$ and above $9$, as $K\ge18h$ gives $K^2\ge18hK$
@@ -1720,7 +1721,9 @@ Finally $t/q=2+\delta/q$, which is $2+\frac1{18915}$ at $q=97$.
 With few roots above a gap the single central index of
 Corollary~\ref{cor:annuli}, item~1, needs less than the factor $9n_a$: by
 the last clause of Lemma~\ref{lem:tropcount}, $T_a>3\rho_{n_a}U_{a-1}$
-suffices, and $3\rho_{n_a}<81$ for $n_a\le13$.  At a gap where it does not
+suffices, and $3\rho_{n_a}<81$ for $n_a\le13$, as
+$(\frac{28}{27})^{13}-1<(\frac{26}{27})^{13}$ and $(1+\theta)^n-1-(1-\theta)^n$
+increases with $n$.  At a gap where it does not
 suffice the two positions of Theorem~\ref{thm:fixedgap} can be used, gap by gap.
 
 \begin{corollary}[Few roots above a gap]\label{cor:fewabove}
@@ -1812,7 +1815,7 @@ $|f_D|\Pi\le m(1-1/T)^{-n}\le m\Gamma$.  Let $j\le d$ and $M=d-j$.  The
 second identity gives
 \[
   |f_j|a^j\lambda\ \le\ \Bigl(1-\frac aT\Bigr)^{-n}\sum_{l\le d,\,l\ne j}|f_l|a^l
-  \ <\ m\Bigl(1-\frac aT\Bigr)^{-n}\frac{a^{d+1}}{a-1},
+  \ \le\ m\Bigl(1-\frac aT\Bigr)^{-n}\frac{a^{d+1}}{a-1},
 \]
 and $a^M|w_M|\le\binom{n+M-1}M(a/T)^M\le(na/T)^M\le1$, as
 $\binom{n+M-1}M\le n^M$.  So the first identity gives
@@ -1865,7 +1868,8 @@ $\sum_kn^{1-k}/(k3^k)$), $(1-\frac1g)^{-n}\le(\frac43)^4<\frac{19}6$ and
 $(1-\frac1{3g})^{-n}\le(\frac{12}{11})^4<\frac{17}{12}$; so
 $\gamma_n<\frac{19}4(1+\frac{2^n}3)+\frac{17}{12}=\frac{19}{12}2^n+\frac{37}6$,
 which is at most $2^{n+1}$ as $\frac5{12}2^n\ge\frac{20}3>\frac{37}6$.  The
-row $k=1$ is Lemma~\ref{lem:central} at $r=1$ with $A=A_1\cup A_2$, and the
+row $k=1$ is Lemma~\ref{lem:central} at $r=1$ with $A=A_1\cup A_2$ (the
+central index is below $D$, as $\prod_A|\beta|/2>(\frac32)^2>2$), and the
 two rows give the mass as in Corollary~\ref{cor:rowstwo}.
 
 2.  Here $f_1=t^{K-1}(t-Kq)=2^{-K-1}t^K$, and for $2\le i\le K$,

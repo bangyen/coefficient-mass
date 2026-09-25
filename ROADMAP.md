@@ -162,8 +162,9 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `f_1 = 0` (the `K` zeros above cancel the one below) and
   `b_2 < 2**K (Kq)**(K-1)`, below the row `k = 2` by a factor tending to 0
   (`prop:rowsneedn`); so the rows need a separation between `n_a` and
-  `9 n_a`, at `3 rho_(n_a) < 7 n_a` by `cor:fewabove`, where the full
-  count `D - y >= n` of `lem:tropcount` holds exactly when `T > rho_n r`,
+  `9 n_a`, at `3 rho_(n_a) < 7 n_a` by `cor:fewabove`, where the criterion
+  of `lem:tropcount` for the full count `D - y >= n` holds exactly when
+  `T > rho_n r`,
   and at `n_a + 9` (`cor:rowsall`, below).
   For two annuli `n_2 + 1` suffices (`thm:rowstwo`,
   `cor:rowstwo`): dividing out the `n` zeros above leaves at a lower zero
@@ -185,7 +186,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `A_(>=k)` once `T_k > rho_(n_k) r` (so the row `k` needs `3 rho_(n_k)`
   only at the `k`-th separation, and 9 below it); at a zero `alpha` of the `(k-1)`-st annulus the
   truncation gives the last one, the central index at `r` just above
-  `3 U_(k-2)` bounding the lower positions there, whenever
+  `3 U_(k-2)` bounding the lower positions there, at least
+  `min(2**(-n-1), eps) |f_D| prod |beta|` with `eps > 0` whenever
   `lambda (1 - 2 xi) > (1 - lambda) xi/(1 - xi)`, `xi = 3 U_(k-2)/T_(k-1)`;
   so every row and the mass hold at `T_a > min(n_a + 9, 3 rho_(n_a)) U_(a-1)`,
   which is `n_a + 9` for `n_a >= 2` (any `c > 3` in place of 9 once `n_k` is
