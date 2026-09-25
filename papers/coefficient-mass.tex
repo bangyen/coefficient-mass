@@ -39,7 +39,7 @@ uniformly in $D$.  Summing these rows bounds the logarithmic coefficient
 mass $\Lambda(F)=\sum_j\log^+|f_j|$ of a monic multiple below by
 $\sum_ii\log(r_i-1)$, which is sharp in order at the first $L$ primes.
 With a Jensen-formula bound of order $L^2$, this gives
-$\inf\Lambda\asymp L^2+\sum_ii\log(r_i-1)$ over monic multiples at every
+$\inf\Lambda\asymp L^2+\sum_ii\log(r_i-1)$ over real monic multiples at every
 root set with $L\ge2$.  The row $k=2$ is sharp at $(2,3)$, and every monic
 multiple of $(x-2)^L$ has $b_k\ge L-k+1$ for $1\le k\le L$.  The key tool is a
 tail theorem for normalized exponential sums in the reciprocal roots with
@@ -47,7 +47,8 @@ prescribed positive-integer zeros: deleting a displaced largest zero
 together with the largest node strictly increases the $\ell^1$ tail, which
 yields a product bound over the initial run of consecutive zeros.  As a
 by-product, the reduced-height bound $H(P)\ge|P(1)|$ of Dubickas and
-Jankauskas holds unconditionally for distinct real roots greater than one.
+Jankauskas holds unconditionally for real roots greater than one,
+repetitions allowed.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; reduced
@@ -77,10 +78,11 @@ generally $|f_D|\ge1$, which is also the normalization of the reduced
 height~\cite{dj} and costs nothing for integer multiples.
 
 \paragraph{Main results.}
+Write $b_k(F)$ for the $k$-th largest of the $D$ nonleading coefficient
+magnitudes $|f_j|$, $j<D$, of $F$, counted with repetition, zeros included.
 Let $2\le r_1\le\cdots\le r_L$ be real, repetitions allowed, let
 $P=\prod_{i=1}^L(x-r_i)$, and let $F$ be a nonzero real multiple of $P$.
-Write $b_k(F)$ for the $k$-th largest of the $D$ numbers $|f_j|$, $j<D$,
-counted with repetition, zeros included.  Theorem~\ref{thm:order} and
+Theorem~\ref{thm:order} and
 Corollary~\ref{cor:mass} give
 \[
   b_k(F)\ge|f_D|\prod_{i=k}^{L}(r_i-1)
@@ -107,12 +109,11 @@ $L\ge8$ (Proposition~\ref{prop:quadratic}), and together
 with absolute constants (Corollary~\ref{cor:allroots}).
 
 \paragraph{Comparison with other bounds.}
-The standard lower bound for the coefficients of a multiple comes from the
-Mahler measure.  A monic $F$ has $M(F)\ge\prod_ir_i$, and Landau's inequality
-$M(F)\le\|F\|_2$ gives
-$b_1(F)\ge\bigl((\prod_ir_i)^2-1\bigr)^{1/2}D^{-1/2}$.  This bound gains the
-factor $\prod_i\frac{r_i}{r_i-1}$ over the row $k=1$ but loses $\sqrt D$, and it
-controls a single coefficient.  For the mass it gives only
+The Mahler measure gives a larger constant in the first row, but it loses
+a factor $\sqrt D$ and bounds only one coefficient.  A monic $F$ has
+$M(F)\ge\prod_ir_i$, and Landau's inequality $M(F)\le\|F\|_2$ gives
+$b_1(F)\ge\bigl((\prod_ir_i)^2-1\bigr)^{1/2}D^{-1/2}$, which gains the
+factor $\prod_i\frac{r_i}{r_i-1}$ over the row $k=1$.  For the mass it gives only
 $\Lambda(F)\ge\sum_i\log r_i-\frac12\log(D+1)$, at most of order $L\log L$
 at the first $L$ primes and vacuous once $\log D\gg L\log L$.  Jensen's
 formula on a disk of radius $R<1$, the tool behind the zero counts of
@@ -135,14 +136,25 @@ root $2$ Theorem~\ref{thm:everyrow} raises the row $k$ to $L-k+1$.
 To bound $b_k$, we exclude any $k-1$ positions and build a normalized
 exponential sum in the reciprocal roots, the certificate, vanishing there
 and at enough of the top positions $D-1,D-2,\ldots$
-(Lemma~\ref{lem:slack}).  Its $\ell^1$ tail is bounded, uniformly over zero
+(Lemma~\ref{lem:slack}).  For monic $F$, with the excluded positions
+carrying $b_1,\ldots,b_{k-1}$, pairing the coefficients of $F$ with the
+certificate $w$ at the roots gives $1\le b_k(F)\Tail(w)$, where $\Tail(w)$
+is the $\ell^1$ tail of $w$ (see~\eqref{eq:dual}).  This tail is
+bounded, uniformly over zero
 sets with a given leading run, by Theorem~\ref{thm:tail}, whose
 engine is a strict deletion step: deleting a displaced largest zero together
 with the largest node, the reciprocal of the smallest root, strictly
-increases the tail.
+increases the tail.  Section~\ref{sec:sharp} uses two further tools:
+Jensen's formula for the first rows near the root $2$, and confluent limits
+of the certificates at the single root $2$ of multiplicity $L$.
 
 \paragraph{Relation to earlier work.}
-Reduced length and reduced height minimize the two classical coefficient
+Lemma~\ref{lem:consecutive} and Theorem~\ref{thm:tail} remove the
+same-sign hypothesis under which Dubickas and Jankauskas~\cite{dj} evaluate
+their dual bound for the reduced height, and extend their consecutive-zero
+evaluation to a tail bound for arbitrary integer zero sets, which gives the
+rows $k\ge2$.  Reduced length and reduced height minimize the two classical
+coefficient
 norms over normalized multiples~\cite{dubickas,schinzel,schinzel-ii,schinzel-complex,dj};
 the Euclidean analogue is effectively computable~\cite{frw}.  Integer,
 bounded-height and sparse multiples, and power series with restricted
@@ -159,8 +171,8 @@ case~\cite[Sections~3--4]{dj}.  Here $H(P)$ is the reduced height, the infimum o
 heights of the multiples $PQ$ with $Q$ monic.  Lemma~\ref{lem:consecutive}
 proves the same-sign condition for all distinct nodes in $(0,1)$, so their
 bound $H(P)\ge|P(1)|$, which follows from the row $k=1$ of Theorem~\ref{thm:order},
-holds unconditionally for distinct real roots greater than one.  What is new here is the tail estimate for
-arbitrary integer zero sets, and with it the rows $k\ge2$.
+holds unconditionally for real roots greater than one, repetitions
+allowed.
 
 \paragraph{Sharpness and companion papers.}
 Section~\ref{sec:sharp} asks how close the rows are to optimal.  The loss
@@ -185,19 +197,20 @@ sector of half-width $\delta$ cost a mass of order
 $\min(K^2,K/\delta)\log R$ for multiples of degree $O(K)$.
 
 \paragraph{Formalization.}
-Theorem~\ref{thm:order} and Corollary~\ref{cor:mass}, with the whole chain
-leading to them from the zero bound, that is, Sections~2 and~3 through
-Corollary~\ref{cor:mass}, are formally verified in Lean~4 with Mathlib, in
-the directory \texttt{CoefficientMass} of the repository
-\href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass}.
-The formal proof of Corollary~\ref{cor:mass} depends only on the standard
-axioms of Lean (propositional extensionality, choice and quotient
-soundness), and the formal proofs follow the ones given here.  Two clauses are not
-formalized: the equality case of Theorem~\ref{thm:tail}, and the relaxation
-of $r_1\ge2$ to $r_1>1$ in the first row of Lemma~\ref{lem:slack} and
-Theorem~\ref{thm:order}.  The zero bound is formalized for distinct zeros,
-the sign changes at prescribed zeros being derived there from weak
-alternation, and the worked examples are not formalized.
+Sections~2 and~3 through Corollary~\ref{cor:mass}, that is,
+Theorem~\ref{thm:order} and Corollary~\ref{cor:mass} with the whole chain
+leading to them from the zero bound, are formally verified in Lean~4 with
+Mathlib.  Not formalized are the equality case of Theorem~\ref{thm:tail},
+the relaxation of $r_1\ge2$ to $r_1>1$ in the first row of
+Lemma~\ref{lem:slack} and Theorem~\ref{thm:order}, the worked examples, and
+everything after Corollary~\ref{cor:mass}.  The formal proofs, in the
+directory \texttt{CoefficientMass} of the repository
+\href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass},
+follow the ones given here, and the formal proof of
+Corollary~\ref{cor:mass} depends only on the standard axioms of Lean
+(propositional extensionality, choice and quotient soundness).  The zero
+bound is formalized for distinct zeros, the sign changes at prescribed
+zeros being derived there from weak alternation.
 
 \paragraph{Conventions.}
 All logarithms are natural, $\N_{>0}=\{1,2,\ldots\}$, and every asymptotic
@@ -248,8 +261,9 @@ multiplicity.
 \begin{lemma}[Consecutive zero set]\label{lem:consecutive}
 Let $0<y_1<\cdots<y_c<1$; no cutoff $y_c\le1/2$ is imposed.  Let $w$ be the
 exponential sum on these nodes with $w_0=1$ and $w_z=0$ for $z\in\{1,\ldots,c-1\}$;
-it exists and is unique by the Vandermonde argument above, which needs only
-distinct positive nodes.  Then
+it exists and is unique because a kernel vector of the interpolation system
+would be a nonzero $c$-node sum with the $c$ zeros $\{0,\ldots,c-1\}$,
+contradicting the zero bound, which needs only distinct positive nodes.  Then
 \[
   w_d=(-1)^{c+1}\Bigl(\prod_iy_i\Bigr)h_{d-c}(y_1,\ldots,y_c)
   \qquad(d\ge c),
@@ -283,7 +297,8 @@ formula for $w_d$ follows, and summing the one-signed terms gives
 
 \begin{theorem}[Displaced-zero tail bound]\label{thm:tail}
 Let $\rho_1>\cdots>\rho_c\ge2$, $y_i=\rho_i^{-1}$, $Z\subset\N_{>0}$ with
-$|Z|=c-1$, and let $w$ be the sum determined above.  Put
+$|Z|=c-1$, and let $w_d=\sum_{i=1}^ca_iy_i^d$ be the exponential sum
+with $w_0=1$ and $w_z=0$ for $z\in Z$.  Put
 $\ell=\max\{0\le k\le c-1:\{1,\ldots,k\}\subseteq Z\}$, the leading run of
 $Z$; the elements of $Z$ outside $\{1,\ldots,\ell\}$ are its displaced zeros.
 Then
@@ -295,14 +310,17 @@ Then
 a product over the $\ell+1$ largest $\rho_i$.  Equality holds exactly when $Z=\{1,\ldots,c-1\}$.
 \end{theorem}
 
-For example, at the nodes $(\rho_1,\rho_2)=(3,2)$ the zero set $Z=\{1\}$
+The proof removes the displaced zeros one at a time, starting with the
+largest, each time together with the largest node $y_c=1/\rho_c$, and shows
+that each removal strictly increases the tail.  It does not compare zero
+sets at fixed nodes, and no comparison of that kind holds in general.  At the nodes
+$(\rho_1,\rho_2)=(3,2)$ the zero set $Z=\{1\}$
 gives $w_d=3^{1-d}-2^{1-d}$ and $\Tail(w)=\frac12$, equality in
 \eqref{eq:tail}, while $Z=\{2\}$ gives $w_d=\frac95\,3^{-d}-\frac45\,2^{-d}$
-and $\Tail(w)=\frac3{10}$.  At $(\rho_1,\rho_2)=(5,3)$, however, $Z=\{1\}$
-gives $\frac18$ and $Z=\{2\}$ gives $\frac9{64}$, so the theorem does not
-compare zero sets at fixed nodes.  Instead its proof removes the displaced
-zeros one at a time, starting with the largest, each time together with the
-largest node $y_c=1/\rho_c$.  The hard step is the following bound: for the
+and $\Tail(w)=\frac3{10}$; at $(\rho_1,\rho_2)=(5,3)$, however, $Z=\{1\}$
+gives $\frac18$ and $Z=\{2\}$ gives $\frac9{64}$.
+
+The hard step is the following bound: for the
 correction sum $G$, the ratio $E_d/\widehat V_d$ with $E_d=G_d-y_cG_{d-1}$
 never exceeds its value at $d=m+1$, just past the marked points; it is
 proved by weak alternation.
@@ -453,7 +471,7 @@ largest node $y_c=1/\rho_c$ strictly increases the tail.  This completes the ind
 equality in \eqref{eq:tail} occurs only in the base case.
 \end{proof}
 
-The restriction $\rho_i\ge2$ matters: for $y=(\frac1{10},\frac45)$ and
+The restriction $\rho_i\ge2$ in Theorem~\ref{thm:tail} matters: for $y=(\frac1{10},\frac45)$ and
 $Z=\{2\}$ one finds $w_d=\frac{64}{63}10^{-d}-\frac1{63}(\frac45)^d$ and
 $\Tail(w)=\frac{52}{405}>\frac19$, so \eqref{eq:tail} fails.  The cutoff
 enters only through $1/(1-y_c)\le2$ in \eqref{eq:gamma} and the factors
@@ -522,8 +540,9 @@ and \eqref{eq:dual} gives the claim.
 
 \begin{theorem}[Coefficient order statistics]\label{thm:order}
 Let $r_1\le\cdots\le r_L$ be real with $r_1\ge2$, repetitions allowed, and
-let $F$ be a nonzero real multiple of $\prod_{i=1}^L(x-r_i)$.  Then for every
-$0\le u\le L-1$,
+let $F$ be a nonzero real multiple of $\prod_{i=1}^L(x-r_i)$ of degree $D$,
+and let $b_1\ge b_2\ge\cdots\ge b_D$ be the magnitudes $|f_j|$, $j<D$, in
+decreasing order.  Then for every $0\le u\le L-1$,
 \begin{equation}\label{eq:order}
   b_{u+1}\ge|f_D|\prod_{i=u+1}^L(r_i-1).
 \end{equation}
@@ -659,6 +678,10 @@ bound is the one for $P_L$ from Corollary~\ref{cor:prime},
 \]
 \end{proof}
 
+The prime roots are not special in this respect: at every root set the
+product $P$ itself comes within $O(L^2)$ of the infimum, so
+Corollary~\ref{cor:mass} determines the infimum up to $O(L^2)$.
+
 \begin{corollary}[Near-optimality of the root product]\label{cor:near}
 Let $2\le r_1\le\cdots\le r_L$, repetitions allowed,
 $P=\prod_{i=1}^L(x-r_i)$, and
@@ -765,11 +788,12 @@ $S=2L+O(L^{-1})$; hence $S/(B+1)\sim L$.
 
 \subsection{The bottom of the range}\label{sec:bottom}
 
-At $r_i=2$ the certificate of Proposition~\ref{prop:unbounded} gives
+The infimum of the mass over monic multiples is of order $L^2$ throughout
+the range where \eqref{eq:mass} degenerates, by Jensen's formula.  At
+$r_i=2$ the certificate of Proposition~\ref{prop:unbounded} gives
 $b_1\ge L$, where the row $k=1$ of \eqref{eq:order} gives only $1$, and
 this too is far from the truth: the first rows grow exponentially in $L$
-(the remark after Proposition~\ref{prop:quadratic}).  The infimum of the mass over monic multiples is of order $L^2$
-throughout the range where \eqref{eq:mass} degenerates.  The proof uses
+(the remark after Corollary~\ref{cor:allroots}).  The proof uses
 Jensen's formula rather than a certificate, in the spirit
 of~\cite{bbbp-multiple,bbbp-ray} and of the zero counting at $1$ for
 polynomials with bounded coefficients in~\cite{bek}, with $k-1$ coefficients exempted rather
@@ -878,9 +902,11 @@ of Proposition~\ref{prop:unbounded} at $r_i=2$, a growth the
 certificates of Lemma~\ref{lem:slack} do not see.  The bound
 \eqref{eq:jensen} is useful only while $(1-R)^{-k}$ has not overtaken
 $(2R)^{L-k+1}$, that is, for $k$ up to a constant multiple of $L$; it says
-nothing about the last rows.  For monic multiples of $(x-2)^L$,
-Theorem~\ref{thm:everyrow} at the end of this section proves every row
-$b_k\ge L-k+1$.  This is weaker than \eqref{eq:jensen} for the first rows
+nothing about the last rows.
+
+For the last rows at the root $2$, Theorem~\ref{thm:everyrow} at the end of
+this section proves every row $b_k\ge L-k+1$ for monic multiples of
+$(x-2)^L$.  This is weaker than \eqref{eq:jensen} for the first rows
 (numerically, for $k\le3$ at $L=20$ and $k\le7$ at $L=40$), and its
 content is the last rows, where \eqref{eq:jensen} is empty.
 
@@ -924,7 +950,8 @@ $(r_1,r_2)=(2,3)$ and $u=1$ gives $b_2\ge2$ for every monic multiple, and
 $t_n\to2$.
 \end{proof}
 
-The rows are not infima at every root set.  The companion
+At $(\tfrac52,3,\tfrac72)$ the row $k=2$ is not an infimum, so the rows
+are not infima at every root set.  The companion
 paper~\cite{coefficient-mass-attainment} characterizes the root sets at
 which \eqref{eq:order} is an infimum: for $2\le r_1\le\cdots\le r_L$,
 repeated roots included, the row $k=u+1$ is the infimum of $b_{u+1}(PQ)$
@@ -932,19 +959,21 @@ over monic $Q$ exactly when every partial sum of the coefficients of
 $P_u=\prod_{i>u}(x-r_i)$, read down from the leading one, has absolute value
 at most $|P_u(1)|$.  At $(\tfrac52,3,\tfrac72)$ with $u=1$ the
 partial sum $1-\tfrac{13}2=-\tfrac{11}2$ of the two leading coefficients of
-$P_1=(x-3)(x-\tfrac72)$ exceeds $P_1(1)=5$ in absolute value, so there the row $k=2$ is not an infimum.
+$P_1=(x-3)(x-\tfrac72)$ exceeds $P_1(1)=5$ in absolute value.
 
 \subsection{A \texorpdfstring{$D$}{D}-free form of the rows}
 
 We return to the rows $b_k\ge L-k+1$ for monic multiples of
-$(x-2)^L$ from the remark after Corollary~\ref{cor:allroots}.  At a
+$(x-2)^L$ announced at the end of Section~\ref{sec:bottom}.  At a
 single root of multiplicity $L$ the certificates of Section~3 are replaced
 by their confluent limits, polynomials in $s$ times $2^{-s}$, and the
-degree $D$ drops out of the problem.  For a finite set $Z\subset\N_{>0}$ put
-\[
+degree $D$ drops out of the problem.
+
+For a finite set $Z\subset\N_{>0}$ put
+\begin{equation}\label{eq:phi}
   r_Z(s)=\prod_{z\in Z}\Bigl(1-\frac sz\Bigr),\qquad
   \Phi(Z)=\sum_{s\ge1}|r_Z(s)|\,2^{-s},
-\]
+\end{equation}
 so $r_Z(0)=1$, $\deg r_Z=|Z|$, and $\Phi(\varnothing)=1$.  The rows reduce to
 the following statement about $\Phi$.
 
@@ -952,8 +981,8 @@ the following statement about $\Phi$.
 Let $F$ be a monic multiple of $(x-2)^L$ of degree $D$, let $1\le k\le L$,
 let $S$ be the set of backward distances $D-j$ of $k-1$ positions $j<D$
 carrying the $k-1$ largest nonleading magnitudes, and put $n=L-k+1$.  If
-some finite $Z\supseteq S$ with $|Z|\le L-1$ has $\Phi(Z)\le1/n$, then
-$b_k(F)\ge n$.
+some finite $Z\supseteq S$ with $|Z|\le L-1$ has $\Phi(Z)\le1/n$, with
+$\Phi$ as in \eqref{eq:phi}, then $b_k(F)\ge n$.
 \end{lemma}
 
 \begin{proof}
@@ -970,14 +999,17 @@ because every position outside the $k-1$ largest has magnitude at most
 $b_k(F)$.
 \end{proof}
 
-So row $k$ at $L$ follows, for every $D$, from the statement $(\ast_n)$ with
-$n=L-k+1$: \emph{for every finite $A\subset\N_{>0}$ there is a finite
-$Z\supseteq A$ with $|Z|\le|A|+n-1$ and $\Phi(Z)\le1/n$.}  Two tools
-evaluate $\Phi$.
+For $n\ge1$ consider the statement
+\begin{equation}\tag{$\ast_n$}\label{eq:starn}
+  \text{for every finite $A\subset\N_{>0}$ there is a finite $Z\supseteq A$
+  with $|Z|\le|A|+n-1$ and $\Phi(Z)\le1/n$.}
+\end{equation}
+By Lemma~\ref{lem:rowcert} with $A=S$, row $k$ at $L$ follows, for every
+$D$, from \eqref{eq:starn} with $n=L-k+1$.  Two tools evaluate $\Phi$.
 
 \begin{lemma}[Deleting the largest zero]\label{lem:confdel}
-If $Z\ne\varnothing$ and $Z\ne\{1,\ldots,|Z|\}$, then
-$\Phi(Z)\le\Phi(Z\setminus\{\max Z\})$.  Moreover
+Let $\Phi$ be as in \eqref{eq:phi}.  If $Z\ne\varnothing$ and
+$Z\ne\{1,\ldots,|Z|\}$, then $\Phi(Z)\le\Phi(Z\setminus\{\max Z\})$.  Moreover
 $\Phi(\{1,\ldots,\ell\})=1$ for every $\ell\ge0$, so $\Phi(Z)\le1$ for every
 $Z$.
 \end{lemma}
@@ -1018,7 +1050,7 @@ rows we compute $\Phi$ exactly on sets that are full up to a few holes.
 \begin{lemma}[Hole integral]\label{lem:holeint}
 Let $C\subset\N_{>0}$ be finite and nonempty, $m=\max C$, and for
 $c\in C$ put $\pi_c=\prod_{c'\in C}c'\big/\prod_{c'\in C\setminus\{c\}}(c-c')$.
-For every $N\ge m$,
+For every $N\ge m$, with $\Phi$ as in \eqref{eq:phi},
 \[
   \Phi\bigl(\{1,\ldots,N\}\setminus C\bigr)=\int_0^1v^{N-m}M_C(v)\,dv,
   \qquad
@@ -1061,7 +1093,7 @@ $\pi_b=-\pi_3=3b/(b-3)$, and with $(1+v)^2-(1-v)^2=4v$,
 \end{equation}
 
 \begin{lemma}[Two holes]\label{lem:twohole}
-For $b\ge4$ and $q\ge0$,
+For $b\ge4$ and $q\ge0$, with $\Phi$ as in \eqref{eq:phi},
 $\Phi(\{1,\ldots,b+q\}\setminus\{3,b\})\le1/(q+1)$.
 \end{lemma}
 
@@ -1128,7 +1160,7 @@ positions.
 \end{proof}
 
 \paragraph{The top three positions.}
-There remains $(\ast_n)$ for $A\supseteq\{1,2,3\}$, that is, a leading run
+There remains \eqref{eq:starn} for $A\supseteq\{1,2,3\}$, that is, a leading run
 $\ell\ge3$.  The construction is the one above with the first $\ell+1$ holes kept.
 The two parts of $\Phi$ that appear in the proof of Lemma~\ref{lem:holeint}
 are bounded separately: the values at the kept holes by comparison with the
@@ -1136,15 +1168,18 @@ consecutive block $\{\ell+1,\ldots,2\ell+1\}$, and the tail beyond $N$ by a Beta
 integral.  Throughout, $\ell\ge0$, $C=\{c_1<\cdots<c_{\ell+1}\}\subset\N_{>0}$ with
 $c_1=\ell+1$, $m=c_{\ell+1}$, $q\ge0$, $N=m+q$, $Y=\{1,\ldots,N\}\setminus C$ and
 $\psi=r_Y$.  Then $m\ge2\ell+1$, and by the proof of Lemma~\ref{lem:holeint}
-$\Phi(Y)=H(C,q)+T(C,q)$, where
+$\Phi(Y)=\Phi_{\mathrm{hole}}(C,q)+\Phi_{\mathrm{tail}}(C,q)$, where
 \[
-  H(C,q)=\sum_{c\in C}|\psi(c)|\,2^{-c},\qquad
-  T(C,q)=\sum_{s>N}|\psi(s)|\,2^{-s}
+  \Phi_{\mathrm{hole}}(C,q)=\sum_{c\in C}|\psi(c)|\,2^{-c},\qquad
+  \Phi_{\mathrm{tail}}(C,q)=\sum_{s>N}|\psi(s)|\,2^{-s}
         =\sum_{s>N}\binom{s-1}N2^{-s}\prod_{c\in C}\frac c{s-c}.
 \]
 
 \begin{lemma}[Values at the kept holes]\label{lem:holevals}
-With $C,\ell,m,q,N$ as above, $H(C,q)\le\dfrac1{2(q+1)}$.
+Let $\ell\ge0$ and $q\ge0$, let $C=\{c_1<\cdots<c_{\ell+1}\}\subset\N_{>0}$
+with $c_1=\ell+1$, and put $m=c_{\ell+1}$, $N=m+q$,
+$Y=\{1,\ldots,N\}\setminus C$ and $\psi=r_Y$.  Then
+$\Phi_{\mathrm{hole}}(C,q)=\sum_{c\in C}|\psi(c)|\,2^{-c}\le\dfrac1{2(q+1)}$.
 \end{lemma}
 
 \begin{proof}
@@ -1194,8 +1229,8 @@ $N^\circ=2\ell+1+q=c_i^\circ+i'+q$.
 Put $Y^\circ=\{1,\ldots,N^\circ\}\setminus C^\circ$ and $\psi^\circ=r_{Y^\circ}$.
 Then, term by term,
 $2^{-c_i}|\psi(c_i)|\le U_i(\ell+i)=2^{-c_i^\circ}|\psi^\circ(c_i^\circ)|$, so
-$H(C,q)\le H(C^\circ,q)$.  By the proof of Lemma~\ref{lem:holeint},
-$H(C^\circ,q)=\int_0^1v^q\sum_{c\in C^\circ}|\pi_c|2^{-c}v^{2\ell+1-c}(1-v)^{c-1}\,dv$
+$\Phi_{\mathrm{hole}}(C,q)\le \Phi_{\mathrm{hole}}(C^\circ,q)$.  By the proof of Lemma~\ref{lem:holeint},
+$\Phi_{\mathrm{hole}}(C^\circ,q)=\int_0^1v^q\sum_{c\in C^\circ}|\pi_c|2^{-c}v^{2\ell+1-c}(1-v)^{c-1}\,dv$
 with $|\pi_{\ell+i}|=(2\ell+1)!/\bigl(\ell!\,(i-1)!\,(\ell+1-i)!\bigr)$, and the binomial
 theorem gives
 \[
@@ -1206,11 +1241,12 @@ theorem gives
 where $\gamma_\ell=(2\ell+1)!/(\ell!^24^\ell)$ satisfies
 $\int_0^1\gamma_\ell(1-v^2)^\ell\,dv=1$.  The function $(1-v^2)^\ell$ is
 nonincreasing and $v^q$ is nondecreasing, so Chebyshev's integral inequality
-gives $H(C^\circ,q)\le\frac12\int_0^1v^q\,dv=\frac1{2(q+1)}$.
+gives $\Phi_{\mathrm{hole}}(C^\circ,q)\le\frac12\int_0^1v^q\,dv=\frac1{2(q+1)}$.
 \end{proof}
 
 \begin{lemma}[The tail beyond the kept holes]\label{lem:holetail}
-With $C,\ell,m,q,N$ as above, if $\ell\ge1$ and $q\ge1$, then $T(C,q)\le\dfrac{\ell+1}{e\,\ell\,(q+1)}$.
+Let $C,\ell,m,q,N,\psi$ be as in Lemma~\ref{lem:holevals} with $\ell\ge1$
+and $q\ge1$.  Then $\Phi_{\mathrm{tail}}(C,q)=\sum_{s>N}|\psi(s)|\,2^{-s}\le\dfrac{\ell+1}{e\,\ell\,(q+1)}$.
 \end{lemma}
 
 \begin{proof}
@@ -1231,14 +1267,14 @@ $\sum_{s>N}\binom{s-1}N y^s=\bigl(y/(1-y)\bigr)^{N+1}$ at $y=(1-t)/2$, the
 sum of $\binom{s-1}N2^{-s}(1-t)^{s-m-1}$ is
 $(1-t)^{-m-1}\bigl((1-t)/(1+t)\bigr)^{N+1}$, so
 \[
-  T(C,q)\le(\ell+1)\binom m\ell\int_0^1t^\ell
+  \Phi_{\mathrm{tail}}(C,q)\le(\ell+1)\binom m\ell\int_0^1t^\ell
      \Bigl(\frac{1-t}{1+t}\Bigr)^q(1+t)^{-m-1}\,dt .
 \]
 Now $(1-t)/(1+t)\le e^{-2t}$, since $\log\frac{1+t}{1-t}\ge2t$, and for
 $q\ge1$, $(q+1)e^{-2qt}\le2q\,e^{-2qt}\le1/(et)$, since $ye^{-y}\le1/e$.
 Extending the integral to $(0,\infty)$,
 \[
-  (q+1)\,T(C,q)\le\frac{\ell+1}e\binom m\ell\int_0^\infty t^{\ell-1}(1+t)^{-m-1}\,dt
+  (q+1)\,\Phi_{\mathrm{tail}}(C,q)\le\frac{\ell+1}e\binom m\ell\int_0^\infty t^{\ell-1}(1+t)^{-m-1}\,dt
   =\frac{\ell+1}e\binom m\ell\,\mathrm B(\ell,m-\ell+1)=\frac{\ell+1}{e\,\ell}.
 \]
 \end{proof}
@@ -1264,7 +1300,7 @@ $\ell+1$ lies below them, so Lemma~\ref{lem:confdel} gives
 $\Phi(Z)\le\Phi(Y)$.  Put $m=c_{\ell+1}$ and $q=N-m\ge n-1\ge1$.  By
 Lemmas~\ref{lem:holevals} and~\ref{lem:holetail},
 \[
-  \Phi(Y)=H(C,q)+T(C,q)\le\frac1{q+1}\Bigl(\frac12+\frac{\ell+1}{e\,\ell}\Bigr)
+  \Phi(Y)=\Phi_{\mathrm{hole}}(C,q)+\Phi_{\mathrm{tail}}(C,q)\le\frac1{q+1}\Bigl(\frac12+\frac{\ell+1}{e\,\ell}\Bigr)
   \le\frac1{q+1}\Bigl(\frac12+\frac4{3e}\Bigr)<\frac1{q+1}\le\frac1n,
 \]
 because $(\ell+1)/\ell\le4/3$ for $\ell\ge3$ and $8<3e$.
