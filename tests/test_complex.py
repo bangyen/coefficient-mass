@@ -1634,6 +1634,179 @@ def test_two_annuli_at_a_fixed_separation() -> None:
         assert (bound <= _mass(f)) == (big_k >= 2)
 
 
+# One or two roots above the gap (lem:twozeros, cor:twonear).
+
+
+def _zero_factor(rng: random.Random, above: Fraction) -> tuple[Poly, int]:
+    """A real zero of either sign or a Pythagorean pair, of integer modulus
+    just above ``above``; returns the factor and the modulus."""
+    x, y, rho = rng.choice([p for p in PYTHAGOREAN if p[2] >= 5])
+    if rng.random() < 0.5:
+        k = int(above / rho) + 1
+        return _pair(k * x, k * y), k * rho
+    t = int(above) + 1
+    return [-rng.choice([-1, 1]) * t, 1], t
+
+
+def _two_zeros_sides(f: Poly, a: int, b: int, j: int) -> tuple[Fraction, Fraction]:
+    """The two sides of ``lem:twozeros``."""
+    big_d, rho = len(f) - 1, Fraction(a, b)
+    left = abs(f[-1]) * b * (1 - rho ** (big_d - j))
+    right = sum(
+        abs(f[i]) * (1 + rho ** (i - j)) * Fraction(b) ** (i - big_d + 1)
+        for i in range(j + 1, big_d)
+    ) + sum(
+        abs(f[i])
+        * (Fraction(a) ** (i - j) + Fraction(b) ** (i - j))
+        * Fraction(b) ** (j - big_d + 1)
+        for i in range(j)
+    )
+    return left, right
+
+
+def test_two_zeros_one_excluded_position() -> None:
+    """``lem:twozeros`` at every position ``j`` of seeded multiples of a zero
+    of modulus ``a`` and one of modulus ``b > a`` (real of both signs or
+    Pythagorean pairs), with its two consequences; equality at
+    ``(x - q)(x + q + 1)`` and ``j = 0``.
+
+    Control: without the factor ``1 - rho^(D - j)`` the inequality fails
+    there."""
+    rng = random.Random(SEED + 46)
+    for _ in range(300):
+        low, a = _zero_factor(rng, Fraction(rng.randint(1, 20)))
+        high, b = _zero_factor(rng, Fraction(a * rng.randint(11, 40), 10))
+        f = _product([low, high, _cofactor(rng)])
+        big_d, rho, lead = len(f) - 1, Fraction(a, b), abs(f[-1])
+        assert 1 < a < b
+        for j in range(big_d):
+            left, right = _two_zeros_sides(f, a, b, j)
+            assert left <= right
+            if j == big_d - 1:
+                weight = Fraction(1, a - 1) + Fraction(1, b - 1)
+                assert max(abs(c) for c in f[: big_d - 1]) * weight >= lead * b * (
+                    1 - rho
+                )
+            else:
+                m = max((abs(f[i]) for i in range(big_d - 1) if i != j), default=0)
+                weight = (1 + rho) / (b - 1) + Fraction(1, b * (a - 1))
+                assert lead * b * (1 - rho**2) <= (1 + rho) * abs(f[-2]) + weight * m
+    for q in (2, 5, 97):
+        f = _mul([-q, 1], [q + 1, 1])
+        left, right = _two_zeros_sides(f, q, q + 1, 0)
+        assert left == right and abs(f[-1]) * (q + 1) > right
+
+
+def test_two_annuli_near_the_least_separation() -> None:
+    """``cor:twonear``, with the constants of its proof exactly.  Item 1 on
+    seeded multiples with a zero or pair of modulus ``a`` below and one zero
+    (possibly of a pair) at ``T_2`` just above ``(4/3 + 2/(3a)) a``, and on
+    ``(x - q)(x + t)``: the second row; item 2 likewise with two zeros above
+    ``(2 + 1/a) a``, and on ``(x - q)(x + t)^2``: the mass bound, a
+    largest nonleading coefficient at most at ``D - 2``, the positions of
+    the proof, and the second position of ``prop:rowstwolarge`` excluding
+    every position in turn.
+
+    Control: ``(x - q)(x + t)`` just below ``t = 4q/3`` misses the row, also
+    at ``q = 3 * 10^6``, so ``4/3`` cannot be lowered; and
+    ``prop:gaptwo`` misses the mass at ``T_2 = (2 + 1/(q(2q + 1))) U_1``,
+    below ``2 + 1/q``."""
+    # Item 1: the identity behind the case j <= D - 2, and its sign.
+    for tau in (
+        Fraction(3),
+        Fraction(31, 10),
+        Fraction(4),
+        Fraction(97),
+        Fraction(10**6),
+    ):
+        g = Fraction(4, 3) + Fraction(2, 3 * tau)
+        assert 3 - 4 / g == 3 / (2 * tau + 1) and g * tau - 1 == (4 * tau - 1) / 3
+        diff = 3 / (2 * tau + 1) - 3 / (4 * tau - 1) - 3 / ((4 * tau + 2) * (tau - 1))
+        assert diff == 3 * (2 * tau - 1) * (2 * tau - 5) / (
+            2 * (2 * tau + 1) * (4 * tau - 1) * (tau - 1)
+        )
+        assert diff > 0 and g * tau > 4 and 4 * (1 - 1 / g) >= 1
+    # Item 2: the numbers for g = 2 + 1/tau.
+    for tau in (
+        Fraction(3),
+        Fraction(31, 10),
+        Fraction(4),
+        Fraction(97),
+        Fraction(10**6),
+    ):
+        g = 2 + 1 / tau
+        bt = g * tau
+        assert bt == 2 * tau + 1 and 1 - 2 / g == 1 / (2 * tau + 1)
+        assert 1 - 1 / g == (tau + 1) / (2 * tau + 1)
+        assert g * g * tau**3 == tau * (2 * tau + 1) ** 2 >= 147
+        assert bt / (bt - 1) <= Fraction(7, 6) and bt / (tau - 1) <= Fraction(7, 2)
+        eps = Fraction(24, 49) / (2 * tau + 1)
+        assert eps == (1 - 2 / g) * Fraction(2, 3) / Fraction(7, 6) ** 2
+        kappa = 1 - 1 / g - (bt / (bt - 1) + 1 / (tau - 1)) / 8
+        assert bt * kappa >= (34 * tau + 20) / 48 > 1 / (8 * eps)
+        assert 4 * (34 * tau + 20) - 49 * (2 * tau + 1) == 38 * tau + 31
+    rng = random.Random(SEED + 47)
+    for _ in range(150):
+        low, a = _zero_factor(rng, Fraction(rng.randint(3, 30)))
+        g1 = Fraction(4, 3) + Fraction(2, 3 * a)
+        high, b = _zero_factor(rng, g1 * a)
+        f = _product([low, high, _cofactor(rng)])
+        lead, bs = abs(f[-1]), _b(f)
+        assert 4 * bs[1] > lead * b
+        assert 2 * bs[0] > lead * prod(
+            Fraction(r, 2) for r in [a] * (len(low) - 1) + [b]
+        )
+        g2 = 2 + Fraction(1, a)
+        highs = [_zero_factor(rng, g2 * a)]
+        if len(highs[0][0]) == 2:
+            highs.append(_zero_factor(rng, g2 * a * rng.choice([1, 2])))
+            highs = [(p, r) for p, r in highs if len(p) == 2][:2]
+            if len(highs) < 2:
+                highs.append(([highs[0][1], 1], highs[0][1]))
+        f = _product([low, *(p for p, _ in highs), _cofactor(rng)])
+        up = [r for p, r in highs for _ in range(len(p) - 1)]
+        assert len(up) == 2 and min(up) > g2 * a
+        lead, big_d = abs(f[-1]), len(f) - 1
+        low_moduli = [a] * (len(low) - 1)
+        bound = (
+            lead**3
+            * prod(Fraction(r, 2) for r in low_moduli)
+            * prod(Fraction(r, 2) ** 2 for r in up)
+            / 4
+        )
+        assert _mass(f) >= bound
+        j = _central(f, Fraction(1))[0]
+        assert j <= big_d - 2
+        m = max(abs(f[i]) for i in range(big_d - 1) if i != j)
+        pi8 = Fraction(lead * prod(up), 8)
+        assert m >= pi8 or abs(f[-2]) * m >= pi8
+        # The second position of prop:rowstwolarge, excluding any position.
+        big_t, gp = min(up), (1 - Fraction(1, min(up))) ** -2
+        lam = 1 - Fraction(2 * a, big_t)
+        eps = min(
+            lam * (a - 1) / (gp * (a - lam)), (a - 1) / (1 + (2 * a - 1) * (gp - 1))
+        )
+        assert eps >= Fraction(24, 49) / (2 * a + 1)
+        for j in range(big_d + 1):
+            others = [abs(f[i]) for i in range(big_d - 1) if i != j]
+            assert max(others) >= eps * lead * prod(up)
+    for q in (4, 5, 97, 10**4):
+        t = 2 * q + 2
+        f = _mul([-q, 1], _mul([t, 1], [t, 1]))
+        assert _mass(f) >= Fraction(q, 2) * Fraction(t, 2) ** 4 / 4
+        assert _central(f, Fraction(1)) == [0] and 8 * abs(f[1]) * f[2] >= t * t
+        t = int((Fraction(4, 3) + Fraction(2, 3 * q)) * q) + 1
+        assert 4 * _b(_mul([-q, 1], [t, 1]))[1] > t
+    for k in (2, 5, 10**6):
+        q, t = 3 * k, 4 * k - 1
+        assert 4 * _b(_mul([-q, 1], [t, 1]))[1] < t
+    for q in (97, 1000):
+        t = 2 * q + Fraction(1, 2 * q + 1)
+        assert 2 < t / q < 2 + Fraction(1, q)
+        f = _mul([Fraction(-q), Fraction(1)], _mul([t, Fraction(1)], [t, Fraction(1)]))
+        assert _mass(f) < Fraction(q, 2) * (t / 2) ** 4 / 4
+
+
 # Real roots of both signs (cor:bothsignsmass, prop:bothsignssharp).
 
 
