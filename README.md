@@ -45,7 +45,9 @@ unfinished proofs and new axioms, so the build is honest at every commit.
 Proved: the zero bound (`zeroBound`), Lemma 2.1 (`consecutiveTail`), and every
 step after Theorem 2.2, so `logarithmicMass_of_tailBound : TailBound →
 LogarithmicMass` reduces Corollary 3.4 to Theorem 2.2 alone.  Theorem 2.2
-(`TailBound`) is the one open statement.
+(`TailBound`) is the one open statement: its base case, no displaced zeros,
+is `tailBound_consecutive`; the displaced step needs Lemma 2.3's zero count
+with multiplicity.
 
 ```bash
 git submodule update --init

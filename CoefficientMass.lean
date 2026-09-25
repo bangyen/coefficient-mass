@@ -14,6 +14,7 @@ import CoefficientMass.Order
 import CoefficientMass.OrderStat
 import CoefficientMass.Perturb
 import CoefficientMass.RealPart
+import CoefficientMass.Tail
 import CoefficientMass.ZeroBound
 
 /-!
