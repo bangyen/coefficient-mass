@@ -8,19 +8,21 @@ import CoefficientMass.Certificate
 import CoefficientMass.Mass
 import CoefficientMass.OrderStat
 import CoefficientMass.RealPart
+import CoefficientMass.Tail
 import CoefficientMass.ZeroBound
 
 /-!
 # The Chain to the Logarithmic Mass
 
-This module composes the proved steps of `coefficient-mass.tex`: with the
-zero bound proved, Theorem 2.2 alone implies every statement down to
-Corollary 3.4.
+This module composes the proved steps of `coefficient-mass.tex`, from the
+zero bound and Theorem 2.2 down to Corollary 3.4.
 
 ## Theorems
 
 * `orderStatistics_of_tailBound`.
 * `logarithmicMass_of_tailBound`.
+* `orderStatistics`.
+* `logarithmicMass`.
 -/
 
 namespace CoefficientMass
@@ -33,5 +35,13 @@ theorem orderStatistics_of_tailBound (htb : TailBound) : OrderStatistics :=
 theorem logarithmicMass_of_tailBound (htb : TailBound) : LogarithmicMass :=
   logarithmicMass_of_complexOrderStatistics
     (complexOrderStatistics_of_orderStatistics (orderStatistics_of_tailBound htb))
+
+/-- Theorem 3.2 (coefficient order statistics). -/
+theorem orderStatistics : OrderStatistics :=
+  orderStatistics_of_tailBound tailBound
+
+/-- Corollary 3.4 (logarithmic mass). -/
+theorem logarithmicMass : LogarithmicMass :=
+  logarithmicMass_of_tailBound tailBound
 
 end CoefficientMass
