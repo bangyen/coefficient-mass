@@ -237,9 +237,9 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `K <= 2` unless `H` is in `Z[y**4]`.  Numerical evidence only
   (exhaustive enumeration, with `fpylll`, of the lattice of multiples of
   degree `d` whose nonleading coefficients lie below `sqrt(n)/2`): no three
-  points of one norm `n <= 5000` for `d <= 20`, nor for `n <= 2000`,
-  `d <= 28`; no four for `n <= 5000`, `d <= 20`; and no `H` in `Z[y**4]`
-  with a class of four points (`|alpha|**2 <= 5000`, `d <= 120`).  Numerical evidence only:
+  or four points of one norm `n <= 5000` for `d <= 28`, and no `H` in
+  `Z[y**4]` with a class of four points (`|alpha|**2 <= 5000`,
+  `d <= 120`).  Older numerical evidence:
   exhaustive searches over `H` of degree `5` to `7` (nonleading coefficients
   up to `2` or `3`, points of height up to `60` to `100`), even `H` of degree
   `6` (coefficients up to `6`, height `300`) and even `H` of degree `8`
