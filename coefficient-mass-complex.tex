@@ -58,7 +58,8 @@ coefficient of modulus at least $1$ have mass at least
 $(\frac12-o(1))K^2\log R$ if $\delta K\to0$ and at least $(\frac\pi\delta-o(1))K\log R$
 at fixed $\delta$, as $K,R\to\infty$, with both constants attained; at
 distinct Gaussian-integer roots in the upper half-plane and fixed $\delta$ the degree restriction is removed
-for integer multiples.
+for integer multiples, which pay $(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$
+as $K\to\infty$, uniformly in $R$.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; complex
@@ -153,7 +154,12 @@ large zeros; as $K,R\to\infty$, multiples of degree $O(K)$ with leading coeffici
 $(\frac\pi\delta-o(1))K\log R$ at fixed $\delta$ and $(\frac12-o(1))K^2\log R$
 if $\delta K\to0$, both sharp (Theorem~\ref{thm:widesector},
 Corollaries~\ref{cor:wideconst} and~\ref{cor:thinconst},
-Proposition~\ref{prop:widesharp}).  Whether
+Proposition~\ref{prop:widesharp}).  At distinct Gaussian roots in the upper
+half-plane and fixed $\delta$, integer multiples of every degree pay
+$(\frac\pi\delta-o(1))K\log R$ as $K,R\to\infty$
+(Corollary~\ref{cor:widegauss}), and, since fewer than $\pi(X+1)^2$ Gaussian
+integers have modulus below $X$, $(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$
+as $K\to\infty$, uniformly in $R$ (Corollary~\ref{cor:gausscount}).  Whether
 $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at distinct Gaussian roots
 in the upper half-plane and in a sector of fixed half-width is open.  Two integer imitations of $x^N-\rho^N$ are
 limited: $A((x-t)^N)$ has at most two Gaussian roots in the upper
@@ -161,7 +167,13 @@ half-plane per root of $A$ (Lemma~\ref{lem:gaussbinom}), and at odd,
 pairwise coprime norms $|\alpha_j|^2$ with
 $\gcd(\operatorname{Re}\alpha_j,\operatorname{Im}\alpha_j)=1$ a gap $m$ after
 the lowest coefficient costs $2Km\log\min_j|\alpha_j|$
-(Proposition~\ref{prop:gausslow}).
+(Proposition~\ref{prop:gausslow}).  If $\min_j|\alpha_j|>2$ and an integer
+multiple $F$ has $b_2(F)<\min_j|\alpha_j|/2$, all the $\alpha_j$ lie in one level set
+$\{y:H(y)=-v\}$ of a polynomial $H$ with small nonleading coefficients
+(Proposition~\ref{prop:gaussheavy}); an exhaustive search over $H$ of small
+degree with all coefficients small finds, in the ranges searched, no level set
+with more than three Gaussian points above the axis (numerical evidence
+only).
 
 \paragraph{Conventions.}
 All logarithms are natural.  For $F\in\mathbb C[x]$ of degree $D$ we write
@@ -1376,12 +1388,15 @@ constant is attained
 (Theorem~\ref{thm:widesector}, Corollary~\ref{cor:wideconst},
 Proposition~\ref{prop:widesharp}); at Gaussian roots and fixed $\delta$ the
 degree restriction is removed by Theorem~\ref{thm:gausscharge}
-(Corollary~\ref{cor:widegauss}).
+(Corollary~\ref{cor:widegauss}), and every such multiple pays
+$(\frac\pi{2\delta}-o(1))K\log K$ as $K\to\infty$, whatever $R$
+(Corollary~\ref{cor:gausscount}).
 In wide sectors a bound $\Lambda\ge cK^2\log R$ valid for all root sets is
 therefore false for real multiples.  For integer
 multiples at Gaussian roots it is open; the section ends with two limits on
 integer imitations of $x^N-\rho^N$ (Lemma~\ref{lem:gaussbinom},
-Proposition~\ref{prop:gausslow}).
+Proposition~\ref{prop:gausslow}) and a reduction of the second row to level
+sets (Proposition~\ref{prop:gaussheavy}).
 
 For $0<\delta\le\pi/2$ put
 \[
@@ -1660,6 +1675,40 @@ increases and $g$ is increasing.  For the last statement take
 $\lambda=\pi/\delta$ and argue as in Corollary~\ref{cor:wideconst}.
 \end{proof}
 
+The bounds of Corollary~\ref{cor:wideconst}, hence the $o(1)$ here, are
+explicit in $K$ and $R$, so the limit is uniform in the $\alpha_j$.  Many
+Gaussian integers cannot all have small modulus, which gives a bound
+at bounded $R$.
+
+\begin{corollary}[Many Gaussian roots]\label{cor:gausscount}
+In the setting of Section~\ref{sec:gaussian}, let $\varphi\in\R$ and
+$0<\delta<\pi/2$ be fixed, let $R\ge1$, and suppose that every $\alpha_j$
+has $|\alpha_j|\ge R$ and $|\arg\alpha_j-\varphi|\le\delta$.  Every nonzero
+$F\in\mathbb Z[x]$ divisible by $P$ satisfies
+\[
+  \Lambda(F)\ \ge\ \Bigl(\frac\pi\delta-o(1)\Bigr)K\log\max(R,\sqrt K)
+\]
+as $K\to\infty$, uniformly in $R$ and in the $\alpha_j$.  In particular
+$\Lambda(F)\ge(\frac\pi{2\delta}-o(1))K\log K$ whatever $R$.
+\end{corollary}
+
+\begin{proof}
+Let $K\ge3$, $X=\sqrt K/\log K$ and $R'=\max(R,X)$.  The unit squares
+centred at the Gaussian integers of modulus less than $X$ are disjoint and
+lie in the disc of radius $X+1$, so there are at most $\pi(X+1)^2=o(K)$ of
+them.  So the set $A$ of the $j$ with $|\alpha_j|\ge R'$ has
+$|A|=(1-o(1))K$.  The product of the $(x-\alpha_j)(x-\bar\alpha_j)$,
+$j\in A$, divides $P$, hence $F$, and Corollary~\ref{cor:widegauss} for the
+$\alpha_j$, $j\in A$, with $R'$ in place of $R$, gives
+$\Lambda(F)\ge(\pi/\delta-o(1))|A|\log R'$, as $|A|\to\infty$ and
+$R'\ge X\to\infty$.  Finally
+$\log R'\ge\log\max(R,\sqrt K)-\log\log K$, and
+$\log\log K=o(\log\max(R,\sqrt K))$.
+\end{proof}
+
+It improves on Corollary~\ref{cor:widegauss} only when $R<\sqrt K$, and
+says nothing about $K^2\log R$.
+
 \paragraph{Integer imitations of $x^N-\rho^N$.}  Corollary~\ref{cor:widegauss}
 leaves open whether $\Lambda(F)\ge cK^2\log R$ for every integer multiple at
 Gaussian roots in a wide sector.  Over the reals the bound fails because of
@@ -1772,18 +1821,63 @@ some multiple has lowest $m=O(K)$ coefficients $(d_m,0,\ldots,0)$, of mass
 $\log d_m\le(K+m-1)\log n$, and no bound that looks only at them gives order
 $K^2\log R$ at every root set.
 
-Nor, numerically, can a multiple whose mass sits in a single heavy
-coefficient carry many prescribed roots.  If $F=H(x)-v$ with
-$H(0)=0$ and $v\in\mathbb Z$, the prescribed roots of $F$ are Gaussian $y$ with
-$\operatorname{Im}y>0$ at which $H$ takes the real value $v$.  An exhaustive
+Over the reals $x^N-\rho^N$ has $b_2=0$.  At Gaussian roots a small second
+row confines the multiple to one level set of a polynomial with small
+nonleading coefficients.  Call a coefficient $f_i$ of $F$ \emph{heavy} if
+$|f_i|\ge\rho_{\min}/2$.
+
+\begin{proposition}[One heavy coefficient]\label{prop:gaussheavy}
+In the setting of Section~\ref{sec:gaussian}, assume $\rho_{\min}>2$, and let
+$F\in\mathbb Z[x]$ be nonzero and divisible by $P$, with lowest nonzero
+coefficient $v=f_e$.
+\begin{enumerate}
+\item The lowest coefficient of every block of $F$ (Lemma~\ref{lem:gaussblocks})
+is heavy and nonleading, so $F$ has at most as many blocks as heavy nonleading
+coefficients.
+\item If $b_2(F)<\rho_{\min}/2$, then $F=x^e(v+H)$ with $H\in\mathbb Z[x]$,
+$H(0)=0$ and every nonleading coefficient of $H$ of modulus less than
+$\rho_{\min}/2$; moreover $H(\alpha_j)=-v$ for every $j$, and
+$(\rho_{\min}/2)^{\deg H}\le|v|$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+1.  A block $B$ is $PQ$ with $Q\in\mathbb Z[x]$, and $B(0)\ne0$, so
+$|B(0)|\ge P(0)\ge\rho_{\min}^2>\rho_{\min}/2$.  Its degree is at least $2K\ge2$,
+so its lowest coefficient is not the leading coefficient of $F$, and distinct
+blocks have distinct lowest positions.
+
+2.  At most one nonleading coefficient of $F$ is heavy, so by item~1 $F$ has
+exactly one block, $F=x^eB$, and $B(0)=v$ is the heavy one; every other
+nonleading coefficient of $F$ has modulus less than $\rho_{\min}/2$.  Write
+$B=v+H$; since $B(\alpha_j)=0$, $H(\alpha_j)=-v$.  Let
+$d=\deg H=\deg B$.  The split $d$ of the $P$-irreducible $B$ is unclean at
+some $\alpha_j$, and $\rho_j\ge\rho_{\min}>2$, so by
+Lemma~\ref{lem:gausscarry} some $i<d$ has
+$|b_i|\ge(\rho_j/2)^{d-i}\ge\rho_{\min}/2$.  This $b_i$ is a heavy
+nonleading coefficient of $F$, so $i=0$ and $|v|\ge(\rho_{\min}/2)^d$.
+\end{proof}
+
+So, when $\rho_{\min}>2$, $b_2(F)\ge\rho_{\min}/2$ unless every $\alpha_j$
+lies in one level set $\{y:H(y)=-v\}$ of such an $H$.  Numerically, level
+sets of polynomials with small coefficients are small.  An exhaustive
 search over the $H\in\mathbb Z[y]$ with $H(0)=0$, positive leading coefficient,
 coefficients at most $B$ in absolute value and degree at most $s$, and over the
 $y$ with $|\operatorname{Re}y|\le Y$ and $1\le\operatorname{Im}y\le Y$, for
-$(B,s,Y)=(1,10,30)$, $(2,7,40)$, $(3,5,50)$ and $(5,4,60)$, finds no real value
-taken at more than three such $y$, and three only for $H=y^6-2y^4+y^2$, at
-$\{\pm2+i,2i\}$, $\{\pm7+4i,8i\}$ and $\{\pm26+15i,30i\}$.  This is numerical
-evidence only; whether $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples
-at Gaussian roots in a wide sector remains open.
+$(B,s,Y)=(1,11,30)$, $(2,8,40)$, $(2,10,20)$, $(3,6,50)$, $(3,8,30)$,
+$(5,5,60)$ and $(10,4,80)$, finds no real value taken at more than three such
+$y$, and three only for $H=y^6-2y^4+y^2=(y^3-y)^2$, at $\{\pm2+i,2i\}$,
+$\{\pm7+4i,8i\}$ and $\{\pm26+15i,30i\}$, and for $H=y^8+3y^4$, at
+$\{\pm1+i,i\}$.  A real $F$ of degree below $8$ has at most three roots above the
+axis, so only the ranges with $s\ge8$ are informative.  With
+Proposition~\ref{prop:gaussheavy}, item~2, applied to $\pm F$, they give: if
+$K\ge4$, $2B<\rho_{\min}$, every
+$\alpha_j$ lies in the box, and every coefficient of $F$ but one has modulus at
+most $B$ (the exception is $f_e$, as $|f_e|\ge P(0)>B$), then
+$\deg F-e>s$, so $|f_e|\ge(\rho_{\min}/2)^{s+1}$.  This is numerical evidence
+only; whether the level sets stay bounded, and whether
+$\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots in
+a wide sector, remain open.
 
 
 \paragraph{Data availability.}
