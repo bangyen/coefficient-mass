@@ -40,29 +40,18 @@ $P=\prod_{i=1}^L(x-r_i)$ with leading coefficient $f_D$, the companion
 paper~\cite{coefficient-mass} proves that the $(u+1)$-st largest nonleading
 coefficient magnitude satisfies $b_{u+1}\ge|f_D|\prod_{i>u}(r_i-1)$.  We show
 that this bound is the infimum over monic multiples exactly when every
-partial sum of the coefficients of the surviving factor
-$P_u=\prod_{i>u}(x-r_i)$, taken from the leading one, is at most $|P_u(1)|$
-in absolute value, repeated roots included.  For any real roots above $1$ we
-express the infimum as $1/T$ for a placement game: $T$ is the supremum, over
-the positions of the exempt coefficients (the $u$ largest nonleading ones,
-which $b_{u+1}$ ignores), of the least $\ell^1$ tail of an exponential sum
-on the reciprocal roots with value $1$ at $0$ and zeros at their distances
-below the leading coefficient.  We show that the placement in which the exempt coefficients escape to the
-bottom costs, in the limit, $\tau^*$, the least $\ell^1$ tail of an exponential sum on the
-reciprocals of the surviving roots with value $1$ at $0$, and identify
-$1/\tau^*$ with $\min_M\max_{j\ge1}|S_j(P_uM)|$ over monic multipliers $M$,
-where $S_j$ is the sum of the $j+1$ leading coefficients.  For roots at least $2$, repeated roots
-included, the escaping placement is the worst one, so the infimum is exactly
-$1/\tau^*$; below $2$ it can be strictly smaller.  For distinct roots
-above $1$ and one exempt coefficient, $T$ is the larger of $\tau^*$ and
-finitely many single-placement values; with an explicit multiplier and
-finitely many exact certificates this gives the infimum
-$\tfrac{3398808}{96935}$ at $(\tfrac{11}{10},3,5,7)$, and along
-$(r,3,5,7)$, $1<r<3$, the escaping placement is the worst one exactly when
-$r\ge r_c=1.4658\ldots$, while along $(r,5,7)$ it is not for any
-$1<r<2$.  The infimum of $b_{u+1}$
-over monic multiples is never attained.  Along the way we extend the underlying tail comparison to
-confluent nodes, with strictness.
+partial sum of the leading coefficients of $P_u=\prod_{i>u}(x-r_i)$ is at
+most $|P_u(1)|$ in absolute value, repeated roots included.  For all real
+roots above $1$ we express the infimum as $1/T$, where $T$ is the value of a
+game over the positions of the $u$ coefficients that $b_{u+1}$ ignores,
+played with $\ell^1$ tails of exponential sums on the reciprocal roots.
+When these positions escape to the bottom the value is $\tau^*$, with
+$1/\tau^*=\min_M\max_{j\ge1}|S_j(P_uM)|$ over monic $M$, where $S_j$ is the
+sum of the $j+1$ leading coefficients.  For roots at least $2$ we prove
+$T=\tau^*$, so the infimum is $1/\tau^*$.  Below $2$ this fails: at
+$(\tfrac{11}{10},3,5,7)$ with $u=1$ a reduction to finitely many positions
+and an exact computation give the infimum $\tfrac{3398808}{96935}$, below
+$1/\tau^*$.  The infimum is never attained.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; reduced
@@ -72,9 +61,11 @@ height; Chebyshev systems; exponential sums.
 
 \section{Introduction}
 
-The companion paper~\cite{coefficient-mass} proves a degree-independent
-lower bound on the coefficient order statistics of a polynomial multiple.
-For real roots $2\le r_1\le\cdots\le r_L$, repetitions allowed, and $F$ a
+The companion paper~\cite{coefficient-mass} proves that, for a multiple of a
+polynomial with real roots $r_i\ge2$, the $(u+1)$-st largest nonleading
+coefficient magnitude is at least the leading coefficient magnitude times
+$\prod_{i>u}(r_i-1)$, whatever the degree.
+Precisely, for real roots $2\le r_1\le\cdots\le r_L$, repetitions allowed, and $F$ a
 nonzero multiple of $\prod_{i=1}^L(x-r_i)$ of degree $D\ge L$ with leading
 coefficient $f_D$, its main bound~\cite[Theorem~3.2]{coefficient-mass} reads,
 for every $0\le u\le L-1$,
@@ -101,83 +92,80 @@ coefficient bound.
 \paragraph{Main results.}  Write $P=\prod_{i=1}^L(x-r_i)$, let
 $P_u=\prod_{i>u}(x-r_i)$ be the factor of the $m=L-u$ surviving roots, and let
 $S_j(P_u)$ be the sum of its $j+1$ leading coefficients, those of
-$x^m,\ldots,x^{m-j}$ (so $S_0(P_u)=1$); since $\deg P_u=m$, $S_j(P_u)=P_u(1)=(-1)^m\prod_{i>u}(r_i-1)$ once $j\ge m$.  All
-infima below are of $b_{u+1}(QP)$ over monic $Q\in\R[x]$, and the
-\emph{exempt} coefficients are the $u$ largest nonleading ones, which
-$b_{u+1}$ ignores.
+$x^m,\ldots,x^{m-j}$.  Thus $S_0(P_u)=1$, and
+$S_j(P_u)=P_u(1)=(-1)^m\prod_{i>u}(r_i-1)$ for $j\ge m$.  All infima below
+are of $b_{u+1}(QP)$ over monic $Q\in\R[x]$.  The \emph{exempt}
+coefficients are the $u$ largest nonleading ones, which $b_{u+1}$ ignores.
 
 \emph{The criterion.}  For $2\le r_1\le\cdots\le r_L$, repetitions allowed,
 \eqref{eq:order} is the infimum if and only if
 \[
   |S_j(P_u)|\le|P_u(1)|\qquad(1\le j<m),
 \]
-which is condition \eqref{eq:partial} below (Proposition~\ref{prop:partial},
-Theorem~\ref{thm:converse} and Corollary~\ref{cor:charrep}).  For distinct roots the multiples
-approaching the bound carry a short prefix $S_1(P_u),\ldots,S_{m-1}(P_u)$, a
-long run of the value $P_u(1)$, and $u$ free coefficients at the bottom,
-which the bound on $b_{u+1}$ discards; at repeated roots sufficiency comes from duality instead.
+which is condition \eqref{eq:partial} below (Corollary~\ref{cor:charrep}).
+For distinct roots the multiples approaching the bound carry a short prefix
+$S_1(P_u),\ldots,S_{m-1}(P_u)$, a long run of the value $P_u(1)$, and $u$
+free coefficients at the bottom, which $b_{u+1}$ discards.
 
 \emph{The value.}  For $1<r_1\le\cdots\le r_L$ the infimum is $1/T$, where
-$T$ is the supremum, over placements $X\subset\N_{>0}$ of the $u$ exempt coefficients, $X$ being
-their distances below the leading coefficient, of
-the least tail $\sum_{d\ge1}|v_d|$ of an exponential sum
-$v_d=\sum_i\lambda_ir_i^{-d}$ with $v_0=1$ and $v|_X=0$, a
-\emph{certificate} for $X$
-(Theorems~\ref{thm:value} and~\ref{thm:valuerep}; for repeated roots, $v$
-ranges over the Hermite space of the roots).  The placement in which
-the exempt coefficients escape to the bottom costs, in the limit, $\tau^*$, the
-least tail of a sum with $v_0=1$ on the surviving roots alone and no
-prescribed zeros, so
-$T\ge\tau^*$; and $\tau^*$ is attained, with
+$T=\sup_{|X|=u}\tau(X)$ is the largest cost $\tau(X)$ of a \emph{placement}
+$X\subset\N_{>0}$, $|X|=u$, the distances of the exempt coefficients below
+the leading one (Theorem~\ref{thm:valuerep}).  Here a \emph{certificate} for
+$X$ is an exponential sum $v_d=\sum_i\lambda_ir_i^{-d}$ with $v_0=1$ and
+$v|_X=0$ (for repeated roots, an element of the Hermite space of the roots),
+and $\tau(X)$ is the least tail $\sum_{d\ge1}|v_d|$ of a certificate for $X$.
+As the exempt
+coefficients escape to the bottom the cost tends to $\tau^*$, the least tail
+of a sum with $v_0=1$ on the surviving roots alone, so $T\ge\tau^*$.  This
+$\tau^*$ is a minimum, and
 \[
   \frac1{\tau^*}=\min_M\max_{j\ge1}\bigl|S_j(P_uM)\bigr|
 \]
-over monic $M\in\R[x]$ (Propositions~\ref{prop:attain}
-and~\ref{prop:attainrep}).  For $2\le r_1\le\cdots\le r_L$ the escaping
-placement is the worst one (the largest least tail, so the one the best
-multiples use): $T=\tau^*$, so the infimum is $1/\tau^*$ and the
-multiplier formula computes it (Theorem~\ref{thm:extremal} and
-Corollary~\ref{cor:extremalrep}).  Below $2$ this fails: at
-$(\tfrac{11}{10},3,5,7)$ with $u=1$ an explicit multiple beats $1/\tau^*$
-(Proposition~\ref{prop:belowtwo}).  The infimum of $b_{u+1}$ over monic
-multiples is never attained (Theorem~\ref{thm:noattain}).
+over monic $M\in\R[x]$ (Proposition~\ref{prop:attainrep}).  No monic
+multiple attains the infimum (Theorem~\ref{thm:noattain}).
 
-\emph{Below $2$.}  For distinct roots above $1$ the supremum $T$ is attained,
-by a placement or at a level where some exempt coefficients have escaped
-(Proposition~\ref{prop:attainT}).  For $u=1$, a zero placed above the zeros
-of a full escaping minimiser has an exact cost identity, which makes every
-placement beyond an explicit $N$ cheaper than $\tau^*$, so $T$ is the
+\emph{Roots at least $2$.}  For $2\le r_1\le\cdots\le r_L$ the escaping
+placement is the worst one, that is, $T=\tau^*$, and the multiplier formula
+computes the infimum $1/\tau^*$ (Corollary~\ref{cor:extremalrep}).
+
+\emph{Roots below $2$.}  Here the escaping placement need not be the worst,
+but for one exempt coefficient $T$ is still the larger of $\tau^*$ and the
+costs of finitely many placements.
+For distinct roots above $1$ the supremum $T$ is a maximum, achieved by a
+placement or at a level where some exempt coefficients have escaped
+(Proposition~\ref{prop:attainT}).  For $u=1$ an exact identity for the cost
+of a zero placed above those of an escaping minimiser shows that every
+placement beyond an explicit $N$ costs less than $\tau^*$; hence $T$ is the
 larger of $\tau^*$ and the finitely many $\tau(\{x\})$ with $x<N$
-(Theorem~\ref{thm:halfmass}).  A multiplier with an exempt position bounds
-each $\tau(\{x\})$ from below (Lemma~\ref{lem:exemptpair}).  At
-$(\tfrac{11}{10},3,5,7)$ this gives $N=11$, the worst placement $\{5\}$ and
-the infimum $\tfrac{3398808}{96935}=35.06\ldots$
-(Theorem~\ref{thm:elevenvalue}).  Along $(r,3,5,7)$, $1<r<3$, the escaping
-placement is the worst one exactly when $930r^2-7r-1988\ge0$, that is
-$r\ge r_c=1.4658\ldots$, and for $\tfrac{29}{20}\le r\le r_c$ the infimum is
-$48(r-1)(15r+71)/(49r-34)$ (Theorem~\ref{thm:family}).  Both proofs end in
-a finite computation in exact rational arithmetic, over $\mathbb Q$ and
-over $\mathbb Q(r)$ respectively, which the proofs state and the
-accompanying tests carry out.  Along $(r,5,7)$ it
-fails for every $1<r<2$, so the cutoff of Theorem~\ref{thm:extremal} cannot
-be lowered uniformly (Proposition~\ref{prop:cutoffsharp}).
+(Theorem~\ref{thm:halfmass}).  At $(\tfrac{11}{10},3,5,7)$ with $u=1$ this
+gives $N=11$, the worst placement $\{5\}$ and the infimum
+$\tfrac{3398808}{96935}=35.06\ldots$, against $1/\tau^*=\tfrac{1704}{31}$
+(Theorem~\ref{thm:elevenvalue}).  Along $(r,3,5,7)$ with $1<r<3$ and
+$u=1$, the escaping placement is the worst one exactly when
+$930r^2-7r-1988\ge0$, that is, $r\ge r_c=1.4658\ldots$; for
+$\tfrac{29}{20}\le r\le r_c$ the infimum is $48(r-1)(15r+71)/(49r-34)$
+(Theorem~\ref{thm:family}).  Both proofs end in a finite exact computation,
+over $\mathbb Q$ and over $\mathbb Q(r)$ respectively, described in the
+paragraph on computer assistance before the appendix.  Along $(r,5,7)$ the
+escaping placement is not the worst for any $1<r<2$, so the cutoff $2$
+cannot be lowered uniformly (Proposition~\ref{prop:cutoffsharp}).
 
-\emph{The tail comparison.}  The comparison~\cite[Theorem~2.2]{coefficient-mass} extends to confluent nodes
-(Proposition~\ref{prop:confluent}), strictly unless the zero set is
-consecutive (Lemma~\ref{lem:confstrict}), which is what the criterion needs
-at repeated roots.
+\emph{The tail comparison.}  \cite[Theorem~2.2]{coefficient-mass} extends
+to confluent nodes, strictly unless the zero set is consecutive
+(Proposition~\ref{prop:confluent}); the criterion needs this at repeated
+roots.
 
 \paragraph{Organisation.}  Section~\ref{sec:extend} proves the confluent
 tail comparison.  Section~\ref{sec:criterion} proves the partial-sum
 criterion: sufficiency by an explicit construction, necessity by a
 certificate argument built on a Descartes rule at infinity.
 Section~\ref{sec:value} expresses the infimum as a placement game, proves
-that $\tau^*$ is attained with a multiplier witness, completes the criterion
+that $\tau^*$ is a minimum, with a multiplier witness, completes the criterion
 at repeated roots, and shows that the infimum is never attained.
 Section~\ref{sec:extremal} proves that at roots at least $2$ the escaping
 placement is extremal, by lifting minimisers one node at a time, and shows
 that below $2$ it need not be.  Section~\ref{sec:belowtwo} drops the
-cutoff: attainment of $T$ and the reduction for one exempt coefficient hold
+cutoff: that $T$ is a maximum and the reduction for one exempt coefficient hold
 for all distinct roots above $1$, followed by exact examples below $2$.  Section~\ref{sec:scope} closes with a remark
 on what is left open and the relation to the literature.
 
@@ -197,7 +185,7 @@ $m_i$ times.  Let
 satisfy $\xi_0=1$ and $\xi|_Z=0$ for a set $Z$ of $m-1$ positive integers with
 leading run $\ell=\max\{0\le k\le m-1:\{1,\ldots,k\}\subseteq Z\}$.  Then
 \[
-  \Tail(\xi)\le\prod_{j=1}^{\ell+1}\frac{y_{(j)}}{1-y_{(j)}}.
+  \Tail(\xi)=\sum_{d\ge1}|\xi_d|\le\prod_{j=1}^{\ell+1}\frac{y_{(j)}}{1-y_{(j)}}.
 \]
 \end{proposition}
 
@@ -384,12 +372,12 @@ $S_1,\ldots,S_{m-1}$ and the run value is $S_m=P_u(1)$, whose magnitude
 $|S_m|$ is exactly the right side of \eqref{eq:order} with $f_D=1$: the construction reproduces the bound because the sum of the
 coefficients of $P_u$ is $P_u(1)$.
 
-This makes the requirement explicit.  At $u=0$ both the criterion and this
-series are already in Dubickas and Jankauskas: their Corollary~7 gives
+At $u=0$ this criterion and this series are due to Dubickas and
+Jankauskas~\cite[Corollary~7]{dj}: their Corollary~7 gives
 $H(P)=|P(1)|$ for the reduced height $H(P)$, the $u=0$ infimum, under the
 same partial-sum condition and their same-sign hypothesis (which~\cite[Lemma~2.1]{coefficient-mass}
 removes), and exhibits $\widetilde P/(1-y)$ as the extremal
-series~\cite[Corollary~7]{dj}.  What is added here is the passage to $u\ge1$,
+series.  What is added here is the passage to $u\ge1$,
 where the $u$ free bottom coefficients absorb the $u$ smallest roots.  The run is
 the $(u+1)$-st largest magnitude only if no partial sum exceeds the total,
 \begin{equation}\label{eq:partial}
@@ -398,8 +386,8 @@ the $(u+1)$-st largest magnitude only if no partial sum exceeds the total,
 and \eqref{eq:partial} can fail.
 
 \begin{proposition}[Partial-sum criterion]\label{prop:partial}
-Let $2\le r_1<\cdots<r_L$ be distinct and $0\le u\le L-1$.  If
-\eqref{eq:partial} holds, then
+Let $2\le r_1<\cdots<r_L$ be distinct, $0\le u\le L-1$ and $m=L-u$.  If
+$|S_j(P_u)|\le|P_u(1)|$ for $1\le j<m$ (condition \eqref{eq:partial}), then
 $\inf_Qb_{u+1}\bigl(Q\prod_{i=1}^L(x-r_i)\bigr)=\prod_{i=u+1}^L(r_i-1)$ over
 monic $Q\in\R[x]$.
 \end{proposition}
@@ -457,12 +445,13 @@ The conclusion does not need distinct roots (Corollary~\ref{cor:charrep}).
 
 \subsection*{Necessity}
 
-The criterion is also necessary, repeated roots included.  The argument runs
+With $y_i=1/r_i$, an exponential sum $v_d=\sum_i\lambda_iy_i^d$ on some of
+these nodes is a \emph{certificate for} $X\subset\N_{>0}$ if $v_0=1$ and
+$v_w=0$ for $w\in X$; certificates show that the criterion is also
+necessary, repeated roots included.  The argument runs
 on the dual side of~\cite[Lemma~3.1]{coefficient-mass}; we set it up for distinct roots, and the proof
-of Theorem~\ref{thm:converse} carries it to repeated roots.  Put $y_i=1/r_i$, so that
-$1/2\ge y_1>\cdots>y_L>0$ (the reverse of the order in~\cite[Theorem~2.2]{coefficient-mass}), and call an exponential sum
-$v_d=\sum_i\lambda_iy_i^d$ on some of these nodes a \emph{certificate for}
-$X\subset\N_{>0}$ if $v_0=1$ and $v_w=0$ for $w\in X$.  If $F$ is a monic
+of Theorem~\ref{thm:converse} carries it to repeated roots.  Here
+$1/2\ge y_1>\cdots>y_L>0$, the reverse of the order in~\cite[Theorem~2.2]{coefficient-mass}.  If $F$ is a monic
 multiple of $\prod_{i=1}^L(x-r_i)$ of degree $D$ and $X$ is the set of
 distances $D-j$ of $u$ positions $j$ carrying its $u$ largest nonleading
 magnitudes, the identity in the proof of~\cite[Lemma~3.1]{coefficient-mass} reads
@@ -510,8 +499,10 @@ $\sum_{k\le j}e_k(s)\binom{m-1-k}{j-k}\le e_m(s)$ for $1\le j<m$, with
 $s_i=r_i-1$ over the surviving roots.
 
 \begin{lemma}[Improving the consecutive certificate]\label{lem:improve}
-Let $\rho_1,\ldots,\rho_n>1$ be distinct, $R=\prod_{i=1}^n(x-\rho_i)$ with
-partial sums $S_j(R)$, and $v^*$ the certificate on the nodes $y_i=1/\rho_i$ with
+Let $\rho_1,\ldots,\rho_n>1$ be distinct and $R=\prod_{i=1}^n(x-\rho_i)$ with
+partial sums $S_j(R)$.  Call an exponential sum $v_d=\sum_i\lambda_iy_i^d$ on
+the nodes $y_i=1/\rho_i$ a certificate for $X\subset\N_{>0}$ if $v_0=1$ and
+$v|_X=0$, and let $v^*$ be the certificate with
 zero set $\{1,\ldots,n-1\}$, so that $\Tail(v^*)=1/|R(1)|$ by~\cite[Lemma~2.1]{coefficient-mass}.  If
 $X_0\subseteq\{1,\ldots,n-1\}$ and some $j\in\{1,\ldots,n-1\}\setminus X_0$
 has $|S_j(R)|>|R(1)|$, then some certificate for $X_0$ on the same nodes has
@@ -545,19 +536,115 @@ on $\{1,\ldots,n-1\}\setminus\{j\}$, and
 \]
 \end{proof}
 
-\paragraph{Lemma~\ref{lem:improve} with repetitions.}  The lemma holds with
-repetitions allowed among the $\rho_i$, the nodes being replaced by the
-Hermite space of $R$.  The proof of~\cite[Lemma~2.1]{coefficient-mass} is a generating-function
-computation that uses only the denominator $\prod_i(1-y_ix)$, so with
-repetitions it still gives
-$v^*_d=(-1)^{n+1}(\prod_iy_i)h_{d-n}(y)$ for $d\ge n$, with $h_j$ the complete
-homogeneous symmetric polynomial as in~\cite[Lemma~2.1]{coefficient-mass}, and
-$\Tail(v^*)=1/|R(1)|$; the sum $\eta$ is given explicitly by its generating
-function $N(x)/\Pi(x)$, and the evaluation at $x=1$ is unchanged.  The only
-change is in the domination: if $y_{\max}$ has multiplicity $\mu$, then
-$h_{d-n}(y)\ge\binom{d-n+\mu-1}{\mu-1}y_{\max}^{\,d-n}$ while
-$|\eta_d|\le C_\eta(1+d)^{\mu-1}y_{\max}^{\,d}$, so $|\eta_d/v^*_d|$ is still
-bounded for $d\ge n$, and a small $\kappa$ keeps the sign of $v^*$.
+\paragraph{Lemma~\ref{lem:improve} with repetitions.}  Let
+$\rho_1,\ldots,\rho_n>1$, repetitions allowed, $R=\prod_{i=1}^n(x-\rho_i)$
+and $y_i=1/\rho_i$, and let $z_1>\cdots>z_p$ be the distinct values among the
+$y_i$, $z_l$ occurring $m_l$ times, so that $y_{\max}=z_1$ has multiplicity
+$\mu=m_1$.  The \emph{Hermite space} $\mathcal H(R)$ is the span of the $n$
+sequences $d\mapsto d^az_l^d$ ($d\ge0$, $1\le l\le p$, $0\le a<m_l$); for
+$R=\prod_{i>k}(x-r_i)$ it is the space $\mathcal H_k$ of
+Proposition~\ref{prop:farrep}, and for distinct $\rho_i$ it is the span of
+the $y_i^d$.  A certificate for $X$ on $\mathcal H(R)$ is a $v\in\mathcal H(R)$
+with $v_0=1$ and $v|_X=0$.  Then Lemma~\ref{lem:improve} holds with the
+nodes replaced by $\mathcal H(R)$: there is exactly one certificate $v^*$ on
+$\mathcal H(R)$ with zero set $\{1,\ldots,n-1\}$, it has
+$\Tail(v^*)=1/|R(1)|$, and if $X_0\subseteq\{1,\ldots,n-1\}$ and some
+$j\in\{1,\ldots,n-1\}\setminus X_0$ has $|S_j(R)|>|R(1)|$, then some
+certificate for $X_0$ on $\mathcal H(R)$ has tail less than $1/|R(1)|$.
+
+\begin{proof}
+Three facts about $\mathcal H(R)$ replace the Vandermonde argument and the
+explicit exponential sums of the distinct case.  Put
+$\Pi(x)=\prod_{i=1}^n(1-y_ix)=\sum_{s=0}^n\pi_sx^s$.
+
+(i) \emph{Unisolvence.}  A sum $\sum_lq_l(d)z_l^d$ with $\deg q_l<m_l$ and
+not all $q_l$ zero has at most $n-1$ real
+zeros~\cite[Part~Five, Ch.~1]{polya-szego}.  So the $n$ spanning sequences
+are linearly independent, $\dim\mathcal H(R)=n$, and for distinct integers
+$d_1,\ldots,d_n\ge0$ the linear map $v\mapsto(v_{d_1},\ldots,v_{d_n})$ from
+$\mathcal H(R)$ to $\R^n$ is injective, hence bijective: any $n$ values at
+$d_1,\ldots,d_n$ are taken by exactly one element of $\mathcal H(R)$.
+
+(ii) \emph{Generating functions.}  $\mathcal H(R)$ is the set of sequences
+whose generating function is $N(x)/\Pi(x)$ with $\deg N\le n-1$.  By
+induction on $a$,
+$\sum_{d\ge0}d^az^dx^d=(x\,d/dx)^a(1-zx)^{-1}=A_a(x)/(1-zx)^{a+1}$ with
+$\deg A_a\le a$, since $x\,d/dx$ sends $A/(1-zx)^{a+1}$ to
+$\bigl(xA'(1-zx)+(a+1)zxA\bigr)/(1-zx)^{a+2}$.  For $z=z_l$ and $a<m_l$ the
+factor $(1-z_lx)^{a+1}$ divides $\Pi$, so this is $N/\Pi$ with
+$\deg N\le a+n-(a+1)=n-1$.  So $\mathcal H(R)$ lies in the space of such
+sequences, which has dimension $n$, and by (i) the two coincide.  For
+$v\in\mathcal H(R)$ with generating function $V=N/\Pi$, $N=\Pi V$ as formal
+power series, and its coefficients below $x^n$ involve only
+$v_0,\ldots,v_{n-1}$:
+\[
+  N(x)=\sum_{k=0}^{n-1}\Bigl(\sum_{s=0}^k\pi_sv_{k-s}\Bigr)x^k .
+\]
+
+(iii) \emph{Growth.}  For $v\in\mathcal H(R)$ some $C_v$ has
+$|v_d|\le C_v(1+d)^{\mu-1}y_{\max}^{\,d}$ for all $d\ge0$: the spanning
+sequences at $z_1$ have $a\le\mu-1$, and for $l\ge2$ each
+$d^a(z_l/z_1)^d$ is bounded.  As $y_{\max}<1$, $\sum_d|v_d|<\infty$, so the
+identity $\Pi V=N$ may be evaluated at $x=1$ (a Cauchy product of an
+absolutely convergent series with a polynomial):
+$\Pi(1)\sum_{d\ge0}v_d=N(1)$, where $\Pi(1)=\prod_i(1-y_i)>0$.
+
+\emph{The certificate $v^*$.}  By (i) it exists and is unique.  Its values
+at $0,\ldots,n-1$ are $1,0,\ldots,0$, so by (ii)
+$N=\sum_{k<n}\pi_kx^k=\Pi-\pi_nx^n$ and its generating function is
+$1-\pi_nx^n/\Pi(x)$.  Expanding
+$1/\Pi=\prod_i\sum_{e\ge0}y_i^ex^e=\sum_{e\ge0}h_e(y)x^e$, with $h_e$ the
+complete homogeneous symmetric polynomial of the multiset
+$y_1,\ldots,y_n$, and using $\pi_n=(-1)^n\prod_iy_i$,
+\[
+  v^*_d=(-1)^{n+1}\Bigl(\prod_iy_i\Bigr)h_{d-n}(y)\qquad(d\ge n).
+\]
+All $y_i$ are positive, so $h_e(y)>0$, $v^*_d$ has the sign $(-1)^{n+1}$
+for $d\ge n$, and
+\[
+  \Tail(v^*)=\prod_iy_i\sum_{e\ge0}h_e(y)
+  =\prod_i\frac{y_i}{1-y_i}=\prod_i\frac1{\rho_i-1}=\frac1{|R(1)|}.
+\]
+Keeping in $h_e(y)$ only the monomials in the $\mu$ copies of $y_{\max}$, of
+which there are $\binom{e+\mu-1}{\mu-1}\ge(e+1)^{\mu-1}/(\mu-1)!$, gives
+\[
+  |v^*_d|\ge\frac{\prod_iy_i}{(\mu-1)!}\,(d-n+1)^{\mu-1}y_{\max}^{\,d-n}
+  \qquad(d\ge n).
+\]
+
+\emph{The sum $\eta$.}  By (i) there is exactly one $\eta\in\mathcal H(R)$
+with $\eta_d=[d=j]$ for $0\le d\le n-1$, and by (ii) its generating function
+is $N/\Pi$ with $N(x)=\sum_{k=j}^{n-1}\pi_{k-j}x^k$.  Since
+$\Pi(x)=\prod_i(-1/\rho_i)\cdot R(x)$, each $\pi_s$ is that constant times
+the coefficient of $x^s$ in $R$, so (iii) gives
+\[
+  \sum_{d\ge n}\eta_d=\frac{N(1)}{\Pi(1)}-1
+  =-\frac{\pi_{n-j}+\cdots+\pi_n}{\Pi(1)}
+  =-\frac{S_j(R)}{R(1)} ,
+\]
+exactly as for distinct nodes.
+
+\emph{Domination.}  By (iii), $|\eta_d|\le C_\eta(1+d)^{\mu-1}y_{\max}^{\,d}$;
+since $(n+1)(d-n+1)-(1+d)=n(d-n)\ge0$ for $d\ge n$, the lower bound on
+$|v^*_d|$ gives
+\[
+  |\eta_d|\le C|v^*_d|\quad(d\ge n),\qquad
+  C=\frac{C_\eta\,(\mu-1)!\,(n+1)^{\mu-1}y_{\max}^{\,n}}{\prod_iy_i}.
+\]
+
+\emph{The improved certificate.}  Here $R(1)\ne0$ and $|S_j(R)|>|R(1)|$.
+Fix $0<\kappa<1/C$ and put $t=(-1)^{n+1}\kappa\sgn\bigl(S_j(R)/R(1)\bigr)$
+and $v=v^*+t\eta\in\mathcal H(R)$.  Then $v_0=1$ because $j\ge1$, $v$
+vanishes on $\{1,\ldots,n-1\}\setminus\{j\}\supseteq X_0$, and $v_j=t$, so
+$v$ is a certificate for $X_0$ on $\mathcal H(R)$; and for $d\ge n$,
+$|t\eta_d|<|v^*_d|$, so $v_d$ has the sign $(-1)^{n+1}$.  All the series
+converge absolutely, and
+\[
+  \Tail(v)=\kappa+(-1)^{n+1}\sum_{d\ge n}\bigl(v^*_d+t\eta_d\bigr)
+  =\Tail(v^*)-\kappa\Bigl(\Bigl|\frac{S_j(R)}{R(1)}\Bigr|-1\Bigr)
+  <\Tail(v^*).
+\]
+\end{proof}
 
 Zeros far from the origin cost only the largest nodes because the leading
 functions of the basis cannot produce them, and that is a Descartes rule at
@@ -688,7 +775,8 @@ of $v^\infty$, that is, of $v^\infty$.  Hence $c^{(\nu)}\to c^\infty$, and
 \end{proof}
 
 \begin{theorem}[Necessity of the partial-sum criterion]\label{thm:converse}
-Let $2\le r_1\le\cdots\le r_L$, repetitions allowed, and $0\le u\le L-1$.  If
+Let $2\le r_1\le\cdots\le r_L$, repetitions allowed, $0\le u\le L-1$ and
+$m=L-u$.  If $|S_j(P_u)|>|P_u(1)|$ for some $1\le j<m$, that is, if
 \eqref{eq:partial} fails, then
 \[
   \inf_Qb_{u+1}\Bigl(Q\prod_{i=1}^L(x-r_i)\Bigr)>\prod_{i=u+1}^L(r_i-1)
@@ -781,7 +869,9 @@ Let $1<r_1<\cdots<r_L$ and $0\le u\le L-1$.  Then
   \inf_Qb_{u+1}\Bigl(Q\prod_{i=1}^L(x-r_i)\Bigr)=\frac1T,
   \qquad T=\sup_{|X|=u}\tau(X),\qquad \tau^*\le T<\infty,
 \]
-over monic $Q\in\R[x]$.
+over monic $Q\in\R[x]$, where $\tau(X)$ is the least tail of a certificate
+for $X$ on $y_1,\ldots,y_L$ and $\tau^*$ the least tail of a sum $v$ on the
+surviving nodes $y_{u+1},\ldots,y_L$ with $v_0=1$.
 \end{theorem}
 
 \begin{proof}
@@ -843,12 +933,20 @@ before $\Tail(v)\le\tau^*-\varepsilon/2$, against the definition of $\tau^*$.
 Hence $\liminf_\nu\tau(E_\nu)\ge\tau^*$, and $T\ge\tau^*$.
 \end{proof}
 
-Proposition~\ref{prop:farrep}(c) with $k=u$ and $X_0=\varnothing$ supplies the
-reverse inequality, so $\tau(E_\nu)\to\tau^*$:
+The proof gives $\liminf_\nu\tau(E_\nu)\ge\tau^*$ for the escaping
+placements $E_\nu=\{\nu+1,\ldots,\nu+u\}$, and the reverse inequality
+$\limsup_\nu\tau(E_\nu)\le\tau^*$ also holds: Proposition~\ref{prop:farrep}(c)
+with $k=u$ and $X_0=\varnothing$ turns any sum $v^\infty$ on the surviving
+nodes with $v^\infty_0=1$ into certificates for $E_\nu$ with tails tending
+to $\Tail(v^\infty)$.  So $\tau(E_\nu)\to\tau^*$:
 the escaping placement costs exactly $\tau^*$.  The escaping placement is
 this sequence of placements, not a placement, and its cost is the limit
 $\tau^*$; we say that \emph{the escaping placement is the worst one} when
-$T=\tau^*$, that is, when no placement costs more than $\tau^*$.  There is also a dual side.  If
+$T=\tau^*$, that is, when no placement costs more than $\tau^*$.
+
+On the dual side, pairing a sum on the surviving nodes with a sequence
+whose series vanishes there bounds $\tau^*$ below, and each monic $M$ gives
+such a sequence, so $\tau^*\ge1/\max_{j\ge1}|S_j(P_uM)|$.  Precisely, if
 $v=\sum_{i>u}\lambda_iy_i^d$ is a certificate on the surviving nodes and $w$
 is a bounded sequence with $w_0=1$ whose series $W(y)=\sum_dw_dy^d$ vanishes
 at $y_{u+1},\ldots,y_L$, then $0=\sum_i\lambda_iW(y_i)=\sum_dw_dv_d$, so
@@ -864,15 +962,15 @@ makes $w_d$ the partial sums $S_d(P_uM)$, as in \eqref{eq:wgen}.  So
   \qquad\text{for every monic }M\in\R[x].
 \end{equation}
 At $M=1$ this is the construction of Proposition~\ref{prop:partial}.  A
-witness $W$ with $\sup_{d\ge1}|w_d|=1/\Tail(v)$ proves that $v$ attains
+witness $W$ with $\sup_{d\ge1}|w_d|=1/\Tail(v)$ proves that $v$ achieves
 $\tau^*$.  Such a witness exists at every full minimiser.
 
-\begin{proposition}[Attainment with a multiplier witness]\label{prop:attain}
-Write $m=L-u$.  Then $\tau^*$ is attained by a full certificate $v$ on
-$y_{u+1},\ldots,y_L$.  At any full certificate $v$ attaining $\tau^*$ there are reals $s_d$ with
+\begin{proposition}[The minimum $\tau^*$ and a multiplier witness]\label{prop:attain}
+Write $m=L-u$.  Then $\tau^*$ is a minimum, achieved by a full certificate $v$ on
+$y_{u+1},\ldots,y_L$.  At any full certificate $v$ achieving $\tau^*$ there are reals $s_d$ with
 $|s_d|\le1$, $s_d=\sgn(v_d)$ whenever $v_d\ne0$, and
 $\sum_{d\ge1}s_dy_i^d=\tau^*$ for $u<i\le L$; then $w_0=1$,
-$w_d=-s_d/\tau^*$ is a witness as in \eqref{eq:dualpair} attaining equality,
+$w_d=-s_d/\tau^*$ is a witness as in \eqref{eq:dualpair} achieving equality,
 and it is $\widetilde P_u\widetilde M/(1-y)$ for a monic $M$, so
 \eqref{eq:multiplier} is an equality at that $M$.
 \end{proposition}
@@ -882,11 +980,11 @@ A certificate for $\varnothing$ on the surviving nodes is a
 $\lambda\in\R^m$ with $\sum_i\lambda_i=1$, writing
 $v_d(\lambda)=\sum_{i>u}\lambda_iy_i^d$; put $f(\lambda)=\Tail(v(\lambda))$.
 
-\emph{The infimum is attained.}  Since $|v_d|\le\sum_i|\lambda_i|y_i^d$ and
+\emph{The infimum is a minimum.}  Since $|v_d|\le\sum_i|\lambda_i|y_i^d$ and
 the nodes lie in $(0,1)$, $f$ is finite, and it is homogeneous and
 subadditive.  If $f(\lambda)=0$ then $v_d=0$ for $1\le d\le m$, a Vandermonde
 system in the $\lambda_i$ with distinct nonzero nodes, so $\lambda=0$.  Thus
-$f$ is a norm, hence continuous and coercive, and it attains its minimum on
+$f$ is a norm, hence continuous and coercive, and it has a minimum on
 the closed nonempty affine set $\{\sum_i\lambda_i=1\}$; that minimum is
 $\tau^*$.
 
@@ -977,7 +1075,9 @@ Let $1<r_1\le\cdots\le r_L$, repetitions allowed, and $0\le u\le L-1$.  Then
   \inf_Qb_{u+1}\Bigl(Q\prod_{i=1}^L(x-r_i)\Bigr)=\frac1T,
   \qquad T=\sup_{|X|=u}\tau(X),\qquad \tau^*\le T<\infty,
 \]
-over monic $Q\in\R[x]$.
+over monic $Q\in\R[x]$, where $\tau(X)$ is the least tail of a certificate
+for $X$ on $\mathcal H_0$ and $\tau^*$ the least tail of a $v\in\mathcal H_u$
+with $v_0=1$.
 \end{theorem}
 
 \begin{proof}
@@ -1025,9 +1125,9 @@ limit $v\in\mathcal H_u$ with $v_0=1$, and by Fatou's lemma
 $\Tail(v)\le\tau^*-\varepsilon/2$, against the definition of $\tau^*$.
 \end{proof}
 
-\begin{proposition}[Attainment at repeated roots]\label{prop:attainrep}
-In the setting of Theorem~\ref{thm:valuerep}, $\tau^*$ is attained by a full
-certificate on $\mathcal H_u$, and some monic $M\in\R[x]$ has
+\begin{proposition}[The minimum $\tau^*$ at repeated roots]\label{prop:attainrep}
+In the setting of Theorem~\ref{thm:valuerep}, $\tau^*$ is a minimum, achieved
+by a full certificate on $\mathcal H_u$, and some monic $M\in\R[x]$ has
 $\max_{j\ge1}|S_j(P_uM)|=1/\tau^*$; moreover
 $\max_{j\ge1}|S_j(P_uM)|\ge1/\tau^*$ for every monic $M$.
 \end{proposition}
@@ -1065,7 +1165,8 @@ the construction of Proposition~\ref{prop:partial} is not available.
 \begin{corollary}[The criterion at repeated roots]\label{cor:charrep}
 Let $2\le r_1\le\cdots\le r_L$, repetitions allowed, and $0\le u\le L-1$.
 Then \eqref{eq:order} is the infimum of $b_{u+1}$ over monic multiples of
-$\prod_i(x-r_i)$ exactly when \eqref{eq:partial} holds; no alignment
+$\prod_i(x-r_i)$ exactly when $|S_j(P_u)|\le|P_u(1)|$ for $1\le j<L-u$
+(condition \eqref{eq:partial}); no alignment
 $r_u<r_{u+1}$ is needed.
 \end{corollary}
 
@@ -1080,13 +1181,14 @@ $1/T\ge1/B$.
 
 \subsection*{The infimum is never attained}
 
-Minimisers exist at every placement, by the argument of
-Proposition~\ref{prop:attain}, and this shows that the infimum is never
-reached by a multiple of finite degree.
+No monic multiple attains the infimum: a multiple of degree $D$ pairs only
+with the first $D$ terms of a certificate, while each cost $\tau(X)$ is
+achieved, by the argument of Proposition~\ref{prop:attain}, by a full
+certificate, which has nonzero terms past every $D$.
 
 \begin{lemma}[Full minimisers]\label{lem:attainX}
 Let $0\le k<L$ and let $X$ be a set of at most $L-k-1$ positive integers.  Then
-$\tau_k(X)$ is attained by a full certificate on $y_{k+1},\ldots,y_L$ whose
+$\tau_k(X)$ is a minimum, achieved by a full certificate on $y_{k+1},\ldots,y_L$ whose
 zero set contains $X$.
 \end{lemma}
 
@@ -1095,7 +1197,7 @@ Run the first two steps of the proof of Proposition~\ref{prop:attain} on the
 affine set $\{\lambda:\sum_i\lambda_i=1,\ v_x(\lambda)=0\ (x\in X)\}$ in place
 of $\{\sum_i\lambda_i=1\}$.  It is closed, and nonempty because it contains the
 full certificate of any zero set of size $L-k-1$ containing $X$, so the norm
-$f$ attains its minimum on it.  If a minimiser has a zero set $Z\supseteq X$
+$f$ has a minimum on it.  If a minimiser has a zero set $Z\supseteq X$
 with $|Z|\le L-k-2$, the conditions $\sum_ih_i=0$ and $v_d(h)=0$ for $d\in Z$
 are at most $L-k-1$ linear conditions on $h\in\R^{L-k}$, so some $h\ne0$ meets
 them, and the move $\lambda+th$ of that proof keeps the tail and every zero of
@@ -1105,7 +1207,7 @@ the zeros at $L-k-1$.
 
 \begin{lemma}[Full minimisers at repeated roots]\label{lem:attainXrep}
 Let $1<r_1\le\cdots\le r_L$, $0\le k<L$, and let $X$ be a set of at most
-$L-k-1$ positive integers.  Then $\tau_k(X)$ is attained by a full
+$L-k-1$ positive integers.  Then $\tau_k(X)$ is a minimum, achieved by a full
 certificate on $\mathcal H_k$ whose zero set contains $X$.
 \end{lemma}
 
@@ -1133,7 +1235,7 @@ the proof of Theorem~\ref{thm:converse}) gives
 \[
   1\le b_{u+1}(F)\sum_{d=1}^{D}|v_d| .
 \]
-By Lemma~\ref{lem:attainXrep} with $k=0$, $\tau(X)$ is attained by a
+By Lemma~\ref{lem:attainXrep} with $k=0$, $\tau(X)$ is achieved by a
 full certificate $v$.  It is a nonzero element of $\mathcal H_0$, so it has
 at most $L-1$ real zeros and $v_d\ne0$ for some $d>D$.  Hence
 $\sum_{d\le D}|v_d|<\Tail(v)=\tau(X)\le T$, and $b_{u+1}(F)>1/T$.  The last
@@ -1178,22 +1280,21 @@ $\tfrac{31}{1704}$, while adding the node $\tfrac12$ and the zero $2$ gives the
 consecutive zero set $\{1,2,3\}$ and, by~\cite[Lemma~2.1]{coefficient-mass}, the tail
 $\tfrac1{48}>\tfrac{31}{1704}$.  The remedy is to insert $g$ and shift every
 zero above it up by one, and to use that the certificate being lifted is a
-minimiser.  Let $A$ be a finite nonempty set of integers, written as the
-disjoint union of its maximal runs of consecutive integers
-$[s_1,e_1],\ldots,[s_p,e_p]$, and put $A+1=\{a+1:a\in A\}$.  Given a set
-$B_0$ with $\max B_0<\min A$, the \emph{neighbour} of $B_0\cup A$ at the $j$th
-run is
-\[
-  Z_j=\bigl((B_0\cup A)\setminus\{s_j\}\bigr)\cup\{e_j+1\},
-\]
-which moves that run up by one.  For an exponential sum $V$ we also write
-$V(d)$ for $V_d$.
+minimiser, comparing it with the \emph{neighbours} of its zero set, in which
+one run of zeros above $g$ moves up by one.  For an exponential sum $V$ we
+also write $V(d)$ for $V_d$.
 
 \begin{proposition}[The run chord]\label{prop:runchord}
 Let $0\le k\le L-3$ and $y_{k+1}\le\tfrac12$, let $g\ge1$, let
 $B_0\subseteq\{1,\ldots,g-1\}$, and let $A$ be a nonempty set of integers
-above $g$ with $|B_0|+|A|=L-k-2$, with runs $[s_j,e_j]$ and neighbours $Z_j$
-as above.  Let $V$ and $V_j$ be the full certificates on
+above $g$ with $|B_0|+|A|=L-k-2$.  Write $A$ as the disjoint union of its
+maximal runs of consecutive integers $[s_1,e_1],\ldots,[s_p,e_p]$, put
+$A+1=\{a+1:a\in A\}$, and let the neighbour of $B_0\cup A$ at the $j$th run
+be
+\[
+  Z_j=\bigl((B_0\cup A)\setminus\{s_j\}\bigr)\cup\{e_j+1\}.
+\]
+Let $V$ and $V_j$ be the full certificates on
 $y_{k+2},\ldots,y_L$ with zero sets $Z=B_0\cup A$ and $Z_j$, and let $w$ be
 the full certificate on $y_{k+1},\ldots,y_L$ with zero set
 $\widehat Z=B_0\cup\{g\}\cup(A+1)$.  Put $\rho_j=|w(s_j)|/|V_j(s_j)|$ (the
@@ -1350,7 +1451,7 @@ over monic $Q,M\in\R[x]$.
 \begin{proof}
 Fix $k$ and $X$, and put $g=\max X$ and $X'=X\setminus\{g\}$, a set of
 $u-k-1\le L-k-2$ integers.  By Lemma~\ref{lem:attainX} on
-$y_{k+2},\ldots,y_L$, $\tau_{k+1}(X')$ is attained by a full certificate $V$
+$y_{k+2},\ldots,y_L$, $\tau_{k+1}(X')$ is achieved by a full certificate $V$
 whose zero set $Z^-\supseteq X'$ has $L-k-2$ elements.  Every node is at most
 $\tfrac12$.
 
@@ -1396,7 +1497,7 @@ bracket.  The multiplier $M=x+\tfrac9{62}$ gives the partial sums
 $-\tfrac{859}{62},\tfrac{1704}{31},-\tfrac{2463}{62},-\tfrac{1704}{31}$ of
 $P_1M$, constant from $j=4$ on, so
 $\max_{j\ge1}|S_j(P_1M)|=\tfrac{1704}{31}$, and by \eqref{eq:dualpair} both
-attain $\tau^*=\tfrac{31}{1704}$ and Theorem~\ref{thm:extremal} gives
+achieve $\tau^*=\tfrac{31}{1704}$ and Theorem~\ref{thm:extremal} gives
 \[
   \inf_Qb_2\bigl(Q(x-2)(x-3)(x-5)(x-7)\bigr)=\frac{1704}{31}=54.967\ldots,
 \]
@@ -1504,7 +1605,7 @@ so the infimum is $\tfrac{3398808}{96935}$ (Theorem~\ref{thm:elevenvalue}).
 Keep the notation of Section~\ref{sec:value}: $1<r_1<\cdots<r_L$ are
 distinct, $y_i=1/r_i$, and $\tau_k(X)$ is the least tail of a certificate
 for $X$ on $y_{k+1},\ldots,y_L$.  Nothing in this section assumes
-$r_1\ge2$.  The game value $T$ is always attained, possibly at a level
+$r_1\ge2$.  The game value $T$ is always a maximum, achieved possibly at a level
 where some exempt coefficients have escaped
 (Proposition~\ref{prop:attainT}); for one exempt coefficient it reduces to
 $\tau^*$ and finitely many placements (Theorem~\ref{thm:halfmass}).  This
@@ -1539,7 +1640,7 @@ the infimum is $1/T\le1/\tau(X)$.
 
 With $X=\varnothing$ and $P_u$ in place of $P$ this is \eqref{eq:dualpair}.
 
-\begin{proposition}[The game is attained]\label{prop:attainT}
+\begin{proposition}[The game value is a maximum]\label{prop:attainT}
 Let $1<r_1<\cdots<r_L$ and $0\le u\le L-1$, and for $0\le k\le u$ put
 $T_k=\sup\{\tau_k(X):X\subset\N_{>0},\ |X|=u-k\}$, so that $T_0=T$ and
 $T_u=\tau^*$.  Then $T_0\ge T_1\ge\cdots\ge T_u$, and each $T_k$ is finite
@@ -1589,7 +1690,7 @@ placements that can matter.
 
 \begin{theorem}[One exempt coefficient]\label{thm:halfmass}
 Let $1<r_1<\cdots<r_L$ with $L\ge2$, and $u=1$.  Let $V$ be a full
-certificate on $y_2,\ldots,y_L$ attaining $\tau^*$
+certificate on $y_2,\ldots,y_L$ achieving $\tau^*$
 (Proposition~\ref{prop:attain}), $Z^*$ its zero set and
 $g=\max(Z^*\cup\{0\})$, and let $H$ be the exponential sum on
 $y_1,\ldots,y_L$ with weight $1$ on $y_1$, $H_0=0$ and $H|_{Z^*}=0$.
@@ -1649,7 +1750,7 @@ decides whether the aligned lift costs more than $\tau^*$ at a given $x$;
 at roots at least $2$, Lemma~\ref{lem:delete} gives $\Tail(w)\le\tau^*$ for
 every $x>g$, and the placements $x<g$ outside $Z^*$ are those of the run
 chord (Proposition~\ref{prop:runchord}).  Each remaining $\tau(\{x\})$ is
-attained by a full certificate (Lemma~\ref{lem:attainX}), but we do not
+achieved by a full certificate (Lemma~\ref{lem:attainX}), but we do not
 bound its zero set a priori, so the theorem reduces $T$ to finitely many
 placements without making each of them a finite computation.  Below, the
 worst placement is pinned between an explicit full certificate and
@@ -1679,7 +1780,7 @@ $\tau(\{5\})\ge\theta$, while the full certificate with zero set
 $\{1,3,5\}$ has tail $\theta$ (after Proposition~\ref{prop:belowtwo}).  So
 $\tau(\{5\})=\theta$.  For the other placements apply
 Theorem~\ref{thm:halfmass} with $V$ the full certificate on
-$(\tfrac13,\tfrac15,\tfrac17)$ with zero set $Z^*=\{1,3\}$, which attains
+$(\tfrac13,\tfrac15,\tfrac17)$ with zero set $Z^*=\{1,3\}$, which achieves
 $\tau^*=\tfrac{31}{1704}<\theta$ (the example after
 Theorem~\ref{thm:extremal}).  Then
 \[
@@ -1700,7 +1801,7 @@ $\{1,4,9\}$ and $\{1,3,x\}$ have the tails
   \{1,3,9\}&:\ \tfrac{94783579348745045}{5199121229605850568}=0.01823\ldots,\\
   \{1,3,10\}&:\ \tfrac{199173967015849717825}{10949935864566580087416}=0.01818\ldots,
 \end{align*}
-all below $\theta=0.02852\ldots$.  So $T=\theta$, attained
+all below $\theta=0.02852\ldots$.  So $T=\theta$, achieved
 only at $\{5\}$, and Theorem~\ref{thm:value} gives the infimum.
 
 The facts about $H$ and the seven tails are a computer-assisted
@@ -1747,12 +1848,13 @@ $r_c\le r<3$.  More precisely, with $\beta(r)=48(r-1)(15r+71)/(49r-34)$,
 \]
 over monic $Q$.  For $\tfrac{29}{20}\le r<r_c$, moreover,
 $T=\tau(\{4\})=1/\beta(r)$ and $\tau(\{x\})\le\tau^*<T$ for every
-positive integer $x\ne4$.
+positive integer $x\ne4$.  On $[\tfrac{13}{10},\tfrac{29}{20})$ only the
+upper bound $\beta(r)$ is proved (Section~\ref{sec:scope}).
 \end{theorem}
 
 \begin{proof}
 The surviving roots are $3,5,7$ for every $r$, so $\tau^*=\tfrac{31}{1704}$,
-attained by the full certificate on $(\tfrac13,\tfrac15,\tfrac17)$ with zero
+achieved by the full certificate on $(\tfrac13,\tfrac15,\tfrac17)$ with zero
 set $Z^*=\{1,3\}$ (the example after Theorem~\ref{thm:extremal}).  Write
 $y=1/r$ for the new node.
 
@@ -1785,7 +1887,8 @@ has the sign of $1988+7r-930r^2$, positive exactly for $r<r_c$.
 
 \emph{Upper bounds.}  Let $\tfrac{29}{20}\le r<3$, so
 $\tfrac13<y\le\tfrac{20}{29}$ and $y$ is the largest node.  Solving the
-$4\times4$ systems, with the sign patterns given by the zero bound, the full
+$4\times4$ systems, with the sign patterns given by the zero bound
+(Appendix~\ref{sec:familydata} lists the solutions), the full
 certificates with zero sets $\{1,3,4\}$ and $\{1,2,5\}$ have tails
 \[
   \frac1{\beta(r)}\quad\text{and}\quad
@@ -1795,7 +1898,8 @@ and $\tau^*-t_2(r)=c_2(r)/\bigl(3408(r-1)(3466r^2+7455r+11025)\bigr)$ with
 $c_2(r)=214892r^3-55639r^2-138630r-266709$, so the second is at most
 $\tau^*$ exactly when $c_2(r)\ge0$.  For the $H$ of
 Theorem~\ref{thm:halfmass}, $H_d>0$ for $d\ge4$ and $H_2<0$ by the zero
-bound, and solving the $3\times3$ system for $H$ gives, on $(1,3)$,
+bound, and solving the $3\times3$ system for $H$
+(Appendix~\ref{sec:familydata}) gives, on $(1,3)$,
 \[
   2\sum_{d\le5}|H_d|-\Tail(H)=-H_2+H_4+H_5-\sum_{d\ge6}H_d
   =\frac{c_5(r)(3-r)(5-r)(7-r)}{12524400\,r^5(r-1)},
@@ -1809,7 +1913,9 @@ solves the three linear systems over $\mathbb Q(r)$, forms each tail and
 the left side above from the sign pattern of the zero bound and the
 geometric sums past the largest zero, and compares reduced numerators and
 denominators with the displayed forms, so the check covers every $r$ in
-$(1,3)$, not sample points.  The same test checks the partial sums and the
+$(1,3)$, not sample points; Appendix~\ref{sec:familydata} lists the
+solutions and the values entering each tail, from which the identities can
+also be checked by hand.  The same test checks the partial sums and the
 three quadratics of the lower bounds as identities in $r$.  Both cubics
 increase on $r\ge1$, since there $r\le r^2$ and $1\le r^2$ give
 $c_2'(r)=644676r^2-111278r-138630\ge394768r^2>0$ and
@@ -1855,25 +1961,29 @@ $1/\tau^*=24$.
 
 \section{Scope and open questions}\label{sec:scope}
 
-\paragraph{What is left open here.}  For roots at least $2$ the value of
-the infimum is settled: it is $1/\tau^*$, the multiplier value of
-Proposition~\ref{prop:attain} (Theorem~\ref{thm:extremal},
-Corollary~\ref{cor:extremalrep}).  Below $2$, Theorem~\ref{thm:value} still
-gives $1/T$ with $T\ge\tau^*$, and $T>\tau^*$ can occur
-(Proposition~\ref{prop:belowtwo}).  For distinct roots $T$ is attained at
-some level (Proposition~\ref{prop:attainT}), and for $u=1$ it is the larger of
-$\tau^*$ and finitely many $\tau(\{x\})$, $x<N$ (Theorem~\ref{thm:halfmass}),
-which settles $(\tfrac{11}{10},3,5,7)$, and along $(r,3,5,7)$ decides
-exactly when $T=\tau^*$ and gives the infimum for $\tfrac{29}{20}\le r<3$
-(Theorems~\ref{thm:elevenvalue} and~\ref{thm:family}).  Open: an a priori
-bound on the zero set minimising a single $\tau(\{x\})$, which would make
-the case $u=1$ a finite computation outright; an analogue of the threshold
-$N$ for $u\ge2$, where only the qualitative Proposition~\ref{prop:attainT}
-is proved; and a description of the root sets below $2$ at which the
-escaping placement stays extremal, which depends on more than $r_1$
+\paragraph{What is left open here.}  For roots at least $2$ the infimum is
+$1/\tau^*$ (Theorem~\ref{thm:extremal}); below $2$ it is $1/T$ with
+$T\ge\tau^*$, and four questions about $T$ remain open.
+\begin{itemize}
+\item An a priori bound on the zero set minimising a single $\tau(\{x\})$,
+which would make the case $u=1$ a finite computation outright.
+\item An analogue of the threshold $N$ of Theorem~\ref{thm:halfmass} for
+$u\ge2$, where only the qualitative Proposition~\ref{prop:attainT} is
+proved.
+\item A description of the root sets below $2$ at which the escaping
+placement stays extremal, which depends on more than $r_1$
 (Theorem~\ref{thm:family} and Proposition~\ref{prop:cutoffsharp}).
+\item Whether the infimum along $(r,3,5,7)$ equals $\beta(r)$ on
+$[\tfrac{13}{10},\tfrac{29}{20})$, where Theorem~\ref{thm:family} gives
+only the upper bound.
+\end{itemize}
 
-\paragraph{Relation to the literature.}  The bounds here concern order
+\paragraph{Relation to the literature.}  The nearest work is the reduced
+height of Dubickas and Jankauskas~\cite{dj}, which is our infimum at $u=0$;
+its relatives, Schinzel's reduced length~\cite{schinzel} and the minimal
+Euclidean norm of Filaseta, Robinson and Wheeler~\cite{frw}; and the height
+of polynomials with split roots, studied by Hajdu, Tijdeman and
+Varga~\cite{htv} and by Tromp~\cite{tromp}.  The bounds here concern order
 statistics of the coefficient magnitudes of multiples, which at $u=0$ reduce
 to the height; they are uniform over the degree
 of $F$ and over all additional real or complex roots.  In the opposite
@@ -1881,8 +1991,8 @@ direction, the degree of an integer polynomial of height $H\ge2$ all of whose
 roots are nonzero rationals is at most a constant times $\log H$~\cite{htv},
 and the minimal height of a degree-$n$ polynomial over a fixed number
 field $\mathbb K$ with all roots in $\mathbb K^\times$ grows exponentially in $n$~\cite{tromp}.  At
-$u=0$ the infimum of $b_1(QP)$ over monic $Q$ is the reduced height of $P$
-of Dubickas and Jankauskas~\cite{dj}, the $\ell^\infty$ member of a family
+$u=0$ the infimum of $b_1(QP)$ over monic $Q$ is the reduced height of $P$,
+the $\ell^\infty$ member of a family
 of extremal problems over normalized multiples: reduced length minimizes
 $\ell^1$~\cite{schinzel}, and the integer-polynomial $\ell^2$ analogue, the
 minimal Euclidean norm of an algebraic number, is effectively
@@ -1897,11 +2007,140 @@ Corollary~7~\cite{dj}.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.  The exact
-computations quoted in the paper (Theorems~\ref{thm:elevenvalue}
-and~\ref{thm:family}, and the remarks after
-Propositions~\ref{prop:runchord} and~\ref{prop:belowtwo}) are in \texttt{tests/test\_attainment.py} of the repository
+computations quoted in the paper are in \texttt{tests/test\_attainment.py},
+with helpers in \texttt{tests/sweep.py}, of the repository
 \href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass},
 and run with \texttt{uv run pytest tests/test\_attainment.py}.
+
+\paragraph{Computer assistance.}
+Three computations are computer-assisted: steps of the proofs of
+Theorems~\ref{thm:elevenvalue} and~\ref{thm:family}, and the failure of
+\eqref{eq:runchord} above the cutoff.  In
+Theorem~\ref{thm:elevenvalue}, the sum $H$, its tail, the threshold $N=11$
+and the tails of the seven full certificates for the placements
+$x=2,4,6,7,8,9,10$, with their comparisons with $\theta$, are computed over
+$\mathbb Q$ in \texttt{test\_value\_eleven\_tenths}.  In
+Theorem~\ref{thm:family}, the tails of the full certificates with zero sets
+$\{1,3,4\}$ and $\{1,2,5\}$ and the closed form of
+$2\sum_{d\le5}|H_d|-\Tail(H)$ are identities in $\mathbb Q(r)$, verified with
+$r$ an indeterminate in \texttt{test\_family\_threshold};
+Appendix~\ref{sec:familydata} lists the solutions of the linear systems, from
+which they can also be checked by hand.  The statement after
+Proposition~\ref{prop:runchord} that \eqref{eq:runchord} can fail above the
+cutoff rests on the two rationals computed in
+\texttt{test\_run\_chord\_control\_above\_cutoff}.  All arithmetic is exact:
+rationals are Python \texttt{fractions.Fraction}, and $\mathbb Q(r)$ is
+represented by quotients of polynomials with \texttt{Fraction}
+coefficients, a small class defined in the test file; no floating point and
+no computer algebra system is used, and every decimal in the paper is a
+truncation of an exact rational.  The other computations only check steps
+proved by hand: the example after Theorem~\ref{thm:extremal}
+(\texttt{test\_extremal\_example\_2357}); the multiple $F$ of
+Proposition~\ref{prop:belowtwo} and the certificate with zero set
+$\{1,3,5\}$ after it (\texttt{test\_below\_two}); the partial sums of $PM$
+in Theorem~\ref{thm:elevenvalue} and the comparisons in the remark after it
+(\texttt{test\_value\_eleven\_tenths}); the partial sums, quadratics and
+cubics of the proof of Theorem~\ref{thm:family}
+(\texttt{test\_family\_threshold}); and
+Proposition~\ref{prop:cutoffsharp} (\texttt{test\_cutoff\_sharp}).  The file
+also holds tests used in no proof: seeded random exact checks of
+Proposition~\ref{prop:runchord} and of the identity in
+Theorem~\ref{thm:halfmass}(b), and exact linear programs over monic
+multiples of bounded degree, which confirm the value $\tfrac{1704}{31}$ at
+$(2,3,5,7)$ and serve as controls that no multiple found undercuts a stated
+infimum.
+
+\paragraph{Use of AI tools.}
+Large language model assistants (Claude, Anthropic) were used in drafting
+and revising the text, the proofs and the verification code.  The author has checked the mathematics and is responsible
+for the content.
+
+\paragraph{Funding and competing interests.}
+The author received no specific funding for this work and has no competing
+interests to declare.
+
+\appendix
+
+\section{Data for the family \texorpdfstring{$(r,3,5,7)$}{(r,3,5,7)}}\label{sec:familydata}
+
+This appendix lists the solutions of the linear systems in the proof of
+Theorem~\ref{thm:family} as rational functions of $r$, written with
+\[
+  p(r)=(3-r)(5-r)(7-r),\qquad q(r)=3466r^2+7455r+11025 ,
+\]
+so that the tails $1/\beta(r)$ and
+$t_2(r)=(4267r^2+5070r-5871)/\bigl(48(r-1)q(r)\bigr)$ there can be checked
+by hand or by any computer algebra system.  Let $1<r<3$, so that
+$\tfrac1r$ is the largest of the nodes
+$\tfrac1r,\tfrac13,\tfrac15,\tfrac17$; then $p(r)$ and $q(r)$ are positive.  Each sum below has the form
+$v_d=\lambda_1r^{-d}+\lambda_33^{-d}+\lambda_55^{-d}+\lambda_77^{-d}$, and
+past its largest prescribed zero $z$ its values sum to
+\[
+  \sum_{d>z}v_d=\frac{\lambda_1}{r^{z}(r-1)}+\frac{\lambda_3}{2\cdot3^{z}}
+  +\frac{\lambda_5}{4\cdot5^{z}}+\frac{\lambda_7}{6\cdot7^{z}} .
+\]
+Each weight vector is verified by substituting it into the defining
+conditions; the values listed are then direct evaluations.  The signs are
+those of the zero bound: a full certificate is positive at $0$ and changes
+sign exactly at its zeros, and $H$ vanishes exactly at $0,1,3$, with
+$H_d>0$ for $d>3$.  The escaping minimiser $V$, with zero set $Z^*=\{1,3\}$,
+is displayed after Theorem~\ref{thm:extremal}.
+
+\paragraph{The certificate with zero set $\{1,3,4\}$.}  Its weights are
+\[
+  \lambda_1=-\frac{15r^4}{p(r)(15r+71)},\quad
+  \lambda_3=\frac{81(r+12)}{8(3-r)(15r+71)},\quad
+  \lambda_5=-\frac{625(r+10)}{4(5-r)(15r+71)},\quad
+  \lambda_7=\frac{2401(r+8)}{8(7-r)(15r+71)},
+\]
+and $v_0=1$, $v_1=v_3=v_4=0$,
+\[
+  v_2=-\frac1{15r+71},\qquad
+  \sum_{d\ge5}v_d=-\frac{r+14}{48(r-1)(15r+71)},
+\]
+with $v_2<0$ and $v_d<0$ for $d\ge5$, so
+\[
+  \Tail(v)=|v_2|-\sum_{d\ge5}v_d=\frac{49r-34}{48(r-1)(15r+71)}=\frac1{\beta(r)}.
+\]
+
+\paragraph{The certificate with zero set $\{1,2,5\}$.}  Its weights are
+\begin{gather*}
+  \lambda_1=-\frac{3466r^5}{p(r)q(r)},\qquad
+  \lambda_3=\frac{243(109r^2+420r+1225)}{8(3-r)q(r)},\\
+  \lambda_5=-\frac{3125(79r^2+210r+441)}{4(5-r)q(r)},\qquad
+  \lambda_7=\frac{16807(49r^2+120r+225)}{8(7-r)q(r)},
+\end{gather*}
+and $v_0=1$, $v_1=v_2=v_5=0$,
+\[
+  v_3=\frac{71r+105}{q(r)},\qquad
+  v_4=\frac{15r+71}{q(r)},\qquad
+  \sum_{d\ge6}v_d=-\frac{139r^2+750r+2577}{48(r-1)q(r)},
+\]
+with $v_3,v_4>0$ and $v_d<0$ for $d\ge6$, so
+\[
+  \Tail(v)=v_3+v_4-\sum_{d\ge6}v_d
+  =\frac{4267r^2+5070r-5871}{48(r-1)q(r)}=t_2(r).
+\]
+
+\paragraph{The sum $H$ of Theorem~\ref{thm:halfmass}.}  With weight $1$ on
+$\tfrac1r$, $H_0=0$ and $H|_{Z^*}=0$, its weights are
+\[
+  \lambda_1=1,\quad
+  \lambda_3=-\frac{27(5-r)(7-r)(12r+35)}{568r^3},\quad
+  \lambda_5=\frac{125(3-r)(7-r)(10r+21)}{284r^3},\quad
+  \lambda_7=-\frac{343(3-r)(5-r)(8r+15)}{568r^3},
+\]
+and $H_0=H_1=H_3=0$,
+\begin{gather*}
+  H_2=-\frac{p(r)}{71r^3},\qquad
+  H_4=\frac{p(r)(15r+71)}{7455r^4},\qquad
+  H_5=\frac{p(r)(960r^2+5041r+7455)}{782775r^5},\\
+  \sum_{d\ge4}H_d=\frac{p(r)(14r+57)}{3408r^3(r-1)},\qquad
+  \sum_{d\ge6}H_d=\frac{p(r)(10890r^3+50099r^2+80656r+119280)}{12524400r^5(r-1)} .
+\end{gather*}
+So $\Tail(H)=-H_2+\sum_{d\ge4}H_d$ and $\sum_{d\le5}|H_d|=-H_2+H_4+H_5$,
+which give the identity for $2\sum_{d\le5}|H_d|-\Tail(H)$ in the proof of
+Theorem~\ref{thm:family}.
 
 \begin{thebibliography}{9}
 \small
@@ -1913,7 +2152,8 @@ S.~Karlin and W.~J. Studden,
 \bibitem{polya-szego}
 G.~P\'olya and G.~Szeg\H{o},
 \newblock \emph{Problems and Theorems in Analysis II},
-\newblock Springer, 1976, Part Five, Chapter 1,
+\newblock Classics in Mathematics, Springer, 1998 (reprint of the 1976
+  edition), Part Five, Chapter 1,
 \newblock \href{https://doi.org/10.1007/978-3-642-61905-2}
 {doi:10.1007/978-3-642-61905-2}.
 
@@ -1958,7 +2198,7 @@ number field,
 B.~Pham,
 \newblock Displaced-zero certificates and the coefficient mass of polynomial
 multiples,
-\newblock manuscript in preparation;
+\newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass};
 Lemma~2.1 (Consecutive zero set), Theorem~2.2 (Displaced-zero tail bound),
 Lemma~2.3 (Ratio bound for the correction sum),
 Lemma~3.1 (Certificate with excluded positions), Theorem~3.2 (Coefficient order statistics),

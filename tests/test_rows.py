@@ -24,6 +24,8 @@ from itertools import combinations
 
 import pytest
 
+from tests.sweep import _solve
+
 
 def _rz(zeros: tuple[int, ...], s: int) -> Fraction:
     value = Fraction(1)
@@ -135,7 +137,10 @@ def _rows_are_top_rows(r: Fraction, big_l: int, k: int) -> list[tuple[int, ...]]
     """The exempted sets ``S`` at which ``mu(S, L) > mu(0, n)`` on a window.
 
     ``thm:allrowstwo`` says ``V_r(L,k) = beta_r(n)``, ``n = L-k+1``, that is,
-    ``mu_r(S, L) <= mu_r(0, n)`` for every ``|S| = k-1``.
+    ``mu_r(S, L) <= mu_r(0, n)`` for every ``|S| = k-1``.  Both sides are
+    minimized over zero sets inside a window, so this is a consistency check
+    on small cases, not a certificate: the exact values are certified in
+    ``test_second_row_*`` and ``test_third_row_*``.
     """
     window = 14
     top = _mu((), big_l - k, r, window)
@@ -172,19 +177,6 @@ _VERTEX = (1, 2, 5, 8, 12, 17, 22, 28, 35, 44, 53, 65, 78, 94, 115)
 #: ``nu_1(15) <= Phi(Y_1)`` and ``nu_2(15) = mu([1], 16) <= Phi({1} + Y_2)``.
 _Y1 = (1, 3, 6, 9, 13, 18, 24, 30, 38, 47, 58, 71, 87, 107)
 _Y2 = (1, 3, 5, 8, 12, 17, 22, 28, 36, 44, 54, 65, 78, 94, 115)
-
-
-def _solve(matrix: list[list[Fraction]], rhs: list[Fraction]) -> list[Fraction]:
-    n = len(matrix)
-    a = [[*row, b] for row, b in zip(matrix, rhs, strict=True)]
-    for col in range(n):
-        piv = next(i for i in range(col, n) if a[i][col] != 0)
-        a[col], a[piv] = a[piv], a[col]
-        for i in range(n):
-            if i != col and a[i][col] != 0:
-                f = a[i][col] / a[col][col]
-                a[i] = [u - f * v for u, v in zip(a[i], a[col], strict=True)]
-    return [a[i][n] / a[i][i] for i in range(n)]
 
 
 def _prefix_counterexample(degree: int) -> list[Fraction]:
