@@ -707,7 +707,7 @@ def _level_sets(big_b: int, degree: int, box: int) -> dict[tuple, list[Gauss]]:
 
 
 def test_one_heavy_coefficient() -> None:
-    """The search reported after ``prop:gausslow``, on a small range: no real
+    """The search reported after ``prop:gaussheavy``, on a small range: no real
     value of ``g`` is taken at three Gaussian ``y`` above the axis.
 
     Control: ``y^6 - 2y^4 + y^2`` takes the value ``-100`` at ``+-2 + i`` and
@@ -716,3 +716,165 @@ def test_one_heavy_coefficient() -> None:
     assert max(len(ys) for ys in _level_sets(1, 5, 8).values()) <= 2
     found = _level_sets(2, 6, 3)
     assert sorted(found[((0, 1, 0, -2, 0, 1), -100)]) == [(-2, 1), (0, 2), (2, 1)]
+
+
+# Blocks and heavy coefficients at Gaussian roots (lem:gausscarry,
+# lem:gaussblocks, thm:gausscharge, prop:gaussheavy).
+
+
+def _tail(f: Poly, m: int, z: Gauss) -> Gauss:
+    """``G_m(z) = sum_(i >= m) f_i z^(i - m)``, exactly in ``Z[i]``."""
+    v = (0, 0)
+    for c in reversed(f[m:]):
+        v = _gmul(v, z)
+        v = (v[0] + c, v[1])
+    return v
+
+
+def _trim(f: Poly) -> Poly:
+    while f and f[-1] == 0:
+        f = f[:-1]
+    return f
+
+
+def _blocks(f: Poly, roots: list[Gauss], shift: int = 0) -> list[tuple[int, Poly]]:
+    """The decomposition of ``lem:gaussblocks``: ``f = sum x^e B``."""
+    f = _trim(f)
+    e = next(i for i, c in enumerate(f) if c)
+    f0 = f[e:]
+    for m in range(1, len(f0)):
+        if all(_tail(f0, m, z) == (0, 0) for z in roots):
+            return _blocks(f0[:m], roots, shift + e) + _blocks(
+                f0[m:], roots, shift + e + m
+            )
+    return [(shift + e, f0)]
+
+
+def _block_multiples(rng: random.Random, p: Poly) -> Poly:
+    """A random multiple of ``p``, sometimes a lacunary sum of several."""
+    f = _mul(p, _cofactor(rng))
+    for _ in range(rng.randint(0, 2)):
+        g = _mul(p, _cofactor(rng))
+        f = f + [0] * rng.randint(0, 3) + g
+    return f
+
+
+def test_gaussian_blocks_and_heavy_coefficients() -> None:
+    """``lem:gaussblocks`` and ``prop:gaussheavy``, item 1: the blocks tile
+    ``f``, are multiples of ``P`` without a clean split, start with a heavy
+    coefficient, and number at most the heavy nonleading coefficients; every
+    split of a block is charged as in ``lem:gausscarry``, and each block pays
+    ``thm:gausscharge``.  Heavy means ``|c| >= rho_min/2``, i.e.
+    ``4c^2 >= n_min``."""
+    rng = random.Random(SEED + 7)
+    for _ in range(300):
+        roots = COPRIME[: rng.randint(1, len(COPRIME))]
+        norms = [a * a + b * b for a, b in roots]
+        n_min = min(norms)
+        p = _pairs(roots)
+        f = _block_multiples(rng, p)
+        blocks = _blocks(f, roots)
+        tiled = [0] * len(f)
+        for e, blk in blocks:
+            for i, c in enumerate(blk):
+                tiled[e + i] += c
+            assert _divides(p, blk)
+            assert abs(blk[0]) >= p[0] and 4 * blk[0] ** 2 >= n_min
+            d = len(blk) - 1
+            for m in range(1, d + 1):
+                bad = [
+                    (z, n)
+                    for z, n in zip(roots, norms, strict=True)
+                    if _tail(blk, m, z) != (0, 0)
+                ]
+                assert bad
+                z, n = bad[0]
+                assert any(4 ** (m - i) * blk[i] ** 2 >= n ** (m - i) for i in range(m))
+            assert 4**d * prod(max(1, c * c) for c in blk[:d]) >= n_min**d
+        assert tiled == _trim(f)
+        heavy = sum(4 * c * c >= n_min for c in _trim(f)[:-1])
+        assert len(blocks) <= heavy
+
+
+def test_gaussian_carry_needs_the_half() -> None:
+    """Control for ``lem:gausscarry``: with ``rho`` in place of ``rho/2`` the
+    charge fails at the split ``m = 5`` of ``(2 - x)P``, ``P`` the pairs of
+    ``1 + 2i`` and ``-2 + 3i``, at ``-2 + 3i``."""
+    roots = [(1, 2), (-2, 3)]
+    f = _mul(_pairs(roots), [2, -1])
+    assert f == [130, -77, 26, -6, 0, -1]
+    z, n = (-2, 3), 13
+    assert _tail(f, 5, z) != (0, 0)
+    assert not any(f[i] ** 2 >= n ** (5 - i) for i in range(5))
+    assert any(4 ** (5 - i) * f[i] ** 2 >= n ** (5 - i) for i in range(5))
+
+
+def _horner(f: Poly, z: Gauss) -> Gauss:
+    return _tail(f, 0, z)
+
+
+def test_one_heavy_coefficient_is_one_level_set() -> None:
+    """``prop:gaussheavy``, item 2: ``b_2(F) < rho_min/2`` leaves one block
+    ``v + H`` with ``H(alpha_j) = -v`` and ``(rho_min/2)^deg H <= |v|``.
+
+    Checked at ``y^6 - 2y^4 + y^2 + 270400``, whose roots include
+    ``+-7 + 4i`` and ``8i``, and at every multiple ``g(x) - v`` found by a
+    small level-set search with ``rho_min > 2B``.  Control: at the first,
+    ``rho_min^6 > |v|``, so the degree bound fails with ``rho_min`` in place
+    of ``rho_min/2``.
+    """
+    h = [0, 0, 1, 0, -2, 0, 1]
+    roots = [(7, 4), (-7, 4), (0, 8)]
+    v = -_horner(h, (0, 8))[0]
+    f = [v] + h[1:]
+    n_min = 65
+    assert v == 270400 and _divides(_pairs(roots), f)
+    assert 4 * _b(f)[1] ** 2 < n_min
+    assert _blocks(f, roots) == [(0, f)]
+    assert all(_horner(h, z) == (-v, 0) for z in roots)
+    assert n_min**6 <= 4**6 * v * v
+    assert n_min**6 > v * v
+    big_b = 2
+    for (g, value), ys in _level_sets(big_b, 4, 6).items():
+        n_min = min(a * a + b * b for a, b in ys)
+        if 4 * big_b**2 >= n_min:
+            continue
+        f = [-value, *g]
+        d = len(f) - 1
+        assert _divides(_pairs(ys), f)
+        assert _blocks(f, ys) == [(0, f)]
+        assert n_min**d <= 4**d * value * value
+
+
+# Counting Gaussian integers (cor:gausscount).
+
+
+def test_gaussian_integers_in_a_disc() -> None:
+    """Fewer than ``pi (X + 1)^2`` Gaussian integers have modulus below
+    ``X``, checked with ``333/106 < pi`` for ``X = p/4``.
+
+    Control: at ``X = 101/100`` there are five, more than ``pi X^2``
+    (checked with ``22/7 > pi``), so the ``+1`` is needed.
+    """
+    for p in range(1, 200):
+        x = Fraction(p, 4)
+        r = ceil(x)
+        count = sum(
+            1
+            for a in range(-r, r + 1)
+            for b in range(-r, r + 1)
+            if a * a + b * b < x * x
+        )
+        assert count <= Fraction(333, 106) * (x + 1) ** 2
+    x = Fraction(101, 100)
+    count = sum(1 for a in range(-2, 3) for b in range(-2, 3) if a * a + b * b < x * x)
+    assert count == 5 > Fraction(22, 7) * x * x
+
+
+def test_second_triple_of_the_search() -> None:
+    """The other triple the search reports: ``y^8 + 3y^4 = 4`` at ``+-1 + i``
+    and ``i``, so ``y^8 + 3y^4 - 4`` is a multiple of their pairs."""
+    h = [0, 0, 0, 0, 3, 0, 0, 0, 1]
+    roots = [(-1, 1), (0, 1), (1, 1)]
+    assert all(_horner(h, z) == (4, 0) for z in roots)
+    assert _divides(_pairs(roots), [-4, *h[1:]])

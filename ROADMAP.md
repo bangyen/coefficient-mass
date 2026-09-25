@@ -59,18 +59,27 @@ is open; an answer lands in the paper it extends, and the row leaves.
   common ray, `cor:thinconst`) and `(pi/delta - o(1)) K log R` at fixed
   `delta`, `K, R -> oo` (`thm:widesector`, `cor:wideconst`; `x^N - rho^N` attains `pi/delta`, `prop:widesharp`), so
   `c K**2 log R` is false over the reals; at such Gaussian roots and fixed
-  `delta`, `(pi/delta - o(1)) K log R` holds at every degree (`cor:widegauss`).
+  `delta`, `(pi/delta - o(1)) K log R` holds at every degree (`cor:widegauss`),
+  and, as fewer than `pi (X+1)**2` Gaussian integers have modulus below `X`,
+  `(pi/delta - o(1)) K log max(R, sqrt K)` as `K -> oo` uniformly in `R`
+  (`cor:gausscount`).
   Two integer imitations of `x^N - rho^N` are limited: `A((x-t)^N)` has at most
   `2 deg A` Gaussian roots above the axis, so `x^N - b` at most two
   (`lem:gaussbinom`); at pairwise coprime odd norms with
   `gcd(a_j, c_j) = 1` a multiple can be `f mod x^m` exactly when
   `P(0)**m | f`, so a gap `m` after the lowest coefficient costs
   `2Km log rho_min`, while at a common norm `n` the lowest `m`
-  coefficients can be `n**(K+m-1), 0, ..., 0` (`prop:gausslow`); and an
-  exhaustive search finds no `H(x) - v` with small `H` at more than three
-  prescribed roots.
+  coefficients can be `n**(K+m-1), 0, ..., 0` (`prop:gausslow`).  If
+  `rho_min > 2` and `b_2(F) < rho_min/2`, `F = x**e (v + H)` with every
+  nonleading coefficient of `H` below `rho_min/2`, so all the roots lie in one
+  level set `H(y) = -v` (`prop:gaussheavy`); numerically (exhaustive search,
+  all coefficients of `H` at most `B`, small degree) no such level set has more
+  than three points, so in the searched ranges four roots in the box with
+  `rho_min > 2B` and all coefficients but one at most `B` force a block of
+  degree above `s`.
   Open: whether `c K**2 log R` holds for all integer multiples at such Gaussian
-  roots in a wide sector (the question the paper's introduction leaves).
+  roots in a wide sector (the question the paper's introduction leaves),
+  and whether the level sets above stay bounded.
   Cross terms between annuli (`sec:annuli`): with `K_s` roots of
   modulus in `[T_s, U_s]`, the central index (`lem:central`) charges a
   root once per annulus at or below it.  Dividing out `n` roots of modulus

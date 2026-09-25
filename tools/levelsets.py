@@ -1,4 +1,4 @@
-"""The level-set search reported after ``prop:gausslow`` in the complex paper.
+"""The level-set search reported after ``prop:gaussheavy`` in the complex paper.
 
 For ``H`` in ``Z[y]`` with ``H(0) = 0``, positive leading coefficient,
 coefficients in ``[-B, B]`` and degree at most ``s``, group the Gaussian ``y``
@@ -8,9 +8,11 @@ the largest group and every group of size at least three.
 
     uv run --with numpy python tools/levelsets.py 2 7 40
 
-The paper's ranges are ``(B, s, Y) = (1, 10, 30), (2, 7, 40), (3, 5, 50),
-(5, 4, 60)``; every value stays far inside ``int64``.  A stdlib check on a
-small range is ``test_one_heavy_coefficient`` in ``tests/test_complex.py``.
+The paper's ranges are ``(B, s, Y) = (1, 11, 30), (2, 8, 40), (2, 10, 20),
+(3, 6, 50), (3, 8, 30), (5, 5, 60), (10, 4, 80)``; every value stays inside
+``int64`` (the largest, at most ``sum_(k <= 11) 43^k < 10^18``, at
+``(1, 11, 30)``; degree 12 there would overflow).  A stdlib check on a small
+range is ``test_one_heavy_coefficient`` in ``tests/test_complex.py``.
 """
 
 from __future__ import annotations
