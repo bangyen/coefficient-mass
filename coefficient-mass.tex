@@ -117,8 +117,9 @@ order $L\log L$ at the first $L$ primes and vacuous once $\log D\gg L\log L$.
 \paragraph{Method.}
 To bound $b_k$, we exclude any $k-1$ positions and build a normalized
 exponential sum in the reciprocal roots, the certificate, vanishing there
-and at enough initial positions (Lemma~\ref{lem:slack}).  Its $\ell^1$ tail
-is bounded, uniformly in the zero set, by Theorem~\ref{thm:tail}, whose
+and at enough of the top positions $D-1,D-2,\ldots$
+(Lemma~\ref{lem:slack}).  Its $\ell^1$ tail is bounded, uniformly over zero
+sets with a given leading run, by Theorem~\ref{thm:tail}, whose
 engine is a strict deletion step: deleting a displaced largest zero together
 with the largest node, the reciprocal of the smallest root, strictly
 increases the tail.
@@ -140,7 +141,7 @@ kept through their Corollary~7~\cite[Section~2]{dj} and checked case by
 case~\cite[Sections~3--4]{dj}.  Here $H(P)$ is the reduced height, the infimum of the
 heights of the multiples $PQ$ with $Q$ monic.  Lemma~\ref{lem:consecutive}
 proves the same-sign condition for all distinct nodes in $(0,1)$, so their
-bound $H(P)\ge|P(1)|$, which is the row $k=1$ of Theorem~\ref{thm:order},
+bound $H(P)\ge|P(1)|$, which follows from the row $k=1$ of Theorem~\ref{thm:order},
 holds unconditionally for distinct real roots greater than one.  What is new here is the tail estimate for
 arbitrary integer zero sets, and with it the rows $k\ge2$.
 
@@ -678,8 +679,8 @@ $2$, a degree-free form of the rows.
 \subsection{The first row}
 
 For a monic multiple, row $k=1$ of \eqref{eq:order} is
-$b_1\ge\prod_i(r_i-1)=|P(1)|$, the bound of Dubickas and
-Jankauskas~\cite{dj}.  It can be far from optimal.
+$b_1\ge\prod_i(r_i-1)=|P(1)|$, which contains the bound $H(P)\ge|P(1)|$ of
+Dubickas and Jankauskas~\cite{dj}.  It can be far from optimal.
 
 \begin{proposition}[Unbounded looseness of the row $k=1$]
 \label{prop:unbounded}
@@ -886,7 +887,7 @@ $(r_1,r_2)=(2,3)$ and $u=1$ gives $b_2\ge2$ for every monic multiple, and
 $t_n\to2$.
 \end{proof}
 
-They are not infima at every root set.  The companion
+The rows are not infima at every root set.  The companion
 paper~\cite{coefficient-mass-attainment} characterizes the root sets at
 which \eqref{eq:order} is an infimum: for $2\le r_1\le\cdots\le r_L$,
 repeated roots included, the row $k=u+1$ is the infimum of $b_{u+1}(PQ)$
@@ -1248,7 +1249,7 @@ give $Z\supseteq S$ with $|Z|\le|S|+n-1=L-1$ and $\Phi(Z)\le1/n$, and
 Lemma~\ref{lem:rowcert} gives $b_k(F)\ge n$.
 \end{proof}
 
-The row $k=L$ is the trivial $b_L\ge1$, and summing the rows gives only
+The row $k=L$ is $b_L\ge1$, already the row $u=L-1$ of \eqref{eq:order}, and summing the rows gives only
 $\Lambda(F)\ge\log L!$, which Proposition~\ref{prop:quadratic} already
 exceeds for large $L$; the content of Theorem~\ref{thm:everyrow} is the
 individual rows.  For $\ell\in\{1,2\}$ the tail bound of Lemma~\ref{lem:holetail}
