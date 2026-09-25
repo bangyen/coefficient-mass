@@ -809,20 +809,27 @@ def test_one_heavy_coefficient_is_one_level_set() -> None:
     ``+-7 + 4i`` and ``8i`` (the triple quoted after the proposition), and
     at every multiple ``g(x) - v`` with small coefficients whose Gaussian
     roots in a box have ``rho_min > 2B``.
-    Control: at the first, ``rho_min^6 > |v|``, so the degree bound fails
-    with ``rho_min`` in place of ``rho_min/2``.
+    Control: at ``y^3 - 2y^2 + y + 100``, with root ``3 + 4i``,
+    ``rho_min^3 > |v|``, so the degree bound fails with ``rho_min`` in place
+    of ``rho_min/2``.
     """
     h = [0, 0, 1, 0, -2, 0, 1]
     roots = [(7, 4), (-7, 4), (0, 8)]
     v = -_horner(h, (0, 8))[0]
     f = [v] + h[1:]
-    n_min = 65
-    assert v == 270400 and _divides(_pairs(roots), f)
+    n_min = min(a * a + b * b for a, b in roots)
+    assert n_min == 64 and v == 270400 and _divides(_pairs(roots), f)
     assert 4 * _b(f)[1] ** 2 < n_min
     assert _blocks(f, roots) == [(0, f)]
     assert all(_horner(h, z) == (-v, 0) for z in roots)
     assert n_min**6 <= 4**6 * v * v
-    assert n_min**6 > v * v
+    h, roots = [0, 1, -2, 1], [(3, 4)]
+    v = -_horner(h, (3, 4))[0]
+    f = [v] + h[1:]
+    assert v == 100 and _divides(_pairs(roots), f) and 4 * _b(f)[1] ** 2 < 25
+    assert _blocks(f, roots) == [(0, f)]
+    assert 25**3 <= 4**3 * v * v
+    assert 25**3 > v * v
     big_b = 2
     for (g, value), ys in _level_sets(big_b, 4, 6).items():
         n_min = min(a * a + b * b for a, b in ys)

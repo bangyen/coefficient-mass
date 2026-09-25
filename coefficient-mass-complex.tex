@@ -167,7 +167,8 @@ limited: $A((x-t)^N)$ has at most two Gaussian roots in the upper
 half-plane per root of $A$ (Lemma~\ref{lem:gaussbinom}), and at odd,
 pairwise coprime norms $|\alpha_j|^2$ with
 $\gcd(\operatorname{Re}\alpha_j,\operatorname{Im}\alpha_j)=1$ a gap $m$ after
-the lowest coefficient costs $2Km\log\min_j|\alpha_j|$
+the lowest coefficient, that is, $m-1$ vanishing coefficients after it,
+costs $2Km\log\min_j|\alpha_j|$
 (Proposition~\ref{prop:gausslow}).  If $\min_j|\alpha_j|>2$ and an integer
 multiple $F$ has $b_2(F)<\min_j|\alpha_j|/2$, all the $\alpha_j$ lie in one level set
 $\{y:H(y)=-v\}$, $v$ the lowest nonzero coefficient of $F$, of a polynomial
@@ -410,15 +411,19 @@ $\delta$ of the imaginary axis; yet
   b_2(x^{2M}+\rho^{2M})=0,\qquad
   \Lambda(x^{2M}+\rho^{2M})=2M\log\rho\le\frac\pi\delta(K+1)\log\rho .
 \]
-\item For $m\ge2$ and $B\ge1$, the polynomial $x^{2m}+x+B$ has no real
-root, so its roots form $m$ conjugate pairs, and $b_2=1$,
-$\Lambda=\log B$.
+\item For $m\ge2$ and real $a\ge1$, the polynomial $x^{2m}+x+a$ has no real
+root, so its roots form $m$ conjugate pairs; all of them have moduli in
+$[\rho/3,3\rho]$, where $\rho=a^{1/(2m)}$, and $b_2=1$,
+$\Lambda=\log a=2m\log\rho$.
 \end{enumerate}
 In particular, no bound $b_2(F)\ge\phi(\rho_1,\ldots,\rho_K)>0$ in terms of
 the moduli of the prescribed pairs alone, not even for pairs within a fixed
 angle $\delta$ of the imaginary axis, and no bound
 $\Lambda(F)\ge c\,K^2\log\rho$ for $K$ pairs of modulus $\rho$ within a
-fixed angle $\delta$, can hold for all monic multiples.
+fixed angle $\delta$, can hold for all monic multiples.  Item~2 gives
+the same linear mass without equal moduli or symmetric angles: $m$ pairs
+with moduli within a factor $3$ of $\rho$, and a multiple with $b_2=1$ and
+$\Lambda=2m\log\rho$.
 \end{proposition}
 
 \begin{proof}
@@ -430,8 +435,12 @@ is $\rho^{2M}$, so $b_2=0$ and $\Lambda=2M\log\rho$.  Finally
 $K\ge2\delta M/\pi-1$ gives $2M\le\pi(K+1)/\delta$.
 
 2.  For real $x$ with $|x|\ge1$, $x^{2m}+x\ge|x|^{2m}-|x|\ge0$, and for
-$|x|<1$, $x^{2m}+x>-1$; so $x^{2m}+x+B>0$ when $B\ge1$.  The coefficients are
-$1,1,B$.
+$|x|<1$, $x^{2m}+x>-1$; so $x^{2m}+x+a>0$ when $a\ge1$.  The coefficients are
+$1,1,a$.  The point $(1,\log1)=(1,0)$ lies on or below the chord from
+$(0,\log a)$ to $(2m,0)$, whose height at $1$ is $(1-\frac1{2m})\log a\ge0$,
+so the only tropical root (defined before Theorem~\ref{thm:archnewton}) is
+$\log\rho=(\log a)/(2m)$, and Theorem~\ref{thm:archnewton}, item~2, puts every
+root in $[\rho/3,3\rho]$.
 
 For the final sentence, item 1 with $\delta M\ge\pi$, so $K\ge3$, has $b_2=0$ while every
 $\rho_j=\rho$ is fixed, and letting $M\to\infty$ at fixed $\delta$ gives
@@ -585,7 +594,7 @@ $\sum_s\bigl(K_1+\cdots+K_{s-1}+\frac{K_s+1}2\bigr)K_s\log T_s$ up to lower
 order terms, with a square term $\frac12K_s^2\log T_s$ inside each group and a
 cross term $K_uK_s\log T_s$ between the groups $u<s$.  At complex roots the
 square term is false (Proposition~\ref{prop:noangle}).  This section shows
-that the cross terms are false as well, and that the right count charges a
+that the cross terms are false as well, and that the sharp worst-case count charges a
 root once for every annulus at or below it: when the moduli of the $K_s$ roots
 of the $s$-th group lie in $[T_s,U_s]$, with $T_1>3$ and $T_s>162U_{s-1}$, every multiple with $|f_D|\ge1$ has mass at least
 $\sum_ssK_s\log(T_s/2)-S\log2$, and for suitable roots this is
@@ -782,7 +791,8 @@ central index at $r_a$ can have fewer than $n_a$ positions above it when
 $T_a/r_a<n_a$.  Item~2 needs only the factor $9$, but past the first
 annulus it charges ratios $|\beta|/U_{a-1}$ instead of moduli.  With one root
 per annulus, $k_a=n_a=S-a+1$ at the separation $9$ of the theorem, which then
-gives Corollary~\ref{cor:separated}, item~1, with $\rho_j/2$ in place of
+gives Corollary~\ref{cor:separated}, item~1, when $\rho_1>3$ (the corollary
+allows $\rho_1=3$, the theorem needs $T_1>3$), with $\rho_j/2$ in place of
 $\rho_j/3$ and an extra factor $\frac12$ in each row.  For the mass alone a
 fixed separation suffices: where one central index falls short, two of them
 share the charge.
@@ -928,8 +938,8 @@ $\Lambda\le\frac{2\pi}\delta(K_1+K_2+2)\log T_2$, below $cK_1K_2\log T_2$
 once $M_1$ and $M_2$, hence $K_1$ and $K_2$, are large.
 \end{proof}
 
-So at complex roots in separated annuli the analogue of $\sum_ii\log r_i$ is
-$\sum_ssK_s\log T_s$: the cross term between annuli $u<s$ is $K_s\log T_s$,
+So at complex roots in separated annuli the sharp worst-case analogue of
+$\sum_ii\log r_i$ is $\sum_ssK_s\log T_s$: the cross term between annuli $u<s$ is $K_s\log T_s$,
 linear in the number of roots above and independent of the number below.  For
 the mass it is proved at the fixed separation $162$
 (Theorem~\ref{thm:fixedgap}), and with ratios in place of moduli at the
@@ -944,8 +954,8 @@ particular whether $9$ suffices.
 and to $F(-x)$ it charges a multiple with $p$ positive and $n$ negative
 prescribed roots only for the larger of the two classes.  The mixed problem is
 genuinely weaker: by the multisection transfer (the remark after
-Corollary~\ref{cor:imag}, with $R=\prod_j(y-s_j^2)$), the $L=2m$ roots $\pm s_j$
-of $\prod_j(x^2-s_j^2)$ are worth only the $m$ positive roots $s_j^2$, so at a
+Corollary~\ref{cor:imag}, with $R=\prod_j(y-s_j^2)$), the $L=2q$ roots $\pm s_j$
+of $\prod_j(x^2-s_j^2)$ are worth only the $q$ positive roots $s_j^2$, so at a
 common modulus $s$ they cost about $\frac14L^2\log s$ instead of the
 $\frac12L^2\log s$ of $L$ roots of one sign.  The operator $T_z$ of the
 proof of \cite[Proposition~4.2]{coefficient-mass}, where Rolle's theorem is
@@ -1097,7 +1107,7 @@ $m(m+1)=\lfloor(2m+1)^2/4\rfloor$, $\sum_j\log\binom mj\le m^2\log2$.
 
 Without separated moduli, a multiple may have a single tropical root
 (Theorem~\ref{thm:archnewton}) for all the prescribed roots of an annulus, as $x^{2M}+\rho^{2M}$ and
-$x^{2m}+x+B$ of Proposition~\ref{prop:noangle} do.  The angle mechanism of
+$x^{2m}+x+a$ of Proposition~\ref{prop:noangle} do.  The angle mechanism of
 Proposition~\ref{prop:noangle} puts $K$ roots within an angle $\delta$ of a
 ray only at the price of degree about $\pi K/\delta$.  A multiple of smaller
 degree is handled by the real theory, applied to the real polynomial
@@ -1252,8 +1262,8 @@ $\rho_{\min}=\min_j\rho_j$ and
 a monic polynomial with $2K$ distinct roots and $P(0)\ne0$.  For
 $F=\sum_{i=0}^Df_ix^i$ and $0\le m\le D+1$ write
 \[
-  R_m=\sum_{i<m}f_ix^i,\qquad G_m=\sum_{i\ge m}f_ix^{i-m},\qquad
-  F=R_m+x^mG_m .
+  F_{<m}=\sum_{i<m}f_ix^i,\qquad G_m=\sum_{i\ge m}f_ix^{i-m},\qquad
+  F=F_{<m}+x^mG_m .
 \]
 We call $m\in\{1,\ldots,D\}$ a \emph{split} of $F$.  A split is \emph{clean
 at} $\alpha$ if $G_m(\alpha)=0$, and \emph{$P$-clean} if it is clean at every
@@ -1263,8 +1273,8 @@ $B(0)\ne0$ and no split of $B$ is $P$-clean.
 \begin{lemma}[Gaussian carries]\label{lem:gausscarry}
 Let $F\in\mathbb Z[x]$ have degree $D$, let $\alpha\in\mathbb Z[i]$ with
 $F(\alpha)=0$, $\rho=|\alpha|$, and let $1\le m\le D$.  Then
-$G_m(\alpha)\in\mathbb Z[i]$ and $R_m(\alpha)=-\alpha^mG_m(\alpha)$.  If the
-split $m$ is not clean at $\alpha$, then $|R_m(\alpha)|\ge\rho^m$, and if
+$G_m(\alpha)\in\mathbb Z[i]$ and $F_{<m}(\alpha)=-\alpha^mG_m(\alpha)$.  If the
+split $m$ is not clean at $\alpha$, then $|F_{<m}(\alpha)|\ge\rho^m$, and if
 moreover $\rho>2$, some $i<m$ has
 \[
   |f_i|\ \ge\ (\rho/2)^{m-i}.
@@ -1273,11 +1283,11 @@ moreover $\rho>2$, some $i<m$ has
 
 \begin{proof}
 $G_m$ has integer coefficients, so $G_m(\alpha)\in\mathbb Z[i]$, and
-$0=F(\alpha)=R_m(\alpha)+\alpha^mG_m(\alpha)$.  If $G_m(\alpha)\ne0$ it is a
+$0=F(\alpha)=F_{<m}(\alpha)+\alpha^mG_m(\alpha)$.  If $G_m(\alpha)\ne0$ it is a
 nonzero Gaussian integer, so $|G_m(\alpha)|\ge1$ and
-$|R_m(\alpha)|=\rho^m|G_m(\alpha)|\ge\rho^m$.  If every $i<m$ had
+$|F_{<m}(\alpha)|=\rho^m|G_m(\alpha)|\ge\rho^m$.  If every $i<m$ had
 $|f_i|<(\rho/2)^{m-i}$, then
-$|R_m(\alpha)|\le\sum_{i<m}|f_i|\rho^i<\rho^m\sum_{i<m}2^{i-m}<\rho^m$, a
+$|F_{<m}(\alpha)|\le\sum_{i<m}|f_i|\rho^i<\rho^m\sum_{i<m}2^{i-m}<\rho^m$, a
 contradiction.
 \end{proof}
 
@@ -1301,12 +1311,12 @@ and $b_k(F)\ge b_k(B_s)$ for every $s$ and $k$.
 Write $F=x^eF_0$ with $F_0(0)\ne0$; since $P(0)\ne0$, $P\mid F_0$.  Induct
 on $\deg F_0$.  If no split of $F_0$ is $P$-clean, $F_0$ itself is the only
 block.  Otherwise let $m$ be a $P$-clean split: $G_m(\alpha_j)=0$ for all
-$j$, hence $R_m(\alpha_j)=F_0(\alpha_j)-\alpha_j^mG_m(\alpha_j)=0$, and by
-reality of the coefficients also $R_m(\bar\alpha_j)=G_m(\bar\alpha_j)=0$.
+$j$, hence $F_{<m}(\alpha_j)=F_0(\alpha_j)-\alpha_j^mG_m(\alpha_j)=0$, and by
+reality of the coefficients also $F_{<m}(\bar\alpha_j)=G_m(\bar\alpha_j)=0$.
 Since $P$ is monic in $\mathbb Z[x]$ with $2K$ distinct roots, division with
-remainder in $\mathbb Z[x]$ shows $P\mid R_m$ and $P\mid G_m$ in
-$\mathbb Z[x]$.  Both are nonzero ($R_m(0)=F_0(0)$, and $G_m$ has the leading
-coefficient of $F_0$) and of smaller degree than $F_0$; $R_m(0)\ne0$, and
+remainder in $\mathbb Z[x]$ shows $P\mid F_{<m}$ and $P\mid G_m$ in
+$\mathbb Z[x]$.  Both are nonzero ($F_{<m}(0)=F_0(0)$, and $G_m$ has the leading
+coefficient of $F_0$) and of smaller degree than $F_0$; $F_{<m}(0)\ne0$, and
 $G_m$ is handled after removing a power of $x$.  Their supports lie in
 $[0,m-1]$ and $[m,\deg F_0]$, so the decompositions given by induction
 concatenate.  The supports of the $x^{e_s}B_s$ are disjoint and cover that of
@@ -1724,8 +1734,11 @@ says nothing about $K^2\log R$.
 \paragraph{Integer imitations of $x^N-\rho^N$.}  Corollary~\ref{cor:widegauss}
 leaves open whether $\Lambda(F)\ge cK^2\log R$ for every integer multiple at
 Gaussian roots in a wide sector.  Over the reals the bound fails because of
-$x^N-\rho^N$, whose mass sits in a single coefficient after a gap of length
-$N$.  Its two integer imitations are limited at Gaussian roots: a
+$x^N-\rho^N$, whose mass sits in its lowest coefficient, followed by a gap
+$N$; here a polynomial $F$ with lowest nonzero coefficient $f_e$ has a
+\emph{gap $m$ after its lowest coefficient} if $f_{e+1}=\cdots=f_{e+m-1}=0$,
+that is, if $F=x^e(f_e+x^mG)$ for a polynomial $G$.  The two integer
+imitations of $x^N-\rho^N$ are limited at Gaussian roots: a
 polynomial $A((x-t)^N)$ has at most $2\deg A$ Gaussian roots in the upper
 half-plane, and under the hypotheses of Proposition~\ref{prop:gausslow},
 item~2, a long gap after the lowest coefficient is expensive.
@@ -1768,7 +1781,8 @@ $F\equiv f\pmod{x^m}$ if and only if $d_m\mid f$; and $d_m\mid P(0)^m$.
 \item If the norms $\rho_j^2=a_j^2+c_j^2$ are odd and pairwise coprime and
 $\gcd(a_j,c_j)=1$ for every $j$, then $d_m=P(0)^m$.  Consequently, if
 $F\in\mathbb Z[x]$ is divisible by $P$ and $F=x^e(f_e+x^mG)$ with $f_e\ne0$
-and $G\in\mathbb Z[x]$, then $P(0)^m$ divides $f_e$, and
+and $G\in\mathbb Z[x]$, a gap $m$ after its lowest coefficient, then $P(0)^m$
+divides $f_e$, and
 \[
   \Lambda(F)\ \ge\ m\log P(0)\ \ge\ 2Km\log\rho_{\min}.
 \]
@@ -1876,7 +1890,7 @@ lies in one level set $\{y:H(y)=-v\}$ of such an $H$.  Three Gaussian points
 above the axis can share such a level set: $(y^3-y)^2$, with nonleading
 coefficients $-2$ and $1$, takes the value $-270400$ at $\pm7+4i$ and $8i$,
 since $y^3-y$ is $\pm520i$ there, and these points have
-$\rho_{\min}=\sqrt{65}>4$.  Whether the number of Gaussian points above the
+$\rho_{\min}=8>4$.  Whether the number of Gaussian points above the
 axis in one level set
 of a polynomial with small nonleading coefficients is bounded, and whether
 $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots in
