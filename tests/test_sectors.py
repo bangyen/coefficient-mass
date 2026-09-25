@@ -799,9 +799,136 @@ def test_small_derivative_at_zero() -> None:
     p = _pairs(roots)
     assert p[0] == prod(norms) == 194126805235805 and p[1] == 6
     assert 4 * p[1] ** 2 < min(norms)
-    assert log(p[0]) / log(max(norms)) > 3.77
+    assert p[0] ** 100 > max(norms) ** 377
     q = _pairs([(-26, 35), (-1, 60), (29, 62), (48, 62)])
     assert 4 * q[1] ** 2 > 10**6 * min(_norm(z) for z in roots)
+
+
+QGauss = tuple[Fraction, Fraction]
+
+
+def _qmul(a: QGauss, b: QGauss) -> QGauss:
+    return (a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0])
+
+
+def _on_lines(lines: list[tuple[Gauss, Gauss]], s: int) -> list[Gauss]:
+    """The points ``lambda_j s + mu_j``, conjugated into the upper half-plane."""
+    out = []
+    for (lr, li), (mr, mi) in lines:
+        a, c = lr * s + mr, li * s + mi
+        out.append((a, abs(c)))
+    return out
+
+
+def _line_residues(lines: list[tuple[Gauss, Gauss]]) -> list[QGauss]:
+    """``Lambda Q'(w_j)/lambda_j`` of ``prop:gaussline``, item 1."""
+    ws = []
+    for lam, mu in lines:
+        n = _norm(lam)
+        ws.append(
+            _qmul(
+                (Fraction(-mu[0]), Fraction(-mu[1])),
+                (Fraction(lam[0], n), Fraction(-lam[1], n)),
+            )
+        )
+    big_l = prod(_norm(lam) for lam, _ in lines)
+    out = []
+    for j, (lam, _) in enumerate(lines):
+        w = ws[j]
+        q: QGauss = (Fraction(0), 2 * w[1])
+        for k, v in enumerate(ws):
+            if k != j:
+                q = _qmul(
+                    q, _qmul((w[0] - v[0], w[1] - v[1]), (w[0] - v[0], w[1] + v[1]))
+                )
+        n = _norm(lam)
+        q = _qmul(q, (Fraction(lam[0], n), Fraction(-lam[1], n)))
+        out.append((big_l * q[0], big_l * q[1]))
+    return out
+
+
+LINES_2 = [((-1, 1), (-3, 2)), ((1, 1), (1, 2))]
+LINES_3 = [((-1, 1), (-3, 2)), ((0, 1), (-1, 1)), ((1, 1), (-1, 0))]
+
+
+def _meets_gausslow(roots: list[Gauss]) -> bool:
+    """The hypotheses of ``prop:gausslow``, item 2: distinct points above the
+    axis with odd, pairwise coprime norms and ``gcd(a_j, c_j) = 1``."""
+    norms = [_norm(z) for z in roots]
+    return (
+        len(set(roots)) == len(roots)
+        and all(c > 0 and gcd(a, c) == 1 for a, c in roots)
+        and all(n % 2 for n in norms)
+        and all(gcd(x, y) == 1 for i, x in enumerate(norms) for y in norms[i + 1 :])
+    )
+
+
+def test_constant_derivative_along_lines() -> None:
+    """``prop:gaussline``: on the lines of items 2 and 3, ``P'(0) = 4`` and
+    ``90`` at every ``s`` in a window, ``P(0) = Lambda Q(s)``, and
+    ``Lambda Q'(w_j) = N lambda_j`` with ``N = -P'(0)`` (item 1); the
+    hypotheses of ``prop:gausslow``, item 2, hold for every ``s >= -1`` on
+    item 2 and exactly for odd ``s = 0, 3 mod 5`` on item 3; at
+    ``s = 10^6 + 5`` the points of item 3 are in one annulus, ``|P'(0)| <
+    rho_min/2`` and ``log P(0)/(2 log rho_max) > 2.97``.
+
+    Control: moving ``mu_2`` of item 3 to ``-1 + 2i`` makes ``P'(0)`` move
+    with ``s`` and item 1's residues unequal.
+    """
+    for lines, value in ((LINES_2, 4), (LINES_3, 90)):
+        residues = _line_residues(lines)
+        assert residues == [(Fraction(-value), Fraction(0))] * len(lines)
+        big_l = prod(_norm(lam) for lam, _ in lines)
+        for s in range(-1, 120):
+            roots = _on_lines(lines, s)
+            p = _pairs(roots)
+            assert p[1] == value
+            q = Fraction(1)
+            for (lr, li), (mr, mi) in lines:
+                q *= Fraction(
+                    (lr * s + mr) ** 2 + (li * s + mi) ** 2, lr * lr + li * li
+                )
+            assert p[0] == big_l * q
+            if lines is LINES_2:
+                assert _meets_gausslow(roots)
+            elif s >= 1:
+                assert _meets_gausslow(roots) == (s % 2 == 1 and s % 5 in (0, 3))
+    s = 10**6 + 5
+    roots = _on_lines(LINES_3, s)
+    norms = [_norm(z) for z in roots]
+    p = _pairs(roots)
+    assert _meets_gausslow(roots) and 4 * p[1] ** 2 < min(norms) < max(norms) < 4 * min(
+        norms
+    )
+    assert log(p[0]) / log(max(norms)) > 2.97
+    moved = [LINES_3[0], ((0, 1), (-1, 2)), LINES_3[2]]
+    assert len({_pairs(_on_lines(moved, s))[1] for s in range(5)}) > 1
+    assert len(set(_line_residues(moved))) > 1
+
+
+def test_light_multiples() -> None:
+    """``prop:gausslight`` on the Pell level sets ``(8c^3 + 2c)^2 +
+    (y^3 - y)^2``, which are light: ``d = 6 >= 2K``, ``|f_e| < rho_min^(d+1)``,
+    and a constant ``C`` for the step at ``m = d + 1`` needs ``C log rho_max >
+    log P(0) - log rho_min >= (2K - 1) log rho_min``.
+
+    Control: ``|f_e| < rho_min^d`` fails on every one of them.
+    """
+    h = [0, 0, 1, 0, -2, 0, 1]
+    for a, c in _pell_triples(8):
+        roots = [(a, c), (-a, c), (0, 2 * c)]
+        f = [(8 * c**3 + 2 * c) ** 2] + h[1:]
+        p = _pairs(roots)
+        assert _divides(p, f)
+        n_min, n_max = min(_norm(z) for z in roots), max(_norm(z) for z in roots)
+        assert all(4 * x * x < n_min for x in f[1:])
+        d = len(f) - 1
+        assert d >= 2 * len(roots)
+        assert f[0] ** 2 < n_min ** (d + 1)
+        assert f[0] ** 2 > n_min**d
+        c_min = (log(p[0]) - log(f[0]) / (d + 1)) / (0.5 * log(n_max))
+        assert c_min * 0.5 * log(n_max) > log(p[0]) - 0.5 * log(n_min)
+        assert log(p[0]) - 0.5 * log(n_min) >= (2 * len(roots) - 1) * 0.5 * log(n_min)
 
 
 def _level_sets(big_b: int, degree: int, box: int) -> dict[tuple, list[Gauss]]:
@@ -944,6 +1071,49 @@ def _near_one_circle(h: Poly, roots: list[Gauss], ratio: Fraction | None) -> boo
         all(Fraction(m, n_min) ** d < q * q for m in norms)
         and len(roots) ** 2 < 36 * n_min
     )
+
+
+def _e_bounds() -> tuple[Fraction, Fraction]:
+    """``sum_(k <= 12) 1/k! < e < sum_(k <= 12) 1/k! + 1/(12! 12)``."""
+    partial, term = Fraction(0), Fraction(1)
+    for k in range(13):
+        partial += term
+        term /= k + 1
+    return partial, partial + term * 13 / 12
+
+
+def test_near_one_circle_constants() -> None:
+    """The constants that close ``prop:gausscircle`` and the remark after
+    it, in rationals (``e`` bounded by its series, ``pi < 22/7``): at
+    ``rho^2 >= 5``, ``Q <= 3 + 4/(sqrt 5 - 2) < 20``, ``log Q < 3``; ``t <
+    1/(4 rho) < 1/8``; ``e^(1/4) < 1.3`` (so ``2t e^(2t) < 2.6t``), ``e^(1/8)
+    < 1.14``, ``2.6 * 3/12 < 0.66``, ``sqrt 2 (1 + 1.14) < 3.03`` and
+    ``(pi/2)(0.66 + 3.03) < 5.8``; and at ``d >= 8 rho^2``, ``rho_j^2 <
+    rho^2 Q^(2/d) < rho^2 + 1`` as ``(3/4) e^(3/20) < 1``.
+
+    Control: ``Q < 20`` fails with ``rho^2 = 5`` replaced by ``4.99``, and
+    ``log Q < 2.9`` fails at ``rho^2 = 5``.
+    """
+    e_low, e_up = _e_bounds()
+    assert Fraction(2718, 1000) < e_low < e_up < Fraction(2719, 1000)
+    # 4/(sqrt 5 - 2) < 17 iff 17 sqrt 5 > 38; Q = 3 + 4/(rho - 2) decreases.
+    assert 17**2 * 5 > 38**2 and e_low**3 > 20
+    assert 4**2 * 5 > 8**2
+    assert e_up < Fraction(13, 10) ** 4 and e_up < Fraction(114, 100) ** 8
+    assert Fraction(2) * Fraction(13, 10) <= Fraction(26, 10)
+    assert Fraction(26, 10) * Fraction(3, 12) < Fraction(66, 100)
+    assert 2 * Fraction(214, 100) ** 2 < Fraction(303, 100) ** 2
+    assert Fraction(22, 7) / 2 * (Fraction(66, 100) + Fraction(303, 100)) < Fraction(
+        58, 10
+    )
+    # rho^2 (e^(3/(4n)) - 1) <= (3/4) e^(3/(4n)) <= (3/4) e^(3/20) < 1.
+    assert e_up**3 < Fraction(4, 3) ** 20
+    # Controls: sqrt 4.99 < 2.234 gives Q > 20; sqrt 5 > 2.236 gives Q > 19.944
+    # there, and e^2.9 < 19.944.
+    assert Fraction(2234, 1000) ** 2 > Fraction(499, 100)
+    assert 3 + 4 / (Fraction(2234, 1000) - 2) > 20
+    q5 = 11 + 4 * Fraction(2236, 1000)
+    assert Fraction(2236, 1000) ** 2 < 5 and e_up**29 < q5**10
 
 
 def test_level_set_near_one_circle() -> None:
@@ -1336,6 +1506,73 @@ def test_symmetries_of_a_level_set() -> None:
     assert bound > 1
     norm125 = {_class(z) for z in _upper(12) if _norm(z) == 125}
     assert len(norm125) == 2 > 1
+
+
+def _real_levels(z: Gauss, degree: int, bound: int) -> list[Poly]:
+    """Every ``A = sum_(k=1)^degree a_k z^k`` with ``a_degree != 0``, ``A(z)``
+    real and ``|a_k| <= bound`` for ``0 < k < degree``: the top coefficient is
+    fixed by the others, as ``Im z^degree != 0``."""
+    powers = [(1, 0)]
+    for _ in range(degree):
+        powers.append(_gmul(powers[-1], z))
+    top = powers[degree][1]
+    assert top != 0
+    out = []
+    for low in product(range(-bound, bound + 1), repeat=degree - 1):
+        im = sum(a * powers[k + 1][1] for k, a in enumerate(low))
+        if im and im % top == 0:
+            out.append([0, *low, -im // top])
+    return out
+
+
+def _below_half(n: int) -> int:
+    """The largest ``b`` with ``4 b^2 < n``, the bound ``b < sqrt(n)/2``."""
+    b = 0
+    while 4 * (b + 1) ** 2 < n:
+        b += 1
+    return b
+
+
+def test_four_points_of_one_class() -> None:
+    """``prop:gaussfour``: at every ``alpha`` off the axes and diagonals with
+    ``|alpha|^2 <= 400``, ``|Re alpha^4| >= |alpha|^2`` and no ``A`` of degree
+    at most 3 with nonleading coefficients below ``|alpha|/2`` is real at
+    ``alpha^4``, and ``A(y^4)`` agrees with it at ``alpha``; ``j = 2|X| - N``
+    has ``|j| >= n``; a class meeting the axes or diagonals holds at
+    most two points above the axis.
+
+    Control: at the square ``z = beta^2`` of a Pell point ``beta = a + ci``
+    (``a^2 - 3c^2 = 1``), not a fourth power, ``z(z - 1)^2`` is real, equal
+    to ``-4c^2 (a^2 + c^2)^2``, with coefficients below ``|z|^(1/4)/2`` once
+    ``|z| > 256``, and the search of the degree-3 case finds it.
+    """
+    for alpha in _upper(20):
+        a, c = alpha
+        n = _norm(alpha)
+        if a == 0 or abs(a) == c or n > 400:
+            continue
+        beta = _gmul(alpha, alpha)
+        x, y = _gmul(beta, beta)
+        assert y != 0 and abs(x) >= n and x * x + y * y == n**4
+        j = 2 * abs(x) - n * n
+        assert abs(j) >= n
+        for degree in (1, 2, 3):
+            assert _real_levels((x, y), degree, _below_half(n)) == []
+        h = [0, 0, 0, 0, 5, 0, 0, 0, -2, 0, 0, 0, 1]
+        assert _horner(h, alpha) == _horner([0, 5, -2, 1], (x, y))
+        cls = _class(alpha)
+        assert sum(z[1] > 0 for z in cls) == 4
+    for alpha in [(0, 3), (3, 3), (-5, 5), (0, 7)]:
+        assert sum(z[1] > 0 for z in _class(alpha)) <= 2
+    for a, c in _pell_triples(3):
+        z = _gmul((a, c), (a, c))
+        big_n = _norm((a, c))
+        assert isqrt(big_n) ** 2 != big_n
+        assert _horner([0, 1, -2, 1], z) == (-4 * c * c * big_n**2, 0)
+        if big_n > 256:
+            bound = max(b for b in range(100) if 16 * b**4 < big_n)
+            assert bound >= 2
+            assert [0, 1, -2, 1] in _real_levels(z, 3, bound)
 
 
 # Counting Gaussian integers (cor:gausscount).

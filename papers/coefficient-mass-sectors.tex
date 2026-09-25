@@ -807,7 +807,7 @@ $x^4$, which bounds the constant of any bound of order $K^2\log R$.
 \begin{proposition}[Polynomials in a power]\label{prop:gausspower}
 In the setting of Section~\ref{sec:gaussian}, put $\rho_{\max}=\max_j\rho_j$.
 \begin{enumerate}
-\item If $F=A(x^N)$ with $N\ge1$ and $A\in\mathbb Z[y]$ is nonzero and
+\item If $F=A(x^N)$ with $N\ge1$ and $A\in\mathbb Z[y]$ nonzero, and $F$ is
 divisible by $P$, then $\Lambda(F)\ge\frac N2\sum_j\log\rho_j$, with equality
 for $x^4+4k^4$, $k\ge1$, whose roots above the axis are $k(\pm1+i)$.
 \item Let $Z=\{\alpha_j,\bar\alpha_j\}_j$ be the set of the $2K$ roots of $P$.
@@ -1053,9 +1053,10 @@ for $0<i<m$, and $\deg F<m+2K$.
 By item~2 a polynomial in $x^N$ pays $2N\sum_j\log\rho_j$ at such norms, four
 times the bound of Proposition~\ref{prop:gausspower}, item~1, whose equality
 case $x^4+4k^4$ has a common norm.  The valuations cannot do more than
-item~2 says: the middle term of the display charges $\log n_j$ once for every
-root of $F/x^e$ that is at least as divisible by $p$ as $\alpha_j$, other
-than $\alpha_j$ itself, and roots of $F/P$ need not be; at $F=P$ it is
+item~2 says: the term $i=e$ of the middle term of the display charges
+$v_p(n_j)\log p$ once for every root of $F/x^e$ that is at least as divisible
+by $p$ as $\alpha_j$, $\alpha_j$ included, and roots of $F/P$ need not be; at
+$F=P$ the middle term is
 $\log P(0)\le2K\log\rho_{\max}$, linear in $K$.  A bound of order
 $K^2\log R$ at pairwise coprime norms therefore has to combine the
 valuations with the sizes of the coefficients.  Item~3 bounds what such a
@@ -1134,11 +1135,122 @@ holds: a bound $\log|f_e|\ge m\log P(0)-Cm\log\rho_{\max}$ for all
 integer multiples with $|f_i|<\rho_{\min}/2$ for $e<i<e+m$ needs, at $m=2$,
 $C\ge\log P(0)/(2\log\rho_{\max})$, which is nearly $K$ for points in one
 annulus, whenever the multiple $P$ itself has $|P'(0)|<\rho_{\min}/2$, that
-is, whenever $\bigl|\sum_ja_j/n_j\bigr|<\rho_{\min}/(4P(0))$.  Whether this
+is, whenever $\bigl|\sum_ja_j/n_j\bigr|<\rho_{\min}/(4P(0))$.  For $K\le3$
+this happens at infinitely many root sets in one annulus, along lines on
+which $P'(0)$ does not move (Proposition~\ref{prop:gaussline}); whether it
 happens for every $K$ is open.  The multiples of
 Proposition~\ref{prop:gaussheavy}, item~2, need the step only at
 $m=\deg H\ge2K$, where the congruence of item~1 involves $m-1\ge2K-1$ small
 coefficients.
+
+\begin{proposition}[A constant derivative along lines]\label{prop:gaussline}
+\begin{enumerate}
+\item Let $\lambda_j,\mu_j\in\mathbb Z[i]$, $\lambda_j\ne0$, be such that the
+$2K$ numbers $w_j=-\mu_j/\lambda_j$ and $\bar w_j$ are distinct, and for real
+$s$ let $P_s=\prod_j(x-\alpha_j)(x-\bar\alpha_j)$ with
+$\alpha_j=\lambda_js+\mu_j$.  Put $\Lambda=\prod_j|\lambda_j|^2$ and
+$Q(s)=\prod_j(s-w_j)(s-\bar w_j)$.  Then $P_s(0)=\Lambda Q(s)$, and $P_s'(0)$
+is a polynomial in $s$ with integer coefficients and degree less than $2K$,
+equal to a constant $-N$, $N\in\mathbb R$, if and only if $N\lambda_j=\Lambda Q'(w_j)$ for
+every $j$.
+\item In the setting of Section~\ref{sec:gaussian}, at $\alpha_1=-(s+3)+(s+2)i$
+and $\alpha_2=(s+1)+(s+2)i$,
+$P'(0)=4$ for every $s$, and for every integer $s\ge-1$ the norms are odd and
+coprime and $\gcd(a_j,c_j)=1$.
+\item At $\alpha_1=-(s+3)+(s+2)i$, $\alpha_2=-1+(s+1)i$ and
+$\alpha_3=(s-1)+si$, $P'(0)=90$ for every $s$, and for every odd integer
+$s\ge1$ with $s\equiv0$ or $3\pmod5$ the norms are odd and pairwise coprime and
+$\gcd(a_j,c_j)=1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+1.  As polynomials in $s$, $\bar\alpha_j=\bar\lambda_js+\bar\mu_j$ and
+$\alpha_j\bar\alpha_j=|\lambda_j|^2(s-w_j)(s-\bar w_j)$, so
+$P_s(0)=\prod_j\alpha_j\bar\alpha_j=\Lambda Q(s)$, and
+$\Phi(s)=P_s'(0)=-\sum_j(\alpha_j+\bar\alpha_j)\prod_{l\ne j}\alpha_l\bar\alpha_l$
+has integer coefficients and degree at most $2K-1$.  As rational functions,
+\[
+  \frac{\Phi(s)}{\Lambda Q(s)}=-\sum_j\Bigl(\frac1{\lambda_j(s-w_j)}
+  +\frac1{\bar\lambda_j(s-\bar w_j)}\Bigr),
+\]
+and the $2K$ poles are simple, so the residues at $w_j$ give
+$\Phi(w_j)=-\Lambda Q'(w_j)/\lambda_j$, and $\Phi(\bar w_j)$ is its conjugate,
+$\Phi$ and $Q$ having real coefficients.  A polynomial of degree less than
+$2K$ is the constant $-N$ if and only if it takes the value $-N$ at the $2K$
+distinct points $w_j,\bar w_j$, that is, for real $N$, if and only if
+$\Lambda Q'(w_j)=N\lambda_j$ for every $j$.
+
+2.  Here $a_1=-(s+3)$, $a_2=s+1$, $n_1=2s^2+10s+13$ and $n_2=2s^2+6s+5$, and
+expanding, $a_1n_2+a_2n_1=-2$, so $P'(0)=-2(a_1n_2+a_2n_1)=4$.  Both norms
+are odd; $n_1-n_2=4(s+2)$ and $n_2=2(s+2)^2-2(s+2)+1\equiv1\pmod{s+2}$, so
+$\gcd(n_1,n_2)=1$; and $\gcd(s+3,s+2)=\gcd(s+1,s+2)=1$.
+
+3.  Here $n_1=2s^2+10s+13$, $n_2=s^2+2s+2$, $n_3=2s^2-2s+1$, and expanding,
+$P'(0)=-2(a_1n_2n_3+a_2n_1n_3+a_3n_1n_2)=90$.  The real and imaginary parts
+of each $\alpha_j$ are coprime, being $1$ or consecutive integers, so no
+prime $p\equiv3\pmod4$ divides a norm; $n_1$ and $n_3$ are odd, and $n_2$ is
+odd as $s$ is.  Next
+\[
+  n_1-n_3=12(s+1),\qquad n_1-2n_2=3(2s+3),\qquad 2n_2-n_3=3(2s+1),
+\]
+while $n_3=2(s+1)^2-6(s+1)+5$ and $4n_2=(2s+1)(2s+3)+5$.  So each
+$\gcd(n_j,n_l)$ divides $5$, and $5$ divides one only if $5$ divides $s+1$,
+$2s+3$ or $2s+1$, that is, $s\equiv4$, $1$ or $2\pmod5$.
+\end{proof}
+
+Along items~2 and~3, $|P'(0)|<\rho_{\min}/2$ once $\rho_{\min}>8$, respectively
+$\rho_{\min}>180$, and $\rho_{\max}/\rho_{\min}$ tends to $1$, respectively
+$\sqrt2$, so for large $s$ the points lie in one annulus $[R,2R]$, and
+$\log P(0)/(2\log\rho_{\max})$ tends to $K=2$, respectively $3$; so a
+constant $C$ as in Proposition~\ref{prop:gausscong}, item~3, valid along
+them is at least $K$.  More generally, lines as in item~1 with a constant
+$P'(0)=-N$ that meet the hypotheses of Proposition~\ref{prop:gausslow},
+item~2, at infinitely many integers $s$ (with $\bar\alpha_j$ in place of
+$\alpha_j$ where $\operatorname{Im}\alpha_j<0$) force $C\ge K$, since
+$\rho_j=|\lambda_j||s-w_j|$ and $P(0)=\Lambda Q(s)$, in one annulus when the
+$|\lambda_j|$ are within a factor less than $2$ of each other.  In item~3,
+$w_1=-\frac{5+i}2$, $w_2=-1-i$, $w_3=\frac{1-i}2$, and $\lambda_j$ is the
+denominator of $w_j$ up to a unit, $\Lambda=4$ and $N=-90$.
+
+The step at $m\ge2K$ contains a question about level sets.  Call a nonzero
+integer multiple $F$ of $P$ \emph{light} if every coefficient of $F$ other than
+its lowest nonzero one has modulus less than $\rho_{\min}/2$.
+
+\begin{proposition}[Light multiples]\label{prop:gausslight}
+In the setting of Section~\ref{sec:gaussian}, assume $\rho_{\min}\ge2$, and
+let $F$ be a light multiple of $P$, of degree $e+d$ with lowest nonzero
+coefficient $f_e$.  Then $d\ge2K$ and $|f_e|<\rho_{\min}^{d+1}$.  So a constant
+$C$ with $\log|f_e|\ge m\log P(0)-Cm\log\rho_{\max}$ at $m=d+1$ satisfies
+\[
+  C\log\rho_{\max}\ >\ \log P(0)-\log\rho_{\min}\ \ge\ (2K-1)\log\rho_{\min}.
+\]
+\end{proposition}
+
+\begin{proof}
+As $P(0)\ne0$, $P$ divides $F/x^e$, a nonzero polynomial of degree $d$, so
+$d\ge2K$.  Take $j$ with $\rho_j=\rho_{\min}=\rho$.  From
+$F(\alpha_j)=0$, $f_e=-\sum_{i=1}^df_{e+i}\alpha_j^i$, so
+\[
+  |f_e|\ <\ \frac\rho2\sum_{i=1}^d\rho^i\ <\ \frac\rho2\cdot\frac{\rho^{d+1}}{\rho-1}
+  \ \le\ \rho^{d+1},
+\]
+as $\rho\ge2$.  The coefficients $f_i$, $e<i<e+d+1$, have modulus less than
+$\rho/2$, so the bound at $m=d+1$ applies, and
+$(d+1)(\log P(0)-C\log\rho_{\max})\le\log|f_e|<(d+1)\log\rho$.  Finally
+$P(0)=\prod_j\rho_j^2\ge\rho^{2K}$.
+\end{proof}
+
+A light multiple is a multiple of Proposition~\ref{prop:gaussheavy}, item~2,
+whose leading coefficient $h_d$ is also below $\rho_{\min}/2$; the three-point
+level sets after that proposition, with $h_d=1$, are light, at a shared norm.
+So an affirmative answer to the step at every $m\ge2K$, with a constant $C$,
+at odd pairwise coprime norms with $\gcd(a_j,c_j)=1$, bounds the number of
+points of such level sets:
+$K<\frac12(C\log\rho_{\max}/\log\rho_{\min}+1)$, which in one annulus
+$[R,2R]$ is $\frac12(C+1)+O(C/\log R)$.  Whether that number is bounded is
+open (see the end of this section), here for light multiples at coprime
+norms, and no proof of the step at $m\ge2K$ can avoid it.
 
 At Gaussian roots a small second row confines an integer multiple to one
 level set of a polynomial with small nonleading coefficients, whereas over
@@ -1392,12 +1504,73 @@ item~2 gives the last statement.
 \end{proof}
 
 The pairs above attain item~2 with $H$ even, at every scale.  So three
-points of one norm need, besides $h_1=h_2=0$, that $H\in\mathbb Z[y^4]$, or
+points of one norm need, besides $h_1=h_2=0$, that $H\in\mathbb Z[y^4]$
+(and then $\deg H\ge16$, Proposition~\ref{prop:gaussfour} below), or
 that $n$ has two primes $p\equiv1\pmod4$ with
 $\operatorname{ord}_p(n)\ne2s_p$ (three if $H$ is not even), or one with
 $\operatorname{ord}_p(n)\le2t_p$.  Item~1 needs
 the small coefficients: $H=y^5+y^4+6y^3+6y^2+25y$ is $-25$ at $\pm(1+2i)$
-and is not even.  Whether the number of Gaussian points above the axis in
+and is not even.
+
+A class meeting an axis or a diagonal holds at most two points above the
+axis, so by item~2 a class holds three or four of the $\alpha_j$ only if
+$H=A(y^4)$ with $A\in\mathbb Z[z]$ and the class meets neither; then
+$z=\alpha_j^4$ is a Gaussian integer off the real axis with $A(z)=-v$ real,
+and the nonleading coefficients of $A$ lie below $|z|^{1/4}/2$.  If $H\in\mathbb
+Z[y^4]$ and the $\alpha_j$ of one norm are three, one of them lies on neither
+an axis nor a diagonal, since at most two Gaussian integers above the axis of one norm lie on the
+axes and diagonals.
+
+\begin{proposition}[Four points of one class]\label{prop:gaussfour}
+In the setting of Proposition~\ref{prop:gaussheavy}, item~2, let
+$H\in\mathbb Z[y^4]$ and let some $\alpha_j$ lie on neither axis nor
+diagonal.  Then $\deg H\ge16$.
+\end{proposition}
+
+\begin{proof}
+Write $H=A(y^4)$ with $A=\sum_{k=1}^Da_kz^k$ and $a_D\ne0$, so
+$\deg H=4D$, and put $b=\max_{0<k<D}|a_k|$ ($b=0$ if $D=1$), $\alpha=\alpha_j=a+ic$,
+$\rho=|\alpha|$ and $n=\rho^2$; then $b<\rho_{\min}/2\le\rho/2$.  Let
+$\beta=\alpha^2=\mu+i\nu$ and $z=\alpha^4=\beta^2=X+iY$, so
+$X=\mu^2-\nu^2$, $Y=2\mu\nu$ and $N=|z|=\mu^2+\nu^2=n^2$.  If $Y=0$ then
+$(\alpha/\bar\alpha)^4=z/\bar z=1$, so $\alpha/\bar\alpha\in\{\pm1,\pm i\}$
+and $\alpha$ lies on an axis or a diagonal; so $Y\ne0$.  The integers
+$\mu\pm\nu=a^2\pm2ac-c^2$ are nonzero, as $c\ge1$ and $t^2\pm2t-1$ has no
+rational root, and $(\mu+\nu)^2+(\mu-\nu)^2=2n^2$, so
+\begin{equation}\label{eq:gaussfourX}
+  |X|=|\mu+\nu|\,|\mu-\nu|\ \ge\ \max(|\mu+\nu|,|\mu-\nu|)\ \ge\ n .
+\end{equation}
+Suppose $D\le3$ and set $a_k=0$ for $k>D$.  As $v$ is real,
+$\operatorname{Im}A(z)=0$; here $\operatorname{Im}z^2=2XY$ and
+$\operatorname{Im}z^3=Y(3X^2-Y^2)=Y(4X^2-N^2)$, so dividing by $Y$,
+\[
+  a_1+2a_2X+a_3(4X^2-N^2)=0 .
+\]
+If $D=1$ this says $a_1=0$, against $a_D\ne0$.  If $D=2$ it gives $2|X|\le|a_1|\le b<\rho/2<n$,
+against \eqref{eq:gaussfourX}.  Let $D=3$, put $j=2|X|-N$ and
+$\sigma=X/|X|$, so $2X=\sigma(N+j)$ and
+$4X^2-N^2=j(2|X|+N)=j(2N+j)$.  Then
+$|a_3j|(2|X|+N)=|a_1+2a_2X|\le b(1+2|X|)$, so $|j|\le|a_3j|\le b$, and
+\[
+  N(2a_3j+\sigma a_2)=-(a_3j^2+\sigma a_2j+a_1),
+\]
+where the right side has modulus at most $2b^2+b<N$, as $b<\rho/2=N^{1/4}/2$.
+So both sides vanish: $\sigma a_2=-2a_3j$ and $a_1=a_3j^2$.  If $j=0$ then
+$4X^2=N^2$ and $4Y^2=3N^2$, which is impossible; so $1\le|j|\le|a_1|\le
+b<\rho/2$.  But $j$ is $\mu^2-3\nu^2=n^2-4\nu^2$ if $X>0$ and
+$\nu^2-3\mu^2=n^2-4\mu^2$ if $X<0$, so $j=(n-2w)(n+2w)$ with $w\ge0$ an
+integer, and $j\ne0$ gives $|j|\ge n+2w\ge n>\rho/2$, a contradiction.  So
+$D\ge4$.
+\end{proof}
+
+The last step is where $z$ being a fourth power, and not only a square,
+enters: it makes $N=|\beta|^2$ a square.  If $\beta=a+ci$ with $a^2-3c^2=1$,
+then $\beta^2-1=2c^2+2aci=2ci\bar\beta$, so $A(z)=z(z-1)^2=z^3-2z^2+z$ is
+$-4c^2(a^2+c^2)^2$ at $z=\beta^2$, real, with nonleading coefficients $-2$,
+$1$ below $|z|^{1/4}/2$ once $|z|=a^2+c^2>256$; here $A(y^2)=(y^3-y)^2$ and
+the $\beta$ are the Pell points after Proposition~\ref{prop:gaussheavy}.  So
+the sizes of the coefficients against $|z|$ do not bound $\deg A$ by
+themselves.  Whether the number of Gaussian points above the axis in
 one level set of a polynomial with small nonleading coefficients is bounded
 independently of $\rho_{\min}$, whether one norm carries at most two of
 them, and whether $\Lambda(F)\ge cK^2\log R$ holds for all integer
@@ -1411,7 +1584,8 @@ No proof in this paper relies on computation.  The numerical thresholds after
 Theorem~\ref{thm:thinsector} describe its range and are not used elsewhere,
 and the value $-270400$ after Proposition~\ref{prop:gaussheavy} is a direct
 evaluation, as are the values $P'(0)=6$ and $P(0)$ in
-Proposition~\ref{prop:gausscong}, item~3.  The file \texttt{tests/test\_sectors.py} in the
+Proposition~\ref{prop:gausscong}, item~3, and the expansions of $P'(0)$ in
+Proposition~\ref{prop:gaussline}, items~2 and~3.  The file \texttt{tests/test\_sectors.py} in the
 repository of~\cite{coefficient-mass} checks the statements, on seeded
 random Gaussian and integer multiples and on the extremal examples, each
 group with a control showing that a false variant is caught; these checks

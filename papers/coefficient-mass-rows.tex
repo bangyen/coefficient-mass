@@ -131,8 +131,9 @@ finitely many exempted-position terms (Theorem~\ref{thm:secondrow}).  The
 identity can fail in the second row even when $\nu_2(n)>\nu_1(n)$: at
 $r=\frac{177}{167}$, $V_r(51,2)<1/\nu_2(50)<1/\nu_1(50)$
 (Proposition~\ref{prop:secondrowhyp}).  Since the values
-$\mu_r(S,L)$ decrease with $r$, a failure certified at two roots holds
-between them, and finitely many certificates show that the identity fails
+$\mu_r(S,L)$ decrease with $r$, a lower bound on $\eta_\sigma(n)$ certified
+at one root and upper bounds on $\nu_1(n)$ and $\nu_2(n)$ at a smaller root
+give a failure at every root between them, and finitely many certificates show that the identity fails
 in the second row of some diagonal for every
 $r\in[\frac{21}{20},\frac{139}{100}]$ (Theorem~\ref{thm:failinterval}).
 Every row $k\ge2$ is likewise the minimum of $V_r(L-1,k-1)$ and finitely many
@@ -1828,7 +1829,8 @@ $r_Z(2)=-\prod_{z\in Z\setminus\{1\}}(1-2/z)\le0$, and
 Lemma~\ref{lem:crossing}(a) with $T=\varnothing$, $\sigma=2$, $L=n+1$ and
 $\varphi=\nu_2(n)$ gives $\eta_2(n)=\mu_r(\{2\},n+1)\le\nu_2(n)$.  The same
 argument covers every $\sigma$ at which $r_Y$ and $r_Z$ take opposite
-signs, but not every $\sigma$, and the hypothesis does not suffice.
+signs, but not every $\sigma$, and the hypothesis $\nu_2(n)>\nu_1(n)$
+does not suffice for the identity at $(r,n+1,2)$.
 
 \begin{proposition}[A second-row failure with $\nu_2(n)>\nu_1(n)$]\label{prop:secondrowhyp}
 Let $r=\frac{177}{167}$ and
@@ -1857,7 +1859,9 @@ $\nu_2(50)>\nu_1(50)$.
 The proof is computer-assisted, by exact rational arithmetic as in
 Proposition~\ref{prop:secondrowexact}, in
 \texttt{test\_second\_row\_hypothesis\_fails} of
-\texttt{tests/test\_rows.py}; no floating point is used, and the decimals
+\texttt{tests/test\_rows.py}, and again, with the series summed by a
+separate method, in \texttt{test\_second\_row\_hypothesis\_independently};
+no floating point is used, and the decimals
 are truncations of exact values.  Lemma~\ref{lem:vertexopt} with
 $S=\varnothing$, $\{1\}$ and $\{5\}$ gives the three equalities, recalling
 $\nu_2(50)=\mu_r(\{1\},51)$; for $Z_5(50)$ every inequality of the lemma is
@@ -1892,8 +1896,9 @@ $k=2$.
 
 \paragraph{Failures on an interval of roots.}
 The failures above are at single rational roots.  Since every $\mu_r(S,L)$
-decreases with $r$, a failure certified at two roots persists between
-them (Proposition~\ref{prop:failinterval}), and finitely many such
+decreases with $r$, a lower bound on $\eta_\sigma(n)$ certified at one root
+and upper bounds on $\nu_1(n)$ and $\nu_2(n)$ at a smaller root give a
+failure at every root between them (Proposition~\ref{prop:failinterval}), and finitely many such
 certificates show that the identity fails somewhere in the second row for
 every root in an interval (Theorem~\ref{thm:failinterval}).
 
@@ -1971,8 +1976,11 @@ applies at every root there.
 
 So the failures of Proposition~\ref{prop:secondrowexact} at $\frac54$ and
 $\frac43$ are not isolated: the second row misses the prefix identity at
-every root of $[\frac{21}{20},\frac{139}{100}]$, each time at the position
-$2$ and a diagonal $n$ that moves with $r$.  The certificates were found by
+every root of $[\frac{21}{20},\frac{139}{100}]$, each time certified at the
+position $2$ and a diagonal $n$ that moves with $r$.  By the argument before
+Proposition~\ref{prop:secondrowhyp}, $\eta_2(n)>\nu_2(n)$ forces
+$\nu_2(n)\le\nu_1(n)$, so none of these failures has
+$\nu_2(n)>\nu_1(n)$.  The certificates were found by
 floating-point search, which played no part in the proof.  The same
 search, also not used in any proof, finds no second-row failure with
 $n\le40$ at the roots $1.400$ and $1.432$, $1.436,\ldots,1.460$,
