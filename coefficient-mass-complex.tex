@@ -95,8 +95,9 @@ coefficients and a root on a given ray in~\cite{bbbp-ray}; the first row
 below, $b_1(F)\ge|f_D|\prod_j(|\alpha_j|-1)$, is the complex analogue of the
 bound $H(P)\ge|P(1)|$ on the reduced height $H(P)$ (the infimum of the
 heights of the multiples $PQ$, $Q$ monic) obtained in~\cite{dj} for real roots
-greater than one under a same-sign hypothesis and proved unconditionally
-in~\cite{coefficient-mass}; the two agree at such roots, but at complex
+greater than one on the condition that their determinant sequence
+eventually has constant sign~\cite[p.~333]{dj}, a condition removed
+in~\cite[Lemma~2.1]{coefficient-mass}; the two agree at such roots, but at complex
 roots $|P(1)|$ can exceed $\prod_j(|\alpha_j|-1)$ ($x^2+\rho^2$).
 
 \paragraph{Exact reductions.}  If the prescribed factor has the form
@@ -1178,9 +1179,10 @@ $|R_m(\alpha)|\le\sum_{i<m}|f_i|\rho^i<\rho^m\sum_{i<m}2^{i-m}<\rho^m$, a
 contradiction.
 \end{proof}
 
-The lemma is the Gaussian form of the gap principle for lacunary
-polynomials~\cite{lenstra-lacunary}: across a run of small coefficients a
-root of $F$ must be a root of both parts.  Here it is used at every split,
+The lemma is a Gaussian analogue of the gap principle for lacunary
+polynomials~\cite{lenstra-lacunary}, by which a root of small degree of $F$
+is a root of both parts across a sufficiently long run of zero coefficients;
+here small coefficients below the split play the role of the gap.  Here it is used at every split,
 not only at long gaps.
 
 \begin{lemma}[Blocks]\label{lem:gaussblocks}
