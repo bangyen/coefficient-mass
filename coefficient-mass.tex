@@ -50,7 +50,7 @@ the smallest root, strictly increases the tail, and iterating gives a product bo
 the initial run of consecutive zeros, with equality only when all the zeros
 are consecutive.  As a by-product, the same-sign hypothesis under which
 Dubickas and Jankauskas evaluate the consecutive case holds at all distinct
-positive nodes, making their bound $H(P)\ge|P(1)|$ unconditional for
+positive nodes, making their reduced-height bound $H(P)\ge|P(1)|$ unconditional for
 distinct real roots greater than one.
 \end{abstract}
 
@@ -138,7 +138,7 @@ evaluate the consecutive case $J=\{1,\ldots,c-1\}$ on the condition that
 all $S_n$ with $n$ large have the same sign~\cite[p.~333]{dj}, a hypothesis
 kept through their Corollary~7~\cite[Section~2]{dj} and checked case by
 case~\cite[Sections~3--4]{dj}.  Lemma~\ref{lem:consecutive} proves it for
-all distinct positive real nodes, so their bound $H(P)\ge|P(1)|$, the row
+all distinct positive real nodes, so their bound $H(P)\ge|P(1)|$ on the reduced height $H(P)$, the infimum of the heights of the multiples $PQ$ with $Q$ monic, the row
 $k=1$ of Theorem~\ref{thm:order}, holds unconditionally for distinct real
 roots greater than one.  What is new here is the tail estimate for
 arbitrary integer zero sets, and with it the rows $k\ge2$.
@@ -503,13 +503,11 @@ If instead only $r_1>1$ is assumed, \eqref{eq:order} still holds for $u=0$.
 \end{theorem}
 
 \begin{proof}
-Assume first that the $r_i$ are distinct and $|f_D|=1$.  The assertion that
-some $j<D$ outside an arbitrary set $U$ of $u$ positions has $|f_j|\ge T$ is
-equivalent to the assertion that at least $u+1$ positions $j<D$ have
-$|f_j|\ge T$, that is, to $b_{u+1}\ge T$: any $U$ of size $u$ misses one of
-the $u+1$ large positions, and conversely the $u$ largest positions form a set
-$U$ that the $(u+1)$-st largest avoids.  Apply this with
-$T=\prod_{i=u+1}^L(r_i-1)$ to the conclusion of Lemma~\ref{lem:slack}.
+Assume first that the $r_i$ are distinct and $|f_D|=1$, and put
+$T=\prod_{i=u+1}^L(r_i-1)$.  Take for $U$ the positions of $b_1,\ldots,b_u$.
+Lemma~\ref{lem:slack} gives some $j<D$ outside $U$ with $|f_j|\ge T$, and
+every position outside $U$ has magnitude at most $b_{u+1}$, so
+$b_{u+1}\ge T$.
 
 For general $f_D\ne0$, the quotient $F/f_D$ has leading coefficient $1$ and
 coefficient magnitudes $b_k(F)/|f_D|$, so the normalized case gives
