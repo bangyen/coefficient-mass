@@ -65,7 +65,8 @@ theorem mass_eq_sum_range (F : ℂ[X]) :
 
 /-- The thresholds of Theorem 3.2 sum to the weights of Corollary 3.4:
 `∑_u log (c ∏_{i ≥ u} (r_i - 1)) = L log c + ∑_i (i + 1) log (r_i - 1)`. -/
-theorem sum_log_threshold {L : ℕ} (r : Fin L → ℝ) (hr : ∀ i, 2 ≤ r i) {c : ℝ} (hc : 0 < c) :
+theorem sum_log_threshold {L : ℕ} (r : Fin L → ℝ) (hr : ∀ i, 2 ≤ r i) {c : ℝ}
+    (hc : 0 < c) :
     ∑ u : Fin L, Real.log (c * ∏ i ∈ Finset.univ.filter (u ≤ ·), (r i - 1)) =
       L * Real.log c + ∑ i : Fin L, ((i : ℕ) + 1 : ℝ) * Real.log (r i - 1) := by
   have hpos : ∀ i, r i - 1 ≠ 0 := fun i => by linarith [hr i]
@@ -98,7 +99,8 @@ theorem logarithmicMass_of_complexOrderStatistics (h : ComplexOrderStatistics) :
     (fun u => mul_pos hc (Finset.prod_pos fun i _ => by linarith [hr i])) hrow
   rw [sum_log_threshold r hr hc] at hsum
   rw [mass_eq_sum_range, Finset.sum_range_succ]
-  have hlead : Real.log ‖F.leadingCoeff‖ ≤ logPlus ‖F.coeff F.natDegree‖ := le_max_right 0 _
+  have hlead : Real.log ‖F.leadingCoeff‖ ≤ logPlus ‖F.coeff F.natDegree‖ :=
+    le_max_right 0 _
   push_cast
   linarith
 

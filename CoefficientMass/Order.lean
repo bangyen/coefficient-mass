@@ -40,7 +40,8 @@ def CertificateWithExclusions : Prop :=
     StrictMono r → (∀ i, 2 ≤ r i) → rootProduct ℝ r ∣ F → ‖F.leadingCoeff‖ = 1 →
     U.card < L → U ⊆ Finset.range F.natDegree →
       ∃ j < F.natDegree, j ∉ U ∧
-        ∏ i ∈ Finset.univ.filter (fun i : Fin L => U.card ≤ i.val), (r i - 1) ≤ ‖F.coeff j‖
+        ∏ i ∈ Finset.univ.filter (fun i : Fin L => U.card ≤ i.val), (r i - 1) ≤
+          ‖F.coeff j‖
 
 /-- Theorem 3.2 (coefficient order statistics): for real roots
 `2 ≤ r_1 ≤ ⋯ ≤ r_L`, repetitions allowed, and a nonzero real multiple `F`,
@@ -66,6 +67,7 @@ through `Polynomial.map (algebraMap ℝ ℂ)`. -/
 def LogarithmicMass : Prop :=
   ∀ (L : ℕ) (r : Fin L → ℝ) (F : ℂ[X]),
     Monotone r → (∀ i, 2 ≤ r i) → F ≠ 0 → rootProduct ℂ r ∣ F →
-      (L + 1) * Real.log ‖F.leadingCoeff‖ + ∑ i : Fin L, ((i : ℕ) + 1 : ℝ) * Real.log (r i - 1) ≤ mass F
+      (L + 1) * Real.log ‖F.leadingCoeff‖ +
+        ∑ i : Fin L, ((i : ℕ) + 1 : ℝ) * Real.log (r i - 1) ≤ mass F
 
 end CoefficientMass
