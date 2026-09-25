@@ -58,7 +58,7 @@ half-width $\delta<\pi/2$, multiples of degree $O(K)$ with leading
 coefficient of modulus at least $1$ have mass at least
 $(\frac12-o(1))K^2\log R$ if $\delta K\to0$ and at least $(\frac\pi\delta-o(1))K\log R$
 at fixed $\delta$, as $K,R\to\infty$, with both constants attained; at
-Gaussian-integer roots and fixed $\delta$ the degree restriction is removed
+distinct Gaussian-integer roots in the upper half-plane and fixed $\delta$ the degree restriction is removed
 for integer multiples.
 \end{abstract}
 
@@ -111,8 +111,8 @@ Separated moduli restore the rows and the mass up to constants, through an
 Archimedean Newton polygon (Theorem~\ref{thm:archnewton},
 Corollary~\ref{cor:separated}).  For $K_s$ roots in each of several separated
 annuli the central index charges a root once for every annulus at or below it,
-$\sum_ssK_s\log T_s$ in all, sharply when the separation grows with the
-number of roots and $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
+$\sum_ssK_s\log T_s$ in all when the separation grows with the number of
+roots, attained for suitable roots as $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
 (Theorem~\ref{thm:annuli},
 Corollary~\ref{cor:annuli}, Proposition~\ref{prop:annulisharp}).
 
@@ -131,7 +131,8 @@ gives mass at least $\frac{K(K-2)}8\log(\frac R2-1)$ for multiples with
 leading coefficient of modulus at least $1$ and degree at most
 $\pi K/(2E(2\delta))$, where
 $E(2\delta)\le(8\delta/\log2)\log(e\pi/(2\delta))$ (Section~\ref{sec:thin},
-Theorem~\ref{thm:thinsector}).  At Gaussian-integer roots, where a carry
+Theorem~\ref{thm:thinsector}).  At distinct Gaussian-integer roots in the
+upper half-plane, where a carry
 argument charges degree against mass (Theorem~\ref{thm:gausscharge}), every
 integer multiple pays the smaller of this and
 $\pi K\log(R/2)/(2E(2\delta))$ (Theorem~\ref{thm:thingauss}), which is of
@@ -143,8 +144,8 @@ $(\frac\pi\delta-o(1))K\log R$ at fixed $\delta$ and $(\frac12-o(1))K^2\log R$
 if $\delta K\to0$, both sharp (Theorem~\ref{thm:widesector},
 Corollaries~\ref{cor:wideconst} and~\ref{cor:thinconst},
 Proposition~\ref{prop:widesharp}).  Whether
-$\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots
-in a sector of fixed half-width is open.  Two integer imitations of $x^N-\rho^N$ are
+$\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at distinct Gaussian roots
+in the upper half-plane and in a sector of fixed half-width is open.  Two integer imitations of $x^N-\rho^N$ are
 limited: $A((x-t)^N)$ has at most two Gaussian roots in the upper
 half-plane per root of $A$ (Lemma~\ref{lem:gaussbinom}), and at odd,
 pairwise coprime norms $|\alpha_j|^2$ with
@@ -545,7 +546,7 @@ $c\downarrow3\log3$ gives the stated bounds, as $e^{6\log3}=729$.
 \end{proof}
 
 So when the prescribed moduli grow by a factor $9$ at each step, every
-complex multiple pays $\sum_jj\log(\rho_j/3)$, one real root $\rho_j/3$ per
+complex multiple with $|f_D|\ge1$ pays $\sum_jj\log(\rho_j/3)$, one real root $\rho_j/3$ per
 root, at every angle; with a factor $729$ a conjugate pair pays
 $\log(\rho_j^2/729)$, which is the charge $\log(c_j^2-1)$ of
 Corollary~\ref{cor:imag} up to the constant.  Proposition~\ref{prop:noangle}
@@ -563,8 +564,9 @@ cross term $K_uK_s\log T_s$ between the groups $u<s$.  At complex roots the
 square term is false (Proposition~\ref{prop:noangle}).  This section shows
 that the cross terms are false as well, and that the right count charges a
 root once for every annulus at or below it: when the separation grows with
-the number of roots, the mass is $\sum_ssK_s\log T_s$ up to lower order
-terms, with the constant $1$ attained as $\min_sT_s\to\infty$
+the number of roots, every monic multiple has mass at least
+$\sum_ssK_s\log T_s$ up to lower order terms, and for suitable roots this is
+attained, constant included, as $\min_sT_s\to\infty$
 (Corollary~\ref{cor:annuli}, Proposition~\ref{prop:annulisharp}).
 Corollary~\ref{cor:separated} is essentially the case $K_s=1$.
 
@@ -847,10 +849,11 @@ matching lower bound: every excluded coefficient costs one root of each sign.
 Let $h\in\R[t]$ be nonzero, let $z\ge1$ be an integer, and put
 $T_zh=h-(t/z)h'$, so that $[t^d]T_zh=(1-d/z)[t^d]h$.  If the zeros of $h$ in
 $(0,\infty)$, listed with multiplicity, are $\xi_1\le\cdots\le\xi_m$, $m\ge1$, then $T_zh$ has
-zeros $\eta_1\le\cdots\le\eta_{m-1}$ in $(0,\infty)$, listed with multiplicity,
-with $\xi_j\le\eta_j\le\xi_{j+1}$.  The same holds in $(-\infty,0)$ for the
-absolute values: zeros $|\xi_1|\le\cdots\le|\xi_m|$ of $h$ there give zeros
-$|\eta_1|\le\cdots\le|\eta_{m-1}|$ of $T_zh$ there with
+at least $m-1$ zeros in $(0,\infty)$, counted with multiplicity, and $m-1$ of
+them, $\eta_1\le\cdots\le\eta_{m-1}$, satisfy $\xi_j\le\eta_j\le\xi_{j+1}$.
+The same holds in $(-\infty,0)$ for the
+absolute values: zeros $|\xi_1|\le\cdots\le|\xi_m|$ of $h$ there give
+$m-1$ zeros $|\eta_1|\le\cdots\le|\eta_{m-1}|$ of $T_zh$ there with
 $|\xi_j|\le|\eta_j|\le|\xi_{j+1}|$.
 \end{lemma}
 
@@ -899,8 +902,8 @@ so $F^*$ has the zeros $1/a_1\le\cdots\le1/a_p$ in $(0,\infty)$ and the zeros
 $-1/c_i$, of absolute values $1/c_1\le\cdots\le1/c_n$, in $(-\infty,0)$, with
 multiplicity.  Every intermediate polynomial $T_{z_s}\cdots T_{z_1}F^*$ has
 constant term $f_D\ne0$, so Lemma~\ref{lem:rolleside} applies at each step;
-after $s$ steps the $j$-th positive zero is at most the $(j+1)$-th positive
-zero of the previous stage, hence at most $1/a_{j+s}$.  So $g$ has positive
+after $s$ steps the $j$-th smallest positive zero is at most $\eta_j$, hence
+at most the $(j+1)$-th smallest positive zero of the previous stage, hence at most $1/a_{j+s}$.  So $g$ has positive
 zeros $\eta_j\le1/a_{j+k-1}$, $1\le j\le p-k+1$, and negative zeros
 $\eta'_j$ with $|\eta'_j|\le1/c_{j+k-1}$, $1\le j\le n-k+1$, all of modulus
 less than $\rho$.  Jensen's formula for $g$ on $|t|\le\rho$ gives
@@ -1489,7 +1492,7 @@ real polynomial $x^N-\rho^N$.
 Its degree is at most $(\pi/\delta+1)K$, so Corollary~\ref{cor:wideconst}
 applies with $\lambda=\pi/\delta+1$: the constant $\pi/\delta$ of the angle
 mechanism is sharp in every sector of half-width $\delta<\pi/2$.  In a sector of fixed half-width the
-infimum is therefore linear in $K$, and $\Lambda\ge cK^2\log R$ fails already
+least mass guaranteed for every set of $K$ roots is therefore linear in $K$, and $\Lambda\ge cK^2\log R$ fails already
 for the monic real multiple $x^N-\rho^N$.  The thin-sector term is sharp too.
 
 \begin{corollary}[The constant $\frac12$]\label{cor:thinconst}
