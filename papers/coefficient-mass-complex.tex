@@ -132,15 +132,19 @@ $\sum_ssK_s\log(T_s/2)-O(S)$ in all for multiples with $|f_D|\ge1$, attained for
 (Theorem~\ref{thm:annuli},
 Corollary~\ref{cor:annuli}, Theorem~\ref{thm:fixedgap},
 Proposition~\ref{prop:annulisharp}).  A central index at radius $r$ has at
-least $n$ positions above it once $n$ roots have modulus at least $3nr$
-(Lemma~\ref{lem:tropcount}), and the rows of Corollary~\ref{cor:annuli}
-need a separation growing with the number of roots above: at the
-separation $n_a$, $(x-q)(x+Kq)^K$ has $b_2$ below the row by a factor that
-tends to $0$ (Proposition~\ref{prop:rowsneedn}), while for two annuli the
-separation $n_2+1$ suffices, as a truncation of $\prod(1-x/\beta)^{-1}$ stays
-away from $0$ below $T/n$ (Lemma~\ref{lem:trunc},
-Theorem~\ref{thm:rowstwo}, Corollary~\ref{cor:rowstwo}).  The mass bound fails at
-the separation $2$ (Proposition~\ref{prop:gaptwo}).
+least $n$ positions above it once $n$ roots have modulus above
+$\frac73nr$ (Lemma~\ref{lem:tropcount}), and the rows of
+Corollary~\ref{cor:annuli} need a separation growing with the number of
+roots above: they hold at the separation $7n_a$
+(Corollary~\ref{cor:fewabove}), for two annuli at the separation $n_2+1$,
+as a truncation of $\prod(1-x/\beta)^{-1}$ stays away from $0$ below $T/n$
+(Lemma~\ref{lem:trunc}, Theorem~\ref{thm:rowstwo},
+Corollary~\ref{cor:rowstwo}), and at the separation $n_a$,
+$(x-q)(x+Kq)^K$ has $b_2$ below the row by a factor that tends to $0$
+(Proposition~\ref{prop:rowsneedn}).  The mass bound fails with
+$T_2=(2+\frac1{18915})U_1$ (Proposition~\ref{prop:gaptwo}), with two
+roots above the gap, where the separation $9$ suffices
+(Corollary~\ref{cor:rowstwo}).
 
 \paragraph{Both signs.}  For real roots of both signs, Rolle's theorem on
 each half-line charges one root of each sign per excluded coefficient
@@ -160,8 +164,9 @@ multiple, are treated in~\cite{coefficient-mass-sectors}, which uses
 Theorem~\ref{thm:gausscharge} for integer multiples of large degree.
 
 \paragraph{Open questions.}  Two questions are left open.  First, what the
-least fixed separation of the annuli for the mass is: it lies between $2$
-and $81$, and whether the separation $9$ of Corollary~\ref{cor:annuli},
+least fixed separation of the annuli for the mass is: it lies between
+$2+\frac1{18915}$ and $81$ (and at most $9$ for two annuli with at most
+eight roots in the upper one), and whether the separation $9$ of Corollary~\ref{cor:annuli},
 item~2, suffices is open (Section~\ref{sec:annuli}).  Second, whether
 $\Lambda(F)\ge cK^2\log R$ holds for every integer multiple $F$ at $K$
 distinct Gaussian-integer roots of modulus at least $R$ in the upper
@@ -670,7 +675,10 @@ T>0$ for $\beta\in A$, and let $0<r<T$ and $\theta=r/T$.  If $0\le\kappa\le n$ a
 then every central index $y$ of $F$ at $r$ satisfies $D-y\ge\kappa$.  In
 particular $D-y\ge n$ if $T\ge3nr$, and $D-y\ge n/2$ if $T\ge6r$; and
 $n-(D-y)\le\lfloor0.82\,n\rfloor$ if $T\ge3r$, and
-$n-(D-y)\le\lfloor0.13\,n\rfloor$ if $T\ge27r$.
+$n-(D-y)\le\lfloor0.13\,n\rfloor$ if $T\ge27r$.  More precisely, let
+$\theta_n$ be the root in $(0,1)$ of $(1+\theta)^n-1=(1-\theta)^n$ and
+$\rho_n=1/\theta_n$; then $D-y\ge n$ if $T>\rho_nr$, where $\rho_1=2$,
+$\rho_2=4$ and $\rho_n<\frac73n$.
 \end{lemma}
 
 \begin{proof}
@@ -695,7 +703,13 @@ So no $i>D-\kappa$ is a central index.  If $T\ge3nr$ and $\kappa=n$, the sum
 is $(1+\theta)^n-1\le e^{1/3}-1<\frac23\le1-n\theta\le(1-\theta)^n$.  If $T\ge6r$ and
 $\kappa=\lceil n/2\rceil$, every $m>n-\kappa$ has $m\ge(n+1)/2$, so the left
 side is at most $(1-\theta)^{-n}2^n\theta^{(n+1)/2}\le6^{-1/2}(12/(5\sqrt6))^n<1$.
-For the last two claims let $0<c<1$, $M=\lfloor cn\rfloor+1>cn$ and
+For $\kappa=n$ the left side is $((1+\theta)^n-1)/(1-\theta)^n$, which
+increases from $0$ to $\infty$ on $(0,1)$, so the hypothesis holds exactly
+when $\theta<\theta_n$; for $n=1,2$ it reads $\theta<1-\theta$ and
+$2\theta<1-2\theta$.  At $\theta=3/(7n)$,
+$(1+\theta)^n-1\le e^{3/7}-1<\frac47\le1-n\theta\le(1-\theta)^n$, as
+$e^3<(11/7)^7$; so $\theta_n>3/(7n)$.
+For the bounds $\lfloor0.82\,n\rfloor$ and $\lfloor0.13\,n\rfloor$ let $0<c<1$, $M=\lfloor cn\rfloor+1>cn$ and
 $\kappa=n-M+1=n-\lfloor cn\rfloor$.  For every $x\ge1$,
 $\sum_{m\ge M}\binom nm\theta^m\le x^{-M}\sum_m\binom nm(\theta x)^m$, so the
 left side is at most $x^{-M}\bigl((1+\theta x)/(1-\theta)\bigr)^n$, which
@@ -709,7 +723,10 @@ $t$, and at $r=t/c$ its terms are $t^K\binom Kic^{-i}$, so for $c<K$ the term
 $i=1$ beats the term $i=0$ and the central index is positive.  At a constant
 distance only a fraction of the count survives: for $c\ge1$ the central
 index of $(x-t)^K$ at $t/c$ is about $K/(c+1)$, with only about $cK/(c+1)$
-positions above it.
+positions above it.  The constant $\rho_1=2$ is sharp: every coefficient
+of $x^D-\sum_{i<D}x^i$, $D\ge2$, has modulus $1$, so $D$ is a central index at $r=1$,
+while $(x-1)(x^D-\sum_{i<D}x^i)=x^D(x-2)+1$ changes sign on
+$[2-2^{1-D},2]$, giving a zero of modulus above $2-2^{1-D}$.
 
 \begin{theorem}[Several annuli]\label{thm:annuli}
 Let $F\in\mathbb C[x]$ be nonzero of degree $D$, let $S\ge1$, and let
@@ -890,7 +907,9 @@ Theorem~\ref{thm:fixedgap} bounds the mass only: below the $a$-th annulus
 the charge of the roots in the $a$-th and higher annuli may fall on two
 coefficients rather than one, and the rows of Corollary~\ref{cor:annuli},
 item~1, fail at every fixed separation (Proposition~\ref{prop:rowsneedn}).
-The factor $81$ cannot be lowered to $2$ (Proposition~\ref{prop:gaptwo});
+The factor $81$ cannot be lowered below $2+\frac1{18915}$
+(Proposition~\ref{prop:gaptwo}), and for two annuli $9$ suffices with at
+most eight roots above the gap (Corollary~\ref{cor:rowstwo});
 the least admissible factor is open.  The mass bound is sharp to leading order, the
 coefficient $s$ of each $K_s\log T_s$ being best possible, as
 $\min_sT_s\to\infty$ (Proposition~\ref{prop:annulisharp} has
@@ -970,8 +989,9 @@ linear in the number of roots above and independent of the number below.  For
 the mass it is proved at the fixed separation $81$
 (Theorem~\ref{thm:fixedgap}), and with ratios in place of moduli at the
 separation $9$ (Corollary~\ref{cor:annuli}, item~2); the rows of item~1 are
-proved at the separation $9n_a$, and the factor $n_a$ cannot be dropped;
-for two annuli $n_2+1$ suffices (Corollary~\ref{cor:rowstwo}).
+proved at the separation $9n_a$, and at $7n_a$ by Corollary~\ref{cor:fewabove},
+and the factor $n_a$ cannot be dropped; for two annuli $n_2+1$ suffices
+(Corollary~\ref{cor:rowstwo}).
 
 \begin{proposition}[Rows need the factor $n_a$]\label{prop:rowsneedn}
 Let $K\ge10$ and $q\ge4^K$ be integers and $F=(x-q)(x+Kq)^K$.  Then
@@ -1008,11 +1028,11 @@ the full charge of $A_2$ below the second annulus is left on $f_0$ alone,
 and every other nonleading coefficient carries fewer than $K$ zeros of
 $A_2$.  The cancellation needs $|\sum_{\beta\in A_2}1/\beta|=1/q$, hence
 $T_2\le n_2U_1$.  So the separation the rows of Corollary~\ref{cor:annuli},
-item~1, need grows linearly with $n_a$: it is at most $9n_a$, and not at
-most $n_a$.
+item~1, need grows linearly with $n_a$: it is below $7n_a$
+(Corollary~\ref{cor:fewabove}), and not at most $n_a$.
 
 For two annuli this cancellation is the only obstruction, and the factor
-$9n_2$ drops to $n_2+1$.  Dividing out the zeros above leaves a quotient
+$7n_2$ drops to $n_2+1$.  Dividing out the zeros above leaves a quotient
 whose coefficients below the upper zeros are truncations of
 $\prod_\beta(1-x/\beta)^{-1}$, and at a lower zero such a truncation is
 bounded away from $0$.  Write $h_k$ for the complete homogeneous symmetric
@@ -1167,14 +1187,15 @@ Theorem~\ref{thm:fixedgap} at the separation $2$.
 \begin{proposition}[Separation $2$ does not suffice]\label{prop:gaptwo}
 Let $q\ge97$ be an integer, $\delta=1/(2q+1)$, $t=2q+\delta$ and
 $F=(x-q)(x+t)^2$.  With $S=2$, $A_1=\{q\}$ and $A_2$ the double zero $-t$,
-$T_1=U_1=q>3$ and $T_2=U_2=t>2U_1$, but
+$T_1=U_1=q>3$ and $T_2=U_2=t=\bigl(2+\frac1{q(2q+1)}\bigr)U_1$, but
 \[
   \sum_{s=1}^2s\sum_{\beta\in A_s}\log\frac{|\beta|}2-2\log2-\Lambda(F)
   \ =\ \log\frac{t^2}{128(3q+2\delta)}\ >\ 0 ,
 \]
 and the difference tends to $\infty$ with $q$.  So
 Theorem~\ref{thm:fixedgap} fails at the separation $2$, by an unbounded
-amount, and its factor $81$ cannot be replaced by any $g\le2$.
+amount, and, taking $q=97$, its factor $81$ cannot be replaced by any
+$g<2+\frac1{18915}$.
 \end{proposition}
 
 \begin{proof}
@@ -1183,10 +1204,80 @@ lies in $(0,1)$, so $\Lambda(F)=\log(qt^2)+\log(3q+2\delta)$.  The bound is
 $\log(q/2)+4\log(t/2)-2\log2=\log(qt^4/128)$, and the difference is as
 stated.  As $t>2q$ and $\delta<1$, $t^2>4q^2>128(3q+2)$ once
 $q^2-96q-64>0$, which holds for $q\ge97$; and $t^2/(3q+2\delta)\to\infty$.
+Finally $t/q=2+\delta/q$, which is $2+\frac1{18915}$ at $q=97$.
 \end{proof}
 
-Open: the least fixed separation for the mass, between $2$ and $81$, in
-particular whether $9$ suffices.
+With few roots above a gap the single central index of
+Corollary~\ref{cor:annuli}, item~1, needs less than the factor $9n_a$: by
+the last clause of Lemma~\ref{lem:tropcount}, $T_a>3\rho_{n_a}U_{a-1}$
+suffices, and $3\rho_{n_a}<81$ for $n_a\le13$.  At a gap where it does not
+suffice the two positions of Theorem~\ref{thm:fixedgap} can be used, gap by gap.
+
+\begin{corollary}[Few roots above a gap]\label{cor:fewabove}
+Let $F$, $A_1,\ldots,A_S$, $K_s$ and $n_a$ be as in
+Theorem~\ref{thm:annuli}, except that only $T_1>3$ is assumed of the
+moduli, and let $\rho_n$ be as in Lemma~\ref{lem:tropcount}.
+\begin{enumerate}
+\item If $T_a>3\rho_{n_a}U_{a-1}$ for $2\le a\le S$, in particular if
+$T_a>7n_aU_{a-1}$, the conclusions of Corollary~\ref{cor:annuli}, item~1,
+hold.
+\item If $|f_D|\ge1$ and, for each $2\le a\le S$, $T_a>3\rho_{n_a}U_{a-1}$ or
+$T_a>81U_{a-1}$, the conclusion of Theorem~\ref{thm:fixedgap} holds.
+\end{enumerate}
+In particular, for $S=2$ the mass bound of Theorem~\ref{thm:fixedgap} holds
+once $T_2>6U_1$ if $K_2=1$, and once $T_2>12U_1$ if $K_2=2$.
+\end{corollary}
+
+\begin{proof}
+For each $a$ pick $\beta\in A_a$ and, by Theorem~\ref{thm:archnewton},
+item~2, a tropical root $\sigma^{(a)}$ with
+$\log(T_a/3)\le\sigma^{(a)}\le\log(3U_a)$.  Let $y_1$ be a central index at
+$1<e^{\sigma^{(1)}}$ and $Y_1=\{y_1\}$.  For $2\le a\le S$, if
+$T_a>3\rho_{n_a}U_{a-1}$ let $Y_a=\{y_a\}$, $y_a$ a central index at a radius
+$r_a$ with $3U_{a-1}<r_a<T_a/\rho_{n_a}$; Lemma~\ref{lem:tropcount} with
+$A=A_{\ge a}$ gives $D-y_a\ge n_a$, and Lemma~\ref{lem:central} gives
+$|f_{y_a}|>\frac{|f_D|}2\prod_{\beta\in A_{\ge a}}\frac{|\beta|}2$.  Otherwise
+$T_a>81U_{a-1}$, and let $Y_a$ be the set of the proof of
+Theorem~\ref{thm:fixedgap}, whose positions are the vertices active at
+$u_a^\pm$, with $\log(3U_{a-1})<u_a^-<u_a^+<\sigma^{(a)}$; there
+$\sum_{y\in Y_a}\log^+|f_y|\ge\log|f_D|+\sum_{\beta\in A_{\ge a}}\log(|\beta|/2)-\log2$.
+
+Every position of $Y_a$, $a\ge2$, is a central index at a radius above
+$3U_{a-1}\ge e^{\sigma^{(a-1)}}$ and, unless $a=S$, below $e^{\sigma^{(a)}}$:
+if $n_a\ge2$ then $\rho_{n_a}\ge4$ and $r_a<T_a/4<e^{\sigma^{(a)}}$, and
+$n_a=1$ only for $a=S$.  As in the Order step of Theorem~\ref{thm:annuli},
+a central index at a radius below $e^{\sigma^{(a)}}$ lies below every central
+index at a radius above it; so every position of $Y_a$ lies below every
+position of $Y_{a+1}$.  The positions of $Y_S$ lie below $D$: $D-y_S\ge n_S$
+in the first case, and by the proof of Theorem~\ref{thm:fixedgap} in the
+second.  So the positions in $Y_1\cup\cdots\cup Y_S$ are distinct and
+nonleading, and the rest is as in the proofs of Corollary~\ref{cor:annuli},
+item~1, and of Theorem~\ref{thm:fixedgap}.  For the last sentence,
+$3\rho_1=6$ and $3\rho_2=12$.
+\end{proof}
+
+So for the mass at two annuli with two roots in the upper one, the case of
+Proposition~\ref{prop:gaptwo}, the least separation lies between
+$2+\frac1{18915}$ and $12$, and by Corollary~\ref{cor:rowstwo} even $9$; with one root in the upper annulus it is at
+least $\frac{32}{31}$, since $F=(x-q)(x+t)$ has
+$\Lambda(F)=\log(qt(t-q))$ against the bound $\log(qt^2/32)$ when
+$1\le t-q<t/32$, for instance at $q=100$, $t=103$.  For the rows,
+Proposition~\ref{prop:rowsneedn} and Corollary~\ref{cor:fewabove} put the
+least separation between $n_a$ and $3\rho_{n_a}<7n_a$.
+
+Below the separation $81$ the proof of Theorem~\ref{thm:fixedgap} breaks
+down where only one vertex above those charged for the lower annuli is
+active in the gap, between two tropical roots less than $2\log3$ apart, and
+it has fewer than $n_a$ positions above it: then
+Theorem~\ref{thm:archnewton}, item~1, gives no count, and there is no
+second vertex to share the charge.  This is what happens in
+Proposition~\ref{prop:gaptwo}: the vertices are $0$, $2$ and $3$, the
+central index at $1$ is $0$, and above it only the vertex $2$, between the
+tropical roots $\log(t/\sqrt{3+2\delta/q})$ and $\log(3q+2\delta)$, carries
+the charge of the two zeros $-t$, with one position above it.
+
+Open: the least fixed separation for the mass, between $2+\frac1{18915}$
+and $81$, in particular whether $9$ suffices.
 
 \section{Real roots of both signs}\label{sec:bothsigns}
 

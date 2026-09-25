@@ -791,10 +791,179 @@ def test_mass_fails_at_separation_two() -> None:
         assert _mass(f) == q * t * t * (3 * q + 2 * delta)
         ratios.append(bound / _mass(f))
         assert ratios[-1] == t * t / (128 * (3 * q + 2 * delta)) > 1
+        assert t / q == 2 + Fraction(1, q * (2 * q + 1))
     assert ratios == sorted(ratios) and ratios[-1] > 10**4
+    assert 97 * (2 * 97 + 1) == 18915  # the separation 2 + 1/18915 at q = 97
     q = 97
     g = _rows_need_n(2, q, 82)
     assert _mass(g) >= Fraction(q, 2) * Fraction(82 * q, 2) ** 4 / 4
+
+
+def _e_upper() -> Fraction:
+    """A rational upper bound for ``e``: the series to ``1/15!`` plus a tail
+    below ``2/16!``."""
+    terms, term = Fraction(0), Fraction(1)
+    for k in range(16):
+        terms += term
+        term /= k + 1
+    return terms + 2 * term
+
+
+def test_full_count_threshold() -> None:
+    """The last clause of ``lem:tropcount``: with ``kappa = n`` the criterion
+    holds exactly below ``theta_n``; ``rho_1 = 2``, ``rho_2 = 4``,
+    ``rho_n < 7n/3`` (from ``e^3 < (11/7)^7``), and ``3 rho_n < 81`` exactly
+    for ``n <= 13``, as ``cor:fewabove`` uses.  On random multiples every
+    central index at ``r`` just inside ``T/rho_n`` has ``n`` positions above.
+
+    Control: ``rho_1 = 2`` cannot be lowered.  Every coefficient of
+    ``x^10 - sum_(i<10) x^i`` has modulus 1, so ``10`` is a central index at
+    ``r = 1``, with no position above it, while a zero lies above
+    ``2 - 2^-9``."""
+    eps = Fraction(1, 1000)
+    assert _count_criterion(1, 1, Fraction(1, 2) - eps)
+    assert not _count_criterion(1, 1, Fraction(1, 2))
+    assert _count_criterion(2, 2, Fraction(1, 4) - eps)
+    assert not _count_criterion(2, 2, Fraction(1, 4))
+    assert _e_upper() ** 3 < Fraction(11, 7) ** 7
+    for n in range(1, 151):
+        assert _count_criterion(n, n, Fraction(3, 7 * n))
+    assert all(_count_criterion(n, n, Fraction(1, 27)) for n in range(1, 14))
+    assert not _count_criterion(14, 14, Fraction(1, 27))
+    rng = random.Random(SEED + 17)
+    for _ in range(100):
+        pair = rng.choice(PYTHAGOREAN[:5])
+        t = rng.randint(4, 40)
+        for factor, n, big_t in ((_pair(*pair[:2]), 2, pair[2]), ([t, 1], 1, t)):
+            f = _mul(factor, _cofactor(rng))
+            rho_n = 4 if n == 2 else 2
+            r = Fraction(big_t, rho_n) - Fraction(1, 100)
+            assert _count_criterion(n, n, r / big_t)
+            assert all(len(f) - 1 - y >= n for y in _central(f, r))
+    big_d = 10
+    f = [-1] * big_d + [1]
+    assert big_d in _central(f, Fraction(1))
+
+    def value(x: Fraction) -> Fraction:
+        return sum(c * x**i for i, c in enumerate(f))
+
+    assert value(2 - Fraction(1, 2 ** (big_d - 1))) < 0 < value(Fraction(2))
+
+
+def _few_above_positions(f: Poly, moduli: list[list[int]], kinds: list[str]) -> None:
+    """The positions of the proof of ``cor:fewabove``: a central index at ``1``,
+    and for each gap either one central index at ``r_a = 3 U_(a-1) + 1`` with
+    ``T_a > rho_(n_a) r_a`` (``"one"``), counted and charged in full, or the
+    two positions of ``thm:fixedgap`` (``"two"``), charged together."""
+    big_d, lead = len(f) - 1, abs(f[-1])
+    charge = [
+        Fraction(lead, 2) * prod(Fraction(rho, 2) for m in moduli[a:] for rho in m)
+        for a in range(len(moduli))
+    ]
+    y1 = max(_central(f, Fraction(1)))
+    positions = [y1]
+    assert abs(f[y1]) > charge[0]
+    for a in range(1, len(moduli)):
+        n_a = sum(map(len, moduli[a:]))
+        low, up = min(moduli[a]), max(moduli[a - 1])
+        if kinds[a] == "one":
+            r = Fraction(3 * up + 1)
+            assert _count_criterion(n_a, n_a, r / low)
+            ys = _central(f, r)
+            assert min(ys) > positions[-1]
+            for y in ys:
+                assert big_d - y >= n_a and abs(f[y]) > charge[a]
+            positions.append(max(ys))
+            continue
+        assert low > 81 * up
+        lo, hi = Fraction(3 * up + 1), Fraction(low, 3)
+        y_lo, y_hi = max(_central(f, lo)), max(_central(f, hi))
+        assert min(_central(f, lo)) > positions[-1]
+        ys = sorted({y_lo, y_hi})
+        if len(ys) == 1:
+            assert big_d - ys[0] >= n_a and abs(f[ys[0]]) > charge[a]
+        else:
+            assert abs(f[ys[0]] * f[ys[1]]) > charge[a] * Fraction(lead, 2) * 2**n_a
+        positions += ys
+    assert positions[-1] < big_d
+
+
+def test_few_roots_above() -> None:
+    """``cor:fewabove`` on random multiples.  Two annuli with one root above
+    the gap at ``T_2`` just above ``2(3 U_1 + 1)`` (separation about 6) or a
+    conjugate pair at ``T_2`` just above ``4(3 U_1 + 1)`` (about 12): one
+    central index carries the charge, the rows and the mass bound hold.
+    Three annuli with a pair on top at about ``12``, the middle gap either at
+    ``7 n_2`` (item 1, rows included) or at ``81`` (item 2).
+
+    Control: ``T_2 > 4 r`` is needed for the full count.  In
+    ``prop:gaptwo`` at ``q = 97``, the central index at ``r = 3q/2``, where
+    ``T_2/r < 4/3``, has one position above it, not two; and with one root
+    above the gap the bound fails at the separation ``103/100``:
+    ``(x - 100)(x + 103)``."""
+    rng = random.Random(SEED + 18)
+    small = [p for p in PYTHAGOREAN if p[2] >= 5]
+    for _ in range(60):
+        lower = [rng.choice(small) for _ in range(rng.randint(1, 2))]
+        up = max(p[2] for p in lower)
+        factors = [_pair(x, y) for x, y, _ in lower]
+        moduli = [[rho for *_, rho in lower for _ in range(2)]]
+        if rng.random() < 0.5:
+            t = 2 * (3 * up + 1) + rng.randint(1, 3)
+            factors.append([rng.choice([-1, 1]) * t, 1])
+            moduli.append([t])
+        else:
+            x, y, rho = rng.choice(small)
+            c = 4 * (3 * up + 1) // rho + 1
+            factors.append(_pair(c * x, c * y))
+            moduli.append([c * rho] * 2)
+        f = _mul(_product(factors), _cofactor(rng))
+        _few_above_positions(f, moduli, ["", "one"])
+        b = _b(f)
+        charge = Fraction(abs(f[-1]), 2) * prod(Fraction(rho, 2) for rho in moduli[1])
+        assert b[1] > charge
+        assert _mass(f) >= _fixed_gap_bound(f, moduli)
+    kinds = set()
+    for _ in range(40):
+        lower = [rng.choice(small) for _ in range(rng.randint(1, 2))]
+        middle = [rng.choice(small) for _ in range(rng.randint(1, 3))]
+        x, y, rho = rng.choice(small)
+        kind = rng.choice(["one", "two"])
+        kinds.add(kind)
+        n_2 = 2 * len(middle) + 2
+        up = max(p[2] for p in lower)
+        need = 81 * up + 30 if kind == "two" else 7 * n_2 * (3 * up + 1) // 3 + 1
+        c = need // min(p[2] for p in middle) + 1
+        middle = [(c * a, c * b, c * r) for a, b, r in middle]
+        up = max(p[2] for p in middle)
+        c = 4 * (3 * up + 1) // rho + 1
+        top = (c * x, c * y, c * rho)
+        f = _mul(
+            _product([_pair(a, b) for a, b, _ in lower + middle + [top]]),
+            _cofactor(rng),
+        )
+        moduli = [
+            [p[2] for p in ann for _ in range(2)] for ann in (lower, middle, [top])
+        ]
+        _few_above_positions(f, moduli, ["", kind, "one"])
+        assert _mass(f) >= _fixed_gap_bound(f, moduli)
+        if kind == "one":
+            b, lead = _b(f), abs(f[-1])
+            for k in range(1, 4):
+                charge = Fraction(lead, 2) * prod(
+                    Fraction(rho, 2) for m in moduli[k - 1 :] for rho in m
+                )
+                assert b[k - 1] > charge
+    assert kinds == {"one", "two"}
+    q = 97
+    delta = Fraction(1, 2 * q + 1)
+    t = 2 * q + delta
+    f = _mul([Fraction(-q), Fraction(1)], _mul([t, Fraction(1)], [t, Fraction(1)]))
+    r = Fraction(3 * q, 2)
+    assert t / r < Fraction(4, 3) + Fraction(1, 1000)
+    assert [len(f) - 1 - y for y in _central(f, r)] == [1]
+    g = _mul([-100, 1], [103, 1])
+    assert _mass(g) == 3 * 100 * 103 < Fraction(100 * 103 * 103, 32)
 
 
 # Real roots of both signs (cor:bothsignsmass, prop:bothsignssharp).
