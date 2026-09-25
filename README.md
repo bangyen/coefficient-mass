@@ -28,7 +28,7 @@ just pdf     # build the papers, failing on undefined references (needs tectonic
 | `tests/test_sweep.py` | the seeded certificate sweep and exact worked numbers of `coefficient-mass` and `-attainment` (`tests/sweep.py`) |
 | `tests/test_attainment.py` | the run chord behind the extremal escaping placement at roots `>= 2` (failing above the cutoff), the exact infimum `1704/31` at `(2,3,5,7)`, and the multiple beating `1/tau*` at `(11/10,3,5,7)` |
 | `tests/test_rows.py` | last rows, every row a top row at `r >= 2` on a window, and the exact `r = 5/4` counterexample to the prefix identity |
-| `tests/test_complex.py` | multisection transfer, imaginary pairs, first row at Gaussian roots, both signs, and wide sectors, on seeded integer multiples and exact optima |
+| `tests/test_complex.py` | multisection transfer, imaginary pairs, first row at Gaussian roots, several annuli, both signs, and wide sectors, on seeded integer multiples and exact optima |
 
 Each negative result carries a control: a false variant the same check must
 catch.

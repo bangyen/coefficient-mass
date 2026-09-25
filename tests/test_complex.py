@@ -150,6 +150,230 @@ def test_first_row_at_any_angle() -> None:
         assert _b(f)[0] >= abs(f[-1]) * prod((rho - 1) ** 2 for *_, rho in pairs)
 
 
+# Several annuli (lem:central, lem:tropcount, thm:annuli, cor:annuli,
+# prop:annulisharp).
+
+
+def _pair(a: int, b: int) -> Poly:
+    """``(x - a - bi)(x - a + bi)``."""
+    return [a * a + b * b, -2 * a, 1]
+
+
+def _central(f: Poly, r: Fraction) -> list[int]:
+    """Every central index: the positions maximizing ``|f_i| r^i``."""
+    terms = [abs(c) * r**i for i, c in enumerate(f)]
+    top = max(terms)
+    return [i for i, t in enumerate(terms) if t == top]
+
+
+def _central_bound(f: Poly, y: int, r: Fraction, moduli: list[int]) -> Fraction:
+    """The right side of ``lem:central`` for ``A`` the roots of these moduli."""
+    big_d = len(f) - 1
+    return (
+        Fraction(abs(f[-1]), 2)
+        * r ** (big_d - y - len(moduli))
+        * prod(max(r, Fraction(rho, 2)) for rho in moduli)
+    )
+
+
+_RADII = [Fraction(1), Fraction(3, 2), Fraction(2), Fraction(7, 2), 6, 13, 40]
+
+
+def test_central_index() -> None:
+    """``lem:central`` at every central index, for all prescribed roots and for
+    one pair of them."""
+    rng = random.Random(SEED + 11)
+    for _ in range(200):
+        pairs = [rng.choice(PYTHAGOREAN) for _ in range(rng.randint(1, 3))]
+        f = _mul(_product([_pair(a, b) for a, b, _ in pairs]), _cofactor(rng))
+        every = [rho for *_, rho in pairs for _ in range(2)]
+        for r in map(Fraction, _RADII):
+            for y in _central(f, r):
+                assert abs(f[y]) > _central_bound(f, y, r, every)
+                assert abs(f[y]) > _central_bound(f, y, r, every[:2])
+
+
+def test_central_index_control() -> None:
+    """Without its two factors ``2`` the lemma would put the central term above
+    the Jensen mean; ``(x + 2)(2x - 1)`` refutes that at ``r = 1``."""
+    f = _mul([2, 1], [-1, 2])
+    assert f == [-2, 3, 2]
+    (y,) = _central(f, Fraction(1))
+    assert abs(f[y]) > _central_bound(f, y, Fraction(1), [2])
+    assert abs(f[y]) < abs(f[-1]) * max(1, 2)
+
+
+def test_count_at_a_distance() -> None:
+    """``lem:tropcount``: ``n`` zeros of modulus ``>= R`` put every central index
+    at ``r < R/9^n`` at least ``n`` below the top."""
+    rng = random.Random(SEED + 12)
+    for _ in range(200):
+        pairs = [rng.choice(PYTHAGOREAN) for _ in range(rng.randint(1, 3))]
+        f = _mul(_product([_pair(a, b) for a, b, _ in pairs]), _cofactor(rng))
+        n = 2 * len(pairs)
+        r = Fraction(min(rho for *_, rho in pairs), 9**n + 1)
+        assert all(len(f) - 1 - y >= n for y in _central(f, r))
+
+
+def test_count_needs_distance() -> None:
+    """The control: at a constant distance the count fails.  ``(x - 10)^12`` has
+    ``12`` zeros of modulus ``10`` but a positive central index at ``10/11``."""
+    f = _product([[-10, 1]] * 12)
+    assert all(len(f) - 1 - y < 12 for y in _central(f, Fraction(10, 11)))
+    assert all(len(f) - 1 - y >= 12 for y in _central(f, Fraction(10, 9**12 + 1)))
+
+
+def _annuli(rng: random.Random, gap: int) -> list[list[tuple[int, int, int]]]:
+    """Pairs in ``S`` annuli, ``T_a`` above ``(3 U_(a-1) + 1) 9^(n_a)`` if
+    ``gap == 0`` (so ``r_a = 3 U_(a-1) + 1`` has ``k_a = n_a``), else above
+    ``gap * U_(a-1)``."""
+    small = [p for p in PYTHAGOREAN if p[2] >= 5]
+    annuli = [[rng.choice(small) for _ in range(rng.randint(1, 2))]]
+    for _ in range(rng.randint(1, 2)):
+        annuli.append([rng.choice(small)])
+    for a in range(1, len(annuli)):
+        n_a = 2 * sum(len(ann) for ann in annuli[a:])
+        upper = max(p[2] for p in annuli[a - 1])
+        need = (3 * upper + 1) * 9**n_a if gap == 0 else gap * upper
+        c = need // 5 + 1  # scale (3, 4, 5)-type pairs past ``need``
+        annuli[a] = [(c * x, c * y, c * rho) for x, y, rho in annuli[a]]
+        assert min(p[2] for p in annuli[a]) > need
+    return annuli
+
+
+def test_annuli_exact_counts() -> None:
+    """``thm:annuli`` with ``k_a = n_a`` and ``cor:annuli`` item 1: positions,
+    counts, values, rows and mass, at separation ``3 * 9^(n_a)``."""
+    rng = random.Random(SEED + 13)
+    for _ in range(60):
+        annuli = _annuli(rng, 0)
+        f = _mul(
+            _product([_pair(a, b) for ann in annuli for a, b, _ in ann]),
+            _cofactor(rng),
+        )
+        big_d, lead = len(f) - 1, abs(f[-1])
+        moduli = [[rho for *_, rho in ann for _ in range(2)] for ann in annuli]
+        big_s = len(annuli)
+        bounds = [
+            Fraction(lead, 2) * prod(Fraction(rho, 2) for m in moduli[a:] for rho in m)
+            for a in range(big_s)
+        ]
+        radii = [Fraction(1)] + [
+            Fraction(3 * max(moduli[a - 1]) + 1) for a in range(1, big_s)
+        ]
+        for pick in (min, max):
+            ys = [pick(_central(f, r)) for r in radii]
+            assert ys == sorted(set(ys)) and ys[-1] < big_d
+            for a in range(big_s):
+                n_a = sum(map(len, moduli[a:]))
+                assert a == 0 or big_d - ys[a] >= n_a
+                assert abs(f[ys[a]]) > bounds[a]
+        b = _b(f)
+        for k in range(1, big_s + 1):
+            assert b[k - 1] > bounds[k - 1]
+        mass = Fraction(lead ** (big_s + 1), 2**big_s) * prod(
+            Fraction(rho, 2) ** (s + 1) for s, m in enumerate(moduli) for rho in m
+        )
+        assert _mass(f) >= mass
+
+
+def test_annuli_ratio() -> None:
+    """``thm:annuli`` at the separation ``9`` alone: ``D - y_a >= k_a`` and
+    ``|f_(y_a)| > B_a`` with the power ``r_a^(k_a - n_a)``.
+
+    Control: ``k_a = n_a`` is not automatic there.  With a zero at ``4`` and
+    twelve at ``400``, the central index at the admissible ``r_2 = 100`` has
+    fewer than ``12`` positions above it.
+    """
+    rng = random.Random(SEED + 14)
+    for _ in range(60):
+        annuli = _annuli(rng, 10)
+        f = _mul(
+            _product([_pair(a, b) for ann in annuli for a, b, _ in ann]),
+            _cofactor(rng),
+        )
+        big_d, lead = len(f) - 1, abs(f[-1])
+        moduli = [[rho for *_, rho in ann for _ in range(2)] for ann in annuli]
+        big_s = len(annuli)
+        for a in range(1, big_s):
+            r = Fraction(3 * max(moduli[a - 1]) + 1)
+            low = min(moduli[a])
+            assert r < Fraction(low, 3)
+            kappa = max(k for k in range(64) if 9**k < low / r)
+            n_a = sum(map(len, moduli[a:]))
+            k_a = min(n_a, max(kappa, big_s - a))
+            bound = (
+                Fraction(lead, 2)
+                * r ** (k_a - n_a)
+                * prod(Fraction(rho, 2) for m in moduli[a:] for rho in m)
+            )
+            for y in _central(f, r):
+                assert big_d - y >= k_a
+                assert abs(f[y]) > bound
+    f = _mul([-4, 1], _product([[-400, 1]] * 12))
+    assert all(len(f) - 1 - y < 12 for y in _central(f, Fraction(100)))
+
+
+def _lacunary(ns: list[int], ts: list[int]) -> Poly:
+    """``prop:annulisharp`` item 1: ``sum_a c_a x^(y_a)``."""
+    f = [0] * (sum(ns) + 1)
+    for a in range(len(ns) + 1):
+        f[sum(ns[:a])] = prod(t**n for t, n in zip(ts[a:], ns[a:], strict=True))
+    return f
+
+
+def _dominant(f: Poly, v: int, r: Fraction) -> bool:
+    """Rouche at ``|z| = r``: the term ``v`` beats all others together."""
+    terms = [abs(c) * r**i for i, c in enumerate(f)]
+    return terms[v] > sum(terms) - terms[v]
+
+
+@pytest.mark.parametrize(
+    ("ns", "ts"),
+    [([4, 4], [10, 177147 * 10 + 1]), ([1, 2, 3], [10, 3000, 10**6])],
+)
+def test_annuli_sharp(ns: list[int], ts: list[int]) -> None:
+    """``prop:annulisharp`` item 1: exact Rouche certificates put ``N_s`` zeros
+    in ``(t_s/4, 4 t_s)``, and ``Lambda = sum_s s N_s log t_s`` exactly.
+
+    Control: the real cross term ``K_1 K_2 log T_2`` exceeds the mass.
+    """
+    f = _lacunary(ns, ts)
+    assert f[-1] == 1
+    ys = [sum(ns[:a]) for a in range(len(ns) + 1)]
+    assert _dominant(f, 0, Fraction(ts[0], 4))
+    for a, t in enumerate(ts, start=1):
+        assert _dominant(f, ys[a], Fraction(4 * t))
+        if a < len(ts):
+            assert _dominant(f, ys[a], Fraction(ts[a], 4))
+    assert _mass(f) == prod(
+        t ** (s * n) for s, (t, n) in enumerate(zip(ts, ns, strict=True), 1)
+    )
+    big_t2 = Fraction(ts[1], 4)
+    violated = _mass(f) < big_t2 ** (ns[0] * ns[1])
+    assert violated == (ns == [4, 4])
+
+
+def test_annuli_sector_control() -> None:
+    """``prop:annulisharp`` item 2: ``21`` pairs within ``pi/4`` of the
+    imaginary axis in each of two annuli, mass linear in the counts, far below
+    the cross term ``t_2^(K_1 K_2)``."""
+    delta = Fraction(1, 4)  # in units of pi
+    ms, ts = [41, 43], [2, 3]
+    ks = []
+    for m in ms:
+        angles = [Fraction(2 * j + 1, 2 * m) for j in range(2 * m)]
+        ks.append(sum(abs(t - Fraction(1, 2)) <= delta for t in angles))
+        assert ks[-1] == 2 * (m // 4) + 1
+    f = _mul(
+        [ts[0] ** (2 * ms[0])] + [0] * (2 * ms[0] - 1) + [1],
+        [ts[1] ** (2 * ms[1])] + [0] * (2 * ms[1] - 1) + [1],
+    )
+    assert _mass(f) == ts[0] ** (4 * ms[0]) * ts[1] ** (4 * ms[1])
+    assert _mass(f) <= (ts[0] ** (ks[0] + 1) * ts[1] ** (ks[1] + 1)) ** 8
+    assert _mass(f) < ts[1] ** (ks[0] * ks[1])
+
+
 # Real roots of both signs (cor:bothsignsmass, prop:bothsignssharp).
 
 

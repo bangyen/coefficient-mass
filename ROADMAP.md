@@ -48,7 +48,18 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `(pi/delta - o(1)) K log R` holds unconditionally (`cor:widegauss`).
   Open: whether `c K**2 log R` holds for all integer multiples at Gaussian
   roots in a wide sector (the question the paper's introduction leaves),
-  and the cross terms `K_s K_t log t` between annuli.
+  and whether the cross terms below need a separation growing with the
+  root counts.  Cross terms between annuli (`sec:annuli`): with `K_s` roots of
+  modulus in `[T_s, U_s]`, the central index (`lem:central`,
+  `lem:tropcount`) gives positions charging a root once per annulus at or
+  below it (`thm:annuli`), so mass `sum_s s K_s log(T_s/2) - S log 2` once
+  `T_a > 3*9**n_a U_(a-1)`, `n_a` the roots from annulus `a` up, and
+  ratios `log(|beta|/6U_(a-1))` at the factor 9 (`cor:annuli`).  A
+  lacunary integer multiple attains `sum_s s K_s log t_s` exactly, so the
+  constant 1 is sharp and the real cross terms `K_s K_t log t` are false,
+  also for pairs near the imaginary axis (`prop:annulisharp`).  At a
+  constant separation `(x - t)**K` breaks the count of `lem:tropcount`,
+  though not necessarily `cor:annuli` item 1.
 
 - **Every row at other roots.**  The paper is
   [coefficient-mass-rows](coefficient-mass-rows.tex), split out of
