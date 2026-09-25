@@ -74,6 +74,9 @@ just pin coefficient-mass:3.4 coefficient-mass-complex:2.1
 Pushing a tag `vN` (or `vN.M.K`) runs the release workflow: it checks the tag
 against the version in `pyproject.toml`, runs the checks, and attaches the
 compiled papers to a GitHub release, so a cited version keeps its PDFs.
+With the repository's Zenodo integration switched on, each release is also
+archived under a DOI (metadata in `.zenodo.json`); cite that DOI from the
+papers' data availability statements.
 
 ## License
 
