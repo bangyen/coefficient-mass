@@ -4,7 +4,9 @@ Thin sectors and sectors of every width are checked on seeded random
 Gaussian-integer multiples, with real zeros along the rays counted exactly by
 Sturm sequences; the integer imitations of ``x^N - rho^N`` and the heavy
 coefficients at Gaussian roots on seeded integer multiples; polynomials in a
-power and symmetric root sets exactly.  Every group has
+power and symmetric root sets exactly; ``p``-adic Newton polygons at the primes
+over coprime norms on seeded multiples, and small coefficients after the
+lowest one by exhausting the cofactor.  Every group has
 a control that a false variant of its statement is caught.  The polynomial
 helpers and the block decomposition of ``lem:gaussblocks`` (a result of
 ``coefficient-mass-complex.tex``) are those of ``tests/test_complex.py``.
@@ -567,6 +569,151 @@ def test_lowest_coefficients_common_norm() -> None:
                 assert d < p[0] ** m
 
 
+# Valuations at the primes over the norms (prop:gaussadic).
+
+#: Odd, pairwise coprime norms ``125 = 5^3``, ``13``, ``17``, ``89`` with
+#: ``gcd(a, c) = 1``: a prime power beside the primes of ``COPRIME``.
+COPRIME_POWER = [(2, 11), (-2, 3), (4, 1), (8, 5)]
+
+
+def _val(n: int, p: int) -> int:
+    k = 0
+    while n % p == 0:
+        n //= p
+        k += 1
+    return k
+
+
+def _prime_powers(n: int) -> list[tuple[int, int]]:
+    out, p = [], 2
+    while p * p <= n:
+        if n % p == 0:
+            out.append((p, _val(n, p)))
+            n //= p ** out[-1][1]
+        p += 1
+    return out + ([(n, 1)] if n > 1 else [])
+
+
+def _slope_end(f: Poly, p: int, w: int) -> int | None:
+    """The right endpoint of the edge of slope ``-w`` of the lower convex hull
+    of the points ``(i, v_p(f_i))``, ``f_i != 0``, or ``None``."""
+    pts = [(i, _val(c, p)) for i, c in enumerate(f) if c]
+    hull: list[tuple[int, int]] = []
+    for q in pts:
+        while len(hull) >= 2:
+            (x1, y1), (x2, y2) = hull[-2], hull[-1]
+            if (y2 - y1) * (q[0] - x1) >= (q[1] - y1) * (x2 - x1):
+                hull.pop()
+            else:
+                break
+        hull.append(q)
+    for (x1, y1), (x2, y2) in zip(hull, hull[1:], strict=False):
+        if y1 - y2 == w * (x2 - x1):
+            return x2
+    return None
+
+
+def _adic_charge(f: Poly, roots: list[Gauss]) -> int:
+    """``exp`` of the middle term of ``prop:gaussadic``, item 2, after
+    checking item 1 at every ``(j, p)``."""
+    support = [i for i, c in enumerate(f) if c]
+    e2 = support[1]
+    charge = 1
+    for z in roots:
+        for p, w in _prime_powers(_norm(z)):
+            y = _slope_end(f, p, w)
+            assert y is not None and y >= e2 and f[y]
+            assert all(f[i] % p ** (w * (y - i)) == 0 for i in range(y))
+            charge *= p ** (w * sum(y - i for i in support if i < y))
+    return charge
+
+
+def _power_multiple(roots: list[Gauss], n: int) -> Poly:
+    """The least ``A(x^N)`` divisible by ``P``: ``A`` the product of the
+    minimal polynomials of the classes of ``alpha_j^N``."""
+    minimal: dict[Gauss, Poly] = {}
+    for z in roots:
+        u, v = _gpow(z, n)
+        minimal[(u, abs(v))] = [-u, 1] if v == 0 else [u * u + v * v, -2 * u, 1]
+    return _in_power(_product(list(minimal.values())), n)
+
+
+def test_valuations_at_the_norms() -> None:
+    """``prop:gaussadic``, items 1-2: at every ``(j, p)`` the ``p``-adic
+    Newton polygon has an edge of slope ``-v_p(n_j)`` ending at a nonzero
+    ``f_y`` with ``y >= e_2``, ``p^(w(y-i)) | f_i`` below it, and ``Lambda``
+    bounds the charge, which is at least ``P(0)^(e_2 - e)``; on seeded
+    multiples at ``COPRIME`` and ``COPRIME_POWER``, polynomials in ``x^N``
+    (which pay ``P(0)^N``), and ``P``, where the charge is ``P(0)``.
+
+    Control: ``p^(w(y-i)+1) | f_i`` fails at ``F = P``, ``i = 0``.
+    """
+    rng = random.Random(SEED + 11)
+    for base in (COPRIME, COPRIME_POWER):
+        for big_k in range(1, len(base) + 1):
+            roots = base[:big_k]
+            p = _pairs(roots)
+            assert _adic_charge(p, roots) == p[0]
+            for _ in range(40):
+                f = _block_multiples(rng, p)
+                f = [0] * rng.randint(0, 2) + f
+                support = [i for i, c in enumerate(f) if c]
+                charge = _adic_charge(f, roots)
+                assert _mass(f) >= charge >= p[0] ** (support[1] - support[0])
+            for n in range(1, 6):
+                f = _power_multiple(roots, n)
+                assert _divides(p, f)
+                assert _mass(f) >= _adic_charge(f, roots) >= p[0] ** n
+    p = _pairs(COPRIME)
+    for z in COPRIME:
+        for q, w in _prime_powers(_norm(z)):
+            assert _slope_end(p, q, w) == 1
+            assert p[0] % q ** (w + 1) != 0
+
+
+def _light_run(p: Poly, m: int, v: int, limit: int) -> Poly | None:
+    """A multiple ``P S`` with ``0 < s_0 <= limit`` and ``|f_i| <= V`` for
+    ``0 < i < m``, found by exhausting the ``s_k`` in turn, least ``s_0``
+    first."""
+    for s0 in range(1, limit + 1):
+        stack = [[s0]]
+        while stack:
+            s = stack.pop()
+            k = len(s)
+            if k == m:
+                return _mul(p, s)
+            c = sum(p[i] * s[k - i] for i in range(1, min(k, len(p) - 1) + 1))
+            stack.extend(
+                [*s, t] for t in range(-((v + c) // p[0]), (v - c) // p[0] + 1)
+            )
+    return None
+
+
+def test_small_coefficients_after_the_lowest() -> None:
+    """``prop:gaussadic``, item 3: some multiple has ``|f_i| <= V`` for
+    ``0 < i < m`` and ``P(0) <= |f_0| <= P(0)^m / V^(m-1)``, at ``COPRIME``,
+    ``K <= 3``, ``m <= 3``; the least such ``|f_0|`` is exhibited.
+
+    Control: already at ``K = 2``, ``m = 3``, ``V = 2`` the least ``|f_0|``
+    is ``18330 < P(0)^3``, so ``prop:gausslow``, item 2, fails with small
+    coefficients in place of zeros.
+    """
+    for big_k in range(1, 4):
+        p = _pairs(COPRIME[:big_k])
+        for m in range(1, 4):
+            for v in (1, 2, 5, 20):
+                if v >= p[0]:
+                    continue
+                bound = p[0] ** m // v ** (m - 1)
+                f = _light_run(p, m, v, bound // p[0])
+                assert f is not None and _divides(p, f)
+                assert p[0] <= f[0] <= bound and len(f) <= m + 2 * big_k
+                assert all(abs(c) <= v for c in f[1:m])
+    p = _pairs(COPRIME[:2])
+    f = _light_run(p, 3, 2, p[0] ** 2)
+    assert f is not None and f[0] == 18330 < p[0] ** 3
+
+
 def _level_sets(big_b: int, degree: int, box: int) -> dict[tuple, list[Gauss]]:
     """Gaussian ``y`` above the axis grouped by the real value of ``g(y)``,
     over ``g`` with ``g(0) = 0``, positive leading coefficient and
@@ -768,6 +915,174 @@ def test_gaussian_integers_in_a_half_annulus() -> None:
         1 for a in range(-6, 7) for b in range(1, 7) if r * r <= a * a + b * b < s * s
     )
     assert count == 5 > Fraction(22, 14) * (s * s - r * r)
+
+
+# Primes of a level set (prop:gaussprimes).
+
+
+def _factor(n: int) -> dict[int, int]:
+    out, p = {}, 2
+    while p * p <= n:
+        while n % p == 0:
+            out[p] = out.get(p, 0) + 1
+            n //= p
+        p += 1
+    if n > 1:
+        out[n] = out.get(n, 0) + 1
+    return out
+
+
+def _ord(n: int, p: int) -> int:
+    k = 0
+    while n % p == 0:
+        n //= p
+        k += 1
+    return k
+
+
+def _gauss_prime(p: int) -> Gauss:
+    """A Gaussian prime above ``p``: ``1 + i`` for 2, ``p`` if
+    ``p = 3 mod 4``, and ``x + yi`` with ``x^2 + y^2 = p`` otherwise
+    (Hermite-Serret)."""
+    if p == 2:
+        return (1, 1)
+    if p % 4 == 3:
+        return (p, 0)
+    g = 2
+    while pow(g, (p - 1) // 2, p) != p - 1:
+        g += 1
+    a, b = p, pow(g, (p - 1) // 4, p)
+    while b * b > p:
+        a, b = b, a % b
+    y = isqrt(p - b * b)
+    assert b * b + y * y == p
+    return (b, y)
+
+
+def _root_orders(z: Gauss, p: int) -> list[Fraction]:
+    """``ord_p`` of ``z`` and of its conjugate under an embedding of
+    ``Q(i)`` in ``C_p``, with ``ord_p(p) = 1``."""
+    pi = _gauss_prime(p)
+    norm = pi[0] ** 2 + pi[1] ** 2
+    scale = Fraction(1, 2) if p == 2 else Fraction(1)
+    out = []
+    for w in (z, (z[0], -z[1])):
+        k = 0
+        while True:
+            u = _gmul(w, (pi[0], -pi[1]))
+            if u[0] % norm or u[1] % norm:
+                break
+            w, k = (u[0] // norm, u[1] // norm), k + 1
+        out.append(k * scale)
+    return out
+
+
+def _first_edge(f: Poly, roots: list[Gauss]) -> bool:
+    """``prop:gaussprimes``, item 1, for any ``f`` with ``f(0) != 0`` and
+    Gaussian roots ``alpha_j`` above the axis, ``ell`` its least positive
+    exponent: at each prime ``p`` of a norm, at most ``ell`` of the ``2K``
+    numbers ``alpha_j``, ``conj(alpha_j)`` have ``ord_p > t_p =
+    ord_p(f_ell)``, all with ``ord_p = s_p = (ord_p f(0) - t_p)/ell``."""
+    ell = next(i for i in range(1, len(f)) if f[i])
+    for p in sorted({p for a, c in roots for p in _factor(a * a + c * c)}):
+        t = _ord(f[ell], p)
+        s = Fraction(_ord(f[0], p) - t, ell)
+        big = [o for z in roots for o in _root_orders(z, p) if o > t]
+        if len(big) > ell or any(o != s for o in big):
+            return False
+    return True
+
+
+def _prime_orders(f: Poly, roots: list[Gauss]) -> bool:
+    """``prop:gaussprimes`` for ``f = v + H``: item 1, and item 2 when
+    ``h_ell`` is not the leading coefficient: ``ord_p(n_j) > 2 t_p`` forces
+    ``ord_p(n_j) = 2 s_p`` or ``s_p <= ord_p(n_j) <= s_p + t_p``, every norm
+    has such a prime, and at most ``ell`` of the ``alpha_j`` share a
+    norm."""
+    f = _trim(f)
+    ell = next(i for i in range(1, len(f)) if f[i])
+    if not _first_edge(f, roots):
+        return False
+    if ell == len(f) - 1:
+        return True
+    norms = [a * a + c * c for a, c in roots]
+    witnessed = set()
+    for p in sorted({p for n in norms for p in _factor(n)}):
+        t = _ord(f[ell], p)
+        s = Fraction(_ord(f[0], p) - t, ell)
+        for n in norms:
+            e = _ord(n, p)
+            if e > 2 * t:
+                if not (e == 2 * s or s <= e <= s + t):
+                    return False
+                witnessed.add(n)
+    return set(norms) <= witnessed and all(norms.count(n) <= ell for n in norms)
+
+
+def test_primes_of_a_level_set() -> None:
+    """``prop:gaussprimes`` on the Pell triples (``ell = 2``: the pair
+    ``+-a + ci`` shares a norm, ``2ci`` is alone), on the pairs ``+-c + ai``
+    of one norm where ``(y^3 + y)^2 = (8c^3 + 2c)^2``, which attain item 3,
+    on the level sets of ``test_one_heavy_coefficient_is_one_level_set``,
+    and, for item 1, which holds for every integer polynomial with nonzero
+    constant term, on seeded multiples, even multiples and multiples in
+    ``y^4`` of products of Gaussian pairs.
+
+    Controls: at ``y^2 - 10y + 650``, with roots ``5 +- 25i``, two roots
+    have positive ``ord_5`` though ``ell = 1``, so the threshold ``t_5 = 1``
+    is needed; and the Pell triples have ``K = 3 > ell``, so item 3 needs
+    one norm.
+    """
+    h = [0, 0, 1, 0, -2, 0, 1]
+    h_rot = [0, 0, 1, 0, 2, 0, 1]
+    for a, c in _pell_triples(8):
+        k = 8 * c**3 + 2 * c
+        roots = [(a, c), (-a, c), (0, 2 * c)]
+        assert _prime_orders([k * k] + h[1:], roots)
+        assert len(roots) == 3 > 2 and len({x * x + y * y for x, y in roots}) == 2
+        pair = [(c, a), (-c, a)]
+        assert all(_horner(h_rot, z) == (k * k, 0) for z in pair)
+        assert 4 * 2**2 < a * a + c * c
+        assert _prime_orders([-k * k] + h_rot[1:], pair)
+    big_b, seen = 2, 0
+    for (g, value), ys in _level_sets(big_b, 4, 6).items():
+        if 4 * big_b**2 < min(a * a + b * b for a, b in ys):
+            assert _prime_orders([-value, *g], ys)
+            seen += 1
+    assert seen > 0
+    rng, ells = random.Random(SEED + 11), set()
+    box = [(a, c) for a in range(-9, 10) for c in range(1, 10) if a]
+    for _ in range(150):
+        s = rng.sample(box, rng.randint(1, 3))
+        q = [rng.randint(-6, 6) for _ in range(rng.randint(1, 4))]
+        if q[0] == 0:
+            q[0] = 1
+        sym = sorted(set(s) | {(-a, c) for a, c in s})
+        rot = {
+            w
+            for a, c in s
+            for w in ((a, c), (-a, c), (c, a), (-c, a), (c, -a), (-c, -a))
+            if w[1] > 0
+        }
+        rot = sorted(rot)
+        q2 = [x for y in q for x in (y, 0)][:-1]
+        for f, roots in (
+            (_mul(_pairs(s), q), s),
+            (_mul(_pairs(sym), q2), sym),
+            (_pairs(rot), rot),
+        ):
+            assert f[0] != 0 and _divides(_pairs(roots), f)
+            assert _first_edge(f, roots)
+            ells.add(next(i for i in range(1, len(f)) if f[i]))
+    assert {1, 2, 4} <= ells
+    assert [o > 0 for o in _root_orders((7, 4), 5) + _root_orders((-7, 4), 5)].count(
+        True
+    ) == 2
+    f, roots = _pairs([(5, 25)]), [(5, 25)]
+    assert f == [650, -10, 1]
+    assert _root_orders((5, 25), 5) == [1, 1] and _ord(f[1], 5) == 1
+    assert sum(o > 0 for o in _root_orders((5, 25), 5)) == 2 > 1
+    assert _prime_orders(f, roots)
 
 
 # Counting Gaussian integers (cor:gausscount).

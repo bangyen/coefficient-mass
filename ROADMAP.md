@@ -8,15 +8,19 @@ is open; an answer lands in the paper it extends, and the row leaves.
 - [attainment](papers/coefficient-mass-attainment.tex) (`sec:scope`): an a
   priori bound on the zero set minimising one `tau({x})`; a half-mass
   threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
-  the escaping placement extremal; the infimum along `(r,3,5,7)` for
-  `1 < r < 1.0745...`, where `thm:familylow` stops and `thm:family` gives
-  only `<= 209/4` (whether the pieces accumulate at `r = 1`).
+  the escaping placement extremal; the pieces along `(r,3,5,7)` for
+  `1 < r < 1.0745...`, where `thm:familylow` stops (infinitely many
+  accumulate at `r = 1` by `cor:familyone`), and whether
+  `(inf b_2 - 24)(r-1)**(-alpha)` has a limit as `r -> 1+`
+  (`thm:familyone`).
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
-  separation for the mass, between 2 and 81, and whether 9 suffices; the
-  additive constant in the separation `n_a + O(1)` for the rows of
-  `cor:annuli` (between 0 and 9, `cor:rowsall`; for two annuli between 0
-  and 1, `cor:rowstwo`), in particular whether `T_a > (n_a + 1) U_(a-1)`
-  gives every row (`sec:annuli`).
+  separation for the mass, between `2 + 1/18915` and 81 (at most 9 for two
+  annuli with `n_2 <= 8`, `cor:rowstwo`), and whether 9 suffices; the least
+  separation for the rows of `cor:annuli`, between `n_a` and
+  `min(n_a + 9, 3 rho_(n_a))` (`cor:rowsall`, `cor:fewabove`), that is,
+  the additive constant in `n_a + O(1)`, in particular whether
+  `T_a > (n_a + 1) U_(a-1)` gives every row (`sec:annuli`; for two annuli
+  it lies between `n_2` and `n_2 + 1`, `cor:rowstwo`).
 - [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
@@ -26,7 +30,10 @@ is open; an answer lands in the paper it extends, and the row leaves.
   holds for integer multiples at Gaussian roots in a wide sector
   (`sec:widesectors`); whether one level set `H(y) = -v` holds a number of
   Gaussian points above the axis bounded independently of `rho_min` (fewer
-  than `6 rho_min` by `prop:gausscircle`).
+  than `6 rho_min` by `prop:gausscircle`, at most `ord_0 H` per norm by
+  `prop:gaussprimes`), and whether one norm carries at most two; whether
+  small coefficients after the lowest one cost nearly as much as zeros at
+  pairwise coprime norms (`prop:gaussadic`).
 
 ## Status
 
@@ -63,17 +70,30 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `{1,4,7}`, `{1,4,6}`, `{1,4,5}`, `{1,3,4}` (so `beta(r)` already from
   `1.2741...`); `N <= 13`, the other placements beaten by the aligned lifts
   `{1,3,x}` and by `{1,2,13}`, `{1,2,10}`, every sign on an interval a
-  Sturm count over Q; e.g. `314024/7627` at `r = 5/4`.  Along `(r,5,7)` it
-  fails for every `r < 2` (`prop:cutoffsharp`).  Open (`sec:scope`): an a
-  priori bound on the zero set minimising one `tau({x})` (to make `u = 1` a
-  finite computation outright), a threshold like `N` for `u >= 2`, which
-  root sets below 2 keep the escaping placement extremal (it depends on
-  more than `r_1`), and the infimum along `(r,3,5,7)` for
-  `1 < r < 1.0745...`: numerically the zero sets keep moving (`{1,5,z}`,
-  `z = 6, 7, ...`, then placements 6, 7 near `r = 1.03`, `1.01`) and `N`
-  grows, so whether there are infinitely many pieces, whether the worst
-  placement tends to infinity, and the limit of the infimum as `r -> 1+`
-  are open.
+  Sturm count over Q; e.g. `314024/7627` at `r = 5/4`.  Near `r = 1`
+  (`thm:familyone`): the placements at `(3,5,7)` have closed forms in
+  `3**-x, 5**-x, 7**-x` (`lem:threenode`: the certificate `{1,x}` costs
+  `t(x)`, with `1/24 - t(x)` between `(3/5)**x/16` and `(3/5)**x/6`); a
+  witness with one sign flip far out keeps
+  `tau({x}) >= t(x)/(1 + 3**(3-x))` while `3**x <= 8/(r(r-1)) - 48`, and
+  past `log_3(1/(r-1)) + 6` the certificate `{1,2,x}` costs at most
+  `5/192`.  So `inf b_2 > 24` for every `1 < r < 3`, and for
+  `1 < r <= 101/100`
+  `24 + (3/2) eps**alpha <= inf b_2 <= 24 + 125 eps**alpha`,
+  `eps = r - 1`, `alpha = log(5/3)/log 3 = 0.46497...`, with every worst
+  placement within `(-3, 6)` of `log_3(1/eps)`; `tau({x}) -> t(x)` for each
+  `x >= 4`.  Hence the limit is 24 (the value at `(3,5,7)`), the worst
+  placement tends to infinity, and `T` agrees with no finite set of
+  rational functions near 1, so infinitely many pieces accumulate there
+  (`cor:familyone`).  Along `(r,5,7)` it fails for every `r < 2`
+  (`prop:cutoffsharp`).  Open (`sec:scope`): an a priori bound on the zero
+  set minimising one `tau({x})` (to make `u = 1` a finite computation
+  outright), a threshold like `N` for `u >= 2`, which root sets below 2
+  keep the escaping placement extremal (it depends on more than `r_1`),
+  the pieces along `(r,3,5,7)` on `(1, 1.0745...)` themselves (numerically
+  zero sets `{1,c,x}`, `c = 3, 4`, or `{1,x,z}` with `z` growing), and
+  whether `(inf b_2 - 24)(r-1)**(-alpha)` converges as `r -> 1+` or
+  oscillates with the integer worst placement.
 
 - **Coefficient mass at complex roots.**  Purely imaginary pairs are Closed
   ([coefficient-mass-complex](papers/coefficient-mass-complex.tex), split
@@ -101,12 +121,20 @@ is open; an answer lands in the paper it extends, and the row leaves.
   top, and at `r <= T/6` at least `n/2` (`lem:tropcount`; `(x - t)**K`
   shows the factor `n` is needed), so the positions and rows of
   `cor:annuli` item 1 hold once `T_a > 9 n_a U_(a-1)`, `n_a` the roots from
-  annulus `a` up.  Closed negatively for the rows at a fixed separation:
+  annulus `a` up.  Exactly, the full count holds for `T > rho_n r`, `rho_n`
+  the reciprocal of the root of `(1 + theta)**n - 1 = (1 - theta)**n`:
+  `rho_1 = 2` (sharp: `x**D - sum_(i<D) x**i`), `rho_2 = 4`,
+  `rho_n < 7n/3`, `rho_n/n -> 1/arsinh(1/2) = 2.078...`; so the rows hold
+  once `T_a > 3 rho_(n_a) U_(a-1)`, in particular `T_a > 7 n_a U_(a-1)`
+  (`cor:fewabove`).  Closed negatively for the rows at a fixed separation:
   `(x - q)(x + Kq)**K`, `K >= 10`, `q >= 4**K`, has `T_2 = n_2 U_1`,
   `f_1 = 0` (the `K` zeros above cancel the one below) and
   `b_2 < 2**K (Kq)**(K-1)`, below the row `k = 2` by a factor tending to 0
   (`prop:rowsneedn`); so the rows need a separation between `n_a` and
-  `9 n_a` (`n_a + 9`, below).  For two annuli `n_2 + 1` suffices (`thm:rowstwo`,
+  `9 n_a`, at `3 rho_(n_a) < 7 n_a` by `cor:fewabove`, where the full
+  count `D - y >= n` of `lem:tropcount` holds exactly when `T > rho_n r`,
+  and at `n_a + 9` (`cor:rowsall`, below).
+  For two annuli `n_2 + 1` suffices (`thm:rowstwo`,
   `cor:rowstwo`): dividing out the `n` zeros above leaves at a lower zero
   `alpha` the truncation `sum_(k<=M) h_k(alpha/beta)`, of modulus at least
   `lambda = 1 - n|alpha|/T` (`lem:trunc`: the uniform average on the simplex
@@ -123,13 +151,14 @@ is open; an answer lands in the paper it extends, and the row leaves.
   |f_D| prod |beta|`, of the sharp order `lambda`.  Rows `k >= 3`
   (`lem:rowsbelow`, `thm:rowsk`, `cor:rowsall`): the central indices at
   radii below the `(k-1)`-st annulus give `k - 1` positions carrying
-  `A_(>=k)` once `T_k >= 3 n_k r` (so the row `k` needs `9 n_k` only at the
-  `k`-th separation); at a zero `alpha` of the `(k-1)`-st annulus the
+  `A_(>=k)` once `T_k > rho_(n_k) r` (so the row `k` needs `3 rho_(n_k)`
+  only at the `k`-th separation, and 9 below it); at a zero `alpha` of the `(k-1)`-st annulus the
   truncation gives the last one, the central index at `r` just above
   `3 U_(k-2)` bounding the lower positions there, whenever
   `lambda (1 - 2 xi) > (1 - lambda) xi/(1 - xi)`, `xi = 3 U_(k-2)/T_(k-1)`;
-  so every row and the mass hold at `T_a > (n_a + 9) U_(a-1)` (any `c > 3`
-  in place of 9 once `n_k` is large).  The lower separation must grow too:
+  so every row and the mass hold at `T_a > min(n_a + 9, 3 rho_(n_a)) U_(a-1)`,
+  which is `n_a + 9` for `n_a >= 2` (any `c > 3` in place of 9 once `n_k` is
+  large), superseding `7 n_a` for `n_a >= 2`.  The lower separation must grow too:
   `(x - q_1)(x - q_2)(x + t)**K` with `t = (K + h) q_2`,
   `q_2/q_1 = K(K+1+2h)/(2h(K+h)) < n_2/(2h) + 1` has `f_2 = 0` and `b_3`
   below the row by a factor tending to 0 (`prop:rowslower`); there
@@ -143,16 +172,42 @@ is open; an answer lands in the paper it extends, and the row leaves.
   ratios `log(|beta|/6U_(a-1))` at the factor 9 (`cor:annuli` item 2).
   Separation 2 does not suffice: `(x - q)(x + 2q + 1/(2q+1))**2`, `q >= 97`,
   misses the bound by `log(t**2/(128(3q + 2 delta)))`, unbounded in `q`
-  (`prop:gaptwo`).  Numerically only (floating-point vertex enumeration of
+  (`prop:gaptwo`), and at `q = 97` its separation is `2 + 1/18915`, so
+  the least separation exceeds 2.  With few roots above a gap one central
+  index suffices once `T_a > 3 rho_(n_a) U_(a-1)`, and `3 rho_n < 81` for
+  `n <= 13`: gap by gap, either this or the two positions of
+  `thm:fixedgap` give the mass bound (`cor:fewabove`).  For `S = 2` it
+  holds at `T_2 > 12 U_1` when `K_2 = 2`, the case of `prop:gaptwo`, and at
+  `T_2 > 6 U_1` when `K_2 = 1`, where `(x - q)(x + t)` fails for
+  `1 <= t - q < t/32` (separations up to `32/31`).  Below 81 the proof of
+  `thm:fixedgap` breaks down where only one vertex above those charged for
+  the lower annuli is active in the gap, between tropical roots less than
+  `2 log 3` apart, with fewer than `n_a` positions above it; that is how
+  `prop:gaptwo` fails (vertices `0, 2, 3`, `f_1 < 1`), and ruling it out
+  needs more than the tropical roots, Jensen's formula and the counts of
+  `thm:archnewton` and `lem:tropcount`: for `S = 2` a Newton polygon with
+  vertices `y_1`, `D - n_2 + 1` and `D` only, tropical roots near `log U_1`
+  and just above `log(T_2/2)`, `n_2` large and `K_1` much larger, satisfies
+  all of them (at leading order) up to separations near 18.  Numerically
+  only: minimizing `Lambda` minus the bound directly over the roots of
+  polynomials of degree at most 7 (up to three lower roots, two or three
+  upper, up to two others; 60 to 80 restarts each) finds no failure at
+  separations 2.05, 2.3, 3 and 5, the least margin about `log 30`; and a
+  failure growing with the scale needs coefficients that vanish at leading
+  order, which among the lacunary patterns of degree at most 6 without
+  other roots reaches separation 2 only for `(x - q)(x + t)**2`, the next
+  best being `sqrt 3`.  Numerically only (floating-point vertex enumeration of
   the least mass over real multiples of degree at most `deg P + 1`, about
   150 random root sets per separation, at most three real roots or
   conjugate pairs in the upper annulus), no failure appears at separations 2.2, 3 and 5.  A
   lacunary integer multiple at suitable roots attains `sum_s s K_s log t_s`
   exactly, so the constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
   also for pairs near the imaginary axis (`prop:annulisharp`).  Open: the
-  least fixed separation for the mass, between 2 and 81 (whether 9
-  suffices), and the least separation for the rows `k >= 3` when
-  `S >= 3`, now between `n_a` and `n_a + 9`; in particular whether
+  least fixed separation for the mass, between `2 + 1/18915` and 81
+  (whether 9 suffices; for two annuli with `n_2 <= 8` it is at most 9 by
+  `cor:rowstwo`), and the least separation for the rows `k >= 3` when
+  `S >= 3`, between `n_a` and `min(n_a + 9, 3 rho_(n_a))` (`n_a + 9` for
+  `n_a >= 2`, 6 for `n_a = 1`); in particular whether
   `T_a > (n_a + 1) U_(a-1)` suffices for every row (the family of
   `prop:rowslower` fails only when `T_2/U_1` is about `n_2/(2h)`, and
   `thm:rowsk` needs `T_2/U_1` about `3 n_2/h`), and the best constant `c` in
@@ -190,7 +245,19 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `Lambda(P) <= (1 + o(1)) K**2 log R` (`(1/2 + o(1)) K**2 log R`), so a
   constant `c` in `c K**2 log R` is at most 1, and at most 1/2 when
   `delta > pi/4` (`prop:gausspower`; the root sets lie near one or two
-  rays, where `thm:thingauss` gives order `K**2 log R`).  If
+  rays, where `thm:thingauss` gives order `K**2 log R`).  At such coprime
+  norms the `p`-adic Newton polygon at each prime `p | n_j` has an edge of
+  slope `-v_p(n_j)` ending at some `y_(j,p)`, with `p**(v_p(n_j)(y-i)) | f_i`
+  below it; so `Lambda(F)` is at least the sum over `j`, `p` of
+  `v_p(n_j) log p` times the distances to `y_(j,p)` of the nonzero positions
+  below it, at least `(e_2 - e) log P(0)`, and `A(x^N)` pays `N log P(0)`
+  (`prop:gaussadic`).  The valuations alone stay linear in `K`: at `F = P`
+  every `y_(j,p) = 1` and the bound is `log P(0)`.  With coefficients of
+  modulus at most `V < P(0)` in place of the gap, some multiple has
+  `P(0) <= |f_0| <= P(0)**m / V**(m-1)` (Minkowski; `prop:gaussadic`, item
+  3), e.g. `|f_0| = 18330 < 65**3` at the norms `5, 13`, `m = 3`, `V = 2`,
+  while the sizes alone (`lem:gausscarry` of the complex paper) give only
+  `(rho_min/2)**m`.  If
   `rho_min > 2` and `b_2(F) < rho_min/2`, `F = x**e (v + H)` with every
   nonleading coefficient of `H` below `rho_min/2`, so all the roots lie in one
   level set `H(y) = -v` (`prop:gaussheavy`); three Gaussian points above the
@@ -199,17 +266,50 @@ is open; an answer lands in the paper it extends, and the row leaves.
   (`+-7 + 4i`, `8i` at `c = 4`).  The level set lies near one circle,
   `rho_min <= rho_j < rho_min Q**(1/deg H)` with
   `Q = (3 rho_min - 2)/(rho_min - 2)`, so `K < 6 rho_min` and
-  `Lambda(F) > 2K log(K/12)` (`prop:gausscircle`).  Numerical evidence only:
+  `Lambda(F) > 2K log(K/12)` (`prop:gausscircle`).  At each prime `p` the
+  lowest term `h_l y**l` of `H` bounds the roots (Newton polygon over
+  `Q_p`): at most `l` roots of `v + H` have `ord_p > ord_p(h_l)`, all with
+  one valuation; as `n_j > 4 h_l**2`, every norm has such a prime, so at
+  most `l = ord_0 H` of the `alpha_j` share a norm, `K <= l` when all share
+  one (e.g. `deg H >= 8 rho_min**2`), and `h_1 != 0` forces distinct norms
+  (`prop:gaussprimes`); `(y**3 + y)**2 = (8c**3 + 2c)**2` at `+-c + ai`
+  (Pell `a, c`) attains `K = l = 2` on one norm at every scale, and the
+  Pell triples show `K <= l` fails on two norms.  Numerical evidence only:
   exhaustive searches over `H` of degree `5` to `7` (nonleading coefficients
   up to `2` or `3`, points of height up to `60` to `100`), even `H` of degree
   `6` (coefficients up to `6`, height `300`) and even `H` of degree `8`
   (coefficients up to `3`, height `120`) found no level set with four points
   (four need degree `>= 8`), and every one with three came from
-  `(y**3 + p y)**2`, `p = -1, 2`, and a Pell equation.
+  `(y**3 + p y)**2`, `p = -1, 2`, and a Pell equation.  Lattice searches
+  (LLL, not exhaustive) for multiples of `P` of degree up to 40, with no
+  bound on the coefficients of `H` but `rho_min/2`: symmetric root sets
+  `{+-a + ci, ...}` of three points up to height 30 give only those two
+  families; symmetric sets of four points up to height 20, and sets of three
+  points of one norm `n <= 1000` (degree up to 24), give no multiple with
+  middle coefficients below `rho_min/2` (the least ratio found is 3.3, at
+  `rho_min**2 = 13`).  Odd quintics `G` for which all five roots of
+  `G(y) = iW` are Gaussian (the four-parameter family near a regular
+  pentagon, radius up to about 4800) all have a coefficient of `G` far
+  above `rho_min`, so `G**2` gives no five-point level set.
   Open: whether `c K**2 log R` holds for all integer multiples at such Gaussian
   roots in a wide sector (the question the introductions of both papers leave),
-  and whether the number of Gaussian points above the axis in one such level
-  set is bounded independently of `rho_min`.
+  whether the number of Gaussian points above the axis in one such level
+  set is bounded independently of `rho_min` (the annulus and
+  `K <= deg H / 2` alone allow order `rho_min` points when `deg H` is of
+  order `rho_min`, so a bound `o(rho_min)` needs more than the positions),
+  and whether one norm carries at most two (three need `h_1 = h_2 = 0`).  The case left by separated moduli (`cor:annuli` of the
+  complex paper) and common norms (`prop:gausslow`, item 3) is pairwise
+  coprime norms in one annulus `[R, 2R]`; there valuations alone give only
+  linear bounds (`prop:gaussadic`), and seeded lattice reduction at
+  `K = 3..6`, `R = 20, 60`, prime norms, found no multiple cheaper than `P`
+  (`2.3` to `2.7` times `K**2 log R`).  A precise step: at odd pairwise coprime norms
+  with `gcd(a_j, c_j) = 1`, is there an absolute `C` such that
+  `|f_i| < rho_min/2` for `e < i < e + m` forces
+  `log |f_e| >= m log P(0) - C m log rho_max`?  With zeros in place of the
+  small coefficients this holds with `C = 0` (`prop:gausslow`), and
+  `prop:gaussadic`, item 3, shows it is sharp up to `C`; a yes answer makes
+  every multiple of `prop:gaussheavy`, item 2, at such norms in one annulus
+  pay order `K**2 log R` as `K -> oo`.
 
 - **Every row at other roots.**  The paper is
   [coefficient-mass-rows](papers/coefficient-mass-rows.tex), split out of

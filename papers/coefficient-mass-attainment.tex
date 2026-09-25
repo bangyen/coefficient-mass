@@ -51,7 +51,9 @@ sum of the $j+1$ leading coefficients.  For roots at least $2$ we prove
 $T=\tau^*$, so the infimum is $1/\tau^*$.  Below $2$ this fails: at
 $(\tfrac{11}{10},3,5,7)$ with $u=1$ a reduction to finitely many positions
 and an exact computation give the infimum $\tfrac{3398808}{96935}$, below
-$1/\tau^*$.  The infimum is never attained.
+$1/\tau^*$.  Along $(r,3,5,7)$ with $u=1$ the infimum tends to $24$ as
+$r\to1^+$, exceeding it by a quantity of exact order
+$(r-1)^{\log(5/3)/\log3}$.  The infimum is never attained.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; reduced
@@ -148,7 +150,14 @@ $\tfrac{13}{10}\le r\le r_c$ the infimum is $48(r-1)(15r+71)/(49r-34)$
 cost of the worst placement keeps moving, and the worst placement changes
 from $\{4\}$ to $\{5\}$; on $[1.0745\ldots,\tfrac{13}{10}]$ the infimum is
 a piecewise rational function of $r$ with seven pieces, each proved by a
-multiplier and explicit certificates (Theorem~\ref{thm:familylow}).  These
+multiplier and explicit certificates (Theorem~\ref{thm:familylow}).  As
+$r\to1^+$ the pieces accumulate: the infimum tends to $24$, the value at
+$(3,5,7)$, and exceeds it by a quantity of exact order $(r-1)^\alpha$,
+$\alpha=\log(5/3)/\log3$, while the worst placement is
+$\log_3\frac1{r-1}+O(1)$ (Theorem~\ref{thm:familyone}); the costs that
+matter are those at the roots $3,5,7$, in closed form
+(Lemma~\ref{lem:threenode}), and a witness with one sign flip far out
+transfers them to $r$ near $1$.  These
 proofs end in a finite exact computation, over $\mathbb Q$ and over
 $\mathbb Q(r)$, described in the paragraph on computer assistance before the
 appendix.  Along $(r,5,7)$ the
@@ -1618,7 +1627,8 @@ gives the exact infimum at $(\tfrac{11}{10},3,5,7)$
 (Theorem~\ref{thm:elevenvalue}) and, along $(r,3,5,7)$, the exact range of
 $r$ at which the escaping placement is extremal
 (Theorem~\ref{thm:family}), and the infimum there down to $r=1.0745\ldots$
-(Theorem~\ref{thm:familylow}); at $(r,5,7)$ it fails for every $1<r<2$
+(Theorem~\ref{thm:familylow}) and its order as $r\to1^+$
+(Theorem~\ref{thm:familyone}); at $(r,5,7)$ it fails for every $1<r<2$
 (Proposition~\ref{prop:cutoffsharp}).  Lower bounds on $T$ come from
 multipliers with an exempt position.
 
@@ -2140,12 +2150,295 @@ of $\{4\}$ at $\rho_3$.
 At $r=\tfrac{11}{10}$ the worst placement $\{5\}$ and its zero set
 $\{1,3,5\}$ are those of Theorem~\ref{thm:elevenvalue}, whose proof bounds
 the other placements with other certificates.  Below $\rho_1$ we have no
-proof.  A floating-point search over zero sets in $\{1,\ldots,40\}$, at the
+closed form.  A floating-point search over zero sets in $\{1,\ldots,40\}$, at the
 placements $x\le15$, suggests that the minimiser for $\{5\}$ continues
 $\{1,5,6\},\{1,5,7\},\{1,5,8\},\ldots$, that the worst placement becomes $6$
 near $r=1.03$ and $7$ near $r=1.01$, and that the half-mass point grows
-($N=15$ at $r=1.06$), which would make infinitely many pieces on
-$(1,\rho_1)$.
+($N=15$ at $r=1.06$).  The qualitative picture is proved below: infinitely
+many pieces accumulate at $r=1$, the worst placement grows like
+$\log_3\frac1{r-1}$, and the infimum tends to $24$
+(Theorem~\ref{thm:familyone} and Corollary~\ref{cor:familyone}).
+
+\paragraph{The family near $r=1$.}  As $r\to1^+$ the node $\tfrac1r$ tends
+to $1$, where $\lambda y^d$ is constant and has infinite tail, so a cheap
+certificate gives it little weight, and the costs approach those at the
+roots $3,5,7$.  No two nodes coalesce, so this is not the confluent
+situation of Proposition~\ref{prop:confluent}; the limit $24$ is the
+infimum at $(3,5,7)$ with $u=1$, where the surviving roots $5,7$ have
+$\tau^*=\tfrac1{24}$ (Theorem~\ref{thm:extremal}, and the proof of
+Proposition~\ref{prop:cutoffsharp}).  The placements at $(3,5,7)$ have
+closed forms.  Below, $h_k$ is the complete homogeneous symmetric
+polynomial of degree $k$ ($h_k=0$ for $k<0$); for distinct
+$a_1,\ldots,a_k$ and $d\ge0$ the polynomial $p$ of degree below $k$ with
+$p(a_i)=a_i^d$ satisfies
+\begin{equation}\label{eq:interr}
+  t^d-p(t)=h_{d-k}(a_1,\ldots,a_k,t)\prod_{i=1}^k(t-a_i),
+\end{equation}
+since the divided difference of $t^d$ at $a_1,\ldots,a_k,t$ is $h_{d-k}$.
+
+\begin{lemma}[Placements at $(3,5,7)$]\label{lem:threenode}
+For an integer $x\ge2$ put $A=3^{-x}$, $B=5^{-x}$, $C=7^{-x}$ and
+$D=3A-10B+7C$.
+\begin{enumerate}
+\item[(a)] $D=\tfrac8{105}h_{x-2}(\tfrac13,\tfrac15,\tfrac17)>0$.  The full
+certificate $U^{(x)}$ on $(\tfrac13,\tfrac15,\tfrac17)$ with zero set
+$\{1,x\}$ has weights
+\[
+  \lambda_3=\frac{3(5B-7C)}{2D},\qquad
+  \lambda_5=-\frac{5(3A-7C)}{2D},\qquad
+  \lambda_7=\frac{7(3A-5B)}{2D},
+\]
+and its tail $t(x)$ satisfies
+\[
+  \frac1{24}-t(x)=\frac{5B-7C-45AB+84AC-35BC}{12D};
+\]
+$t(2)=\tfrac1{48}$ and $t(3)=\tfrac{31}{1704}$.
+\item[(b)] Put
+\[
+  s_1=\frac{11A-60B+49C+210AB-280AC+70BC}{8D},\qquad
+  s_x=\frac{1-36A+90B-56C}{6D},
+\]
+and $\sigma_1=s_1$, $\sigma_d=-1$ for $1<d<x$, $\sigma_x=s_x$, $\sigma_d=1$
+for $d>x$.  Then $\sum_{d\ge1}\sigma_da^d=t(x)$ for
+$a=\tfrac13,\tfrac15,\tfrac17$.
+\item[(c)] For $x\ge4$: $0<s_1\le\tfrac12$, $0<s_x\le3^x/8$ and
+$\tfrac1{24}-t(x)\ge\tfrac1{16}(\tfrac35)^x$.  For $x\ge6$ also
+$\tfrac1{24}-t(x)\le\tfrac16(\tfrac35)^x$.
+\item[(d)] The full certificate $W$ on $(\tfrac13,\tfrac15,\tfrac17)$ with
+zero set $\{1,2\}$ has $W_d=h_{d-3}(\tfrac13,\tfrac15,\tfrac17)/105$ for
+$d\ge3$ and tail $\tfrac1{48}$.  For $1<r<3$ and $x\ge3$ the full
+certificate on $(\tfrac1r,\tfrac13,\tfrac15,\tfrac17)$ with zero set
+$\{1,2,x\}$ has tail at most
+\[
+  \frac1{48}+\frac{315}{128}\cdot\frac{(r/3)^x}{r^2(r-1)} .
+\]
+\end{enumerate}
+\end{lemma}
+
+By (b), (c) and \eqref{eq:witness} at the roots $(3,5,7)$, $t(x)$ is the
+cost of the placement $\{x\}$ there for $x\ge4$, and by (c) these costs
+tend to $\tfrac1{24}$ from below at the rate $(\tfrac35)^x$.
+
+\begin{proof}
+Write $\mathbf a=(\tfrac13,\tfrac15,\tfrac17)$.
+
+(a) By \eqref{eq:interr} at the nodes $\tfrac15,\tfrac17$ and
+$t=\tfrac13$, the sum
+$3^{-d}-\tfrac{10}3\,5^{-d}+\tfrac73\,7^{-d}$ equals
+$(\tfrac13-\tfrac15)(\tfrac13-\tfrac17)h_{d-2}(\mathbf a)
+=\tfrac8{315}h_{d-2}(\mathbf a)$; at $d=x$ it is $D/3$.  The weights are
+checked by substituting them into $\sum_a\lambda_a=1$,
+$\sum_a\lambda_aa=0$ and $\lambda_3A+\lambda_5B+\lambda_7C=0$.  By the zero
+bound $U^{(x)}_d<0$ for $1<d<x$ and $U^{(x)}_d>0$ for $d>x$, so, with
+$\sum_{d=2}^{x-1}a^d=(a^2-a^x)/(1-a)$,
+\[
+  t(x)=\sum_a\lambda_a\,\frac{a^x+a^{x+1}-a^2}{1-a},
+\]
+which is the stated closed form; at $x=2,3$ it gives $\tfrac1{48}$ and
+$\tfrac{31}{1704}$, the latter as in the example after
+Theorem~\ref{thm:extremal}.
+
+(b) For $a\in(0,1)$,
+$\sum_{d\ge1}\sigma_da^d=s_1a-(a^2-a^x)/(1-a)+s_xa^x+a^{x+1}/(1-a)$, and
+at $a=\tfrac13,\tfrac15,\tfrac17$ the identity is checked by substitution,
+$a^x$ being $A$, $B$, $C$.
+
+(c) Put $\beta=(\tfrac35)^x=B/A$ and $\gamma=(\tfrac37)^x=C/A$, so
+$\gamma=(\tfrac57)^x\beta$ and $D=A(3-10\beta+7\gamma)$.  For $x\ge4$,
+$\beta\le(\tfrac35)^4$, $\gamma\le(\tfrac37)^4$, $(\tfrac57)^x\le(\tfrac57)^4$
+and $A\le3^{-4}$, so $3-10\beta+7\gamma\ge3-10(\tfrac35)^4>\tfrac{17}{10}$.
+The numerator of $s_x$ lies between $1-36\cdot3^{-4}-56\cdot7^{-4}>0$ and
+$1+90\cdot5^{-4}$, and
+$(1+90\cdot5^{-4})/(6(3-10(\tfrac35)^4))<\tfrac18$, so $0<s_x\le3^x/8$.
+Dividing by $A$,
+\begin{align*}
+  8(3-10\beta+7\gamma)\,s_1&=11-60\beta+49\gamma+A(210\beta-280\gamma+70\beta\gamma),\\
+  8(3-10\beta+7\gamma)(\tfrac12-s_1)&=1+20\beta-21\gamma-A(210\beta-280\gamma+70\beta\gamma),\\
+  12(3-10\beta+7\gamma)(\tfrac1{24}-t(x))&=5\beta-7\gamma-A(45\beta-84\gamma+35\beta\gamma).
+\end{align*}
+The first is at least $11-60(\tfrac35)^4-280\cdot3^{-4}(\tfrac37)^4>0$, the
+second at least
+$\beta\bigl(20-21(\tfrac57)^4-210\cdot3^{-4}-70\cdot3^{-4}(\tfrac37)^4\bigr)>0$,
+and the third at least
+$\beta\bigl(5-7(\tfrac57)^4-45\cdot3^{-4}-35\cdot3^{-4}(\tfrac37)^4\bigr)$,
+which with $3-10\beta+7\gamma\le3+7(\tfrac37)^4$ gives
+$\tfrac1{24}-t(x)\ge\tfrac1{16}\beta$.  For $x\ge6$ the third is at most
+$5\beta+84A\gamma\le\beta(5+84\cdot3^{-6}(\tfrac57)^6)$, and
+$3-10\beta+7\gamma\ge3-10(\tfrac35)^6$ gives
+$\tfrac1{24}-t(x)\le\tfrac16\beta$.
+
+(d) By \eqref{eq:interr} at the nodes $\mathbf a$ and $t=0$, the value
+$W_d=p(0)$, a combination of $3^{-d},5^{-d},7^{-d}$, has $W_0=1$,
+$W_1=W_2=0$ and $W_d=\tfrac1{105}h_{d-3}(\mathbf a)>0$ for $d\ge3$, so
+$\Tail(W)=\tfrac1{105}\sum_kh_k(\mathbf a)=\tfrac1{105}\prod_a(1-a)^{-1}=\tfrac1{48}$.
+Let $y=\tfrac1r\in(\tfrac13,1)$.  By \eqref{eq:interr} at $t=y$, the
+exponential sum $H'_d=y^d-p(y)$ on the four nodes, with weight $1$ on $y$,
+vanishes at $d=0,1,2$ and equals
+$h_{d-3}(\mathbf a,y)\prod_a(y-a)>0$ for $d\ge3$.  So
+$w=W-(W_x/H'_x)H'$ is the full certificate with zero set $\{1,2,x\}$, and
+$\Tail(w)\le\tfrac1{48}+(W_x/H'_x)\Tail(H')$.  Here
+$h_k(\mathbf a)=3^{-k}h_k(1,\tfrac35,\tfrac37)\le3^{-k}/((1-\tfrac35)(1-\tfrac37))=\tfrac{35}8\,3^{-k}$,
+so $W_x\le\tfrac1{24}3^{3-x}$; $H'_x\ge y^{x-3}\prod_a(y-a)$; and
+$\Tail(H')=\prod_a(y-a)\sum_kh_k(\mathbf a,y)
+=\prod_a(y-a)/\bigl((1-y)\prod_a(1-a)\bigr)$.  Hence
+$(W_x/H'_x)\Tail(H')\le\tfrac1{24}3^{3-x}\cdot\tfrac{105}{48}\cdot
+r^{x-3}\cdot\tfrac r{r-1}$, the stated bound.
+\end{proof}
+
+\begin{theorem}[The family near $r=1$]\label{thm:familyone}
+Let $P_r=(x-r)(x-3)(x-5)(x-7)$ and $u=1$, let $\tau(\{x\})$ be the costs at
+$P_r$ and $t(x)$ as in Lemma~\ref{lem:threenode}, and put
+$\alpha=\log(5/3)/\log3=0.46497\ldots$.
+\begin{enumerate}
+\item[(a)] For $1<r<3$, $\inf_Qb_2(QP_r)>24$.
+\item[(b)] For every $x\ge4$, $\tau(\{x\})\to t(x)$ as $r\to1^+$.
+\item[(c)] For $1<r\le\tfrac{101}{100}$, with $\varepsilon=r-1$,
+\[
+  24+\tfrac32\,\varepsilon^\alpha\le\inf_Qb_2(QP_r)\le24+125\,\varepsilon^\alpha,
+\]
+and every worst placement $\{x\}$, that is $\tau(\{x\})=T$, satisfies
+$\log_3\frac1\varepsilon-3<x<\log_3\frac1\varepsilon+6$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Let $y=\tfrac1r$.  The certificates $U^{(x)}$ and $W$ of
+Lemma~\ref{lem:threenode}, with weight $0$ on $y$, are certificates on the
+four nodes, so $\tau(\{x\})\le t(x)$ for $x\ge2$ and
+$\tau(\{1\}),\tau(\{2\})\le\tfrac1{48}$.
+
+(a) By Lemma~\ref{lem:threenode}, $\tfrac1{48}$, $t(3)=\tfrac{31}{1704}=\tau^*$
+and $t(x)$ for $x\ge4$ are below $\tfrac1{24}$.  By
+Theorem~\ref{thm:halfmass}(c), $T$ is the largest of $\tau^*$ and finitely
+many $\tau(\{x\})$, so $T<\tfrac1{24}$, and Theorem~\ref{thm:value} gives
+the claim.
+
+\emph{The witness.}  We show: if $x\ge4$, $z_0\ge x+3$ is an integer, and
+$1<r<3$ satisfies
+\[
+  \text{(W1)}\ \ y^x(1+y)-y^2\ge\tfrac{1-y}{24},\qquad
+  \text{(W2)}\ \ y^2+2y^{z_0}-y^x-y^{x+1}\ge(1-y)\bigl(1+\tfrac{3^x}8\bigr),
+\]
+then $\tau(\{x\})\ge t(x)/(1+3^{6-z_0})$.  Let $\sigma$ be as in
+Lemma~\ref{lem:threenode}(b) and $t=t(x)$.  For an integer $z\ge z_0$ and
+$\varphi\in[0,1]$ let $\rho$ agree with $\sigma$ below $z$, with
+$\rho_z=1-2\varphi$ and $\rho_d=-1$ for $d>z$.  As $\sigma_d=1$ for $d\ge z$,
+$\sum_{d\ge1}\rho_da^d=t-\delta(a)$ at $a=\tfrac13,\tfrac15,\tfrac17$, where
+$\delta(a)=2\varphi a^z+2a^{z+1}/(1-a)\in[0,2a^z/(1-a)]$.  Let
+$c_1,c_2,c_3$ solve $\sum_{j\le3}c_ja^j=\delta(a)$ at the three nodes.  The
+inverse of the matrix $(a^j)$, rows indexed by $j$, has rows
+$(\tfrac{27}8,-\tfrac{125}4,\tfrac{343}8)$,
+$(-\tfrac{81}2,\tfrac{625}2,-343)$,
+$(\tfrac{945}8,-\tfrac{2625}4,\tfrac{5145}8)$, and as $z\ge7$ this gives
+$|c_1|\le13\cdot3^{-z}$, $|c_2|\le146\cdot3^{-z}$, $|c_3|\le405\cdot3^{-z}$,
+so $\sum_j|c_j|<\tfrac12$ and $|c_j|\le3^{6-z}$.  Put $\rho'_j=\rho_j+c_j$
+for $j\le3$, positions below $x$, and $\rho'_d=\rho_d$ otherwise; then
+$\sum_{d\ge1}\rho'_da^d=t$ at the three nodes.  Order the pairs
+$(z,\varphi)$ by increasing $z$ and, for each $z$, decreasing $\varphi$;
+$(z,0)$ and $(z+1,1)$ give the same $\rho$ and $c$, so along this path
+$F=\sum_{d\ge1}\rho'_dy^d-t$ is continuous.  At $(z_0,1)$,
+\[
+  \sum_{d\ge1}\rho_dy^d=s_1y+s_xy^x-\frac{y^2+2y^{z_0}-y^x-y^{x+1}}{1-y},
+\]
+and $s_1\le\tfrac12$, $0<s_xy^x<3^x/8$, $\sum_j|c_j|<\tfrac12$ and (W2) give
+$F<-t<0$.  As $z\to\infty$, $c\to0$ and
+$F\to\sum_d\sigma_dy^d-t\ge(y^x+y^{x+1}-y^2)/(1-y)-t\ge\tfrac1{24}-t>0$ by
+$s_1,s_x>0$ and (W1).  So $F=0$ at some $(z,\varphi)$ with $z\ge z_0$.  There
+put $w_0=1$ and $w_d=-\rho'_d/t$ for $d\ge1$: $w$ is bounded and its series
+$1-\tfrac1t\sum_d\rho'_da^d$ vanishes at all four nodes, which is all the
+proof of Lemma~\ref{lem:exemptpair} uses.  Off the position $x$,
+$|\rho'_1|\le\tfrac12+\tfrac12$, $|\rho'_2|,|\rho'_3|\le1+3^{6-z}$,
+$|\rho'_z|\le1$ and $|\rho'_d|=1$ otherwise, so every certificate for
+$\{x\}$ has tail at least $t/(1+3^{6-z})\ge t/(1+3^{6-z_0})$.
+
+(b) Fix $x\ge4$ and $z_0\ge x+3$.  As $r\to1^+$ the left sides of (W1) and
+(W2) tend to $1$ and the right sides to $0$, so
+$t(x)/(1+3^{6-z_0})\le\tau(\{x\})\le t(x)$ for $r$ near $1$; and $z_0$ is
+arbitrary.
+
+(c) \emph{Upper bound.}  Let $x_r$ be the largest integer with
+$3^{x_r}\le8/(r\varepsilon)-48$.  As $r\varepsilon\le\tfrac{101}{10000}<\tfrac8{777}$,
+$x_r\ge6$; as $8/r-48\varepsilon\ge3$, $3^{x_r}>(8/(r\varepsilon)-48)/3\ge1/\varepsilon$,
+so $(\tfrac35)^{x_r}=3^{-\alpha x_r}\le\varepsilon^\alpha$.  Take $x=x_r$ and
+$z_0=x+3$.  The left side of (W2) is
+$y^2-(1-y)y^x(1+2y+2y^2)\ge y^2-5(1-y)$, and
+$y^2/(1-y)=1/(r\varepsilon)\ge6+3^x/8$, which gives (W2).  For (W1),
+$x\log r\le\varepsilon\log_3(8/\varepsilon)\le\tfrac1{100}\log_3800<\tfrac1{14}$,
+as $\varepsilon\log(8/\varepsilon)$ increases on $(0,\tfrac1{100}]$, so
+$y^{x-2}\ge y^x>\tfrac{13}{14}$ and
+$y^x(1+y)-y^2\ge y^2(\tfrac{13}{14}\cdot\tfrac{201}{101}-1)>\tfrac{1-y}{24}$.
+So $\tau(\{x_r\})\ge t(x_r)/(1+3^{3-x_r})$.  By
+Lemma~\ref{lem:threenode}(c), $24(\tfrac1{24}-t(x_r))\le4(\tfrac35)^{x_r}<\tfrac15$,
+so $1/t(x_r)\le24+30\cdot4(\tfrac35)^{x_r}<30$, and
+\[
+  \inf_Qb_2(QP_r)\le\frac{1+3^{3-x_r}}{t(x_r)}
+  \le24+120(\tfrac35)^{x_r}+810\cdot3^{-x_r}\le24+121(\tfrac35)^{x_r},
+\]
+as $810\cdot5^{-x_r}<1$; this is at most $24+125\varepsilon^\alpha$.
+
+\emph{Lower bound.}  Let $X$ be the least integer $X\ge4$ with
+$\tfrac{315}{128}(r/3)^{X+1}\le r^2\varepsilon/192$.  By
+Lemma~\ref{lem:threenode}(d) every placement $x>X$ costs at most
+$\tfrac1{48}+\tfrac1{192}=\tfrac5{192}$; the placements $x\le3$ cost at most
+$\tfrac1{48}$ or $\tfrac{31}{1704}$, and $\tau^*=\tfrac{31}{1704}$; and
+$4\le x\le X$ costs at most $t(x)\le\tfrac1{24}-\tfrac1{16}(\tfrac35)^X$.  As
+$\tfrac1{16}(\tfrac35)^X\le\tfrac1{16}(\tfrac35)^4<\tfrac1{24}-\tfrac5{192}$,
+$T\le\tfrac1{24}-\tfrac1{16}(\tfrac35)^X$, and
+$\inf_Qb_2(QP_r)=1/T\ge24+36(\tfrac35)^X$.  If $X=4$, $(\tfrac35)^X>\tfrac1{23}$.
+If $X>4$, minimality gives $(3/r)^X<\tfrac{945}{2r^2\varepsilon}\le\tfrac{945}{2\varepsilon}$,
+so $X<\log\tfrac{945}{2\varepsilon}/\log\tfrac{300}{101}$; as
+$\log r\le\varepsilon$ and $\varepsilon\log\tfrac{945}{2\varepsilon}\le\tfrac1{100}\log47250<\tfrac{27}{250}$,
+$r^X<e^{1/10}<\tfrac{111}{100}$, so $3^X<\tfrac{111}{100}\cdot\tfrac{945}{2\varepsilon}<\tfrac{525}\varepsilon$
+and $(\tfrac35)^X=3^{-\alpha X}>(\varepsilon/525)^\alpha>\varepsilon^\alpha/23$,
+as $\alpha<\tfrac12$ ($25<27$).  Either way $\inf_Qb_2(QP_r)\ge24+\tfrac{36}{23}\varepsilon^\alpha$.
+
+\emph{The worst placement.}  As $r<r_c$, $T>\tau^*$
+(Theorem~\ref{thm:family}), so $T=\tau(\{x\})$ for some $x$
+(Proposition~\ref{prop:attainT}).  By the upper bound,
+$T\ge\tau(\{x_r\})\ge(\tfrac1{24}-\tfrac16(\tfrac35)^6)/(1+\tfrac1{27})>\tfrac5{192}$,
+so a worst placement has $4\le x\le X$; and $X<\log_3\tfrac{525}\varepsilon<\log_3\tfrac1\varepsilon+6$
+when $X>4$, while $4<\log_3\tfrac1\varepsilon$.  Also
+$T\ge1/(24+125\varepsilon^\alpha)\ge\tfrac1{24}-\tfrac{125}{576}\varepsilon^\alpha$
+and $T=\tau(\{x\})\le t(x)\le\tfrac1{24}-\tfrac1{16}(\tfrac35)^x$, so
+$3^{-\alpha x}=(\tfrac35)^x\le\tfrac{125}{36}\varepsilon^\alpha$ and
+$x\ge\log_3\tfrac1\varepsilon-\log_3(\tfrac{125}{36})/\alpha>\log_3\tfrac1\varepsilon-3$,
+as $\log_3\tfrac{125}{36}<\tfrac65$ and $\alpha>\tfrac25$
+($(\tfrac53)^5>9$).
+\end{proof}
+
+The closed forms and inequalities of Lemma~\ref{lem:threenode}, the
+constants $13,146,405$, the bound $(1+3^{3-x})/t(x)\le24+121(\tfrac35)^x$
+for $6\le x\le60$, and the witness itself at $r=\tfrac{101}{100}$ and
+$x=x_r=6$, where $F$ vanishes at $z=41$, are checked exactly in
+\texttt{test\_family\_near\_one} (\texttt{tests/test\_attainment.py}).  The
+witness needs $3^x$ of order at most $1/\varepsilon$: the entry $s_x$,
+about $3^x/18$, must be balanced at the node $y$ by the flip, whose weight
+there is at most $y^{x+1}/(1-y)$.  Beyond that the node $\tfrac1r$ makes
+the placement cheap: at $r=\tfrac{101}{100}$ the certificate $\{1,2,9\}$
+costs less than $t(9)/(1+3^{-6})$, which the same test checks as a control.
+
+\begin{corollary}\label{cor:familyone}
+Along $(r,3,5,7)$ with $u=1$, $\inf_Qb_2(QP_r)\to24$ as $r\to1^+$, and the
+worst placement tends to $\infty$.  On no interval $(1,1+\delta)$ does
+$T(r)$ agree at every $r$ with one of finitely many rational functions of
+$r$.  In particular, as the tail of the full certificate with a given zero
+set is a rational function of $r$ on $(1,3)$, infinitely many pieces as in
+Theorem~\ref{thm:familylow} accumulate at $r=1$.
+\end{corollary}
+
+\begin{proof}
+The first two claims are Theorem~\ref{thm:familyone}(c).  By it,
+$\tfrac1{24}-T=(\inf_Qb_2-24)/(24\inf_Qb_2)$ lies between
+$c\varepsilon^\alpha$ and $C\varepsilon^\alpha$ for some $c,C>0$ and all
+$\varepsilon\le\tfrac1{100}$.  If $T$ took values among rational functions
+$f_1,\ldots,f_k$ on $(1,1+\delta)$, one $f_j$ would equal $T$ at points
+$r_n\to1^+$.  Then $f_j-\tfrac1{24}$ is a rational function, nonzero at the
+$r_n$ and tending to $0$ along them, so it has a zero of some order $m\ge1$
+at $1$ and is $O(r-1)$ there, against $\tfrac1{24}-T\ge c\varepsilon^\alpha$
+with $\alpha<1$.  The tail is rational in $r$ because the weights solve a
+linear system with entries $r^{-d}$, the zero bound fixes the sign pattern,
+and the part past the largest zero is geometric.
+\end{proof}
 
 So the escaping placement stays extremal at some roots below $2$, here down
 to $r_c$, and the failure below $r_c$ starts at the placement $\{4\}$ just
@@ -2188,13 +2481,18 @@ proved.
 \item A description of the root sets below $2$ at which the escaping
 placement stays extremal, which depends on more than $r_1$
 (Theorem~\ref{thm:family} and Proposition~\ref{prop:cutoffsharp}).
-\item The infimum along $(r,3,5,7)$ for $1<r<\rho_1=1.0745\ldots$, where
-Theorem~\ref{thm:family} gives only the upper bound $\tfrac{209}4$.
-Theorem~\ref{thm:familylow} gives it on $[\rho_1,\tfrac{13}{10}]$ in seven
-pieces; below $\rho_1$ the pieces seem to accumulate at $r=1$ (the remark
-after that theorem).  Precisely: is the number of pieces on $(1,\rho_1)$
-infinite, does the worst placement tend to $\infty$ as $r\to1^+$, and what
-is $\lim_{r\to1^+}\inf_Qb_2(QP_r)$?
+\item The infimum along $(r,3,5,7)$ for $1<r<\rho_1=1.0745\ldots$ in closed
+form.  Theorem~\ref{thm:familylow} gives it on $[\rho_1,\tfrac{13}{10}]$ in
+seven pieces, and Theorem~\ref{thm:familyone} with
+Corollary~\ref{cor:familyone} shows that infinitely many pieces accumulate
+at $r=1$, that the worst placement is $\log_3\frac1{r-1}+O(1)$, and that
+$\inf_Qb_2(QP_r)-24$ is of exact order $(r-1)^\alpha$,
+$\alpha=\log(5/3)/\log3$.  Open: the pieces themselves on $(1,\rho_1)$
+(numerically the zero set minimising $\tau(\{x\})$ is $\{1,c,x\}$ with
+$c\in\{3,4\}$ or $\{1,x,z\}$ with $z$ growing as $r$ decreases, and by
+Theorem~\ref{thm:familyone}(b) its cost tends to that of $\{1,x\}$ at
+$(3,5,7)$), and whether $(\inf_Qb_2(QP_r)-24)(r-1)^{-\alpha}$ has a limit
+as $r\to1^+$, or oscillates as the integer worst placement moves.
 \end{itemize}
 
 \paragraph{Relation to the literature.}  The nearest work is the reduced
@@ -2273,7 +2571,15 @@ in Theorem~\ref{thm:elevenvalue} and the comparisons in the remark after it
 (\texttt{test\_value\_eleven\_tenths}); the partial sums, quadratics and
 cubics of the proof of Theorem~\ref{thm:family}
 (\texttt{test\_family\_threshold} and \texttt{test\_family\_window}); and
-Proposition~\ref{prop:cutoffsharp} (\texttt{test\_cutoff\_sharp}).  The file
+Proposition~\ref{prop:cutoffsharp} (\texttt{test\_cutoff\_sharp}); and,
+in \texttt{test\_family\_near\_one}, Lemma~\ref{lem:threenode} and
+Theorem~\ref{thm:familyone}, where the closed forms are checked as
+identities of rational functions of $A,B,C$ (multiplied by $D$, each side
+is a polynomial of degree at most $2$ in each variable, so agreement on a
+$4\times4\times4$ grid proves it), together with the rational inequalities
+behind Lemma~\ref{lem:threenode}(c) and the witness at
+$r=\tfrac{101}{100}$; the estimates with logarithms in the proof of
+Theorem~\ref{thm:familyone} are by hand.  The file
 also holds tests used in no proof: seeded random exact checks of
 Proposition~\ref{prop:runchord} and of the identity in
 Theorem~\ref{thm:halfmass}(b), and exact linear programs over monic
