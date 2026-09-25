@@ -8,9 +8,11 @@ is open; an answer lands in the paper it extends, and the row leaves.
 - [attainment](papers/coefficient-mass-attainment.tex) (`sec:scope`): an a
   priori bound on the zero set minimising one `tau({x})`; a half-mass
   threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
-  the escaping placement extremal; the infimum along `(r,3,5,7)` for
-  `1 < r < 1.0745...`, where `thm:familylow` stops and `thm:family` gives
-  only `<= 209/4` (whether the pieces accumulate at `r = 1`).
+  the escaping placement extremal; the pieces along `(r,3,5,7)` for
+  `1 < r < 1.0745...`, where `thm:familylow` stops (infinitely many
+  accumulate at `r = 1` by `cor:familyone`), and whether
+  `(inf b_2 - 24)(r-1)**(-alpha)` has a limit as `r -> 1+`
+  (`thm:familyone`).
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
   separation for the mass, between 2 and 81, and whether 9 suffices; the
   least separation for the rows `k >= 3` of `cor:annuli` (three or more
@@ -63,17 +65,30 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `{1,4,7}`, `{1,4,6}`, `{1,4,5}`, `{1,3,4}` (so `beta(r)` already from
   `1.2741...`); `N <= 13`, the other placements beaten by the aligned lifts
   `{1,3,x}` and by `{1,2,13}`, `{1,2,10}`, every sign on an interval a
-  Sturm count over Q; e.g. `314024/7627` at `r = 5/4`.  Along `(r,5,7)` it
-  fails for every `r < 2` (`prop:cutoffsharp`).  Open (`sec:scope`): an a
-  priori bound on the zero set minimising one `tau({x})` (to make `u = 1` a
-  finite computation outright), a threshold like `N` for `u >= 2`, which
-  root sets below 2 keep the escaping placement extremal (it depends on
-  more than `r_1`), and the infimum along `(r,3,5,7)` for
-  `1 < r < 1.0745...`: numerically the zero sets keep moving (`{1,5,z}`,
-  `z = 6, 7, ...`, then placements 6, 7 near `r = 1.03`, `1.01`) and `N`
-  grows, so whether there are infinitely many pieces, whether the worst
-  placement tends to infinity, and the limit of the infimum as `r -> 1+`
-  are open.
+  Sturm count over Q; e.g. `314024/7627` at `r = 5/4`.  Near `r = 1`
+  (`thm:familyone`): the placements at `(3,5,7)` have closed forms in
+  `3**-x, 5**-x, 7**-x` (`lem:threenode`: the certificate `{1,x}` costs
+  `t(x)`, with `1/24 - t(x)` between `(3/5)**x/16` and `(3/5)**x/6`); a
+  witness with one sign flip far out keeps
+  `tau({x}) >= t(x)/(1 + 3**(3-x))` while `3**x <= 8/(r(r-1)) - 48`, and
+  past `log_3(1/(r-1)) + 6` the certificate `{1,2,x}` costs at most
+  `5/192`.  So `inf b_2 > 24` for every `1 < r < 3`, and for
+  `1 < r <= 101/100`
+  `24 + (3/2) eps**alpha <= inf b_2 <= 24 + 125 eps**alpha`,
+  `eps = r - 1`, `alpha = log(5/3)/log 3 = 0.46497...`, with every worst
+  placement within `(-3, 6)` of `log_3(1/eps)`; `tau({x}) -> t(x)` for each
+  `x >= 4`.  Hence the limit is 24 (the value at `(3,5,7)`), the worst
+  placement tends to infinity, and `T` agrees with no finite set of
+  rational functions near 1, so infinitely many pieces accumulate there
+  (`cor:familyone`).  Along `(r,5,7)` it fails for every `r < 2`
+  (`prop:cutoffsharp`).  Open (`sec:scope`): an a priori bound on the zero
+  set minimising one `tau({x})` (to make `u = 1` a finite computation
+  outright), a threshold like `N` for `u >= 2`, which root sets below 2
+  keep the escaping placement extremal (it depends on more than `r_1`),
+  the pieces along `(r,3,5,7)` on `(1, 1.0745...)` themselves (numerically
+  zero sets `{1,c,x}`, `c = 3, 4`, or `{1,x,z}` with `z` growing), and
+  whether `(inf b_2 - 24)(r-1)**(-alpha)` converges as `r -> 1+` or
+  oscillates with the integer worst placement.
 
 - **Coefficient mass at complex roots.**  Purely imaginary pairs are Closed
   ([coefficient-mass-complex](papers/coefficient-mass-complex.tex), split
