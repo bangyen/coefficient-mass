@@ -90,8 +90,8 @@ $V_r(L,k)=\beta_r(L-k+1)$ (Theorem~\ref{thm:allrowstwo}).
 \end{mainthm}
 
 At $r=2$ this sharpens $b_k\ge L-k+1$ to $b_k\ge\beta_2(L-k+1)$; for instance
-the competitor $(1-\frac s2)(1-\frac s5)$ for $\beta_2(3)$ (Section~\ref{sec:rowvalues}) has
-$\sum_{s\ge1}|(1-\frac s2)(1-\frac s5)|2^{-s}=\frac{11}{40}$, so
+$q(s)=(1-\frac s2)(1-\frac s5)$ is admissible for $\beta_2(3)$ and has
+$\sum_{s\ge1}|q(s)|2^{-s}=\frac{11}{40}$, so
 $\beta_2(3)\ge\frac{40}{11}>3$.  Earlier
 versions of this paper proved the identity at $r\ge\frac92$, $r\ge4$ and
 $r\ge\frac{25}7$ by bounding the hole product of a top-row optimum; that
@@ -236,7 +236,7 @@ $S=\varnothing$ is $V_r(n,1)=\beta_r(n)$.
 So every row is at most the top row of a multiple of $(x-r)^n$, the value
 approached when the $k-1$ exempted positions lie far below the leading one.
 The lower bounds come from certificates, and the first tool is the
-displaced-zero tail bound without the cutoff $\rho_i\ge2$.
+displaced-zero tail bound without the cutoff $y_i\le\frac12$ (that is, $\rho_i=1/y_i\ge2$ in \cite{coefficient-mass}).
 
 As in \cite[Section~2]{coefficient-mass}, for distinct nodes
 $y_1,\ldots,y_c\in(0,1)$ and $Z\subset\N_{>0}$ with $|Z|=c-1$, the
@@ -1428,8 +1428,8 @@ $\eta_2(15)=\Phi_r(Z_2)$, and with $S=\varnothing$ that
 $\nu_1(15)=\Phi_r(Y_{15})$, which is less than $\Phi_r(Z_2)$.  The tail
 condition $2R_p(\sigma_0)\le\Psi_r(p)$ holds for $p=r_{Y_{15}}$ at
 $\sigma_0=107$, so $\eta_\sigma(15)\le\Phi_r(Y_{15})$ for $\sigma\ge107$ by
-the remark after Theorem~\ref{thm:secondrow}.  For every other
-$\sigma<107$ one of the following sets $Z\ni\sigma$ of $15$ integers has
+the remark after Theorem~\ref{thm:secondrow}.  For every
+$\sigma<107$ other than $2$, one of the following sets $Z\ni\sigma$ of $15$ integers has
 $\Phi_r(Z)\le\Phi_r(Z_2)$:
 $Y'_{15}=\{1,3,5,8,12,17,22,28,36,44,54,65,78,94,115\}$ if
 $\sigma\in Y'_{15}$; $\mathrm{ins}(Y_{15},\sigma)$ if $\sigma\notin Y_{15}$;
