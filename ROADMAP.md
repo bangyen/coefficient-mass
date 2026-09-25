@@ -20,8 +20,9 @@ is open; an answer lands in the paper it extends, and the row leaves.
   (`sec:finiterows`).
 - [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
   holds for integer multiples at Gaussian roots in a wide sector
-  (`sec:widesectors`); whether one level set `H(y) = -v` holds boundedly
-  many Gaussian points above the axis (`prop:gaussheavy`).
+  (`sec:widesectors`); whether one level set `H(y) = -v` holds a number of
+  Gaussian points above the axis bounded independently of `rho_min` (fewer
+  than `6 rho_min` by `prop:gausscircle`).
 
 ## Status
 
@@ -121,12 +122,22 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `rho_min > 2` and `b_2(F) < rho_min/2`, `F = x**e (v + H)` with every
   nonleading coefficient of `H` below `rho_min/2`, so all the roots lie in one
   level set `H(y) = -v` (`prop:gaussheavy`); three Gaussian points above the
-  axis can share one (`(y**3 - y)**2 = -270400` at `+-7 + 4i`, `8i`, where
-  `rho_min = 8`).
+  axis share one at every scale: `(y**3 - y)**2 = -(8c**3 + 2c)**2` at
+  `+-a + ci`, `2ci` whenever `a**2 - 3c**2 = 1`, with `rho_min = 2c`
+  (`+-7 + 4i`, `8i` at `c = 4`).  The level set lies near one circle,
+  `rho_min <= rho_j < rho_min Q**(1/deg H)` with
+  `Q = (3 rho_min - 2)/(rho_min - 2)`, so `K < 6 rho_min` and
+  `Lambda(F) > 2K log(K/12)` (`prop:gausscircle`).  Numerical evidence only:
+  exhaustive searches over `H` of degree `5` to `7` (nonleading coefficients
+  up to `2` or `3`, points of height up to `60` to `100`), even `H` of degree
+  `6` (coefficients up to `6`, height `300`) and even `H` of degree `8`
+  (coefficients up to `3`, height `120`) found no level set with four points
+  (four need degree `>= 8`), and every one with three came from
+  `(y**3 + p y)**2`, `p = -1, 2`, and a Pell equation.
   Open: whether `c K**2 log R` holds for all integer multiples at such Gaussian
   roots in a wide sector (the question the introductions of both papers leave),
   and whether the number of Gaussian points above the axis in one such level
-  set is bounded.
+  set is bounded independently of `rho_min`.
 
 - **Every row at other roots.**  The paper is
   [coefficient-mass-rows](papers/coefficient-mass-rows.tex), split out of
