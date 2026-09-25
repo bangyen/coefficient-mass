@@ -32,28 +32,22 @@
 
 \begin{abstract}
 Fix real roots $2\le r_1\le\cdots\le r_L$, repetitions allowed.  For every
-nonzero real polynomial $F=\sum_jf_jx^j$ of degree $D$ divisible by
+nonzero real or complex polynomial $F=\sum_jf_jx^j$ of degree $D$ divisible by
 $\prod_{i=1}^L(x-r_i)$, the $k$-th largest nonleading coefficient
-magnitude is at least $|f_D|\prod_{i=k}^L(r_i-1)$ for $1\le k\le L$,
-uniformly in the degree.  Summing these rows bounds the logarithmic
-coefficient mass $\Lambda(F)=\sum_j\log^+|f_j|$ of a monic multiple below by
-$\sum_ii\log(r_i-1)$, sharp in order at the first $L$ primes but degenerate
-as the roots approach $2$; a Jensen-formula bound of order $L^2$ repairs
-this, giving $\inf\Lambda\asymp L^2+\sum_ii\log(r_i-1)$ over monic
-multiples at every root set with $L\ge2$.  The row $k=2$ is
-sharp at $(2,3)$.  For monic multiples of $(x-2)^L$ the Jensen bound makes
-the first rows exponentially large in $L$, and a separate certificate
-argument gives $b_k\ge L-k+1$ for every row, which matters for the last
-rows, where the Jensen bound says nothing.  The key tool compares the
-$\ell^1$ tails of normalized exponential sums in the reciprocal roots
-$1/r_i$ with prescribed positive-integer zeros: deleting the largest zero,
-when it is displaced, together with the largest node, the reciprocal of
-the smallest root, strictly increases the tail, and iterating gives a product bound over
-the initial run of consecutive zeros, with equality only when the zeros are
-the first positive integers $1,2,\ldots$ with none skipped.  As a by-product, the same-sign hypothesis under which
-Dubickas and Jankauskas evaluate the consecutive case holds at all distinct
-nodes in $(0,1)$, making their reduced-height bound $H(P)\ge|P(1)|$ unconditional for
-distinct real roots greater than one.
+magnitude $b_k$ is at least $|f_D|\prod_{i=k}^L(r_i-1)$ for $1\le k\le L$,
+uniformly in $D$.  Summing these rows bounds the logarithmic coefficient
+mass $\Lambda(F)=\sum_j\log^+|f_j|$ of a monic multiple below by
+$\sum_ii\log(r_i-1)$, which is sharp in order at the first $L$ primes.
+With a Jensen-formula bound of order $L^2$, this gives
+$\inf\Lambda\asymp L^2+\sum_ii\log(r_i-1)$ over monic multiples at every
+root set with $L\ge2$.  The row $k=2$ is sharp at $(2,3)$, and every monic
+multiple of $(x-2)^L$ has $b_k\ge L-k+1$ for $1\le k\le L$.  The key tool is a
+tail theorem for normalized exponential sums in the reciprocal roots with
+prescribed positive-integer zeros: deleting a displaced largest zero
+together with the largest node strictly increases the $\ell^1$ tail, which
+yields a product bound over the initial run of consecutive zeros.  As a
+by-product, the reduced-height bound $H(P)\ge|P(1)|$ of Dubickas and
+Jankauskas holds unconditionally for distinct real roots greater than one.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; reduced
@@ -112,9 +106,30 @@ $L\ge8$ (Proposition~\ref{prop:quadratic}), and together
 \]
 with absolute constants (Corollary~\ref{cor:allroots}).
 
-For comparison, the Mahler measure and Landau's inequality give only
-$\Lambda(F)\ge\sum_i\log r_i-\frac12\log(D+1)$ for monic $F$, at most of
-order $L\log L$ at the first $L$ primes and vacuous once $\log D\gg L\log L$.
+\paragraph{Comparison with other bounds.}
+The standard lower bound for the coefficients of a multiple comes from the
+Mahler measure.  A monic $F$ has $M(F)\ge\prod_ir_i$, and Landau's inequality
+$M(F)\le\|F\|_2$ gives
+$b_1(F)\ge\bigl((\prod_ir_i)^2-1\bigr)^{1/2}D^{-1/2}$.  This bound gains the
+factor $\prod_i\frac{r_i}{r_i-1}$ over the row $k=1$ but loses $\sqrt D$, and it
+controls a single coefficient.  For the mass it gives only
+$\Lambda(F)\ge\sum_i\log r_i-\frac12\log(D+1)$, at most of order $L\log L$
+at the first $L$ primes and vacuous once $\log D\gg L\log L$.  Jensen's
+formula on a disk of radius $R<1$, the tool behind the zero counts of
+Borwein, Erd\'elyi and K\'os for polynomials with bounded
+coefficients~\cite{bek}, removes the degree: exempting the $k-1$ largest
+magnitudes gives the bound~\eqref{eq:jensen} of
+Proposition~\ref{prop:quadratic}, which uses only $r_i\ge2$.  The two
+methods are complementary.  Near the root $2$ the certificate rows tend to
+$1$, while~\eqref{eq:jensen} gives $b_1\ge2^L/(eL)-1/(L-1)$ and
+exponentially large first rows.  The right side of~\eqref{eq:jensen} is
+below $2^{L-k+1}$ for every $R$, however, and below $1/L$ at $k=L$.  The
+certificate row $k$ is therefore the stronger bound whenever
+$\prod_{i=k}^L(r_i-1)\ge2^{L-k+1}$, in particular whenever $r_k\ge3$; at the
+first $L$ primes it is stronger in every row, and
+Corollaries~\ref{cor:prime}, \ref{cor:infimum} and~\ref{cor:near} rest on
+it.  In the last rows every certificate row is at least $1$, and at the
+root $2$ Theorem~\ref{thm:everyrow} raises the row $k$ to $L-k+1$.
 
 \paragraph{Method.}
 To bound $b_k$, we exclude any $k-1$ positions and build a normalized
@@ -170,10 +185,14 @@ sector of half-width $\delta$ cost a mass of order
 $\min(K^2,K/\delta)\log R$ for multiples of degree $O(K)$.
 
 \paragraph{Formalization.}
-Sections~2 and~3 through Corollary~\ref{cor:mass} are formalized in Lean~4
-with Mathlib, in the directory \texttt{CoefficientMass} of the repository
+Theorem~\ref{thm:order} and Corollary~\ref{cor:mass}, with the whole chain
+leading to them from the zero bound, that is, Sections~2 and~3 through
+Corollary~\ref{cor:mass}, are formally verified in Lean~4 with Mathlib, in
+the directory \texttt{CoefficientMass} of the repository
 \href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass}.
-The formal proofs follow the ones given here.  Two clauses are not
+The formal proof of Corollary~\ref{cor:mass} depends only on the standard
+axioms of Lean (propositional extensionality, choice and quotient
+soundness), and the formal proofs follow the ones given here.  Two clauses are not
 formalized: the equality case of Theorem~\ref{thm:tail}, and the relaxation
 of $r_1\ge2$ to $r_1>1$ in the first row of Lemma~\ref{lem:slack} and
 Theorem~\ref{thm:order}.  The zero bound is formalized for distinct zeros,
@@ -1277,6 +1296,33 @@ holes there.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.
+
+\paragraph{Computer assistance.}
+No proof in this paper relies on a computation.  The script
+\texttt{tests/sweep.py} of the repository, run as a test suite by
+\texttt{tests/test\_sweep.py}, checks the following in exact rational
+arithmetic with Python's \texttt{fractions} module: the tails
+$\frac12$, $\frac3{10}$, $\frac18$ and $\frac9{64}$ of the examples after
+Theorem~\ref{thm:tail} and the cutoff example $\Tail(w)=\frac{52}{405}$; the
+formula of Lemma~\ref{lem:consecutive} at four rational nodes; that each
+$F_n$ of Proposition~\ref{prop:sharp23}, $2\le n\le29$, vanishes at $2$ and
+$3$ and has $b_2(F_n)=t_n>2$; and, by an exact linear program, that the least
+$b_2$ over monic multiples of $(x-2)(x-3)$ of degree at most $8$ is $t_7$.
+It also computes the exact tails of seeded random certificates with two to
+four nodes and zeros in $\{1,\ldots,8\}$: in $150$ draws with nodes $1/\rho$,
+$\rho\in\{2,\ldots,11\}$, \eqref{eq:tail} and the deletion step in the proof
+of Theorem~\ref{thm:tail} always hold, and in $300$ draws that allow nodes
+above $\frac12$ both fail for some draws.  The comparison
+of~\eqref{eq:jensen} with Theorem~\ref{thm:everyrow} at $L=20$ and $L=40$ in
+Section~\ref{sec:bottom} is a floating-point evaluation.  These computations
+are checks, not steps of any proof.
+
+\paragraph{Use of AI tools.}
+Large language model assistants (Claude, Anthropic) were used in drafting and revising the text, the proofs, the verification code and the Lean formalization. The author has checked the mathematics and is responsible for the content.
+
+\paragraph{Funding and competing interests.}
+The author received no specific funding for this work and has no competing
+interests to declare.
 
 \begin{thebibliography}{99}
 \small
