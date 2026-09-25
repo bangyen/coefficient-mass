@@ -51,9 +51,9 @@ theorem sum_log_le_sum_logPlus {n : ℕ} (s : Finset ℕ) (v : ℕ → ℝ) (t :
     · intro u
       have h := hcount u.succ
       rw [Fin.val_succ] at h
+      show u.val + 1 ≤ ((s.erase j).filter fun j' => t u.succ ≤ v j').card
       rw [Finset.filter_erase]
-      have := Finset.pred_card_le_card_erase (s := s.filter fun j' => t u.succ ≤ v j') (a := j)
-      omega
+      exact le_trans (by omega) Finset.pred_card_le_card_erase
 
 /-- The mass is the sum of `log⁺ |f_j|` over every position up to the degree;
 positions outside the support contribute `log⁺ 0 = 0`. -/
@@ -78,13 +78,15 @@ theorem sum_log_threshold {L : ℕ} (r : Fin L → ℝ) (hr : ∀ i, 2 ≤ r i) 
     Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
   congr 1
   rw [Finset.sum_comm' (t' := Finset.univ) (s' := fun i => Finset.univ.filter (· ≤ i))
-    (fun u i => by simp only [Finset.mem_filter, Finset.mem_univ, true_and])]
+    (fun u i => by simp only [Finset.mem_filter, Finset.mem_univ, true_and, and_true])]
   refine Finset.sum_congr rfl fun i _ => ?_
   rw [Finset.sum_const, nsmul_eq_mul]
   congr 1
-  rw [Finset.filter_le_eq_Iic, Fin.card_Iic]
-  push_cast
-  ring
+  have hIic : Finset.univ.filter (· ≤ i) = Finset.Iic i := by
+    ext x
+    simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_Iic]
+  rw [hIic, Fin.card_Iic]
+  exact Nat.cast_succ _
 
 /-- Corollary 3.4 from Corollary 3.3: the `L` rows give `L` positions below the
 degree whose `log⁺` add up to the row thresholds, and the leading coefficient
@@ -101,7 +103,6 @@ theorem logarithmicMass_of_complexOrderStatistics (h : ComplexOrderStatistics) :
   rw [mass_eq_sum_range, Finset.sum_range_succ]
   have hlead : Real.log ‖F.leadingCoeff‖ ≤ logPlus ‖F.coeff F.natDegree‖ :=
     le_max_right 0 _
-  push_cast
   linarith
 
 end CoefficientMass
