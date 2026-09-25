@@ -41,8 +41,10 @@ $\sum_ii\log(r_i-1)$, sharp in order at the first $L$ primes but degenerate
 as the roots approach $2$; a Jensen-formula bound of order $L^2$ repairs
 this, giving $\inf\Lambda\asymp L^2+\sum_ii\log(r_i-1)$ over monic
 multiples at every root set with $L\ge2$.  The row $k=2$ is
-sharp at $(2,3)$, and for monic multiples of $(x-2)^L$ the $k$-th
-largest nonleading magnitude is at least $L-k+1$.  The key tool compares the
+sharp at $(2,3)$.  For monic multiples of $(x-2)^L$ the Jensen bound makes
+the first rows exponentially large in $L$, and a separate certificate
+argument gives $b_k\ge L-k+1$ for every row, which matters for the last
+rows, where the Jensen bound says nothing.  The key tool compares the
 $\ell^1$ tails of normalized exponential sums in the reciprocal roots
 $1/r_i$ with prescribed positive-integer zeros: deleting the largest zero,
 when it is displaced, together with the largest node, the reciprocal of
@@ -149,7 +151,10 @@ arbitrary integer zero sets, and with it the rows $k\ge2$.
 Section~\ref{sec:sharp} asks how close the rows are to optimal.  The loss
 in the row $k=1$ is unbounded: if $r_1\ge2$, every monic
 multiple has $b_1\ge(r_1+\cdots+r_L)/2$, which exceeds $|P(1)|$ by a factor of order $L$
-at suitable distinct roots (Proposition~\ref{prop:unbounded}).  The row
+at suitable distinct roots (Proposition~\ref{prop:unbounded}), and the
+Jensen bound of Proposition~\ref{prop:quadratic} gives
+$b_1\ge2^L/(eL)-1/(L-1)$ once $L\ge3$, so near the root $2$ the loss is
+exponential in $L$.  The row
 $k=2$ is an infimum at $(2,3)$ (Proposition~\ref{prop:sharp23}), so no constant
 factor improves the rows $k\ge2$ as a family; the companion
 paper~\cite{coefficient-mass-attainment} characterizes the root sets at which
@@ -576,9 +581,9 @@ $\Lambda(F)\ge(L+1)\log|f_D|$ and says nothing more.  The order-statistic
 bound stays informative over the whole root range; the mass bound does not.
 Section~\ref{sec:sharp} shows that this degeneration is in the bound and not
 in $\Lambda$: for monic multiples at $r_i=2$,
-Proposition~\ref{prop:unbounded} recovers $b_1\ge L$,
-Proposition~\ref{prop:quadratic} a mass of order $L^2$, and
-Theorem~\ref{thm:everyrow} the rows $b_k\ge L-k+1$.
+Proposition~\ref{prop:quadratic} gives $b_1\ge2^L/(eL)-1/(L-1)$ and a
+mass of order $L^2$, and Theorem~\ref{thm:everyrow} the last rows
+$b_k\ge L-k+1$.
 
 \begin{corollary}[Prime roots]\label{cor:prime}
 Let $r_1\le\cdots\le r_L$ with $r_i\ge p_i$, the $i$th prime, and let $F$ be
@@ -742,11 +747,13 @@ $S=2L+O(L^{-1})$; hence $S/(B+1)\sim L$.
 \subsection{The bottom of the range}\label{sec:bottom}
 
 At $r_i=2$ the certificate of Proposition~\ref{prop:unbounded} gives
-$b_1\ge L$, where the row $k=1$ of \eqref{eq:order} gives only $1$.  In fact
-the infimum of the mass over monic multiples is of order $L^2$
+$b_1\ge L$, where the row $k=1$ of \eqref{eq:order} gives only $1$, and
+this too is far from the truth: the first rows grow exponentially in $L$
+(the remark after Proposition~\ref{prop:quadratic}).  The infimum of the mass over monic multiples is of order $L^2$
 throughout the range where \eqref{eq:mass} degenerates.  The proof uses
 Jensen's formula rather than a certificate, in the spirit
-of~\cite{bbbp-multiple,bbbp-ray}, with $k-1$ coefficients exempted rather
+of~\cite{bbbp-multiple,bbbp-ray} and of the zero counting at $1$ for
+polynomials with bounded coefficients in~\cite{bek}, with $k-1$ coefficients exempted rather
 than all being bounded.
 
 \begin{proposition}[Quadratic mass at every root set]
@@ -842,12 +849,21 @@ $r_i/(r_i-1)\le2$, so
 $\Lambda(P)\le2L^2\log2+\sum_ii\log(r_i-1)$.
 \end{proof}
 
-The bound \eqref{eq:jensen} is useful only while $(1-R)^{-k}$ has not
-overtaken $(2R)^{L-k+1}$, that is, for $k$ up to a constant multiple of
-$L$; it says nothing about the last rows.  For monic multiples of $(x-2)^L$,
+At $k=1$ and $R=1-1/L$, $L\ge3$, \eqref{eq:jensen} reads
+$b_1\ge((2-2/L)^L-1)/(L-1)$, and $(1-1/L)^{L-1}\ge e^{-1}$ gives
+\[
+  b_1(F)\ \ge\ \frac{2^L}{eL}-\frac1{L-1},
+\]
+exponentially more than the value $1$ of \eqref{eq:order} and the value $L$
+of Proposition~\ref{prop:unbounded} at $r_i=2$, a growth the
+certificates of Lemma~\ref{lem:slack} do not see.  The bound
+\eqref{eq:jensen} is useful only while $(1-R)^{-k}$ has not overtaken
+$(2R)^{L-k+1}$, that is, for $k$ up to a constant multiple of $L$; it says
+nothing about the last rows.  For monic multiples of $(x-2)^L$,
 Theorem~\ref{thm:everyrow} at the end of this section proves every row
-$b_k\ge L-k+1$, which interpolates between $b_1\ge L$ and the row $b_L\ge1$
-of \eqref{eq:order}.
+$b_k\ge L-k+1$.  This is weaker than \eqref{eq:jensen} for the first rows
+(numerically, for $k\le3$ at $L=20$ and $k\le7$ at $L=40$), and its
+content is the last rows, where \eqref{eq:jensen} is empty.
 
 \subsection{The rows \texorpdfstring{$k\ge2$}{k at least 2}}
 
@@ -1278,6 +1294,12 @@ F.~Beaucoup, P.~Borwein, D.~W. Boyd and C.~Pinner,
 \newblock \href{https://doi.org/10.1090/S0025-5718-98-00960-0}
 {doi:10.1090/S0025-5718-98-00960-0}.
 
+\bibitem{bek}
+P.~Borwein, T.~Erd\'elyi and G.~K\'os,
+\newblock Littlewood-type problems on $[0,1]$,
+\newblock \emph{Proceedings of the London Mathematical Society} (3) 79
+(1999), 22--46.
+
 \bibitem{bombieri-vaaler}
 E.~Bombieri and J.~D. Vaaler,
 \newblock Polynomials with low height and prescribed vanishing,
@@ -1346,7 +1368,8 @@ B.~Pham,
 \bibitem{polya-szego}
 G.~P\'olya and G.~Szeg\H{o},
 \newblock \emph{Problems and Theorems in Analysis II},
-\newblock Springer, 1976, Part Five, Chapter 1,
+\newblock Classics in Mathematics, Springer, 1998 (reprint of the 1976
+  edition), Part Five, Chapter 1,
 \newblock \href{https://doi.org/10.1007/978-3-642-61905-2}
 {doi:10.1007/978-3-642-61905-2}.
 

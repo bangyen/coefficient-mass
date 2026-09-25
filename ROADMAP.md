@@ -28,7 +28,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   proves the partial-sum criterion at repeated roots (`thm:converse`,
   `cor:charrep`, Descartes at infinity) and non-attainment
   (`thm:noattain`).  When the criterion fails the infimum is `1/T` with
-  `T >= tau*` (`thm:value`).  CLOSED for roots `>= 2`, repeated roots
+  `T >= tau*` (`thm:value`).  Closed for roots `>= 2`, repeated roots
   included (`sec:extremal`): the escaping placement is the worst one, `T =
   tau*` (`thm:extremal`, `cor:extremalrep`), by lifting the minimiser for
   one fewer exempt coefficient by one node, through the deletion step when
@@ -53,7 +53,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   sets below 2 keep the escaping placement extremal (it depends on more
   than `r_1`).
 
-- **Coefficient mass at complex roots.**  Purely imaginary pairs are CLOSED
+- **Coefficient mass at complex roots.**  Purely imaginary pairs are Closed
   ([coefficient-mass-complex](papers/coefficient-mass-complex.tex), split
   out of [coefficient-mass](papers/coefficient-mass.tex); `thm:transfer`,
   `cor:imag`: by multisection a pair `+-ci` is worth exactly one real root
@@ -66,7 +66,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   (`thm:archnewton`) gives rows and mass `sum j log(rho_j/3)` for every
   complex multiple with `|f_D| >= 1` once moduli grow by a factor 9 (`cor:separated`), and
   at most `g` moduli per annulus `[R, 9R]` costs a factor `g**2`.  Crowded
-  roots in a thin sector are CLOSED (`lem:sectorcount`, `thm:thinsector`,
+  roots in a thin sector are Closed (`lem:sectorcount`, `thm:thinsector`,
   `thm:thingauss`: the argument principle forces a real crossing
   polynomial with `K/2` large roots unless the degree is `>> K/delta`,
   which block charging pays; at such Gaussian roots `thm:thingauss` gives
@@ -106,7 +106,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   top, and at `r <= T/6` at least `n/2` (`lem:tropcount`; `(x - t)**K`
   shows the factor `n` is needed), so the positions and rows of
   `cor:annuli` item 1 hold once `T_a > 9 n_a U_(a-1)`, `n_a` the roots from
-  annulus `a` up.  CLOSED for the mass at a fixed separation: every
+  annulus `a` up.  Closed for the mass at a fixed separation: every
   multiple with `|f_D| >= 1` has mass at least
   `sum_s s K_s log(T_s/2) - S log 2` once `T_1 > 3` and
   `T_a > 162 U_(a-1)` (`thm:fixedgap`: where one central index falls
@@ -127,11 +127,11 @@ is open; an answer lands in the paper it extends, and the row leaves.
   Crossing (`sec:crossing`): admissible polynomials form a convex set and an insertion flips every
   later sign (`lem:crossing`, `lem:insflip`), so one insertion at the first
   gap covers every later exempted position (`thm:crossing`, all `r > 1`).
-  CLOSED for every root `r >= 2` (`sec:allrowstwo`, `thm:allrowstwo`):
+  Closed for every root `r >= 2` (`sec:allrowstwo`, `thm:allrowstwo`):
   first-order optimality of a truncated minimizer in one direction bounds
   the insertion at any gap above the constraints (`lem:optins`,
-  `lem:truncvertex`), which is the hypothesis of the reduction the paper
-  inlines, so `V_r(L,k) = beta_r(L-k+1)` for all `k`, `L`; for `1 < r < 2` the same
+  `lem:truncvertex`), which is the hypothesis of the reduction in the
+  proof of `thm:allrowstwo`, so `V_r(L,k) = beta_r(L-k+1)` for all `k`, `L`; for `1 < r < 2` the same
   proof gives `V_r(L,k) >= (r-1)**(k-1) beta_r(L-k+1)`, exact at `k = L`.
   For `1 < r < 2` one polynomial serves every exempted set
   (`sec:onepoly`, `lem:prefixpush`, `thm:onepoly`) and prefix values are
