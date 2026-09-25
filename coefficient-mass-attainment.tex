@@ -55,7 +55,7 @@ where $S_j$ is the sum of the $j+1$ leading coefficients.  For roots at least $2
 included, the escaping placement is the worst one, so the infimum is exactly
 $1/\tau^*$; below $2$ it can be strictly smaller.  For distinct roots
 above $1$ and one exempt coefficient, $T$ is the larger of $\tau^*$ and
-finitely many single-placement values; this gives the infimum
+finitely many single-placement values; with an explicit multiplier this gives the infimum
 $\tfrac{3398808}{96935}$ at $(\tfrac{11}{10},3,5,7)$, and along
 $(r,3,5,7)$, $1<r<3$, the escaping placement is the worst one exactly when
 $r\ge r_c=1.4658\ldots$, while along $(r,5,7)$ it is not for any
@@ -143,7 +143,7 @@ multiples is attained (Theorem~\ref{thm:noattain}).
 \emph{Below $2$.}  For distinct roots above $1$ the supremum $T$ is attained,
 by a placement or at a level where some exempt coefficients have escaped
 (Proposition~\ref{prop:attainT}).  For $u=1$, a zero placed above the zeros
-of the escaping minimiser has an exact cost identity, which makes every
+of a full escaping minimiser has an exact cost identity, which makes every
 placement beyond an explicit $N$ cheaper than $\tau^*$, so $T$ is the
 larger of $\tau^*$ and the finitely many $\tau(\{x\})$ with $x<N$
 (Theorem~\ref{thm:halfmass}).  A multiplier with an exempt position bounds
@@ -171,9 +171,9 @@ that $\tau^*$ is attained with a multiplier witness, completes the criterion
 at repeated roots, and shows that no infimum is attained.
 Section~\ref{sec:extremal} proves that at roots at least $2$ the escaping
 placement is extremal, by lifting minimisers one node at a time, and shows
-that below $2$ it need not be.  Section~\ref{sec:belowtwo} treats roots
-below $2$: attainment of $T$, the reduction for one exempt coefficient, and
-the exact examples.  Section~\ref{sec:scope} closes with a remark
+that below $2$ it need not be.  Section~\ref{sec:belowtwo} drops the
+cutoff: attainment of $T$ and the reduction for one exempt coefficient hold
+for all distinct roots above $1$, followed by exact examples below $2$.  Section~\ref{sec:scope} closes with a remark
 on what is left open and the relation to the literature.
 
 \section{The confluent tail comparison}\label{sec:extend}
@@ -1392,7 +1392,7 @@ $\tau^*$ and finitely many placements (Theorem~\ref{thm:halfmass}).  This
 gives the exact infimum at $(\tfrac{11}{10},3,5,7)$
 (Theorem~\ref{thm:elevenvalue}) and, along $(r,3,5,7)$, the exact range of
 $r$ at which the escaping placement is extremal
-(Theorem~\ref{thm:family}); at $(r,5,7)$ it fails for every $r<2$
+(Theorem~\ref{thm:family}); at $(r,5,7)$ it fails for every $1<r<2$
 (Proposition~\ref{prop:cutoffsharp}).  Lower bounds on $T$ come from
 multipliers with an exempt position.
 
@@ -1425,7 +1425,7 @@ Let $1<r_1<\cdots<r_L$ and $0\le u\le L-1$, and for $0\le k\le u$ put
 $T_k=\sup\{\tau_k(X):X\subset\N_{>0},\ |X|=u-k\}$, so that $T_0=T$ and
 $T_u=\tau^*$.  Then $T_0\ge T_1\ge\cdots\ge T_u$, and each $T_k$ is finite
 and equals $\tau_l(X)$ for some $k\le l\le u$ and some $X$ with $|X|=u-l$.
-In particular, if $T>T_1$ then $T=\tau(X)$ for a placement $X$.
+In particular, if $u\ge1$ and $T>T_1$, then $T=\tau(X)$ for a placement $X$.
 \end{proposition}
 
 \begin{proof}
@@ -1482,7 +1482,7 @@ zero set $Z^*\cup\{x\}$ satisfies
   -\frac{|V_x|}{|H_x|}\Bigl(\sum_{d=1}^{x}|H_d|-\sum_{d>x}|H_d|\Bigr).
 \]
 \item[(c)] Let $N$ be the least integer $N>g$ with
-$2\sum_{d=1}^N|H_d|\ge\Tail(H)$.  Then $\tau(\{x\})<\tau^*$ for every
+$2\sum_{d=1}^N|H_d|\ge\Tail(H)$ (it depends on the chosen $V$).  Then $\tau(\{x\})<\tau^*$ for every
 $x\ge N$, and
 \[
   T=\max\Bigl(\tau^*,\ \max\{\tau(\{x\}):1\le x<N,\ x\notin Z^*\}\Bigr),
@@ -1582,8 +1582,9 @@ The minimising zero set $\{1,3,5\}$ is $Z^*\cup\{5\}$, the aligned lift that
 Lemma~\ref{lem:delete} would make cheaper than $\tau^*$ at $y_1\le\tfrac12$.
 The window $g<x<N$ is needed here: the aligned lift costs more than $\tau^*$
 at $x=4,\ldots,9$ and less at $x=10$.  By Theorem~\ref{thm:noattain} no
-multiple attains the infimum; the multiples of degree at most $10$ have
-$b_2\ge41.2$.
+multiple attains the infimum; an exact rational linear-programming
+computation over every degree at most $10$ and every exempt position gives
+$b_2\ge41.2$ for those multiples.
 
 \begin{theorem}[The family $(r,3,5,7)$]\label{thm:family}
 Let $1<r<3$, $P_r=(x-r)(x-3)(x-5)(x-7)$ and $u=1$, so $\tau^*=\tfrac{31}{1704}$,
@@ -1693,7 +1694,8 @@ gives $1/T$ with $T\ge\tau^*$, and $T>\tau^*$ can occur
 (Proposition~\ref{prop:belowtwo}).  For distinct roots $T$ is attained at
 some level (Proposition~\ref{prop:attainT}), and for $u=1$ it is the larger of
 $\tau^*$ and finitely many $\tau(\{x\})$, $x<N$ (Theorem~\ref{thm:halfmass}),
-which settles $(\tfrac{11}{10},3,5,7)$ and the family $(r,3,5,7)$
+which settles $(\tfrac{11}{10},3,5,7)$, and along $(r,3,5,7)$ decides
+exactly when $T=\tau^*$ and gives the infimum for $r\ge\tfrac{29}{20}$
 (Theorems~\ref{thm:elevenvalue} and~\ref{thm:family}).  Open: an a priori
 bound on the zero set minimising a single $\tau(\{x\})$, which would make
 the case $u=1$ a finite computation outright; an analogue of the threshold
