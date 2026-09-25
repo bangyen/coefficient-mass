@@ -46,6 +46,14 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `cor:wideconst`; `x^N - rho^N` attains `pi/delta`, `prop:widesharp`), so
   `c K**2 log R` is false over the reals; at Gaussian roots
   `(pi/delta - o(1)) K log R` holds unconditionally (`cor:widegauss`).
+  Integer imitations of `x^N - rho^N` fail: `A((x-t)^N)` has at most
+  `2 deg A` Gaussian roots above the axis, so `x^N - m` at most two
+  (`lem:gaussbinom`); at pairwise coprime odd norms a multiple can be
+  `f mod x^m` exactly when `P(0)**m | f`, so a gap `g` after the lowest
+  coefficient costs `2Kg log R`, while at a common norm `n` the lowest `m`
+  coefficients can be `n**(K+m-1), 0, ..., 0` (`prop:gausslow`); and an
+  exhaustive search finds no `H(x) - v` with small `H` at more than three
+  prescribed roots.
   Open: whether `c K**2 log R` holds for all integer multiples at Gaussian
   roots in a wide sector (the question the paper's introduction leaves),
   and whether the cross terms below need a separation growing with the
