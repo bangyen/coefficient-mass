@@ -53,7 +53,9 @@ $(\tfrac{11}{10},3,5,7)$ with $u=1$ a reduction to finitely many positions
 and an exact computation give the infimum $\tfrac{3398808}{96935}$, below
 $1/\tau^*$.  Along $(r,3,5,7)$ with $u=1$ the infimum tends to $24$ as
 $r\to1^+$, exceeding it by a quantity of exact order
-$(r-1)^{\log(5/3)/\log3}$.  The infimum is never attained.
+$(r-1)^{\alpha}$, $\alpha=\log(5/3)/\log3$, whose ratio to $(r-1)^\alpha$
+has no limit: it oscillates log-periodically between $80\cdot18^{-\alpha}$
+and $\tfrac{400}3\cdot18^{-\alpha}$.  The infimum is never attained.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; reduced
@@ -157,7 +159,13 @@ $\alpha=\log(5/3)/\log3$, while the worst placement is
 $\log_3\frac1{r-1}+O(1)$ (Theorem~\ref{thm:familyone}); the costs that
 matter are those at the roots $3,5,7$, in closed form
 (Lemma~\ref{lem:threenode}), and a witness with one sign flip far out
-transfers them to $r$ near $1$.  These
+transfers them to $r$ near $1$.  The ratio of the excess to $(r-1)^\alpha$
+has no limit: off neighbourhoods of the points where $3^x(r-1)=18$ for an
+integer $x$, the worst placement is the largest $x^*$ with
+$3^{x^*}(r-1)<18$, its minimising zero set is $\{1,x^*,z\}$ for some
+$z\ge x^*+3$, and the excess is $(80+o(1))(\tfrac35)^{x^*}$, so the ratio
+oscillates log-periodically between $80\cdot18^{-\alpha}$ and
+$\tfrac{400}3\cdot18^{-\alpha}$ (Theorem~\ref{thm:familyosc}).  These
 proofs end in a finite exact computation, over $\mathbb Q$ and over
 $\mathbb Q(r)$, described in the paragraph on computer assistance before the
 appendix.  Along $(r,5,7)$ the
@@ -1628,7 +1636,8 @@ gives the exact infimum at $(\tfrac{11}{10},3,5,7)$
 $r$ at which the escaping placement is extremal
 (Theorem~\ref{thm:family}), and the infimum there down to $r=1.0745\ldots$
 (Theorem~\ref{thm:familylow}) and its order as $r\to1^+$
-(Theorem~\ref{thm:familyone}); at $(r,5,7)$ it fails for every $1<r<2$
+(Theorem~\ref{thm:familyone}), with the constant oscillating
+(Theorem~\ref{thm:familyosc}); at $(r,5,7)$ it fails for every $1<r<2$
 (Proposition~\ref{prop:cutoffsharp}).  Lower bounds on $T$ come from
 multipliers with an exempt position.
 
@@ -2157,7 +2166,10 @@ near $r=1.03$ and $7$ near $r=1.01$, and that the half-mass point grows
 ($N=15$ at $r=1.06$).  The qualitative picture is proved below: infinitely
 many pieces accumulate at $r=1$, the worst placement grows like
 $\log_3\frac1{r-1}$, and the infimum tends to $24$
-(Theorem~\ref{thm:familyone} and Corollary~\ref{cor:familyone}).
+(Theorem~\ref{thm:familyone} and Corollary~\ref{cor:familyone}); off
+neighbourhoods of the points where $3^x(r-1)=18$, the worst placement is
+the largest $x$ with $3^x(r-1)<18$, with zero set $\{1,x,z\}$
+(Theorem~\ref{thm:familyosc}).
 
 \paragraph{The family near $r=1$.}  As $r\to1^+$ the node $\tfrac1r$ tends
 to $1$, where $\lambda y^d$ is constant and has infinite tail, so a cheap
@@ -2440,6 +2452,298 @@ linear system with entries $r^{-d}$, the zero bound fixes the sign pattern,
 and the part past the largest zero is geometric.
 \end{proof}
 
+\paragraph{The constant near $r=1$.}  The constants $\tfrac32$ and $125$ of
+Theorem~\ref{thm:familyone}(c) cannot be brought to a common value:
+$(\inf_Qb_2(QP_r)-24)(r-1)^{-\alpha}$ oscillates log-periodically between
+$80\cdot18^{-\alpha}$ and $\tfrac{400}3\cdot18^{-\alpha}$
+(Theorem~\ref{thm:familyosc}).  The switch is at $3^x(r-1)=18$.  Below it
+the flipped witness works with the true size of $s_x$, which is $3^x/18$ up
+to a factor tending to $1$, and the placement $\{x\}$ costs $t(x)$ up to
+$O(3^{-x})$; above it a small weight on $\tfrac1r$ added to a certificate
+$U^{(c)}$ at $(3,5,7)$ makes the placement cheaper by an amount that does
+not tend to $0$.  For $c\ge2$ let $\ell(c)$ and $\lambda_7(c)$ be the weights
+$\lambda_3$ and $\lambda_7$ of the certificate $U^{(c)}$ of
+Lemma~\ref{lem:threenode}(a), and put
+\[
+  K_c=\frac{\ell(c)}{\tfrac1{24}-t(c)},\qquad
+  R(x)=\tfrac{36}5\bigl(\tfrac53\bigr)^x\bigl(\tfrac1{24}-t(x)\bigr).
+\]
+
+\begin{lemma}[Both sides of $3^x(r-1)=18$]\label{lem:eighteen}
+Let $1<r<3$, $\varepsilon=r-1$, $y=\tfrac1r$, and let $\tau(\{x\})$ be the
+costs at $P_r=(x-r)(x-3)(x-5)(x-7)$.
+\begin{enumerate}
+\item[(a)] Let $x\ge4$, and let $t=t(x)$, $s_1$ and $s_x$ be as in
+Lemma~\ref{lem:threenode}.  If
+\[
+  y^x(1+y)-y^2\ge\frac{1-y}{24}\qquad\text{and}\qquad
+  s_x+7\le\frac1{r\varepsilon},
+\]
+then for some integer $z\ge x+3$ the cost $\tau(\{x\})$ is the tail of the
+full certificate with zero set $\{1,x,z\}$, and
+$t(x)-14\cdot3^{-z}\le\tau(\{x\})\le t(x)$.
+\item[(b)] For integers $c\ge2$ and $x>c$,
+\[
+  \tau(\{x\})\le t(c)+\frac{35}{24}\cdot
+  \frac{\ell(c)3^{-x}+\lambda_7(c)7^{-x}}{h_{x-2}(\tfrac15,\tfrac17,1)}\cdot
+  \frac{r^{x-1}}{\varepsilon},
+\]
+and the right side decreases as $x$ increases.
+\item[(c)] As $x\to\infty$, $18\cdot3^{-x}s_x\to1$ and $R(x)\to1$; and
+$R(x)\ge\tfrac9{20}$ for $x\ge4$.  For $c\ge2$, $K_c>18$, and $K_c\to18$ as
+$c\to\infty$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Write $A=3^{-x}$, $B=5^{-x}$, $C=7^{-x}$ and $D=3A-10B+7C$, as in
+Lemma~\ref{lem:threenode}.
+
+(a) We run the witness of the proof of Theorem~\ref{thm:familyone} again,
+correcting it at the positions $1$ and $x$ instead of $1,2,3$, so that no
+entry off $x$ leaves $[-1,1]$.  Let $\sigma$ be as in
+Lemma~\ref{lem:threenode}(b).  For an integer $z\ge x+3$ and
+$\varphi\in[0,1]$ put $\delta(a)=2\varphi a^z+2a^{z+1}/(1-a)$, which lies in
+$[0,2a^z/(1-a)]$, and let $p,q,\theta'$ solve
+$pa+qa^x-\theta'=\delta(a)$ at $a=\tfrac13,\tfrac15,\tfrac17$.  Subtracting
+the equations in pairs and solving,
+\[
+  q=\frac{3\delta(\tfrac13)-10\delta(\tfrac15)+7\delta(\tfrac17)}{D},\qquad
+  p=-\frac{105}{2D}\Bigl(\delta(\tfrac13)(B-C)-\delta(\tfrac15)(A-C)
+  +\delta(\tfrac17)(A-B)\Bigr),
+\]
+and $\theta'=\tfrac p3+qA-\delta(\tfrac13)$.  Here $D\ge\tfrac{17}{10}A$
+(proof of Lemma~\ref{lem:threenode}(c)), $0\le B-C\le B$,
+$0\le A-B,A-C\le A$ and $B\le(\tfrac35)^4A$, so, as $z\ge7$,
+\[
+  |p|\le\tfrac{525}{17}\,3^{-z}\bigl(3(\tfrac35)^4+\tfrac52(\tfrac35)^7
+  +\tfrac73(\tfrac37)^7\bigr)\le15\cdot3^{-z};
+\]
+and $|q|\le\max\bigl(3\delta(\tfrac13)+7\delta(\tfrac17),10\delta(\tfrac15)\bigr)/D
+\le\tfrac{10}{17}\,3^{x-z}\bigl(9+\tfrac{49}3(\tfrac37)^7\bigr)\le6\cdot3^{x-z}$,
+as $25\cdot5^{-z}\le9\cdot3^{-z}$.  Hence $|\theta'|\le14\cdot3^{-z}$.  Let
+$\rho$ agree with $\sigma$ except that $\rho_1=s_1+p$, $\rho_x=s_x+q$,
+$\rho_z=1-2\varphi$ and $\rho_d=-1$ for $d>z$.  As $\sigma_d=1$ for $d>x$,
+$\sum_{d\ge1}\rho_da^d=t-\delta(a)+pa+qa^x=t+\theta'$ at
+$a=\tfrac13,\tfrac15,\tfrac17$.  Put
+$F(z,\varphi)=\sum_{d\ge1}\rho_dy^d-t-\theta'$.  The pairs $(z,0)$ and
+$(z+1,1)$ give the same $\delta$, hence the same $p,q,\theta'$ and $\rho$,
+so $F$ is continuous along the path through the pairs ordered by increasing
+$z$ and, for each $z$, decreasing $\varphi$.  At $(x+3,1)$,
+\[
+  \sum_{d\ge1}\rho_dy^d=(s_1+p)y+(s_x+q)y^x
+  -\frac{y^2+2y^{x+3}-y^x-y^{x+1}}{1-y},
+\]
+where $y^2+2y^{x+3}-y^x-y^{x+1}=y^2-(1-y)y^x(2y^2+2y+1)\ge y^2-5(1-y)$ and
+$y^2/(1-y)=1/(r\varepsilon)$.  With $0<s_1\le\tfrac12$ and $s_x>0$
+(Lemma~\ref{lem:threenode}(c)), $|p|\le15\cdot3^{-7}$, $|q|\le6\cdot3^{-3}$
+and $t+\theta'>0$, this gives $F(x+3,1)<s_x+7-1/(r\varepsilon)\le0$.  As
+$z\to\infty$, $p,q,\theta'\to0$ and
+$F\to\sum_d\sigma_dy^d-t\ge(y^x+y^{x+1}-y^2)/(1-y)-t\ge\tfrac1{24}-t>0$, as in
+the proof of Theorem~\ref{thm:familyone}.  So $F=0$ at some $(z,\varphi)$
+with $z\ge x+3$.  There $\theta=t+\theta'$ satisfies
+$\sum_{d\ge1}\rho_da^d=\theta$ at all four nodes,
+$|\rho_1|\le\tfrac12+15\cdot3^{-7}<1$, $|\rho_z|\le1$, and $|\rho_d|=1$ for
+every other $d\ne x$.  For a certificate $v'$ for $\{x\}$, summing over the
+nodes as in the proof of Lemma~\ref{lem:exemptpair} gives
+$\theta=\sum_{d\ge1}\rho_dv'_d\le\Tail(v')$, so $\tau(\{x\})\ge\theta$.  The
+full certificate $v$ with zero set $\{1,x,z\}$ is positive at $0$ and
+changes sign exactly at $1$, $x$ and $z$, so $\rho_d=\sgn(v_d)$ off its zero
+set, and the same sum gives $\theta=\Tail(v)$.  Hence
+$\tau(\{x\})=\Tail(v)=\theta\ge t-14\cdot3^{-z}$, while $\tau(\{x\})\le t$
+as $U^{(x)}$ is a certificate for $\{x\}$.
+
+(b) By \eqref{eq:interr} at the nodes $\tfrac15,\tfrac17$ and $t=y$, the
+sum $g_d=y^d-\tfrac{35y-5}2\,5^{-d}+\tfrac{35y-7}2\,7^{-d}$ equals
+$(y-\tfrac15)(y-\tfrac17)h_{d-2}(\tfrac15,\tfrac17,y)$: it vanishes at
+$d=0,1$, is positive for $d\ge2$, and
+$\sum_dg_d=(y-\tfrac15)(y-\tfrac17)/\bigl((1-\tfrac15)(1-\tfrac17)(1-y)\bigr)$.
+For $x>c$, $U^{(c)}-(U^{(c)}_x/g_x)g$ is a certificate for $\{x\}$ on the
+four nodes, so
+\[
+  \tau(\{x\})\le t(c)+\frac{|U^{(c)}_x|}{g_x}\sum_dg_d
+  =t(c)+\frac{35}{24}\cdot\frac{|U^{(c)}_x|}{(1-y)h_{x-2}(\tfrac15,\tfrac17,y)} .
+\]
+Here $h_k(\tfrac15,\tfrac17,y)=y^k\sum_{i+j\le k}(5y)^{-i}(7y)^{-j}\ge
+y^kh_k(\tfrac15,\tfrac17,1)$ and $(1-y)y^{x-2}=\varepsilon r^{1-x}$;
+and $0<U^{(c)}_x\le\ell(c)3^{-x}+\lambda_7(c)7^{-x}$, as $U^{(c)}$ is
+positive past $c$ and its weight on $\tfrac15$ is negative by
+Lemma~\ref{lem:threenode}(a).  The bound decreases in $x$, as $r<3$ and
+$h_k(\tfrac15,\tfrac17,1)$ increases with $k$.
+
+(c) Dividing the closed forms of Lemma~\ref{lem:threenode} by $A$,
+\[
+  18\cdot3^{-x}s_x=\frac{1-36A+90B-56C}{1-\tfrac{10}3(\tfrac35)^x+\tfrac73(\tfrac37)^x},
+  \qquad
+  R(x)=\frac{1-\tfrac75(\tfrac57)^x-9A+\tfrac{84}5A(\tfrac57)^x-7C}
+  {1-\tfrac{10}3(\tfrac35)^x+\tfrac73(\tfrac37)^x},
+\]
+and both tend to $1$; $R(x)\ge\tfrac9{20}$ is
+$\tfrac1{24}-t(x)\ge\tfrac1{16}(\tfrac35)^x$.  At $x=c$,
+$K_c=18(5B-7C)/(5B-7C-45AB+84AC-35BC)$.  The denominator is
+$12D(\tfrac1{24}-t(c))>0$ and falls short of $5B-7C$ by
+$A(45B-84C)+35BC>0$, as $(\tfrac75)^c\ge\tfrac{49}{25}>\tfrac{84}{45}$; so
+$K_c>18$.  And $K_c\to18$, since
+$(45AB+84AC+35BC)/(5B-7C)\le(45A+84A(\tfrac57)^c+35C)/(5-7(\tfrac57)^c)\to0$.
+\end{proof}
+
+As $h_k(\tfrac15,\tfrac17,1)<\tfrac{35}{24}$, the bound in (b) exceeds
+$t(c)+\ell(c)/(3^x\varepsilon)$, which exceeds $\tfrac1{24}$ while
+$3^x\varepsilon<18$, as $K_c>18$: there only (a) is informative.  Once
+$3^x\varepsilon\ge\kappa>18$ the bound tends, as $r\to1^+$, to at most
+$t(c)+\ell(c)/\kappa$, below $\tfrac1{24}$ for $c$ with $K_c<\kappa$.
+
+\begin{theorem}[The constant oscillates]\label{thm:familyosc}
+Let $P_r=(x-r)(x-3)(x-5)(x-7)$, $u=1$, $\varepsilon=r-1$ and
+$\alpha=\log(5/3)/\log3$, and put
+\[
+  \Delta(r)=\bigl(\inf_Qb_2(QP_r)-24\bigr)\varepsilon^{-\alpha},\qquad
+  s=\log_3\frac{18}\varepsilon,\qquad x^*=\lceil s\rceil-1,\qquad
+  \omega=s-x^*,
+\]
+so that $x^*$ is the largest integer with $3^{x^*}\varepsilon<18$ and
+$0<\omega\le1$, and $\Phi(\omega)=80\cdot18^{-\alpha}(\tfrac53)^\omega$, so
+that $\Phi(\omega)=80(\tfrac35)^{x^*}\varepsilon^{-\alpha}$.
+\begin{enumerate}
+\item[(a)] Let $0<\delta<\tfrac12$.  For $r>1$ close enough to $1$ with
+$\delta\le\omega\le1-\delta$, the placement $\{x^*\}$ is the only worst
+placement, $T=\tau(\{x^*\})$ is the tail of the full certificate with zero
+set $\{1,x^*,z\}$ for some $z\ge x^*+3$, and
+\[
+  \frac1{t(x^*)}\le\inf_Qb_2(QP_r)\le\frac1{t(x^*)-14\cdot3^{-x^*-3}} .
+\]
+Moreover $\Delta(r)-\Phi(\omega)\to0$ as $r\to1^+$ with
+$\delta\le\omega\le1-\delta$.
+\item[(b)] $\liminf_{r\to1^+}\Delta(r)=\Phi(0)=80\cdot18^{-\alpha}=20.865\ldots$
+and $\limsup_{r\to1^+}\Delta(r)=\Phi(1)=\tfrac{400}3\cdot18^{-\alpha}=34.775\ldots$,
+and the limit points of $\Delta(r)$ as $r\to1^+$ fill $[\Phi(0),\Phi(1)]$.
+\end{enumerate}
+\end{theorem}
+
+So $\Delta$ has no limit.  Along $r_n=1+18\cdot3^{-n-\omega_0}$ it tends to
+$\Phi(\omega_0)$, a function of $\log_3\frac1{r-1}$ modulo $1$: the excess
+$\inf_Qb_2-24$ is $(80+o(1))(\tfrac35)^{x^*}$ off the jumps, and it drops
+by the factor $\tfrac35$ each time $3^x(r-1)$ crosses $18$ as $r$ decreases.
+
+\begin{proof}
+As $r\to1^+$, $\varepsilon\to0$, $s\to\infty$ and $s\varepsilon\to0$.  By
+Theorem~\ref{thm:familyone} and Corollary~\ref{cor:familyone}, $T<\tfrac1{24}$,
+$T\to\tfrac1{24}$ and $(\tfrac1{24}-T)\varepsilon^{-\alpha}$ is bounded, so
+$\inf_Qb_2-24=24(\tfrac1{24}-T)/T$ gives
+$\Delta(r)-576(\tfrac1{24}-T)\varepsilon^{-\alpha}\to0$.  As
+$(\tfrac35)^x=3^{-\alpha x}$, $3^\alpha=\tfrac53$ and
+$\varepsilon=18\cdot3^{-s}$,
+\begin{equation}\label{eq:oscscale}
+  80\,(\tfrac35)^x\varepsilon^{-\alpha}=\Phi(0)\,(\tfrac53)^{s-x}
+  \qquad\text{for every }x .
+\end{equation}
+Recall from the proof of Theorem~\ref{thm:familyone} that
+$\tau(\{1\}),\tau(\{2\})\le\tfrac1{48}$ and $\tau(\{x\})\le t(x)$ for
+$x\ge3$, where $t(3)=\tau^*<\tfrac1{48}$ and
+$\tfrac1{24}-t(x)=\tfrac5{36}(\tfrac35)^xR(x)$ for $x\ge4$.  Fix
+$\delta\in(0,1)$.
+
+\emph{(i) Far placements.}  There is $\eta>0$ with
+$\tau(\{x\})\le\tfrac1{24}-\eta$ whenever $3^x\varepsilon\ge18\cdot3^\delta$,
+for $r$ close to $1$.  By Lemma~\ref{lem:eighteen}(c) take $c\ge2$ with
+$K_c<18\cdot3^{\delta/2}$.  Let $x_0$ be the least integer with
+$3^{x_0}\varepsilon\ge18\cdot3^\delta$; as $r\to1^+$, $x_0\to\infty$ and
+$x_0\varepsilon\to0$.  For $x\ge x_0>c$, Lemma~\ref{lem:eighteen}(b) and its
+monotonicity bound $\tau(\{x\})$ by
+\[
+  t(c)+\frac{35}{24}\cdot
+  \frac{\ell(c)+\lambda_7(c)(\tfrac37)^{x_0}}{h_{x_0-2}(\tfrac15,\tfrac17,1)}
+  \cdot\frac{r^{x_0-1}}{18\cdot3^\delta},
+\]
+which tends to $t(c)+\ell(c)/(18\cdot3^\delta)
+=\tfrac1{24}-(\tfrac1{24}-t(c))(1-K_c/(18\cdot3^\delta))$, since
+$h_k(\tfrac15,\tfrac17,1)\to(1-\tfrac15)^{-1}(1-\tfrac17)^{-1}=\tfrac{35}{24}$
+and $r^{x_0}\to1$.  As $K_c/(18\cdot3^\delta)<3^{-\delta/2}$, any
+$\eta<(\tfrac1{24}-t(c))(1-3^{-\delta/2})$ will do.
+
+\emph{(ii) Near placements.}  For $r$ close to $1$, every $x\ge4$ with
+$3^x\varepsilon\le18\cdot3^{-\delta}$ satisfies the hypotheses of
+Lemma~\ref{lem:eighteen}(a), so
+$t(x)-14\cdot3^{-x-3}\le\tau(\{x\})\le t(x)$.  Such $x$ have $x\le s$, and
+$y^x(1+y)-y^2\ge2y^{x+1}-1\ge2r^{-s-1}-1\to1$.  By
+Lemma~\ref{lem:eighteen}(c) there is $x_1$ with
+$18\cdot3^{-x}s_x\le3^{\delta/2}$ for $x\ge x_1$, and then
+$s_x\le3^{-\delta/2}/\varepsilon$; for $4\le x<x_1$,
+$s_x\le3^{x_1}/8$ by Lemma~\ref{lem:threenode}(c).  Either way
+$s_x+7\le1/(r\varepsilon)$ once $\varepsilon$ is small.
+
+(a) Let $\delta\le\omega\le1-\delta$.  Then
+$3^{x^*}\varepsilon=18\cdot3^{-\omega}\le18\cdot3^{-\delta}$ and
+$x^*\to\infty$, so by (ii) $\tau(\{x^*\})$ is the tail of a full certificate
+with zero set $\{1,x^*,z\}$, $z\ge x^*+3$, and
+\begin{equation}\label{eq:oscworst}
+  \tfrac5{36}(\tfrac35)^{x^*}R(x^*)\le\tfrac1{24}-\tau(\{x^*\})
+  \le\tfrac5{36}(\tfrac35)^{x^*}R(x^*)+\tfrac{14}{27}3^{-x^*},
+\end{equation}
+where $R(x^*)\to1$ and $3^{-x^*}=5^{-x^*}(\tfrac35)^{x^*}$.  Every other
+placement costs less for $r$ close to $1$.  A placement $x\ge x^*+1$ has
+$3^x\varepsilon\ge54\cdot3^{-\omega}\ge18\cdot3^\delta$, so costs at most
+$\tfrac1{24}-\eta$ by (i).  Placements $x\le3$ cost at most
+$\tfrac1{48}$.  For $4\le x\le x^*-2$,
+$\tfrac1{24}-\tau(\{x\})\ge\tfrac5{36}(\tfrac35)^x\cdot\tfrac9{20}
+\ge\tfrac54\cdot\tfrac5{36}(\tfrac35)^{x^*}$, and for $x=x^*-1$,
+$\tfrac1{24}-\tau(\{x\})\ge\tfrac53\cdot\tfrac5{36}(\tfrac35)^{x^*}R(x^*-1)$.
+All of these exceed the right side of \eqref{eq:oscworst} for $r$ close to
+$1$.  So $T=\tau(\{x^*\})$, Theorem~\ref{thm:value} and (ii) give the bounds
+on the infimum, and by \eqref{eq:oscworst} and \eqref{eq:oscscale},
+$576(\tfrac1{24}-T)\varepsilon^{-\alpha}=\Phi(\omega)\bigl(R(x^*)+O(5^{-x^*})\bigr)$,
+which differs from $\Phi(\omega)\le\Phi(1)$ by $o(1)$ uniformly in $\omega$.
+
+(b) \emph{Lower bound.}  For $r$ close to $1$ every placement $x$ has
+$\tfrac1{24}-\tau(\{x\})$ at least $\eta$ if $3^x\varepsilon\ge18\cdot3^\delta$
+(by (i)), at least $\tfrac1{48}$ if $x\le3$, at least
+$\tfrac54\cdot\tfrac5{36}(\tfrac35)^s$ if $4\le x\le s-2$, and at least
+$\tfrac5{36}(\tfrac35)^{s+\delta}R(x)$ if $s-2<x<s+\delta$, where
+$R(x)\to1$ uniformly as $x>s-2\to\infty$.  So
+$\tfrac1{24}-T=\inf_x(\tfrac1{24}-\tau(\{x\}))$ and \eqref{eq:oscscale} give
+$\liminf_{r\to1^+}\Delta(r)\ge\Phi(0)(\tfrac35)^\delta$.
+
+\emph{Upper bound.}  Let $\hat x$ be the largest integer with
+$3^{\hat x}\varepsilon\le18\cdot3^{-\delta}$, so $\hat x>s-1-\delta$ and
+$\hat x\to\infty$.  By (ii),
+$\tfrac1{24}-T\le\tfrac1{24}-\tau(\{\hat x\})\le\tfrac5{36}(\tfrac35)^{\hat x}R(\hat x)
++\tfrac{14}{27}3^{-\hat x}$, where
+$80(\tfrac35)^{\hat x}\varepsilon^{-\alpha}<\Phi(0)(\tfrac53)^{1+\delta}
+=\Phi(1)(\tfrac53)^\delta$ by \eqref{eq:oscscale} and
+$3^{-\hat x}\varepsilon^{-\alpha}<3^{1+\delta}\varepsilon^{1-\alpha}/18\to0$.
+So $\limsup_{r\to1^+}\Delta(r)\le\Phi(1)(\tfrac53)^\delta$.
+
+As $\delta$ is arbitrary, $\Phi(0)\le\liminf\Delta\le\limsup\Delta\le\Phi(1)$.
+For $0<\omega_0<1$ the points $r_n=1+18\cdot3^{-n-\omega_0}$ have $s=n+\omega_0$,
+$x^*=n$ and $\omega=\omega_0$, so $\Delta(r_n)\to\Phi(\omega_0)$ by (a).
+Hence every point of $[\Phi(0),\Phi(1)]$ is a limit point, and the
+$\liminf$ and $\limsup$ are the endpoints.
+\end{proof}
+
+At $r=\tfrac{5701}{5700}$, far below $\rho_1$, everything is exact:
+$3^{10}\varepsilon=10.35\ldots$ and $3^{11}\varepsilon=31.07\ldots$, so
+$x^*=10$ and $\omega=0.50\ldots$.  The hypotheses of
+Lemma~\ref{lem:eighteen}(a) hold at $x=10$, and the witness of the full
+certificate with zero set $\{1,10,1335\}$ has $s_1=0.4525\ldots$ and
+$s_{1335}=-0.3405\ldots$, so by \eqref{eq:witness} $\tau(\{10\})$ is its
+tail, which lies within $10^{-600}$ below $t(10)$; the placements $4\le x\le9$
+cost at most $t(x)<\tau(\{10\})$, those $x\le3$ at most $\tfrac1{48}$, and
+Lemma~\ref{lem:eighteen}(b) with $c=4$ at $x=11$ bounds every $x\ge11$ by
+$0.03593<\tau(\{10\})=0.04085\ldots$.  So $T=\tau(\{10\})$ and
+$\inf_Qb_2(QP_r)=24.47884\ldots$, with $\Delta(r)=26.70\ldots$ against
+$\Phi(\omega)=26.97\ldots$; this is checked exactly in
+\texttt{test\_family\_oscillation} (\texttt{tests/test\_attainment.py}).
+There $t(11)>t(10)$, so the placement $11$ is beaten only through the node
+$\tfrac1r$, while Lemma~\ref{lem:eighteen}(b) at $x=10$ beats $t(10)$ for no
+$c$, as $3^{10}\varepsilon<18$; the test checks both as controls, and that
+the hypothesis $s_x+7\le1/(r\varepsilon)$ of Lemma~\ref{lem:eighteen}(a)
+fails at $x=11$.
+Theorem~\ref{thm:familyosc} leaves out neighbourhoods of the jumps, where
+$3^{x^*}\varepsilon$ is just below $18$ or $3^{x^*+1}\varepsilon$ just above
+it, and there the transition is slow: at $r=\tfrac{101}{100}$, where
+$3^7\varepsilon=21.87$, a floating-point search finds the worst placement
+$\{7\}$, with zero set $\{1,4,7\}$, rather than $x^*=6$.
+
 So the escaping placement stays extremal at some roots below $2$, here down
 to $r_c$, and the failure below $r_c$ starts at the placement $\{4\}$ just
 above $Z^*$, where the conclusion of Lemma~\ref{lem:delete} fails.  The cutoff cannot be
@@ -2483,16 +2787,24 @@ placement stays extremal, which depends on more than $r_1$
 (Theorem~\ref{thm:family} and Proposition~\ref{prop:cutoffsharp}).
 \item The infimum along $(r,3,5,7)$ for $1<r<\rho_1=1.0745\ldots$ in closed
 form.  Theorem~\ref{thm:familylow} gives it on $[\rho_1,\tfrac{13}{10}]$ in
-seven pieces, and Theorem~\ref{thm:familyone} with
+seven pieces, Theorem~\ref{thm:familyone} with
 Corollary~\ref{cor:familyone} shows that infinitely many pieces accumulate
-at $r=1$, that the worst placement is $\log_3\frac1{r-1}+O(1)$, and that
-$\inf_Qb_2(QP_r)-24$ is of exact order $(r-1)^\alpha$,
-$\alpha=\log(5/3)/\log3$.  Open: the pieces themselves on $(1,\rho_1)$
-(numerically the zero set minimising $\tau(\{x\})$ is $\{1,c,x\}$ with
-$c\in\{3,4\}$ or $\{1,x,z\}$ with $z$ growing as $r$ decreases, and by
-Theorem~\ref{thm:familyone}(b) its cost tends to that of $\{1,x\}$ at
-$(3,5,7)$), and whether $(\inf_Qb_2(QP_r)-24)(r-1)^{-\alpha}$ has a limit
-as $r\to1^+$, or oscillates as the integer worst placement moves.
+at $r=1$ and that $\inf_Qb_2(QP_r)-24$ is of exact order $(r-1)^\alpha$,
+$\alpha=\log(5/3)/\log3$, and Theorem~\ref{thm:familyosc} shows that
+$(\inf_Qb_2(QP_r)-24)(r-1)^{-\alpha}$ has no limit, its limit points filling
+$[80\cdot18^{-\alpha},\tfrac{400}3\cdot18^{-\alpha}]$; in its notation, for
+$r$ near $1$ with $\delta\le\omega\le1-\delta$ the worst placement is $\{x^*\}$, with
+minimising zero set $\{1,x^*,z\}$ for some $z\ge x^*+3$.  Open: the pieces
+themselves, that is, which $z$ (the $z$-th piece ends where the witness
+entry $s_z$ of Lemma~\ref{lem:eighteen}(a) reaches $\pm1$), an explicit
+$r_\delta$ in Theorem~\ref{thm:familyosc}(a), and the transition near the
+jumps, where the placements $x^*$ and $x^*+1$ compete (numerically the zero
+set minimising $\tau(\{x^*+1\})$ there is $\{1,c,x^*+1\}$ with
+$c\in\{3,4\}$; at $r=\tfrac{101}{100}$ the worst placement is $\{7\}$, not
+$x^*=6$).  In particular: does $\Delta(r)-\Phi(\omega(r))\to0$ uniformly on
+$0<\omega\le1-\delta$; and when $3^x(r-1)\to\kappa>18$ with $x\to\infty$,
+does $\tau(\{x\})$ tend to $\min_{c\ge2}(t(c)+\ell(c)/\kappa)$, the limit of
+the bounds of Lemma~\ref{lem:eighteen}(b)?
 \end{itemize}
 
 \paragraph{Relation to the literature.}  The nearest work is the reduced
@@ -2530,8 +2842,9 @@ with helpers in \texttt{tests/sweep.py}, of the repository
 and run with \texttt{uv run pytest tests/test\_attainment.py}.
 
 \paragraph{Computer assistance.}
-Four computations are computer-assisted: steps of the proofs of
+Five computations are computer-assisted: steps of the proofs of
 Theorems~\ref{thm:elevenvalue}, \ref{thm:family} and~\ref{thm:familylow},
+the example at $r=\tfrac{5701}{5700}$ after Theorem~\ref{thm:familyosc},
 and the failure of
 \eqref{eq:runchord} above the cutoff.  In
 Theorem~\ref{thm:elevenvalue}, the sum $H$, its tail, the threshold $N=11$
@@ -2552,7 +2865,13 @@ $n=6,\ldots,13$ and the tails of the full certificates $\{1,3,x\}$
 $\mathbb Q(r)$ in \texttt{test\_family\_below}, and every sign of a rational
 function on an interval that its proof uses is decided by Sturm sequences
 over $\mathbb Q$ between rational endpoints; Appendix~\ref{sec:familydata}
-lists the tails, the breakpoint polynomials and one witness.  The statement after
+lists the tails, the breakpoint polynomials and one witness.  At
+$r=\tfrac{5701}{5700}$, \texttt{test\_family\_oscillation} solves the
+$4\times4$ system for the witness of the zero set $\{1,10,1335\}$ and the
+certificate itself over $\mathbb Q$, forms its tail from the sign pattern
+as a combination of geometric sums, and compares it with $t(x)$ for
+$4\le x\le9$ and with the bound of Lemma~\ref{lem:eighteen}(b) for
+$11\le x\le20$.  The statement after
 Proposition~\ref{prop:runchord} that \eqref{eq:runchord} can fail above the
 cutoff rests on the two rationals computed in
 \texttt{test\_run\_chord\_control\_above\_cutoff}.  All arithmetic is exact:
@@ -2560,9 +2879,11 @@ rationals are Python \texttt{fractions.Fraction}, and $\mathbb Q(r)$ is
 represented by quotients of polynomials with \texttt{Fraction}
 coefficients, a small class defined in the test file; no floating point and
 no computer algebra system is used, and every decimal in the paper is a
-truncation of an exact rational or of a zero of an explicit polynomial.  The
-floating-point search reported after Theorem~\ref{thm:familylow} is
-exploration, used in no proof and not part of the tests.  The other computations only check steps
+truncation of an exact rational, of a zero of an explicit polynomial, or
+of an explicit constant such as $\alpha$ or $80\cdot18^{-\alpha}$.  The
+floating-point searches reported after Theorems~\ref{thm:familylow}
+and~\ref{thm:familyosc} and in Section~\ref{sec:scope} are exploration,
+used in no proof and not part of the tests.  The other computations only check steps
 proved by hand: the example after Theorem~\ref{thm:extremal}
 (\texttt{test\_extremal\_example\_2357}); the multiple $F$ of
 Proposition~\ref{prop:belowtwo} and the certificate with zero set
@@ -2579,7 +2900,12 @@ is a polynomial of degree at most $2$ in each variable, so agreement on a
 $4\times4\times4$ grid proves it), together with the rational inequalities
 behind Lemma~\ref{lem:threenode}(c) and the witness at
 $r=\tfrac{101}{100}$; the estimates with logarithms in the proof of
-Theorem~\ref{thm:familyone} are by hand.  The file
+Theorem~\ref{thm:familyone} are by hand.  In
+\texttt{test\_family\_oscillation} the solution for $p,q,\theta'$, the
+constants $15,6,14$, the identity at the start of the path in
+Lemma~\ref{lem:eighteen}(a), the closed forms in (c) with $K_c>18$ for
+$c\le60$, and the sum $g$ of (b) are checked in the same way; the limits
+in the proof of Theorem~\ref{thm:familyosc} are by hand.  The file
 also holds tests used in no proof: seeded random exact checks of
 Proposition~\ref{prop:runchord} and of the identity in
 Theorem~\ref{thm:halfmass}(b), and exact linear programs over monic

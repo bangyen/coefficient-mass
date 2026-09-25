@@ -10,9 +10,9 @@ is open; an answer lands in the paper it extends, and the row leaves.
   threshold like `thm:halfmass` for `u >= 2`; which root sets below 2 keep
   the escaping placement extremal; the pieces along `(r,3,5,7)` for
   `1 < r < 1.0745...`, where `thm:familylow` stops (infinitely many
-  accumulate at `r = 1` by `cor:familyone`), and whether
-  `(inf b_2 - 24)(r-1)**(-alpha)` has a limit as `r -> 1+`
-  (`thm:familyone`).
+  accumulate at `r = 1` by `cor:familyone`; near 1, off the jumps, the
+  worst placement is `x*` with zero set `{1,x*,z}` by `thm:familyosc`, but
+  which `z`, and the transition near the jumps, are open).
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
   separation for the mass, between `2 + 1/18915` and 81 (at most 9 for two
   annuli with `n_2 <= 8`, `cor:rowstwo`), and whether 9 suffices; the least
@@ -85,15 +85,34 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `x >= 4`.  Hence the limit is 24 (the value at `(3,5,7)`), the worst
   placement tends to infinity, and `T` agrees with no finite set of
   rational functions near 1, so infinitely many pieces accumulate there
-  (`cor:familyone`).  Along `(r,5,7)` it fails for every `r < 2`
+  (`cor:familyone`).  The constant does not converge (Closed, negatively;
+  `lem:eighteen`, `thm:familyosc`): with `x*` the largest integer with
+  `3**x* (r-1) < 18`, the witness with the flip corrected at positions 1
+  and `x` makes `tau({x}) = t(x) - O(3**-x)` exactly, with minimising zero
+  set `{1,x,z}`, while `3**x (r-1) < 18`, and above 18 the certificate
+  `U^(c)` plus a small weight on `1/r` costs about
+  `t(c) + ell(c)/(3**x (r-1)) < 1/24 - eta` (as
+  `K_c = ell(c)/(1/24 - t(c)) > 18`, `K_c -> 18`).  So off neighbourhoods
+  of the jumps `{x*}` is the only worst placement,
+  `inf b_2 - 24 = (80 + o(1))(3/5)**x*`, and
+  `(inf b_2 - 24)(r-1)**(-alpha)` oscillates log-periodically: its limit
+  points fill `[80 * 18**(-alpha), (400/3) 18**(-alpha)] = [20.865...,
+  34.775...]`, the limit along `r = 1 + 18 * 3**(-n-w)` being
+  `80 * 18**(-alpha) (5/3)**w`.  Exactly at `r = 5701/5700`:
+  `T = tau({10})`, the tail of `{1,10,1335}`, `inf b_2 = 24.4788...`
+  (`tests/test_attainment.py`).  Along `(r,5,7)` it fails for every `r < 2`
   (`prop:cutoffsharp`).  Open (`sec:scope`): an a priori bound on the zero
   set minimising one `tau({x})` (to make `u = 1` a finite computation
   outright), a threshold like `N` for `u >= 2`, which root sets below 2
   keep the escaping placement extremal (it depends on more than `r_1`),
-  the pieces along `(r,3,5,7)` on `(1, 1.0745...)` themselves (numerically
-  zero sets `{1,c,x}`, `c = 3, 4`, or `{1,x,z}` with `z` growing), and
-  whether `(inf b_2 - 24)(r-1)**(-alpha)` converges as `r -> 1+` or
-  oscillates with the integer worst placement.
+  the pieces along `(r,3,5,7)` on `(1, 1.0745...)` themselves (which `z` in
+  `{1,x*,z}`: a piece ends where the witness entry `s_z` reaches `+-1`), an
+  explicit range of `r` in `thm:familyosc` (a), and the transition near the
+  jumps, where `x*` and `x* + 1` compete (numerically with zero sets
+  `{1,c,x*+1}`, `c = 3, 4`; at `r = 101/100` the worst placement is 7, not
+  `x* = 6`): whether the constant minus its limit function tends to 0
+  uniformly for `0 < w <= 1 - delta`, and whether `tau({x})` tends to
+  `min_c (t(c) + ell(c)/kappa)` when `3**x (r-1) -> kappa > 18`.
 
 - **Coefficient mass at complex roots.**  Purely imaginary pairs are Closed
   ([coefficient-mass-complex](papers/coefficient-mass-complex.tex), split
