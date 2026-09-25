@@ -43,8 +43,10 @@ fixed $\delta<\pi/2$ and $(\frac12-o(1))K^2\log R$ when $\delta K\to0$, as
 $K,R\to\infty$; both constants are sharp, and $x^N-\rho^N$ attains the
 first.  At distinct Gaussian-integer roots in the upper half-plane, degree
 charging removes the degree restriction: integer multiples of every degree
-pay $(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$ as $K\to\infty$.  Two integer imitations of
-$x^N-\rho^N$ are limited, and a small second row confines the roots to one
+pay $(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$ as $K\to\infty$.  Integer imitations of
+$x^N-\rho^N$ are limited, symmetric root sets show that a bound
+$\Lambda\ge cK^2\log R$ for all integer multiples would need $c\le\frac12$
+in sectors wider than a right angle, and a small second row confines the roots to one
 level set of a polynomial with small nonleading coefficients.
 \end{abstract}
 
@@ -124,11 +126,19 @@ $\pi(X+1)^2$ Gaussian integers have modulus below $X$,
 $(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$ as $K\to\infty$, uniformly in
 $R$ (Corollary~\ref{cor:gausscount}).  Whether $\Lambda(F)\ge cK^2\log R$
 holds for all integer multiples at distinct Gaussian roots in the upper
-half-plane and in a sector of fixed half-width is open.
+half-plane and in a sector of fixed half-width $\delta$ is open.  Root sets
+closed under $z\mapsto-\bar z$, or under $z\mapsto iz$ up to conjugation, make
+the product of the minimal polynomials of the $\alpha_j$ a polynomial in $x^2$,
+respectively $x^4$, of mass at most $(1+o(1))K^2\log R$, respectively
+$(\frac12+o(1))K^2\log R$; so such a $c$ is at most $1$, and at most
+$\frac12$ when $\delta>\pi/4$ (Proposition~\ref{prop:gausspower}).
 
-\paragraph{Integer imitations.}  Two integer imitations of $x^N-\rho^N$ are
+\paragraph{Integer imitations.}  Integer imitations of $x^N-\rho^N$ are
 limited: $A((x-t)^N)$ has at most two Gaussian roots in the upper
-half-plane per root of $A$ (Lemma~\ref{lem:gaussbinom}), and at odd,
+half-plane per root of $A$ (Lemma~\ref{lem:gaussbinom}), a polynomial in $x^N$
+pays $\frac N2\log|\alpha_j|$ for each root $\alpha_j$, where $x^N-\rho^N$ pays
+$N\log\rho$ for all its roots together (Proposition~\ref{prop:gausspower}),
+and at odd,
 pairwise coprime norms $|\alpha_j|^2$ with
 $\gcd(\operatorname{Re}\alpha_j,\operatorname{Im}\alpha_j)=1$ a gap $m$ after
 the lowest coefficient, that is, $m-1$ vanishing coefficients after it,
@@ -412,9 +422,11 @@ $(\frac\pi{2\delta}-o(1))K\log K$ as $K\to\infty$, whatever $R$
 (Corollary~\ref{cor:gausscount}).
 In wide sectors a bound $\Lambda\ge cK^2\log R$ valid for all root sets is
 therefore false for real multiples.  For integer
-multiples at Gaussian roots it is open; Section~\ref{sec:imitations} gives two
+multiples at Gaussian roots it is open; Section~\ref{sec:imitations} gives
 limits on integer imitations of $x^N-\rho^N$ (Lemma~\ref{lem:gaussbinom},
-Proposition~\ref{prop:gausslow}) and a reduction of the second row to level
+Propositions~\ref{prop:gausspower} and~\ref{prop:gausslow}), shows that such a
+$c$ is at most $1$, and at most $\frac12$ when $\delta>\pi/4$
+(Proposition~\ref{prop:gausspower}), and reduces the second row to level
 sets (Proposition~\ref{prop:gaussheavy}).
 
 For $0<\delta\le\pi/2$ put
@@ -745,8 +757,10 @@ $N$; here a polynomial $F$ with lowest nonzero coefficient $f_e$ has a
 that is, if $F=x^e(f_e+x^mG)$ for a polynomial $G$.  The two integer
 imitations of $x^N-\rho^N$ are limited at Gaussian roots: a
 polynomial $A((x-t)^N)$ has at most $2\deg A$ Gaussian roots in the upper
-half-plane, and under the hypotheses of Proposition~\ref{prop:gausslow},
-item~2, a long gap after the lowest coefficient is expensive.
+half-plane, a polynomial in $x^N$ pays $\frac N2\log\rho_j$ for each root
+(Proposition~\ref{prop:gausspower}), and under the hypotheses of
+Proposition~\ref{prop:gausslow}, item~2, a long gap after the lowest
+coefficient is expensive.
 
 \begin{lemma}[Polynomials in $(x-t)^N$]\label{lem:gaussbinom}
 Let $A\in\mathbb Z[y]$ be nonzero of degree $s$, $t\in\mathbb Z$ and $N\ge1$.
@@ -772,6 +786,92 @@ So $x^N-b$, $b\in\mathbb Z$, carries at most two of the prescribed roots
 $\alpha_j$, whatever $N$ and $b$, where Proposition~\ref{prop:widesharp} needs
 $K$; more generally $A(x^N)$, whose mass is that of $A$
 \cite[Theorem~2.2]{coefficient-mass-complex}, carries at most $2\deg A$ of them.
+Its mass also grows with $N$: each root costs $\frac N2\log\rho_j$, where
+$x^N-\rho^N$ pays $N\log\rho$ for all its roots together.  Conversely,
+root sets symmetric under a unit make $P$ itself a polynomial in $x^2$ or
+$x^4$, which bounds the constant of any bound of order $K^2\log R$.
+
+\begin{proposition}[Polynomials in a power]\label{prop:gausspower}
+In the setting of Section~\ref{sec:gaussian}, put $\rho_{\max}=\max_j\rho_j$.
+\begin{enumerate}
+\item If $F=A(x^N)$ with $N\ge1$ and $A\in\mathbb Z[y]$ is nonzero and
+divisible by $P$, then $\Lambda(F)\ge\frac N2\sum_j\log\rho_j$, with equality
+for $x^4+4k^4$, $k\ge1$, whose roots above the axis are $k(\pm1+i)$.
+\item Let $Z=\{\alpha_j,\bar\alpha_j\}_j$ be the set of the $2K$ roots of $P$.
+If $-Z=Z$, then $P=A(x^2)$ and
+$\Lambda(P)\le K(K+1)\log\rho_{\max}+K(K-1)\log2$.  If $iZ=Z$, then $K$ is even,
+$P=A(x^4)$ and
+$\Lambda(P)\le(\frac{K^2}2+K)\log\rho_{\max}+\frac K2(\frac K2-1)\log2$.
+\item Let $0<\delta<\pi/2$ and let $s,R\ge1$ be integers with
+$R\ge\max(s,\cot\delta)$.  The $K=2s$ points $\pm1+ic$, $R\le c<R+s$, lie in
+$\{z:R\le|z|\le2R,\ |\arg z-\frac\pi2|\le\delta\}$ and satisfy the first
+hypothesis of item~2, so their $P$ has
+$\Lambda(P)\le K(K+1)\log(2R)+K(K-1)\log2$.  If $\delta>\pi/4$ and
+$R\ge1/(1-\cot\delta)$ as well, the $K=4s$ points $a+i(a-1)$, $-(a-1)+ia$,
+$-a+i(a-1)$, $(a-1)+ia$, $R\le a<R+s$, lie in
+$\{z:R\le|z|\le2\sqrt2R,\ |\arg z-\frac\pi2|\le\delta\}$ and satisfy the
+second, so their $P$ has
+$\Lambda(P)\le(\frac{K^2}2+K)\log(2\sqrt2R)+\frac{K^2}4\log2$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+1.  Write $F=x^{Nk}A_0(x^N)$ with $A_0\in\mathbb Z[y]$ and $A_0(0)\ne0$; then
+$A_0(0)$ is a coefficient of $F$ and $A_0(\alpha_j^N)=0$ for every $j$.  Sort
+the $\alpha_j$ into classes by the set $\{\beta,\bar\beta\}$ with
+$\beta=\alpha_j^N$, and let $M_\beta\in\mathbb Z[y]$ be the minimal polynomial of
+$\beta$: $y-\beta$ if $\beta$ is real, $y^2-2(\operatorname{Re}\beta)y+|\beta|^2$ otherwise.
+The $M_\beta$ of distinct classes are distinct, monic and irreducible, so their
+product divides $A_0$ in $\mathbb Z[y]$, and $\prod|M_\beta(0)|\le|A_0(0)|$.  All
+members of a class have the modulus $\rho=|\beta|^{1/N}$.  As in the proof of
+Lemma~\ref{lem:gaussbinom}, at most two $\alpha$ above the axis have
+$\alpha^N=\beta$ and at most two have $\alpha^N=\bar\beta$; so a class has at
+most two members if $\beta$ is real, when $|M_\beta(0)|=\rho^N$, and at most
+four otherwise, when $|M_\beta(0)|=\rho^{2N}$.  Either way
+$\log|M_\beta(0)|\ge\frac N2\sum\log\rho_j$ over the members of the class, and
+summing over the classes,
+$\Lambda(F)\ge\log|A_0(0)|\ge\frac N2\sum_j\log\rho_j$.  For $x^4+4k^4$,
+$N=4$ and $\rho_j=k\sqrt2$, so both sides are $\log(4k^4)$.
+
+2.  If $-Z=Z$, then
+$P(-x)=\prod_{z\in Z}(-x-z)=\prod_{z\in Z}(x+z)=P(x)$ and $P=A(x^2)$, where $A$
+is monic of degree $K$ with the zeros $z^2$, one for each pair $\pm z$, all of
+modulus at most $\rho_{\max}^2$.  The coefficient of $y^{K-k}$ in $A$ has
+modulus at most $\binom Kk\rho_{\max}^{2k}$, and $\binom Kk\le2^{K-1}$, so
+$\Lambda(P)=\Lambda(A)\le\sum_{k=1}^{K}2k\log\rho_{\max}+(K-1)^2\log2$.
+If $iZ=Z$, then also $-iZ=Z$, so
+$P(ix)=\prod_{z\in Z}i(x+iz)=i^{2K}P(x)$, and every coefficient $p_k\ne0$ has
+$i^k=i^{2K}$; as $p_0=P(0)\ne0$, $4\mid 2K$ and $P=A(x^4)$ with $A$ monic of
+degree $K/2$, with zeros of modulus at most $\rho_{\max}^4$, and the same count
+gives the bound.
+
+3.  For $\pm1+ic$: $\sqrt{1+c^2}\in[c,c+1]\subset[R,2R]$ as $s\le R$, and
+$|\arg(\pm1+ic)-\frac\pi2|=\arctan(1/c)\le\delta$ as $c\ge\cot\delta$.  For
+the second family, $R\ge1/(1-\cot\delta)>1$ gives $a\ge2$, so the four points
+have imaginary part at least $1$; they have the modulus
+$\sqrt{2a^2-2a+1}\in[a,\sqrt2a]\subset[R,2\sqrt2R]$, and arguments $\theta$,
+$\frac\pi2\pm\theta$, $\pi-\theta$, with $\tan\theta=(a-1)/a\in[\cot\delta,1)$,
+so $\frac\pi2-\delta\le\theta<\frac\pi4$ and all four are within $\delta$ of
+$\frac\pi2$.  For the first family $Z$ is the set of the $\pm1\pm ic$, so
+$-Z=Z$; for the second it is the set of the $\pm a\pm i(a-1)$ and
+$\pm(a-1)\pm ia$, and $i(u+iv)=-v+iu$ gives $iZ=Z$.  Distinct $c$,
+respectively $a$, give distinct moduli, so the points are distinct.  Item~2
+applies with $\rho_{\max}\le2R$, respectively $2\sqrt2R$, and
+$\frac K2(\frac K2-1)\le\frac{K^2}4$.
+\end{proof}
+
+By item~1 an integer multiple that is a polynomial in $x^N$ with
+$N\ge\lambda K$ pays at least $\frac\lambda2K^2\log R$; it improves on
+$\Lambda(F)\ge\log P(0)=2\sum_j\log\rho_j$ once $N>4$.  By item~3, as
+$K,R\to\infty$ with $K\le2R$ (respectively $K\le4R$), the multiple $P$ has
+$\Lambda(P)\le(1+o(1))K^2\log R$ in every sector about the imaginary axis,
+and $\Lambda(P)\le(\frac12+o(1))K^2\log R$ in one of half-width
+$\delta>\pi/4$.  So a bound $\Lambda(F)\ge cK^2\log R$ for all integer
+multiples at all such root sets needs $c\le1$, and $c\le\frac12$ when
+$\delta>\pi/4$.  The root sets of item~3 lie within $\arctan(1/R)$ of the
+imaginary axis, respectively within about $1/(2R)$ of the two diagonals, so
+for them Theorem~\ref{thm:thingauss} gives order $K^2\log R$ once $K$ is
+at most a small multiple of $R/\log R$; they bound $c$ and are not counterexamples.
 
 For the gap, recall $P(0)=\prod_j\rho_j^2$; as $P(0)\ne0$, $1/P$ is a power
 series at $0$.

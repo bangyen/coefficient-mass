@@ -118,7 +118,14 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `gcd(a_j, c_j) = 1` a multiple can be `f mod x^m` exactly when
   `P(0)**m | f`, so a gap `m` after the lowest coefficient costs
   `2Km log rho_min`, while at a common norm `n` the lowest `m`
-  coefficients can be `n**(K+m-1), 0, ..., 0` (`prop:gausslow`).  If
+  coefficients can be `n**(K+m-1), 0, ..., 0` (`prop:gausslow`).  A
+  multiple `A(x^N)` pays `(N/2) log rho_j` for each root, against
+  `N log rho` for all the roots of `x^N - rho^N`; root sets with `-Z = Z`
+  (`iZ = Z`), `Z` the roots of `P`, make `P = A(x^2)` (`A(x^4)`) with
+  `Lambda(P) <= (1 + o(1)) K**2 log R` (`(1/2 + o(1)) K**2 log R`), so a
+  constant `c` in `c K**2 log R` is at most 1, and at most 1/2 when
+  `delta > pi/4` (`prop:gausspower`; the root sets lie near one or two
+  rays, where `thm:thingauss` gives order `K**2 log R`).  If
   `rho_min > 2` and `b_2(F) < rho_min/2`, `F = x**e (v + H)` with every
   nonleading coefficient of `H` below `rho_min/2`, so all the roots lie in one
   level set `H(y) = -v` (`prop:gaussheavy`); three Gaussian points above the
