@@ -37,14 +37,15 @@ is open; an answer lands in the paper it extends, and the row leaves.
   roots in a thin sector are CLOSED (`lem:sectorcount`, `thm:thinsector`,
   `thm:thingauss`: the argument principle forces a real crossing
   polynomial with `K/2` large roots unless the degree is `>> K/delta`,
-  which block charging pays).  Real roots of both signs (`sec:bothsigns`):
+  which block charging pays; at Gaussian roots `thm:thingauss` gives
+  order `K**2 log R` when `delta K log(1/delta) = O(1)`).  Real roots of both signs (`sec:bothsigns`):
   Rolle on each half-line gives rows charging one root of each sign per
   excluded coefficient (`thm:bothsigns`) and mass
   `floor((L+1)**2/4) log(R/2)`, sharp at `+-s_j` (`cor:bothsignsmass`,
   `prop:bothsignssharp`).  Wide sectors (`sec:widesectors`): multiples of degree `O(K)` pay
   `(1/2 - o(1)) K**2 log R` as `K, R -> oo` with `delta K -> 0` (sharp on a
-  common ray) and `(pi/delta - o(1)) K log R` at fixed `delta`, `K, R -> oo` (`thm:widesector`,
-  `cor:wideconst`; `x^N - rho^N` attains `pi/delta`, `prop:widesharp`), so
+  common ray, `cor:thinconst`) and `(pi/delta - o(1)) K log R` at fixed
+  `delta`, `K, R -> oo` (`thm:widesector`, `cor:wideconst`; `x^N - rho^N` attains `pi/delta`, `prop:widesharp`), so
   `c K**2 log R` is false over the reals; at Gaussian roots and fixed
   `delta`, `(pi/delta - o(1)) K log R` holds at every degree (`cor:widegauss`).
   Two integer imitations of `x^N - rho^N` are limited: `A((x-t)^N)` has at most
