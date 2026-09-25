@@ -42,7 +42,7 @@ every $b_k$ and of $\Lambda$ over monic multiples is the same as at the real
 roots $|s_j|$ ($c^2$ for $\pm ic$).  Without such structure only the
 first row survives: $b_1(F)\ge|f_D|\prod_j(|\alpha_j|-1)$ at arbitrary roots
 of modulus greater than one, while $b_2$ and every superlinear mass bound
-fail for pairs within any fixed angle of the imaginary axis.  Rows and mass
+fail to hold uniformly over pairs within any fixed angle of the imaginary axis.  Rows and mass
 return, up to constants, when the moduli are separated by a factor $9$, by
 an Archimedean Newton polygon argument.  With $K_s$ roots of modulus at
 least $T_s$ in the $s$-th of $S$ annuli, with $T_1>3$ and consecutive annuli separated by
@@ -255,8 +255,8 @@ multiples of $P_{\rm re}$.  In particular, with $c_1^2\ge2$ and $K\ge2$,
   K^2+\sum_{j=1}^Kj\log(c_j^2-1)
 \]
 with the absolute constants of \cite[Corollary~4.3]{coefficient-mass};
-$\Lambda(F)\ge K^2/80$ for monic $F$ when $K\ge8$; and the row $k=2$ is an
-infimum at $(c_1^2,c_2^2)=(2,3)$.
+$\Lambda(F)\ge K^2/80$ for monic $F$ when $K\ge8$; and for $K=2$ the row
+$k=2$ is an infimum at $(c_1^2,c_2^2)=(2,3)$.
 \end{enumerate}
 \end{corollary}
 
@@ -931,8 +931,9 @@ by those of $F/f_D$.
 The exclusions cost one root of each sign, and in the worst case the largest
 one: $\Pi_k$ omits $a_1,\ldots,a_{k-1}$ and $c_1,\ldots,c_{k-1}$.  This is the
 opposite of \cite[Theorem~3.2]{coefficient-mass}, which omits the smallest roots, so
-\eqref{eq:bothrowsbound} is the right tool when the moduli are comparable, and
-it is sharp there.
+\eqref{eq:bothrowsbound} is the right tool when the moduli are comparable,
+and the mass bound it yields has the sharp constant $\frac14$
+(Proposition~\ref{prop:bothsignssharp}).
 
 \begin{corollary}[Mass at real roots of both signs]\label{cor:bothsignsmass}
 Let $F\in\mathbb C[x]$ be nonzero with $|f_D|\ge1$, divisible by
@@ -1278,8 +1279,8 @@ constant is attained
 Proposition~\ref{prop:widesharp}); at Gaussian roots and fixed $\delta$ the
 degree restriction is removed by Theorem~\ref{thm:gausscharge}
 (Corollary~\ref{cor:widegauss}).
-In wide sectors a bound $\Lambda\ge cK^2\log R$ is therefore false for real
-multiples.  For integer
+In wide sectors a bound $\Lambda\ge cK^2\log R$ valid for all root sets is
+therefore false for real multiples.  For integer
 multiples at Gaussian roots it is open; the section ends with two limits on
 integer imitations of $x^N-\rho^N$ (Lemma~\ref{lem:gaussbinom},
 Proposition~\ref{prop:gausslow}).
@@ -1491,8 +1492,10 @@ real polynomial $x^N-\rho^N$.
 
 Its degree is at most $(\pi/\delta+1)K$, so Corollary~\ref{cor:wideconst}
 applies with $\lambda=\pi/\delta+1$: the constant $\pi/\delta$ of the angle
-mechanism is sharp in every sector of half-width $\delta<\pi/2$.  In a sector of fixed half-width the
-least mass guaranteed for every set of $K$ roots is therefore linear in $K$, and $\Lambda\ge cK^2\log R$ fails already
+mechanism is sharp in every sector of half-width $\delta<\pi/2$.  In a sector of fixed half-width no
+lower bound valid for all sets of $K$ roots is therefore better than linear
+in $K$ (particular root sets, such as roots on one ray, still cost
+quadratic mass by Corollary~\ref{cor:ray}), and $\Lambda\ge cK^2\log R$ fails already
 for the monic real multiple $x^N-\rho^N$.  The thin-sector term is sharp too.
 
 \begin{corollary}[The constant $\frac12$]\label{cor:thinconst}
@@ -1669,7 +1672,8 @@ some multiple has lowest $m=O(K)$ coefficients $(d_m,0,\ldots,0)$, of mass
 $\log d_m\le(K+m-1)\log n$, and no bound that looks only at them gives order
 $K^2\log R$ at every root set.
 
-Nor, numerically, does a single heavy coefficient suffice.  If $F=H(x)-v$ with
+Nor, numerically, can a multiple whose mass sits in a single heavy
+coefficient carry many prescribed roots.  If $F=H(x)-v$ with
 $H(0)=0$ and $v\in\mathbb Z$, the prescribed roots of $F$ are Gaussian $y$ with
 $\operatorname{Im}y>0$ at which $H$ takes the real value $v$.  An exhaustive
 search over the $H\in\mathbb Z[y]$ with $H(0)=0$, positive leading coefficient,
