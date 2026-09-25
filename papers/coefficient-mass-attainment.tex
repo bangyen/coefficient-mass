@@ -40,29 +40,18 @@ $P=\prod_{i=1}^L(x-r_i)$ with leading coefficient $f_D$, the companion
 paper~\cite{coefficient-mass} proves that the $(u+1)$-st largest nonleading
 coefficient magnitude satisfies $b_{u+1}\ge|f_D|\prod_{i>u}(r_i-1)$.  We show
 that this bound is the infimum over monic multiples exactly when every
-partial sum of the coefficients of the surviving factor
-$P_u=\prod_{i>u}(x-r_i)$, taken from the leading one, is at most $|P_u(1)|$
-in absolute value, repeated roots included.  For any real roots above $1$ we
-express the infimum as $1/T$ for a placement game: $T$ is the supremum, over
-the positions of the exempt coefficients (the $u$ largest nonleading ones,
-which $b_{u+1}$ ignores), of the least $\ell^1$ tail of an exponential sum
-on the reciprocal roots with value $1$ at $0$ and zeros at their distances
-below the leading coefficient.  We show that the placement in which the exempt coefficients escape to the
-bottom costs, in the limit, $\tau^*$, the least $\ell^1$ tail of an exponential sum on the
-reciprocals of the surviving roots with value $1$ at $0$, and identify
-$1/\tau^*$ with $\min_M\max_{j\ge1}|S_j(P_uM)|$ over monic multipliers $M$,
-where $S_j$ is the sum of the $j+1$ leading coefficients.  For roots at least $2$, repeated roots
-included, the escaping placement is the worst one, so the infimum is exactly
-$1/\tau^*$; below $2$ it can be strictly smaller.  For distinct roots
-above $1$ and one exempt coefficient, $T$ is the larger of $\tau^*$ and
-finitely many single-placement values; with an explicit multiplier and
-finitely many exact certificates this gives the infimum
-$\tfrac{3398808}{96935}$ at $(\tfrac{11}{10},3,5,7)$, and along
-$(r,3,5,7)$, $1<r<3$, the escaping placement is the worst one exactly when
-$r\ge r_c=1.4658\ldots$, while along $(r,5,7)$ it is not for any
-$1<r<2$.  The infimum of $b_{u+1}$
-over monic multiples is never attained.  Along the way we extend the underlying tail comparison to
-confluent nodes, with strictness.
+partial sum of the leading coefficients of $P_u=\prod_{i>u}(x-r_i)$ is at
+most $|P_u(1)|$ in absolute value, repeated roots included.  For all real
+roots above $1$ we express the infimum as $1/T$, where $T$ is the value of a
+game over the positions of the $u$ coefficients that $b_{u+1}$ ignores,
+played with $\ell^1$ tails of exponential sums on the reciprocal roots.
+When these positions escape to the bottom the value is $\tau^*$, with
+$1/\tau^*=\min_M\max_{j\ge1}|S_j(P_uM)|$ over monic $M$, where $S_j$ is the
+sum of the $j+1$ leading coefficients.  For roots at least $2$ we prove
+$T=\tau^*$, so the infimum is $1/\tau^*$.  Below $2$ this fails: at
+$(\tfrac{11}{10},3,5,7)$ with $u=1$ a reduction to finitely many positions
+and an exact computation give the infimum $\tfrac{3398808}{96935}$, below
+$1/\tau^*$.  The infimum is never attained.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; reduced
@@ -101,70 +90,66 @@ coefficient bound.
 \paragraph{Main results.}  Write $P=\prod_{i=1}^L(x-r_i)$, let
 $P_u=\prod_{i>u}(x-r_i)$ be the factor of the $m=L-u$ surviving roots, and let
 $S_j(P_u)$ be the sum of its $j+1$ leading coefficients, those of
-$x^m,\ldots,x^{m-j}$ (so $S_0(P_u)=1$); since $\deg P_u=m$, $S_j(P_u)=P_u(1)=(-1)^m\prod_{i>u}(r_i-1)$ once $j\ge m$.  All
-infima below are of $b_{u+1}(QP)$ over monic $Q\in\R[x]$, and the
-\emph{exempt} coefficients are the $u$ largest nonleading ones, which
-$b_{u+1}$ ignores.
+$x^m,\ldots,x^{m-j}$.  Thus $S_0(P_u)=1$, and
+$S_j(P_u)=P_u(1)=(-1)^m\prod_{i>u}(r_i-1)$ for $j\ge m$.  All infima below
+are of $b_{u+1}(QP)$ over monic $Q\in\R[x]$.  The \emph{exempt}
+coefficients are the $u$ largest nonleading ones, which $b_{u+1}$ ignores.
 
 \emph{The criterion.}  For $2\le r_1\le\cdots\le r_L$, repetitions allowed,
 \eqref{eq:order} is the infimum if and only if
 \[
   |S_j(P_u)|\le|P_u(1)|\qquad(1\le j<m),
 \]
-which is condition \eqref{eq:partial} below (Proposition~\ref{prop:partial},
-Theorem~\ref{thm:converse} and Corollary~\ref{cor:charrep}).  For distinct roots the multiples
-approaching the bound carry a short prefix $S_1(P_u),\ldots,S_{m-1}(P_u)$, a
-long run of the value $P_u(1)$, and $u$ free coefficients at the bottom,
-which the bound on $b_{u+1}$ discards; at repeated roots sufficiency comes from duality instead.
+which is condition \eqref{eq:partial} below (Corollary~\ref{cor:charrep}).
+For distinct roots the multiples approaching the bound carry a short prefix
+$S_1(P_u),\ldots,S_{m-1}(P_u)$, a long run of the value $P_u(1)$, and $u$
+free coefficients at the bottom, which $b_{u+1}$ discards.
 
-\emph{The value.}  For $1<r_1\le\cdots\le r_L$ the infimum is $1/T$, where
-$T$ is the supremum, over placements $X\subset\N_{>0}$ of the $u$ exempt coefficients, $X$ being
-their distances below the leading coefficient, of
-the least tail $\sum_{d\ge1}|v_d|$ of an exponential sum
-$v_d=\sum_i\lambda_ir_i^{-d}$ with $v_0=1$ and $v|_X=0$, a
-\emph{certificate} for $X$
-(Theorems~\ref{thm:value} and~\ref{thm:valuerep}; for repeated roots, $v$
-ranges over the Hermite space of the roots).  The placement in which
-the exempt coefficients escape to the bottom costs, in the limit, $\tau^*$, the
-least tail of a sum with $v_0=1$ on the surviving roots alone and no
-prescribed zeros, so
-$T\ge\tau^*$; and $\tau^*$ is attained, with
+\emph{The value.}  Record the positions of the exempt coefficients by their
+distances below the leading coefficient, a \emph{placement}
+$X\subset\N_{>0}$ with $|X|=u$.  A \emph{certificate} for $X$ is an
+exponential sum $v_d=\sum_i\lambda_ir_i^{-d}$ with $v_0=1$ and $v|_X=0$
+(for repeated roots, an element of the Hermite space of the roots), and
+$\tau(X)$ is the least tail $\sum_{d\ge1}|v_d|$ of a certificate for $X$.
+For $1<r_1\le\cdots\le r_L$ the infimum is $1/T$ with
+$T=\sup_{|X|=u}\tau(X)$ (Theorem~\ref{thm:valuerep}).  As the exempt
+coefficients escape to the bottom the cost tends to $\tau^*$, the least tail
+of a sum with $v_0=1$ on the surviving roots alone, so $T\ge\tau^*$.  This
+$\tau^*$ is attained, and
 \[
   \frac1{\tau^*}=\min_M\max_{j\ge1}\bigl|S_j(P_uM)\bigr|
 \]
-over monic $M\in\R[x]$ (Propositions~\ref{prop:attain}
-and~\ref{prop:attainrep}).  For $2\le r_1\le\cdots\le r_L$ the escaping
-placement is the worst one (the largest least tail, so the one the best
-multiples use): $T=\tau^*$, so the infimum is $1/\tau^*$ and the
-multiplier formula computes it (Theorem~\ref{thm:extremal} and
-Corollary~\ref{cor:extremalrep}).  Below $2$ this fails: at
-$(\tfrac{11}{10},3,5,7)$ with $u=1$ an explicit multiple beats $1/\tau^*$
-(Proposition~\ref{prop:belowtwo}).  The infimum of $b_{u+1}$ over monic
-multiples is never attained (Theorem~\ref{thm:noattain}).
+over monic $M\in\R[x]$ (Proposition~\ref{prop:attainrep}).  No monic
+multiple attains the infimum (Theorem~\ref{thm:noattain}).
 
-\emph{Below $2$.}  For distinct roots above $1$ the supremum $T$ is attained,
-by a placement or at a level where some exempt coefficients have escaped
-(Proposition~\ref{prop:attainT}).  For $u=1$, a zero placed above the zeros
-of a full escaping minimiser has an exact cost identity, which makes every
-placement beyond an explicit $N$ cheaper than $\tau^*$, so $T$ is the
+\emph{Roots at least $2$.}  For $2\le r_1\le\cdots\le r_L$ the escaping
+placement is the worst one, that is, $T=\tau^*$, and the multiplier formula
+computes the infimum $1/\tau^*$ (Corollary~\ref{cor:extremalrep}).
+
+\emph{Roots below $2$.}  Here the escaping placement need not be the worst.
+For distinct roots above $1$ the supremum $T$ is attained, by a placement or
+at a level where some exempt coefficients have escaped
+(Proposition~\ref{prop:attainT}).  For $u=1$ an exact identity for the cost
+of a zero placed above those of an escaping minimiser shows that every
+placement beyond an explicit $N$ costs less than $\tau^*$; hence $T$ is the
 larger of $\tau^*$ and the finitely many $\tau(\{x\})$ with $x<N$
-(Theorem~\ref{thm:halfmass}).  A multiplier with an exempt position bounds
-each $\tau(\{x\})$ from below (Lemma~\ref{lem:exemptpair}).  At
-$(\tfrac{11}{10},3,5,7)$ this gives $N=11$, the worst placement $\{5\}$ and
-the infimum $\tfrac{3398808}{96935}=35.06\ldots$
-(Theorem~\ref{thm:elevenvalue}).  Along $(r,3,5,7)$, $1<r<3$, the escaping
-placement is the worst one exactly when $930r^2-7r-1988\ge0$, that is
-$r\ge r_c=1.4658\ldots$, and for $\tfrac{29}{20}\le r\le r_c$ the infimum is
-$48(r-1)(15r+71)/(49r-34)$ (Theorem~\ref{thm:family}).  Both proofs end in
-a finite computation in exact rational arithmetic, over $\mathbb Q$ and
-over $\mathbb Q(r)$ respectively (see the data availability statement).  Along $(r,5,7)$ it
-fails for every $1<r<2$, so the cutoff of Theorem~\ref{thm:extremal} cannot
-be lowered uniformly (Proposition~\ref{prop:cutoffsharp}).
+(Theorem~\ref{thm:halfmass}).  At $(\tfrac{11}{10},3,5,7)$ with $u=1$ this
+gives $N=11$, the worst placement $\{5\}$ and the infimum
+$\tfrac{3398808}{96935}=35.06\ldots$, against $1/\tau^*=\tfrac{1704}{31}$
+(Theorem~\ref{thm:elevenvalue}).  Along $(r,3,5,7)$ with $1<r<3$ and
+$u=1$, the escaping placement is the worst one exactly when
+$930r^2-7r-1988\ge0$, that is, $r\ge r_c=1.4658\ldots$; for
+$\tfrac{29}{20}\le r\le r_c$ the infimum is $48(r-1)(15r+71)/(49r-34)$
+(Theorem~\ref{thm:family}).  Both proofs end in a finite exact computation,
+over $\mathbb Q$ and over $\mathbb Q(r)$ respectively, described in the
+statement on computer assistance before the appendix.  Along $(r,5,7)$ the
+escaping placement is not the worst for any $1<r<2$, so the cutoff $2$
+cannot be lowered uniformly (Proposition~\ref{prop:cutoffsharp}).
 
-\emph{The tail comparison.}  The comparison~\cite[Theorem~2.2]{coefficient-mass} extends to confluent nodes
-(Proposition~\ref{prop:confluent}), strictly unless the zero set is
-consecutive (Lemma~\ref{lem:confstrict}), which is what the criterion needs
-at repeated roots.
+\emph{The tail comparison.}  \cite[Theorem~2.2]{coefficient-mass} extends
+to confluent nodes, strictly unless the zero set is consecutive
+(Proposition~\ref{prop:confluent}); the criterion needs this at repeated
+roots.
 
 \paragraph{Organisation.}  Section~\ref{sec:extend} proves the confluent
 tail comparison.  Section~\ref{sec:criterion} proves the partial-sum
@@ -1995,11 +1980,56 @@ Corollary~7~\cite{dj}.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.  The exact
-computations quoted in the paper (Theorems~\ref{thm:elevenvalue}
-and~\ref{thm:family}, and the remarks after
-Propositions~\ref{prop:runchord} and~\ref{prop:belowtwo}) are in \texttt{tests/test\_attainment.py} of the repository
+computations quoted in the paper are in \texttt{tests/test\_attainment.py},
+with helpers in \texttt{tests/sweep.py}, of the repository
 \href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass},
 and run with \texttt{uv run pytest tests/test\_attainment.py}.
+
+\paragraph{Computer assistance.}
+Three arguments end in exact computations that are steps of the proof.  In
+Theorem~\ref{thm:elevenvalue}, the sum $H$, its tail, the threshold $N=11$
+and the tails of the seven full certificates for the placements
+$x=2,4,6,\ldots,10$, with their comparisons with $\theta$, are computed over
+$\mathbb Q$ in \texttt{test\_value\_eleven\_tenths}.  In
+Theorem~\ref{thm:family}, the tails of the full certificates with zero sets
+$\{1,3,4\}$ and $\{1,2,5\}$ and the closed form of
+$2\sum_{d\le5}|H_d|-\Tail(H)$ are identities in $\mathbb Q(r)$, verified with
+$r$ an indeterminate in \texttt{test\_family\_threshold};
+Appendix~\ref{sec:familydata} lists the solutions of the linear systems, from
+which they can also be checked by hand.  The statement after
+Proposition~\ref{prop:runchord} that \eqref{eq:runchord} can fail above the
+cutoff rests on the two rationals computed in
+\texttt{test\_run\_chord\_control\_above\_cutoff}.  All arithmetic is exact:
+rationals are Python \texttt{fractions.Fraction}, and $\mathbb Q(r)$ is
+represented by quotients of polynomials with \texttt{Fraction}
+coefficients, a small class defined in the test file; no floating point and
+no computer algebra system is used, and every decimal in the paper is a
+truncation of an exact rational.  The other computations only check steps
+proved by hand: the example after Theorem~\ref{thm:extremal}
+(\texttt{test\_extremal\_example\_2357}); the multiple $F$ of
+Proposition~\ref{prop:belowtwo} and the certificate with zero set
+$\{1,3,5\}$ after it (\texttt{test\_below\_two}); the partial sums of $PM$
+in Theorem~\ref{thm:elevenvalue} and the comparisons in the remark after it
+(\texttt{test\_value\_eleven\_tenths}); the partial sums, quadratics and
+cubics of the proof of Theorem~\ref{thm:family}
+(\texttt{test\_family\_threshold}); and
+Proposition~\ref{prop:cutoffsharp} (\texttt{test\_cutoff\_sharp}).  The file
+also holds tests used in no proof: seeded random exact checks of
+Proposition~\ref{prop:runchord} and of the identity in
+Theorem~\ref{thm:halfmass}(b), and exact linear programs over monic
+multiples of bounded degree, which confirm the value $\tfrac{1704}{31}$ at
+$(2,3,5,7)$ and serve as controls that no multiple found undercuts a stated
+infimum.
+
+\paragraph{Use of AI tools.}
+Large language model assistants (Claude, Anthropic) were used in drafting
+and revising the text, the proofs, the verification code and the Lean
+formalization.  The author has checked the mathematics and is responsible
+for the content.
+
+\paragraph{Funding and competing interests.}
+The author received no specific funding for this work and has no competing
+interests to declare.
 
 \appendix
 
