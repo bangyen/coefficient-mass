@@ -45,8 +45,8 @@ a minimizer, inducting on the number of exempted positions,
 and bounds the cost of that step by first-order optimality.  For $1<r<2$ the
 rows are not all top rows.  We show that they are given by
 prefix-constrained problems whenever the top row is at most one, and on each diagonal $L-k=\mathrm{const}$ for all but finitely many
-rows.  The second row is a minimum over finitely many exempted positions,
-each term attained by a polynomial with integer zeros whose optimality, for
+rows.  The second row is the minimum of the top row and finitely many terms, one
+for each nearby exempted position, each attained by a polynomial with integer zeros whose optimality, for
 rational $r$, is a finite exact check; at $r=\frac54$ and $r=\frac43$ this shows that the
 prefix description fails in general.
 \end{abstract}
@@ -112,8 +112,8 @@ We prove that the upper bound is attained for
 every $k$ whenever $\beta_r(n)\le1$ (Theorem~\ref{thm:onepolyrows}).  We
 also prove it whenever $k\ge\max(K,\alpha(n-1))$ for constants depending on
 $r$ (Theorem~\ref{thm:longdiag}, Proposition~\ref{prop:longdiagexplicit}).
-It is not attained in general.  The second row $k=2$ is a minimum over
-finitely many exempted positions (Theorem~\ref{thm:secondrow}), and exact
+It is not attained in general.  The second row $k=2$ is the minimum of the top
+row and finitely many exempted-position terms (Theorem~\ref{thm:secondrow}), and exact
 certificates give $V_{5/4}(16,2)=1/\nu_3(14)<\min_{i\le2}1/\nu_i(15)$ and
 $V_{4/3}(19,2)<\min_{i\le2}1/\nu_i(18)$
 (Proposition~\ref{prop:secondrowexact}).
@@ -1231,8 +1231,8 @@ $(1-s/\sigma)p$ with $p\in\mathcal Q_n$, so we write
 \]
 Then $\eta_1(n)=\nu_2(n)$, and Proposition~\ref{prop:rowvalue}(b) gives
 $V_r(n+1,2)=\inf_\sigma1/\eta_\sigma(n)$.  Far positions cost no more than
-the limit $\nu_1(n)$, so the second row is a minimum over finitely many
-positions (Theorem~\ref{thm:secondrow}).  Each term is $\Phi_r(Z)$ for a set
+the limit $\nu_1(n)$, so the second row is the minimum of $1/\nu_1(n)$ and
+finitely many position terms (Theorem~\ref{thm:secondrow}).  Each term is $\Phi_r(Z)$ for a set
 $Z\ni\sigma$ of $n$ integers, and such a $Z$ can be certified exactly
 (Lemma~\ref{lem:vertexopt}).  At $r=\frac54$ and $r=\frac43$
 this determines rows on both sides of the prefix identity
