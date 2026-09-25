@@ -714,6 +714,96 @@ def test_small_coefficients_after_the_lowest() -> None:
     assert f is not None and f[0] == 18330 < p[0] ** 3
 
 
+def _newton_root(p: Poly, m: int) -> int:
+    """``t`` with ``P(0) | t`` and ``P(t) = 0 mod P(0)^m``, by Newton's
+    method from ``0`` as in the proof of ``prop:gausscong``."""
+    d, t = p[0], 0
+    mod = d**m
+    for _ in range(m):
+        value = sum(c * t**i for i, c in enumerate(p))
+        slope = sum(i * c * t ** (i - 1) for i, c in enumerate(p) if i)
+        t = (t - value * pow(slope, -1, mod)) % mod
+    return t
+
+
+def _in_lattice(p: Poly, f: list[int]) -> bool:
+    """Whether ``f`` is the lowest ``len(f)`` coefficients of a multiple of
+    ``P``: ``f/P mod x^m`` has integer coefficients (``prop:gausslow``)."""
+    u = _inverse_series(p, len(f))
+    return all(
+        sum(f[i] * u[n - i] for i in range(n + 1)).denominator == 1
+        for n in range(len(f))
+    )
+
+
+def test_one_congruence() -> None:
+    """``prop:gausscong``, items 1-2, at ``COPRIME``, ``K <= 4``, ``m <= 4``:
+    the lowest ``m`` coefficients of the multiples are exactly the ``f`` with
+    ``sum f_i t^i = 0 mod P(0)^m``, on the lattice basis and on seeded
+    random vectors, half of them adjusted into the congruence; at ``m = 2``,
+    ``P(0) | f_0`` and ``f_1 = P'(0) f_0/P(0) mod P(0)``.
+
+    Control: at the common norm ``5`` (roots ``1 + 2i``, ``2 + i``),
+    ``gcd(P(0), P'(0)) = 5`` and ``d_2 < P(0)^2``, so item 1 needs the
+    hypothesis.
+    """
+    rng = random.Random(SEED + 11)
+    for big_k in range(1, len(COPRIME) + 1):
+        p = _pairs(COPRIME[:big_k])
+        d = p[0]
+        assert gcd(d, p[1]) == 1
+        for m in range(1, 5):
+            t = _newton_root(p, m)
+            mod = d**m
+            assert t % d == 0
+            assert sum(c * t**i for i, c in enumerate(p)) % mod == 0
+
+            def congruent(f: list[int], t: int = t, mod: int = mod) -> bool:
+                return sum(c * t**i for i, c in enumerate(f)) % mod == 0
+
+            for k in range(m):
+                row = ([0] * k + p)[:m]
+                row += [0] * (m - len(row))
+                assert congruent(row) and _in_lattice(p, row)
+            for trial in range(60):
+                f = [rng.randint(-(d**m), d**m) for _ in range(m)]
+                if trial % 2:
+                    f[0] -= sum(c * t**i for i, c in enumerate(f)) % mod
+                assert congruent(f) == _in_lattice(p, f)
+            if m == 2:
+                for _ in range(60):
+                    f = [d * rng.randint(-50, 50), rng.randint(-(d**2), d**2)]
+                    f[0] += rng.choice([0, 0, 1])
+                    item2 = f[0] % d == 0 and (f[1] - p[1] * (f[0] // d)) % d == 0
+                    assert item2 == _in_lattice(p, f)
+    p = _pairs([(1, 2), (2, 1)])
+    assert gcd(p[0], p[1]) == 5
+    assert _lowest_denominator(p, 2) < p[0] ** 2
+
+
+def test_small_derivative_at_zero() -> None:
+    """``prop:gausscong``, item 3: at ``-26 + 35i``, ``-1 + 60i``,
+    ``29 + 62i``, ``47 + 62i`` the norms are odd and pairwise coprime,
+    ``gcd(a_j, c_j) = 1``, ``43 < rho_j < 78`` and ``P'(0) = 6``, so
+    ``F = P`` has ``|f_1| < rho_min/2`` and forces ``C > 3.77`` at ``m = 2``.
+
+    Control: moving one point to ``48 + 62i`` makes ``|P'(0)|`` exceed
+    ``rho_min/2`` by far.
+    """
+    roots = [(-26, 35), (-1, 60), (29, 62), (47, 62)]
+    norms = [_norm(z) for z in roots]
+    assert norms == [1901, 3601, 4685, 6053]
+    assert all(n % 2 and gcd(a, c) == 1 for (a, c), n in zip(roots, norms, strict=True))
+    assert all(gcd(x, y) == 1 for i, x in enumerate(norms) for y in norms[i + 1 :])
+    assert all(43**2 < n < 78**2 for n in norms)
+    p = _pairs(roots)
+    assert p[0] == prod(norms) == 194126805235805 and p[1] == 6
+    assert 4 * p[1] ** 2 < min(norms)
+    assert log(p[0]) / log(max(norms)) > 3.77
+    q = _pairs([(-26, 35), (-1, 60), (29, 62), (48, 62)])
+    assert 4 * q[1] ** 2 > 10**6 * min(_norm(z) for z in roots)
+
+
 def _level_sets(big_b: int, degree: int, box: int) -> dict[tuple, list[Gauss]]:
     """Gaussian ``y`` above the axis grouped by the real value of ``g(y)``,
     over ``g`` with ``g(0) = 0``, positive leading coefficient and
@@ -1083,6 +1173,169 @@ def test_primes_of_a_level_set() -> None:
     assert _root_orders((5, 25), 5) == [1, 1] and _ord(f[1], 5) == 1
     assert sum(o > 0 for o in _root_orders((5, 25), 5)) == 2 > 1
     assert _prime_orders(f, roots)
+
+
+# Symmetries of a level set (prop:gausssym).
+
+_UNITS: list[Gauss] = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
+
+def _class(z: Gauss) -> frozenset[Gauss]:
+    """The eight numbers ``u z``, ``u conj(z)``, ``u^4 = 1``."""
+    return frozenset(_gmul(u, w) for u in _UNITS for w in (z, (z[0], -z[1])))
+
+
+def _symmetries(h: Poly) -> list[Gauss]:
+    """The units ``u`` with ``H(uy) = H(y)``, from the coefficients."""
+    return [
+        u
+        for k, u in enumerate(_UNITS)
+        if all(c == 0 for j, c in enumerate(h) if j and (j * k) % 4)
+    ]
+
+
+def _level_set_symmetric(h: Poly, roots: list[Gauss]) -> bool:
+    """``prop:gausssym``, items 1 and 2, for ``v + H`` with the Gaussian
+    roots ``roots`` above the axis: a unit taking one root of modulus at
+    least ``rho_min`` to another is a symmetry of ``H``, and each class holds
+    at most ``|U|`` of the roots."""
+    value = _horner(h, roots[0])
+    sym = _symmetries(h)
+    for z in roots:
+        for u in _UNITS:
+            if _horner(h, _gmul(u, z)) == value and u not in sym:
+                return False
+    classes: dict[frozenset[Gauss], int] = {}
+    for z in roots:
+        classes[_class(z)] = classes.get(_class(z), 0) + 1
+    return all(c <= len(sym) for c in classes.values())
+
+
+def _pell_powers(k: int) -> list[tuple[Poly, Poly, list[Gauss], list[Gauss], int]]:
+    """``(y^3 + y)^(2k)`` and ``(y^3 - y)^(2k)`` with the Pell pair
+    ``+-c + ai`` and triple ``+-a + ci``, ``2ci``, for the first Pell ``c``
+    above ``binom(2k, k)``."""
+    out = []
+    for a, c in _pell_triples(12):
+        if c * c <= max(_power([0, 1, 0, 1], 2 * k)) ** 2:
+            continue
+        out.append(
+            (
+                _power([0, 1, 0, 1], 2 * k),
+                _power([0, -1, 0, 1], 2 * k),
+                [(c, a), (-c, a)],
+                [(a, c), (-a, c), (0, 2 * c)],
+                8 * c**3 + 2 * c,
+            )
+        )
+        if len(out) == 2:
+            break
+    return out
+
+
+def _power(p: Poly, k: int) -> Poly:
+    out: Poly = [1]
+    for _ in range(k):
+        out = _mul(out, p)
+    return out
+
+
+def _pattern_classes(n: int) -> list[tuple[int, int]]:
+    """For every choice of ``s_p`` at the primes ``p = 1 mod 4`` dividing
+    ``n`` (all of them informative), the number of classes met by the
+    Gaussian integers of norm ``n`` whose exponent of ``pi_p`` is ``s_p`` or
+    ``e_p - s_p``, and ``m``, the number of ``p`` with ``e_p != 2 s_p``."""
+    split = [(p, e) for p, e in _factor(n).items() if p % 4 == 1]
+    r = isqrt(n)
+    points = [
+        (a, sign * isqrt(n - a * a))
+        for a in range(-r, r + 1)
+        for sign in (1, -1)
+        if isqrt(n - a * a) ** 2 == n - a * a
+    ]
+    exps = {z: [_root_orders(z, p)[0] for p, _ in split] for z in points}
+    out = []
+    for s in product(*[range(e + 1) for _, e in split]):
+        classes = {
+            _class(z)
+            for z in points
+            if all(
+                x in (sp, e - sp)
+                for x, sp, (_, e) in zip(exps[z], s, split, strict=True)
+            )
+        }
+        m = sum(e != 2 * sp for sp, (_, e) in zip(s, split, strict=True))
+        out.append((len(classes), m))
+    return out
+
+
+def test_symmetries_of_a_level_set() -> None:
+    """``prop:gausssym``: the powers ``(y^3 +- y)^(2k)`` put ``ell = 2k`` on
+    the Pell pair and triple with nonleading coefficients below ``c``;
+    items 1 and 2 on them, on every level set of even ``H`` of degree up to
+    8 and of any ``H`` of degree up to 4 with coefficients in ``[-2, 2]``
+    and roots in a box; the two bounds that close item 1 for ``u = +-i``,
+    in rationals; and
+    item 3's count of classes at every norm up to 1500.
+
+    Controls: ``y^5 + y^4 + 6y^3 + 6y^2 + 25y`` is ``-25`` at ``+-(1 + 2i)``
+    and not even, so item 1 needs small coefficients; with ``b < rho/2`` in
+    place of ``b <= 1`` the bound for ``u = +-i`` fails at ``rho^2 = 5``;
+    and without the valuations, the Gaussian integers of norm 125 meet two
+    classes.
+    """
+    for k in (1, 2, 3):
+        plus, minus, pair, triple, w = _pell_powers(k)[0]
+        c = pair[0][0]
+        assert plus[2 * k] == minus[2 * k] ** 2 == 1 and not any(plus[: 2 * k])
+        assert max(abs(x) for x in plus[:-1] + minus[:-1]) < c
+        assert all(_horner(plus, z) == (w ** (2 * k), 0) for z in pair)
+        assert all(_horner(minus, z) == ((-1) ** k * w ** (2 * k), 0) for z in triple)
+        assert 4 * c * c < min(_norm(z) for z in pair) == 4 * c * c + 1
+        assert 4 * max(abs(x) for x in minus[:-1]) ** 2 < min(map(_norm, triple))
+        assert _level_set_symmetric(plus, pair) and _level_set_symmetric(minus, triple)
+        assert _class(pair[0]) == _class(pair[1]) and len(_symmetries(plus)) == 2
+    big_b, seen = 2, 0
+    level: dict[tuple, list[Gauss]] = {}
+    for s in (3, 4):
+        for g in product(range(-big_b, big_b + 1), repeat=s):
+            if g[-1] <= 0:
+                continue
+            h = [0] + [x for c in g for x in (0, c)]
+            for z in _upper(12):
+                val = _horner(h, z)
+                if val[1] == 0:
+                    level.setdefault((tuple(h), val[0]), []).append(z)
+    for (g, value), ys in _level_sets(big_b, 4, 6).items():
+        level[((0, *g), value)] = ys
+    for (h, _), ys in level.items():
+        if 4 * big_b**2 < min(map(_norm, ys)):
+            assert _level_set_symmetric(list(h), ys)
+            seen += len(ys) > 1
+    assert seen > 0
+    r2 = Fraction(1415, 1000)
+    x = Fraction(3536, 10000)
+    assert x * x * 8 >= 1 and r2 * r2 >= 2
+    assert (r2 + x + x**3) / (2 * (1 - x**4)) < Fraction(93, 100)
+    x5 = Fraction(4473, 10000)
+    assert x5 * x5 * 5 >= 1
+    assert (r2 * x5 + Fraction(1, 5) + Fraction(1, 25)) / (1 - Fraction(1, 25)) < (
+        Fraction(91, 100)
+    )
+    for n in range(5, 1500):
+        for count, m in _pattern_classes(n):
+            if count:
+                assert count <= max(2 ** (m - 1), 1)
+    h = [0, 25, 6, 6, 1, 1]
+    assert _horner(h, (1, 2)) == _horner(h, (-1, -2)) == (-25, 0)
+    assert _symmetries(h) == [(1, 0)]
+    assert not _level_set_symmetric(h, [(1, 2)])
+    r2_low, x5_low = Fraction(1414, 1000), Fraction(4472, 10000)
+    assert x5_low * x5_low * 5 <= 1
+    bound = (r2_low + x5_low + x5_low**3) / (2 * (1 - Fraction(1, 25)))
+    assert bound > 1
+    norm125 = {_class(z) for z in _upper(12) if _norm(z) == 125}
+    assert len(norm125) == 2 > 1
 
 
 # Counting Gaussian integers (cor:gausscount).
