@@ -13,8 +13,10 @@ is open; an answer lands in the paper it extends, and the row leaves.
   only `<= 209/4` (whether the pieces accumulate at `r = 1`).
 - [complex](papers/coefficient-mass-complex.tex): the least fixed
   separation for the mass, between 2 and 81, and whether 9 suffices; the
-  least separation for the rows of `cor:annuli`, between `n_a` and `9 n_a`
-  (`sec:annuli`).
+  least separation for the rows `k >= 3` of `cor:annuli` (three or more
+  annuli), between `n_a` and `9 n_a`, and whether `(1 + o(1)) n_a` suffices
+  (`sec:annuli`; for two annuli it lies between `n_2` and `n_2 + 1`,
+  `cor:rowstwo`).
 - [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
@@ -104,7 +106,17 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `f_1 = 0` (the `K` zeros above cancel the one below) and
   `b_2 < 2**K (Kq)**(K-1)`, below the row `k = 2` by a factor tending to 0
   (`prop:rowsneedn`); so the rows need a separation between `n_a` and
-  `9 n_a`.  Closed for the mass at a fixed separation: every
+  `9 n_a`.  For two annuli `n_2 + 1` suffices (`thm:rowstwo`,
+  `cor:rowstwo`): dividing out the `n` zeros above leaves at a lower zero
+  `alpha` the truncation `sum_(k<=M) h_k(alpha/beta)`, of modulus at least
+  `lambda = 1 - n|alpha|/T` (`lem:trunc`: the uniform average on the simplex
+  turns it into `binom(n+k-1,k)`-weighted partial sums, whose real part is
+  at least `1 - n|y|` by two summations by parts); so
+  `b_2 >= (lambda**2/2)(1 - 1/|alpha|) |f_D| prod |beta|` whenever
+  `|alpha| < T/n`, and at `T_2 >= C n_2 U_1` the second row holds up to
+  `(1 - 1/C)**2/3`, independent of `n_2`, so `C = 1` is the least constant
+  in that form.  This also gives row 2 for every `S`, and for `S = 2`,
+  `n_2 <= 8` the mass bound of `thm:fixedgap` at the separation 9.  Closed for the mass at a fixed separation: every
   multiple with `|f_D| >= 1` has mass at least
   `sum_s s K_s log(T_s/2) - S log 2` once `T_1 > 3` and
   `T_a > 81 U_(a-1)` (`thm:fixedgap`: where one central index falls
@@ -121,8 +133,12 @@ is open; an answer lands in the paper it extends, and the row leaves.
   exactly, so the constant 1 is sharp as `min T_s -> oo` and the real cross terms `K_s K_t log t` are false,
   also for pairs near the imaginary axis (`prop:annulisharp`).  Open: the
   least fixed separation for the mass, between 2 and 81 (whether 9
-  suffices), and the least separation for the rows, between `n_a` and
-  `9 n_a`.
+  suffices), and the least separation for the rows `k >= 3` when
+  `S >= 3`, between `n_a` and `9 n_a` (several lower zeros must be handled
+  at once, and one truncation no longer suffices); in particular whether
+  `T_a > (n_a + 1) U_(a-1)` suffices for every row, and whether
+  `lambda**2` in `thm:rowstwo` can be `lambda` (`(x - q)(x + t)**K` attains
+  `lambda`).
 
 - **Coefficient mass in sectors.**  The paper is
   [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), split out
