@@ -84,8 +84,9 @@ theorem complexOrderStatistics_of_orderStatistics (h : OrderStatistics) :
   rw [hdeg] at hj
   refine ⟨hj.1, ?_⟩
   have hle : ‖G.coeff j‖ ≤ ‖F.coeff j‖ / ‖F.leadingCoeff‖ := by
-    rw [hcoeff, Real.norm_eq_abs, ← norm_inv, ← norm_mul]
-    exact Complex.abs_re_le_norm _
+    rw [hcoeff, Real.norm_eq_abs]
+    refine (Complex.abs_re_le_norm _).trans (le_of_eq ?_)
+    rw [norm_mul, norm_inv, div_eq_inv_mul]
   rw [mul_comm, ← le_div_iff₀ (norm_pos_iff.2 hc)]
   exact hj.2.trans hle
 
