@@ -38,9 +38,10 @@ a real $r>1$ and let $V_r(L,k)$ be the infimum of $b_k(F)$ over monic
 multiples $F$ of $(x-r)^L$.  We show that for every $r\ge2$ every row is a
 top row: $V_r(L,k)=V_r(L-k+1,1)$ for $1\le k\le L$.  Exempting the $k-1$
 largest coefficients thus costs exactly $k-1$ of the $L$ roots.  At $r=2$
-this sharpens the bound $b_k\ge L-k+1$.  The proof reduces each row to an
-$\ell^1$ problem for polynomials with prescribed integer zeros, covers all
-exempted positions beyond the first gap of a minimizer by one crossing step,
+this strictly sharpens the bound $b_k\ge L-k+1$.  The proof reduces each row to an
+$\ell^1$ problem for polynomials with prescribed integer zeros, handles the last
+exempted position, wherever it lies, by one crossing step at the first gap of
+a minimizer, inducting on the number of exempted positions,
 and bounds the cost of that step by first-order optimality.  For $1<r<2$ the
 rows are not all top rows.  We show that they are given by
 prefix-constrained problems whenever the top row is at most one, and on each diagonal $L-k=\mathrm{const}$ for all but finitely many
@@ -88,7 +89,8 @@ For every real $r\ge2$ and all $1\le k\le L$,
 $V_r(L,k)=\beta_r(L-k+1)$ (Theorem~\ref{thm:allrowstwo}).
 \end{mainthm}
 
-At $r=2$ this sharpens $b_k\ge L-k+1$ to $b_k\ge\beta_2(L-k+1)$.  Earlier
+At $r=2$ this sharpens $b_k\ge L-k+1$ to $b_k\ge\beta_2(L-k+1)$; for instance
+$\Phi_2(\{2,5\})=\frac{11}{40}$ gives $\beta_2(3)\ge\frac{40}{11}>3$.  Earlier
 versions of this paper proved the identity at $r\ge\frac92$, $r\ge4$ and
 $r\ge\frac{25}7$ by bounding the hole product of a top-row optimum; that
 route cannot reach $r=2$.
@@ -130,7 +132,7 @@ and can be taken with integer zeros, $q(s)=\prod_{z\in Z}(1-s/z)$
 (Lemma~\ref{lem:vertexopt}).  Two facts then settle $r\ge2$.
 \begin{itemize}
 \item A convexity argument, crossing, shows that one insertion at the
-first gap of a minimizer handles every later exempted position at once
+first gap of a minimizer handles the last exempted position, wherever it lies
 (Theorem~\ref{thm:crossing}).
 \item First-order optimality of the minimizer in a single direction bounds
 the cost of that insertion by the factor $\max\{1,1/(r-1)\}$
@@ -1037,7 +1039,8 @@ infimum over $q$ gives $\nu_1(n)\ge e^{-4n-2}/(C_n(r-1))$, which is the
 claim since $\beta_r(n)=1/\nu_1(n)$.
 \end{proof}
 
-Beyond $\beta_r(n)\le1$, where no single polynomial serves all prefixes,
+Beyond $\beta_r(n)\le1$, where the argument of Theorem~\ref{thm:onepolyrows}
+no longer shows that one polynomial serves all prefixes,
 we do not know in general when the prefix identity holds;
 Section~\ref{sec:secondrow} reduces the case $k=2$ to finitely many exempted
 positions.  Section~\ref{sec:longdiag} shows that a
@@ -1428,7 +1431,8 @@ $\sigma<107$ one of the following sets $Z\ni\sigma$ of $15$ integers has
 $\Phi_r(Z)\le\Phi_r(Z_2)$:
 $Y'_{15}=\{1,3,5,8,12,17,22,28,36,44,54,65,78,94,115\}$ if
 $\sigma\in Y'_{15}$; $\mathrm{ins}(Y_{15},\sigma)$ if $\sigma\notin Y_{15}$;
-$Y'_{15}$ with one element replaced by $\sigma$ if $\sigma\notin Y'_{15}$.
+$Y'_{15}$ with some element replaced by $\sigma$ (all $15$ replacements are
+tried) if $\sigma\notin Y'_{15}$.
 For each $\sigma$, \texttt{tests/test\_rows.py} generates these candidates
 and checks that one of them satisfies the bound.  Hence
 $\sup_\sigma\eta_\sigma(15)=\Phi_r(Z_2)$, and
