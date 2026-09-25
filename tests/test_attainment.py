@@ -8,8 +8,10 @@ the new zero is aligned (``lem:delete``) and through the run chord
 exact identity (``thm:halfmass``), which pins the infimum at
 ``(11/10, 3, 5, 7)`` (``thm:elevenvalue``), the threshold ``r_c`` along
 ``(r, 3, 5, 7)`` (``thm:family``) and the infimum there in seven pieces down
-to ``r = 1.0745...`` (``thm:familylow``, signs on intervals by Sturm counts);
-along ``(r, 5, 7)`` it fails for every ``r < 2`` (``prop:cutoffsharp``).
+to ``r = 1.0745...`` (``thm:familylow``, signs on intervals by Sturm counts),
+and ``inf b_2 - 24`` of order ``(r - 1)^alpha`` as ``r -> 1`` (``lem:threenode``,
+``thm:familyone``); along ``(r, 5, 7)`` it fails for every ``r < 2``
+(``prop:cutoffsharp``).
 
 Every tail is exact: a full certificate has used its zero budget, so it keeps
 one sign past its largest zero and the rest of its tail is a geometric sum
@@ -1052,6 +1054,225 @@ def test_family_below() -> None:
     assert t5.at(Fraction(108, 100)) > theta[5].at(Fraction(108, 100))
     for x, value in ((Fraction(6, 5), theta[6]), (Fraction(9, 8), theta[8])):
         assert min_bk_of(_family(x), 2, 8) > 1 / value.at(x)
+
+
+# --- The family near r = 1: ``thm:familyone`` --------------------------------
+
+_FAST = [Fraction(1, 3), Fraction(1, 5), Fraction(1, 7)]
+
+
+def _three_node(a3, b5, c7):
+    """``lem:threenode`` at ``A = 3^-x``, ``B = 5^-x``, ``C = 7^-x``.
+
+    The weights of the full certificate {1, x} on (1/3, 1/5, 1/7), its tail
+    ``t`` and the witness entries ``s_1``, ``s_x``, as rational functions of
+    ``A``, ``B``, ``C``.
+    """
+    d = 3 * a3 - 10 * b5 + 7 * c7
+    lam = [
+        3 * (5 * b5 - 7 * c7) / (2 * d),
+        -5 * (3 * a3 - 7 * c7) / (2 * d),
+        7 * (3 * a3 - 5 * b5) / (2 * d),
+    ]
+    t = (3 * a3 - 20 * b5 + 21 * c7 + 90 * a3 * b5 - 168 * a3 * c7 + 70 * b5 * c7) / (
+        24 * d
+    )
+    s1 = (
+        11 * a3 - 60 * b5 + 49 * c7 + 210 * a3 * b5 - 280 * a3 * c7 + 70 * b5 * c7
+    ) / (8 * d)
+    sx = (1 - 36 * a3 + 90 * b5 - 56 * c7) / (6 * d)
+    return lam, t, s1, sx
+
+
+def _at_x(x: int):
+    return _three_node(Fraction(1, 3**x), Fraction(1, 5**x), Fraction(1, 7**x))
+
+
+def _pattern(y, x: int, s1, sx, flip: tuple[int, Fraction] | None = None):
+    """``sum_{d >= 1} rho_d y^d`` for the witness pattern of ``lem:threenode``
+    (``s_1``, then -1 up to ``x``, ``s_x``, then +1), flipped to -1 past ``z``
+    with value ``1 - 2 phi`` at ``z`` when ``flip = (z, phi)``."""
+    total = s1 * y - (y**2 - y**x) / (1 - y) + sx * y**x
+    if flip is None:
+        return total + y ** (x + 1) / (1 - y)
+    z, phi = flip
+    total += (y ** (x + 1) - y**z) / (1 - y)
+    return total + (1 - 2 * phi) * y**z - y ** (z + 1) / (1 - y)
+
+
+def _flip_correction(z: int, phi: Fraction) -> list[Fraction]:
+    """``c_1, c_2, c_3`` with ``sum_j c_j a^j = delta(a)`` at the fast nodes."""
+    delta = [2 * phi * a**z + 2 * a ** (z + 1) / (1 - a) for a in _FAST]
+    return _solve([[a, a**2, a**3] for a in _FAST], delta)
+
+
+def _flip_witness(r: Fraction, x: int):
+    """The witness of ``thm:familyone`` for the placement ``x``: the flip point
+    ``(z, phi)`` with ``z >= x + 3`` and the correction ``c``, found by walking
+    the flip outwards until ``F`` changes sign (``F`` is affine in ``phi``)."""
+    y = 1 / r
+    _, t, s1, sx = _at_x(x)
+
+    def big_f(z: int, phi: Fraction) -> Fraction:
+        c = _flip_correction(z, phi)
+        head = sum(cj * y ** (j + 1) for j, cj in enumerate(c))
+        return _pattern(y, x, s1, sx, (z, phi)) + head - t
+
+    z = x + 3
+    if big_f(z, Fraction(1)) >= 0:
+        return None
+    while big_f(z, Fraction(0)) < 0:
+        z += 1
+    f1, f0 = big_f(z, Fraction(1)), big_f(z, Fraction(0))
+    phi = f0 / (f0 - f1)
+    assert 0 <= phi <= 1 and big_f(z, phi) == 0
+    return z, phi, _flip_correction(z, phi)
+
+
+def _h(k: int, nodes: list[Fraction]) -> Fraction:
+    """The complete homogeneous symmetric polynomial ``h_k`` at ``nodes``."""
+    if not nodes:
+        return Fraction(int(k == 0))
+    head, rest = nodes[0], nodes[1:]
+    return sum((head**i * _h(k - i, rest) for i in range(k + 1)), Fraction(0))
+
+
+def test_family_near_one() -> None:
+    """``thm:familyone``: along (r, 3, 5, 7), ``inf b_2 - 24`` is of order
+    ``(r - 1)^alpha``, ``alpha = log(5/3)/log 3``, near ``r = 1``.
+
+    The closed forms of ``lem:threenode`` are identities of rational functions
+    in ``A = 3^-x``, ``B = 5^-x``, ``C = 7^-x``: multiplied by ``D`` each side
+    is a polynomial of degree at most 2 in each variable, so agreement on a
+    4 x 4 x 4 grid proves it.  The bounds for ``x >= 4`` reduce to the rational
+    inequalities checked here.  The flipped witness is built exactly at
+    ``r = 101/100``, ``x = 6``.  Control: at ``x = 9`` the witness cannot start,
+    and the certificate {1, 2, 9} costs less than ``t(9)/(1 + 3^(3-9))``.
+    """
+    # The closed forms as identities in (A, B, C).
+    for a3 in (Fraction(20), Fraction(21), Fraction(22), Fraction(23)):
+        for b5 in (Fraction(1), Fraction(2), Fraction(3), Fraction(4)):
+            for c7 in (Fraction(1), Fraction(2), Fraction(3), Fraction(4)):
+                lam, t, s1, sx = _three_node(a3, b5, c7)
+                powers = [a3, b5, c7]
+                assert sum(lam) == 1
+                assert sum(li * a for li, a in zip(lam, _FAST, strict=True)) == 0
+                assert sum(li * p for li, p in zip(lam, powers, strict=True)) == 0
+                tail = sum(
+                    li * (p * a - (a**2 - p)) / (1 - a)
+                    for li, a, p in zip(lam, _FAST, powers, strict=True)
+                )
+                assert tail == t
+                for a, p in zip(_FAST, powers, strict=True):
+                    known = -(a**2 - p) / (1 - a) + p * a / (1 - a)
+                    assert s1 * a + sx * p + known == t
+                d = 3 * a3 - 10 * b5 + 7 * c7
+                gap = 5 * b5 - 7 * c7 - 45 * a3 * b5 + 84 * a3 * c7 - 35 * b5 * c7
+                assert Fraction(1, 24) - t == gap / (12 * d)
+    # ... and at the true powers: the certificate {1, x} and its tail.
+    for x in range(2, 41):
+        lam, t, s1, sx = _at_x(x)
+        assert lam == _certificate(_FAST, [1, x])
+        assert t == _tail_of(_FAST, [1, x])
+        d = Fraction(3, 3**x) - Fraction(10, 5**x) + Fraction(7, 7**x)
+        assert d == Fraction(8, 105) * _h(x - 2, _FAST)
+    assert _at_x(2)[1] == Fraction(1, 48) and _at_x(3)[1] == Fraction(31, 1704)
+    # The bounds for x >= 4 (beta = (3/5)^x, gamma = (3/7)^x, gamma/beta =
+    # (5/7)^x, A = 3^-x): each factor below is the worst case at x = 4 (x = 6).
+    b4, g4, q4, a4 = (
+        Fraction(3, 5) ** 4,
+        Fraction(3, 7) ** 4,
+        Fraction(5, 7) ** 4,
+        Fraction(1, 81),
+    )
+    assert 1 - 36 * a4 - 56 * g4 * a4 > 0  # s_x > 0
+    assert (1 + 90 * a4 * b4) / (6 * (3 - 10 * b4)) <= Fraction(1, 8)  # s_x
+    assert 11 - 60 * b4 - 280 * a4 * g4 > 0  # s_1 > 0
+    assert 20 - 21 * q4 - 210 * a4 - 70 * a4 * g4 > 0  # s_1 <= 1/2
+    low = (5 - 7 * q4 - 45 * a4 - 35 * a4 * g4) / (12 * (3 + 7 * g4))
+    assert low >= Fraction(1, 16)
+    b6, q6, a6 = Fraction(3, 5) ** 6, Fraction(5, 7) ** 6, Fraction(1, 729)
+    assert (5 + 84 * a6 * q6) / (12 * (3 - 10 * b6)) <= Fraction(1, 6)
+    for x in range(4, 61):
+        _, t, s1, sx = _at_x(x)
+        gap = Fraction(1, 24) - t
+        assert 0 < s1 <= Fraction(1, 2) and 0 < sx <= Fraction(3**x, 8)
+        assert gap >= Fraction(1, 16) * Fraction(3, 5) ** x
+        if x >= 6:  # and the upper bound of thm:familyone (c) at x = x_r
+            assert gap <= Fraction(1, 6) * Fraction(3, 5) ** x
+            upper = (1 + Fraction(27, 3**x)) / t
+            assert upper <= 24 + 121 * Fraction(3, 5) ** x
+    # The certificate {1, 2}: W_d = h_{d-3}(1/3, 1/5, 1/7)/105, tail 1/48.
+    w = _certificate(_FAST, [1, 2])
+    for d in range(3, 26):
+        assert _u(_FAST, w, d) == _h(d - 3, _FAST) / 105
+        assert _h(d - 3, _FAST) <= Fraction(35, 8) / 3 ** (d - 3)
+    assert _tail_of(_FAST, [1, 2]) == Fraction(1, 48)
+    # H' (weight 1 on 1/r, zero at 0, 1, 2) is prod(y - a_i) h_{d-3}(a, y), and
+    # the certificate {1, 2, x} costs at most 1/48 + (315/128)(r/3)^x/(r^2(r-1)).
+    for r in (Fraction(101, 100), Fraction(11, 10), Fraction(3, 2), Fraction(2)):
+        nodes = [1 / r, *_FAST]
+        hp = _correction(nodes, [1, 2])
+        lead = (1 / r - _FAST[0]) * (1 / r - _FAST[1]) * (1 / r - _FAST[2])
+        for d in range(3, 16):
+            assert _u(nodes, hp, d) == lead * _h(d - 3, [*_FAST, 1 / r])
+        for x in range(3, 16):
+            bound = Fraction(1, 48) + Fraction(315, 128) * (r / 3) ** x / (
+                r**2 * (r - 1)
+            )
+            assert _tail_of(nodes, [1, 2, x]) <= bound, (r, x)
+    # The correction: |c_j| <= (13, 146, 405)_j 3^-z for z >= 7.
+    inverse = [
+        _solve(
+            [[a, a**2, a**3] for a in _FAST], [Fraction(int(i == k)) for i in range(3)]
+        )
+        for k in range(3)
+    ]  # inverse[k][j]: the entry (j, k) of the inverse matrix
+    weights = [
+        3,
+        Fraction(5, 2) * Fraction(3, 5) ** 7,
+        Fraction(7, 3) * Fraction(3, 7) ** 7,
+    ]
+    for j, cap in enumerate((13, 146, 405)):
+        assert sum(abs(inverse[k][j]) * weights[k] for k in range(3)) <= cap
+    # The flipped witness at r = 101/100 and x = x_r = 6.
+    r = Fraction(101, 100)
+    eps, y = r - 1, 1 / r
+    assert 3**6 <= 8 / (r * eps) - 48 < 3**7 and 3**6 >= 1 / eps
+    x = 6
+    _, t, s1, sx = _at_x(x)
+    assert y**x * (1 + y) - y**2 >= (1 - y) / 24  # (W1)
+    assert 1 / (r * eps) >= 6 + Fraction(3**x, 8)  # (W2) at z_0 = x + 3
+    lhs = y**2 + 2 * y ** (x + 3) - y**x - y ** (x + 1)
+    assert lhs >= (1 - y) * (1 + Fraction(3**x, 8))
+    # T > 5/192, so a worst placement costs more than the far ones.
+    floor = (Fraction(1, 24) - Fraction(3, 5) ** 6 / 6) / (1 + Fraction(1, 27))
+    assert floor > Fraction(5, 192) > max(Fraction(1, 48), Fraction(31, 1704))
+    found = _flip_witness(r, x)
+    assert found is not None
+    z, phi, c = found
+    assert z >= x + 3
+    for cj, cap in zip(c, (13, 146, 405), strict=True):
+        assert abs(cj) <= cap * Fraction(1, 3**z)
+    rho = {1: s1 + c[0], 2: -1 + c[1], 3: -1 + c[2], x: sx, z: 1 - 2 * phi}
+    for a in [y, *_FAST]:  # the series of w vanishes at all four nodes
+        head = sum(rho.get(d, -1 if d < x else 1) * a**d for d in range(1, z + 1))
+        assert 1 - (head - a ** (z + 1) / (1 - a)) / t == 0
+    top = max(abs(v) for d, v in rho.items() if d != x)
+    assert abs(rho[1]) <= 1 and top <= 1 + Fraction(1, 3 ** (z - 6))
+    lower = t / (1 + Fraction(1, 3 ** (x - 3)))
+    assert _tail_of([y, *_FAST], [1, x, z]) >= t / top >= lower
+    # The two bounds of the theorem at r = 101/100: X and 3^X < 523/eps.
+    big_x = 4
+    while Fraction(315, 128) * (r / 3) ** (big_x + 1) > r**2 * eps / 192:
+        big_x += 1
+    assert 3**big_x < 523 / eps
+    assert 24 + 36 * Fraction(3, 5) ** big_x < (1 + Fraction(1, 27)) / t
+    # Control: at x = 9 the witness cannot start, and {1, 2, 9} undercuts the
+    # bound the witness would give.
+    assert _flip_witness(r, 9) is None
+    t9 = _at_x(9)[1]
+    assert _tail_of([y, *_FAST], [1, 2, 9]) < t9 / (1 + Fraction(1, 3**6))
 
 
 def test_cutoff_sharp() -> None:
