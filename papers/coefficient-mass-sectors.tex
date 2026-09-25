@@ -1,0 +1,949 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdfauthor={Bangyen Pham},
+  pdftitle={Coefficient Mass of Polynomial Multiples in Sectors},
+  pdfsubject={Lower bounds for the coefficient order statistics and logarithmic coefficient mass of polynomial multiples with prescribed roots in a sector},
+  pdfkeywords={polynomial multiples, coefficient mass, complex roots, sectors, argument principle, Gaussian integers},
+  pdflang={en-US}
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+
+\title{Coefficient Mass of Polynomial Multiples in Sectors}
+\author{\shortstack{Bangyen Pham\\
+\small Independent Researcher\\
+\small\href{mailto:bangyenp@gmail.com}{\texttt{bangyenp@gmail.com}}\\
+\small\href{https://orcid.org/0009-0006-9928-2088}{ORCID: 0009-0006-9928-2088}}}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $b_k(F)$ be the $k$-th largest nonleading coefficient magnitude of
+$F=\sum_{j\le D}f_jx^j$ and $\Lambda(F)=\sum_j\log^+|f_j|$.  For $K$
+prescribed roots of modulus at least $R$ in a sector of half-width $\delta$,
+we bound $\Lambda$ and the $b_k$ of multiples with $|f_D|\ge1$.  The
+argument principle along a ray next to the sector gives many large real
+zeros of a real polynomial dominated coefficientwise by the multiple, to
+which the real-root bounds of a companion paper apply.  In thin sectors and
+small degree this gives rows and mass of order $K^2\log R$.  Counting the
+crossings against the equidistributed share $\delta/\pi$ of the large
+zeros, multiples of degree $O(K)$ pay $(\frac\pi\delta-o(1))K\log R$ at
+fixed $\delta<\pi/2$ and $(\frac12-o(1))K^2\log R$ when $\delta K\to0$, as
+$K,R\to\infty$; both constants are sharp, and $x^N-\rho^N$ attains the
+first.  At distinct Gaussian-integer roots in the upper half-plane, degree
+charging removes the degree restriction: integer multiples of every degree
+pay $(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$ as $K\to\infty$.  Two integer imitations of
+$x^N-\rho^N$ are limited, and a small second row confines the roots to one
+level set of a polynomial with small nonleading coefficients.
+\end{abstract}
+
+\noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; complex
+roots; sectors; argument principle; Gaussian integers.
+
+\noindent\textbf{2020 Mathematics Subject Classification.} Primary 11C08; Secondary 30C15, 26C10.
+
+\section{Introduction}
+
+For a nonzero $F(x)=\sum_jf_jx^j$ of degree $D$ write
+\[
+  \Lambda(F)=\sum_{j:f_j\ne0}\log^+|f_j|,\qquad \log^+x=\max(0,\log x),
+\]
+for its logarithmic coefficient mass, and $b_k(F)$ for the $k$-th largest of
+the $D$ nonleading magnitudes $|f_j|$, $j<D$, counted with repetition and
+zeros included ($b_k(F)=0$ for $k>D$).
+
+For real roots
+$2\le r_1\le\cdots\le r_L$, repetitions allowed, every nonzero real
+multiple $F$ of $\prod_{i=1}^L(x-r_i)$ satisfies
+\begin{equation}\label{eq:order}
+  b_k(F)\ \ge\ |f_D|\prod_{i=k}^L(r_i-1)\quad(1\le k\le L),
+  \qquad
+  \Lambda(F)\ \ge\ (L+1)\log|f_D|+\sum_{i=1}^Li\log(r_i-1)
+\end{equation}
+\cite[Theorem~3.2 and Corollary~3.4]{coefficient-mass}, uniformly in
+the degree; we call the first bound at a given $k$ the row $k$.  At complex
+roots only the first row survives in general~\cite{coefficient-mass-complex}:
+the polynomial $x^{2M}+\rho^{2M}$ has about $2\delta M/\pi$ roots within
+$\delta$ of the imaginary axis, $b_2=0$, and mass linear in their number
+\cite[Proposition~3.2]{coefficient-mass-complex}.
+This paper asks what remains of \eqref{eq:order} for roots in a sector
+of half-width $\delta$, where that example needs degree about $\pi K/\delta$
+for $K$ roots.
+
+\paragraph{Main results.}  For $K$ roots of modulus at least $R$ in a sector
+of half-width $\delta$, multiples with leading coefficient of modulus at
+least $1$ pay mass of order $K^2\log R$ when the sector is thin and the
+degree small, and $(\frac\pi\delta-o(1))K\log R$, sharply, at fixed
+$\delta<\pi/2$ and degree $O(K)$ as $K,R\to\infty$.  In both cases the
+argument principle along a ray next to the sector produces many real zeros
+of a real polynomial dominated coefficientwise by the multiple, to which
+\eqref{eq:order} applies.
+
+\paragraph{Thin sectors.}  In a sector of half-width $\delta\le\pi/4$ with
+$R\ge6$ this gives mass at least $\frac{K(K-2)}8\log(\frac R2-1)$ for
+multiples with leading coefficient of modulus at least $1$ and degree at
+most $\pi K/(2E(2\delta))$, where
+$E(2\delta)\le(8\delta/\log2)\log(e\pi/(2\delta))$ (Section~\ref{sec:thin},
+Theorem~\ref{thm:thinsector}); since the degree is at least $K$, this
+needs $E(2\delta)\le\pi/2$, which forces $\delta<0.033$ (and
+$\delta<0.0134$ for real multiples, whose zeros off the axis come in
+conjugate pairs), so the theorem is for $\delta\to0$.  At distinct
+Gaussian-integer roots in the upper half-plane, where a carry argument
+charges degree against mass
+\cite[Theorem~6.3]{coefficient-mass-complex},
+every integer multiple pays the smaller of this and
+$\pi K\log(R/2)/(2E(2\delta))$ (Theorem~\ref{thm:thingauss}), which is of
+order $K^2\log R$ when $\delta K\log(e\pi/(2\delta))=O(1)$; the second
+term improves on the trivial bound $2K\log R$ only for
+$\delta<0.0134$.
+
+\paragraph{Sectors of every width.}  In a sector of half-width
+$\delta<\pi/2$ the crossings are counted against the equidistributed share
+$\delta/\pi$ of the large zeros, in the spirit of the Erd\H{o}s--Tur\'an
+theorem~\cite{erdos-turan}; as $K,R\to\infty$, multiples of degree $O(K)$
+with leading coefficient of modulus at least $1$ pay
+$(\frac\pi\delta-o(1))K\log R$ at fixed $\delta$ and
+$(\frac12-o(1))K^2\log R$ if $\delta K\to0$, both sharp
+(Theorem~\ref{thm:widesector}, Corollaries~\ref{cor:wideconst}
+and~\ref{cor:thinconst}, Proposition~\ref{prop:widesharp}).  At distinct
+Gaussian roots in the upper half-plane and fixed $\delta$, integer
+multiples of every degree pay $(\frac\pi\delta-o(1))K\log R$ as
+$K,R\to\infty$ (Corollary~\ref{cor:widegauss}), and, since at most
+$\pi(X+1)^2$ Gaussian integers have modulus below $X$,
+$(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$ as $K\to\infty$, uniformly in
+$R$ (Corollary~\ref{cor:gausscount}).  Whether $\Lambda(F)\ge cK^2\log R$
+holds for all integer multiples at distinct Gaussian roots in the upper
+half-plane and in a sector of fixed half-width is open.
+
+\paragraph{Integer imitations.}  Two integer imitations of $x^N-\rho^N$ are
+limited: $A((x-t)^N)$ has at most two Gaussian roots in the upper
+half-plane per root of $A$ (Lemma~\ref{lem:gaussbinom}), and at odd,
+pairwise coprime norms $|\alpha_j|^2$ with
+$\gcd(\operatorname{Re}\alpha_j,\operatorname{Im}\alpha_j)=1$ a gap $m$ after
+the lowest coefficient, that is, $m-1$ vanishing coefficients after it,
+costs $2Km\log\min_j|\alpha_j|$ (Proposition~\ref{prop:gausslow}).  If
+$\min_j|\alpha_j|>2$ and an integer multiple $F$ has
+$b_2(F)<\min_j|\alpha_j|/2$, all the $\alpha_j$ lie in one level set
+$\{y:H(y)=-v\}$, $v$ the lowest nonzero coefficient of $F$, of a polynomial
+$H$ with small nonleading coefficients (Proposition~\ref{prop:gaussheavy}).
+Whether such a level set holds boundedly many Gaussian points above the
+axis is open.
+
+\paragraph{Conventions.}
+All logarithms are natural.  For $F\in\mathbb C[x]$ of degree $D$ we write
+$F^*(t)=t^DF(1/t)=\sum_{d=0}^Df_{D-d}t^d$ for the reciprocal polynomial.
+Coefficients of a polynomial named by a capital letter, when used, carry the
+lowercase letter: $F=\sum_jf_jx^j$, $B=\sum_ib_ix^i$.  With an argument,
+$b_k(\cdot)$ is always the $k$-th largest nonleading magnitude, so $b_k(B)$
+and the coefficient $b_k$ of $B$ differ.
+References of the form \cite[Theorem~3.2]{coefficient-mass} are to the
+first companion paper, and those of the form
+\cite[Theorem~6.3]{coefficient-mass-complex}
+to the second.
+
+\section{Thin sectors}\label{sec:thin}
+
+This section proves that $K$ roots of modulus at least $R\ge6$ in a sector
+of half-width $\delta\le\pi/4$ force mass at least
+$\frac{K(K-2)}8\log(\frac R2-1)$ on every multiple with leading coefficient
+of modulus at least $1$ and degree at most $\pi K/(2E(2\delta))$, with $E$
+defined below (Theorem~\ref{thm:thinsector}).  Without separated moduli, a multiple may have a single tropical root
+\cite[Theorem~3.3]{coefficient-mass-complex} for all the prescribed roots of an annulus, as $x^{2M}+\rho^{2M}$ and
+$x^{2m}+x+a$ of \cite[Proposition~3.2]{coefficient-mass-complex} do.  The angle mechanism of
+\cite[Proposition~3.2]{coefficient-mass-complex} puts $K$ roots within an angle $\delta$ of a
+ray only at the price of degree about $\pi K/\delta$.  A multiple of smaller
+degree is handled by the real theory, applied to the real polynomial
+$r\mapsto\operatorname{Im}\bigl(e^{-i\theta}F(re^{i\psi})\bigr)$ along a ray
+$\arg z=\psi$ next to the sector.  For $0<x\le\pi/2$ put
+\[
+  E(x)=\frac{4x}{\log2}\Bigl(1+\log\Bigl(1+\frac{\pi}{2x}\Bigr)\Bigr).
+\]
+$E$ is increasing, since
+$\frac{d}{dx}\bigl(x(1+\log(1+\frac{\pi}{2x}))\bigr)=1+\log(1+t)-\frac t{1+t}>0$
+with $t=\pi/(2x)$.
+
+\begin{lemma}[Crossings next to a sector]\label{lem:sectorcount}
+Let $B\in\mathbb C[x]$ be nonzero of degree $d$, let $\varphi\in\R$,
+$0<\delta'\le\pi/2$ and $R>0$, and suppose that $B$ has no zero other than $0$
+on the two rays $\arg z=\varphi\pm\delta'$, and at least $K$ zeros, counted
+with multiplicity, in $\{z:|z|\ge R,\ |\arg z-\varphi|<\delta'\}$.  Put
+$E(x)=\frac{4x}{\log2}\bigl(1+\log\bigl(1+\frac{\pi}{2x}\bigr)\bigr)$ for
+$0<x\le\pi/2$.  Then there are
+$r_1\in[R/2,R)$ and $\psi\in\{\varphi-\delta',\varphi+\delta'\}$ such that for
+every $\theta\in\R$ the real polynomial
+\[
+  h_\theta(r)=\operatorname{Im}\bigl(e^{-i\theta}B(re^{i\psi})\bigr)
+  =\sum_{k=0}^d\operatorname{Im}\bigl(e^{-i\theta}b_ke^{ik\psi}\bigr)\,r^k
+\]
+has at least $K-dE(\delta')/\pi-1$ distinct zeros in $(r_1,\infty)$.
+\end{lemma}
+
+\begin{proof}
+For $r>0$ let $\Gamma_r=\{re^{it}:|t-\varphi|\le\delta'\}$, traversed in the
+direction of increasing $t$, and for a point $\beta$ with $|\beta|\ne r$ let
+$\Delta_\beta(r)$ be the change of a continuous argument of $z-\beta$ along
+$\Gamma_r$.  We claim
+\[
+  |\Delta_\beta(r)|\ \le\ \min\Bigl(2\pi,\ \frac{2\delta'r}{\bigl|r-|\beta|\bigr|}\Bigr).
+\]
+The second bound holds because $|d\arg(z-\beta)|\le|dz|/|z-\beta|$, the arc
+has length $2\delta'r$, and $|z-\beta|\ge|r-|\beta||$ on it.  For the first:
+if $|\beta|<r$, the argument of $re^{it}-\beta$ has derivative
+$(r^2-\operatorname{Re}(\bar\beta re^{it}))/|re^{it}-\beta|^2>0$ and increases by
+$2\pi$ over a full turn, so $0<\Delta_\beta(r)<2\pi$; if $|\beta|>r$, the
+points $z-\beta$, $|z|=r$, lie in a closed disc not containing $0$, which is
+seen from $0$ under an angle less than $\pi$, so $|\Delta_\beta(r)|<\pi$.
+
+Next, for every $\varrho\ge0$ and $a>0$,
+\[
+  \int_a^{2a}\min\Bigl(2\pi,\frac{2\delta'r}{|r-\varrho|}\Bigr)\frac{dr}r
+  \ \le\ 4\delta'\Bigl(1+\log\Bigl(1+\frac\pi{2\delta'}\Bigr)\Bigr)
+  =E(\delta')\log2 .
+\]
+Indeed, the integrand is $\min(2\pi/r,2\delta'/|r-\varrho|)$.  Put
+$\eta=\delta'a/\pi$.  Where $|r-\varrho|\le\eta$ it is at most $2\pi/a$ on a
+set of measure at most $2\eta$, which contributes at most $4\delta'$.  Elsewhere
+it is at most $2\delta'/|r-\varrho|$ on a set of measure at most $a$ on which
+$|r-\varrho|>\eta$; such an integral is largest for the set
+$\eta<|r-\varrho|\le\eta+a/2$, where it equals
+$4\delta'\log(1+a/(2\eta))=4\delta'\log(1+\pi/(2\delta'))$.
+
+Let $\beta_1,\ldots,\beta_d$ be the zeros of $B$ with multiplicity, and
+$S(r)=\sum_l\min(2\pi,2\delta'r/|r-|\beta_l||)$.  By the last display,
+$\int_a^{2a}S(r)\,dr/r\le dE(\delta')\log2$, while
+$\int_a^{2a}dr/r=\log2$; so $S(r)\le dE(\delta')$ on a subset of $[a,2a]$ of
+positive measure.  Taking $a=R/2$, choose $r_1\in[R/2,R)$ there, different from
+every $|\beta_l|$; taking $a=M$ larger than every $|\beta_l|$, choose $r_2$ in
+the same way in $[M,2M]$.  Since
+$\arg B(z)=\arg b_d+\sum_l\arg(z-\beta_l)$, the change $\Delta_{\rm arc}(r_i)$
+of $\arg B$ along $\Gamma_{r_i}$ satisfies
+$|\Delta_{\rm arc}(r_i)|\le S(r_i)\le dE(\delta')$.
+
+Let $\psi_\pm=\varphi\pm\delta'$ and let $\Delta_\pm$ be the change of
+$\arg B(re^{i\psi_\pm})$ as $r$ increases from $r_1$ to $r_2$.  The region
+$W=\{r_1<|z|<r_2,\ |\arg z-\varphi|<\delta'\}$ has no zero of $B$ on its
+boundary and contains the $K$ zeros of the statement (their moduli are at
+least $R>r_1$ and below $M<r_2$).  The argument principle along
+$\partial W$, traversed counterclockwise, gives
+\[
+  2\pi K\ \le\ \Delta_-+\Delta_{\rm arc}(r_2)-\Delta_+-\Delta_{\rm arc}(r_1)
+  \ \le\ |\Delta_-|+|\Delta_+|+2dE(\delta').
+\]
+Let $\psi$ be the ray with the larger $|\Delta_\pm|$, so that
+$|\Delta_\psi|\ge\pi K-dE(\delta')$, and let $A(r)$ be a continuous argument of
+$B(re^{i\psi})$ on $[r_1,r_2]$.  Fix $\theta$.  The open interval between
+$A(r_1)$ and $A(r_2)$ has length $|\Delta_\psi|$, so it contains at least
+$|\Delta_\psi|/\pi-1$ points of $\theta+\pi\mathbb Z$; by continuity each of
+them equals $A(r)$ for some $r\in(r_1,r_2)$, and distinct points give distinct
+$r$.  At such $r$ the number $e^{-i\theta}B(re^{i\psi})$ is real, so
+$h_\theta(r)=0$.  This gives at least $|\Delta_\psi|/\pi-1\ge K-dE(\delta')/\pi-1$
+distinct zeros of $h_\theta$ in $(r_1,r_2)$.
+\end{proof}
+
+\begin{theorem}[Thin sectors]\label{thm:thinsector}
+Let $B\in\mathbb C[x]$ have degree $d$ and $|b_d|\ge1$, let $\varphi\in\R$,
+$0<\delta\le\pi/4$ and $R\ge6$, and suppose that $B$ has at least $K$ zeros,
+counted with multiplicity, in $\{z:|z|\ge R,\ |\arg z-\varphi|\le\delta\}$.  If
+$d\,E(2\delta)\le\pi K/2$, with $E$ as in Lemma~\ref{lem:sectorcount}, then
+with $m=\lceil K/2\rceil-1$,
+\[
+  b_k(B)\ \ge\ |b_d|\Bigl(\frac R2-1\Bigr)^{m-k+1}\quad(1\le k\le m),
+\]
+\[
+  \Lambda(B)\ \ge\ (m+1)\log|b_d|+\frac{m(m+1)}2\log\Bigl(\frac R2-1\Bigr),
+\]
+and $\frac{m(m+1)}2\ge\frac{K(K-2)}8$.
+\end{theorem}
+
+Since $d\ge K$, the degree hypothesis can hold only when
+$E(2\delta)\le\pi/2$, which forces $\delta<0.033$ (at $\delta=0.033$,
+$8\delta/\log2>0.38$ and $1+\log(1+\pi/(4\delta))>1+\log24.7>4.2$, so
+$E(2\delta)>1.596>\pi/2$, and $E$ is increasing; numerically the threshold
+is $\delta=0.0321\ldots$).  If $B$ is real and the sector misses the real
+axis, the conjugates of the $K$ zeros give $d\ge2K$, so the hypothesis needs
+$E(2\delta)\le\pi/4$, that is $\delta<0.0134$: the theorem is meant for
+$\delta\to0$, and Section~\ref{sec:widesectors} treats wider sectors.
+
+\begin{proof}
+Choose $\delta'\in(\delta,2\delta]$ such that no zero of $B$ other than $0$ lies on the rays
+$\arg z=\varphi\pm\delta'$; all but finitely many values qualify.  The $K$
+zeros lie in the open sector $|\arg z-\varphi|<\delta'$, and $E(\delta')\le
+E(2\delta)$ because $E$ is increasing.  Lemma~\ref{lem:sectorcount} gives
+$r_1\ge R/2$ and a ray $\psi$ such that every $h_\theta$ has at least
+$K-dE(2\delta)/\pi-1\ge K/2-1$ distinct zeros in $(r_1,\infty)$, hence at least
+$m$ of them, say $\varrho_1<\cdots<\varrho_m$, all larger than $R/2\ge3$.
+Choose $\theta$ with $e^{-i\theta}b_de^{id\psi}=i|b_d|$.  Then $h_\theta$ is a
+nonzero real polynomial of degree $d$ with leading coefficient $|b_d|$ and
+coefficients $h_k=\operatorname{Im}(e^{-i\theta}b_ke^{ik\psi})$, so
+$|h_k|\le|b_k|$, and it is divisible by $\prod_{i\le m}(x-\varrho_i)$ with
+$\varrho_1\ge2$.  \cite[Theorem~3.2]{coefficient-mass} and \cite[Corollary~3.4]{coefficient-mass} give
+$b_k(h_\theta)\ge|b_d|\prod_{i=k}^m(\varrho_i-1)$ and
+$\Lambda(h_\theta)\ge(m+1)\log|b_d|+\sum_{i=1}^mi\log(\varrho_i-1)$, and
+$\varrho_i-1>R/2-1$.  The coefficientwise domination $|h_k|\le|b_k|$, with the
+leading coefficients at the same position $d$, gives $b_k(B)\ge b_k(h_\theta)$
+and $\Lambda(B)\ge\Lambda(h_\theta)$.  Finally $m+1\ge K/2$ and $m\ge K/2-1$.
+\end{proof}
+
+The theorem uses no integrality, and its degree hypothesis cannot be
+dropped: $x^{2M}+\rho^{2M}$ in \cite[Proposition~3.2]{coefficient-mass-complex} has about
+$2\delta M/\pi$ roots within $\delta$ of the positive imaginary axis and
+$b_2=0$, and its degree $2M$ exceeds $\pi K/(2E(2\delta))$.  At Gaussian roots
+the large-degree case is paid for by integrality, as the next section shows.
+
+\section{Gaussian-integer roots}\label{sec:gaussian}
+
+For roots in $\mathbb Z[i]$ and integer multiples there is one more piece of
+information: an integer polynomial takes Gaussian-integer values at them,
+and a nonzero Gaussian integer has modulus at least one.  This charges the
+degree of a multiple against its mass~\cite{coefficient-mass-complex}, which
+replaces the degree hypothesis of Theorem~\ref{thm:thinsector} by the
+alternative bound $\pi K\log(R/2)/(2E(2\delta))$ (Theorem~\ref{thm:thingauss}).
+
+Throughout, $\alpha_1,\ldots,\alpha_K\in\mathbb Z[i]$ are distinct, with
+$\alpha_j=a_j+ic_j$ and $c_j\ge1$; put $\rho_j=|\alpha_j|$,
+$\rho_{\min}=\min_j\rho_j$ and
+\[
+  P=\prod_{j=1}^K(x-\alpha_j)(x-\bar\alpha_j)
+   =\prod_{j=1}^K\bigl(x^2-2a_jx+a_j^2+c_j^2\bigr)\in\mathbb Z[x],
+\]
+a monic polynomial with $2K$ distinct roots and $P(0)\ne0$.  For
+$F=\sum_{i=0}^Df_ix^i$ and $0\le m\le D+1$ write
+\[
+  F_{<m}=\sum_{i<m}f_ix^i,\qquad G_m=\sum_{i\ge m}f_ix^{i-m},\qquad
+  F=F_{<m}+x^mG_m .
+\]
+We call $m\in\{1,\ldots,D\}$ a \emph{split} of $F$.  A split is \emph{clean
+at} $\alpha$ if $G_m(\alpha)=0$, and \emph{$P$-clean} if it is clean at every
+$\alpha_j$.  A polynomial $B\in\mathbb Z[x]$ is \emph{$P$-irreducible} if
+$B(0)\ne0$ and no split of $B$ is $P$-clean.
+
+We use three results of~\cite{coefficient-mass-complex} in this setting.
+Let $F\in\mathbb Z[x]$ have degree $D$, let $\alpha\in\mathbb Z[i]$ with
+$F(\alpha)=0$ and $\rho=|\alpha|>2$, and let $m$ be a split of $F$ that is
+not clean at $\alpha$.  Then some $i<m$ has $|f_i|\ge(\rho/2)^{m-i}$
+\cite[Lemma~6.1]{coefficient-mass-complex}.
+Every nonzero $F\in\mathbb Z[x]$ divisible by $P$ can be written
+\[
+  F=\sum_{s=1}^rx^{e_s}B_s,\qquad e_s+\deg B_s<e_{s+1},
+\]
+with every $B_s\in\mathbb Z[x]$ divisible by $P$ and $P$-irreducible; then
+$\Lambda(F)=\sum_s\Lambda(B_s)$, $|\operatorname{lead}B_s|\ge1$, and
+$b_k(F)\ge b_k(B_s)$ for every $s$ and $k$
+\cite[Lemma~6.2]{coefficient-mass-complex}.
+We call the $B_s$ the blocks of the decomposition.  Finally, if
+$\rho_{\min}>2$, every $P$-irreducible $B\in\mathbb Z[x]$ divisible by $P$,
+of degree $d$, has
+\[
+  \sum_{i<d}\log^+|b_i|\ \ge\ d\log\frac{\rho_{\min}}2,
+  \qquad\text{so}\qquad
+  \Lambda(B)\ \ge\ \log|b_d|+d\log\frac{\rho_{\min}}2
+\]
+\cite[Theorem~6.3]{coefficient-mass-complex}.
+
+\begin{theorem}[Thin Gaussian clusters]\label{thm:thingauss}
+In the setting of Section~\ref{sec:gaussian}, let $\varphi\in\R$,
+$0<\delta\le\pi/4$ and $R\ge6$, and suppose that every
+$\alpha_j$ has $|\alpha_j|\ge R$ and $|\arg\alpha_j-\varphi|\le\delta$.  With
+$E$ as in Lemma~\ref{lem:sectorcount}, every
+nonzero $F\in\mathbb Z[x]$ divisible by $P$ satisfies $\Lambda(F)\ge2K\log R$
+and
+\[
+  \Lambda(F)\ \ge\ \min\Bigl\{\frac{K(K-2)}8\log\Bigl(\frac R2-1\Bigr),\
+  \frac{\pi K\log(R/2)}{2E(2\delta)}\Bigr\},
+  \qquad
+  \frac{\pi}{2E(2\delta)}\ \ge\ \frac{\pi\log2}{16\,\delta\log(e\pi/(2\delta))}.
+\]
+If moreover some block $B$ of some decomposition of $F$ as in
+\cite[Lemma~6.2]{coefficient-mass-complex} has
+$\deg B\cdot E(2\delta)\le\pi K/2$, then
+$b_k(F)\ge(R/2-1)^{m-k+1}$ for $1\le k\le m=\lceil K/2\rceil-1$.
+\end{theorem}
+
+\begin{proof}
+Let $B$ be a block, of degree $d$, of any decomposition of $F$ as in
+\cite[Lemma~6.2]{coefficient-mass-complex}; for the rows, take the block of the hypothesis.
+It is divisible by $P$, so it
+vanishes at the $K$ distinct $\alpha_j$; $B(0)\ne0$, $|b_d|\ge1$,
+$\Lambda(F)\ge\Lambda(B)$ and $b_k(F)\ge b_k(B)$.  If $dE(2\delta)\le\pi K/2$,
+Theorem~\ref{thm:thinsector} applies to $B$ and gives the first term, and the
+rows.  Otherwise $d>\pi K/(2E(2\delta))$, and \cite[Theorem~6.3]{coefficient-mass-complex},
+with $\rho_{\min}\ge R>2$, gives
+$\Lambda(B)\ge d\log(\rho_{\min}/2)>\pi K\log(R/2)/(2E(2\delta))$.  Next,
+$B=PQ$ with $Q\in\mathbb Z[x]$ since $P$ is monic, so $B(0)=P(0)Q(0)$ is a
+nonzero multiple of $P(0)=\prod_j\rho_j^2\ge R^{2K}$, and $B(0)$ is a
+coefficient of $F$; this gives $\Lambda(F)\ge2K\log R$.  Finally, for
+$0<\delta\le\pi/4$ we have $1+\pi/(4\delta)\le\pi/(2\delta)$, so
+$E(2\delta)\le(8\delta/\log2)(1+\log(\pi/(2\delta)))
+=(8\delta/\log2)\log(e\pi/(2\delta))$.
+\end{proof}
+
+\section{Sectors of every width}\label{sec:widesectors}
+
+This section proves that in a sector of fixed half-width $\delta<\pi/2$,
+every multiple of degree $O(K)$ with $|f_D|\ge1$ at $K$ roots of modulus at
+least $R$ pays $(\pi/\delta-o(1))K\log R$ as $K,R\to\infty$, that this
+constant is attained, and that at Gaussian roots the degree restriction can
+be removed.  The loss $dE(\delta')/\pi$ in Lemma~\ref{lem:sectorcount} is what confines
+Theorem~\ref{thm:thinsector} to thin sectors; here it is replaced by
+$\delta'n/\pi$, where $n$ counts only the zeros of modulus above the inner
+arc, plus a degree term that becomes small when the inner radius is averaged
+over a long range of scales.  The rate $\delta'/\pi$ is the share of a
+sector of opening $2\delta'$ in a full turn, and $x^N-\rho^N$ shows that no
+smaller rate is possible.  $K$ zeros of modulus at least $R$ in a sector of
+half-width $\delta<\pi/2$ then cost either about $\frac12m^2\log R$, where
+$m$ is the excess of $K$ over the share $\delta n/\pi$, or about $n\log R$
+through the Mahler measure, which gives the constant $\pi/\delta$
+(Theorem~\ref{thm:widesector}, Corollary~\ref{cor:wideconst},
+Proposition~\ref{prop:widesharp}).  At Gaussian roots and fixed $\delta$ the
+degree restriction is removed by \cite[Theorem~6.3]{coefficient-mass-complex}
+(Corollary~\ref{cor:widegauss}), and every integer multiple pays
+$(\frac\pi{2\delta}-o(1))K\log K$ as $K\to\infty$, whatever $R$
+(Corollary~\ref{cor:gausscount}).
+In wide sectors a bound $\Lambda\ge cK^2\log R$ valid for all root sets is
+therefore false for real multiples.  For integer
+multiples at Gaussian roots it is open; Section~\ref{sec:imitations} gives two
+limits on integer imitations of $x^N-\rho^N$ (Lemma~\ref{lem:gaussbinom},
+Proposition~\ref{prop:gausslow}) and a reduction of the second row to level
+sets (Proposition~\ref{prop:gaussheavy}).
+
+For $0<\delta\le\pi/2$ put
+\[
+  \kappa(\delta)=\frac1\pi\int_0^1\min\Bigl(2\arcsin q,\ \frac{2\delta q}{1-q}\Bigr)\frac{dq}q .
+\]
+The integrand increases with $\delta$ and is at most $2\arcsin(q)/q$, so
+$\kappa$ is increasing and, by dominated convergence, continuous.  Since
+$\int_0^1\arcsin(q)\,dq/q=\int_0^{\pi/2}s\cot s\,ds=-\int_0^{\pi/2}\log\sin s\,ds
+=\frac\pi2\log2$, we have $\kappa(\delta)\le\log2$; and bounding
+$2\arcsin q\le\pi q$ and splitting at $q=1-2\delta/\pi$,
+\[
+  \kappa(\delta)\ \le\ \frac1\pi\Bigl(\int_0^{1-2\delta/\pi}\frac{2\delta\,dq}{1-q}
+  +\int_{1-2\delta/\pi}^1\pi\,dq\Bigr)
+  =\frac{2\delta}\pi\Bigl(1+\log\frac\pi{2\delta}\Bigr).
+\]
+
+\begin{lemma}[Sharp crossings next to a sector]\label{lem:sharpcross}
+Let $B\in\mathbb C[x]$ be nonzero of degree $d$, let $\varphi\in\R$ and
+$0<\delta'\le\pi/2$, and suppose that $B$ has no zero other than $0$ on the
+rays $\arg z=\varphi\pm\delta'$.  Let $0<a<b$ and
+$\varepsilon=\kappa(\delta')d/\log(b/a)$.  There is $r_1\in[a,b)$, different
+from the modulus of every zero of $B$, with the following property.  Let $n$
+be the number of zeros of $B$ of modulus greater than $r_1$, and $N$ the
+number of those in the open sector $|\arg z-\varphi|<\delta'$, both counted
+with multiplicity.  For $\psi\in\R$ and $\theta\in\R$ put
+$h_\theta(r)=\operatorname{Im}\bigl(e^{-i\theta}B(re^{i\psi})\bigr)$.
+There is $\psi\in\{\varphi-\delta',\varphi+\delta'\}$ such that for
+every $\theta$ the polynomial $h_\theta$ has at least
+$N-\delta'n/\pi-\varepsilon-1$ distinct zeros in $(r_1,\infty)$.
+\end{lemma}
+
+\begin{proof}
+For $r>0$ let $\Gamma_r$ and $\Delta_\beta(r)$ be as in the proof of
+Lemma~\ref{lem:sectorcount}, let $[\,\cdot\,]$ be the indicator of a
+condition, and for $\beta\ne0$ with $|\beta|\ne r$ put
+$q=\min(|\beta|/r,r/|\beta|)<1$.  We claim
+\[
+  \bigl|\Delta_\beta(r)-2\delta'[\,|\beta|<r\,]\bigr|\ \le\
+  c(q)=\min\Bigl(2\arcsin q,\ \frac{2\delta'q}{1-q}\Bigr).
+\]
+If $|\beta|<r$, write $re^{it}-\beta=re^{it}(1-w)$ with
+$w=(\beta/r)e^{-it}$; if $|\beta|>r$, write $re^{it}-\beta=-\beta(1-w)$ with
+$w=(r/\beta)e^{it}$.  In both cases $|w|=q<1$, so $1-w$ stays in the disc of
+radius $q$ about $1$, where the principal argument is continuous and at most
+$\arcsin q$ in absolute value.  So $\Delta_\beta(r)-2\delta'[\,|\beta|<r\,]$
+is the change of $\operatorname{Arg}(1-w)$ along $\Gamma_r$, which is at most
+$2\arcsin q$ in absolute value; and since $dw/dt=\mp iw$, the derivative
+$\frac{d}{dt}\operatorname{Arg}(1-w)=\operatorname{Im}\frac{\pm iw}{1-w}$ is at most $q/(1-q)$ in
+absolute value, over a range of length $2\delta'$.  For $\beta=0$,
+$\Delta_0(r)=2\delta'$ exactly.
+
+Let $\beta_1,\ldots,\beta_d$ be the zeros of $B$ with multiplicity (all but
+the zero at $0$ are in the sum below) and
+$S(r)=\sum_{\beta_l\ne0}c(q_l(r))$.  For each $\beta_l\ne0$,
+\[
+  \int_{-\infty}^{\infty}c\bigl(q_l(e^u)\bigr)\,du
+  =2\int_0^\infty c(e^{-v})\,dv=2\int_0^1c(q)\frac{dq}q=2\pi\kappa(\delta'),
+\]
+so $\int_{\log a}^{\log b}S(e^u)\,du\le2\pi\kappa(\delta')d$ and
+$S(e^u)\le2\pi\varepsilon$ on a subset of $[\log a,\log b)$ of positive
+measure.  Choose $r_1=e^u$ there, different from every $|\beta_l|$.
+
+Put $X_1=N-\delta'n/\pi-\varepsilon-1$ and choose $\eta>0$
+with $\lceil X_1-\eta\rceil=\lceil X_1\rceil$.  Since $c(q)\le\pi q$, $S(r)\to0$ as
+$r\to\infty$; choose $r_2$ larger than $r_1$ and every $|\beta_l|$ with
+$S(r_2)\le2\pi\eta$.  Let $\psi_\pm=\varphi\pm\delta'$ and let $\Delta_\pm$ be
+the change of a continuous argument of $B(re^{i\psi_\pm})$ as $r$ increases
+from $r_1$ to $r_2$.  The region
+$W=\{r_1<|z|<r_2,\ |\arg z-\varphi|<\delta'\}$ has no zero of $B$ on its
+boundary and contains exactly $N$ zeros.  With $\Delta_{\rm arc}(r)$ as in
+the proof of Lemma~\ref{lem:sectorcount}, the argument principle gives
+$2\pi N=\Delta_-+\Delta_{\rm arc}(r_2)-\Delta_+-\Delta_{\rm arc}(r_1)$.  By
+the claim,
+$\Delta_{\rm arc}(r)=\sum_l\Delta_{\beta_l}(r)=2\delta'\#\{l:|\beta_l|<r\}+\gamma(r)$
+with $|\gamma(r)|\le S(r)$, and
+$\#\{l:|\beta_l|<r_2\}-\#\{l:|\beta_l|<r_1\}=n$.  Hence
+\[
+  |\Delta_-|+|\Delta_+|\ \ge\ |\Delta_--\Delta_+|
+  \ \ge\ 2\pi N-2\delta'n-S(r_1)-S(r_2)
+  \ \ge\ 2\pi N-2\delta'n-2\pi\varepsilon-2\pi\eta .
+\]
+By the last paragraph of the proof of Lemma~\ref{lem:sectorcount}, for every
+$\theta'$ there are at least $|\Delta_\pm|/\pi-1$ distinct
+$r\in(r_1,r_2)$ at which $e^{-i\theta'}B(re^{i\psi_\pm})$ is real.
+
+Let $\psi$ be the ray with the larger $|\Delta_\pm|$.  Then
+$|\Delta_\psi|/\pi-1\ge X_1-\eta$, so every $h_\theta$ has at least
+$\lceil X_1-\eta\rceil=\lceil X_1\rceil\ge X_1$ distinct zeros in
+$(r_1,\infty)$.
+\end{proof}
+
+\begin{theorem}[Sectors of every width]\label{thm:widesector}
+Let $B\in\mathbb C[x]$ have degree $d$ and $|b_d|\ge1$, let $\varphi\in\R$,
+$0<\delta<\pi/2$, $T>1$ and $R\ge3T$, and suppose that $B$ has at least $K$
+zeros, counted with multiplicity, in
+$\{z:|z|\ge R,\ |\arg z-\varphi|\le\delta\}$.  Put
+\[
+  \kappa(\delta)=\frac1\pi\int_0^1\min\Bigl(2\arcsin q,\ \frac{2\delta q}{1-q}\Bigr)\frac{dq}q,
+\]
+so that $\kappa(\delta)\le\log2$ and
+$\kappa(\delta)\le\frac{2\delta}\pi(1+\log\frac\pi{2\delta})$,
+$\omega=\kappa(\delta)d/\log T$ and, for $\nu\ge0$,
+$g(\nu)=\nu\log(R/T)-\log(\nu+1)-1$.  For every integer $m\ge0$,
+\[
+  \Lambda(B)\ \ge\ \min\Bigl\{\frac{m(m+1)}2\log\Bigl(\frac RT-1\Bigr),\
+  g(\nu_m)\Bigr\},\qquad
+  \nu_m=\frac\pi\delta\,(K-1-m-\omega)^+ .
+\]
+\end{theorem}
+
+\begin{proof}
+Choose $\delta'\in(\delta,\pi/2)$ such that no zero of $B$ other than $0$ lies
+on the rays $\arg z=\varphi\pm\delta'$; all but finitely many values qualify.
+Apply Lemma~\ref{lem:sharpcross} with $a=R/T$ and $b=R$, so
+$\varepsilon'=\kappa(\delta')d/\log T$; the $K$ zeros have modulus at least
+$R>r_1$ and lie in the open sector, so $N\ge K$.  Note $r_1\ge R/T\ge3$, and
+$g$ is increasing on $[0,\infty)$, as $g'(\nu)=\log(R/T)-1/(\nu+1)>0$.
+
+\emph{Mahler measure.}  Suppose $n\ge1$ and let
+$B^*(t)=t^dB(1/t)=\sum_kb_{d-k}t^k$, so $B^*(0)=b_d$ and the nonzero zeros of
+$B^*$ are the $1/\beta$, $\beta\ne0$ a zero of $B$.  Jensen's formula on
+$|t|=\tau=n/(n+1)\ge\frac12$, where the $n$ points $1/\beta$ with
+$|\beta|>r_1$ lie in $|t|<1/3$ and each contributes $\log(\tau|\beta|)\ge\log(\tau r_1)$,
+and every other contribution is nonnegative, gives
+\[
+  \log\max_{|t|=\tau}|B^*(t)|\ \ge\ \log|b_d|+n\log(\tau r_1)\ \ge\ n\log r_1-1,
+\]
+using $n\log\frac{n+1}n\le1$.  On the other side
+$\max_{|t|=\tau}|B^*|\le\max_i|b_i|\sum_{k\ge0}\tau^k=(n+1)\max_i|b_i|$.  So
+$\Lambda(B)\ge\log\max_i|b_i|\ge n\log r_1-\log(n+1)-1\ge g(n)$.
+
+\emph{Crossings.}  Choose $\theta$ with $e^{-i\theta}b_de^{id\psi}=i|b_d|$.  As
+in the proof of Theorem~\ref{thm:thinsector}, $h=h_\theta$ is real of degree
+$d$ with leading coefficient $|b_d|\ge1$ and $|h_k|\le|b_k|$, so
+$\Lambda(B)\ge\Lambda(h)$.
+
+Let $X_1=N-\delta'n/\pi-\varepsilon'-1$.  If $X_1\ge m$, then by
+Lemma~\ref{lem:sharpcross} $h$ has $m$ distinct zeros
+$\varrho_1<\cdots<\varrho_m$ larger than $r_1\ge3$, and \cite[Theorem~3.2]{coefficient-mass} with \cite[Corollary~3.4]{coefficient-mass} gives
+$\Lambda(h)\ge\sum_{i=1}^mi\log(\varrho_i-1)\ge\frac{m(m+1)}2\log(R/T-1)$.
+Otherwise $n>(\pi/\delta')(K-1-m-\varepsilon')$.  If the right side is positive,
+$n\ge1$ and $\Lambda(B)\ge g(n)\ge g(\nu_m(\delta'))$, where $\nu_m(\delta')$
+is $\nu_m$ with $\delta'$ and $\varepsilon'$ in place of $\delta$ and $\omega$; if not,
+$\nu_m(\delta')=0$ and $g(0)=-1<0\le\Lambda(B)$.  So the bound holds with
+$\nu_m(\delta')$, for all admissible $\delta'$ arbitrarily close to $\delta$;
+as $\delta'\downarrow\delta$, $\kappa(\delta')\to\kappa(\delta)$ and
+$\nu_m(\delta')\to\nu_m$, and $g$ is continuous.
+
+\end{proof}
+
+The first term is the thin-sector mechanism, now at every width; the second
+is the angle mechanism.  If the zeros of $B$ of modulus above $R/T$ are few,
+for instance if $B=PQ$ with $P$ the product of $K$ conjugate pairs
+$\beta_j,\bar\beta_j$ with $\beta_j$ in the sector and all zeros of $Q$ in $|z|\le R/T$, then $n\le2K$ in the proof.
+For $m$ with $\nu_m>2K$ its alternative $n>(\pi/\delta')(K-1-m-\varepsilon')$
+fails for $\delta'$ near $\delta$, so the crossings step applies; the largest
+such $m$ is at least $(1-\frac{2\delta}\pi)K-\omega-2$, and whenever this is
+nonnegative,
+$\Lambda(B)\ge\frac12\bigl((1-\frac{2\delta}\pi)K-\omega-2\bigr)^2\log(R/T-1)$.
+So in a sector of any
+width short of a half-plane a cheap multiple needs about
+$(\frac\pi\delta-2)K$ further zeros of modulus above $R/T$, which the
+Mahler term charges linearly.
+
+\begin{corollary}[The constant $\pi/\delta$]\label{cor:wideconst}
+In Theorem~\ref{thm:widesector} suppose $d\le\lambda K$ with $\lambda>0$, let
+$0<\varepsilon\le\frac12$, and take $T=\exp(\kappa(\delta)\lambda/\varepsilon)$,
+assuming $R\ge3T$.  Then
+\[
+  \Lambda(B)\ \ge\ \min\Bigl\{\frac{\varepsilon^2K^2}2\log\Bigl(\frac RT-1\Bigr),\
+  \frac\pi\delta\bigl((1-2\varepsilon)K-2\bigr)\log\frac RT
+  -\log\Bigl(\frac{\pi K}\delta+1\Bigr)-1\Bigr\}.
+\]
+Consequently, for fixed $\delta$ and $\lambda$,
+$\Lambda(B)\ge(\pi/\delta-o(1))K\log R$ as $K\to\infty$ and $R\to\infty$.
+\end{corollary}
+
+\begin{proof}
+Here $\omega\le\kappa(\delta)\lambda K/\log T=\varepsilon K$.  Take
+$m=\lceil\varepsilon K\rceil\le\varepsilon K+1$: then
+$\frac{m(m+1)}2\ge\frac{\varepsilon^2K^2}2$ and
+$K-1-m-\omega\ge(1-2\varepsilon)K-2=:\nu_0\delta/\pi$.  Since $g$ is increasing,
+$g(\nu_m)\ge g(\nu_0^+)$, and $g(\nu_0)\ge\nu_0\log(R/T)-\log(\pi K/\delta+1)-1$
+because $\nu_0\le\pi K/\delta$; if $\nu_0<0$ the claimed bound is negative.
+For the limit take $\varepsilon=\max(K^{-1/3},(\log R)^{-1/2})$: then
+$\log T=O((\log R)^{1/2})$, the first term is at least
+$\frac12K^{4/3}\log(R/T-1)$, which exceeds the second for large $K$, and the second is
+$(\pi/\delta)(1-o(1))K\log R$.
+\end{proof}
+
+\begin{proposition}[Sharpness of $\pi/\delta$]\label{prop:widesharp}
+Let $\varphi\in\R$, $0<\delta\le\pi$, $K\ge1$, $\rho\ge1$ and
+$N=\lceil\pi K/\delta\rceil$.  The monic polynomial $x^N-\rho^N$ has at least
+$K$ zeros in $\{z:|z|=\rho,\ |\arg z-\varphi|\le\delta\}$, degree
+$N\le\pi K/\delta+1$, and
+\[
+  \Lambda(x^N-\rho^N)=N\log\rho\ \le\ \Bigl(\frac{\pi K}\delta+1\Bigr)\log\rho .
+\]
+It is real, and integral when $\rho^N\in\mathbb Z$.  If $0<\varphi-\delta$
+and $\varphi+\delta<\pi$, it is a real multiple of $K$ conjugate pairs
+$\beta_j,\bar\beta_j$ with $\beta_j$ in the sector.
+\end{proposition}
+
+\begin{proof}
+The zeros $\rho e^{2\pi il/N}$ have arguments spaced by $2\pi/N$, so a closed
+arc of length $2\delta$ contains at least $\lfloor\delta N/\pi\rfloor\ge K$ of
+them.  The only nonleading nonzero coefficient is $-\rho^N$.  Under the last
+hypothesis the $K$ zeros are nonreal, and their conjugates are zeros of the
+real polynomial $x^N-\rho^N$.
+\end{proof}
+
+Its degree is at most $(\pi/\delta+1)K$, so Corollary~\ref{cor:wideconst}
+applies with $\lambda=\pi/\delta+1$: the constant $\pi/\delta$ of the angle
+mechanism is sharp in every sector of half-width $\delta<\pi/2$.  In a sector of fixed half-width no
+lower bound valid for all sets of $K$ roots is therefore better than linear
+in $K$ (particular root sets, such as roots on one ray, still cost
+quadratic mass by \cite[Corollary~2.4]{coefficient-mass-complex} with
+\cite[Corollary~3.4]{coefficient-mass}, applied to $F(e^{i\varphi}x)$ when
+$|f_D|\ge1$), and $\Lambda\ge cK^2\log R$ fails already
+for the monic real multiple $x^N-\rho^N$.  The thin-sector term is sharp too.
+
+\begin{corollary}[The constant $\frac12$]\label{cor:thinconst}
+In Theorem~\ref{thm:widesector} suppose $d\le\lambda K$ with $\lambda>0$, and
+let $m=K-1-\lceil\omega+\delta K^2/(2\pi)\rceil$.  If $m\ge0$, then
+\[
+  \Lambda(B)\ \ge\ \min\Bigl\{\frac{m(m+1)}2\log\Bigl(\frac RT-1\Bigr),\
+  \frac{K^2}2\log\frac RT-\log\Bigl(\frac{K^2}2+1\Bigr)-1\Bigr\}.
+\]
+Consequently, for fixed $\lambda$ and $T$, $\Lambda(B)\ge(\frac12-o(1))K^2\log R$
+as $K\to\infty$, $R\to\infty$ and $\delta K\to0$.  Conversely, for
+$\rho_1,\ldots,\rho_K\in[R,2R]$ the monic multiple
+$\prod_j(x-\rho_je^{i\varphi})$ of degree $K$ has
+$\Lambda\le\frac{K(K+1)}2\log(2R)+K^2\log2$.
+\end{corollary}
+
+\begin{proof}
+$K-1-m-\omega=\lceil\omega+\delta K^2/(2\pi)\rceil-\omega\ge\delta K^2/(2\pi)$,
+so $\nu_m\ge K^2/2$, and $g(\nu_m)\ge g(K^2/2)$ since $g$ is increasing;
+Theorem~\ref{thm:widesector} gives the bound.  For the limit,
+$\omega\le\kappa(\delta)\lambda K/\log T$ with
+$\kappa(\delta)\le\frac{2\delta}\pi(1+\log\frac\pi{2\delta})\to0$, as
+$\delta\le\delta K\to0$; so $\omega=o(K)$, $\delta K^2=o(K)$,
+$m\ge K-2-\omega-\delta K^2/(2\pi)=K-o(K)$, and both terms are
+$(\frac12-o(1))K^2\log R$.  For the example, the coefficient of
+$x^{K-k}$ has modulus $e_k(\rho_1,\ldots,\rho_K)\in[R^k,\binom Kk(2R)^k]$,
+and $\sum_{k=0}^K\log\binom Kk\le(K-1)K\log2$.
+\end{proof}
+
+So for complex multiples of degree $O(K)$, as $K,R\to\infty$, both constants
+are attained: $\frac12$ in $\frac12K^2\log R$ when $\delta K\to0$
+(Corollary~\ref{cor:thinconst}), and $\frac\pi\delta$ in $\frac\pi\delta K\log R$ at
+fixed $\delta$ (Corollary~\ref{cor:wideconst} against
+Proposition~\ref{prop:widesharp}).  In between the degree bound matters:
+$x^N-\rho^N$ has degree about $\pi K/\delta$, which is not $O(K)$ uniformly
+in $\delta$.
+
+\begin{corollary}[Gaussian roots in sectors of every width]\label{cor:widegauss}
+In the setting of Section~\ref{sec:gaussian}, let $\varphi\in\R$,
+$0<\delta<\pi/2$, $T>1$, $R\ge3T$ and $\lambda>0$, suppose that every
+$\alpha_j$ has $|\alpha_j|\ge R$ and $|\arg\alpha_j-\varphi|\le\delta$, and put
+$\omega=\kappa(\delta)\lambda K/\log T$.  Every nonzero $F\in\mathbb Z[x]$ divisible
+by $P$ satisfies, for every integer $m\ge0$,
+\[
+  \Lambda(F)\ \ge\ \min\Bigl\{\lambda K\log\frac R2,\
+  \frac{m(m+1)}2\log\Bigl(\frac RT-1\Bigr),\ g(\nu_m)\Bigr\},
+\]
+with $g$ as in Theorem~\ref{thm:widesector} and
+$\nu_m=\frac\pi\delta(K-1-m-\omega)^+$ for this $\omega$.  In particular, for fixed
+$\delta$, $\Lambda(F)\ge(\pi/\delta-o(1))K\log R$ as $K\to\infty$ and
+$R\to\infty$.
+\end{corollary}
+
+\begin{proof}
+Let $B$ be a block of any decomposition of $F$ as in
+\cite[Lemma~6.2]{coefficient-mass-complex}, of degree $d$; it is
+real, $|b_d|\ge1$, it vanishes at the $K$ distinct $\alpha_j$, and
+$\Lambda(F)\ge\Lambda(B)$.  If $d\ge\lambda K$, \cite[Theorem~6.3]{coefficient-mass-complex}
+with $\rho_{\min}\ge R>2$ gives $\Lambda(B)\ge\lambda K\log(R/2)$.  Otherwise
+$\kappa(\delta)d/\log T\le\omega$, and Theorem~\ref{thm:widesector} applies to $B$;
+its bound only improves when $\omega$ decreases, since $\nu_m$ then
+increases and $g$ is increasing.  For the last statement take
+$\lambda=\pi/\delta$ and argue as in Corollary~\ref{cor:wideconst}.
+\end{proof}
+
+The bounds of Corollary~\ref{cor:wideconst}, hence the $o(1)$ here, are
+explicit in $K$ and $R$, so the limit is uniform in the $\alpha_j$.  Many
+Gaussian integers cannot all have small modulus, which gives a bound
+at bounded $R$.
+
+\begin{corollary}[Many Gaussian roots]\label{cor:gausscount}
+In the setting of Section~\ref{sec:gaussian}, let $\varphi\in\R$ and
+$0<\delta<\pi/2$ be fixed, let $R\ge1$, and suppose that every $\alpha_j$
+has $|\alpha_j|\ge R$ and $|\arg\alpha_j-\varphi|\le\delta$.  Every nonzero
+$F\in\mathbb Z[x]$ divisible by $P$ satisfies
+\[
+  \Lambda(F)\ \ge\ \Bigl(\frac\pi\delta-o(1)\Bigr)K\log\max(R,\sqrt K)
+\]
+as $K\to\infty$, uniformly in $R$ and in the $\alpha_j$.  In particular
+$\Lambda(F)\ge(\frac\pi{2\delta}-o(1))K\log K$ whatever $R$.
+\end{corollary}
+
+\begin{proof}
+Let $K\ge3$, $X=\sqrt K/\log K$ and $R'=\max(R,X)$.  The unit squares
+centred at the Gaussian integers of modulus less than $X$ are disjoint and
+lie in the disc of radius $X+1$, so there are at most $\pi(X+1)^2=o(K)$ of
+them.  So the set $A$ of the $j$ with $|\alpha_j|\ge R'$ has
+$|A|=(1-o(1))K$.  The product of the $(x-\alpha_j)(x-\bar\alpha_j)$,
+$j\in A$, divides $P$, hence $F$, and Corollary~\ref{cor:widegauss} for the
+$\alpha_j$, $j\in A$, with $R'$ in place of $R$, gives
+$\Lambda(F)\ge(\pi/\delta-o(1))|A|\log R'$, as $|A|\to\infty$ and
+$R'\ge X\to\infty$.  Finally
+$\log R'\ge\log\max(R,\sqrt K)-\log\log K$, and
+$\log\log K=o(\log\max(R,\sqrt K))$.
+\end{proof}
+
+It improves on Corollary~\ref{cor:widegauss} only when $R<\sqrt K$, and
+says nothing about $K^2\log R$.
+
+\section{Integer imitations of $x^N-\rho^N$}\label{sec:imitations}
+
+Corollary~\ref{cor:widegauss}
+leaves open whether $\Lambda(F)\ge cK^2\log R$ for every integer multiple at
+Gaussian roots in a wide sector.  Over the reals the bound fails because of
+$x^N-\rho^N$, whose mass sits in its lowest coefficient, followed by a gap
+$N$; here a polynomial $F$ with lowest nonzero coefficient $f_e$ has a
+\emph{gap $m$ after its lowest coefficient} if $f_{e+1}=\cdots=f_{e+m-1}=0$,
+that is, if $F=x^e(f_e+x^mG)$ for a polynomial $G$.  The two integer
+imitations of $x^N-\rho^N$ are limited at Gaussian roots: a
+polynomial $A((x-t)^N)$ has at most $2\deg A$ Gaussian roots in the upper
+half-plane, and under the hypotheses of Proposition~\ref{prop:gausslow},
+item~2, a long gap after the lowest coefficient is expensive.
+
+\begin{lemma}[Polynomials in $(x-t)^N$]\label{lem:gaussbinom}
+Let $A\in\mathbb Z[y]$ be nonzero of degree $s$, $t\in\mathbb Z$ and $N\ge1$.
+Then $A\bigl((x-t)^N\bigr)$ has at most $2s$ distinct roots $\alpha\in\mathbb Z[i]$
+with $\operatorname{Im}\alpha>0$.  In particular a binomial $a(x-t)^N+b$ with
+$a,b\in\mathbb Z\setminus\{0\}$ has at most two, and $x^4+4$, with the roots
+$\pm1+i$ in the upper half-plane, has two.
+\end{lemma}
+
+\begin{proof}
+For each such root $\alpha$ the number $(\alpha-t)^N$ is one of the at most $s$
+distinct roots of $A$, which sorts the roots $\alpha$ into at most $s$ classes.
+Let $\alpha,\alpha'$ lie in one class, and put $\beta=\alpha-t$,
+$\beta'=\alpha'-t$.  These are nonzero Gaussian integers with
+$\beta'^N=\beta^N$, so $\beta'/\beta$ is a root of unity in $\mathbb Q(i)$,
+that is, one of $\pm1,\pm i$.  If $\beta=u+iv$, the imaginary parts of $\beta$,
+$i\beta$, $-\beta$, $-i\beta$ are $v$, $u$, $-v$, $-u$, of which at most two are
+positive; since $\operatorname{Im}\alpha=\operatorname{Im}\beta$, each class has
+at most two members.  Finally $x^4+4=(x^2-2x+2)(x^2+2x+2)$.
+\end{proof}
+
+So $x^N-b$, $b\in\mathbb Z$, carries at most two of the prescribed roots
+$\alpha_j$, whatever $N$ and $b$, where Proposition~\ref{prop:widesharp} needs
+$K$; more generally $A(x^N)$, whose mass is that of $A$
+\cite[Theorem~2.2]{coefficient-mass-complex}, carries at most $2\deg A$ of them.
+
+For the gap, recall $P(0)=\prod_j\rho_j^2$; as $P(0)\ne0$, $1/P$ is a power
+series at $0$.
+
+\begin{proposition}[The lowest coefficients]\label{prop:gausslow}
+In the setting of Section~\ref{sec:gaussian}, let $m\ge1$, write
+$1/P(x)=\sum_{l\ge0}u_lx^l$ as a power series at $0$, and let $d_m$ be the
+least positive integer with $d_mu_l\in\mathbb Z$ for every $l<m$.
+\begin{enumerate}
+\item For $f\in\mathbb Z$, some $F\in\mathbb Z[x]$ divisible by $P$ has
+$F\equiv f\pmod{x^m}$ if and only if $d_m\mid f$; and $d_m\mid P(0)^m$.
+\item If the norms $\rho_j^2=a_j^2+c_j^2$ are odd and pairwise coprime and
+$\gcd(a_j,c_j)=1$ for every $j$, then $d_m=P(0)^m$.  Consequently, if
+$F\in\mathbb Z[x]$ is divisible by $P$ and $F=x^e(f_e+x^mG)$ with $f_e\ne0$
+and $G\in\mathbb Z[x]$, a gap $m$ after its lowest coefficient, then $P(0)^m$
+divides $f_e$, and
+\[
+  \Lambda(F)\ \ge\ m\log P(0)\ \ge\ 2Km\log\rho_{\min}.
+\]
+\item If all the norms $\rho_j^2$ equal one integer $n$, then
+$d_m\mid n^{K+m-1}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+1.  The integers $f$ with $fu_l\in\mathbb Z$ for all $l<m$ form a subgroup of
+$\mathbb Z$, namely $d_m\mathbb Z$.  Since $P$ is monic, a multiple of $P$ in
+$\mathbb Z[x]$ is $F=PQ$ with $Q\in\mathbb Z[x]$, and since $P$ is a unit of
+$\mathbb Q[[x]]$, $F\equiv f\pmod{x^m}$ if and only if $Q\equiv f/P\pmod{x^m}$.
+If so, the $fu_l$, $l<m$, are coefficients of $Q$, hence integers, and
+$d_m\mid f$.  Conversely, if $d_m\mid f$, then $Q=\sum_{l<m}fu_lx^l$ lies in
+$\mathbb Z[x]$ and $F=PQ\equiv f$.  Writing $P=P(0)+xP_1$ with
+$P_1\in\mathbb Z[x]$,
+\[
+  \frac1P=\sum_{k\ge0}\frac{(-1)^kx^kP_1^k}{P(0)^{k+1}},
+\]
+and only $k\le l$ contributes to $u_l$, so $P(0)^{l+1}u_l\in\mathbb Z$ and
+$d_m\mid P(0)^m$.
+
+2.  First, the $2K$ Gaussian integers $\alpha_j$, $\bar\alpha_j$ are pairwise
+coprime.  A Gaussian prime $\varpi$ dividing $\alpha_j$ and $\bar\alpha_j$ divides
+$\alpha_j+\bar\alpha_j=2a_j$ and $\alpha_j-\bar\alpha_j=2ic_j$, hence
+$2\gcd(a_j,c_j)=2$, so $\varpi$ is an associate of $1+i$ and $2=|\varpi|^2$ divides
+the odd norm $\rho_j^2$; and a common prime factor of one of $\alpha_j,\bar\alpha_j$
+and one of $\alpha_l,\bar\alpha_l$, $l\ne j$, would give $|\varpi|^2>1$ dividing
+both $\rho_j^2$ and $\rho_l^2$.  Now let $F\in\mathbb Z[x]$ be divisible by $P$
+with $F\equiv f\pmod{x^m}$, so $F=f+x^mG$ with $G\in\mathbb Z[x]$.  For each $j$,
+$0=F(\alpha_j)=f+\alpha_j^mG(\alpha_j)$ with $G(\alpha_j)\in\mathbb Z[i]$, so
+$\alpha_j^m\mid f$, and conjugating, $\bar\alpha_j^m\mid f$.  By coprimality
+$\prod_j\alpha_j^m\bar\alpha_j^m=P(0)^m$ divides $f$ in $\mathbb Z[i]$, hence in
+$\mathbb Z$.  Taking $f=d_m$, which item~1 allows, gives $P(0)^m\mid d_m$, and
+item~1 gives the reverse.  For the consequence, $P(0)\ne0$ makes $P$ divide
+$F_0=f_e+x^mG$, and $F_0\equiv f_e\pmod{x^m}$, so $d_m=P(0)^m$ divides $f_e$.
+Then $\Lambda(F)\ge\log|f_e|\ge m\log P(0)$, and
+$P(0)=\prod_j\rho_j^2\ge\rho_{\min}^{2K}$.
+
+3.  Let $z$ run over the $2K$ roots $\alpha_j,\bar\alpha_j$ of $P$.  Then
+$\prod_z(-z)=\prod_j\alpha_j\bar\alpha_j=n^K$, so
+$P(x)=n^K\prod_z(1-x/z)$ and
+\[
+  \frac1P=n^{-K}\prod_z\sum_{k\ge0}\frac{x^k}{z^k}
+  =n^{-K}\sum_{l\ge0}h_l(z^{-1})\,x^l,
+\]
+where $h_l$ is the complete homogeneous symmetric polynomial of degree $l$ in
+$2K$ variables.  Since $z^{-1}=\bar z/n$ and the multiset of the $\bar z$ is
+that of the $z$, $h_l(z^{-1})=n^{-l}h_l(z)$.  As a symmetric polynomial with
+integer coefficients in the roots of the monic $P\in\mathbb Z[x]$, $h_l(z)$ is
+an integer.  So $n^{K+l}u_l\in\mathbb Z$, and $d_m\mid n^{K+m-1}$.
+\end{proof}
+
+Under the hypotheses of item~2, then, an integer multiple imitating $x^N-\rho^N$,
+with a gap $m\ge\pi K/\delta$ after its lowest coefficient, pays at least
+$(2\pi/\delta)K^2\log\rho_{\min}$.  The coprimality cannot be dropped: at a
+common norm $n$, item~3 gives $d_m\le n^{K+m-1}$, far below
+$P(0)^m=n^{Km}$ when $K,m\ge2$ (for $n=5\cdot13\cdot17\cdot29$ there are $32$
+Gaussian integers of norm $n$ in the upper half-plane).  So at a common norm
+some multiple has lowest $m=O(K)$ coefficients $(d_m,0,\ldots,0)$, of mass
+$\log d_m\le(K+m-1)\log n$, and no bound that looks only at them gives order
+$K^2\log R$ at every root set.
+
+At Gaussian roots a small second row confines an integer multiple to one
+level set of a polynomial with small nonleading coefficients, whereas over
+the reals $x^N-\rho^N$ has $b_2=0$.
+
+\begin{proposition}[One heavy coefficient]\label{prop:gaussheavy}
+In the setting of Section~\ref{sec:gaussian}, assume $\rho_{\min}>2$, and let
+$F\in\mathbb Z[x]$ be nonzero and divisible by $P$, with lowest nonzero
+coefficient $v=f_e$.  Call a coefficient $f_i$ of $F$ \emph{heavy} if
+$|f_i|\ge\rho_{\min}/2$.
+\begin{enumerate}
+\item For any decomposition of $F$ as in \cite[Lemma~6.2]{coefficient-mass-complex}, the
+lowest coefficient of every block is heavy and nonleading, so there are at most
+as many blocks as heavy nonleading coefficients of $F$.
+\item If $b_2(F)<\rho_{\min}/2$, then $F=x^e(v+H)$ with $H\in\mathbb Z[x]$,
+$H(0)=0$ and every nonleading coefficient of $H$ of modulus less than
+$\rho_{\min}/2$; moreover $H(\alpha_j)=-v$ for every $j$, and
+$(\rho_{\min}/2)^{\deg H}\le|v|$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+1.  A block $B$ is $PQ$ with $Q\in\mathbb Z[x]$, and $B(0)\ne0$, so
+$|B(0)|\ge P(0)\ge\rho_{\min}^2>\rho_{\min}/2$.  Its degree is at least $2K\ge2$,
+so its lowest coefficient is not the leading coefficient of $F$, and distinct
+blocks have distinct lowest positions.
+
+2.  At most one nonleading coefficient of $F$ is heavy, so by item~1 a
+decomposition of $F$ as in \cite[Lemma~6.2]{coefficient-mass-complex} has exactly one block,
+$F=x^eB$, and $B(0)=v$ is the heavy one; every other
+nonleading coefficient of $F$ has modulus less than $\rho_{\min}/2$.  Write
+$B=v+H$; since $B(\alpha_j)=0$, $H(\alpha_j)=-v$.  Let
+$d=\deg H=\deg B$.  The split $d$ of the $P$-irreducible $B$ is unclean at
+some $\alpha_j$, and $\rho_j\ge\rho_{\min}>2$, so by
+\cite[Lemma~6.1]{coefficient-mass-complex} some $i<d$ has
+$|b_i|\ge(\rho_j/2)^{d-i}\ge\rho_{\min}/2$.  This $b_i$ is a heavy
+nonleading coefficient of $F$, so $i=0$ and $|v|\ge(\rho_{\min}/2)^d$.
+\end{proof}
+
+So, when $\rho_{\min}>2$, $b_2(F)\ge\rho_{\min}/2$ unless every $\alpha_j$
+lies in one level set $\{y:H(y)=-v\}$ of such an $H$.  Three Gaussian points
+above the axis can share such a level set: $(y^3-y)^2$, with nonleading
+coefficients $-2$ and $1$, takes the value $-270400$ at $\pm7+4i$ and $8i$,
+since $y^3-y$ is $\pm520i$ there, and these points have
+$\rho_{\min}=8>4$.  Whether the number of Gaussian points above the
+axis in one level set
+of a polynomial with small nonleading coefficients is bounded, and whether
+$\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at Gaussian roots in
+a wide sector, remain open.
+
+\paragraph{Data availability.}
+No datasets were generated or analyzed in this study.
+
+\paragraph{Computer assistance.}
+No proof in this paper relies on computation.  The numerical thresholds after
+Theorem~\ref{thm:thinsector} describe its range and are not used elsewhere,
+and the value $-270400$ after Proposition~\ref{prop:gaussheavy} is a direct
+evaluation.  The file \texttt{tests/test\_sectors.py} in the
+repository of~\cite{coefficient-mass} checks the statements, on seeded
+random Gaussian and integer multiples and on the extremal examples, each
+group with a control showing that a false variant is caught; these checks
+test the statements and are not used in any proof.  Polynomial products,
+divisibility, coefficient magnitudes, power-series coefficients and Sturm
+counts of real zeros are computed in exact integer and rational arithmetic;
+floating point enters only in evaluating logarithms, in the right-hand sides
+of mass bounds and the constants $E$ and $\kappa$.
+
+\paragraph{Use of AI tools.}
+Large language model assistants (Claude, Anthropic) were used in drafting and
+revising the text, the proofs and the verification code.  The author has checked the mathematics and is responsible for
+the content.
+
+\paragraph{Funding and competing interests.}
+The author received no specific funding for this work and has no competing
+interests to declare.
+
+\begin{thebibliography}{99}
+\small
+\bibitem{coefficient-mass}
+B.~Pham,
+\newblock Displaced-zero certificates and the coefficient mass of polynomial
+multiples,
+\newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
+
+\bibitem{coefficient-mass-complex}
+B.~Pham,
+\newblock Coefficient mass of polynomial multiples at complex roots,
+\newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
+
+\bibitem{erdos-turan}
+P.~Erd\H{o}s and P.~Tur\'an,
+\newblock On the distribution of roots of polynomials,
+\newblock \emph{Annals of Mathematics} (2) 51 (1950), 105--119.
+\end{thebibliography}
+
+\end{document}
