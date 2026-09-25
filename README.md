@@ -44,13 +44,14 @@ to Corollary 3.4 as `Prop` definitions (`ZeroBound`, `ConsecutiveTail`,
 `ComplexOrderStatistics`, `LogarithmicMass`).  A statement is proved by adding
 a theorem of that type; nothing is assumed.  The guards in `scripts/` (the
 [lean-guards](https://github.com/bangyen/lean-guards) submodule) reject
-unfinished proofs and new axioms, so the build is honest at every commit.
+unfinished proofs and new axioms, so every commit builds without `sorry` or
+extra axioms.
 
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,
 `Quot.sound`).  Lemma 2.3 and the bound `σ ≤ G_z / V̂_z` use weak sign
-alternation (`card_le_of_alternating`, a mean-value-theorem induction), as the
-paper now does; the formal zero bound counts distinct zeros only, and the sign
+alternation (`card_le_of_alternating`, a mean-value-theorem induction), as in the
+paper; the formal zero bound counts distinct zeros only, and the sign
 changes at prescribed zeros come from weak alternation.
 
 ```bash
