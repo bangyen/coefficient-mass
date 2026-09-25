@@ -350,8 +350,34 @@ is open; an answer lands in the paper it extends, and the row leaves.
   case `prop:gaussheavy` needs, exceptions to `C` slightly above `2` are
   not expected; exhaustive searches over all `|f_i| < rho_min/2` at
   `K = 3`, `m = 2, 3, 4, 6`, odd coprime norms in `[36, 144]`, 300 seeded
-  root sets, gave implied `C` at most `1.75` (`1.24` at `m = 6`).  Open: whether the step holds for
-  `m >= 2K`.
+  root sets, gave implied `C` at most `1.75` (`1.24` at `m = 6`).
+  Lines with a constant `P'(0)` (`prop:gaussline`): for `alpha_j = lambda_j s
+  + mu_j`, `P(0) = Lambda Q(s)` with `Q(s) = prod (s - w_j)(s - conj w_j)`,
+  `w_j = -mu_j/lambda_j`, and `P'(0)` is constant `-N` iff
+  `N lambda_j = Lambda Q'(w_j)` for all `j` (residues of `P'(0)/P(0)`); so
+  `P'(0) = 4` at `-(s+3) + (s+2)i`, `(s+1) + (s+2)i` (every `s >= -1`) and
+  `P'(0) = 90` at `-(s+3) + (s+2)i`, `-1 + (s+1)i`, `(s-1) + si` (odd
+  `s = 0, 3 mod 5`), which forces `C >= K` at `m = 2` along infinitely
+  many root sets in one annulus for `K = 2, 3`, and would for every `K`
+  given such lines with the `|lambda_j|` within a factor 2.  Numerical
+  evidence only: over nodes `w_j` in `(1/2) Z[i]` with `Re w_j` in a window
+  of width 12 and `-Im w_j <= 6`, taking `lambda_j` proportional to
+  `Q'(w_j)` with cofactors `lambda_j / den(w_j)` of odd pairwise coprime
+  norms, exhaustive search found only item 3 at `K = 3` (up to translation
+  and the scaling `mu_j -> 3 mu_j`, which multiplies `P'(0)` by
+  `3**(2K-1)`), and none at `K = 4` with width 7 and `-Im w_j <= 4`, nor with
+  `lambda_j` a unit times `den(w_j)` and width 8.
+  Light multiples (`prop:gausslight`): if every coefficient of `F` but the
+  lowest nonzero one is below `rho_min/2` (a level set of `prop:gaussheavy`
+  with small leading coefficient too, as the Pell triples), then
+  `deg F - e >= 2K` and `|f_e| < rho_min**(deg F - e + 1)`, so the step at
+  `m = deg F - e + 1` needs `C log rho_max > log P(0) - log rho_min >=
+  (2K - 1) log rho_min`; a yes answer at every `m >= 2K` would bound `K` on
+  such level sets at coprime norms by `(C + 1)/2 + O(C/log R)` in `[R, 2R]`,
+  so the step at `m >= 2K` contains the level-set question for them.
+  Open: whether the step holds for `m >= 2K`, and whether lines with a
+  constant `P'(0)` and the hypotheses of `prop:gausslow`, item 2, exist for
+  every `K`.
 
 - **Every row at other roots.**  The paper is
   [coefficient-mass-rows](papers/coefficient-mass-rows.tex), split out of
