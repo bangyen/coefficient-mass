@@ -47,8 +47,8 @@ $\ell^1$ tails of normalized exponential sums in the reciprocal roots
 $1/r_i$ with prescribed positive-integer zeros: deleting the largest zero,
 when it is displaced, together with the largest node, the reciprocal of
 the smallest root, strictly increases the tail, and iterating gives a product bound over
-the initial run of consecutive zeros, with equality only when all the zeros
-are consecutive.  As a by-product, the same-sign hypothesis under which
+the initial run of consecutive zeros, with equality only when the zeros are
+the first positive integers $1,2,\ldots$ with none skipped.  As a by-product, the same-sign hypothesis under which
 Dubickas and Jankauskas evaluate the consecutive case holds at all distinct
 nodes in $(0,1)$, making their reduced-height bound $H(P)\ge|P(1)|$ unconditional for
 distinct real roots greater than one.
@@ -95,7 +95,7 @@ Corollary~\ref{cor:mass} give
 We call the first inequality at a given $k$ the row $k$.  Both bounds are
 uniform in the degree and in any further roots of the multiple, and they
 extend to complex multiples (Corollaries~\ref{cor:complex} and~\ref{cor:mass}).  The row $k=1$
-holds for all $r_1>1$.  For the first $L$ primes the mass bound is
+holds for all $r_1>1$.  For the first $L$ primes and $|f_D|\ge1$ the mass bound is
 $\Lambda(F)\ge(\frac12+o(1))L^2\log L$ (Corollary~\ref{cor:prime}), and the
 infimum over monic multiples is
 $\frac12L^2\log L+\frac12L^2\log\log L+O(L^2)$ (Corollary~\ref{cor:infimum}).
@@ -149,8 +149,8 @@ Section~\ref{sec:sharp} asks how close the rows are to optimal.  The loss
 in the row $k=1$ is unbounded: if $r_1\ge2$, every monic
 multiple has $b_1\ge(r_1+\cdots+r_L)/2$, which exceeds $|P(1)|$ by a factor of order $L$
 at suitable distinct roots (Proposition~\ref{prop:unbounded}).  The row
-$k=2$ is an infimum at $(2,3)$ (Proposition~\ref{prop:sharp23}), so the rows
-$k\ge2$ cannot be improved by any constant factor in general; the companion
+$k=2$ is an infimum at $(2,3)$ (Proposition~\ref{prop:sharp23}), so no constant
+factor improves the rows $k\ge2$ as a family; the companion
 paper~\cite{coefficient-mass-attainment} characterizes the root sets at which
 a row is an infimum by a partial-sum criterion, repeated roots included.
 Every monic multiple of $(x-2)^L$ has $b_k\ge L-k+1$ for every row
