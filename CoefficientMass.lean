@@ -13,6 +13,7 @@ import CoefficientMass.Consecutive
 import CoefficientMass.Defs
 import CoefficientMass.Descartes
 import CoefficientMass.Displaced
+import CoefficientMass.DisplacedGen
 import CoefficientMass.DisplacedTail
 import CoefficientMass.Examples
 import CoefficientMass.ExpSum
@@ -58,9 +59,11 @@ import CoefficientMass.Tail
 import CoefficientMass.TailBound
 import CoefficientMass.TailEq
 import CoefficientMass.TailExp
+import CoefficientMass.TailGen
 import CoefficientMass.TailJ
 import CoefficientMass.TailProd
 import CoefficientMass.TailSplit
+import CoefficientMass.TailSplitGen
 import CoefficientMass.TailSum
 import CoefficientMass.ValsBlock
 import CoefficientMass.ValsIdent

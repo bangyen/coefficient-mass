@@ -51,6 +51,7 @@ REFERENCES = {
     ("coefficient-mass", "4.11"): ("Lemma", "lem:holetail"),
     ("coefficient-mass", "4.12"): ("Proposition", "prop:rowstop"),
     ("coefficient-mass", "4.13"): ("Theorem", "thm:everyrow"),
+    ("coefficient-mass-rows", "2.2"): ("Theorem", "thm:tailgen"),
 }
 
 #: Each headline theorem, ``theorem name : Statement``, as ``name ->
@@ -89,6 +90,7 @@ HEADLINES = {
     "primeRoots": ("PrimeRoots", "coefficient-mass", "cor:prime"),
     "primeInfimum": ("PrimeInfimum", "coefficient-mass", "cor:infimum"),
     "workedExamples": ("WorkedExamples", "coefficient-mass", "thm:tail"),
+    "tailBoundGen": ("TailBoundGen", "coefficient-mass-rows", "thm:tailgen"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
