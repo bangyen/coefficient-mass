@@ -12,6 +12,7 @@ import CoefficientMass.ConfDel
 import CoefficientMass.ConfDelR
 import CoefficientMass.ConfPrefix
 import CoefficientMass.Consecutive
+import CoefficientMass.Crossing
 import CoefficientMass.Defs
 import CoefficientMass.Descartes
 import CoefficientMass.Displaced

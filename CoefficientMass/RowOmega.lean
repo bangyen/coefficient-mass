@@ -92,7 +92,6 @@ theorem muR_le_omegaR {r : ℝ} (hr : 1 < r) {L k : ℕ} (hkL : k ≤ L)
     (⟨q, hq, hq0, hqS⟩ : {q : ℝ[X] // q.degree < L ∧ q.eval 0 = 1 ∧ ∀ s ∈ S, q.eval (s : ℝ) = 0})
   refine hμ.trans ?_
   rw [tsum_shift (by
-    change omegaWeight r k 0 * _ = 0
     rw [omegaWeight, if_neg (by norm_num), zero_mul]), rowPhi]
   have hsum := summable_weighted (fun s => (omegaWeight_le hr k s).1)
     (summable_weight_pow hr (omegaWeight_le hr k) (L - k + 1 - 1)) _

@@ -134,7 +134,6 @@ theorem rowPhi_prefix_mul (r : ℝ) {i : ℕ} {q p : ℝ[X]}
     (hfac : ∀ y : ℝ, q.eval y = (confPolyP (Finset.Icc 1 (i - 1))).eval y * p.eval y) :
     rowPhi r q = ∑' s : ℕ, prefixWeight r i s * |p.eval (s : ℝ)| := by
   rw [tsum_shift (by
-    change prefixWeight r i 0 * _ = 0
     rw [prefixWeight, if_neg (by norm_num), zero_mul]), rowPhi]
   refine tsum_congr fun d => ?_
   rw [hfac, abs_mul, ← confPoly_eq_eval, abs_confPoly_prefix (by omega), prefixWeight,
