@@ -41,6 +41,7 @@ import CoefficientMass.TailExp
 import CoefficientMass.TailJ
 import CoefficientMass.TailProd
 import CoefficientMass.TailSplit
+import CoefficientMass.TailSum
 import CoefficientMass.ZeroBound
 
 /-!
