@@ -58,7 +58,7 @@ theorem abs_block_eval_mul {k : ℕ} (hk : 1 ≤ k) {s : ℕ} (hs : 1 ≤ s) :
     · subst h1
       rw [Nat.cast_one, add_sub_cancel_right, abs_of_pos hk0]
       exact ih
-    · rcases le_or_lt s k with hsk | hsk
+    · rcases le_or_gt s k with hsk | hsk
       · have h0 : (s - 2).choose (k - 1) = 0 := Nat.choose_eq_zero_of_lt (by omega)
         have h0' : (s - 2).choose k = 0 := Nat.choose_eq_zero_of_lt (by omega)
         rw [h0, Nat.cast_zero] at ih
