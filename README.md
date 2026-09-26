@@ -70,7 +70,12 @@ The companion paper `coefficient-mass-rows.tex` is formalized from its start.  S
 is proved in full: `rowValueCert`, `rowValueDual` and `rowValueTop` (Proposition 2.1, the
 certificate at a root `r > 1`, `V_r(L, k) = inf 1/μ_r(S, L)` by Hahn–Banach separation and
 truncation, and `V_r(L, k) ≤ β_r(L - k + 1)`), `tailBoundGen` (Theorem 2.2),
-`confDeleteR` (Lemma 2.3) and `lastRow` (Corollary 2.4).
+`confDeleteR` (Lemma 2.3) and `lastRow` (Corollary 2.4).  From Section 3, `intZerosInf`
+(Lemma 3.1), `rowPointwise` (Lemma 3.2) and `prefixRows` (Theorem 3.3); Section 4 in full,
+`crossing` (Lemma 4.1), `insFlip` (Lemma 4.2) and `crossRows` (Theorem 4.3); and Section 5
+in full, `truncVertex` (Lemma 5.1), `optIns` and `optInsMax` (Lemma 5.2), `allRowsTwo`
+(Theorem 5.3, with `V_r(L, k) = β_r(L - k + 1)` for `r ≥ 2`) and `prefixUp`
+(`ν_{i+1}(n) ≤ ν_i(n)/(r - 1)`).
 
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,
