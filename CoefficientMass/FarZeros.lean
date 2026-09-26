@@ -124,7 +124,8 @@ theorem mul_abs_confPolyP_sub_le {U : Finset ℕ} (hne : U.Nonempty) (hu0 : (0 :
     rw [e2]
     linear_combination ((1 / (u : ℝ) * s) ^ (m - 1) * s) * e
 
-/-- Lemma 6.18(b): `Φ_r(q r_U) ≤ Φ_r(q)` when `Δ_{q,m}(t) ≤ 0`, `|U| ≤ m` and `U ⊂ [t, ∞)`. -/
+/-- Lemma 6.18(b) of `coefficient-mass-rows.tex`: `Φ_r(q r_U) ≤ Φ_r(q)` when
+`Δ_{q,m}(t) ≤ 0`, `|U| ≤ m` and `U ⊂ [t, ∞)`. -/
 theorem rowPhi_mul_confPolyP_le {r : ℝ} (hr : 1 < r) {m : ℕ} (hm : 1 ≤ m) (q : ℝ[X]) {t : ℝ}
     (ht : 0 < t) (hΔ : deltaQ r q m t ≤ 0) {U : Finset ℕ} (hU : U.card ≤ m)
     (hUt : ∀ v ∈ U, t ≤ v) : rowPhi r (q * confPolyP U) ≤ rowPhi r q := by
