@@ -80,7 +80,7 @@ theorem prefixPush_aux {r : ℝ} (hr : 1 < r) (p : ℝ[X]) (n : ℕ) :
       have hgσ : g < σ := by
         by_contra hle
         exact hS (eq_Icc_of_gap h0 fun x hx => lt_of_le_of_ne ((S.le_max' x hx).trans
-          (not_lt.1 hle)) fun h => hgS (h ▸ hx))
+          (not_lt.1 hle)) fun h => hgS (Eq.mp (congrArg (· ∈ S) h) hx))
       have hσU : σ ∉ S.erase σ := Finset.notMem_erase σ S
       have hgU : g ∉ S.erase σ := fun h => hgS (Finset.mem_of_mem_erase h)
       have h0U : 0 ∉ S.erase σ := fun h => h0 (Finset.mem_of_mem_erase h)
