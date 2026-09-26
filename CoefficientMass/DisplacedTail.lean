@@ -14,11 +14,13 @@ Theorem 2.2's displaced step in `coefficient-mass.tex`: deleting the largest
 prescribed zero `z` together with the largest node does not decrease the
 tail.  The certificate is `w = F - F_z G`; the sign patterns give
 `|w_d| = |F_d| - μ |G_d|` below `z` and `μ G_d - |F_d|` above it; and `drive`
-feeds `gamma_bound`.
+feeds `gamma_bound`.  Where `G_d ≠ 0` below `z` the first difference is
+strict, which gives the equality case of Theorem 2.2.
 
 ## Theorems
 
 * `abs_neg_one_pow`.
+* `tsum_le_lt_of_displaced`.
 * `tsum_le_of_displaced`.
 -/
 
@@ -27,14 +29,17 @@ namespace CoefficientMass
 theorem abs_neg_one_pow (k : ℕ) : |(-1 : ℝ) ^ k| = 1 := by
   rw [abs_pow, abs_neg, abs_one, one_pow]
 
-/-- The displaced step: `Tail(w) ≤ Tail(F)`. -/
-theorem tsum_le_of_displaced {n : ℕ} (y : Fin (n + 1) → ℝ) (hmono : StrictMono y)
+/-- The displaced step: `Tail(w) ≤ Tail(F)`, strictly when some `1 ≤ d₀ < z`
+lies outside `Z`. -/
+theorem tsum_le_lt_of_displaced {n : ℕ} (y : Fin (n + 1) → ℝ) (hmono : StrictMono y)
     (hpos : ∀ i, 0 < y i) (hhalf : ∀ i, y i ≤ 1 / 2) (Z : Finset ℕ) {z : ℕ} (hz : z ∈ Z)
     (hzmax : ∀ τ ∈ Z, τ ≤ z) (h0 : 0 ∉ Z) (hcard : Z.card = n) (aw : Fin (n + 1) → ℝ)
     (hw : IsCertificate aw y Z) (aF : Fin n → ℝ)
     (hF : IsCertificate aF (fun i => y i.castSucc) (Z.erase z))
     (hFs : Summable fun d => |expSum aF (fun i => y i.castSucc) (d + 1)|) :
-    ∑' d, |expSum aw y (d + 1)| ≤ ∑' d, |expSum aF (fun i => y i.castSucc) (d + 1)| := by
+    ∑' d, |expSum aw y (d + 1)| ≤ ∑' d, |expSum aF (fun i => y i.castSucc) (d + 1)| ∧
+      (Summable (fun d => |expSum aw y (d + 1)|) → ∀ d₀, 1 ≤ d₀ → d₀ < z → d₀ ∉ Z →
+        ∑' d, |expSum aw y (d + 1)| < ∑' d, |expSum aF (fun i => y i.castSucc) (d + 1)|) := by
   have hy := hmono.injective
   set Z' := Z.erase z with hZ'def
   have hZ' : Z'.card + 1 = n := by
@@ -97,10 +102,11 @@ theorem tsum_le_of_displaced {n : ℕ} (y : Fin (n + 1) → ℝ) (hmono : Strict
   -- the sign patterns
   have hGpos : ∀ d, z ≤ d → 0 < G d := fun d hd =>
     pos_beyond aG y hy hpos _ hA hG0 hGz hAz fun α hα => (hAz α hα).trans_le hd
-  have hlow : ∀ d, 1 ≤ d → d < z → |w d| ≤ |F d| := fun d hd hdz => by
+  have hlow : ∀ d, 1 ≤ d → d < z → |w d| ≤ |F d| ∧ (d ∉ Z' → |w d| < |F d|) :=
+      fun d hd hdz => by
     by_cases hdZ' : d ∈ Z'
     · rw [hw2 d (Finset.mem_of_mem_erase hdZ'), abs_zero]
-      exact abs_nonneg _
+      exact ⟨abs_nonneg _, fun h => absurd hdZ' h⟩
     have hdZ : d ∉ Z := fun h => hdZ' (Finset.mem_erase.2 ⟨hdz.ne, h⟩)
     have hdA : d ∉ insert 0 Z' := by
       rw [Finset.mem_insert]
@@ -143,8 +149,16 @@ theorem tsum_le_of_displaced {n : ℕ} (y : Fin (n + 1) → ℝ) (hmono : Strict
         ring
       rw [h', hss, htt, one_mul, one_mul] at this
       exact this.le
+    have hGd : G d ≠ 0 := fun h => by
+      change 0 < t * G d at s2
+      rw [h, mul_zero] at s2
+      exact lt_irrefl 0 s2
+    have hFz0 : F z ≠ 0 := fun h => by
+      rw [h, mul_zero] at hμ
+      exact lt_irrefl 0 hμ
+    have hFG0 : 0 < |F z| * |G d| := mul_pos (abs_pos.2 hFz0) (abs_pos.2 hGd)
     rw [abs_eq_sub_of_pos (hwFG d) hFG hWG]
-    linarith [mul_nonneg (abs_nonneg (F z)) (abs_nonneg (G d))]
+    exact ⟨by linarith, fun _ => by linarith⟩
   have hhigh : ∀ d, z < d → |w d| = η * F z * G d - |F d| := fun d hdz => by
     have hdZ' : ∀ τ ∈ Z', τ < d := fun τ hτ => (hZ'z τ hτ).trans hdz
     have hdZ : d ∉ Z := fun h => by have := hzmax d h; omega
@@ -177,7 +191,20 @@ theorem tsum_le_of_displaced {n : ℕ} (y : Fin (n + 1) → ℝ) (hmono : Strict
           η * F z * y (Fin.last n) * G (z + t) + |F (z + (t + 1))|
         rw [show z + (t + 1) = z + t + 1 by ring, habsF _ hFe]
         linarith
-  exact tsum_abs_le_of_split w F G hzpos (hlow := hlow)
-    (hw2 z hz) (habsF z hμ) hGz hhigh hgamma hFs
+  have hle : ∀ d, 1 ≤ d → d < z → |w d| ≤ |F d| := fun d h1 h2 => (hlow d h1 h2).1
+  refine ⟨tsum_abs_le_of_split w F G hzpos hle (hw2 z hz) (habsF z hμ) hGz hhigh hgamma hFs,
+    fun hws d₀ h1 h2 h3 => ?_⟩
+  exact tsum_abs_lt_of_split w F G hzpos hle (hw2 z hz) (habsF z hμ) hGz hhigh hgamma hFs hws
+    h1 h2 ((hlow d₀ h1 h2).2 fun h => h3 (Finset.mem_of_mem_erase h))
+
+/-- The displaced step: `Tail(w) ≤ Tail(F)`. -/
+theorem tsum_le_of_displaced {n : ℕ} (y : Fin (n + 1) → ℝ) (hmono : StrictMono y)
+    (hpos : ∀ i, 0 < y i) (hhalf : ∀ i, y i ≤ 1 / 2) (Z : Finset ℕ) {z : ℕ} (hz : z ∈ Z)
+    (hzmax : ∀ τ ∈ Z, τ ≤ z) (h0 : 0 ∉ Z) (hcard : Z.card = n) (aw : Fin (n + 1) → ℝ)
+    (hw : IsCertificate aw y Z) (aF : Fin n → ℝ)
+    (hF : IsCertificate aF (fun i => y i.castSucc) (Z.erase z))
+    (hFs : Summable fun d => |expSum aF (fun i => y i.castSucc) (d + 1)|) :
+    ∑' d, |expSum aw y (d + 1)| ≤ ∑' d, |expSum aF (fun i => y i.castSucc) (d + 1)| :=
+  (tsum_le_lt_of_displaced y hmono hpos hhalf Z hz hzmax h0 hcard aw hw aF hF hFs).1
 
 end CoefficientMass

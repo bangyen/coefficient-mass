@@ -187,9 +187,12 @@ factor improves the rows $k\ge2$ as a family; the companion
 paper~\cite{coefficient-mass-attainment} characterizes the root sets at which
 a row is an infimum by a partial-sum criterion, repeated roots included.
 Every monic multiple of $(x-2)^L$ has $b_k\ge L-k+1$ for every row
-$1\le k\le L$ (Theorem~\ref{thm:everyrow}); the companion
-paper~\cite{coefficient-mass-rows} determines the rows at a single root
-$r\ge2$ exactly, which sharpens this at $r=2$.  All roots here are real; the
+$1\le k\le L$ (Theorem~\ref{thm:everyrow}).  Its proof removes the degree
+from the problem (Section~\ref{sec:dfree}), and the companion
+paper~\cite{coefficient-mass-rows} builds on that reduction to determine the
+rows at a single root $r\ge2$ exactly: the row $k$ equals the top row of a
+multiple of $(x-r)^{L-k+1}$, which sharpens Theorem~\ref{thm:everyrow} at
+$r=2$.  All roots here are real; the
 companion paper~\cite{coefficient-mass-complex} treats complex roots, where
 full orbits of $x\mapsto\zeta x$, in particular purely imaginary pairs,
 reduce exactly to real roots, and $K$ roots of modulus at least $R$ in a
@@ -200,10 +203,13 @@ $\min(K^2,K/\delta)\log R$ for multiples of degree $O(K)$.
 Sections~2 and~3 through Corollary~\ref{cor:mass}, that is,
 Theorem~\ref{thm:order} and Corollary~\ref{cor:mass} with the whole chain
 leading to them from the zero bound, are formally verified in Lean~4 with
-Mathlib.  Not formalized are the equality case of Theorem~\ref{thm:tail},
-the relaxation of $r_1\ge2$ to $r_1>1$ in the first row of
-Lemma~\ref{lem:slack} and Theorem~\ref{thm:order}, the worked examples, and
-everything after Corollary~\ref{cor:mass}.  The formal proofs, in the
+Mathlib, including the equality case of Theorem~\ref{thm:tail} and the
+relaxation of $r_1\ge2$ to $r_1>1$ in the first row of Lemma~\ref{lem:slack}
+and Theorem~\ref{thm:order}, and the worked examples after
+Theorem~\ref{thm:tail}.  Every numbered result of Section~\ref{sec:sharp} is formalized,
+Corollary~\ref{cor:allroots} with the explicit constants $\frac1{81}$ and $3$
+and the growth $S/(B+1)\sim L$ of Proposition~\ref{prop:unbounded} as the
+lower bound $S/(B+1)\ge L/2$.  The formal proofs, in the
 directory \texttt{CoefficientMass} of the repository
 \href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass},
 follow the ones given here, and the formal proof of
@@ -961,7 +967,7 @@ at most $|P_u(1)|$.  At $(\tfrac52,3,\tfrac72)$ with $u=1$ the
 partial sum $1-\tfrac{13}2=-\tfrac{11}2$ of the two leading coefficients of
 $P_1=(x-3)(x-\tfrac72)$ exceeds $P_1(1)=5$ in absolute value.
 
-\subsection{A \texorpdfstring{$D$}{D}-free form of the rows}
+\subsection{A \texorpdfstring{$D$}{D}-free form of the rows}\label{sec:dfree}
 
 We return to the rows $b_k\ge L-k+1$ for monic multiples of
 $(x-2)^L$ announced at the end of Section~\ref{sec:bottom}.  At a
@@ -1325,7 +1331,12 @@ Lemma~\ref{lem:rowcert} gives $b_k(F)\ge n$.
 The row $k=L$ is $b_L\ge1$, already the row $u=L-1$ of \eqref{eq:order}, and summing the rows gives only
 $\Lambda(F)\ge\log L!$, which Proposition~\ref{prop:quadratic} already
 exceeds for large $L$; the content of Theorem~\ref{thm:everyrow} is the
-individual rows.  For $\ell\in\{1,2\}$ the tail bound of Lemma~\ref{lem:holetail}
+individual rows.  The companion paper~\cite{coefficient-mass-rows}
+sharpens it to $b_k(F)\ge\beta_2(L-k+1)$, where $\beta_2(n)$ is the least
+$b_1$ over monic multiples of $(x-2)^n$, by extending
+Lemmas~\ref{lem:rowcert} and~\ref{lem:confdel} to other roots; as
+$\beta_2(n)$ is not known in closed form, Theorem~\ref{thm:everyrow} remains
+the explicit bound.  For $\ell\in\{1,2\}$ the tail bound of Lemma~\ref{lem:holetail}
 exceeds $\frac12$ and the argument of Proposition~\ref{prop:rowstop} does
 not close; that is why Proposition~\ref{prop:rowsfree} keeps different
 holes there.
