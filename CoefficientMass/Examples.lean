@@ -81,9 +81,8 @@ theorem tail_two {a b y z T : ℝ} (ha : 0 ≤ a) (hy0 : 0 ≤ y) (hyz : y ≤ z
 theorem workedExamples : WorkedExamples := by
   have e : ∀ (a b y z : ℝ) (d : ℕ), expSum ![a, b] ![y, z] d = a * y ^ d + b * z ^ d :=
     fun a b y z d => by
-      simp only [expSum, Fin.sum_univ_two, Matrix.cons_val_zero, Matrix.cons_val_one,
-        Matrix.head_cons]
-  simp only [IsCertificate, e, Finset.mem_singleton, forall_eq]
+      simp only [expSum, Fin.sum_univ_two, Matrix.cons_val_zero, Matrix.cons_val_one]
+  simp only [WorkedExamples, IsCertificate, e, Finset.mem_singleton, forall_eq]
   refine ⟨⟨⟨by norm_num, by norm_num⟩, tail_two (by norm_num) (by norm_num) (by norm_num)
       (by norm_num) (by norm_num) (by rw [abs_of_nonneg (by norm_num)]; norm_num)⟩,
     ⟨⟨by norm_num, by norm_num⟩, tail_two (by norm_num) (by norm_num) (by norm_num)

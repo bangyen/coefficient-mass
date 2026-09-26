@@ -111,7 +111,7 @@ theorem mass_rootProduct_le {L : ℕ} (hL : 1 ≤ L) (r : Fin L → ℝ) (hmono 
       Finset.prod_pos fun j _ => by linarith [hg2 (L - 1 - j)]
     have hPi1 : 1 ≤ ∏ j ∈ Finset.range (L - k), g (L - 1 - j) := by
       have := Finset.prod_le_prod (s := Finset.range (L - k)) (f := fun _ => (1 : ℝ))
-        (fun _ _ => zero_le_one) fun j _ => (by linarith [hg2 (L - 1 - j)] : (1 : ℝ) ≤ _)
+        (fun _ _ => zero_le_one) fun j _ => (by linarith [hg2 (L - 1 - j)] : (1 : ℝ) ≤ g (L - 1 - j))
       rwa [Finset.prod_const_one] at this
     have hC : (1 : ℝ) ≤ L.choose k := by exact_mod_cast Nat.choose_pos hkL
     rw [coeff_map, Complex.coe_algebraMap, Complex.norm_real, Real.norm_eq_abs]
@@ -121,7 +121,7 @@ theorem mass_rootProduct_le {L : ℕ} (hL : 1 ≤ L) (r : Fin L → ℝ) (hmono 
     refine add_le_add ?_ (le_of_eq ?_)
     · calc Real.log (L.choose k) ≤ Real.log ((2 : ℝ) ^ L) :=
             Real.log_le_log (by positivity) (by exact_mod_cast Nat.choose_le_two_pow L k)
-        _ = L * Real.log 2 := Real.log_pow L 2
+        _ = L * Real.log 2 := Real.log_pow 2 L
     · rw [Finset.sum_Ico_eq_sum_range,
         ← Finset.sum_range_reflect (fun j => Real.log (g (k + j))) (L - k)]
       exact Finset.sum_congr rfl fun j hj => by

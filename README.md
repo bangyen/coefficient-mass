@@ -57,7 +57,11 @@ Beyond the chain, `tailEquality` proves the equality case of Theorem 2.2,
 `Star n` of Section 4.4, and `everyRow : EveryRow` proves it, through
 `deleteLargest` (Lemma 4.6), `holeIntegral` (Lemma 4.7), `rowsFree`
 (Proposition 4.9), `holeVals` (Lemma 4.10), `holeTail`
-(Lemma 4.11) and `rowsTop` (Proposition 4.12).
+(Lemma 4.11) and `rowsTop` (Proposition 4.12).  The rest of Section 4 is proved too:
+`unboundedLooseness`, `halfSum` and `looseRatio` (Proposition 4.1), `jensenRows` and
+`quadraticMass` (Proposition 4.2, through Jensen's formula for polynomials and the
+operators `T_z`), and `allRoots` (Corollary 4.3, with the constants `1/81` and `3`);
+`workedExamples` checks the examples after Theorem 2.2.
 
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,
