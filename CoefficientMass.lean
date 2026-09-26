@@ -47,6 +47,10 @@ import CoefficientMass.LooseOrder
 import CoefficientMass.LooseRatio
 import CoefficientMass.LooseRow
 import CoefficientMass.Mass
+import CoefficientMass.NbMass
+import CoefficientMass.NbMode
+import CoefficientMass.NbMoments
+import CoefficientMass.NbNodes
 import CoefficientMass.Near
 import CoefficientMass.OnePoly
 import CoefficientMass.OnePolyRows
