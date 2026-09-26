@@ -238,7 +238,7 @@ theorem rowCertificate : RowCertificate := by
   have hsum : ∑ j ∈ Finset.range D, F.coeff j * q.eval (j : ℝ) * 2 ^ j + 2 ^ D = 0 := by
     linarith
   -- the positions whose certificate value is nonzero
-  set T := (Finset.range D).filter fun j => ψ.eval ((D : ℝ) - j) ≠ 0
+  set T := (Finset.range D).filter fun j : ℕ => ψ.eval ((D : ℝ) - (j : ℝ)) ≠ 0
   have hsmall : ∀ j ∈ T, ‖F.coeff j‖ < n := by
     intro j hj
     rw [Finset.mem_filter, Finset.mem_range] at hj
@@ -263,7 +263,7 @@ theorem rowCertificate : RowCertificate := by
     rw [Finset.nonempty_iff_ne_empty]
     intro hT
     rw [hT, Finset.sum_empty, zero_add] at hsum
-    exact absurd hsum (by positivity)
+    exact pow_ne_zero D two_ne_zero hsum
   have hlt2 : (2 : ℝ) ^ D < n * ∑ j ∈ Finset.range D, |ψ.eval ((D : ℝ) - j)| * 2 ^ j := by
     calc (2 : ℝ) ^ D = |∑ j ∈ T, F.coeff j * ψ.eval ((D : ℝ) - j) * 2 ^ j| := by
           rw [show ∑ j ∈ T, F.coeff j * ψ.eval ((D : ℝ) - j) * 2 ^ j = -(2 : ℝ) ^ D by
