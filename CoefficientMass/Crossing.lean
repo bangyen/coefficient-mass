@@ -52,7 +52,7 @@ theorem rowPhi_combo_le {r : ℝ} (hr : 1 < r) (p q : ℝ[X]) {t : ℝ} (ht0 : 0
   refine Summable.tsum_le_tsum (fun d => ?_) (summable_rowPhi hr _)
     (((summable_rowPhi hr p).mul_left t).add ((summable_rowPhi hr q).mul_left (1 - t)))
   rw [eval_add, eval_mul, eval_mul, eval_C, eval_C]
-  have h := abs_add (t * p.eval ((d + 1 : ℕ) : ℝ)) ((1 - t) * q.eval ((d + 1 : ℕ) : ℝ))
+  have h := abs_add_le (t * p.eval ((d + 1 : ℕ) : ℝ)) ((1 - t) * q.eval ((d + 1 : ℕ) : ℝ))
   rw [abs_mul, abs_mul, abs_of_nonneg ht0, abs_of_nonneg (by linarith)] at h
   have hxd : 0 ≤ (1 / r) ^ (d + 1) := by positivity
   nlinarith [mul_le_mul_of_nonneg_right h hxd]
@@ -92,8 +92,10 @@ theorem crossing : Crossing := by
           linarith
       refine ⟨C t * q₁ + C (1 - t) * q₂, ?_, ?_, fun s hs => ?_, ?_, ?_⟩
       · refine (degree_add_le _ _).trans_lt (max_lt ?_ ?_)
-        · exact (degree_C_mul_le _ _).trans_lt hq₁
-        · exact (degree_C_mul_le _ _).trans_lt hq₂
+        · rw [← smul_eq_C_mul]
+          exact (degree_smul_le _ _).trans_lt hq₁
+        · rw [← smul_eq_C_mul]
+          exact (degree_smul_le _ _).trans_lt hq₂
       · rw [eval_add, eval_mul, eval_mul, eval_C, eval_C, h₁0, h₂0]
         ring
       · rw [eval_add, eval_mul, eval_mul, h₁T s hs, h₂T s hs]
