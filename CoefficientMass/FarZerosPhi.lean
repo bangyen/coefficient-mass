@@ -89,8 +89,10 @@ theorem phiM_anti (m s : ℕ) {t t' : ℝ} (ht : 0 < t) (h : t ≤ t') :
   · push_neg at h1 h2
     have hs0 : (0 : ℝ) ≤ s := Nat.cast_nonneg s
     have hq : (s : ℝ) / t' ≤ s / t := div_le_div_of_nonneg_left hs0 ht h
+    have ht' : 0 < t' := ht.trans_le h
     have := mul_le_mul (by linarith : (s : ℝ) - t' ≤ s - t)
-      (pow_le_pow_left₀ (by positivity) hq (m - 1)) (by positivity) (by linarith)
+      (pow_le_pow_left₀ (div_nonneg hs0 ht'.le) hq (m - 1))
+      (pow_nonneg (div_nonneg hs0 ht'.le) _) (by linarith)
     linarith
 
 theorem phiM_le_succ (m s : ℕ) {t : ℝ} (ht : 0 < t) : phiM m s t ≤ phiM (m + 1) s t := by
@@ -147,9 +149,12 @@ theorem tendsto_deltaQ {r : ℝ} (hr : 1 < r) {m : ℕ} (hm : 1 ≤ m) (q : ℝ[
     ((summable_rowPhi hr _).mul_left 2) (fun d => ?_) ?_
   · rw [tsum_neg] at h
     exact h
-  · refine tendsto_const_nhds.congr' ((eventually_ge_atTop (((d + 1 : ℕ) : ℝ))).mono fun t ht => ?_)
-    rw [phiM, if_pos ht]
-    ring
+  · have hd : Tendsto (fun t : ℝ => phiM m (d + 1) t * |q.eval ((d + 1 : ℕ) : ℝ)| *
+        (1 / r) ^ (d + 1)) atTop
+        (𝓝 (-(((d + 1 : ℕ) : ℝ) * |q.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)))) :=
+      tendsto_nhds_of_eventually_eq ((eventually_ge_atTop (((d + 1 : ℕ) : ℝ))).mono
+        fun t ht => by rw [phiM, if_pos ht]; ring)
+    exact hd
   · refine (eventually_ge_atTop 1).mono fun t ht d => ?_
     have hb := abs_phiM_le hm (d + 1) (by linarith : (0 : ℝ) < t)
     rw [max_eq_left (by rw [div_le_one (by linarith)]; exact ht), one_pow, mul_one] at hb
