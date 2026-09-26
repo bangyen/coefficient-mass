@@ -81,7 +81,7 @@ theorem rowValue_ge {r : ℝ} (hr : 1 < r) {L k : ℕ} (hk : 1 ≤ k) (hkL : k �
   by_contra hlt
   push_neg at hlt
   set I := ⨅ S : {S : Finset ℕ // 0 ∉ S ∧ S.card + 1 = k}, 1 / muR r S.1 L
-  set T := (kthMag F k + I) / 2
+  set T := (kthMag F k + I) / 2 with hTdef
   have hbT : kthMag F k < T := by linarith
   have hTI : T < I := by linarith
   have hT : 0 < T := lt_of_le_of_lt (kthMag_nonneg hk (by omega)) hbT
