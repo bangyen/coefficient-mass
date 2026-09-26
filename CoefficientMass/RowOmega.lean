@@ -24,7 +24,6 @@ is at most `E_k(r)` plus the sum defining `ν_k`; Lemma 3.1 then gives
 * `summable_weight_pow`.
 * `muR_le_omegaR`.
 * `abs_confPolyP_le_one`.
-* `omegaR_le`.
 -/
 
 open Polynomial
@@ -64,7 +63,7 @@ theorem summable_weight_pow {r : ℝ} (hr : 1 < r) {ω : ℕ → ℝ} {j : ℕ}
     _ = (1 + (s : ℝ)) ^ (j + m) * (1 / r) ^ s := by rw [pow_add]; ring
 
 /-- `μ_r(S, L) ≤ Ω_k(n)` for `|S| = k - 1`, `n = L - k + 1`. -/
-theorem muR_le_omegaR {r : ℝ} (hr : 1 < r) {L k : ℕ} (hk : 1 ≤ k) (hkL : k ≤ L)
+theorem muR_le_omegaR {r : ℝ} (hr : 1 < r) {L k : ℕ} (hkL : k ≤ L)
     {S : Finset ℕ} (h0 : 0 ∉ S) (hSc : S.card + 1 = k) :
     muR r S L ≤ omegaR r k (L - k + 1) := by
   haveI : Nonempty {p : ℝ[X] // p.degree < ↑(L - k + 1) ∧ p.eval 0 = 1} :=

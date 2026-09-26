@@ -57,6 +57,7 @@ REFERENCES = {
     ("coefficient-mass-rows", "2.4"): ("Corollary", "cor:lastrowr"),
     ("coefficient-mass-rows", "3.1"): ("Lemma", "lem:intzeros"),
     ("coefficient-mass-rows", "3.2"): ("Lemma", "lem:rowpointwise"),
+    ("coefficient-mass-rows", "3.3"): ("Theorem", "thm:prefixrows"),
 }
 
 #: Each headline theorem, ``theorem name : Statement``, as ``name ->
@@ -103,6 +104,7 @@ HEADLINES = {
     "lastRow": ("LastRow", "coefficient-mass-rows", "cor:lastrowr"),
     "rowPointwise": ("RowPointwise", "coefficient-mass-rows", "lem:rowpointwise"),
     "intZerosInf": ("IntZerosInf", "coefficient-mass-rows", "lem:intzeros"),
+    "prefixRows": ("PrefixRows", "coefficient-mass-rows", "thm:prefixrows"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
