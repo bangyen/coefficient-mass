@@ -53,7 +53,7 @@ theorem rowPhi_combo_le {r : ℝ} (hr : 1 < r) (p q : ℝ[X]) {t : ℝ} (ht0 : 0
     (((summable_rowPhi hr p).mul_left t).add ((summable_rowPhi hr q).mul_left (1 - t)))
   rw [eval_add, eval_mul, eval_mul, eval_C, eval_C]
   have h := abs_add_le (t * p.eval ((d + 1 : ℕ) : ℝ)) ((1 - t) * q.eval ((d + 1 : ℕ) : ℝ))
-  rw [abs_mul, abs_mul, abs_of_nonneg ht0, abs_of_nonneg (by linarith)] at h
+  rw [abs_mul, abs_mul, abs_of_nonneg ht0, abs_of_nonneg (show (0 : ℝ) ≤ 1 - t by linarith)] at h
   have hxd : 0 ≤ (1 / r) ^ (d + 1) := by positivity
   nlinarith [mul_le_mul_of_nonneg_right h hxd]
 

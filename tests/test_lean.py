@@ -60,6 +60,7 @@ REFERENCES = {
     ("coefficient-mass-rows", "3.3"): ("Theorem", "thm:prefixrows"),
     ("coefficient-mass-rows", "4.1"): ("Lemma", "lem:crossing"),
     ("coefficient-mass-rows", "4.2"): ("Lemma", "lem:insflip"),
+    ("coefficient-mass-rows", "4.3"): ("Theorem", "thm:crossing"),
 }
 
 #: Each headline theorem, ``theorem name : Statement``, as ``name ->
@@ -109,6 +110,7 @@ HEADLINES = {
     "prefixRows": ("PrefixRows", "coefficient-mass-rows", "thm:prefixrows"),
     "crossing": ("Crossing", "coefficient-mass-rows", "lem:crossing"),
     "insFlip": ("InsFlip", "coefficient-mass-rows", "lem:insflip"),
+    "crossRows": ("CrossRows", "coefficient-mass-rows", "thm:crossing"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
