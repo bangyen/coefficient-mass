@@ -4,9 +4,9 @@ Released under MIT license as described in the file LICENSE.
 Authors: Bangyen Pham
 -/
 
-import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.Complex.ExponentialBounds
 import Mathlib.Analysis.SpecialFunctions.Exp
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
 
 /-!
 # Weighted Logarithmic Sums
