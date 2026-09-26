@@ -29,6 +29,7 @@ import CoefficientMass.FarStep
 import CoefficientMass.FarZeros
 import CoefficientMass.FarZerosPhi
 import CoefficientMass.FiniteRows
+import CoefficientMass.FiniteRowsB
 import CoefficientMass.FirstRow
 import CoefficientMass.GeomSum
 import CoefficientMass.HoleBeta
