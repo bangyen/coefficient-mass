@@ -60,11 +60,17 @@ theorem qUp_mul : ∀ k c : ℕ,
   | succ k ih =>
     intro c
     rw [qUp, Finset.prod_range_succ, ← qUp, Nat.factorial_succ k,
-      show c + (k + 1) = c + k + 1 by ring, Nat.factorial_succ (c + k), ← ih c]
+      show c + (k + 1) = c + k + 1 by ring, Nat.factorial_succ (c + k)]
     have hk1 : (k : ℝ) + 1 ≠ 0 := by positivity
     push_cast
-    field_simp
-    ring
+    calc qUp k c * (((c : ℝ) + 1 + k) / (k + 1)) * c.factorial * (((k : ℝ) + 1) * k.factorial)
+        = qUp k c * c.factorial * k.factorial * (((c : ℝ) + 1 + k) / (k + 1) * (k + 1)) := by
+          ring
+      _ = qUp k c * c.factorial * k.factorial * ((c : ℝ) + 1 + k) := by
+          rw [div_mul_cancel₀ _ hk1]
+      _ = ((c : ℝ) + k + 1) * (c + k).factorial := by
+          rw [ih c]
+          ring
 
 /-- `W_{s+1}(ℓ + s + 2)` is the block value at the `(s + 1)`-th hole. -/
 theorem holeW_block {ℓ q s : ℕ} (hs : s + 1 ≤ ℓ) :
@@ -73,7 +79,8 @@ theorem holeW_block {ℓ q s : ℕ} (hs : s + 1 ≤ ℓ) :
   have hp := pDown_mul s (ℓ + 1 + (s + 1)) (by omega)
   have hq := qUp_mul (ℓ - (s + 1)) (ℓ + 1 + (s + 1))
   rw [show ℓ + 1 + (s + 1) - 1 - s = ℓ + 1 by omega,
-    show ℓ + 1 + (s + 1) - 1 = ℓ + s + 1 by omega] at hp
+    show ℓ + 1 + (s + 1) - 1 = ℓ + s + 1 by omega,
+    show ℓ + 1 + (s + 1) = ℓ + s + 1 + 1 by ring] at hp
   rw [show ℓ + 1 + (s + 1) + (ℓ - (s + 1)) = 2 * ℓ + 1 by omega,
     show ℓ + 1 + (s + 1) = ℓ + s + 1 + 1 by ring, Nat.factorial_succ (ℓ + s + 1)] at hq
   rw [holeW, blockCoef, Nat.add_sub_cancel, show ℓ + 1 + (s + 1) - 1 = ℓ + (s + 1) by omega,
@@ -94,6 +101,12 @@ theorem holeW_block {ℓ q s : ℕ} (hs : s + 1 ≤ ℓ) :
     rw [eq_div_iff (by positivity), ← hq]
     push_cast
     ring
+  have h5 : (s : ℝ) + 1 ≠ 0 := by positivity
+  have h6 : (ℓ : ℝ) + 1 ≠ 0 := by positivity
+  have h7 : (ℓ : ℝ) + s + 1 + 1 ≠ 0 := by positivity
+  have h8 : (ℓ : ℝ) + s + 1 + 1 - ℓ - 1 ≠ 0 := by
+    ring_nf
+    positivity
   rw [hP, hQ]
   push_cast
   field_simp
@@ -112,8 +125,14 @@ theorem hole_zero_block (ℓ q : ℕ) :
     rw [eq_div_iff (by positivity), ← hq]
     push_cast
     ring
-  rw [hQ, blockCoef, Nat.sub_zero, Nat.add_zero, Nat.add_zero, Nat.factorial_zero, Nat.sub_zero]
+  have h5 : (ℓ : ℝ) + 1 ≠ 0 := by positivity
+  rw [hQ, blockCoef]
+  simp only [Nat.sub_zero, Nat.add_zero, Nat.factorial_zero]
   push_cast
-  field_simp
+  calc _ = (1 / 2 : ℝ) ^ (ℓ + 1) * betaI (ℓ + q) ℓ * ((2 * ℓ + 1).factorial : ℝ) *
+        ((ℓ.factorial : ℝ) * 1 * ℓ.factorial)⁻¹ * (((ℓ : ℝ) + 1) * ((ℓ : ℝ) + 1)⁻¹) := by ring
+    _ = _ := by
+      rw [mul_inv_cancel₀ h5]
+      ring
 
 end CoefficientMass
