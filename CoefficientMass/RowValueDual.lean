@@ -29,7 +29,7 @@ the truncated dual then gives a monic multiple `F` of `(x - r)^L` whose magnitud
 * `rowValueDual`.
 -/
 
-open Polynomial Filter Topology
+open Polynomial
 
 namespace CoefficientMass
 
@@ -69,51 +69,24 @@ theorem rowValue_le_kthMag {r : ℝ} {L k : ℕ} (hkL : k ≤ L) {F : ℝ[X]} (h
     (hdvd : (X - C r) ^ L ∣ F) (hk : 1 ≤ k) : rowValue r L k ≤ kthMag F k :=
   ciInf_le ⟨0, by
     rintro _ ⟨⟨G, hG, hGd⟩, rfl⟩
-    exact kthMag_nonneg hk (hkL.trans (le_natDegree_of_dvd hG hGd))⟩ ⟨F, hF, hdvd⟩
+    exact kthMag_nonneg hk (hkL.trans (le_natDegree_of_dvd hG hGd))⟩
+    (⟨F, hF, hdvd⟩ : {F : ℝ[X] // F.Monic ∧ (X - C r) ^ L ∣ F})
 
 /-- `V_r(L, k) ≤ 1/μ_r(S, L)` for every `S ⊂ ℕ_{>0}` with `|S| = k - 1`. -/
 theorem rowValue_le_inv {r : ℝ} (hr : 1 < r) {L k : ℕ} (hk : 1 ≤ k) (hkL : k ≤ L)
     {S : Finset ℕ} (h0 : 0 ∉ S) (hSc : S.card + 1 = k) : rowValue r L k ≤ 1 / muR r S L := by
   set μ := muR r S L
   have hμ : 0 < μ := muR_pos hr h0 (by omega)
-  obtain ⟨τ, hτ, hbound⟩ := rowPhi_le_trunc hr L
-  haveI : Nonempty {q : ℝ[X] // q.degree < L ∧ q.eval 0 = 1 ∧ ∀ s ∈ S, q.eval (s : ℝ) = 0} :=
-    ⟨⟨_, confPolyP_admissible h0 (by omega)⟩⟩
   have key : ∀ ε, 0 < ε → ε < μ → rowValue r L k ≤ 1 / (μ - ε) := by
     intro ε hε hεμ
-    obtain ⟨D₁, hD₁⟩ := Metric.tendsto_atTop.1 hτ (ε / (1 + μ)) (by positivity)
-    set D := max (max L D₁) (S.sup id)
+    obtain ⟨M₀, hM₀⟩ := exists_trunc_ge hr S L hε
+    set D := max (max L M₀) (S.sup id)
     have hLD : L ≤ D := (le_max_left _ _).trans (le_max_left _ _)
-    have hDD : D₁ ≤ D := (le_max_right _ _).trans (le_max_left _ _)
-    have hτD : |τ D| < ε / (1 + μ) := by
-      have := hD₁ D hDD
-      rwa [Real.dist_eq, sub_zero] at this
     have hS : ∀ s ∈ S, 1 ≤ s ∧ s ≤ D := fun s hs =>
       ⟨Nat.one_le_iff_ne_zero.2 fun h => h0 (h ▸ hs),
         (Finset.le_sup (f := id) hs).trans (le_max_right _ _)⟩
     obtain ⟨F, hF, hFD, hdvd, hsmall⟩ := exists_rowPoly_small hr hS (m := μ - ε)
-      (by linarith) fun q hq hq0 hqS => by
-        have hΦ : μ ≤ rowPhi r q := ciInf_le ⟨0, by
-          rintro _ ⟨q', rfl⟩
-          exact tsum_nonneg fun _ => by
-            have : 0 < 1 / r := by positivity
-            positivity⟩ (⟨q, hq, hq0, hqS⟩ :
-              {q : ℝ[X] // q.degree < L ∧ q.eval 0 = 1 ∧ ∀ s ∈ S, q.eval (s : ℝ) = 0})
-        have hb := hbound D hLD q hq hq0
-        set P := ∑ d ∈ Finset.range D, |q.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)
-        have hP : 0 ≤ P := Finset.sum_nonneg fun _ _ => by positivity
-        by_contra hlt
-        push_neg at hlt
-        have h1 : (1 + P) * τ D ≤ (1 + μ) * |τ D| := by
-          have h1a : (1 + P) * τ D ≤ (1 + P) * |τ D| :=
-            mul_le_mul_of_nonneg_left (le_abs_self _) (by linarith)
-          have h1b : (1 + P) * |τ D| ≤ (1 + μ) * |τ D| :=
-            mul_le_mul_of_nonneg_right (by linarith) (abs_nonneg _)
-          linarith
-        have h2 : (1 + μ) * |τ D| < ε := by
-          rw [lt_div_iff₀ (by positivity)] at hτD
-          linarith
-        linarith
+      (by linarith) (hM₀ D ((le_max_right _ _).trans (le_max_left _ _)))
     refine (rowValue_le_kthMag hkL hF hdvd hk).trans (kthMag_le_of_small ?_ hSc ?_)
     · rw [hFD]
       exact hkL.trans hLD
@@ -149,7 +122,8 @@ theorem rowValueDual : RowValueDual := by
   rw [hb n 1 le_rfl hn]
   have hS : ∀ S : {S : Finset ℕ // 0 ∉ S ∧ S.card + 1 = 1}, S.1 = ∅ := fun S =>
     Finset.card_eq_zero.1 (by have := S.2.2; omega)
-  refine le_antisymm (ciInf_le ⟨0, ?_⟩ ⟨∅, Finset.notMem_empty 0, rfl⟩)
+  refine le_antisymm (ciInf_le ⟨0, ?_⟩
+    (⟨∅, Finset.notMem_empty 0, rfl⟩ : {S : Finset ℕ // 0 ∉ S ∧ S.card + 1 = 1}))
     (le_ciInf fun S => by rw [hS S])
   rintro _ ⟨S, rfl⟩
   exact div_nonneg zero_le_one (muR_nonneg hr _ _)
