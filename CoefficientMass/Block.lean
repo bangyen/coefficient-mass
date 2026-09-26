@@ -65,12 +65,11 @@ theorem muR_mono_set {r : ℝ} (hr : 1 < r) {S T : Finset ℕ} (hST : S ⊆ T) {
 /-- `r_Y(-1) = ∏_{y ∈ Y} (1 + 1/y) ≥ 1`. -/
 theorem one_le_eval_neg_one (Y : Finset ℕ) : 1 ≤ (confPolyP Y).eval (-1) := by
   rw [confPolyP, eval_prod]
-  calc (1 : ℝ) = ∏ _y ∈ Y, (1 : ℝ) := Finset.prod_const_one.symm
-    _ ≤ ∏ y ∈ Y, (C (-(1 / (y : ℝ))) * X + C 1).eval (-1) :=
-        Finset.prod_le_prod (fun _ _ => zero_le_one) fun y _ => by
-          rw [eval_add, eval_mul, eval_C, eval_X, eval_C]
-          have : 0 ≤ 1 / (y : ℝ) := by positivity
-          linarith
+  refine le_trans (le_of_eq Finset.prod_const_one.symm)
+    (Finset.prod_le_prod (fun _ _ => zero_le_one) fun y _ => ?_)
+  rw [eval_add, eval_mul, eval_C, eval_X, eval_C]
+  have : 0 ≤ 1 / (y : ℝ) := by positivity
+  linarith
 
 /-- `μ_r([2, k], n + k - 1) ≤ ν_{k+1}(n - 1)`. -/
 theorem muR_block_le_prefix {r : ℝ} (hr : 1 < r) {n k : ℕ} (hn : 2 ≤ n) (hk : 2 ≤ k) :
