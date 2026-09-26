@@ -140,7 +140,7 @@ theorem holeL_rec {N c : ℕ} (hc : c ≤ N) :
       push_cast
       ring
     rw [show ((N : ℝ) + 1) * (C1 * R / D) = C2 * (t + 1) * R / D by rw [← hch]; ring,
-      eq_sub_iff_add_eq, ← mul_div_assoc, div_add_div_same, div_eq_iff hpos.ne', hDv]
+      eq_sub_iff_add_eq, ← mul_div_assoc, ← add_div, div_eq_iff hpos.ne', hDv]
     ring
   have h1 : ((N : ℝ) + 1) * holeL (N + 1) c =
       ∑' t, (A (t + 1) - ((N : ℝ) + 1 - c) * T (t + 1)) := by
@@ -150,6 +150,7 @@ theorem holeL_rec {N c : ℕ} (hc : c ≤ N) :
   have hT0 : T 0 = (1 / 2) ^ (N + 1) / ((N : ℝ) + 1 - c) := by
     simp only [hT, zero_add, Nat.choose_self, Nat.cast_one, one_mul]
     push_cast
+    ring
   have hsumA := hAs.tsum_eq_zero_add
   have hsumT := hTs.tsum_eq_zero_add
   have hAt : ∑' t, A t = 1 := tsum_binomTerm N
