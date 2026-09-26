@@ -71,7 +71,9 @@ is proved in full: `rowValueCert`, `rowValueDual` and `rowValueTop` (Proposition
 certificate at a root `r > 1`, `V_r(L, k) = inf 1/μ_r(S, L)` by Hahn–Banach separation and
 truncation, and `V_r(L, k) ≤ β_r(L - k + 1)`), `tailBoundGen` (Theorem 2.2),
 `confDeleteR` (Lemma 2.3) and `lastRow` (Corollary 2.4).  From Section 3, `intZerosInf`
-(Lemma 3.1), `rowPointwise` (Lemma 3.2) and `prefixRows` (Theorem 3.3); Section 4 in full,
+(Lemma 3.1), `rowPointwise` (Lemma 3.2), `prefixRows` (Theorem 3.3) and `nbMass`
+(Lemma 3.4, with Chebyshev's inequality from the moments of the negative-binomial law);
+Section 4 in full,
 `crossing` (Lemma 4.1), `insFlip` (Lemma 4.2) and `crossRows` (Theorem 4.3); and Section 5
 in full, `truncVertex` (Lemma 5.1), `optIns` and `optInsMax` (Lemma 5.2), `allRowsTwo`
 (Theorem 5.3, with `V_r(L, k) = β_r(L - k + 1)` for `r ≥ 2`) and `prefixUp`
