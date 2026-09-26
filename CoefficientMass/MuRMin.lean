@@ -124,10 +124,8 @@ theorem continuousOn_rowPhi {r : ℝ} (hr : 1 < r) (L : ℕ) (R : ℝ) :
     exact ((continuous_finset_sum _ fun i _ =>
       (continuous_apply i).mul continuous_const).abs.mul continuous_const).continuousOn
   · have hcR : ‖c‖ ≤ R := mem_closedBall_zero_iff.1 hc
+    have hy1 : (1 : ℝ) ≤ ((d + 1 : ℕ) : ℝ) := by exact_mod_cast (show 1 ≤ d + 1 by omega)
     set y : ℝ := ((d + 1 : ℕ) : ℝ)
-    have hy1 : 1 ≤ y := by
-      have : 1 ≤ d + 1 := Nat.succ_pos d
-      exact_mod_cast this
     rw [Real.norm_eq_abs, abs_of_nonneg (by positivity), eval_coeffPoly]
     have hsum : |∑ i : Fin L, c i * y ^ (i : ℕ)| ≤ R * L * (1 + y) ^ L := by
       refine (Finset.abs_sum_le_sum_abs _ _).trans ?_
