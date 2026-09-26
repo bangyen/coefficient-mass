@@ -30,7 +30,9 @@ the row `k = 2`.  So `2` is the infimum of `b_2` over monic multiples.
 * `coeff_sharpF`.
 * `natDegree_sharpF`.
 * `monic_sharpF`.
+* `eval_geom`.
 * `dvd_sharpF`.
+* `abs_coeff_sharpF`.
 * `largeCount_sharpT`.
 * `largeCount_gt_sharpT`.
 * `sharpT_lt_succ`.
