@@ -35,6 +35,7 @@ REFERENCES = {
     ("coefficient-mass", "3.2"): ("Theorem", "thm:order"),
     ("coefficient-mass", "3.3"): ("Corollary", "cor:complex"),
     ("coefficient-mass", "3.4"): ("Corollary", "cor:mass"),
+    ("coefficient-mass", "4.4"): ("Proposition", "prop:sharp23"),
     ("coefficient-mass", "4.5"): ("Lemma", "lem:rowcert"),
     ("coefficient-mass", "4.13"): ("Theorem", "thm:everyrow"),
 }
@@ -49,6 +50,7 @@ HEADLINES = {
     "tailBound": ("TailBound", "coefficient-mass", "thm:tail"),
     "orderStatistics": ("OrderStatistics", "coefficient-mass", "thm:order"),
     "logarithmicMass": ("LogarithmicMass", "coefficient-mass", "cor:mass"),
+    "sharpRowTwo": ("SharpRowTwo", "coefficient-mass", "prop:sharp23"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
