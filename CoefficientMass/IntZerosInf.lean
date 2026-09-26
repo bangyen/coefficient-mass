@@ -134,8 +134,8 @@ theorem intZerosInf : IntZerosInf := by
     have htail : Tendsto (fun D : ℕ => ∑' s : ℕ, ω s * |p.eval (s : ℝ)| +
         ∑' k : ℕ, g (k + (D + 1))) atTop (𝓝 (∑' s : ℕ, ω s * |p.eval (s : ℝ)| + 0)) :=
       ((tendsto_sum_nat_add g).comp (tendsto_add_atTop_nat 1)).const_add _
-    have := ge_of_tendsto htail (Filter.eventually_atTop.2 ⟨i + n, fun D hD => ?_⟩)
-    · rwa [add_zero] at this
+    refine le_of_le_of_eq (ge_of_tendsto htail (Filter.eventually_atTop.2 ⟨i + n, fun D hD => ?_⟩))
+      (add_zero _)
     have hNn : n ≤ (Finset.Icc i D).card := by rw [Nat.card_Icc]; omega
     obtain ⟨Y, hYN, hYc, hYle⟩ := exists_int_zeros (fun s hs => hωpos s (Finset.mem_Icc.1 hs).1)
       (fun h => by have := (Finset.mem_Icc.1 h).1; omega) hn hNn n p hpn hp0 (by omega)
