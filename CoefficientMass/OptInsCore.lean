@@ -69,7 +69,7 @@ theorem opt_core_step {w p q : ℕ → ℝ} {κ : ℝ} (hκ : 0 < κ) {c D : ℕ
   have hαε : ∀ s ∈ I, ε ≤ 1 + ε - ε * κ * s := fun s hs => by
     have hsD : (s : ℝ) ≤ D := by exact_mod_cast (Finset.mem_Icc.1 hs).2
     have := mul_le_mul_of_nonneg_left hsD (mul_pos hε hκ).le
-    linarith
+    linarith [mul_pos hε hκ]
   have e1 : ∑ s ∈ I.filter (· < c), |(1 + ε - ε * κ * s) * p s - ε * q s| * w s =
       (1 + ε) * ∑ s ∈ I.filter (· < c), |p s| * w s -
         ε * κ * ∑ s ∈ I.filter (· < c), s * |p s| * w s -
