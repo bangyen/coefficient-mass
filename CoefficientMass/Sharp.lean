@@ -87,8 +87,8 @@ theorem sharpT_bounds {n : ℕ} (hn : 2 ≤ n) : 2 < sharpT n ∧ sharpT n ≤ 4
 theorem coeff_sharpF (n j : ℕ) :
     (sharpF n).coeff j =
       if j = n + 1 then 1 else if j = n then -sharpA n else if j < n then sharpT n else 0 := by
-  simp only [sharpF, coeff_add, coeff_sub, coeff_X_pow, coeff_C_mul_X_pow, coeff_C_mul,
-    finset_sum_coeff, Finset.sum_ite_eq', Finset.mem_range]
+  simp only [sharpF, coeff_add, coeff_sub, coeff_X_pow, coeff_C_mul,
+    finset_sum_coeff]
   split_ifs <;> first | omega | ring
 
 theorem natDegree_sharpF (n : ℕ) : (sharpF n).natDegree = n + 1 := by
@@ -112,19 +112,25 @@ theorem dvd_sharpF {n : ℕ} (hn : 2 ≤ n) : (X - C 2) * (X - C 3) ∣ sharpF n
   have hd : (1 - 2 * (1 / 2 : ℝ) ^ n + (1 / 3) ^ n) ≠ 0 := by linarith
   have h2n : (2 : ℝ) ^ n ≠ 0 := by positivity
   have h3n : (3 : ℝ) ^ n ≠ 0 := by positivity
-  have hcop : IsCoprime (X - C (2 : ℝ)) (X - C 3) :=
-    isCoprime_X_sub_C_of_isUnit_sub (by norm_num)
-  refine hcop.mul_dvd (dvd_iff_isRoot.2 ?_) (dvd_iff_isRoot.2 ?_)
-  · simp only [IsRoot, sharpF, eval_add, eval_sub, eval_mul, eval_pow, eval_X, eval_C,
+  have hr2 : (sharpF n).IsRoot 2 := by
+    simp only [IsRoot, sharpF, eval_add, eval_sub, eval_mul, eval_pow, eval_X, eval_C,
       eval_geom 2 n (by norm_num), sharpA, sharpT]
     rw [one_div_pow, one_div_pow] at hd ⊢
     field_simp
     ring
-  · simp only [IsRoot, sharpF, eval_add, eval_sub, eval_mul, eval_pow, eval_X, eval_C,
+  have hr3 : (sharpF n).IsRoot 3 := by
+    simp only [IsRoot, sharpF, eval_add, eval_sub, eval_mul, eval_pow, eval_X, eval_C,
       eval_geom 3 n (by norm_num), sharpA, sharpT]
     rw [one_div_pow, one_div_pow] at hd ⊢
     field_simp
     ring
+  have hQ := mul_divByMonic_eq_iff_isRoot.2 hr2
+  have hQ3 : (sharpF n /ₘ (X - C 2)).IsRoot 3 := by
+    have h := hr3
+    rw [← hQ, IsRoot, eval_mul, eval_sub, eval_X, eval_C] at h
+    rw [IsRoot]
+    linarith
+  exact ⟨_, by rw [mul_assoc, mul_divByMonic_eq_iff_isRoot.2 hQ3, hQ]⟩
 
 theorem abs_coeff_sharpF {n j : ℕ} (hn : 2 ≤ n) (hj : j < n + 1) :
     sharpT n ≤ ‖(sharpF n).coeff j‖ ∧ (j ≠ n → ‖(sharpF n).coeff j‖ = sharpT n) := by
@@ -175,7 +181,7 @@ theorem tendsto_sharpT : Tendsto sharpT atTop (𝓝 2) := by
     rwa [mul_zero, sub_zero, add_zero] at this
   have h := (hd.inv₀ one_ne_zero).const_mul (2 : ℝ)
   rw [inv_one, mul_one] at h
-  exact h.congr fun n => by rw [sharpT, div_eq_mul_inv]
+  exact h.congr fun n => (div_eq_mul_inv _ _).symm
 
 /-- The row `k = 2` of Theorem 3.2 at `(2, 3)`. -/
 theorem rowTwo_ge_two (F : ℝ[X]) (hF : F.Monic) (hdvd : (X - C 2) * (X - C 3) ∣ F) :
