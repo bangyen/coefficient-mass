@@ -81,6 +81,7 @@ import CoefficientMass.QuadMass
 import CoefficientMass.QuadRev
 import CoefficientMass.QuadRolle
 import CoefficientMass.RealPart
+import CoefficientMass.RootMono
 import CoefficientMass.RowAnnihilate
 import CoefficientMass.RowCert
 import CoefficientMass.RowDefs

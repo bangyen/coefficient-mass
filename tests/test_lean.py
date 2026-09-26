@@ -76,6 +76,7 @@ REFERENCES = {
     ("coefficient-mass-rows", "6.8"): ("Proposition", "prop:longdiagexplicit"),
     ("coefficient-mass-rows", "6.9"): ("Corollary", "cor:longdiagfinite"),
     ("coefficient-mass-rows", "6.10"): ("Lemma", "lem:rowmono"),
+    ("coefficient-mass-rows", "6.15"): ("Lemma", "lem:rootmono"),
 }
 
 #: Each headline theorem, ``theorem name : Statement``, as ``name ->
@@ -142,6 +143,7 @@ HEADLINES = {
     "longDiagExplicit": ("LongDiagExplicit", "coefficient-mass-rows", "prop:longdiagexplicit"),
     "longDiagFinite": ("LongDiagFinite", "coefficient-mass-rows", "cor:longdiagfinite"),
     "rowMono": ("RowMono", "coefficient-mass-rows", "lem:rowmono"),
+    "rootMono": ("RootMono", "coefficient-mass-rows", "lem:rootmono"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
