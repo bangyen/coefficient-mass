@@ -116,8 +116,8 @@ theorem quadraticMass : QuadraticMass := by
       ((2 * (9 / 10 : ℝ)) ^ (L - K + 1) - 1) / (1 / (1 - 9 / 10 : ℝ) ^ K - 1) := by
     have h := exp_le_rows K (L % 8) hK1
     rw [show 8 * K + L % 8 = L by omega, show 7 * K + L % 8 + 1 = L - K + 1 by omega] at h
-    rw [show (2 : ℝ) * (9 / 10) = 9 / 5 by norm_num, show (1 : ℝ) - 9 / 10 = 1 / 10 by norm_num,
-      div_pow, one_pow, one_div_one_div]
+    rw [show (2 : ℝ) * (9 / 10) = 9 / 5 by norm_num, show (1 : ℝ) / (1 - 9 / 10) ^ K = 10 ^ K by
+      rw [show (1 : ℝ) - 9 / 10 = 1 / 10 by norm_num, div_pow, one_pow, one_div_one_div]]
     exact h
   have hcount : K ≤ largeCount F (Real.exp ((L : ℝ) / 5)) :=
     hrow.trans (Finset.card_le_card fun j hj => Finset.mem_filter.2
