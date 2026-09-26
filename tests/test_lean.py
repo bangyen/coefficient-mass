@@ -41,6 +41,7 @@ REFERENCES = {
     ("coefficient-mass", "4.7"): ("Lemma", "lem:holeint"),
     ("coefficient-mass", "4.8"): ("Lemma", "lem:twohole"),
     ("coefficient-mass", "4.9"): ("Proposition", "prop:rowsfree"),
+    ("coefficient-mass", "4.10"): ("Lemma", "lem:holevals"),
     ("coefficient-mass", "4.11"): ("Lemma", "lem:holetail"),
     ("coefficient-mass", "4.13"): ("Theorem", "thm:everyrow"),
 }
@@ -67,6 +68,7 @@ HEADLINES = {
     "holeIntegral": ("HoleIntegral", "coefficient-mass", "lem:holeint"),
     "rowsFree": ("RowsFree", "coefficient-mass", "prop:rowsfree"),
     "holeTail": ("HoleTail", "coefficient-mass", "lem:holetail"),
+    "holeVals": ("HoleVals", "coefficient-mass", "lem:holevals"),
     "sharpRowTwo": ("SharpRowTwo", "coefficient-mass", "prop:sharp23"),
 }
 
