@@ -32,6 +32,7 @@ import CoefficientMass.HoleProd
 import CoefficientMass.HoleSum
 import CoefficientMass.HoleTwo
 import CoefficientMass.InsPoly
+import CoefficientMass.InsShift
 import CoefficientMass.Insert
 import CoefficientMass.IntZeros
 import CoefficientMass.IntZerosInf
