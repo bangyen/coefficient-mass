@@ -36,11 +36,10 @@ theorem prod_one_add_div_eq_choose (d : ℕ) : ∀ m : ℕ,
   | zero => rw [Finset.prod_range_zero, Nat.choose_zero_right, Nat.cast_one]
   | succ m ih =>
     have hm : (m : ℝ) + 1 ≠ 0 := by positivity
-    have e := congrArg (Nat.cast : ℕ → ℝ) (Nat.succ_mul_choose_eq (d + m) m)
+    have e := congrArg (Nat.cast : ℕ → ℝ) (Nat.add_one_mul_choose_eq (d + m) m)
     push_cast at e
     rw [Finset.prod_range_succ, ih, show d + (m + 1) = d + m + 1 by ring, one_add_div hm,
       mul_div_assoc', div_eq_iff hm]
-    push_cast
     linear_combination e
 
 /-- `∏_{z ∈ Z} |1 - d/z| ≤ C(d + K, K)` for `Z ⊂ ℕ_{>0}` with `|Z| ≤ K`. -/
@@ -64,7 +63,7 @@ theorem prod_abs_le_choose (d : ℕ) (Z : Finset ℕ) (hZ : ∀ z ∈ Z, 1 ≤ z
     rw [← prod_one_add_div_eq_choose]
     exact Finset.prod_congr rfl fun j _ => by push_cast; ring
   have h4 : ((d + Z.card).choose Z.card : ℝ) ≤ ((d + K).choose K : ℝ) := by
-    rw [← Nat.choose_symm_add, ← Nat.choose_symm_add (m := d)]
+    rw [← Nat.choose_symm_add, ← Nat.choose_symm_add (a := d)]
     exact_mod_cast Nat.choose_le_choose d (by omega)
   exact h1.trans (h2.trans (h3.le.trans h4))
 

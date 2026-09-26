@@ -31,6 +31,8 @@ import CoefficientMass.OrderStat
 import CoefficientMass.Perturb
 import CoefficientMass.QuadCoef
 import CoefficientMass.QuadJensen
+import CoefficientMass.QuadMain
+import CoefficientMass.QuadRev
 import CoefficientMass.QuadRolle
 import CoefficientMass.RealPart
 import CoefficientMass.RowAnnihilate
