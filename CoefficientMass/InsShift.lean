@@ -103,17 +103,17 @@ theorem abs_prefix_shift {Z : Finset ℕ} {c : ℕ} (hc1 : 1 ≤ c) (hZ : ∀ z 
     have hsub : Z ⊆ Finset.Icc 1 (c - 1) := fun z hz => by
       obtain ⟨h1, h2⟩ := hZ z hz
       exact Finset.mem_Icc.2 ⟨h1, by omega⟩
-    have hge : ∀ z ∈ Finset.Icc 1 (c - 1), 1 ≤ ((u : ℝ) + 1 - z) / (u - z) := fun z hz => by
+    have hgeq : ∀ z ∈ Finset.Icc 1 (c - 1), 1 ≤ ((u : ℝ) + 1 - z) / (u - z) := fun z hz => by
       have := (Finset.mem_Icc.1 hz).2
       have hz' : (z : ℝ) < u := by exact_mod_cast (show z < u by omega)
       rw [le_div_iff₀ (by linarith)]
       linarith
     have hrest : 1 ≤ ∏ z ∈ Finset.Icc 1 (c - 1) \ Z, (((u : ℝ) + 1 - z) / (u - z)) := by
       have := Finset.prod_le_prod (s := Finset.Icc 1 (c - 1) \ Z) (f := fun _ => (1 : ℝ))
-        (fun _ _ => zero_le_one) fun z hz => hge z (Finset.sdiff_subset hz)
+        (fun _ _ => zero_le_one) fun z hz => hgeq z (Finset.sdiff_subset hz)
       rwa [Finset.prod_const_one] at this
     have hZ0 : 0 ≤ ∏ z ∈ Z, (((u : ℝ) + 1 - z) / (u - z)) := Finset.prod_nonneg fun z hz =>
-      (zero_le_one.trans (hge z (hsub hz)))
+      (zero_le_one.trans (hgeq z (hsub hz)))
     refine (le_mul_of_one_le_left hZ0 hrest).trans_eq ?_
     rw [Finset.prod_sdiff hsub]
     have := prod_telescope (u := (u : ℝ)) (c - 1) (by

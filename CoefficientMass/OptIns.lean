@@ -116,14 +116,14 @@ theorem optIns : OptIns := by
       fun h => ins_sign_above h0 hc hc1 h) hQc
     (fun u hu => abs_ins_shift h0 hc hc1 hu) hdir, ?_⟩
   refine Finset.sum_le_sum fun s hs => mul_le_mul_of_nonneg_right ?_ (by positivity)
-  obtain ⟨hsI, hsc⟩ := Finset.mem_filter.1 hs
-  exact abs_ins_le_below hc (Finset.mem_Icc.1 hsI).1 hsc
+  obtain ⟨hsMem, hsc⟩ := Finset.mem_filter.1 hs
+  exact abs_ins_le_below hc (Finset.mem_Icc.1 hsMem).1 hsc
 
 theorem optInsMax : OptInsMax := by
   intro r hr D T W c h0 hTW hc1 hc hTc hopt
   obtain ⟨h1, h2⟩ := optIns r hr D T W c h0 hTW hc1 hc hTc hopt
   have hsplit := phiD_split r D c (confPolyP W)
-  have hge : 0 ≤ phiGe r D c (confPolyP W) := Finset.sum_nonneg fun _ _ => by positivity
+  have hgeq : 0 ≤ phiGe r D c (confPolyP W) := Finset.sum_nonneg fun _ _ => by positivity
   have hlt : 0 ≤ phiLt r D c (confPolyP (ins W c)) := Finset.sum_nonneg fun _ _ => by positivity
   have hφ : 0 ≤ phiD r D (confPolyP W) := Finset.sum_nonneg fun _ _ => by positivity
   have hr1 : 0 < r - 1 := by linarith
