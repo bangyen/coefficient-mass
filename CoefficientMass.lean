@@ -19,6 +19,7 @@ import CoefficientMass.Order
 import CoefficientMass.OrderStat
 import CoefficientMass.Perturb
 import CoefficientMass.RealPart
+import CoefficientMass.RowCert
 import CoefficientMass.RowDefs
 import CoefficientMass.Sharp
 import CoefficientMass.Signs
