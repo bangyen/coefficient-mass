@@ -5,6 +5,7 @@ Authors: Bangyen Pham
 -/
 
 import CoefficientMass.Chain
+import Mathlib.Algebra.Polynomial.Div
 import Mathlib.Analysis.SpecificLimits.Basic
 
 /-!
@@ -88,7 +89,7 @@ theorem coeff_sharpF (n j : ℕ) :
     (sharpF n).coeff j =
       if j = n + 1 then 1 else if j = n then -sharpA n else if j < n then sharpT n else 0 := by
   simp only [sharpF, coeff_add, coeff_sub, coeff_X_pow, coeff_C_mul,
-    finset_sum_coeff]
+    finset_sum_coeff, Finset.sum_ite_eq, Finset.mem_range]
   split_ifs <;> first | omega | ring
 
 theorem natDegree_sharpF (n : ℕ) : (sharpF n).natDegree = n + 1 := by
@@ -110,20 +111,18 @@ theorem eval_geom (x : ℝ) (n : ℕ) (hx : x ≠ 1) :
 theorem dvd_sharpF {n : ℕ} (hn : 2 ≤ n) : (X - C 2) * (X - C 3) ∣ sharpF n := by
   obtain ⟨h1, _⟩ := sharpD_bounds hn
   have hd : (1 - 2 * (1 / 2 : ℝ) ^ n + (1 / 3) ^ n) ≠ 0 := by linarith
-  have h2n : (2 : ℝ) ^ n ≠ 0 := by positivity
-  have h3n : (3 : ℝ) ^ n ≠ 0 := by positivity
+  have hu : (2 : ℝ) ^ n * (1 / 2) ^ n = 1 := by rw [← mul_pow]; norm_num
+  have hv : (3 : ℝ) ^ n * (1 / 3) ^ n = 1 := by rw [← mul_pow]; norm_num
+  have ht : sharpT n * (1 - 2 * (1 / 2 : ℝ) ^ n + (1 / 3) ^ n) = 2 := div_mul_cancel₀ 2 hd
   have hr2 : (sharpF n).IsRoot 2 := by
     simp only [IsRoot, sharpF, eval_add, eval_sub, eval_mul, eval_pow, eval_X, eval_C,
-      eval_geom 2 n (by norm_num), sharpA, sharpT]
-    rw [one_div_pow, one_div_pow] at hd ⊢
-    field_simp
-    ring
+      eval_geom 2 n (by norm_num), sharpA]
+    linear_combination sharpT n * hu
   have hr3 : (sharpF n).IsRoot 3 := by
     simp only [IsRoot, sharpF, eval_add, eval_sub, eval_mul, eval_pow, eval_X, eval_C,
-      eval_geom 3 n (by norm_num), sharpA, sharpT]
-    rw [one_div_pow, one_div_pow] at hd ⊢
-    field_simp
-    ring
+      eval_geom 3 n (by norm_num), sharpA]
+    refine mul_right_cancel₀ hd ?_
+    linear_combination (-(1 - (1 / 2 : ℝ) ^ n) * 3 ^ n + (3 ^ n - 1) / 2) * ht + hv
   have hQ := mul_divByMonic_eq_iff_isRoot.2 hr2
   have hQ3 : (sharpF n /ₘ (X - C 2)).IsRoot 3 := by
     have h := hr3
@@ -188,16 +187,16 @@ theorem rowTwo_ge_two (F : ℝ[X]) (hF : F.Monic) (hdvd : (X - C 2) * (X - C 3) 
     2 ≤ largeCount F 2 := by
   have h := orderStatistics 2 ![2, 3] F (by
       intro i j hij
-      fin_cases i <;> fin_cases j <;> simp at hij ⊢ <;> norm_num)
+      fin_cases i <;> fin_cases j <;> simp? at hij ⊢ <;> norm_num)
     (by intro i; fin_cases i <;> norm_num) hF.ne_zero
     (by
-      simpa [rootProduct, Fin.prod_univ_two, Algebra.algebraMap_self, RingHom.id_apply]
+      simpa? [rootProduct, Fin.prod_univ_two, Algebra.algebraMap_self, RingHom.id_apply]
         using hdvd) 1
   have hp : ∏ i ∈ Finset.univ.filter ((1 : Fin 2) ≤ ·), (![(2 : ℝ), 3] i - 1) = 2 := by
     rw [show Finset.univ.filter ((1 : Fin 2) ≤ ·) = {1} by decide]
     norm_num
   rw [hp, hF.leadingCoeff, norm_one, one_mul] at h
-  simpa using h
+  simpa? using h
 
 theorem sharpRowTwo : SharpRowTwo :=
   ⟨rowTwo_ge_two, fun _ hn => ⟨monic_sharpF _, dvd_sharpF hn, largeCount_sharpT hn,
