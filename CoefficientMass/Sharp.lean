@@ -190,7 +190,7 @@ theorem rowTwo_ge_two (F : ℝ[X]) (hF : F.Monic) (hdvd : (X - C 2) * (X - C 3) 
   have h := orderStatistics 2 ![2, 3] F (by
       intro i j hij
       fin_cases i <;> fin_cases j <;>
-        first | norm_num | exact absurd (Fin.le_def.1 hij) (by norm_num))
+        first | exact absurd (Fin.le_def.1 hij) (by norm_num) | norm_num)
     (by intro i; fin_cases i <;> norm_num) hF.ne_zero
     (by
       simpa only [rootProduct, Algebra.algebraMap_self, RingHom.id_apply, Fin.prod_univ_two,

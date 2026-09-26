@@ -146,7 +146,7 @@ theorem rowCertificate : RowCertificate := by
   obtain ⟨G, hG⟩ := hdvd
   have hFG : G * (X - C 2) ^ L = F := by rw [hG, mul_comm]
   have hψ0 : ψ.eval 0 = 1 := by
-    show (confPolyP Z).eval 0 = 1
+    change (confPolyP Z).eval 0 = 1
     rw [confPolyP, eval_prod]
     exact Finset.prod_eq_one fun z _ => by rw [eval_add, eval_mul, eval_C, eval_C, eval_X]; ring
   have hsum0 := sum_coeff_mul_eval_eq_zero L G q (D + 1) hqdeg (by rw [hFG]; omega)
