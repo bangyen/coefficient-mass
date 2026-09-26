@@ -80,7 +80,7 @@ theorem exists_vertex_step {ω : ℕ → ℝ} {N : Finset ℕ} (hω : ∀ s ∈ 
     rw [he, Finset.prod_eq_zero hz (sub_self _), mul_zero]
   have heN : ∀ s ∈ N, s ∉ Z → e.eval (s : ℝ) ≠ 0 := fun s hs hsZ => by
     rw [he]
-    refine mul_ne_zero (by exact_mod_cast fun h => hN0 (h ▸ hs)) (Finset.prod_ne_zero_iff.2
+    refine mul_ne_zero (Nat.cast_ne_zero.2 fun h => hN0 (h ▸ hs)) (Finset.prod_ne_zero_iff.2
       fun z hz h => hsZ ?_)
     rw [sub_eq_zero, Nat.cast_inj] at h
     rwa [h]
