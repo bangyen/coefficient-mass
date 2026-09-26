@@ -37,6 +37,7 @@ REFERENCES = {
     ("coefficient-mass", "3.4"): ("Corollary", "cor:mass"),
     ("coefficient-mass", "4.4"): ("Proposition", "prop:sharp23"),
     ("coefficient-mass", "4.5"): ("Lemma", "lem:rowcert"),
+    ("coefficient-mass", "4.6"): ("Lemma", "lem:confdel"),
     ("coefficient-mass", "4.13"): ("Theorem", "thm:everyrow"),
 }
 
@@ -58,6 +59,7 @@ HEADLINES = {
         "thm:order",
     ),
     "rowCertificate": ("RowCertificate", "coefficient-mass", "lem:rowcert"),
+    "deleteLargest": ("DeleteLargest", "coefficient-mass", "lem:confdel"),
     "sharpRowTwo": ("SharpRowTwo", "coefficient-mass", "prop:sharp23"),
 }
 

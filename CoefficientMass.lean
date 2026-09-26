@@ -6,6 +6,7 @@ Authors: Bangyen Pham
 
 import CoefficientMass.Certificate
 import CoefficientMass.Chain
+import CoefficientMass.ConfDel
 import CoefficientMass.Consecutive
 import CoefficientMass.Defs
 import CoefficientMass.Descartes
@@ -13,6 +14,7 @@ import CoefficientMass.Displaced
 import CoefficientMass.DisplacedTail
 import CoefficientMass.ExpSum
 import CoefficientMass.FirstRow
+import CoefficientMass.GeomSum
 import CoefficientMass.Interlace
 import CoefficientMass.Interp
 import CoefficientMass.Mass
