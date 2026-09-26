@@ -49,6 +49,11 @@ a theorem of that type; nothing is assumed.  The guards in `scripts/` (the
 unfinished proofs and new axioms, so every commit builds without `sorry` or
 extra axioms.
 
+Beyond the chain, `sharpRowTwo : SharpRowTwo` proves Proposition 4.4 (the row
+`k = 2` is an infimum at `(2, 3)`), `rowCertificate : RowCertificate` Lemma 4.5,
+and `everyRow_of_star` reduces Theorem 4.13 (`EveryRow`) to the statement
+`Star n` of Section 4.4, which is not yet formalized.
+
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,
 `Quot.sound`).  Lemma 2.3 and the bound `σ ≤ G_z / V̂_z` use weak sign

@@ -33,5 +33,6 @@ import CoefficientMass.ZeroBound
 
 The root module, importing the whole library: the statements of
 `coefficient-mass.tex` from the zero bound for exponential sums through
-Corollary 3.4, the logarithmic mass bound.
+Corollary 3.4, the logarithmic mass bound, and from Section 4 Proposition 4.4,
+Lemma 4.5 and the reduction of Theorem 4.13 to `(∗_n)`.
 -/
