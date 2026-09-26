@@ -106,15 +106,21 @@ theorem nbLaw_mode_ge {r : ℝ} (hr : 1 < r) {k : ℕ} (hk : 1 ≤ k) {M : ℕ}
     rw [if_neg]
     intro h
     exact hj (Finset.mem_range.2 (by have := (hwin j h).2; omega))
-  set F := (Finset.range (B + 1)).filter fun j => |((j + (c + 1) : ℕ) : ℝ) - μ| < w
+  obtain ⟨F, hF⟩ : ∃ F : Finset ℕ,
+      F = (Finset.range (B + 1)).filter fun j => |((j + (c + 1) : ℕ) : ℝ) - μ| < w := ⟨_, rfl⟩
   have hsumF : ∑' j, g j ≤ F.card * nbLaw r (c + 1) M :=
     calc ∑' j, g j = ∑ j ∈ Finset.range (B + 1), g j := tsum_eq_sum hzero
-      _ = ∑ j ∈ F, nbLaw r (c + 1) (j + (c + 1)) := (Finset.sum_filter _ _).symm
+      _ = ∑ j ∈ F, nbLaw r (c + 1) (j + (c + 1)) := by
+          rw [hF]
+          exact (Finset.sum_filter _ _).symm
       _ ≤ F.card • nbLaw r (c + 1) M := Finset.sum_le_card_nsmul _ _ _ fun j _ => hM _
       _ = F.card * nbLaw r (c + 1) M := nsmul_eq_mul _ _
   have hcard : F.card ≤ (Finset.Icc A B).card :=
     Finset.card_le_card_of_injOn (fun j => j + (c + 1))
-      (fun j hj => Finset.mem_Icc.2 (hwin j (Finset.mem_filter.1 hj).2))
+      (fun j hj => by
+        have hj' : j ∈ F := hj
+        rw [hF, Finset.mem_filter] at hj'
+        exact Finset.mem_Icc.2 (hwin j hj'.2))
       fun i _ j _ h => by
         have h' : i + (c + 1) = j + (c + 1) := h
         omega
@@ -138,7 +144,7 @@ theorem nbLaw_mode_ge {r : ℝ} (hr : 1 < r) {k : ℕ} (hk : 1 ≤ k) {M : ℕ}
     _ ≤ 4 * ((2 * w + 1) * nbLaw r (c + 1) M) := by linarith
     _ = nbLaw r (c + 1) M * (4 * (2 * w + 1)) := by ring
 
-theorem nbMass : NbMass := fun r hr _ n hk hn M hM =>
+theorem nbMass : NbMass := fun _ hr _ _ hk hn M hM =>
   ⟨nbLaw_mode_le hr hk hM, nbLaw_nodes_le hr hn M, nbLaw_mode_ge hr hk hM⟩
 
 end CoefficientMass
