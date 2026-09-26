@@ -88,7 +88,7 @@ theorem confTail_le_of_above : ∀ (n : ℕ) (Z Y : Finset ℕ), (Z \ Y).card = 
     have hz : z ∈ Z \ Y := Finset.mem_sdiff.2 ⟨hzZ, hzY⟩
     refine (confTail_erase_max hne h0).1.trans (ih _ Y ?_ ?_ ?_ ?_)
     · rw [Finset.erase_sdiff_comm, Finset.card_erase_of_mem hz, hc, Nat.add_sub_cancel]
-    · exact fun y hy => Finset.mem_erase.2 ⟨fun h => hzY (h ▸ hy), hYZ hy⟩
+    · exact fun y hy => Finset.mem_erase.2 ⟨fun h => hzY (by subst h; exact hy), hYZ hy⟩
     · exact fun h => h0 (Finset.mem_of_mem_erase h)
     · intro x hx
       rw [Finset.erase_sdiff_comm] at hx
