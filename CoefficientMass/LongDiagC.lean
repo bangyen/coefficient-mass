@@ -66,7 +66,8 @@ theorem pow_choose_le {c K y : ℝ} (hc : 1 ≤ c) {M m : ℕ} (hm : 1 ≤ m) (h
       (1 + (M : ℝ) / m) ^ m * ((m : ℝ) ^ m / m.factorial) := by
     rw [← mul_div_assoc, ← mul_pow, add_mul, one_mul, div_mul_cancel₀ _ hm0.ne']
   have h4 : (1 + (M : ℝ) / m) ^ m ≤ (1 + K / m) ^ m :=
-    pow_le_pow_left₀ (by positivity) (add_le_add_left (div_le_div_of_nonneg_right hMK hm0.le) 1) m
+    pow_le_pow_left₀ (by positivity)
+      (by have := div_le_div_of_nonneg_right hMK hm0.le; linarith) m
   have hC : ((M + m).choose m : ℝ) ≤ (1 + K / m) ^ m * Real.exp 1 ^ m := by
     rw [← Real.exp_nat_mul, mul_one]
     calc ((M + m).choose m : ℝ) ≤ ((M : ℝ) + m) ^ m / m.factorial := h1
