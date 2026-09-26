@@ -145,7 +145,11 @@ HEADLINES = {
     "topNearOne": ("TopNearOne", "coefficient-mass-rows", "lem:topnearone"),
     "farPrefix": ("FarPrefix", "coefficient-mass-rows", "lem:farprefix"),
     "longDiag": ("LongDiag", "coefficient-mass-rows", "thm:longdiag"),
-    "longDiagExplicit": ("LongDiagExplicit", "coefficient-mass-rows", "prop:longdiagexplicit"),
+    "longDiagExplicit": (
+        "LongDiagExplicit",
+        "coefficient-mass-rows",
+        "prop:longdiagexplicit",
+    ),
     "longDiagFinite": ("LongDiagFinite", "coefficient-mass-rows", "cor:longdiagfinite"),
     "rowMono": ("RowMono", "coefficient-mass-rows", "lem:rowmono"),
     "secondRow": ("SecondRow", "coefficient-mass-rows", "thm:secondrow"),
