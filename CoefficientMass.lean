@@ -41,6 +41,7 @@ import CoefficientMass.IntZeros
 import CoefficientMass.IntZerosInf
 import CoefficientMass.Interlace
 import CoefficientMass.Interp
+import CoefficientMass.LongDiag
 import CoefficientMass.LooseCert
 import CoefficientMass.LooseOrder
 import CoefficientMass.LooseRatio
