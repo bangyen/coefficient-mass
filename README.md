@@ -83,7 +83,7 @@ in full, `truncVertex` (Lemma 5.1), `optIns` and `optInsMax` (Lemma 5.2), `allRo
 (Lemma 6.5), `farPrefix` (Lemma 6.6), `longDiag` (Theorem 6.7), `longDiagExplicit`
 (Proposition 6.8), `longDiagFinite` (Corollary 6.9), `rowMono` (Lemma 6.10), `secondRow`
 (Theorem 6.12, with `exists_muR_min`: every `μ_r(S, L)` is attained), `rootMono` (Lemma 6.15),
-`farZeros` (Lemma 6.18) and `finiteRows` (Theorem 6.19).
+`farZeros` (Lemma 6.18), `finiteRows` (Theorem 6.19) and `exemptBlock` (Lemma 6.21).
 
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,
