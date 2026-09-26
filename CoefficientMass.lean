@@ -26,6 +26,7 @@ import CoefficientMass.RowDefs
 import CoefficientMass.Sharp
 import CoefficientMass.Signs
 import CoefficientMass.Tail
+import CoefficientMass.TailEq
 import CoefficientMass.TailSplit
 import CoefficientMass.ZeroBound
 

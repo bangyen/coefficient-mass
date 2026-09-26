@@ -48,6 +48,7 @@ HEADLINES = {
     "zeroBound": ("ZeroBound", None, None),
     "consecutiveTail": ("ConsecutiveTail", "coefficient-mass", "lem:consecutive"),
     "tailBound": ("TailBound", "coefficient-mass", "thm:tail"),
+    "tailEquality": ("TailEquality", "coefficient-mass", "thm:tail"),
     "orderStatistics": ("OrderStatistics", "coefficient-mass", "thm:order"),
     "logarithmicMass": ("LogarithmicMass", "coefficient-mass", "cor:mass"),
     "firstRowCertificate": ("FirstRowCertificate", "coefficient-mass", "lem:slack"),
