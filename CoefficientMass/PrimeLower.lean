@@ -34,7 +34,7 @@ theorem centralBinom_le_pow {n : ℕ} (hn : 1 ≤ n) :
     _ = ∏ p ∈ primesUpTo (2 * n), p ^ (Nat.centralBinom n).factorization p :=
         (Finset.prod_subset (Finset.filter_subset _ _) fun p hp hnp => by
           have hnp' : ¬ p.Prime := fun h => hnp (Finset.mem_filter.2 ⟨hp, h⟩)
-          rw [Nat.factorization_eq_zero_of_non_prime _ hnp', pow_zero]).symm
+          rw [Nat.factorization_eq_zero_of_not_prime _ hnp', pow_zero]).symm
     _ ≤ ∏ _p ∈ primesUpTo (2 * n), 2 * n :=
         Finset.prod_le_prod (fun _ _ => Nat.zero_le _) fun p _ => by
           rw [Nat.centralBinom_eq_two_mul_choose]
@@ -78,8 +78,9 @@ theorem nth_prime_le (i : ℕ) :
       exact Finset.mem_erase.2 ⟨by omega,
         Finset.mem_filter.2 ⟨Finset.mem_range.2 (by omega), hp⟩⟩
     have := Finset.card_le_card hsub
-    rw [Finset.card_erase_of_mem (Finset.mem_filter.2 ⟨Finset.mem_range.2 (by omega),
-      Nat.prime_nth_prime i⟩), card_primesUpTo_nth] at this
+    have hmem : Nat.nth Nat.Prime i ∈ primesUpTo (Nat.nth Nat.Prime i) :=
+      Finset.mem_filter.2 ⟨Finset.mem_range.2 (Nat.lt_succ_self _), Nat.prime_nth_prime i⟩
+    rw [Finset.card_erase_of_mem hmem, card_primesUpTo_nth] at this
     omega
   have hB := log_four_pow_le hn1
   have hKr : (1 : ℝ) ≤ K := by exact_mod_cast (show 1 ≤ K by omega)
