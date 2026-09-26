@@ -73,6 +73,8 @@ REFERENCES = {
     ("coefficient-mass-rows", "6.5"): ("Lemma", "lem:topnearone"),
     ("coefficient-mass-rows", "6.6"): ("Lemma", "lem:farprefix"),
     ("coefficient-mass-rows", "6.7"): ("Theorem", "thm:longdiag"),
+    ("coefficient-mass-rows", "6.8"): ("Proposition", "prop:longdiagexplicit"),
+    ("coefficient-mass-rows", "6.9"): ("Corollary", "cor:longdiagfinite"),
 }
 
 #: Each headline theorem, ``theorem name : Statement``, as ``name ->
@@ -136,6 +138,8 @@ HEADLINES = {
     "topNearOne": ("TopNearOne", "coefficient-mass-rows", "lem:topnearone"),
     "farPrefix": ("FarPrefix", "coefficient-mass-rows", "lem:farprefix"),
     "longDiag": ("LongDiag", "coefficient-mass-rows", "thm:longdiag"),
+    "longDiagExplicit": ("LongDiagExplicit", "coefficient-mass-rows", "prop:longdiagexplicit"),
+    "longDiagFinite": ("LongDiagFinite", "coefficient-mass-rows", "cor:longdiagfinite"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)

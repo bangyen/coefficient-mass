@@ -46,6 +46,7 @@ import CoefficientMass.LongDiag
 import CoefficientMass.LongDiagA
 import CoefficientMass.LongDiagB
 import CoefficientMass.LongDiagC
+import CoefficientMass.LongDiagExplicit
 import CoefficientMass.LongDiagTau
 import CoefficientMass.LooseCert
 import CoefficientMass.LooseOrder

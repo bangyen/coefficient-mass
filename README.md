@@ -80,7 +80,8 @@ in full, `truncVertex` (Lemma 5.1), `optIns` and `optInsMax` (Lemma 5.2), `allRo
 (Theorem 5.3, with `V_r(L, k) = β_r(L - k + 1)` for `r ≥ 2`) and `prefixUp`
 (`ν_{i+1}(n) ≤ ν_i(n)/(r - 1)`).  From Section 6, `prefixPush` (Lemma 6.1), `onePoly`
 (Theorem 6.2), `prefixShift` (Lemma 6.3), `onePolyRows` (Theorem 6.4), `topNearOne`
-(Lemma 6.5), `farPrefix` (Lemma 6.6) and `longDiag` (Theorem 6.7).
+(Lemma 6.5), `farPrefix` (Lemma 6.6), `longDiag` (Theorem 6.7), `longDiagExplicit`
+(Proposition 6.8) and `longDiagFinite` (Corollary 6.9).
 
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,
