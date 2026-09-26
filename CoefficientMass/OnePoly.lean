@@ -63,10 +63,10 @@ theorem prefA_nonneg {r : ℝ} (hr : 1 < r) (i : ℕ) (p : ℝ[X]) : 0 ≤ prefA
 
 theorem le_maxA {r : ℝ} {i k : ℕ} (hi : 1 ≤ i) (hik : i ≤ k) (p : ℝ[X]) :
     prefA r i p ≤ maxA r k p :=
-  Finset.le_fold_max.2 (Or.inr ⟨i, Finset.mem_Icc.2 ⟨hi, hik⟩, le_rfl⟩)
+  (Finset.le_fold_max _).2 (Or.inr ⟨i, Finset.mem_Icc.2 ⟨hi, hik⟩, le_rfl⟩)
 
 theorem maxA_nonneg (r : ℝ) (k : ℕ) (p : ℝ[X]) : 0 ≤ maxA r k p :=
-  Finset.le_fold_max.2 (Or.inl le_rfl)
+  (Finset.le_fold_max _).2 (Or.inl le_rfl)
 
 /-- `μ_r(S, L) ≤ Φ_r(r_S p)` for `deg p < L - |S|` and `p(0) = 1`. -/
 theorem muR_le_rowPhi_mul {r : ℝ} (hr : 1 < r) {S : Finset ℕ} (h0 : 0 ∉ S) {L : ℕ}
@@ -124,7 +124,7 @@ theorem maxA_le_omega {r : ℝ} (hr : 1 < r) (k : ℕ) {n : ℕ} {p : ℝ[X]} (h
   have hΩ := summable_weighted (fun s => (omegaWeight_le hr k s).1)
     (summable_weight_pow hr (omegaWeight_le hr k) (n - 1)) _
     fun s => abs_eval_le_pow hpn (Nat.cast_nonneg s)
-  refine Finset.fold_max_le.2 ⟨tsum_nonneg fun s =>
+  refine (Finset.fold_max_le _).2 ⟨tsum_nonneg fun s =>
     mul_nonneg (omegaWeight_le hr k s).1 (abs_nonneg _), fun i hi => ?_⟩
   obtain ⟨hi1, hik⟩ := Finset.mem_Icc.1 hi
   have hA := summable_weighted (fun s => (prefixWeight_le hr i s).1)
