@@ -86,7 +86,9 @@ theorem abs_coeff_le {r : ℝ} (hr : 1 < r) {L : ℕ} {q : ℝ[X]} (hq : q.degre
     have h2 : r ^ j ≤ r ^ L := pow_le_pow_right₀ hr.le (Finset.mem_range.1 hj).le
     nlinarith [mul_le_mul_of_nonneg_left h2 hB0]
   have hinj : Set.InjOn (fun j : ℕ => (j : ℝ)) (Finset.range L : Set ℕ) :=
-    fun a _ b _ h => by exact_mod_cast h
+    fun a _ b _ h => by
+      have h' : (a : ℝ) = b := h
+      exact_mod_cast h'
   have hq' := Lagrange.eq_interpolate hinj (by rwa [Finset.card_range])
   rw [hq', Lagrange.interpolate_apply, finset_sum_coeff]
   refine (Finset.abs_sum_le_sum_abs _ _).trans ?_
@@ -123,7 +125,9 @@ theorem continuousOn_rowPhi {r : ℝ} (hr : 1 < r) (L : ℕ) (R : ℝ) :
       (continuous_apply i).mul continuous_const).abs.mul continuous_const).continuousOn
   · have hcR : ‖c‖ ≤ R := mem_closedBall_zero_iff.1 hc
     set y : ℝ := ((d + 1 : ℕ) : ℝ)
-    have hy1 : 1 ≤ y := by exact_mod_cast Nat.succ_pos d
+    have hy1 : 1 ≤ y := by
+      have : 1 ≤ d + 1 := Nat.succ_pos d
+      exact_mod_cast this
     rw [Real.norm_eq_abs, abs_of_nonneg (by positivity), eval_coeffPoly]
     have hsum : |∑ i : Fin L, c i * y ^ (i : ℕ)| ≤ R * L * (1 + y) ^ L := by
       refine (Finset.abs_sum_le_sum_abs _ _).trans ?_
@@ -162,9 +166,9 @@ theorem exists_muR_min {r : ℝ} (hr : 1 < r) {S : Finset ℕ} {L : ℕ} (h0 : 0
   have hmemA : ∀ q : ℝ[X], q.degree < L → q.eval 0 = 1 → (∀ s ∈ S, q.eval (s : ℝ) = 0) →
       (fun i : Fin L => q.coeff i) ∈ A := fun q hq hq0 hqS => by
     refine ⟨?_, Set.mem_iInter₂.2 fun s hs => ?_⟩
-    · show (coeffPoly _).eval 0 = 1
+    · change (coeffPoly _).eval 0 = 1
       rw [coeffPoly_coeff hq, hq0]
-    · show (coeffPoly _).eval (s : ℝ) = 0
+    · change (coeffPoly _).eval (s : ℝ) = 0
       rw [coeffPoly_coeff hq, hqS s hs]
   have hball : ∀ q : ℝ[X], q.degree < L → q.eval 0 = 1 → rowPhi r q ≤ B →
       (fun i : Fin L => q.coeff i) ∈ Metric.closedBall 0 R := fun q hq hq0 hB => by
