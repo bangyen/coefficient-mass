@@ -9,6 +9,8 @@ import CoefficientMass.AllUpper
 import CoefficientMass.Certificate
 import CoefficientMass.Chain
 import CoefficientMass.ConfDel
+import CoefficientMass.ConfDelR
+import CoefficientMass.ConfPrefix
 import CoefficientMass.Consecutive
 import CoefficientMass.Defs
 import CoefficientMass.Descartes
