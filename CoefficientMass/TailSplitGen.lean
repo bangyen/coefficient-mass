@@ -43,9 +43,9 @@ theorem gamma_bound_gen (g f : ℕ → ℝ) {yc μ : ℝ} (hyc0 : 0 ≤ yc) (hμ
     nlinarith [mul_nonneg (mul_nonneg hμ hyc0) (hg M)]
   linarith
 
-/-- The tail split with the correction ratio `κ ≥ 1`: `Tail(w) ≤ max(1, κ - 1) Tail(F)`. -/
+/-- The tail split with the correction ratio `κ`: `Tail(w) ≤ max(1, κ - 1) Tail(F)`. -/
 theorem tsum_abs_le_of_split_gen (w F G : ℕ → ℝ) {z : ℕ} (hz : 1 ≤ z) {μ κ : ℝ}
-    (hκ : 1 ≤ κ) (hlow : ∀ d, 1 ≤ d → d < z → |w d| ≤ |F d|) (hwz : w z = 0)
+    (hlow : ∀ d, 1 ≤ d → d < z → |w d| ≤ |F d|) (hwz : w z = 0)
     (hFz : |F z| = μ) (hGz : G z = 1) (hhigh : ∀ d, z < d → |w d| = μ * G d - |F d|)
     (hgamma : ∀ M, μ * ∑ t ∈ Finset.range (M + 1), G (z + t) ≤
       κ * ∑ t ∈ Finset.range (M + 1), |F (z + t)|)
