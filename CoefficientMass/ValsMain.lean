@@ -52,7 +52,7 @@ theorem hole_value_le {ℓ q m : ℕ} {C : Finset ℕ} (hC : C.card = ℓ + 1) (
     Finset.prod_nonneg fun x hx => by
       have : (c : ℝ) < x := by exact_mod_cast (Finset.mem_filter.1 hx).2
       exact div_nonneg (Nat.cast_nonneg x) (by linarith)
-  have hU := prod_up_le c _ fun x hx => (Finset.mem_filter.1 hx).2
+  have hU := prod_up_le c (C.filter (c < ·)) fun x hx => (Finset.mem_filter.1 hx).2
   have hsplit := abs_confPoly_split (N := m + q) (fun h0 => by have := (hCm 0 h0).1; omega)
     (fun x hx => by have := (hCm x hx).2; omega) hc
   rw [hsplit]
@@ -120,7 +120,7 @@ theorem holeVals : HoleVals := by
       ≤ ∑ c ∈ C, blockCoef ℓ (rk c) * betaI (ℓ - rk c + q) (ℓ + rk c) :=
         Finset.sum_le_sum fun c hc => hole_value_le hC hl hCm hc
     _ = ∑ r ∈ C.image rk, blockCoef ℓ r * betaI (ℓ - r + q) (ℓ + r) :=
-        (Finset.sum_image inj).symm
+        (Finset.sum_image (f := fun r => blockCoef ℓ r * betaI (ℓ - r + q) (ℓ + r)) inj).symm
     _ ≤ 1 / (2 * ((q : ℝ) + 1)) := by
         rw [himg]
         exact block_le ℓ hq
