@@ -64,8 +64,9 @@ theorem exists_bounded_solution {D L : ℕ} (a : Fin L → Fin D → ℝ) (b : F
       change Ψ (c + v) i = b i
       rw [map_add]
       exact congrFun hsum i
-    have hcj := hc j (Set.mem_univ j)
-    rw [if_pos hj] at hcj
+    have hcj : c j ∈ Set.Icc (-t) t := by
+      have := hc j (Set.mem_univ j)
+      simpa only [if_pos hj] using this
     rw [Pi.add_apply, hv' j hj, add_zero] at hlt
     exact absurd (abs_le.2 hcj) (not_le.2 hlt)
   obtain ⟨f, u, hfb, hK⟩ := geometric_hahn_banach_point_closed hconv hclosed hb
@@ -82,6 +83,7 @@ theorem exists_bounded_solution {D L : ℕ} (a : Fin L → Fin D → ℝ) (b : F
     rw [Finset.sum_comm]
     exact Finset.sum_congr rfl fun j _ => Finset.sum_congr rfl fun i _ => by ring
   have h0box : (0 : Fin D → ℝ) ∈ box := fun j _ => by
+    beta_reduce
     rw [Pi.zero_apply]
     split_ifs
     exacts [⟨by linarith, ht⟩, rfl]
@@ -90,10 +92,11 @@ theorem exists_bounded_solution {D L : ℕ} (a : Fin L → Fin D → ℝ) (b : F
     intro j hj
     by_contra hA
     set lam := (u - 1) / A j
-    have hmem : Ψ (lam • Pi.single j 1) ∈ K := by
-      have hV : ∀ k ∈ N, (lam • Pi.single j (1 : ℝ)) k = 0 := fun k hk => by
+    set e : Fin D → ℝ := Pi.single j 1
+    have hmem : Ψ (lam • e) ∈ K := by
+      have hV : ∀ k ∈ N, (lam • e) k = 0 := fun k hk => by
         rw [Pi.smul_apply, Pi.single_apply, if_neg (fun h => hj (h ▸ hk)), smul_zero]
-      refine ⟨Ψ 0, ⟨0, h0box, rfl⟩, Ψ (lam • Pi.single j 1), ⟨_, hV, rfl⟩, ?_⟩
+      refine ⟨Ψ 0, ⟨0, h0box, rfl⟩, Ψ (lam • e), ⟨_, hV, rfl⟩, ?_⟩
       rw [map_zero, zero_add]
     have := hK _ hmem
     rw [hfΨ, Finset.sum_eq_single j (fun k _ hk => by

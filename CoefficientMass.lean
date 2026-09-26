@@ -60,6 +60,7 @@ import CoefficientMass.RowKth
 import CoefficientMass.RowSep
 import CoefficientMass.RowStop
 import CoefficientMass.RowTaylor
+import CoefficientMass.RowTrunc
 import CoefficientMass.RowValue
 import CoefficientMass.Sharp
 import CoefficientMass.Signs
