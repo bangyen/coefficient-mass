@@ -114,7 +114,7 @@ theorem continuousOn_rowPhi {r : ℝ} (hr : 1 < r) (L : ℕ) (R : ℝ) :
   have hx1 : 1 / r < 1 := by rw [div_lt_one (by linarith)]; exact hr
   have hu : Summable fun d : ℕ => R * L * ((1 + ((d + 1 : ℕ) : ℝ)) ^ L * (1 / r) ^ (d + 1)) :=
     ((summable_nat_add_iff 1).2 (summable_poly_geom hx0 hx1 L)).mul_left _
-  show ContinuousOn (fun c : Fin L → ℝ =>
+  change ContinuousOn (fun c : Fin L → ℝ =>
     ∑' d : ℕ, |(coeffPoly c).eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)) _
   refine continuousOn_tsum (fun d => ?_) hu fun d c hc => ?_
   · have e : (fun c : Fin L → ℝ => |(coeffPoly c).eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)) =

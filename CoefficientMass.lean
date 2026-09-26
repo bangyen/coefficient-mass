@@ -103,6 +103,7 @@ import CoefficientMass.RowTaylor
 import CoefficientMass.RowTrunc
 import CoefficientMass.RowValue
 import CoefficientMass.RowValueDual
+import CoefficientMass.SecondRow
 import CoefficientMass.SecondRowId
 import CoefficientMass.Sharp
 import CoefficientMass.Signs
