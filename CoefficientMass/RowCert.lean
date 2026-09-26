@@ -159,9 +159,9 @@ theorem rowCertificate : RowCertificate := by
   have hsmall : ∀ j ∈ T, ‖F.coeff j‖ < n := by
     intro j hj
     rw [Finset.mem_filter, Finset.mem_range] at hj
-    by_contra hge
-    push_neg at hge
-    have hjP : j ∈ P := by rw [hP, Finset.mem_filter, Finset.mem_range]; exact ⟨hj.1, hge⟩
+    by_contra hgeq
+    push_neg at hgeq
+    have hjP : j ∈ P := by rw [hP, Finset.mem_filter, Finset.mem_range]; exact ⟨hj.1, hgeq⟩
     have hz : D - j ∈ Z := hSZ (hWS (Finset.mem_image_of_mem _ hjP))
     apply hj.2
     rw [show (D : ℝ) - j = ((D - j : ℕ) : ℝ) by rw [Nat.cast_sub hj.1.le]]
