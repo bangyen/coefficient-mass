@@ -13,12 +13,14 @@ import Mathlib.Topology.Algebra.InfiniteSum.Real
 The bookkeeping of Theorem 2.2's displaced step in `coefficient-mass.tex`,
 for plain real sequences.  `gamma_bound` sums the recursion
 `μ G_{d+1} ≤ μ y_c G_d + F̂_{d+1}` into `μ Γ_G ≤ 2 Γ_F`, using `y_c ≤ 1/2`;
-`tsum_abs_le_of_split` splits both tails at `z` and compares them.
+`tsum_abs_le_of_split` splits both tails at `z` and compares them, and
+`tsum_abs_lt_of_split` makes the comparison strict when one term below `z` is.
 
 ## Theorems
 
 * `gamma_bound`.
 * `tsum_abs_le_of_split`.
+* `tsum_abs_lt_of_split`.
 -/
 
 namespace CoefficientMass
@@ -88,5 +90,36 @@ theorem tsum_abs_le_of_split (w F G : ℕ → ℝ) {z : ℕ} (hz : 1 ≤ z) {μ 
           fun _ _ _ => abs_nonneg _
     _ ≤ ∑ d ∈ Finset.range (z0 + (N + 1)), |F (d + 1)| := hmain N
     _ ≤ ∑' d, |F (d + 1)| := hsum.sum_le_tsum _ fun _ _ => abs_nonneg _
+
+/-- The strict form: if the tail of `w` converges and some `1 ≤ d₀ < z` has
+`|w d₀| < |F d₀|`, the tail strictly drops. -/
+theorem tsum_abs_lt_of_split (w F G : ℕ → ℝ) {z : ℕ} (hz : 1 ≤ z) {μ : ℝ}
+    (hlow : ∀ d, 1 ≤ d → d < z → |w d| ≤ |F d|) (hwz : w z = 0) (hFz : |F z| = μ)
+    (hGz : G z = 1) (hhigh : ∀ d, z < d → |w d| = μ * G d - |F d|)
+    (hgamma : ∀ M, μ * ∑ t ∈ Finset.range (M + 1), G (z + t) ≤
+      2 * ∑ t ∈ Finset.range (M + 1), |F (z + t)|)
+    (hsum : Summable fun d => |F (d + 1)|) (hwsum : Summable fun d => |w (d + 1)|)
+    {d₀ : ℕ} (hd₀ : 1 ≤ d₀) (hd₀z : d₀ < z) (hlt : |w d₀| < |F d₀|) :
+    ∑' d, |w (d + 1)| < ∑' d, |F (d + 1)| := by
+  obtain ⟨w', hw'⟩ : ∃ w' : ℕ → ℝ, ∀ d, w' d = if d = d₀ then F d₀ else w d :=
+    ⟨_, fun _ => rfl⟩
+  have hle := tsum_abs_le_of_split w' F G hz
+    (fun d h1 h2 => by
+      rw [hw' d]
+      split_ifs with h
+      · rw [h]
+      · exact hlow d h1 h2)
+    (by rw [hw' z, if_neg (by omega)]; exact hwz) hFz hGz
+    (fun d hd => by rw [hw' d, if_neg (by omega)]; exact hhigh d hd) hgamma hsum
+  have hsplit : ∀ d, |w' (d + 1)| =
+      |w (d + 1)| + if d = d₀ - 1 then |F d₀| - |w d₀| else 0 := fun d => by
+    by_cases h : d = d₀ - 1
+    · rw [hw' (d + 1), if_pos (by omega), if_pos h, show d + 1 = d₀ by omega]
+      ring
+    · rw [hw' (d + 1), if_neg (by omega), if_neg h, add_zero]
+  have heq : ∑' d, |w' (d + 1)| = ∑' d, |w (d + 1)| + (|F d₀| - |w d₀|) := by
+    rw [tsum_congr hsplit, Summable.tsum_add hwsum (hasSum_ite_eq (d₀ - 1) _).summable,
+      tsum_ite_eq]
+  linarith
 
 end CoefficientMass
