@@ -177,7 +177,8 @@ theorem gammaK_succ_le {r : ℝ} (hr : 1 < r) {n k : ℕ} (hn : 1 ≤ n) (hk : 1
   have hM : ((mK r k : ℕ) : ℝ) ≤ ((mK r (k + 1) : ℕ) : ℝ) := by exact_mod_cast mK_le_succ hr k
   have hq : 1 + ((n : ℝ) - 1) / ((mK r (k + 1) : ℝ) + 1) ≤
       1 + ((n : ℝ) - 1) / ((mK r k : ℝ) + 1) :=
-    add_le_add_left (div_le_div_of_nonneg_left hn1 (by positivity) (by linarith)) 1
+    add_le_add_left (div_le_div_of_nonneg_left hn1 (by positivity : (0 : ℝ) < (mK r k : ℝ) + 1)
+      (by linarith : (mK r k : ℝ) + 1 ≤ (mK r (k + 1) : ℝ) + 1)) 1
   have hq0 : 0 ≤ 1 + ((n : ℝ) - 1) / ((mK r (k + 1) : ℝ) + 1) := by positivity
   have hsq : Real.sqrt (1 + 1 / ((k + 1 : ℕ) : ℝ)) ≤ Real.sqrt (1 + 1 / (k : ℝ)) :=
     Real.sqrt_le_sqrt (add_le_add_left (one_div_le_one_div_of_le hk0 (by push_cast; linarith)) 1)
