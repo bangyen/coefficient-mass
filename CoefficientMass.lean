@@ -15,6 +15,8 @@ import CoefficientMass.DisplacedTail
 import CoefficientMass.ExpSum
 import CoefficientMass.FirstRow
 import CoefficientMass.GeomSum
+import CoefficientMass.HoleBeta
+import CoefficientMass.HoleSum
 import CoefficientMass.Interlace
 import CoefficientMass.Interp
 import CoefficientMass.Mass
