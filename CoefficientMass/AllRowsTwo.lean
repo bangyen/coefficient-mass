@@ -49,7 +49,7 @@ def AllRowsTwo : Prop :=
 
 theorem sum_range_eq_phiD (r : ℝ) (D : ℕ) (q : ℝ[X]) :
     ∑ d ∈ Finset.range D, |q.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1) = phiD r D q := by
-  rw [phiD, Finset.range_eq_Ico, Finset.sum_Ico_add' (fun s => |q.eval (s : ℝ)| * (1 / r) ^ s),
+  rw [phiD, Finset.range_eq_Ico, Finset.sum_Ico_add' (fun s : ℕ => |q.eval (s : ℝ)| * (1 / r) ^ s),
     zero_add, Finset.Ico_add_one_right_eq_Icc]
 
 theorem min_mul_max_inv {r : ℝ} (hr : 1 < r) : min 1 (r - 1) * max 1 (1 / (r - 1)) = 1 := by
@@ -85,15 +85,15 @@ theorem muRD_le_pow {r : ℝ} (hr : 1 < r) {n : ℕ} (hn : 1 ≤ n) (S : Finset 
     have hopt' : phiD r D (confPolyP W) = muRD r D T (W.card + 1) := by rw [hWc]; exact hopt
     have hmax := (optInsMax r hr D T W (firstGap t W) h0W hTW (by omega) hhW
       (fun x hx => (hTt x hx).trans_lt hth) hopt').1
-    have hλ : 1 ≤ max 1 (1 / (r - 1)) := le_max_left _ _
+    have hlam : 1 ≤ max 1 (1 / (r - 1)) := le_max_left _ _
     have hφ : 0 ≤ phiD r D (confPolyP W) := Finset.sum_nonneg fun _ _ => by positivity
     have hih := ih hT0 D (by omega)
     rw [← hopt] at hih
     calc muRD r D (insert σ T) (T.card + 1 + n)
         ≤ max 1 (1 / (r - 1)) * phiD r D (confPolyP W) :=
-          hcross.trans (max_le (le_mul_of_one_le_left hφ hλ) hmax)
+          hcross.trans (max_le (le_mul_of_one_le_left hφ hlam) hmax)
       _ ≤ max 1 (1 / (r - 1)) * (max 1 (1 / (r - 1)) ^ T.card * muRD r D ∅ n) :=
-          mul_le_mul_of_nonneg_left hih (zero_le_one.trans hλ)
+          mul_le_mul_of_nonneg_left hih (zero_le_one.trans hlam)
       _ = max 1 (1 / (r - 1)) ^ (T.card + 1) * muRD r D ∅ n := by ring
 
 /-- `μ_{r,D}(∅, n) ≤ μ_r(∅, n)`. -/
@@ -124,7 +124,7 @@ theorem muR_le_pow {r : ℝ} (hr : 1 < r) {n : ℕ} (hn : 1 ≤ n) (S : Finset �
     rwa [sum_range_eq_phiD] at this
   have hpow := muRD_le_pow hr hn S h0 D (le_max_right _ _)
   have hemp := mul_le_mul_of_nonneg_left (muRD_empty_le hr D hn)
-    (pow_nonneg (zero_le_one.trans (le_max_left _ _)) S.card)
+    (pow_nonneg (zero_le_one.trans (le_max_left 1 (1 / (r - 1)))) S.card)
   linarith
 
 theorem allRowsTwo : AllRowsTwo := by
