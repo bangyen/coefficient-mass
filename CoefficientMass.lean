@@ -87,6 +87,7 @@ import CoefficientMass.TailProd
 import CoefficientMass.TailSplit
 import CoefficientMass.TailSplitGen
 import CoefficientMass.TailSum
+import CoefficientMass.TruncVertex
 import CoefficientMass.ValsBlock
 import CoefficientMass.ValsIdent
 import CoefficientMass.ValsMain
