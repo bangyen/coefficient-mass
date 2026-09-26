@@ -5,6 +5,7 @@ Authors: Bangyen Pham
 -/
 
 import CoefficientMass.RowAnnihilate
+import Mathlib.Algebra.Polynomial.BigOperators
 
 /-!
 # The Certificate for a Row
@@ -65,7 +66,8 @@ theorem abs_eval_le (p : ℝ[X]) {x : ℝ} (hx : 0 ≤ x) :
 theorem summable_confTail (Z : Finset ℕ) :
     Summable fun d : ℕ => |confPoly Z (d + 1)| * (1 / 2 : ℝ) ^ (d + 1) := by
   set p := confPolyP Z
-  have hg : ∀ i, Summable fun d : ℕ => |p.coeff i| * (((d + 1 : ℕ) : ℝ) ^ i * (1 / 2 : ℝ) ^ (d + 1)) :=
+  have hg : ∀ i, Summable fun d : ℕ =>
+      |p.coeff i| * (((d + 1 : ℕ) : ℝ) ^ i * (1 / 2 : ℝ) ^ (d + 1)) :=
     fun i => ((summable_nat_add_iff 1).2 (summable_pow_mul_geometric_of_norm_lt_one i
       (by norm_num : ‖(1 / 2 : ℝ)‖ < 1))).mul_left _
   refine Summable.of_nonneg_of_le (fun d => by positivity) (fun d => ?_)
@@ -82,7 +84,7 @@ theorem summable_confTail (Z : Finset ℕ) :
 /-- The finite sums below `Φ(Z)`. -/
 theorem sum_le_confTail (Z : Finset ℕ) (D : ℕ) :
     ∑ d ∈ Finset.range D, |confPoly Z (d + 1)| * (1 / 2 : ℝ) ^ (d + 1) ≤ confTail Z :=
-  sum_le_tsum _ (fun _ _ => by positivity) (summable_confTail Z)
+  (summable_confTail Z).sum_le_tsum _ fun _ _ => by positivity
 
 /-- The reflection `s = D - j` of the dual identity. -/
 theorem sum_reflect (ψ : ℝ[X]) (D : ℕ) :
@@ -139,10 +141,12 @@ theorem rowCertificate : RowCertificate := by
       (natDegree_sub_le _ _).trans (max_le ((natDegree_C _).trans_le zero_le_one) natDegree_X_le)
     have := (natDegree_comp_le (p := ψ) (q := C (D : ℝ) - X)).trans
       (Nat.mul_le_mul (natDegree_confPolyP Z) h1)
-    exact_mod_cast (by omega : q.natDegree < L)
+    have hql : q.natDegree < L := lt_of_le_of_lt this (by omega)
+    exact_mod_cast hql
   obtain ⟨G, hG⟩ := hdvd
   have hFG : G * (X - C 2) ^ L = F := by rw [hG, mul_comm]
   have hψ0 : ψ.eval 0 = 1 := by
+    show (confPolyP Z).eval 0 = 1
     rw [confPolyP, eval_prod]
     exact Finset.prod_eq_one fun z _ => by rw [eval_add, eval_mul, eval_C, eval_C, eval_X]; ring
   have hsum0 := sum_coeff_mul_eval_eq_zero L G q (D + 1) hqdeg (by rw [hFG]; omega)
