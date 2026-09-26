@@ -187,16 +187,16 @@ theorem rowTwo_ge_two (F : ℝ[X]) (hF : F.Monic) (hdvd : (X - C 2) * (X - C 3) 
     2 ≤ largeCount F 2 := by
   have h := orderStatistics 2 ![2, 3] F (by
       intro i j hij
-      fin_cases i <;> fin_cases j <;> simp? at hij ⊢ <;> norm_num)
+      fin_cases i <;> fin_cases j <;> first | norm_num | exact absurd hij (by decide))
     (by intro i; fin_cases i <;> norm_num) hF.ne_zero
     (by
-      simpa? [rootProduct, Fin.prod_univ_two, Algebra.algebraMap_self, RingHom.id_apply]
-        using hdvd) 1
+      simpa only [rootProduct, Algebra.algebraMap_self, RingHom.id_apply, Fin.prod_univ_two,
+        Fin.isValue, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one] using hdvd) 1
   have hp : ∏ i ∈ Finset.univ.filter ((1 : Fin 2) ≤ ·), (![(2 : ℝ), 3] i - 1) = 2 := by
     rw [show Finset.univ.filter ((1 : Fin 2) ≤ ·) = {1} by decide]
     norm_num
   rw [hp, hF.leadingCoeff, norm_one, one_mul] at h
-  simpa? using h
+  simpa only [ge_iff_le, Fin.isValue, Fin.coe_ofNat_eq_mod, Nat.mod_succ, Nat.reduceAdd] using h
 
 theorem sharpRowTwo : SharpRowTwo :=
   ⟨rowTwo_ge_two, fun _ hn => ⟨monic_sharpF _, dvd_sharpF hn, largeCount_sharpT hn,
