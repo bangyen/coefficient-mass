@@ -19,6 +19,7 @@ This module prepares Proposition 2.1(c) of `coefficient-mass-rows.tex`.  A real 
 ## Theorems
 
 * `eval_confPolyP`.
+* `factor_conf`.
 * `factor_far`.
 * `confPolyP_far_ge`.
 -/
@@ -32,20 +33,18 @@ theorem eval_confPolyP (Z : Finset ℕ) (y : ℝ) :
   rw [confPolyP, eval_prod]
   exact Finset.prod_congr rfl fun z _ => by rw [eval_add, eval_mul, eval_C, eval_C, eval_X]; ring
 
-/-- `q = r_{S_N} q_0` with `deg q_0 + m < L` and `q_0(0) = 1`. -/
-theorem factor_far {N m L : ℕ} {q : ℝ[X]} (hq : q.degree < L) (hq0 : q.eval 0 = 1)
-    (hqS : ∀ s ∈ Finset.Icc (N + 1) (N + m), q.eval (s : ℝ) = 0) :
-    ∃ q₀ : ℝ[X], q₀.natDegree + m < L ∧ q₀.eval 0 = 1 ∧
-      ∀ y : ℝ, q.eval y = (confPolyP (Finset.Icc (N + 1) (N + m))).eval y * q₀.eval y := by
-  set T := Finset.Icc (N + 1) (N + m)
+/-- `q = r_T q_0` with `deg q_0 + |T| < L` and `q_0(0) = 1` when `q` vanishes on `T`. -/
+theorem factor_conf {T : Finset ℕ} (hT0 : 0 ∉ T) {L : ℕ} {q : ℝ[X]} (hq : q.degree < L)
+    (hq0 : q.eval 0 = 1) (hqS : ∀ s ∈ T, q.eval (s : ℝ) = 0) :
+    ∃ q₀ : ℝ[X], q₀.natDegree + T.card < L ∧ q₀.eval 0 = 1 ∧
+      ∀ y : ℝ, q.eval y = (confPolyP T).eval y * q₀.eval y := by
   set P := ∏ σ ∈ T, (X - C (σ : ℝ))
   have hcop := pairwise_coprime_X_sub_C (s := fun σ : ℕ => (σ : ℝ)) Nat.cast_injective
   have hdvd : P ∣ q := Finset.prod_dvd_of_coprime (fun i _ j _ hij => hcop hij)
     fun σ hσ => dvd_iff_isRoot.2 (hqS σ hσ)
   obtain ⟨q₁, hq₁⟩ := hdvd
   have hσ0 : ∀ σ ∈ T, (σ : ℝ) ≠ 0 := fun σ hσ => by
-    have := (Finset.mem_Icc.1 hσ).1
-    exact_mod_cast (show σ ≠ 0 by omega)
+    exact_mod_cast (show σ ≠ 0 from fun h => hT0 (h ▸ hσ))
   have hP0 : P.eval 0 ≠ 0 := by
     rw [eval_prod]
     exact Finset.prod_ne_zero_iff.2 fun σ hσ => by
@@ -60,9 +59,8 @@ theorem factor_far {N m L : ℕ} {q : ℝ[X]} (hq : q.degree < L) (hq0 : q.eval 
   · have hqne : q ≠ 0 := fun h => by rw [h, eval_zero] at hq0; exact zero_ne_one hq0
     have hPne : P ≠ 0 := fun h => hP0 (by rw [h, eval_zero])
     have hq₁ne : q₁ ≠ 0 := fun h => hqne (by rw [hq₁, h, mul_zero])
-    have hdeg : q.natDegree = m + q₁.natDegree := by
-      rw [hq₁, natDegree_mul hPne hq₁ne, natDegree_finset_prod_X_sub_C_eq_card, Nat.card_Icc]
-      omega
+    have hdeg : q.natDegree = T.card + q₁.natDegree := by
+      rw [hq₁, natDegree_mul hPne hq₁ne, natDegree_finset_prod_X_sub_C_eq_card]
     have hqL : q.natDegree < L := by
       rw [degree_eq_natDegree hqne] at hq
       exact_mod_cast hq
@@ -71,6 +69,17 @@ theorem factor_far {N m L : ℕ} {q : ℝ[X]} (hq : q.degree < L) (hq0 : q.eval 
   · rw [eval_mul, eval_C, ← eval_mul, ← hq₁, hq0]
   · rw [hq₁, eval_mul, hPy, eval_mul, eval_C]
     ring
+
+/-- `q = r_{S_N} q_0` with `deg q_0 + m < L` and `q_0(0) = 1`. -/
+theorem factor_far {N m L : ℕ} {q : ℝ[X]} (hq : q.degree < L) (hq0 : q.eval 0 = 1)
+    (hqS : ∀ s ∈ Finset.Icc (N + 1) (N + m), q.eval (s : ℝ) = 0) :
+    ∃ q₀ : ℝ[X], q₀.natDegree + m < L ∧ q₀.eval 0 = 1 ∧
+      ∀ y : ℝ, q.eval y = (confPolyP (Finset.Icc (N + 1) (N + m))).eval y * q₀.eval y := by
+  obtain ⟨q₀, hdeg, h0, hfac⟩ := factor_conf (fun h => by
+    have := (Finset.mem_Icc.1 h).1
+    omega) hq hq0 hqS
+  rw [Nat.card_Icc, show N + m + 1 - (N + 1) = m by omega] at hdeg
+  exact ⟨q₀, hdeg, h0, hfac⟩
 
 /-- `r_{[N + 1, N + m]}(s) ≥ (1 - M/N)^m` for `s ≤ M ≤ N`, `N > 0`. -/
 theorem confPolyP_far_ge {N m M s : ℕ} (hN : 0 < N) (hsM : s ≤ M) (hMN : M ≤ N) :
