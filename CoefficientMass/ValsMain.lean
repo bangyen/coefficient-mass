@@ -9,7 +9,7 @@ import CoefficientMass.ValsSum
 /-!
 # The Values at the Kept Holes
 
-This module proves Lemma 4.10 of `coefficient-mass.tex` for `q ≥ 1`.  At the `r`-th kept
+This module proves Lemma 4.10 of `coefficient-mass.tex`.  At the `r`-th kept
 hole `c` (from `0`), `abs_confPoly_split` and the product bounds give
 `2^{-c} |ψ(c)| ≤ W_r(c)`, which is at most the block value at `ℓ + 1 + r`; the rank
 `c ↦ r` is a bijection onto `{0, …, ℓ}`, so the sum is at most `1 / (2(q + 1))`.
@@ -28,9 +28,9 @@ hole `c` (from `0`), `abs_confPoly_split` and the product bounds give
 namespace CoefficientMass
 
 /-- Lemma 4.10: for `C = {c_1 < ⋯ < c_{ℓ+1}}` with `c_1 = ℓ + 1`, `C ⊆ [ℓ + 1, m]`,
-`N = m + q`, `q ≥ 1` and `Y = {1, …, N} \ C`, `∑_{c ∈ C} |r_Y(c)| 2^{-c} ≤ 1 / (2(q + 1))`. -/
+`N = m + q` and `Y = {1, …, N} \ C`, `∑_{c ∈ C} |r_Y(c)| 2^{-c} ≤ 1 / (2(q + 1))`. -/
 def HoleVals : Prop :=
-  ∀ (ℓ q m : ℕ) (C : Finset ℕ), 1 ≤ q → C.card = ℓ + 1 → ℓ + 1 ∈ C →
+  ∀ (ℓ q m : ℕ) (C : Finset ℕ), C.card = ℓ + 1 → ℓ + 1 ∈ C →
     (∀ c ∈ C, ℓ + 1 ≤ c ∧ c ≤ m) →
     ∑ c ∈ C, |confPoly (Finset.Icc 1 (m + q) \ C) c| * (1 / 2 : ℝ) ^ c ≤
       1 / (2 * ((q : ℝ) + 1))
@@ -102,7 +102,7 @@ theorem rank_lt {C : Finset ℕ} {x y : ℕ} (hx : x ∈ C) (hxy : x < y) :
   exact Finset.mem_filter.2 ⟨(Finset.mem_filter.1 hz).1, (Finset.mem_filter.1 hz).2.trans hxy⟩
 
 theorem holeVals : HoleVals := by
-  intro ℓ q m C hq hC hl hCm
+  intro ℓ q m C hC hl hCm
   set rk : ℕ → ℕ := fun c => (C.filter (· < c)).card with hrk
   have inj : Set.InjOn rk C := by
     intro x hx y hy h
@@ -123,6 +123,6 @@ theorem holeVals : HoleVals := by
         (Finset.sum_image (f := fun r => blockCoef ℓ r * betaI (ℓ - r + q) (ℓ + r)) inj).symm
     _ ≤ 1 / (2 * ((q : ℝ) + 1)) := by
         rw [himg]
-        exact block_le ℓ hq
+        exact block_le ℓ q
 
 end CoefficientMass
