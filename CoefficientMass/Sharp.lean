@@ -189,11 +189,13 @@ theorem rowTwo_ge_two (F : ℝ[X]) (hF : F.Monic) (hdvd : (X - C 2) * (X - C 3) 
     2 ≤ largeCount F 2 := by
   have h := orderStatistics 2 ![2, 3] F (by
       intro i j hij
-      fin_cases i <;> fin_cases j <;> first | norm_num | exact absurd (Fin.le_def.1 hij) (by norm_num))
+      fin_cases i <;> fin_cases j <;>
+        first | norm_num | exact absurd (Fin.le_def.1 hij) (by norm_num))
     (by intro i; fin_cases i <;> norm_num) hF.ne_zero
     (by
       simpa only [rootProduct, Algebra.algebraMap_self, RingHom.id_apply, Fin.prod_univ_two,
-        Fin.isValue, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one] using hdvd) 1
+        Fin.isValue, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one]
+        using hdvd) 1
   have hp : ∏ i ∈ Finset.univ.filter ((1 : Fin 2) ≤ ·), (![(2 : ℝ), 3] i - 1) = 2 := by
     rw [show Finset.univ.filter ((1 : Fin 2) ≤ ·) = {1} by decide]
     norm_num
