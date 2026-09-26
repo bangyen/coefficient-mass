@@ -39,7 +39,7 @@ theorem norm_eval_zero_le {R M : ℝ} (hR : 0 < R) (H : ℝ[X])
   exact hM z hz
 
 /-- On the circle `|t| = R`, `|R^2 - a t| = R |t - a|` for real `a`. -/
-theorem norm_sq_sub_mul {R a : ℝ} (hR : 0 ≤ R) {t : ℂ} (ht : ‖t‖ = R) :
+theorem norm_sq_sub_mul {R a : ℝ} {t : ℂ} (ht : ‖t‖ = R) :
     ‖((R : ℂ) ^ 2 - a * t)‖ = R * ‖t - a‖ := by
   have hconj : (R : ℂ) ^ 2 = t * (starRingEnd ℂ) t := by
     rw [Complex.mul_conj, Complex.normSq_eq_norm_sq, ht]
@@ -87,7 +87,7 @@ theorem jensen_poly {R : ℝ} (hR : 0 < R) (A : Multiset ℝ) :
       ring
     have key := ih ((C (R ^ 2) - C a * X) * H) (R * M)
       (fun b hb => hA b (Multiset.mem_cons_of_mem hb)) fun t ht => by
-        rw [hg', norm_mul, norm_sq_sub_mul hR.le ht, mul_assoc]
+        rw [hg', norm_mul, norm_sq_sub_mul ht, mul_assoc]
         refine mul_le_mul_of_nonneg_left ?_ hR.le
         rw [← norm_mul, ← hg]
         exact hM t ht
@@ -109,7 +109,7 @@ theorem jensen_poly {R : ℝ} (hR : 0 < R) (A : Multiset ℝ) :
         _ ≤ R * M := key
     have k2 := le_of_mul_le_mul_left k1 hR
     calc a * u * (X' * (2 * R)) = (a * (2 * R)) * (u * X') := by ring
-      _ ≤ R * (u * X') := mul_le_mul_of_nonneg_right (by linarith [ha.2])
+      _ ≤ R * (u * X') := mul_le_mul_of_nonneg_right (by nlinarith [ha.2, hR])
           (mul_nonneg hu hX)
       _ = R * u * X' := by ring
       _ ≤ M := k2
