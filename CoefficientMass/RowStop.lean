@@ -7,6 +7,7 @@ Authors: Bangyen Pham
 import CoefficientMass.HoleFree
 import CoefficientMass.TailBound
 import CoefficientMass.ValsMain
+import Mathlib.Analysis.Complex.ExponentialBounds
 
 /-!
 # Every Row at the Root Two
@@ -113,7 +114,7 @@ theorem rowsTop : RowsTop := by
   have hnq : (n : ℝ) ≤ (q : ℝ) + 1 := by exact_mod_cast (show n ≤ q + 1 by omega)
   calc _ ≤ 1 / (2 * ((q : ℝ) + 1)) + 1 / (2 * ((q : ℝ) + 1)) := add_le_add hV hT'
     _ = 1 / ((q : ℝ) + 1) := by
-        rw [div_add_div_same, div_eq_div_iff (by positivity) (by positivity)]
+        rw [← add_div, div_eq_div_iff (by positivity) (by positivity)]
         ring
     _ ≤ 1 / n := one_div_le_one_div_of_le (by exact_mod_cast (show 0 < n by omega)) hnq
 

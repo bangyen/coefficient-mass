@@ -70,7 +70,7 @@ theorem prod_down_le {c : ℕ} (hc : 1 ≤ c) (D : Finset ℕ) (hD : ∀ x ∈ D
   have e : ((c - 1 - j : ℕ) : ℝ) = c - 1 - j := by
     rw [eq_sub_iff_add_eq, eq_sub_iff_add_eq]
     exact_mod_cast (show c - 1 - j + j + 1 = c by omega)
-  show ((c - 1 - j : ℕ) : ℝ) / ((c : ℝ) - ((c - 1 - j : ℕ) : ℝ)) = _
+  change ((c - 1 - j : ℕ) : ℝ) / ((c : ℝ) - ((c - 1 - j : ℕ) : ℝ)) = _
   rw [e, show (c : ℝ) - (c - 1 - j) = j + 1 by ring]
 
 /-- `∏_{x ∈ D} x / (x - c) ≤ C(c + |D|, |D|)` for `D ⊆ (c, ∞)`. -/
@@ -88,7 +88,7 @@ theorem prod_up_le (c : ℕ) (D : Finset ℕ) (hD : ∀ x ∈ D, c < x) :
     D.card (c + 1) D rfl le_rfl (fun x hx => hD x hx)
   rw [qUp]
   refine key.trans (le_of_eq (Finset.prod_congr rfl fun j _ => ?_))
-  show ((c + 1 + j : ℕ) : ℝ) / (((c + 1 + j : ℕ) : ℝ) - c) = _
+  change ((c + 1 + j : ℕ) : ℝ) / (((c + 1 + j : ℕ) : ℝ) - c) = _
   push_cast
   rw [show (c : ℝ) + 1 + j - c = j + 1 by ring]
 
