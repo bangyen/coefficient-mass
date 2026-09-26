@@ -35,6 +35,8 @@ REFERENCES = {
     ("coefficient-mass", "3.2"): ("Theorem", "thm:order"),
     ("coefficient-mass", "3.3"): ("Corollary", "cor:complex"),
     ("coefficient-mass", "3.4"): ("Corollary", "cor:mass"),
+    ("coefficient-mass", "3.5"): ("Corollary", "cor:prime"),
+    ("coefficient-mass", "3.6"): ("Corollary", "cor:infimum"),
     ("coefficient-mass", "3.7"): ("Corollary", "cor:near"),
     ("coefficient-mass", "4.1"): ("Proposition", "prop:unbounded"),
     ("coefficient-mass", "4.2"): ("Proposition", "prop:quadratic"),
@@ -84,6 +86,8 @@ HEADLINES = {
     "quadraticMass": ("QuadraticMass", "coefficient-mass", "prop:quadratic"),
     "allRoots": ("AllRoots", "coefficient-mass", "cor:allroots"),
     "nearOptimal": ("NearOptimal", "coefficient-mass", "cor:near"),
+    "primeRoots": ("PrimeRoots", "coefficient-mass", "cor:prime"),
+    "primeInfimum": ("PrimeInfimum", "coefficient-mass", "cor:infimum"),
     "workedExamples": ("WorkedExamples", "coefficient-mass", "thm:tail"),
 }
 
