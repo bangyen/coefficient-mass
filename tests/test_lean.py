@@ -43,6 +43,7 @@ REFERENCES = {
     ("coefficient-mass", "4.9"): ("Proposition", "prop:rowsfree"),
     ("coefficient-mass", "4.10"): ("Lemma", "lem:holevals"),
     ("coefficient-mass", "4.11"): ("Lemma", "lem:holetail"),
+    ("coefficient-mass", "4.12"): ("Proposition", "prop:rowstop"),
     ("coefficient-mass", "4.13"): ("Theorem", "thm:everyrow"),
 }
 
@@ -69,6 +70,8 @@ HEADLINES = {
     "rowsFree": ("RowsFree", "coefficient-mass", "prop:rowsfree"),
     "holeTail": ("HoleTail", "coefficient-mass", "lem:holetail"),
     "holeVals": ("HoleVals", "coefficient-mass", "lem:holevals"),
+    "rowsTop": ("RowsTop", "coefficient-mass", "prop:rowstop"),
+    "everyRow": ("EveryRow", "coefficient-mass", "thm:everyrow"),
     "sharpRowTwo": ("SharpRowTwo", "coefficient-mass", "prop:sharp23"),
 }
 

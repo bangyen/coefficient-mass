@@ -34,6 +34,7 @@ def HoleVals : Prop :=
     (∀ c ∈ C, ℓ + 1 ≤ c ∧ c ≤ m) →
     ∑ c ∈ C, |confPoly (Finset.Icc 1 (m + q) \ C) c| * (1 / 2 : ℝ) ^ c ≤
       1 / (2 * ((q : ℝ) + 1))
+
 /-- The bound at one kept hole `c` of rank `r = |{c' ∈ C : c' < c}|`. -/
 theorem hole_value_le {ℓ q m : ℕ} {C : Finset ℕ} (hC : C.card = ℓ + 1) (hl : ℓ + 1 ∈ C)
     (hCm : ∀ c ∈ C, ℓ + 1 ≤ c ∧ c ≤ m) {c : ℕ} (hc : c ∈ C) :
