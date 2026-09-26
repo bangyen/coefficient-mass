@@ -4,6 +4,7 @@ Released under MIT license as described in the file LICENSE.
 Authors: Bangyen Pham
 -/
 
+import Mathlib.Analysis.Calculus.Deriv.Inv
 import Mathlib.Analysis.Calculus.LocalExtr.Polynomial
 
 /-!
@@ -130,7 +131,8 @@ theorem card_rootsIn_le {z : ℕ} (hz : 1 ≤ z) {h : ℝ[X]} (h0 : h.eval 0 ≠
     have k : c ^ (z - 1) * ((z : ℝ) * q.eval c) = 0 := by
       rw [hqdef, eval_tOp, mul_sub, ← mul_assoc (z : ℝ) (z : ℝ)⁻¹, mul_inv_cancel₀ hz', one_mul]
       linear_combination (-1 : ℝ) * hc0'
-    have hqc : q.eval c = 0 := ((mul_eq_zero.1 ((mul_eq_zero.1 k).resolve_left hcz)).resolve_left hz')
+    have hqc : q.eval c = 0 :=
+      (mul_eq_zero.1 ((mul_eq_zero.1 k).resolve_left hcz)).resolve_left hz'
     exact ⟨c, hmem.2 ⟨(mem_roots hq).2 hqc, hcpos, by linarith [hc.2, hy.2.2]⟩, hc.1, hc.2⟩
   calc Multiset.card (rootsIn h) = ∑ x ∈ s, (rootsIn h).count x :=
         (Multiset.toFinset_sum_count_eq _).symm
