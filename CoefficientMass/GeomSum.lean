@@ -138,10 +138,10 @@ theorem geomSum_sub_mul_risingP_nonpos : ∀ (k s : ℕ) (A : Finset ℕ), A.car
     A.sum id = s → 0 ∉ A → ∀ c : ℝ, (k : ℝ) + 1 ≤ c → geomSum ((X - C c) * risingP A) ≤ 0 := by
   intro k
   induction k using Nat.strong_induction_on with
-  | _ k ihk =>
+  | _ k ihcard =>
   intro s
   induction s using Nat.strong_induction_on with
-  | _ s ihs =>
+  | _ s ihsum =>
   intro A hk hs h0 c hc
   by_cases hA : ∀ a ∈ A, a ≤ k
   · have hE : A = Finset.Icc 1 k := Finset.eq_of_subset_of_card_le
@@ -173,12 +173,12 @@ theorem geomSum_sub_mul_risingP_nonpos : ∀ (k s : ℕ) (A : Finset ℕ), A.car
   have hce : (A.erase a).card = k - 1 := by rw [Finset.card_erase_of_mem ha, hk]
   have hb' : b ∉ A.erase a := fun h => hb (Finset.mem_of_mem_erase h)
   have hkk : ((k - 1 : ℕ) : ℝ) ≤ k := by exact_mod_cast Nat.sub_le k 1
-  have h1 := ihk (k - 1) (by omega) _ (A.erase a) hce rfl h0e c (by linarith)
+  have h1 := ihcard (k - 1) (by omega) _ (A.erase a) hce rfl h0e c (by linarith)
   have hsum : (insert b (A.erase a)).sum id < s := by
     rw [Finset.sum_insert hb', ← hs, ← Finset.add_sum_erase A id ha]
     simp only [id_eq]
     omega
-  have h2 := ihs _ hsum (insert b (A.erase a))
+  have h2 := ihsum _ hsum (insert b (A.erase a))
     (by rw [Finset.card_insert_of_notMem hb', hce]; omega) rfl
     (fun h => by
       rcases Finset.mem_insert.1 h with h | h
