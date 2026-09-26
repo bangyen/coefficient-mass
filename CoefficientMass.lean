@@ -53,6 +53,7 @@ import CoefficientMass.LooseOrder
 import CoefficientMass.LooseRatio
 import CoefficientMass.LooseRow
 import CoefficientMass.Mass
+import CoefficientMass.MuRMin
 import CoefficientMass.NbMass
 import CoefficientMass.NbMode
 import CoefficientMass.NbMoments
