@@ -38,24 +38,36 @@ theorem twoHole_weight_le (p : ℕ) {v : ℝ} (hv0 : 0 ≤ v) (hv1 : v ≤ 1) :
   set B : ℕ → ℝ := fun i => v ^ i * w ^ (p + 4 - i) * ((p + 4).choose i : ℝ) with hB
   have hB0 : ∀ i, 0 ≤ B i := fun i => by positivity
   have h1 : ∑ i ∈ Finset.range (p + 3), B i + B (p + 3) + B (p + 4) = 1 := by
-    rw [← Finset.sum_range_succ, ← Finset.sum_range_succ, hB, ← add_pow,
-      show v + w = 1 by ring, one_pow]
+    have h := add_pow v w (p + 4)
+    rw [show v + w = 1 by rw [hw]; ring, one_pow, Finset.sum_range_succ,
+      Finset.sum_range_succ] at h
+    simp only [hB]
+    linarith
   have h2 : (1 + v) ^ (p + 4) = ∑ i ∈ Finset.range (p + 3), 2 ^ i * B i +
       2 ^ (p + 3) * B (p + 3) + 2 ^ (p + 4) * B (p + 4) := by
-    rw [← Finset.sum_range_succ (fun i => 2 ^ i * B i),
-      ← Finset.sum_range_succ (fun i => 2 ^ i * B i), show 1 + v = 2 * v + w by ring, add_pow]
-    exact Finset.sum_congr rfl fun i _ => by rw [hB, mul_pow]; ring
+    have h := add_pow (2 * v) w (p + 4)
+    have e : ∀ m, (2 * v) ^ m * w ^ (p + 4 - m) * ((p + 4).choose m : ℝ) =
+        2 ^ m * (v ^ m * w ^ (p + 4 - m) * ((p + 4).choose m : ℝ)) := fun m => by
+      rw [mul_pow]
+      ring
+    rw [show 2 * v + w = 1 + v by rw [hw]; ring, Finset.sum_range_succ,
+      Finset.sum_range_succ] at h
+    simp only [e] at h
+    simp only [hB]
+    linarith
   have h3 : (1 - v) ^ (p + 4) = B 0 := by
-    rw [hB, pow_zero, Nat.sub_zero, Nat.choose_zero_right, Nat.cast_one, one_mul, mul_one]
+    simp only [hB, pow_zero, Nat.sub_zero, Nat.choose_zero_right, Nat.cast_one, one_mul, mul_one,
+      hw]
   have hc : ((p + 4).choose (p + 3) : ℝ) = p + 4 := by
     rw [show p + 4 = p + 3 + 1 from rfl, Nat.choose_succ_self_right]
     push_cast
     ring
   have h4 : B (p + 4) = v ^ (p + 4) := by
-    rw [hB, Nat.sub_self, pow_zero, mul_one, Nat.choose_self, Nat.cast_one, mul_one]
+    simp only [hB, Nat.sub_self, pow_zero, mul_one, Nat.choose_self, Nat.cast_one]
   set u := v ^ (p + 3) * w with hu
   have h5 : B (p + 3) = ((p : ℝ) + 4) * u := by
-    rw [hB, hu, show p + 4 - (p + 3) = 1 by omega, pow_one, hc]
+    simp only [hB]
+    rw [hu, show p + 4 - (p + 3) = 1 by omega, pow_one, hc]
     ring
   have hu0 : 0 ≤ u := by positivity
   have h6 : v ^ (p + 3) = B (p + 4) + u := by rw [h4, hu, hw]; ring
@@ -87,8 +99,9 @@ theorem twoHole_weight_le (p : ℕ) {v : ℝ} (hv0 : 0 ≤ v) (hv1 : v ≤ 1) :
     rw [h2, h3, h6, h5]
     linear_combination (((p : ℝ) + 4) * u) * hr3 + B (p + 4) * hr4
   have hS : (1 / 2 : ℝ) ^ (p + 5) * (T + B 0) ≤ S / 8 := by
-    have := mul_le_mul_of_nonneg_left hT (by positivity : (0 : ℝ) ≤ (1 / 2) ^ (p + 5))
-    nlinarith
+    calc _ ≤ (1 / 2 : ℝ) ^ (p + 5) * (2 ^ (p + 2) * S) :=
+          mul_le_mul_of_nonneg_left hT (by positivity)
+      _ = S / 8 := by rw [← mul_assoc, hr]; ring
   have hS0 : 0 ≤ S := Finset.sum_nonneg fun i _ => hB0 i
   have hp : (0 : ℝ) ≤ p := Nat.cast_nonneg p
   rw [hX, div_mul_eq_mul_div, div_le_one (by positivity)]
@@ -143,11 +156,14 @@ theorem confTail_two_holes {b q : ℕ} (hb : 4 ≤ b) :
     linarith
   · obtain ⟨p, rfl⟩ : ∃ p, b = p + 5 := ⟨b - 5, by omega⟩
     rw [← hqi]
-    refine integral_mono_on zero_le_one (by fun_prop : Continuous fun v : ℝ =>
+    have hf := (by fun_prop : Continuous fun v : ℝ =>
       ∑ c ∈ ({3, p + 5} : Finset ℕ), (1 / 2) ^ c * v ^ (p + 5 + q - c) *
         (holeWeight {3, p + 5} c * (1 + v) ^ (c - 1) +
-          |holeWeight {3, p + 5} c| * (1 - v) ^ (c - 1))).intervalIntegrable 0 1
-      (by fun_prop : Continuous fun v : ℝ => v ^ q).intervalIntegrable 0 1 fun v hv => ?_
+          |holeWeight {3, p + 5} c| * (1 - v) ^ (c - 1))).intervalIntegrable
+      (μ := MeasureTheory.volume) 0 1
+    have hg := (by fun_prop : Continuous fun v : ℝ => v ^ q).intervalIntegrable
+      (μ := MeasureTheory.volume) 0 1
+    refine integral_mono_on zero_le_one hf hg fun v hv => ?_
     obtain ⟨hv0, hv1⟩ := hv
     rw [Finset.sum_pair h3b, hw3, hwb, abs_neg, abs_of_pos hK,
       show p + 5 + q - 3 = q + (p + 2) by omega, show p + 5 + q - (p + 5) = q by omega,
