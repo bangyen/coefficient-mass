@@ -49,6 +49,20 @@ a theorem of that type; nothing is assumed.  The guards in `scripts/` (the
 unfinished proofs and new axioms, so every commit builds without `sorry` or
 extra axioms.
 
+Beyond the chain, `tailEquality` proves the equality case of Theorem 2.2,
+`firstRowOrderStatistics` the first row of Theorem 3.2 for roots above 1,
+`sharpRowTwo : SharpRowTwo` proves Proposition 4.4 (the row
+`k = 2` is an infimum at `(2, 3)`), `rowCertificate : RowCertificate` Lemma 4.5,
+`everyRow_of_star` reduces Theorem 4.13 (`EveryRow`) to the statement
+`Star n` of Section 4.4, and `everyRow : EveryRow` proves it, through
+`deleteLargest` (Lemma 4.6), `holeIntegral` (Lemma 4.7), `rowsFree`
+(Proposition 4.9), `holeVals` (Lemma 4.10), `holeTail`
+(Lemma 4.11) and `rowsTop` (Proposition 4.12).  The rest of Section 4 is proved too:
+`unboundedLooseness`, `halfSum` and `looseRatio` (Proposition 4.1), `jensenRows` and
+`quadraticMass` (Proposition 4.2, through Jensen's formula for polynomials and the
+operators `T_z`), and `allRoots` (Corollary 4.3, with the constants `1/81` and `3`);
+`workedExamples` checks the examples after Theorem 2.2.
+
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,
 `Quot.sound`).  Lemma 2.3 and the bound `σ ≤ G_z / V̂_z` use weak sign
