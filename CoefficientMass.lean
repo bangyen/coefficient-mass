@@ -54,7 +54,9 @@ import CoefficientMass.Order
 import CoefficientMass.OrderStat
 import CoefficientMass.Perturb
 import CoefficientMass.PrefixPush
+import CoefficientMass.PrefixShift
 import CoefficientMass.PrefixUp
+import CoefficientMass.PrefixWeights
 import CoefficientMass.PrimeCor
 import CoefficientMass.PrimeCount
 import CoefficientMass.PrimeLower
