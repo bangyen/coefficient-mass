@@ -6,6 +6,7 @@ Authors: Bangyen Pham
 
 import CoefficientMass.LongDiagC
 import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
+import Mathlib.Analysis.SpecialFunctions.Pow.Continuity
 
 /-!
 # Every Diagonal Is Eventually Determined
@@ -82,7 +83,7 @@ theorem exists_alpha {r : ℝ} (hr : 1 < r) (hr2 : r < 2) : ∃ α : ℝ, 1 ≤ 
   have h1 : Tendsto (fun α : ℝ => A ^ (1 / α)) atTop (𝓝 1) := by
     have h0 : Tendsto (fun α : ℝ => 1 / α) atTop (𝓝 0) := tendsto_const_nhds.div_atTop tendsto_id
     have hc : Tendsto (fun _ : ℝ => A) atTop (𝓝 A) := tendsto_const_nhds
-    have := hc.rpow h0 (Or.inl hA.ne')
+    have := Filter.Tendsto.rpow hc h0 (Or.inl hA.ne')
     rwa [Real.rpow_zero] at this
   have h2 : Tendsto (fun α : ℝ => 4 * (r - 1) / r ^ 2 * (A ^ (1 / α) * α ^ (1 / α))) atTop
       (𝓝 (4 * (r - 1) / r ^ 2 * (1 * 1))) := (h1.mul tendsto_rpow_div).const_mul _
