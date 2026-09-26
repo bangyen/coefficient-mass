@@ -18,9 +18,9 @@ import CoefficientMass.GeomSum
 import CoefficientMass.HoleBeta
 import CoefficientMass.HoleInt
 import CoefficientMass.HoleOne
-import CoefficientMass.HoleTwo
 import CoefficientMass.HoleProd
 import CoefficientMass.HoleSum
+import CoefficientMass.HoleTwo
 import CoefficientMass.Interlace
 import CoefficientMass.Interp
 import CoefficientMass.Mass
