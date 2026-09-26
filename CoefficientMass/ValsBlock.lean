@@ -70,7 +70,7 @@ theorem wallisI_eq (ℓ : ℕ) :
   | zero =>
     rw [wallisI]
     simp only [pow_zero, integral_const, sub_zero, smul_eq_mul, mul_one, Nat.factorial_zero,
-      Nat.cast_one, one_pow, Nat.mul_zero, Nat.zero_add, div_one]
+      Nat.cast_one, one_pow, Nat.mul_zero, Nat.zero_add, Nat.factorial_one, div_one]
   | succ ℓ ih =>
     have h := wallisI_succ ℓ
     rw [ih] at h
@@ -79,7 +79,7 @@ theorem wallisI_eq (ℓ : ℕ) :
     have hf : ((2 * ℓ + 1).factorial : ℝ) ≠ 0 := by positivity
     field_simp at h
     push_cast
-    nlinarith [h]
+    linear_combination (2 * (ℓ : ℝ) + 2) * h
 
 /-- Chebyshev: for `G` nonincreasing on `[0, 1]`, `∫_0^1 v^q G ≤ (1 / (q + 1)) ∫_0^1 G`. -/
 theorem integral_pow_mul_le {G : ℝ → ℝ} (hG : ContinuousOn G (Set.uIcc 0 1))
@@ -110,14 +110,15 @@ theorem integral_pow_mul_le {G : ℝ → ℝ} (hG : ContinuousOn G (Set.uIcc 0 1
   have hi3 : IntervalIntegrable (fun v : ℝ => G v0 * v ^ q - c * G v0) MeasureTheory.volume 0 1 :=
     (by fun_prop : Continuous fun v : ℝ => G v0 * v ^ q - c * G v0).intervalIntegrable 0 1
   have hle := integral_mono_on zero_le_one ((hi1.sub hi2).sub hi3)
-    (intervalIntegrable_const (c := (0 : ℝ))) fun v hv => by
+    (intervalIntegral.intervalIntegrable_const (c := (0 : ℝ))) fun v hv => by
       have := hpt v hv
       nlinarith
   rw [integral_sub (hi1.sub hi2) hi3, integral_sub hi1 hi2, integral_const_mul,
     integral_sub ((by fun_prop : Continuous fun v : ℝ => G v0 * v ^ q).intervalIntegrable 0 1)
-      intervalIntegrable_const, integral_const_mul, integral_pow, integral_const] at hle
-  norm_num at hle
+      intervalIntegral.intervalIntegrable_const, integral_const_mul, integral_pow,
+    integral_const] at hle
   rw [hc] at hle ⊢
+  norm_num at hle ⊢
   linarith
 
 /-- `∑_r 2^{-(ℓ+1+r)} (2ℓ+1)! / (ℓ! r! (ℓ-r)!) v^{ℓ-r} (1-v)^{ℓ+r} = (2ℓ+1)! / (ℓ!^2 2^{2ℓ+1})
