@@ -33,7 +33,7 @@ theorem cast_choose_succ (a c : ℕ) :
     ((a + (c + 1) : ℕ) : ℝ) * ((a + c).choose c : ℝ) =
       ((c + 1 : ℕ) : ℝ) * ((a + (c + 1)).choose (c + 1) : ℝ) := by
   have e : (a + c + 1) * (a + c).choose c = (a + c + 1).choose (c + 1) * (c + 1) :=
-    Nat.succ_mul_choose_eq (a + c) c
+    Nat.add_one_mul_choose_eq (a + c) c
   rw [← add_assoc]
   exact_mod_cast e.trans (Nat.mul_comm _ _)
 

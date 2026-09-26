@@ -128,7 +128,8 @@ theorem nbLaw_nodes_le {r : ℝ} (hr : 1 < r) {k n : ℕ} (hn : 1 ≤ n) (M : �
       fun s => abs_eval_le_pow hpn (Nat.cast_nonneg s)
   have hinj : Set.InjOn (fun j => ((M + j : ℕ) : ℝ)) (Finset.range n : Set ℕ) :=
     fun i _ j _ h => by
-      have h' : M + i = M + j := by exact_mod_cast h
+      have h'' : ((M + i : ℕ) : ℝ) = ((M + j : ℕ) : ℝ) := h
+      have h' : M + i = M + j := by exact_mod_cast h''
       omega
   have hlag := abs_eval_le_lagrange hinj (by rwa [Finset.card_range]) 0
   rw [hq0, abs_one] at hlag
@@ -166,7 +167,7 @@ theorem nbLaw_nodes_le {r : ℝ} (hr : 1 < r) {k n : ℕ} (hn : 1 ≤ n) (M : �
     _ ≤ r ^ (n - 1) * ((r - 1) ^ k * ∑' s : ℕ, prefixWeight r k s * |q.eval (s : ℝ)|) *
           (2 * ((M : ℝ) + n - 1)) ^ (n - 1) :=
         mul_le_mul_of_nonneg_right (h3.trans (mul_le_mul_of_nonneg_left h4 hrn.le)) hpow.le
-    _ = (r - 1) ^ k * ∑' s : ℕ, prefixWeight r k s * |q.eval (s : ℝ)| *
+    _ = (r - 1) ^ k * (∑' s : ℕ, prefixWeight r k s * |q.eval (s : ℝ)|) *
           (r ^ (n - 1) * (2 * ((M : ℝ) + n - 1)) ^ (n - 1)) := by ring
 
 end CoefficientMass
