@@ -64,13 +64,13 @@ increasing `f`. -/
 theorem exists_vertex_step {ω : ℕ → ℝ} {N : Finset ℕ} (hω : ∀ s ∈ N, 0 < ω s)
     (hN0 : 0 ∉ N) {n : ℕ} (hNn : n ≤ N.card) {p : ℝ[X]} (hp : p.natDegree < n)
     (hp0 : p.eval 0 = 1)
-    (hZ : (N.filter fun s => p.eval (s : ℝ) = 0).card + 1 < n) :
+    (hZ : (N.filter fun s : ℕ => p.eval (s : ℝ) = 0).card + 1 < n) :
     ∃ p' : ℝ[X], p'.natDegree < n ∧ p'.eval 0 = 1 ∧
-      (N.filter fun s => p.eval (s : ℝ) = 0).card <
-        (N.filter fun s => p'.eval (s : ℝ) = 0).card ∧
+      (N.filter fun s : ℕ => p.eval (s : ℝ) = 0).card <
+        (N.filter fun s : ℕ => p'.eval (s : ℝ) = 0).card ∧
       nodeSum ω N p' ≤ nodeSum ω N p := by
   classical
-  set Z := N.filter fun s => p.eval (s : ℝ) = 0
+  set Z := N.filter fun s : ℕ => p.eval (s : ℝ) = 0
   set e : ℝ[X] := X * ∏ z ∈ Z, (X - C (z : ℝ))
   have he : ∀ y : ℝ, e.eval y = y * ∏ z ∈ Z, (y - z) := fun y => by
     rw [eval_mul, eval_X, eval_prod]
@@ -102,7 +102,7 @@ theorem exists_vertex_step {ω : ℕ → ℝ} {N : Finset ℕ} (hω : ∀ s ∈ 
   set e' := C σ * e
   have he' : ∀ y, e'.eval y = σ * e.eval y := fun y => by rw [eval_mul, eval_C]
   -- the positions where the sign would change
-  set B := N.filter fun s => p.eval (s : ℝ) * e'.eval (s : ℝ) < 0
+  set B := N.filter fun s : ℕ => p.eval (s : ℝ) * e'.eval (s : ℝ) < 0
   have hB : B.Nonempty := by
     by_contra hB
     rw [Finset.not_nonempty_iff_eq_empty, Finset.filter_eq_empty_iff] at hB
@@ -129,7 +129,7 @@ theorem exists_vertex_step {ω : ℕ → ℝ} {N : Finset ℕ} (hω : ∀ s ∈ 
     rw [← Finset.sum_congr rfl hterm, ← Finset.mul_sum] at hpos
     exact absurd hσc (not_le.2 hpos)
   obtain ⟨s₁, hs₁B, hmin⟩ := B.exists_min_image
-    (fun s => -p.eval (s : ℝ) / e'.eval (s : ℝ)) hB
+    (fun s : ℕ => -p.eval (s : ℝ) / e'.eval (s : ℝ)) hB
   set t := -p.eval (s₁ : ℝ) / e'.eval (s₁ : ℝ)
   obtain ⟨hs₁N, hs₁⟩ := Finset.mem_filter.1 hs₁B
   have hes₁ : e'.eval (s₁ : ℝ) ≠ 0 := fun h => by rw [h, mul_zero] at hs₁; exact lt_irrefl 0 hs₁
@@ -174,10 +174,10 @@ theorem exists_vertex_step {ω : ℕ → ℝ} {N : Finset ℕ} (hω : ∀ s ∈ 
 /-- With at least `n - 1` zeros in `N`, `p` is itself some `r_Y`. -/
 theorem exists_of_many_zeros (ω : ℕ → ℝ) {N : Finset ℕ} (hN0 : 0 ∉ N) {n : ℕ} (hn : 1 ≤ n)
     {p : ℝ[X]} (hp : p.natDegree < n) (hp0 : p.eval 0 = 1)
-    (hZ : n ≤ (N.filter fun s => p.eval (s : ℝ) = 0).card + 1) :
+    (hZ : n ≤ (N.filter fun s : ℕ => p.eval (s : ℝ) = 0).card + 1) :
     ∃ Y ⊆ N, Y.card + 1 = n ∧ nodeSum ω N (confPolyP Y) ≤ nodeSum ω N p := by
   obtain ⟨Y, hYZ, hYc⟩ := Finset.exists_subset_card_eq (show n - 1 ≤
-    (N.filter fun s => p.eval (s : ℝ) = 0).card by omega)
+    (N.filter fun s : ℕ => p.eval (s : ℝ) = 0).card by omega)
   have hY0 : 0 ∉ Y := fun h => hN0 (Finset.mem_filter.1 (hYZ h)).1
   have hq : p.degree < n := degree_le_natDegree.trans_lt (by exact_mod_cast hp)
   have := eq_confPolyP_of_card hY0 (by omega) hq hp0 fun s hs =>
@@ -189,7 +189,7 @@ theorem exists_of_many_zeros (ω : ℕ → ℝ) {N : Finset ℕ} (hN0 : 0 ∉ N)
 theorem exists_int_zeros {ω : ℕ → ℝ} {N : Finset ℕ} (hω : ∀ s ∈ N, 0 < ω s) (hN0 : 0 ∉ N)
     {n : ℕ} (hn : 1 ≤ n) (hNn : n ≤ N.card) :
     ∀ m : ℕ, ∀ p : ℝ[X], p.natDegree < n → p.eval 0 = 1 →
-      n - (N.filter fun s => p.eval (s : ℝ) = 0).card ≤ m →
+      n - (N.filter fun s : ℕ => p.eval (s : ℝ) = 0).card ≤ m →
         ∃ Y ⊆ N, Y.card + 1 = n ∧ nodeSum ω N (confPolyP Y) ≤ nodeSum ω N p := by
   intro m
   induction m with
@@ -198,7 +198,7 @@ theorem exists_int_zeros {ω : ℕ → ℝ} {N : Finset ℕ} (hω : ∀ s ∈ N,
     exact exists_of_many_zeros ω hN0 hn hp hp0 (by omega)
   | succ m ih =>
     intro p hp hp0 hm
-    by_cases hZ : (N.filter fun s => p.eval (s : ℝ) = 0).card + 1 < n
+    by_cases hZ : (N.filter fun s : ℕ => p.eval (s : ℝ) = 0).card + 1 < n
     · obtain ⟨p', hp', hp'0, hlt, hle⟩ := exists_vertex_step hω hN0 hNn hp hp0 hZ
       obtain ⟨Y, hYN, hYc, hY⟩ := ih p' hp' hp'0 (by omega)
       exact ⟨Y, hYN, hYc, hY.trans hle⟩
