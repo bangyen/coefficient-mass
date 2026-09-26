@@ -57,7 +57,14 @@ theorem erase_eq_filter_union (C : Finset ℕ) (c : ℕ) :
     C.erase c = C.filter (· < c) ∪ C.filter (c < ·) := by
   ext x
   simp only [Finset.mem_erase, Finset.mem_union, Finset.mem_filter]
-  omega
+  constructor
+  · rintro ⟨h1, h2⟩
+    rcases lt_or_gt_of_ne h1 with h | h
+    · exact Or.inl ⟨h2, h⟩
+    · exact Or.inr ⟨h2, h⟩
+  · rintro (⟨h2, h⟩ | ⟨h2, h⟩)
+    · exact ⟨h.ne, h2⟩
+    · exact ⟨h.ne', h2⟩
 
 /-- `|ψ(c)| = c B(N - c + 1, c) ∏_{c' ∈ L} c' / (c - c') ∏_{c' ∈ U} c' / (c' - c)`. -/
 theorem abs_confPoly_split {N : ℕ} {C : Finset ℕ} (h0 : 0 ∉ C) (hle : ∀ c ∈ C, c ≤ N) {c : ℕ}
