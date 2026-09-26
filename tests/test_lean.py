@@ -35,6 +35,7 @@ REFERENCES = {
     ("coefficient-mass", "3.2"): ("Theorem", "thm:order"),
     ("coefficient-mass", "3.3"): ("Corollary", "cor:complex"),
     ("coefficient-mass", "3.4"): ("Corollary", "cor:mass"),
+    ("coefficient-mass", "3.7"): ("Corollary", "cor:near"),
     ("coefficient-mass", "4.1"): ("Proposition", "prop:unbounded"),
     ("coefficient-mass", "4.2"): ("Proposition", "prop:quadratic"),
     ("coefficient-mass", "4.3"): ("Corollary", "cor:allroots"),
@@ -82,6 +83,7 @@ HEADLINES = {
     "jensenRows": ("JensenRows", "coefficient-mass", "prop:quadratic"),
     "quadraticMass": ("QuadraticMass", "coefficient-mass", "prop:quadratic"),
     "allRoots": ("AllRoots", "coefficient-mass", "cor:allroots"),
+    "nearOptimal": ("NearOptimal", "coefficient-mass", "cor:near"),
     "workedExamples": ("WorkedExamples", "coefficient-mass", "thm:tail"),
 }
 

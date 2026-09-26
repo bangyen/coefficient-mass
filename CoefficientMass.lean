@@ -33,6 +33,7 @@ import CoefficientMass.LooseOrder
 import CoefficientMass.LooseRatio
 import CoefficientMass.LooseRow
 import CoefficientMass.Mass
+import CoefficientMass.Near
 import CoefficientMass.Order
 import CoefficientMass.OrderStat
 import CoefficientMass.Perturb
