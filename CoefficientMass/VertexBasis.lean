@@ -42,15 +42,15 @@ theorem eval_eY_zero (Z : Finset ℕ) (y : ℕ) : (eY Z y).eval 0 = 0 := by
 theorem eval_eY_mem {Z : Finset ℕ} (h0 : 0 ∉ Z) {y z : ℕ} (hz : z ∈ Z) (hzy : z ≠ y) :
     (eY Z y).eval (z : ℝ) = 0 := by
   rw [eY, eval_mul, confPolyP_eval_mem (Finset.mem_erase.2 ⟨hzy, hz⟩)
-    (fun h => h0 (h ▸ hz)), mul_zero]
+    (fun h : z = 0 => h0 (h ▸ hz)), mul_zero]
 
 theorem eval_eY_self_ne {Z : Finset ℕ} (h0 : 0 ∉ Z) {y : ℕ} (hy : y ∈ Z) :
     (eY Z y).eval (y : ℝ) ≠ 0 := by
-  have hy0 : (y : ℝ) ≠ 0 := by exact_mod_cast fun h => h0 (h ▸ hy)
+  have hy0 : (y : ℝ) ≠ 0 := by exact_mod_cast fun h : y = 0 => h0 (h ▸ hy)
   rw [eY, eval_mul, eval_X, confPolyP, eval_prod]
   refine mul_ne_zero hy0 (Finset.prod_ne_zero_iff.2 fun z hz => ?_)
   obtain ⟨hzy, hzZ⟩ := Finset.mem_erase.1 hz
-  have hz0 : (z : ℝ) ≠ 0 := by exact_mod_cast fun h => h0 (h ▸ hzZ)
+  have hz0 : (z : ℝ) ≠ 0 := by exact_mod_cast fun h : z = 0 => h0 (h ▸ hzZ)
   rw [eval_add, eval_mul, eval_C, eval_X, eval_C]
   intro h
   have : (y : ℝ) = z := by field_simp at h; linarith
@@ -82,7 +82,8 @@ theorem eq_sum_eY {S Z : Finset ℕ} (hSZ : S ⊆ Z) (h0 : 0 ∉ Z) {d : ℝ[X]}
     rw [eval_sub, hsum_eval]
     by_cases hzS : z ∈ S
     · rw [hdS z hzS, Finset.sum_eq_zero fun y hy => by
-        rw [eval_eY_mem h0 hz fun h => (Finset.mem_sdiff.1 hy).2 (h ▸ hzS), mul_zero], sub_zero]
+        rw [eval_eY_mem h0 hz fun h : z = y => (Finset.mem_sdiff.1 hy).2 (h ▸ hzS), mul_zero],
+        sub_zero]
     · rw [Finset.sum_eq_single_of_mem z (Finset.mem_sdiff.2 ⟨hz, hzS⟩) fun y hy hyz => by
         rw [eval_eY_mem h0 hz (Ne.symm hyz), mul_zero],
         div_mul_cancel₀ _ (eval_eY_self_ne h0 hz), sub_self]
