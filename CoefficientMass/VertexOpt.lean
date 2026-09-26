@@ -5,6 +5,7 @@ Authors: Bangyen Pham
 -/
 
 import CoefficientMass.VertexBasis
+import Mathlib.Data.Real.Sign
 
 /-!
 # Certifying a Vertex
@@ -86,7 +87,7 @@ theorem rowPhi_le_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆
   have hd0 : d.eval 0 = 0 := by rw [eval_sub, hq0, hp0, sub_self]
   have hdS : ∀ s ∈ S, d.eval (s : ℝ) = 0 := fun s hs => by
     rw [eval_sub, hqS s hs, hpZ s (hSZ hs), sub_self]
-  have hdec := eq_sum_eY hSZ h0 hdn hd0 hdS
+  have hdec := eq_sum_eY h0 hdn hd0 hdS
   set c : ℕ → ℝ := fun y => d.eval (y : ℝ) / (eY Z y).eval (y : ℝ)
   have hqpd : q = p + d := by rw [add_sub_cancel]
   -- pointwise

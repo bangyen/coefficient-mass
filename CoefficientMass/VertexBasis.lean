@@ -11,7 +11,7 @@ import CoefficientMass.OnePoly
 
 This module sets up Lemma 6.11 of `coefficient-mass-rows.tex`.  For `y ∈ Z` put
 `e_y(s) = s r_{Z \ {y}}(s)`.  Then `e_y(0) = 0`, `e_y` vanishes on `Z \ {y}`, `e_y(y) ≠ 0`, and
-`deg e_y ≤ |Z|`; so a real `d` with `deg d ≤ |Z|`, `d(0) = 0` and `d|_S = 0` (`S ⊆ Z`) is
+`deg e_y ≤ |Z|`; so a real `d` with `deg d ≤ |Z|`, `d(0) = 0` and `d|_S = 0` is
 `∑_{y ∈ Z \ S} (d(y)/e_y(y)) e_y`, since the difference vanishes at the `|Z| + 1` points
 `{0} ∪ Z`.
 
@@ -67,7 +67,7 @@ theorem natDegree_eY_le {Z : Finset ℕ} {y : ℕ} (hy : y ∈ Z) : (eY Z y).nat
 
 /-- A real `d` with `deg d ≤ |Z|`, `d(0) = 0` and `d|_S = 0` is
 `∑_{y ∈ Z \ S} (d(y)/e_y(y)) e_y`. -/
-theorem eq_sum_eY {S Z : Finset ℕ} (hSZ : S ⊆ Z) (h0 : 0 ∉ Z) {d : ℝ[X]}
+theorem eq_sum_eY {S Z : Finset ℕ} (h0 : 0 ∉ Z) {d : ℝ[X]}
     (hd : d.natDegree ≤ Z.card) (hd0 : d.eval 0 = 0) (hdS : ∀ s ∈ S, d.eval (s : ℝ) = 0) :
     d = ∑ y ∈ Z \ S, C (d.eval (y : ℝ) / (eY Z y).eval (y : ℝ)) * eY Z y := by
   set D := d - ∑ y ∈ Z \ S, C (d.eval (y : ℝ) / (eY Z y).eval (y : ℝ)) * eY Z y
