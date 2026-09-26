@@ -47,6 +47,7 @@ import CoefficientMass.LooseRow
 import CoefficientMass.Mass
 import CoefficientMass.Near
 import CoefficientMass.OnePoly
+import CoefficientMass.OnePolyRows
 import CoefficientMass.OptIns
 import CoefficientMass.OptInsCore
 import CoefficientMass.OptInsDir
