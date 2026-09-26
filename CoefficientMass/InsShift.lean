@@ -108,7 +108,14 @@ theorem abs_prefix_shift {Z : Finset ℕ} {c : ℕ} (hc1 : 1 ≤ c) (hZ : ∀ z 
       have hz' : (z : ℝ) < u := by exact_mod_cast (show z < u by omega)
       rw [le_div_iff₀ (by linarith)]
       linarith
-    refine (Finset.prod_le_prod_of_subset_of_one_le' hsub fun z hz _ => hge z hz).trans_eq ?_
+    have hrest : 1 ≤ ∏ z ∈ Finset.Icc 1 (c - 1) \ Z, (((u : ℝ) + 1 - z) / (u - z)) := by
+      have := Finset.prod_le_prod (s := Finset.Icc 1 (c - 1) \ Z) (f := fun _ => (1 : ℝ))
+        (fun _ _ => zero_le_one) fun z hz => hge z (Finset.sdiff_subset hz)
+      rwa [Finset.prod_const_one] at this
+    have hZ0 : 0 ≤ ∏ z ∈ Z, (((u : ℝ) + 1 - z) / (u - z)) := Finset.prod_nonneg fun z hz =>
+      (zero_le_one.trans (hge z (hsub hz)))
+    refine (le_mul_of_one_le_left hZ0 hrest).trans_eq ?_
+    rw [Finset.prod_sdiff hsub]
     have := prod_telescope (u := (u : ℝ)) (c - 1) (by
       rw [Nat.cast_sub hc1]; push_cast; linarith)
     rw [this, Nat.cast_sub hc1]
@@ -118,7 +125,7 @@ theorem abs_prefix_shift {Z : Finset ℕ} {c : ℕ} (hc1 : 1 ≤ c) (hZ : ∀ z 
   have hcpos : (0 : ℝ) < u + 1 - c := by linarith
   push_cast
   have hc1' := hcpos.ne'
-  calc (∏ z ∈ Z, |1 - (u : ℝ) / z|) * ∏ z ∈ Z, (((u : ℝ) + 1 - z) / (u - z)) * (u + 1 - c)
+  calc (∏ z ∈ Z, |1 - (u : ℝ) / z|) * (∏ z ∈ Z, (((u : ℝ) + 1 - z) / (u - z))) * (u + 1 - c)
       ≤ (∏ z ∈ Z, |1 - (u : ℝ) / z|) * (u / (u + 1 - c)) * (u + 1 - c) :=
         mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hratio hA) hcpos.le
     _ = u * ∏ z ∈ Z, |1 - (u : ℝ) / z| := by
@@ -130,7 +137,7 @@ theorem abs_ins_shift {W : Finset ℕ} {c : ℕ} (h0 : 0 ∉ W) (hc : c ∉ W) (
     |(confPolyP (ins W c)).eval ((u + 1 : ℕ) : ℝ)| ≤
       kappa W c * u * |(confPolyP W).eval (u : ℝ)| := by
   classical
-  set U := W.filter (c ≤ ·)
+  set U := W.filter (c ≤ ·) with hUdef
   have hU : ∀ w ∈ U, (0 : ℝ) < w := fun w hw => by
     exact_mod_cast Nat.pos_of_ne_zero fun h => h0 (h ▸ (Finset.mem_filter.1 hw).1)
   have hc0 : (0 : ℝ) < c := by exact_mod_cast hc1
@@ -151,7 +158,7 @@ theorem abs_ins_shift {W : Finset ℕ} {c : ℕ} (h0 : 0 ∉ W) (hc : c ∉ W) (
     obtain ⟨hzW, hzc⟩ := Finset.mem_filter.1 hz
     exact ⟨Nat.pos_of_ne_zero fun h => h0 (h ▸ hzW), hzc⟩) hu
   rw [eval_confPolyP_ins hc, eval_confPolyP_split W c, hshift, abs_mul, abs_mul, abs_mul,
-    abs_div, abs_of_pos hBm, kappa]
+    abs_div, abs_of_pos hBm, kappa, ← hUdef]
   have hcs : |1 - ((u + 1 : ℕ) : ℝ) / c| = (((u + 1 : ℕ) : ℝ) - c) / c := by
     push_cast
     rw [abs_of_nonpos (by rw [sub_nonpos, le_div_iff₀ hc0]; linarith), neg_sub,
