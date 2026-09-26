@@ -37,10 +37,10 @@ namespace CoefficientMass
 def RowValueTop : Prop :=
   ∀ r : ℝ, 1 < r → ∀ L k : ℕ, 1 ≤ k → k ≤ L → rowValue r L k ≤ rowValue r (L - k + 1) 1
 
-/-- `μ_r([N + 1, N + m], n + m) ≥ (1 - M/N)^m c` when `Φ_{r,M} ≥ c ≥ 0` on the admissible
+/-- `μ_r([N + 1, N + m], n + m) ≥ (1 - M/N)^m c` when `Φ_{r,M} ≥ c` on the admissible
 polynomials of `μ_r(∅, n)`. -/
 theorem muR_far_ge {r : ℝ} (hr : 1 < r) {n m N M : ℕ} (hn : 1 ≤ n) (hN : 0 < N) (hMN : M ≤ N)
-    {c : ℝ} (hc0 : 0 ≤ c) (hc : ∀ q₀ : ℝ[X], q₀.degree < n → q₀.eval 0 = 1 →
+    {c : ℝ} (hc : ∀ q₀ : ℝ[X], q₀.degree < n → q₀.eval 0 = 1 →
       c ≤ ∑ d ∈ Finset.range M, |q₀.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)) :
     (1 - (M : ℝ) / N) ^ m * c ≤ muR r (Finset.Icc (N + 1) (N + m)) (n + m) := by
   have hN' : (0 : ℝ) < N := by exact_mod_cast hN
@@ -88,7 +88,7 @@ theorem rowValue_le_top {r : ℝ} (hr : 1 < r) {L k : ℕ} (hk : 1 ≤ k) (hkL :
     have hMN : M ≤ N := (Nat.le_succ M).trans (le_max_right _ _)
     have hN : 0 < N := lt_of_lt_of_le (Nat.succ_pos M) (le_max_right _ _)
     have hN' : (0 : ℝ) < N := by exact_mod_cast hN
-    have hc := muR_far_ge hr (m := k - 1) (by omega : 1 ≤ n) hN hMN (c := μ - ε) (by linarith)
+    have hc := muR_far_ge hr (m := k - 1) (by omega : 1 ≤ n) hN hMN (c := μ - ε)
       fun q₀ hq₀ h00 => hM₀ M (le_max_right _ _) q₀ hq₀ h00 fun s hs => absurd hs
         (Finset.notMem_empty s)
     -- Bernoulli: `(1 - M/N)^{k - 1} ≥ 1 - ε`
@@ -96,8 +96,8 @@ theorem rowValue_le_top {r : ℝ} (hr : 1 < r) {L k : ℕ} (hk : 1 ≤ k) (hkL :
       have hMN' : (M : ℝ) / N ≤ 1 := by
         rw [div_le_one hN']
         exact_mod_cast hMN
-      have h := one_add_mul_le_pow (a := -((M : ℝ) / N)) (by linarith [div_nonneg
-        (Nat.cast_nonneg M) hN'.le]) (k - 1)
+      have hMN0 : 0 ≤ (M : ℝ) / N := div_nonneg (Nat.cast_nonneg M) hN'.le
+      have h := one_add_mul_le_pow (a := -((M : ℝ) / N)) (by linarith) (k - 1)
       rw [← sub_eq_add_neg] at h
       have hsmall : ((k - 1 : ℕ) : ℝ) * ((M : ℝ) / N) ≤ ε := by
         have hN₀' : ((k - 1 : ℕ) : ℝ) * M / ε < N :=
