@@ -64,8 +64,8 @@ theorem jI_succ (a c : ℕ) :
   rw [integral_sub ((intervalIntegrable_jI a (c + 1)).const_mul _)
     ((intervalIntegrable_jI (a + 1) (c + 2)).const_mul _), integral_const_mul,
     integral_const_mul] at h
-  rw [jI, jI]
-  norm_num at h ⊢
+  rw [jI, jI, one_div, inv_pow]
+  norm_num at h
   linarith
 
 /-- `J(0, c + 2) ≤ 1 / (c + 1)`. -/
