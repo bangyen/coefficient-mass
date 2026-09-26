@@ -142,20 +142,20 @@ theorem abs_ins_le_below {W : Finset ℕ} {c s : ℕ} (hc : c ∉ W) (hs : 1 ≤
     exact lt_of_le_of_ne hcw fun h => hc (h ▸ hwW)
   have hs' : (1 : ℝ) ≤ s := by exact_mod_cast hs
   have hsc' : (s : ℝ) < c := by exact_mod_cast hsc
-  have hw : ∀ w ∈ U, (s : ℝ) < w := fun w hw => by
+  have hsw : ∀ w ∈ U, (s : ℝ) < w := fun w hw => by
     have := hU w hw
     exact_mod_cast (show s < w by omega)
   -- factor by factor
   have hfac : ∀ w ∈ U, 1 - (s : ℝ) / ((w : ℝ) + 1) =
       (1 - (s : ℝ) / w) * (1 + s / (((w : ℝ) - s) * (w + 1))) := fun w hw => by
-    have h1 : (0 : ℝ) < w - s := by linarith [hw w hw]
-    have h2 : (0 : ℝ) < w := by linarith [hw w hw]
+    have h1 : (0 : ℝ) < w - s := by linarith [hsw w hw]
+    have h2 : (0 : ℝ) < w := by linarith [hsw w hw]
     field_simp
     ring
   rw [eval_confPolyP_ins hc, eval_confPolyP_split W c, Finset.prod_congr rfl hfac,
     Finset.prod_mul_distrib, abs_mul, abs_mul, abs_mul, abs_mul]
   have hB : 0 ≤ ∏ w ∈ U, (1 - (s : ℝ) / w) := Finset.prod_nonneg fun w hw => by
-    have := hw w hw
+    have := hsw w hw
     have : (s : ℝ) / w ≤ 1 := by rw [div_le_one (by linarith)]; linarith
     linarith
   have hg := prod_g_le (by linarith) (show (s : ℝ) < c + 1 by linarith) U hU
@@ -168,10 +168,12 @@ theorem abs_ins_le_below {W : Finset ℕ} {c s : ℕ} (hc : c ∉ W) (hs : 1 ≤
   have hc0 : (0 : ℝ) < c := by linarith
   have hcs : |1 - (s : ℝ) / c| = (c - s) / c := by
     rw [abs_of_nonneg (by rw [sub_nonneg, div_le_one hc0]; linarith), one_sub_div hc0.ne']
-  rw [hcs, abs_of_nonneg hB, abs_of_nonneg (Finset.prod_nonneg fun w hw => by
-    have := hw w hw
-    have : (0 : ℝ) < w - s := by linarith
-    positivity)]
+  have hG0 : 0 ≤ ∏ w ∈ U, (1 + (s : ℝ) / (((w : ℝ) - s) * (w + 1))) :=
+    Finset.prod_nonneg fun w hw => by
+      have := hsw w hw
+      have : (0 : ℝ) < w - s := by linarith
+      positivity
+  rw [hcs, abs_of_nonneg hB, abs_of_nonneg hG0]
   have hcs1 : (0 : ℝ) < c + 1 - s := by linarith
   have hkey : (c - s) / c * ((c + 1) / (c + 1 - s)) ≤ (1 : ℝ) := by
     rw [div_mul_div_comm, div_le_one (by positivity)]
