@@ -129,10 +129,6 @@ theorem hole_zero_block (ℓ q : ℕ) :
   rw [hQ, blockCoef]
   simp only [Nat.sub_zero, Nat.add_zero, Nat.factorial_zero]
   push_cast
-  calc _ = (1 / 2 : ℝ) ^ (ℓ + 1) * betaI (ℓ + q) ℓ * ((2 * ℓ + 1).factorial : ℝ) *
-        ((ℓ.factorial : ℝ) * 1 * ℓ.factorial)⁻¹ * (((ℓ : ℝ) + 1) * ((ℓ : ℝ) + 1)⁻¹) := by ring
-    _ = _ := by
-      rw [mul_inv_cancel₀ h5]
-      ring
+  field_simp
 
 end CoefficientMass
