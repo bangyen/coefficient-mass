@@ -26,6 +26,8 @@ import CoefficientMass.HoleTwo
 import CoefficientMass.Interlace
 import CoefficientMass.Interp
 import CoefficientMass.LooseCert
+import CoefficientMass.LooseOrder
+import CoefficientMass.LooseRow
 import CoefficientMass.Mass
 import CoefficientMass.Order
 import CoefficientMass.OrderStat

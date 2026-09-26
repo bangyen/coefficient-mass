@@ -62,14 +62,12 @@ theorem jensenRows : JensenRows := by
     obtain ⟨j, hj, rfl⟩ := Finset.mem_image.1 hz
     have := Finset.mem_range.1 (Finset.mem_filter.1 hj).1
     omega
-  have hZc : Z.card ≤ k - 1 := by
-    have := Finset.card_image_le (s := S) (f := fun j => F.natDegree - j)
-    omega
+  have hZc : Z.card ≤ k - 1 := Finset.card_image_le.trans (by omega)
   have hcoeff : ∀ d, d ≤ F.natDegree → F.reverse.coeff d = F.coeff (F.natDegree - d) :=
     fun d hd => by rw [coeff_reverse, revAt_le hd]
   have hgc : ∀ d, (tOps Z.toList F.reverse).coeff d =
       F.reverse.coeff d * ∏ z ∈ Z, (1 - (d : ℝ) / z) := fun d => by
-    rw [coeff_tOps, Finset.prod_toList]
+    rw [coeff_tOps, Finset.prod_map_toList]
   have hdeg : ∀ d, F.natDegree < d → (tOps Z.toList F.reverse).coeff d = 0 := fun d hd => by
     rw [hgc, coeff_eq_zero_of_natDegree_lt ((reverse_natDegree_le F).trans_lt hd), zero_mul]
   have hFs0 : F.reverse.eval 0 = 1 := by
@@ -90,7 +88,7 @@ theorem jensenRows : JensenRows := by
     rw [Finset.sum_range_succ', hgc 0, coeff_zero_reverse, hF.leadingCoeff, Nat.cast_zero]
     simp only [zero_div, sub_zero, Finset.prod_const_one, mul_one, abs_one, pow_zero]
     rw [add_comm, Finset.mul_sum]
-    refine add_le_add_left (Finset.sum_le_sum fun d hd => ?_) 1
+    refine (add_le_add_iff_left 1).2 (Finset.sum_le_sum fun d hd => ?_)
     rw [← mul_assoc]
     refine mul_le_mul_of_nonneg_right ?_ (pow_nonneg hR0.le _)
     rw [hgc, abs_mul, Finset.abs_prod]
@@ -114,9 +112,10 @@ theorem jensenRows : JensenRows := by
   have hgne : tOps Z.toList F.reverse ≠ 0 := fun e => by
     rw [e, eval_zero] at hg0
     norm_num at hg0
-  obtain ⟨H, hH⟩ := (Multiset.prod_X_sub_C_dvd_iff_le_roots hgne _).2
-    (Multiset.filter_le _ (tOps Z.toList F.reverse).roots)
-  have hJ := jensen_poly hR0 (rootsIn (tOps Z.toList F.reverse)) H _
+  obtain ⟨H, hH⟩ := (Multiset.prod_X_sub_C_dvd_iff_le_roots hgne
+    (rootsIn (tOps Z.toList F.reverse))).2 (Multiset.filter_le _ _)
+  have hJ := jensen_poly hR0 (rootsIn (tOps Z.toList F.reverse)) H
+    (1 + Y * ∑ d ∈ Finset.range F.natDegree, ((d + 1 + (k - 1)).choose (k - 1) : ℝ) * R ^ (d + 1))
     (fun a ha => (Multiset.mem_filter.1 ha).2) fun t ht => by
       rw [← hH]
       exact hbound t ht

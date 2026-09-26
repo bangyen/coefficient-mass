@@ -47,10 +47,10 @@ theorem expSum_one_mul_sum {L : ℕ} (hL : 0 < L) (r : Fin L → ℝ) (hr : ∀ 
   rw [hdeg, Finset.sum_range_succ, Finset.sum_range_succ, Nat.sub_self, ha.1, mul_one,
     show M + 1 - M = 1 by omega] at hdual
   have hlead : (rootProduct ℝ r).coeff (M + 1) = 1 := by
-    rw [← hdeg]
-    exact (rootProduct_monic r).leadingCoeff
+    have h := (rootProduct_monic r).leadingCoeff
+    rwa [Polynomial.leadingCoeff, hdeg] at h
   have hnext : (rootProduct ℝ r).coeff M = -∑ i, r i := by
-    have h := nextCoeff_of_natDegree_pos (p := rootProduct ℝ r) (by omega)
+    have h := nextCoeff_of_natDegree_pos (p := rootProduct ℝ r) (by rw [hdeg]; omega)
     rw [hdeg, Nat.add_sub_cancel] at h
     rw [← h, rootProduct]
     simp only [Algebra.algebraMap_self, RingHom.id_apply]
