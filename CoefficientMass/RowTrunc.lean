@@ -29,6 +29,7 @@ fixed `W` of polynomial growth, so `Φ_r(q) ≤ Φ_{r,D}(q) + (1 + Φ_{r,D}(q)) 
 * `abs_eval_node_le`.
 * `rowPhi_le_trunc`.
 * `muR_pos`.
+* `exists_trunc_ge`.
 -/
 
 open Polynomial Filter Topology
@@ -140,5 +141,35 @@ theorem muR_pos {r : ℝ} (hr : 1 < r) {S : Finset ℕ} {L : ℕ} (h0 : 0 ∉ S)
     rw [div_le_iff₀ hC, mul_comm]
     exact key q.1 q.2.1 q.2.2.1
   exact lt_of_lt_of_le (by positivity) hle
+
+/-- Eventually `Φ_{r,M}(q) ≥ μ_r(S, L) - ε` for every `q` admissible for `μ_r(S, L)`. -/
+theorem exists_trunc_ge {r : ℝ} (hr : 1 < r) (S : Finset ℕ) (L : ℕ) {ε : ℝ} (hε : 0 < ε) :
+    ∃ M₀, ∀ M, M₀ ≤ M → ∀ q : ℝ[X], q.degree < L → q.eval 0 = 1 →
+      (∀ s ∈ S, q.eval (s : ℝ) = 0) →
+        muR r S L - ε ≤ ∑ d ∈ Finset.range M, |q.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1) := by
+  set μ := muR r S L
+  have hμ : 0 ≤ μ := muR_nonneg hr S L
+  obtain ⟨τ, hτ, hbound⟩ := rowPhi_le_trunc hr L
+  obtain ⟨M₁, hM₁⟩ := Metric.tendsto_atTop.1 hτ (ε / (1 + μ)) (by positivity)
+  refine ⟨max L M₁, fun M hM q hq hq0 hqS => ?_⟩
+  have hτM : |τ M| * (1 + μ) < ε := by
+    have := hM₁ M ((le_max_right _ _).trans hM)
+    rwa [Real.dist_eq, sub_zero, lt_div_iff₀ (by positivity)] at this
+  have hΦ : μ ≤ rowPhi r q := ciInf_le ⟨0, by
+    rintro _ ⟨q', rfl⟩
+    exact tsum_nonneg fun _ => by
+      have : 0 < 1 / r := by positivity
+      positivity⟩ (⟨q, hq, hq0, hqS⟩ :
+        {q : ℝ[X] // q.degree < L ∧ q.eval 0 = 1 ∧ ∀ s ∈ S, q.eval (s : ℝ) = 0})
+  have hb := hbound M ((le_max_left _ _).trans hM) q hq hq0
+  set P := ∑ d ∈ Finset.range M, |q.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)
+  have hP : 0 ≤ P := Finset.sum_nonneg fun _ _ => by positivity
+  by_contra hlt
+  push_neg at hlt
+  have h1a : (1 + P) * τ M ≤ (1 + P) * |τ M| :=
+    mul_le_mul_of_nonneg_left (le_abs_self _) (by linarith)
+  have h1b : (1 + P) * |τ M| ≤ (1 + μ) * |τ M| :=
+    mul_le_mul_of_nonneg_right (by linarith) (abs_nonneg _)
+  linarith
 
 end CoefficientMass

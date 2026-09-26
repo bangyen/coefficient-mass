@@ -95,6 +95,7 @@ HEADLINES = {
     "tailBoundGen": ("TailBoundGen", "coefficient-mass-rows", "thm:tailgen"),
     "rowValueCert": ("RowValueCert", "coefficient-mass-rows", "prop:rowvalue"),
     "rowValueDual": ("RowValueDual", "coefficient-mass-rows", "prop:rowvalue"),
+    "rowValueTop": ("RowValueTop", "coefficient-mass-rows", "prop:rowvalue"),
     "confDeleteR": ("ConfDeleteR", "coefficient-mass-rows", "lem:confdelr"),
 }
 
