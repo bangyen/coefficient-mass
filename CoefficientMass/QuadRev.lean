@@ -43,7 +43,7 @@ theorem reverse_X_sub_C {r : ℝ} (hr : r ≠ 0) : (X - C r).reverse = C (-r) * 
   have hX : (X : ℝ[X]).reverse = 1 := by
     rw [← mul_one X, reverse_X_mul, ← C_1, reverse_C]
   rw [sub_eq_add_neg, ← C_neg, reverse_add_C, hX, natDegree_X, pow_one, mul_sub,
-    ← C_mul, neg_mul, mul_inv_cancel₀ hr, C_neg, C_1]
+    ← C_mul, neg_mul, mul_inv_cancel₀ hr, C_neg, C_neg, C_1]
   ring
 
 theorem reverse_rootProduct {L : ℕ} (r : Fin L → ℝ) (hr : ∀ i, r i ≠ 0) :
