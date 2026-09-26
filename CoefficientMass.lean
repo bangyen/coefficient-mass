@@ -32,6 +32,7 @@ import CoefficientMass.Perturb
 import CoefficientMass.QuadCoef
 import CoefficientMass.QuadJensen
 import CoefficientMass.QuadMain
+import CoefficientMass.QuadMass
 import CoefficientMass.QuadRev
 import CoefficientMass.QuadRolle
 import CoefficientMass.RealPart
