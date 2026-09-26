@@ -29,6 +29,7 @@ import CoefficientMass.HoleOne
 import CoefficientMass.HoleProd
 import CoefficientMass.HoleSum
 import CoefficientMass.HoleTwo
+import CoefficientMass.IntZeros
 import CoefficientMass.Interlace
 import CoefficientMass.Interp
 import CoefficientMass.LooseCert
