@@ -8,6 +8,9 @@ import CoefficientMass.AllRoots
 import CoefficientMass.AllRowsTwo
 import CoefficientMass.AllUpper
 import CoefficientMass.BelowTwo
+import CoefficientMass.Block
+import CoefficientMass.BlockBound
+import CoefficientMass.BlockProd
 import CoefficientMass.Certificate
 import CoefficientMass.Chain
 import CoefficientMass.ConfDel
