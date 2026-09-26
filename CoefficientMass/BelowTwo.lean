@@ -196,6 +196,5 @@ theorem belowTwo : BelowTwo := by
             ((2 * r * (2 * r - 1) * k / (r - 1)) ^ (L - k) / (L - k).factorial) *
             Real.sqrt k * (4 * (r - 1) / r ^ 2) ^ k := by
           field_simp
-          ring
 
 end CoefficientMass
