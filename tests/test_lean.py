@@ -51,6 +51,7 @@ REFERENCES = {
     ("coefficient-mass", "4.11"): ("Lemma", "lem:holetail"),
     ("coefficient-mass", "4.12"): ("Proposition", "prop:rowstop"),
     ("coefficient-mass", "4.13"): ("Theorem", "thm:everyrow"),
+    ("coefficient-mass-rows", "2.1"): ("Proposition", "prop:rowvalue"),
     ("coefficient-mass-rows", "2.2"): ("Theorem", "thm:tailgen"),
 }
 
@@ -91,6 +92,7 @@ HEADLINES = {
     "primeInfimum": ("PrimeInfimum", "coefficient-mass", "cor:infimum"),
     "workedExamples": ("WorkedExamples", "coefficient-mass", "thm:tail"),
     "tailBoundGen": ("TailBoundGen", "coefficient-mass-rows", "thm:tailgen"),
+    "rowValueCert": ("RowValueCert", "coefficient-mass-rows", "prop:rowvalue"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
