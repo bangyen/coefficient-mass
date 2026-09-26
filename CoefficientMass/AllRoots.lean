@@ -24,7 +24,6 @@ This module proves Corollary 4.3 of `coefficient-mass.tex`: for `L ≥ 2`,
 
 ## Theorems
 
-* `rootProduct_complex`.
 * `mass_ge_sq`.
 * `allRoots`.
 -/
@@ -42,16 +41,11 @@ def AllRoots : Prop :=
     mass ((rootProduct ℝ r).map (algebraMap ℝ ℂ)) ≤
       3 * ((L : ℝ) ^ 2 + ∑ i : Fin L, ((i : ℕ) + 1 : ℝ) * Real.log (r i - 1))
 
-theorem rootProduct_complex {L : ℕ} (r : Fin L → ℝ) :
-    rootProduct ℂ r = (rootProduct ℝ r).map (algebraMap ℝ ℂ) := by
-  simp only [rootProduct, Polynomial.map_prod, Polynomial.map_sub, map_X, map_C,
-    Algebra.algebraMap_self, RingHom.id_apply]
-
 /-- `Λ(F) ≥ L^2 / 80` for every monic multiple, `L ≥ 2`. -/
 theorem mass_ge_sq {L : ℕ} (hL : 2 ≤ L) (r : Fin L → ℝ) (hmono : Monotone r)
     (hr : ∀ i, 2 ≤ r i) (F : ℝ[X]) (hF : F.Monic) (hdvd : rootProduct ℝ r ∣ F) :
     (L : ℝ) ^ 2 / 80 ≤ mass (F.map (algebraMap ℝ ℂ)) := by
-  rcases le_or_lt 8 L with h8 | h8
+  rcases le_or_gt 8 L with h8 | h8
   · exact quadraticMass L r F hF hr hdvd h8
   have hh := halfSum L r F (by omega) hmono hr hF hdvd
   have hS : (2 : ℝ) ≤ (∑ i, r i) / 2 := by
@@ -92,7 +86,6 @@ theorem allRoots : AllRoots := by
       rw [← Fin.sum_univ_eq_sum_range (fun i => ((i : ℝ) + 1) *
         Real.log (r ⟨min i (L - 1), by omega⟩))]
       exact Finset.sum_congr rfl fun i _ => by
-        dsimp only
         rw [show (⟨min (i : ℕ) (L - 1), by omega⟩ : Fin L) = i from
           Fin.ext (Nat.min_eq_left (by omega))]
     have hlogr : ∀ i : Fin L, Real.log (r i) ≤ Real.log (r i - 1) + Real.log 2 := fun i => by
