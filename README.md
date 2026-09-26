@@ -66,6 +66,12 @@ are proved as well: `nearOptimal` (Corollary 3.7), and `primeRoots` and `primeIn
 (Corollaries 3.5 and 3.6, with explicit `O(L^2)` error terms from Chebyshev's bounds on the
 `n`-th prime, proved in `PrimeCount` and `PrimeLower`).
 
+The companion paper `coefficient-mass-rows.tex` is formalized from its start.  Section 2
+is proved in full: `rowValueCert`, `rowValueDual` and `rowValueTop` (Proposition 2.1, the
+certificate at a root `r > 1`, `V_r(L, k) = inf 1/μ_r(S, L)` by Hahn–Banach separation and
+truncation, and `V_r(L, k) ≤ β_r(L - k + 1)`), `tailBoundGen` (Theorem 2.2),
+`confDeleteR` (Lemma 2.3) and `lastRow` (Corollary 2.4).
+
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,
 `Quot.sound`).  Lemma 2.3 and the bound `σ ≤ G_z / V̂_z` use weak sign
