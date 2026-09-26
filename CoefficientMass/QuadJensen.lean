@@ -4,8 +4,8 @@ Released under MIT license as described in the file LICENSE.
 Authors: Bangyen Pham
 -/
 
-import Mathlib.Analysis.Complex.AbsMax
 import Mathlib.Analysis.Calculus.Deriv.Polynomial
+import Mathlib.Analysis.Complex.AbsMax
 
 /-!
 # Jensen's Bound for Polynomials
