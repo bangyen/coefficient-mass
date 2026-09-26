@@ -40,6 +40,7 @@ REFERENCES = {
     ("coefficient-mass", "4.6"): ("Lemma", "lem:confdel"),
     ("coefficient-mass", "4.7"): ("Lemma", "lem:holeint"),
     ("coefficient-mass", "4.8"): ("Lemma", "lem:twohole"),
+    ("coefficient-mass", "4.9"): ("Proposition", "prop:rowsfree"),
     ("coefficient-mass", "4.13"): ("Theorem", "thm:everyrow"),
 }
 
@@ -63,6 +64,7 @@ HEADLINES = {
     "rowCertificate": ("RowCertificate", "coefficient-mass", "lem:rowcert"),
     "deleteLargest": ("DeleteLargest", "coefficient-mass", "lem:confdel"),
     "holeIntegral": ("HoleIntegral", "coefficient-mass", "lem:holeint"),
+    "rowsFree": ("RowsFree", "coefficient-mass", "prop:rowsfree"),
     "sharpRowTwo": ("SharpRowTwo", "coefficient-mass", "prop:sharp23"),
 }
 
