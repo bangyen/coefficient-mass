@@ -68,8 +68,10 @@ theorem rowValue_diag_anti {r : ℝ} (hr : 1 < r) {n : ℕ} (hn : 1 ≤ n) {j k 
 theorem rowValue_le_muR {r : ℝ} (hr : 1 < r) {n : ℕ} (hn : 1 ≤ n) {N : Finset ℕ} (h0 : 0 ∉ N) :
     rowValue r (n + N.card) (N.card + 1) ≤ 1 / muR r N (n + N.card) := by
   rw [(rowValueDual r hr).1 _ _ (by omega) (by omega)]
-  exact ciInf_le ⟨0, by
+  have hbdd : BddBelow (Set.range fun S : {S : Finset ℕ // 0 ∉ S ∧ S.card + 1 = N.card + 1} =>
+      1 / muR r S.1 (n + N.card)) := ⟨0, by
     rintro _ ⟨S, rfl⟩
-    exact one_div_nonneg.2 (muR_nonneg hr _ _)⟩ ⟨N, h0, rfl⟩
+    exact one_div_nonneg.2 (muR_nonneg hr _ _)⟩
+  exact ciInf_le hbdd ⟨N, h0, rfl⟩
 
 end CoefficientMass
