@@ -18,7 +18,8 @@ The chain these statements form is
 `ZeroBound → ConsecutiveTail, TailBound → CertificateWithExclusions →
 OrderStatistics → ComplexOrderStatistics → LogarithmicMass`.
 The clauses of Lemma 3.1 and Theorem 3.2 that relax `r_1 ≥ 2` to `r_1 > 1`
-for the first row are not stated: Corollary 3.4 does not use them.
+for the first row are stated and proved separately, in `FirstRow`: Corollary
+3.4 does not use them.
 
 ## Definitions
 

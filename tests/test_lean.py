@@ -50,6 +50,12 @@ HEADLINES = {
     "tailBound": ("TailBound", "coefficient-mass", "thm:tail"),
     "orderStatistics": ("OrderStatistics", "coefficient-mass", "thm:order"),
     "logarithmicMass": ("LogarithmicMass", "coefficient-mass", "cor:mass"),
+    "firstRowCertificate": ("FirstRowCertificate", "coefficient-mass", "lem:slack"),
+    "firstRowOrderStatistics": (
+        "FirstRowOrderStatistics",
+        "coefficient-mass",
+        "thm:order",
+    ),
     "rowCertificate": ("RowCertificate", "coefficient-mass", "lem:rowcert"),
     "sharpRowTwo": ("SharpRowTwo", "coefficient-mass", "prop:sharp23"),
 }

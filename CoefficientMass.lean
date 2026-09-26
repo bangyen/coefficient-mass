@@ -12,6 +12,7 @@ import CoefficientMass.Descartes
 import CoefficientMass.Displaced
 import CoefficientMass.DisplacedTail
 import CoefficientMass.ExpSum
+import CoefficientMass.FirstRow
 import CoefficientMass.Interlace
 import CoefficientMass.Interp
 import CoefficientMass.Mass
