@@ -64,6 +64,8 @@ REFERENCES = {
     ("coefficient-mass-rows", "5.1"): ("Lemma", "lem:truncvertex"),
     ("coefficient-mass-rows", "5.2"): ("Lemma", "lem:optins"),
     ("coefficient-mass-rows", "5.3"): ("Theorem", "thm:allrowstwo"),
+    ("coefficient-mass-rows", "6.1"): ("Lemma", "lem:prefixpush"),
+    ("coefficient-mass-rows", "6.2"): ("Theorem", "thm:onepoly"),
 }
 
 #: Each headline theorem, ``theorem name : Statement``, as ``name ->
@@ -119,6 +121,7 @@ HEADLINES = {
     "optInsMax": ("OptInsMax", "coefficient-mass-rows", "lem:optins"),
     "allRowsTwo": ("AllRowsTwo", "coefficient-mass-rows", "thm:allrowstwo"),
     "prefixUp": ("PrefixUp", "coefficient-mass-rows", "eq:prefixup"),
+    "onePoly": ("OnePoly", "coefficient-mass-rows", "thm:onepoly"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
