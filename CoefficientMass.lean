@@ -57,6 +57,7 @@ import CoefficientMass.RowDefs
 import CoefficientMass.RowDualLower
 import CoefficientMass.RowKth
 import CoefficientMass.RowStop
+import CoefficientMass.RowTaylor
 import CoefficientMass.RowValue
 import CoefficientMass.Sharp
 import CoefficientMass.Signs

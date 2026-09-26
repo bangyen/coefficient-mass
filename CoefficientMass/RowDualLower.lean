@@ -73,7 +73,9 @@ theorem rowValue_ge {r : ℝ} (hr : 1 < r) {L k : ℕ} (hk : 1 ≤ k) (hkL : k �
   classical
   haveI : Nonempty {F : ℝ[X] // F.Monic ∧ (X - C r) ^ L ∣ F} :=
     ⟨⟨_, (monic_X_sub_C r).pow L, dvd_rfl⟩⟩
-  refine le_ciInf fun ⟨F, hF, hdvd⟩ => ?_
+  refine le_ciInf fun F => ?_
+  obtain ⟨F, hF, hdvd⟩ := F
+  change _ ≤ kthMag F k
   set D := F.natDegree
   have hLD := le_natDegree_of_dvd hF hdvd
   by_contra hlt
