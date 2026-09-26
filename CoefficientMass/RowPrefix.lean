@@ -6,6 +6,7 @@ Authors: Bangyen Pham
 
 import CoefficientMass.IntZerosInf
 import CoefficientMass.RowFar
+import CoefficientMass.RowPointwise
 
 /-!
 # Prefix Values
@@ -111,6 +112,7 @@ theorem summable_poly_geom {x : ℝ} (hx0 : 0 ≤ x) (hx1 : x < 1) (m : ℕ) :
   push_cast
   rw [pow_succ]
   field_simp
+  ring
 
 /-- `binom(s - 1, i - 1) r^{-s} ≤ (1 + s)^{i - 1} r^{-s}`. -/
 theorem prefixWeight_le {r : ℝ} (hr : 1 < r) (i s : ℕ) :
@@ -131,7 +133,9 @@ theorem prefixWeight_le {r : ℝ} (hr : 1 < r) (i s : ℕ) :
 theorem rowPhi_prefix_mul (r : ℝ) {i : ℕ} {q p : ℝ[X]}
     (hfac : ∀ y : ℝ, q.eval y = (confPolyP (Finset.Icc 1 (i - 1))).eval y * p.eval y) :
     rowPhi r q = ∑' s : ℕ, prefixWeight r i s * |p.eval (s : ℝ)| := by
-  rw [tsum_shift (by beta_reduce; rw [prefixWeight, if_neg (by norm_num), zero_mul]), rowPhi]
+  rw [tsum_shift (by
+    change prefixWeight r i 0 * _ = 0
+    rw [prefixWeight, if_neg (by norm_num), zero_mul]), rowPhi]
   refine tsum_congr fun d => ?_
   rw [hfac, abs_mul, ← confPoly_eq_eval, abs_confPoly_prefix (by omega), prefixWeight,
     if_pos (by omega), Nat.add_sub_cancel]
@@ -161,8 +165,9 @@ theorem muR_prefix {r : ℝ} (hr : 1 < r) {i n : ℕ} (hi : 1 ≤ i) (hn : 1 ≤
       rw [degree_eq_natDegree hpne] at hp
       exact_mod_cast hp
     have hq : q.degree < ↑(n + (i - 1)) := by
-      have := (natDegree_mul_le (p := confPolyP (Finset.Icc 1 (i - 1))) (q := p)).trans
-        (add_le_add ((natDegree_confPolyP _).trans hcard.le) le_rfl)
+      have : q.natDegree ≤ (i - 1) + p.natDegree :=
+        (natDegree_mul_le (p := confPolyP (Finset.Icc 1 (i - 1))) (q := p)).trans
+          (add_le_add ((natDegree_confPolyP _).trans hcard.le) le_rfl)
       exact degree_le_natDegree.trans_lt (by exact_mod_cast (show q.natDegree < n + (i - 1) by
         omega))
     have hq0 : q.eval 0 = 1 := by rw [eval_mul, hadm.2.1, hp0, one_mul]
