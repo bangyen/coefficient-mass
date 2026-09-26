@@ -30,9 +30,10 @@ theorem confTail_hole_one {N : ℕ} (hN : 1 ≤ N) : confTail (Finset.Icc 1 N \ 
       Nat.cast_one, div_one]
   rw [holeIntegral N {1} (Finset.singleton_nonempty 1)
     (fun h => absurd (Finset.mem_singleton.1 h) (by norm_num))
-    (fun c hc => by rw [Finset.mem_singleton.1 hc]; exact hN), Finset.sum_singleton, hw,
-    integral_congr (g := fun v : ℝ => v ^ (N - 1)) fun v _ => by
-      rw [abs_one, Nat.sub_self, pow_zero, pow_zero]; ring, integral_pow]
+    (fun c hc => by rw [Finset.mem_singleton.1 hc]; exact hN)]
+  simp only [Finset.sum_singleton, hw]
+  rw [integral_congr (g := fun v : ℝ => v ^ (N - 1)) fun v _ => by
+      simp only [abs_one, Nat.sub_self, pow_zero, mul_one]; ring, integral_pow]
   obtain ⟨k, rfl⟩ : ∃ k, N = k + 1 := ⟨N - 1, by omega⟩
   rw [Nat.add_sub_cancel, one_pow, zero_pow (Nat.succ_ne_zero k), sub_zero, Nat.cast_add,
     Nat.cast_one]
@@ -45,9 +46,10 @@ theorem confTail_hole_two {N : ℕ} (hN : 2 ≤ N) :
       Nat.cast_ofNat]
   rw [holeIntegral N {2} (Finset.singleton_nonempty 2)
     (fun h => absurd (Finset.mem_singleton.1 h) (by norm_num))
-    (fun c hc => by rw [Finset.mem_singleton.1 hc]; exact hN), Finset.sum_singleton, hw,
-    integral_congr (g := fun v : ℝ => v ^ (N - 2)) fun v _ => by
-      rw [abs_two, show (2 : ℕ) - 1 = 1 from rfl, pow_one, pow_one]; ring, integral_pow]
+    (fun c hc => by rw [Finset.mem_singleton.1 hc]; exact hN)]
+  simp only [Finset.sum_singleton, hw]
+  rw [integral_congr (g := fun v : ℝ => v ^ (N - 2)) fun v _ => by
+      simp only [abs_two, pow_one]; ring, integral_pow]
   obtain ⟨k, rfl⟩ : ∃ k, N = k + 2 := ⟨N - 2, by omega⟩
   rw [Nat.add_sub_cancel, one_pow, zero_pow (Nat.succ_ne_zero k), sub_zero,
     show ((k + 2 : ℕ) : ℝ) - 1 = (k : ℝ) + 1 by push_cast; ring]

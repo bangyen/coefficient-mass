@@ -39,6 +39,7 @@ REFERENCES = {
     ("coefficient-mass", "4.5"): ("Lemma", "lem:rowcert"),
     ("coefficient-mass", "4.6"): ("Lemma", "lem:confdel"),
     ("coefficient-mass", "4.7"): ("Lemma", "lem:holeint"),
+    ("coefficient-mass", "4.8"): ("Lemma", "lem:twohole"),
     ("coefficient-mass", "4.13"): ("Theorem", "thm:everyrow"),
 }
 
