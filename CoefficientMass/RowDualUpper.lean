@@ -6,6 +6,7 @@ Authors: Bangyen Pham
 
 import CoefficientMass.RowSep
 import CoefficientMass.RowTaylor
+import Mathlib.Algebra.BigOperators.Field
 
 /-!
 # Small Multiples from the Truncated Dual

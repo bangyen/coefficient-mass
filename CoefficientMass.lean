@@ -56,6 +56,7 @@ import CoefficientMass.RowCert
 import CoefficientMass.RowDefs
 import CoefficientMass.RowDualLower
 import CoefficientMass.RowDualUpper
+import CoefficientMass.RowFarFactor
 import CoefficientMass.RowKth
 import CoefficientMass.RowSep
 import CoefficientMass.RowStop
