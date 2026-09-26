@@ -200,13 +200,14 @@ sector of half-width $\delta$ cost a mass of order
 $\min(K^2,K/\delta)\log R$ for multiples of degree $O(K)$.
 
 \paragraph{Formalization.}
-Sections~2 and~3 through Corollary~\ref{cor:mass}, that is,
-Theorem~\ref{thm:order} and Corollary~\ref{cor:mass} with the whole chain
-leading to them from the zero bound, are formally verified in Lean~4 with
-Mathlib, including the equality case of Theorem~\ref{thm:tail} and the
+Every numbered result of the paper is formally verified in Lean~4 with
+Mathlib, from the zero bound through Theorem~\ref{thm:order} and
+Corollary~\ref{cor:mass} to the end of Section~\ref{sec:sharp}, including the equality case of Theorem~\ref{thm:tail} and the
 relaxation of $r_1\ge2$ to $r_1>1$ in the first row of Lemma~\ref{lem:slack}
 and Theorem~\ref{thm:order}, and the worked examples after
-Theorem~\ref{thm:tail}.  Every numbered result of Section~\ref{sec:sharp} is formalized,
+Theorem~\ref{thm:tail}.  Corollaries~\ref{cor:prime} and~\ref{cor:infimum} are
+formalized with explicit error terms, using Chebyshev's bounds
+$\frac15 i\log i\le p_i\le 8i(\lfloor\log_2i\rfloor+1)$ in place of~\cite{rosser-schoenfeld},
 Corollary~\ref{cor:allroots} with the explicit constants $\frac1{81}$ and $3$
 and the growth $S/(B+1)\sim L$ of Proposition~\ref{prop:unbounded} as the
 lower bound $S/(B+1)\ge L/2$.  The formal proofs, in the
