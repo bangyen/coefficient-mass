@@ -16,6 +16,8 @@ import CoefficientMass.ExpSum
 import CoefficientMass.FirstRow
 import CoefficientMass.GeomSum
 import CoefficientMass.HoleBeta
+import CoefficientMass.HoleFill
+import CoefficientMass.HoleFree
 import CoefficientMass.HoleInt
 import CoefficientMass.HoleOne
 import CoefficientMass.HoleProd

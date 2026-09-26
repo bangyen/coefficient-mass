@@ -49,7 +49,7 @@ theorem confTail_hole_two {N : ℕ} (hN : 2 ≤ N) :
     (fun c hc => by rw [Finset.mem_singleton.1 hc]; exact hN)]
   simp only [Finset.sum_singleton, hw]
   rw [integral_congr (g := fun v : ℝ => v ^ (N - 2)) fun v _ => by
-      simp only [abs_two, pow_one]; ring, integral_pow]
+      simp only [abs_two]; ring, integral_pow]
   obtain ⟨k, rfl⟩ : ∃ k, N = k + 2 := ⟨N - 2, by omega⟩
   rw [Nat.add_sub_cancel, one_pow, zero_pow (Nat.succ_ne_zero k), sub_zero,
     show ((k + 2 : ℕ) : ℝ) - 1 = (k : ℝ) + 1 by push_cast; ring]
