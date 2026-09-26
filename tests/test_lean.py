@@ -153,6 +153,7 @@ HEADLINES = {
     "farZeros": ("FarZeros", "coefficient-mass-rows", "lem:farzeros"),
     "finiteRows": ("FiniteRows", "coefficient-mass-rows", "thm:finiterows"),
     "exemptBlock": ("ExemptBlock", "coefficient-mass-rows", "lem:block"),
+    "vertexOpt": ("VertexOpt", "coefficient-mass-rows", "lem:vertexopt"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)

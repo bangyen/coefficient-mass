@@ -135,8 +135,11 @@ import CoefficientMass.ValsMono
 import CoefficientMass.ValsSplit
 import CoefficientMass.ValsSum
 import CoefficientMass.VertexBasis
+import CoefficientMass.VertexExists
+import CoefficientMass.VertexLine
 import CoefficientMass.VertexNec
 import CoefficientMass.VertexOpt
+import CoefficientMass.VertexStep
 import CoefficientMass.ZeroBound
 
 /-!
