@@ -37,6 +37,7 @@ import CoefficientMass.Sharp
 import CoefficientMass.Signs
 import CoefficientMass.Tail
 import CoefficientMass.TailEq
+import CoefficientMass.TailProd
 import CoefficientMass.TailSplit
 import CoefficientMass.ZeroBound
 
