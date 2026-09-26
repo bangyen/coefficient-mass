@@ -54,6 +54,8 @@ import CoefficientMass.RealPart
 import CoefficientMass.RowAnnihilate
 import CoefficientMass.RowCert
 import CoefficientMass.RowDefs
+import CoefficientMass.RowDualLower
+import CoefficientMass.RowKth
 import CoefficientMass.RowStop
 import CoefficientMass.RowValue
 import CoefficientMass.Sharp
