@@ -105,8 +105,9 @@ theorem nbLaw_mode_le {r : ℝ} (hr : 1 < r) {k : ℕ} (hk : 1 ≤ k) {M : ℕ}
     ring
   have hq0 : 0 ≤ ((k : ℝ) - 1) / (r - 1) := div_nonneg hk1 hr1.le
   have hMk : k + 1 ≤ M := by
-    have : ((k + 1 : ℕ) : ℝ) ≤ M := by push_cast; linarith
-    exact_mod_cast this
+    have : (k : ℝ) < M := by linarith
+    have : k < M := by exact_mod_cast this
+    omega
   obtain ⟨t, rfl⟩ : ∃ t, M = t + 1 := ⟨M - 1, by omega⟩
   have hkt : k ≤ t := by omega
   have ht : ((k : ℝ) - 1) * r / (r - 1) < t := by push_cast at h; linarith
@@ -197,11 +198,11 @@ theorem nbLaw_le_mode {r : ℝ} (hr : 1 < r) {k : ℕ} (hk : 1 ≤ k) (t : ℕ) 
     induction d with
     | zero => rw [add_zero]
     | succ d ih =>
-      refine le_trans (nbLaw_succ_le_of_lt hr hk ?_) ih
+      refine le_trans (nbLaw_succ_le_of_lt hr hk (t := M + d) ?_) ih
       have h1 := Nat.lt_floor_add_one (((k : ℝ) - 1) * r / (r - 1))
       have h2 : ((⌊((k : ℝ) - 1) * r / (r - 1)⌋₊ + 1 : ℕ) : ℝ) ≤ ((M + d : ℕ) : ℝ) := by
         exact_mod_cast (show ⌊((k : ℝ) - 1) * r / (r - 1)⌋₊ + 1 ≤ M + d by omega)
-      push_cast at h2
+      push_cast at h2 ⊢
       linarith
   rcases le_total t M with h | h
   · exact up (M - t) t (by omega)
