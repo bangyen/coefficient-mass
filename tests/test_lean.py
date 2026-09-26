@@ -68,6 +68,7 @@ REFERENCES = {
     ("coefficient-mass-rows", "6.2"): ("Theorem", "thm:onepoly"),
     ("coefficient-mass-rows", "6.3"): ("Lemma", "lem:prefixshift"),
     ("coefficient-mass-rows", "6.4"): ("Theorem", "thm:onepolyrows"),
+    ("coefficient-mass-rows", "6.5"): ("Lemma", "lem:topnearone"),
 }
 
 #: Each headline theorem, ``theorem name : Statement``, as ``name ->
@@ -126,6 +127,7 @@ HEADLINES = {
     "onePoly": ("OnePoly", "coefficient-mass-rows", "thm:onepoly"),
     "prefixShift": ("PrefixShift", "coefficient-mass-rows", "lem:prefixshift"),
     "onePolyRows": ("OnePolyRows", "coefficient-mass-rows", "thm:onepolyrows"),
+    "topNearOne": ("TopNearOne", "coefficient-mass-rows", "lem:topnearone"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
