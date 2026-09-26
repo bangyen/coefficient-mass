@@ -152,7 +152,7 @@ HEADLINES = {
     "rootMono": ("RootMono", "coefficient-mass-rows", "lem:rootmono"),
     "farZeros": ("FarZeros", "coefficient-mass-rows", "lem:farzeros"),
     "finiteRows": ("FiniteRows", "coefficient-mass-rows", "thm:finiterows"),
-    "block": ("Block", "coefficient-mass-rows", "lem:block"),
+    "exemptBlock": ("ExemptBlock", "coefficient-mass-rows", "lem:block"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)

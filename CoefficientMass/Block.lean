@@ -19,15 +19,13 @@ since `|r_{[2,k]}(s)| r^{-s} = ω_k(s - 1)/(kr)` for `s ≥ 2` and `|r_{[2,k]}(1
 
 ## Definitions
 
-* `Block`.
+* `ExemptBlock`.
 
 ## Theorems
 
 * `muR_mono_set`.
 * `one_le_eval_neg_one`.
 * `muR_block_le_prefix`.
-* `muR_block_le`.
-* `block`.
 -/
 
 open Polynomial
@@ -38,7 +36,7 @@ namespace CoefficientMass
 `μ_r([2, k], L) ≤ min(ν_{k+1}(n - 1), (1 + ν_k(n))/(kr))`, with equality in the first bound if
 some minimizer vanishes at `1`; and if `μ_r([2, k], L) > M = max_{i ≤ k} ν_i(n)` then
 `ν_{k+1}(n - 1) > M` and `k < (β_r(n) + 1)/r`. -/
-def Block : Prop :=
+def ExemptBlock : Prop :=
   ∀ r : ℝ, 1 < r → ∀ n k : ℕ, 2 ≤ n → 2 ≤ k →
     muR r (Finset.Icc 2 k) (n + k - 1) ≤ nuR r (k + 1) (n - 1) ∧
     muR r (Finset.Icc 2 k) (n + k - 1) ≤ (1 + nuR r k n) / (k * r) ∧

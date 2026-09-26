@@ -19,7 +19,7 @@ is `(1/(krc))` times `1` at `s = 1` and `ω_k(s - 1)|p(s - 1)|` for `s ≥ 2`.
 
 * `rowPhi_block_eq`.
 * `muR_block_le`.
-* `block`.
+* `exemptBlock`.
 -/
 
 open Polynomial
@@ -125,7 +125,7 @@ theorem muR_block_le {r : ℝ} (hr : 1 < r) {n k : ℕ} (hn : 2 ≤ n) (hk : 2 �
     positivity
   nlinarith [mul_le_mul_of_nonneg_left hc1 (mul_nonneg hX hkr.le), mul_lt_mul_of_pos_right hY hkr]
 
-theorem block : Block := by
+theorem exemptBlock : ExemptBlock := by
   intro r hr n k hn hk
   have h1 := muR_block_le_prefix hr hn hk
   have h2 := muR_block_le hr hn hk
