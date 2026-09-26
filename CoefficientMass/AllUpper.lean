@@ -54,11 +54,15 @@ theorem abs_coeff_rootProduct_le {L : ℕ} (hL : 1 ≤ L) (r : Fin L → ℝ) (h
       ∏ j ∈ Finset.range (L - k), r ⟨min (L - 1 - j) (L - 1), by omega⟩ := by
   set g : ℕ → ℝ := fun n => r ⟨min n (L - 1), by omega⟩ with hg
   have hgr : ∀ i : Fin L, g i = r i := fun i => congrArg r (Fin.ext (Nat.min_eq_left (by omega)))
-  have hP : rootProduct ℝ r = ∏ i ∈ (Finset.univ : Finset (Fin L)), (X - C (r i)) := by
-    rw [rootProduct]
+  have hP : rootProduct ℝ r =
+      (((Finset.univ : Finset (Fin L)).val.map r).map fun t => X - C t).prod := by
+    rw [rootProduct, Multiset.map_map]
     simp only [Algebra.algebraMap_self, RingHom.id_apply]
-  rw [hP, Finset.prod_X_sub_C_coeff _ _ (by rw [Finset.card_univ, Fintype.card_fin]; exact hk),
-    abs_mul, abs_pow, abs_neg, abs_one, one_pow, one_mul, Finset.card_univ, Fintype.card_fin]
+    rfl
+  have hcard : Multiset.card ((Finset.univ : Finset (Fin L)).val.map r) = L := by
+    rw [Multiset.card_map, Finset.card_val, Finset.card_univ, Fintype.card_fin]
+  rw [hP, Multiset.prod_X_sub_C_coeff _ (by rw [hcard]; exact hk), hcard, Finset.esymm_map_val,
+    abs_mul, abs_pow, abs_neg, abs_one, one_pow, one_mul]
   have hbound : ∀ t ∈ Finset.powersetCard (L - k) (Finset.univ : Finset (Fin L)),
       |∏ i ∈ t, r i| ≤ ∏ j ∈ Finset.range (L - k), g (L - 1 - j) := fun t ht => by
     have htc := (Finset.mem_powersetCard.1 ht).2
@@ -90,5 +94,43 @@ theorem logPlus_le_log {x y : ℝ} (hx : 0 ≤ x) (hxy : x ≤ y) (hy : 1 ≤ y)
   · rw [← h, Real.log_zero]
     exact Real.log_nonneg hy
   · exact Real.log_le_log h hxy
+
+/-- `Λ(P) ≤ (L + 1) L log 2 + ∑_{i < L} (i + 1) log r_i` for `P = ∏ (x - r_i)`. -/
+theorem mass_rootProduct_le {L : ℕ} (hL : 1 ≤ L) (r : Fin L → ℝ) (hmono : Monotone r)
+    (hr : ∀ i, 2 ≤ r i) :
+    mass ((rootProduct ℝ r).map (algebraMap ℝ ℂ)) ≤ ((L : ℝ) + 1) * L * Real.log 2 +
+      ∑ i ∈ Finset.range L, ((i : ℝ) + 1) * Real.log (r ⟨min i (L - 1), by omega⟩) := by
+  set g : ℕ → ℝ := fun n => r ⟨min n (L - 1), by omega⟩ with hg
+  have hg2 : ∀ n, 2 ≤ g n := fun n => hr _
+  rw [mass_eq_sum_range, natDegree_map, natDegree_rootProduct]
+  have hk : ∀ k ∈ Finset.range (L + 1),
+      logPlus ‖((rootProduct ℝ r).map (algebraMap ℝ ℂ)).coeff k‖ ≤
+        (L : ℝ) * Real.log 2 + ∑ i ∈ Finset.Ico k L, Real.log (g i) := fun k hk => by
+    have hkL := Nat.lt_succ_iff.1 (Finset.mem_range.1 hk)
+    have hΠ : 0 < ∏ j ∈ Finset.range (L - k), g (L - 1 - j) :=
+      Finset.prod_pos fun j _ => by linarith [hg2 (L - 1 - j)]
+    have hΠ1 : 1 ≤ ∏ j ∈ Finset.range (L - k), g (L - 1 - j) := by
+      have := Finset.prod_le_prod (s := Finset.range (L - k)) (f := fun _ => (1 : ℝ))
+        (fun _ _ => zero_le_one) fun j _ => (by linarith [hg2 (L - 1 - j)] : (1 : ℝ) ≤ _)
+      rwa [Finset.prod_const_one] at this
+    have hC : (1 : ℝ) ≤ L.choose k := by exact_mod_cast Nat.choose_pos hkL
+    rw [coeff_map, Complex.coe_algebraMap, Complex.norm_real, Real.norm_eq_abs]
+    refine (logPlus_le_log (abs_nonneg _) (abs_coeff_rootProduct_le hL r hmono
+      (fun i => by linarith [hr i]) hkL) (one_le_mul_of_one_le_of_one_le hC hΠ1)).trans ?_
+    rw [Real.log_mul (by positivity) hΠ.ne', Real.log_prod fun j _ => by linarith [hg2 (L - 1 - j)]]
+    refine add_le_add ?_ (le_of_eq ?_)
+    · calc Real.log (L.choose k) ≤ Real.log ((2 : ℝ) ^ L) :=
+            Real.log_le_log (by positivity) (by exact_mod_cast Nat.choose_le_two_pow L k)
+        _ = L * Real.log 2 := Real.log_pow L 2
+    · rw [Finset.sum_Ico_eq_sum_range,
+        ← Finset.sum_range_reflect (fun j => Real.log (g (k + j))) (L - k)]
+      exact Finset.sum_congr rfl fun j hj => by
+        have := Finset.mem_range.1 hj
+        change Real.log (g (L - 1 - j)) = Real.log (g (k + (L - k - 1 - j)))
+        rw [show k + (L - k - 1 - j) = L - 1 - j by omega]
+  refine (Finset.sum_le_sum hk).trans (le_of_eq ?_)
+  rw [Finset.sum_add_distrib, sum_Ico_triangle, Finset.sum_const, Finset.card_range, nsmul_eq_mul]
+  push_cast
+  ring
 
 end CoefficientMass

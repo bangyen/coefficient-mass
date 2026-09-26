@@ -40,7 +40,8 @@ theorem looseRatio : LooseRatio := by
   have hxL : ∀ i, x i ≤ 1 / L := fun i => by
     have hi : ((i : ℕ) + 1 : ℝ) ≤ L := by exact_mod_cast i.isLt
     rw [div_le_div_iff₀ (by positivity) hL0]
-    nlinarith
+    nlinarith [mul_le_mul_of_nonneg_right hi hL0.le,
+      mul_le_mul_of_nonneg_left hL1 (mul_nonneg hL0.le hL0.le)]
   have hS : 2 * (L : ℝ) ≤ ∑ i, (2 + x i) := by
     have := Finset.sum_le_sum (s := Finset.univ) fun i (_ : i ∈ Finset.univ) =>
       (by linarith [hx0 i] : (2 : ℝ) ≤ 2 + x i)
