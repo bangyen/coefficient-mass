@@ -142,20 +142,18 @@ theorem deltaQ_le_succ {r : ℝ} (hr : 1 < r) {m : ℕ} (hm : 1 ≤ m) (q : ℝ[
 /-- `Δ_{q,m}(t) → -Ψ_r(q)` as `t → ∞`. -/
 theorem tendsto_deltaQ {r : ℝ} (hr : 1 < r) {m : ℕ} (hm : 1 ≤ m) (q : ℝ[X]) :
     Tendsto (deltaQ r q m) atTop (𝓝 (-psiR r q)) := by
-  have h := tendsto_tsum_of_dominated_convergence (𝓕 := atTop)
-    (f := fun t d => phiM m (d + 1) t * |q.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1))
-    (g := fun d => -(((d + 1 : ℕ) : ℝ) * |q.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)))
-    (bound := fun d => 2 * (|((1 + X) ^ m * q).eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)))
-    ((summable_rowPhi hr _).mul_left 2) (fun d => ?_) ?_
-  · rw [tsum_neg] at h
-    exact h
-  · have hd : Tendsto (fun t : ℝ => phiM m (d + 1) t * |q.eval ((d + 1 : ℕ) : ℝ)| *
-        (1 / r) ^ (d + 1)) atTop
-        (𝓝 (-(((d + 1 : ℕ) : ℝ) * |q.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)))) :=
-      tendsto_nhds_of_eventually_eq ((eventually_ge_atTop (((d + 1 : ℕ) : ℝ))).mono
-        fun t ht => by rw [phiM, if_pos ht]; ring)
-    exact hd
-  · refine (eventually_ge_atTop 1).mono fun t ht d => ?_
+  have hsum : Summable fun d : ℕ =>
+      2 * (|((1 + X) ^ m * q).eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)) :=
+    (summable_rowPhi hr ((1 + X) ^ m * q)).mul_left 2
+  have hlim : ∀ d : ℕ, Tendsto (fun t : ℝ => phiM m (d + 1) t * |q.eval ((d + 1 : ℕ) : ℝ)| *
+      (1 / r) ^ (d + 1)) atTop
+      (𝓝 (-(((d + 1 : ℕ) : ℝ) * |q.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)))) := fun d =>
+    tendsto_nhds_of_eventually_eq ((eventually_ge_atTop (((d + 1 : ℕ) : ℝ))).mono
+      fun t ht => by rw [phiM, if_pos ht]; ring)
+  have hbound : ∀ᶠ t : ℝ in atTop, ∀ d : ℕ,
+      ‖phiM m (d + 1) t * |q.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)‖ ≤
+        2 * (|((1 + X) ^ m * q).eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1)) := by
+    refine (eventually_ge_atTop 1).mono fun t ht d => ?_
     have hb := abs_phiM_le hm (d + 1) (by linarith : (0 : ℝ) < t)
     rw [max_eq_left (by rw [div_le_one (by linarith)]; exact ht), one_pow, mul_one] at hb
     rw [Real.norm_eq_abs, abs_mul, abs_mul, abs_abs,
@@ -165,6 +163,9 @@ theorem tendsto_deltaQ {r : ℝ} (hr : 1 < r) {m : ℕ} (hm : 1 ≤ m) (q : ℝ[
         ≤ 2 * (1 + ((d + 1 : ℕ) : ℝ)) ^ m * |q.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1) :=
           mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_right hb (abs_nonneg _)) (by positivity)
       _ = _ := by ring
+  have h := tendsto_tsum_of_dominated_convergence hsum hlim hbound
+  rw [tsum_neg] at h
+  exact h
 
 /-- `Δ_{q,1}(σ) = 2R_q(σ) - Ψ_r(q)`. -/
 theorem deltaQ_one {r : ℝ} (hr : 1 < r) (q : ℝ[X]) {σ : ℝ} (hσ : 0 < σ) :
