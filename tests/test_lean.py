@@ -76,6 +76,7 @@ REFERENCES = {
     ("coefficient-mass-rows", "6.8"): ("Proposition", "prop:longdiagexplicit"),
     ("coefficient-mass-rows", "6.9"): ("Corollary", "cor:longdiagfinite"),
     ("coefficient-mass-rows", "6.10"): ("Lemma", "lem:rowmono"),
+    ("coefficient-mass-rows", "6.11"): ("Lemma", "lem:vertexopt"),
     ("coefficient-mass-rows", "6.12"): ("Theorem", "thm:secondrow"),
     ("coefficient-mass-rows", "6.15"): ("Lemma", "lem:rootmono"),
 }
