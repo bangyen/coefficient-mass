@@ -29,6 +29,8 @@ import CoefficientMass.Mass
 import CoefficientMass.Order
 import CoefficientMass.OrderStat
 import CoefficientMass.Perturb
+import CoefficientMass.QuadJensen
+import CoefficientMass.QuadRolle
 import CoefficientMass.RealPart
 import CoefficientMass.RowAnnihilate
 import CoefficientMass.RowCert
