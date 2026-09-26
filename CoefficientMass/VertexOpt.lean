@@ -119,9 +119,10 @@ theorem rowPhi_le_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆
   have hT2 : ∑ y ∈ Z \ S, |c y| * |(eY Z y).eval (y : ℝ)| * (1 / r) ^ y ≤
       ∑' k : ℕ, (if p.eval ((k + 1 : ℕ) : ℝ) = 0 then |d.eval ((k + 1 : ℕ) : ℝ)| else 0) *
         (1 / r) ^ (k + 1) := by
-    have hinj : Set.InjOn (fun y : ℕ => y - 1) (Z \ S : Set ℕ) := fun a ha b hb h => by
-      have ha0 : a ≠ 0 := fun h' => h0 (h' ▸ (Finset.mem_sdiff.1 ha).1)
-      have hb0 : b ≠ 0 := fun h' => h0 (h' ▸ (Finset.mem_sdiff.1 hb).1)
+    have hinj : Set.InjOn (fun y : ℕ => y - 1) ((Z \ S : Finset ℕ) : Set ℕ) :=
+      fun a ha b hb h => by
+      have ha0 : a ≠ 0 := fun h' => h0 (h' ▸ (Finset.mem_sdiff.1 (Finset.mem_coe.1 ha)).1)
+      have hb0 : b ≠ 0 := fun h' => h0 (h' ▸ (Finset.mem_sdiff.1 (Finset.mem_coe.1 hb)).1)
       have : a - 1 = b - 1 := h
       omega
     refine le_trans (le_of_eq ?_) (hs2.sum_le_tsum ((Z \ S).image fun y => y - 1)
