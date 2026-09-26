@@ -45,7 +45,7 @@ noncomputable def primeProduct (L : ℕ) : ℝ[X] :=
 so both are `(1/2 + o(1)) L^2 log L`. -/
 def PrimeRoots : Prop :=
   (∀ (L : ℕ) (r : Fin L → ℝ) (F : ℝ[X]), 1 ≤ L → Monotone r →
-    (∀ i, (Nat.nth Nat.Prime i : ℝ) ≤ r i) → F ≠ 0 → rootProduct ℝ r ∣ F →
+    (∀ i : Fin L, (Nat.nth Nat.Prime i : ℝ) ≤ r i) → F ≠ 0 → rootProduct ℝ r ∣ F →
       1 ≤ ‖F.leadingCoeff‖ →
         (L : ℝ) ^ 2 / 2 * Real.log L - L ^ 2 ≤ mass (F.map (algebraMap ℝ ℂ))) ∧
   ∀ L : ℕ, 3 ≤ L → mass ((primeProduct L).map (algebraMap ℝ ℂ)) ≤
@@ -63,7 +63,7 @@ def PrimeInfimum : Prop :=
       (L : ℝ) ^ 2 / 2 * Real.log L + (L : ℝ) ^ 2 / 2 * Real.log (Real.log L) + 8 * L ^ 2
 
 theorem nth_prime_mono (L : ℕ) : Monotone fun i : Fin L => (Nat.nth Nat.Prime i : ℝ) :=
-  fun a b h => Nat.cast_le.2 ((Nat.nth_strictMono Nat.infinite_setOf_prime).monotone h)
+  fun _ _ h => Nat.cast_le.2 ((Nat.nth_strictMono Nat.infinite_setOf_prime).monotone h)
 
 /-- `log (p_i - 1) ≥ log (i + 1) + log log (i + 1) - log 10`. -/
 theorem log_nth_prime_sub_one_ge (i : ℕ) :
@@ -106,7 +106,9 @@ theorem mass_primeProduct_le {L : ℕ} (hL : 3 ≤ L) :
       (L : ℝ) ^ 2 / 2 * Real.log L + (L : ℝ) ^ 2 / 2 * Real.log (Real.log L) + 8 * L ^ 2 := by
   have hup := mass_rootProduct_le_choose (by omega) _ (nth_prime_mono L)
     fun i => by exact_mod_cast (Nat.prime_nth_prime i).two_le
-  rw [sum_range_extend (by omega)] at hup
+  have e := sum_range_extend (L := L) (by omega) fun i : Fin L => (Nat.nth Nat.Prime i : ℝ)
+  beta_reduce at e
+  rw [e] at hup
   have hC := sum_log_choose_le L
   have hsum : ∑ i : Fin L, ((i : ℕ) + 1 : ℝ) * Real.log (Nat.nth Nat.Prime i) ≤
       ∑ i ∈ Finset.range L, ((i : ℝ) + 1) * Real.log ((i : ℝ) + 1) +
@@ -143,7 +145,8 @@ theorem mass_primeProduct_le {L : ℕ} (hL : 3 ≤ L) :
 theorem primeRoots : PrimeRoots := by
   refine ⟨fun L r F hL hmono hr hF hdvd hlead => ?_, fun L hL => mass_primeProduct_le hL⟩
   have hlm := logarithmicMass L r (F.map (algebraMap ℝ ℂ)) hmono
-    (fun i => le_trans (by exact_mod_cast (Nat.prime_nth_prime i).two_le) (hr i))
+    (fun i => le_trans (by exact_mod_cast (Nat.prime_nth_prime i).two_le :
+      (2 : ℝ) ≤ Nat.nth Nat.Prime (i : ℕ)) (hr i))
     (Polynomial.map_ne_zero hF) (by rw [rootProduct_complex]; exact Polynomial.map_dvd _ hdvd)
   rw [leadingCoeff_map, Complex.coe_algebraMap, Complex.norm_real] at hlm
   have hlog : 0 ≤ Real.log ‖F.leadingCoeff‖ := Real.log_nonneg hlead
@@ -214,7 +217,8 @@ theorem primeInfimum : PrimeInfimum := by
     have : 1 ≤ 0.54 * (Real.exp 1 * Real.log 2) := by nlinarith
     nlinarith [sq_nonneg (L : ℝ)]
   have hq : (L : ℝ) * (L + 1) / 2 ≤ L ^ 2 := by nlinarith
-  nlinarith [mul_le_mul_of_nonneg_right hq (by linarith : (0 : ℝ) ≤ Real.log 10),
+  have h10pos : 0 ≤ Real.log 10 := Real.log_nonneg (by norm_num)
+  nlinarith [mul_le_mul_of_nonneg_right hq h10pos,
     mul_le_mul_of_nonneg_right (show (L : ℝ) ^ 2 / 2 ≤ L * (L + 1) / 2 by nlinarith)
       (by linarith : (0 : ℝ) ≤ Real.log L),
     mul_le_mul_of_nonneg_right (show (L : ℝ) ^ 2 / 2 ≤ L * (L + 1) / 2 by nlinarith) hll0]
