@@ -107,7 +107,7 @@ theorem rowsTop : RowsTop := by
   have hC0 : 0 ∉ C := fun h => by have := (hCm 0 h).1; omega
   have hq : 1 ≤ q := by omega
   rw [confTail_split hC0 fun c hc => by have := (hCm c hc).2; omega]
-  have hV := holeVals ℓ q m C hq hCc hl hCm
+  have hV := holeVals ℓ q m C hCc hl hCm
   have hT := holeTail ℓ q m C (by omega) hq hCc hl hm hCm
   have hT' := hT.trans (tail_le_half (q := q) (show 3 ≤ ℓ by omega))
   have hQ : (0 : ℝ) < (q : ℝ) + 1 := by positivity

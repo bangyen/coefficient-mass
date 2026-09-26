@@ -15,7 +15,8 @@ block `C° = {ℓ + 1, …, 2ℓ + 1}` the values at the holes sum to `∫_0^1 v
 with `G = ∑_r 2^{-(ℓ+1+r)} (2ℓ+1)! / (ℓ! r! (ℓ-r)!) v^{ℓ-r} (1 - v)^{ℓ+r}`, and the
 binomial theorem gives `G = (2ℓ+1)! / (ℓ!^2 2^{2ℓ+1}) (1 - v^2)^ℓ`.  With Wallis'
 `∫_0^1 (1 - v^2)^ℓ dv = 4^ℓ ℓ!^2 / (2ℓ+1)!`, `∫_0^1 G = 1/2`; `G` is nonincreasing and
-`v^q` nondecreasing, so Chebyshev's integral inequality bounds the sum by `1 / (2(q + 1))`.
+`v^q` nondecreasing, so Chebyshev's integral inequality bounds the sum by `1 / (2(q + 1))`
+(for `q = 0` the sum is `1/2` itself).
 
 ## Definitions
 
@@ -142,7 +143,7 @@ theorem blockCoef_sum_eq (ℓ : ℕ) (v : ℝ) :
   ring
 
 /-- Lemma 4.10 for the block: `∑_r blockCoef ℓ r · B(ℓ - r + q + 1, ℓ + r + 1) ≤ 1 / (2(q + 1))`. -/
-theorem block_le (ℓ : ℕ) {q : ℕ} (hq : 1 ≤ q) :
+theorem block_le (ℓ q : ℕ) :
     ∑ r ∈ Finset.range (ℓ + 1), blockCoef ℓ r * betaI (ℓ - r + q) (ℓ + r) ≤
       1 / (2 * ((q : ℝ) + 1)) := by
   set K : ℝ := (2 * ℓ + 1).factorial / (ℓ.factorial : ℝ) ^ 2 * (1 / 2) ^ (2 * ℓ + 1) with hK
@@ -159,8 +160,6 @@ theorem block_le (ℓ : ℕ) {q : ℕ} (hq : 1 ≤ q) :
   have hanti : AntitoneOn (fun v : ℝ => K * (1 - v ^ 2) ^ ℓ) (Set.Icc 0 1) :=
     fun a ha b hb hab => mul_le_mul_of_nonneg_left (pow_le_pow_left₀ (by nlinarith [hb.2, hb.1])
       (by nlinarith [ha.1]) ℓ) hK0
-  have hcheb := integral_pow_mul_le (G := fun v : ℝ => K * (1 - v ^ 2) ^ ℓ)
-    (by fun_prop : Continuous fun v : ℝ => K * (1 - v ^ 2) ^ ℓ).continuousOn hanti hq
   have hG : ∫ v in (0 : ℝ)..1, K * (1 - v ^ 2) ^ ℓ = 1 / 2 := by
     rw [integral_const_mul, ← wallisI, wallisI_eq, hK]
     have h4 : (1 / 2 : ℝ) ^ (2 * ℓ + 1) * 4 ^ ℓ = 1 / 2 := by
@@ -172,6 +171,11 @@ theorem block_le (ℓ : ℕ) {q : ℕ} (hq : 1 ≤ q) :
         rw [h4, div_mul_div_comm, mul_comm ((ℓ.factorial : ℝ) ^ 2), div_self (by positivity),
           mul_one]
   rw [hsum]
+  rcases Nat.eq_zero_or_pos q with rfl | hq
+  · simp only [pow_zero, one_mul, Nat.cast_zero, zero_add, mul_one]
+    exact hG.le
+  have hcheb := integral_pow_mul_le (G := fun v : ℝ => K * (1 - v ^ 2) ^ ℓ)
+    (by fun_prop : Continuous fun v : ℝ => K * (1 - v ^ 2) ^ ℓ).continuousOn hanti hq
   calc _ ≤ 1 / ((q : ℝ) + 1) * ∫ v in (0 : ℝ)..1, K * (1 - v ^ 2) ^ ℓ := hcheb
     _ = 1 / (2 * ((q : ℝ) + 1)) := by rw [hG, one_div_mul_one_div, mul_comm]
 
