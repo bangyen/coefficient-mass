@@ -35,6 +35,9 @@ REFERENCES = {
     ("coefficient-mass", "3.2"): ("Theorem", "thm:order"),
     ("coefficient-mass", "3.3"): ("Corollary", "cor:complex"),
     ("coefficient-mass", "3.4"): ("Corollary", "cor:mass"),
+    ("coefficient-mass", "4.1"): ("Proposition", "prop:unbounded"),
+    ("coefficient-mass", "4.2"): ("Proposition", "prop:quadratic"),
+    ("coefficient-mass", "4.3"): ("Corollary", "cor:allroots"),
     ("coefficient-mass", "4.4"): ("Proposition", "prop:sharp23"),
     ("coefficient-mass", "4.5"): ("Lemma", "lem:rowcert"),
     ("coefficient-mass", "4.6"): ("Lemma", "lem:confdel"),
@@ -73,6 +76,13 @@ HEADLINES = {
     "rowsTop": ("RowsTop", "coefficient-mass", "prop:rowstop"),
     "everyRow": ("EveryRow", "coefficient-mass", "thm:everyrow"),
     "sharpRowTwo": ("SharpRowTwo", "coefficient-mass", "prop:sharp23"),
+    "unboundedLooseness": ("UnboundedLooseness", "coefficient-mass", "prop:unbounded"),
+    "halfSum": ("HalfSum", "coefficient-mass", "prop:unbounded"),
+    "looseRatio": ("LooseRatio", "coefficient-mass", "prop:unbounded"),
+    "jensenRows": ("JensenRows", "coefficient-mass", "prop:quadratic"),
+    "quadraticMass": ("QuadraticMass", "coefficient-mass", "prop:quadratic"),
+    "allRoots": ("AllRoots", "coefficient-mass", "cor:allroots"),
+    "workedExamples": ("WorkedExamples", "coefficient-mass", "thm:tail"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)

@@ -107,17 +107,17 @@ theorem mass_rootProduct_le {L : ℕ} (hL : 1 ≤ L) (r : Fin L → ℝ) (hmono 
       logPlus ‖((rootProduct ℝ r).map (algebraMap ℝ ℂ)).coeff k‖ ≤
         (L : ℝ) * Real.log 2 + ∑ i ∈ Finset.Ico k L, Real.log (g i) := fun k hk => by
     have hkL := Nat.lt_succ_iff.1 (Finset.mem_range.1 hk)
-    have hΠ : 0 < ∏ j ∈ Finset.range (L - k), g (L - 1 - j) :=
+    have hPi : 0 < ∏ j ∈ Finset.range (L - k), g (L - 1 - j) :=
       Finset.prod_pos fun j _ => by linarith [hg2 (L - 1 - j)]
-    have hΠ1 : 1 ≤ ∏ j ∈ Finset.range (L - k), g (L - 1 - j) := by
+    have hPi1 : 1 ≤ ∏ j ∈ Finset.range (L - k), g (L - 1 - j) := by
       have := Finset.prod_le_prod (s := Finset.range (L - k)) (f := fun _ => (1 : ℝ))
         (fun _ _ => zero_le_one) fun j _ => (by linarith [hg2 (L - 1 - j)] : (1 : ℝ) ≤ _)
       rwa [Finset.prod_const_one] at this
     have hC : (1 : ℝ) ≤ L.choose k := by exact_mod_cast Nat.choose_pos hkL
     rw [coeff_map, Complex.coe_algebraMap, Complex.norm_real, Real.norm_eq_abs]
     refine (logPlus_le_log (abs_nonneg _) (abs_coeff_rootProduct_le hL r hmono
-      (fun i => by linarith [hr i]) hkL) (one_le_mul_of_one_le_of_one_le hC hΠ1)).trans ?_
-    rw [Real.log_mul (by positivity) hΠ.ne', Real.log_prod fun j _ => by linarith [hg2 (L - 1 - j)]]
+      (fun i => by linarith [hr i]) hkL) (one_le_mul_of_one_le_of_one_le hC hPi1)).trans ?_
+    rw [Real.log_mul (by positivity) hPi.ne', Real.log_prod fun j _ => by linarith [hg2 (L - 1 - j)]]
     refine add_le_add ?_ (le_of_eq ?_)
     · calc Real.log (L.choose k) ≤ Real.log ((2 : ℝ) ^ L) :=
             Real.log_le_log (by positivity) (by exact_mod_cast Nat.choose_le_two_pow L k)

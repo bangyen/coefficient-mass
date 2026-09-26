@@ -14,6 +14,7 @@ import CoefficientMass.Defs
 import CoefficientMass.Descartes
 import CoefficientMass.Displaced
 import CoefficientMass.DisplacedTail
+import CoefficientMass.Examples
 import CoefficientMass.ExpSum
 import CoefficientMass.FirstRow
 import CoefficientMass.GeomSum
