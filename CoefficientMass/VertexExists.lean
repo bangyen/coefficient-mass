@@ -90,7 +90,7 @@ theorem exists_vertex {r : ℝ} (hr : 1 < r) {S : Finset ℕ} (h0 : 0 ∉ S) {L 
       ((natDegree_C_mul_le _ _).trans natDegree_X_le))
   have hdeg : (confPolyP Z * (1 - C (1 / ((N + 1 : ℕ) : ℝ)) * X)).natDegree < L :=
     natDegree_mul_le.trans_lt (by have := natDegree_confPolyP Z; omega)
-  have hle := muR_le_adm (r := r) (S := S) (degree_le_natDegree.trans_lt
+  have hle := muR_le_adm hr (S := S) (degree_le_natDegree.trans_lt
     (by exact_mod_cast hdeg)) (by rw [eval_mul, eval_sub, eval_one, eval_mul, eval_C, eval_X,
       mul_zero, sub_zero, mul_one, hp0])
     (fun s hs => by rw [eval_mul, hpZ s (hSZ hs), zero_mul])
@@ -102,12 +102,12 @@ theorem vertexOpt : VertexOpt := by
   unfold VertexOpt
   refine ⟨fun r hr S Z hSZ h0 => ⟨⟨fun h => ?_, fun h => ?_⟩, fun h q hq hq0 hqS hne =>
     rowPhi_lt_of_cert hr hSZ h0 h hq hq0 hqS hne⟩, fun r hr S h0 L hSL => exists_vertex hr h0 hSL⟩
-  · exact cert_of_rowPhi_le hr hSZ h0 fun q hq hq0 hqS => h.le.trans (muR_le_adm hq hq0 hqS)
+  · exact cert_of_rowPhi_le hr hSZ h0 fun q hq hq0 hqS => h.le.trans (muR_le_adm hr hq hq0 hqS)
   · have hS0 : 0 ∉ S := fun h' => h0 (hSZ h')
     obtain ⟨q, hq, hq0, hqS, hqμ⟩ :=
       exists_muR_min hr hS0 (Nat.lt_succ_of_le (Finset.card_le_card hSZ))
     obtain ⟨hZd, hZ0, hZZ⟩ := confPolyP_admissible (L := Z.card + 1) h0 (by omega)
     exact le_antisymm ((rowPhi_le_of_cert hr hSZ h0 h hq hq0 hqS).trans hqμ.le)
-      (muR_le_adm hZd hZ0 fun s hs => hZZ s (hSZ hs))
+      (muR_le_adm hr hZd hZ0 fun s hs => hZZ s (hSZ hs))
 
 end CoefficientMass

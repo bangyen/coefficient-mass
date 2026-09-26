@@ -30,12 +30,13 @@ open Polynomial
 namespace CoefficientMass
 
 /-- `μ_r(S, L) ≤ Φ_r(q)` for every admissible `q`. -/
-theorem muR_le_adm {r : ℝ} {S : Finset ℕ} {L : ℕ} {q : ℝ[X]} (hq : q.degree < L)
+theorem muR_le_adm {r : ℝ} (hr : 1 < r) {S : Finset ℕ} {L : ℕ} {q : ℝ[X]} (hq : q.degree < L)
     (hq0 : q.eval 0 = 1) (hqS : ∀ s ∈ S, q.eval (s : ℝ) = 0) : muR r S L ≤ rowPhi r q := by
   unfold muR
   refine ciInf_le ⟨0, ?_⟩ (⟨q, hq, hq0, hqS⟩ :
     {q : ℝ[X] // q.degree < L ∧ q.eval 0 = 1 ∧ ∀ s ∈ S, q.eval (s : ℝ) = 0})
   rintro _ ⟨q, rfl⟩
+  have : (0 : ℝ) < r := by linarith
   exact tsum_nonneg fun _ => by positivity
 
 /-- `|a + tb| = |a| + t sgn(a) b` when `a(a + tb) ≥ 0` and `b = 0` if `a = 0`. -/
@@ -77,9 +78,11 @@ theorem mul_rowPhi_le {r : ℝ} (hr : 1 < r) (q d : ℝ[X]) {t : ℝ} (ht : 0 �
   set b := d.eval ((k + 1 : ℕ) : ℝ)
   have h : |t * b| = t * |b| := by rw [abs_mul, abs_of_nonneg ht]
   rw [← h]
-  exact abs_le.2 ⟨by linarith [le_abs_self (a + t * b), neg_abs_le (a + t * b),
-    le_abs_self a, neg_abs_le a], by linarith [le_abs_self (a + t * b),
-      neg_abs_le (a + t * b), le_abs_self a, neg_abs_le a]⟩
+  have h1 := le_abs_self (a + t * b)
+  have h2 := neg_abs_le (a + t * b)
+  have h3 := le_abs_self a
+  have h4 := neg_abs_le a
+  exact abs_le.2 ⟨by linarith, by linarith⟩
 
 theorem rowPhi_pos {r : ℝ} (hr : 1 < r) {d : ℝ[X]} (hd : d ≠ 0) : 0 < rowPhi r d := by
   obtain ⟨k, -, hk⟩ := exists_eval_ne hd 0

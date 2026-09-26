@@ -97,7 +97,7 @@ theorem vGood_step {r : ℝ} (hr : 1 < r) {S : Finset ℕ} {L : ℕ} {Z : Finset
       fun z hz => by rw [eval_add, eval_mul, eval_C, hqZ z hz, hdZ z hz, mul_zero, add_zero]⟩
   have hμle : ∀ t : ℝ, muR r S L ≤ rowPhi r (q + C t * d) := fun t => by
     obtain ⟨hn, h0', hZ'⟩ := hadm t
-    exact muR_le_adm (degree_le_natDegree.trans_lt (by exact_mod_cast hn.trans_lt hmL)) h0'
+    exact muR_le_adm hr (degree_le_natDegree.trans_lt (by exact_mod_cast hn.trans_lt hmL)) h0'
       fun s hs => hZ' s (hSZ hs)
   -- the sign-preserving set `T`
   obtain ⟨T, hTdef⟩ : ∃ T : Set ℝ, T = Set.Ici 0 ∩ ⋂ k : ℕ, {t : ℝ | 0 ≤
