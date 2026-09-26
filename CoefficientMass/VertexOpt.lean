@@ -25,6 +25,7 @@ This module proves the sufficiency part of Lemma 6.11 of `coefficient-mass-rows.
 * `sign_mul_add_le`.
 * `summable_sign_mul`.
 * `summable_zero_mul`.
+* `rowPhi_sub_ge_sum`.
 * `rowPhi_le_of_cert`.
 -/
 
@@ -69,12 +70,14 @@ theorem summable_zero_mul {r : ℝ} (hr : 1 < r) (p d : ℝ[X]) :
       (by positivity))
     (summable_rowPhi hr d)
 
-/-- Lemma 6.11 of `coefficient-mass-rows.tex`, sufficiency: if `|G_y| ≤ |e_y(y)| r^{-y}` for
-every `y ∈ Z \ S`, then `Φ_r(Z) ≤ Φ_r(q)` for every admissible `q` of `μ_r(S, |Z| + 1)`. -/
-theorem rowPhi_le_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆ Z) (h0 : 0 ∉ Z)
-    (hcert : ∀ y ∈ Z \ S, |gY r Z y| ≤ |(eY Z y).eval (y : ℝ)| * (1 / r) ^ y)
+/-- `Φ_r(q) - Φ_r(Z) ≥ ∑_{y ∈ Z \ S} (c_y G_y + |c_y| |e_y(y)| r^{-y})` with
+`c_y = (q - r_Z)(y)/e_y(y)`, for every admissible `q` of `μ_r(S, |Z| + 1)`. -/
+theorem rowPhi_sub_ge_sum {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆ Z) (h0 : 0 ∉ Z)
     {q : ℝ[X]} (hq : q.degree < ↑(Z.card + 1)) (hq0 : q.eval 0 = 1)
-    (hqS : ∀ s ∈ S, q.eval (s : ℝ) = 0) : rowPhi r (confPolyP Z) ≤ rowPhi r q := by
+    (hqS : ∀ s ∈ S, q.eval (s : ℝ) = 0) :
+    ∑ y ∈ Z \ S, ((q - confPolyP Z).eval (y : ℝ) / (eY Z y).eval (y : ℝ) * gY r Z y +
+      |(q - confPolyP Z).eval (y : ℝ) / (eY Z y).eval (y : ℝ)| * |(eY Z y).eval (y : ℝ)| *
+        (1 / r) ^ y) ≤ rowPhi r q - rowPhi r (confPolyP Z) := by
   set p := confPolyP Z
   obtain ⟨-, hp0, hpZ⟩ := confPolyP_admissible (L := Z.card + 1) h0 (by omega)
   have hqne : q ≠ 0 := fun h => by rw [h, eval_zero] at hq0; exact zero_ne_one hq0
@@ -88,7 +91,6 @@ theorem rowPhi_le_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆
   have hdS : ∀ s ∈ S, d.eval (s : ℝ) = 0 := fun s hs => by
     rw [eval_sub, hqS s hs, hpZ s (hSZ hs), sub_self]
   have hdec := eq_sum_eY h0 hdn hd0 hdS
-  set c : ℕ → ℝ := fun y => d.eval (y : ℝ) / (eY Z y).eval (y : ℝ)
   have hqpd : q = p + d := by rw [add_sub_cancel]
   -- pointwise
   have hpt : ∀ k : ℕ, Real.sign (p.eval ((k + 1 : ℕ) : ℝ)) * d.eval ((k + 1 : ℕ) : ℝ) *
@@ -107,16 +109,18 @@ theorem rowPhi_le_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆
   rw [hs1.tsum_add hs2, (summable_rowPhi hr q).tsum_sub (summable_rowPhi hr p)] at hmain
   -- the first sum is `∑_y c_y G_y`
   have hT1 : ∑' k : ℕ, Real.sign (p.eval ((k + 1 : ℕ) : ℝ)) * d.eval ((k + 1 : ℕ) : ℝ) *
-      (1 / r) ^ (k + 1) = ∑ y ∈ Z \ S, c y * gY r Z y := by
+      (1 / r) ^ (k + 1) = ∑ y ∈ Z \ S, (d.eval (y : ℝ) / (eY Z y).eval (y : ℝ)) * gY r Z y := by
     have e : ∀ k : ℕ, Real.sign (p.eval ((k + 1 : ℕ) : ℝ)) * d.eval ((k + 1 : ℕ) : ℝ) *
-        (1 / r) ^ (k + 1) = ∑ y ∈ Z \ S, c y * (Real.sign (p.eval ((k + 1 : ℕ) : ℝ)) *
-          (eY Z y).eval ((k + 1 : ℕ) : ℝ) * (1 / r) ^ (k + 1)) := fun k => by
+        (1 / r) ^ (k + 1) = ∑ y ∈ Z \ S, (d.eval (y : ℝ) / (eY Z y).eval (y : ℝ)) *
+          (Real.sign (p.eval ((k + 1 : ℕ) : ℝ)) * (eY Z y).eval ((k + 1 : ℕ) : ℝ) *
+            (1 / r) ^ (k + 1)) := fun k => by
       conv_lhs => rw [hdec, eval_finset_sum, Finset.mul_sum, Finset.sum_mul]
       exact Finset.sum_congr rfl fun y _ => by rw [eval_mul, eval_C]; ring
     rw [tsum_congr e, Summable.tsum_finsetSum fun y _ => (summable_sign_mul hr p _).mul_left _]
     exact Finset.sum_congr rfl fun y _ => by rw [tsum_mul_left, gY]
   -- the second sum is at least `∑_y |d(y)| r^{-y}`
-  have hT2 : ∑ y ∈ Z \ S, |c y| * |(eY Z y).eval (y : ℝ)| * (1 / r) ^ y ≤
+  have hT2 : ∑ y ∈ Z \ S,
+      |d.eval (y : ℝ) / (eY Z y).eval (y : ℝ)| * |(eY Z y).eval (y : ℝ)| * (1 / r) ^ y ≤
       ∑' k : ℕ, (if p.eval ((k + 1 : ℕ) : ℝ) = 0 then |d.eval ((k + 1 : ℕ) : ℝ)| else 0) *
         (1 / r) ^ (k + 1) := by
     have hinj : Set.InjOn (fun y : ℕ => y - 1) ((Z \ S : Finset ℕ) : Set ℕ) :=
@@ -133,14 +137,22 @@ theorem rowPhi_le_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆
     have hy1 : y - 1 + 1 = y := Nat.sub_add_cancel (Nat.pos_of_ne_zero fun h => h0 (h ▸ hyZ))
     rw [hy1, if_pos (hpZ y hyZ), abs_div,
       div_mul_cancel₀ _ (abs_ne_zero.2 (eval_eY_self_ne h0 hyZ))]
-  have hfin : 0 ≤ ∑ y ∈ Z \ S, (c y * gY r Z y + |c y| * |(eY Z y).eval (y : ℝ)| * (1 / r) ^ y) :=
-    Finset.sum_nonneg fun y hy => by
-      have h1 := hcert y hy
-      have h2 := neg_abs_le (c y * gY r Z y)
-      rw [abs_mul] at h2
-      nlinarith [abs_nonneg (c y)]
-  rw [Finset.sum_add_distrib, ← hT1] at hfin
+  rw [Finset.sum_add_distrib, ← hT1]
   unfold rowPhi
   linarith
+
+/-- Lemma 6.11 of `coefficient-mass-rows.tex`, sufficiency: if `|G_y| ≤ |e_y(y)| r^{-y}` for
+every `y ∈ Z \ S`, then `Φ_r(Z) ≤ Φ_r(q)` for every admissible `q` of `μ_r(S, |Z| + 1)`. -/
+theorem rowPhi_le_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆ Z) (h0 : 0 ∉ Z)
+    (hcert : ∀ y ∈ Z \ S, |gY r Z y| ≤ |(eY Z y).eval (y : ℝ)| * (1 / r) ^ y)
+    {q : ℝ[X]} (hq : q.degree < ↑(Z.card + 1)) (hq0 : q.eval 0 = 1)
+    (hqS : ∀ s ∈ S, q.eval (s : ℝ) = 0) : rowPhi r (confPolyP Z) ≤ rowPhi r q := by
+  refine sub_nonneg.1 (le_trans (Finset.sum_nonneg fun y hy => ?_)
+    (rowPhi_sub_ge_sum hr hSZ h0 hq hq0 hqS))
+  set c := (q - confPolyP Z).eval (y : ℝ) / (eY Z y).eval (y : ℝ)
+  have h1 := mul_le_mul_of_nonneg_left (hcert y hy) (abs_nonneg c)
+  have h2 := neg_abs_le (c * gY r Z y)
+  rw [abs_mul] at h2
+  nlinarith
 
 end CoefficientMass
