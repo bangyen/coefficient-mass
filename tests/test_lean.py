@@ -118,6 +118,7 @@ HEADLINES = {
     "optIns": ("OptIns", "coefficient-mass-rows", "lem:optins"),
     "optInsMax": ("OptInsMax", "coefficient-mass-rows", "lem:optins"),
     "allRowsTwo": ("AllRowsTwo", "coefficient-mass-rows", "thm:allrowstwo"),
+    "prefixUp": ("PrefixUp", "coefficient-mass-rows", "eq:prefixup"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
