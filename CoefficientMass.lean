@@ -33,6 +33,7 @@ import CoefficientMass.RealPart
 import CoefficientMass.RowAnnihilate
 import CoefficientMass.RowCert
 import CoefficientMass.RowDefs
+import CoefficientMass.RowStop
 import CoefficientMass.Sharp
 import CoefficientMass.Signs
 import CoefficientMass.Tail
