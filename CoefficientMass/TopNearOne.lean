@@ -161,11 +161,11 @@ theorem m_le_rowPhi {r : ℝ} (hr : 1 < r) (hr2 : r ≤ 2) {n : ℕ} {q : ℝ[X]
       have h4 : (2 * n + 1) * m = 2 * n * m + m := by ring
       exact Finset.mem_Icc.2 ⟨by omega, by omega⟩
   have hdisj : Set.PairwiseDisjoint (Finset.Icc 1 n : Set ℕ) (block m) :=
-    fun i _ j _ hij => Finset.disjoint_left.2 fun s hsi hsj => by
+    fun i _ j _ hij => Finset.disjoint_left.2 fun s hsIn hsj => by
       rcases lt_or_gt_of_ne hij with hlt | hlt
-      · have := block_sep hlt hsi hsj
+      · have := block_sep hlt hsIn hsj
         omega
-      · have := block_sep hlt hsj hsi
+      · have := block_sep hlt hsj hsIn
         omega
   have hw : ∀ s ∈ Finset.Icc 1 ((2 * n + 1) * m), |q.eval (s : ℝ)| ≤
       Real.exp (4 * n + 2) * (|q.eval (s : ℝ)| * (1 / r) ^ s) := fun s hs => by

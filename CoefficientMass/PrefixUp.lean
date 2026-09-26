@@ -109,7 +109,7 @@ theorem muRD_prefix_step {r : ℝ} (hr : 1 < r) {i n : ℕ} (hi : 1 ≤ i) (hn :
   obtain ⟨hq, hq0, hqS⟩ := confPolyP_admissible (L := i + n) h0'
     (by rw [card_ins hhW]; omega)
   have hqI : ∀ s ∈ Finset.Icc 1 i, (confPolyP (ins W c)).eval (s : ℝ) = 0 := fun s hs => by
-    obtain ⟨hs1, hsi⟩ := Finset.mem_Icc.1 hs
+    obtain ⟨hs1, hsIn⟩ := Finset.mem_Icc.1 hs
     refine hqS s ?_
     rcases (show s ≤ c by omega).lt_or_eq with hsc | hsc
     · exact hinsW s hs1 hsc

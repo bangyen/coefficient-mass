@@ -88,10 +88,10 @@ theorem tsum_eq_nodeSum_add {ω : ℕ → ℝ} {i : ℕ} (hω0 : ∀ s, s < i �
   congr 1
   refine (Finset.sum_subset (fun s hs => Finset.mem_range.2 (by
     have := (Finset.mem_Icc.1 hs).2
-    omega)) fun s hs hsi => ?_).symm
+    omega)) fun s hs hsIn => ?_).symm
   rw [hω0 s (by
     by_contra h
-    exact hsi (Finset.mem_Icc.2 ⟨not_lt.1 h, by have := Finset.mem_range.1 hs; omega⟩)), zero_mul]
+    exact hsIn (Finset.mem_Icc.2 ⟨not_lt.1 h, by have := Finset.mem_range.1 hs; omega⟩)), zero_mul]
 
 theorem intZerosInf : IntZerosInf := by
   intro ω i n hi hn hω0 hωpos hsum

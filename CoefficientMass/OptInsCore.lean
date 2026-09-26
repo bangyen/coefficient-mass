@@ -77,9 +77,9 @@ theorem opt_core_step {w p q : ℕ → ℝ} {κ : ℝ} (hκ : 0 < κ) {c D : ℕ
     simp only [Finset.mul_sum]
     rw [← Finset.sum_sub_distrib, ← Finset.sum_sub_distrib]
     refine Finset.sum_congr rfl fun s hs => ?_
-    obtain ⟨hsI, hsc⟩ := Finset.mem_filter.1 hs
-    obtain ⟨hpq, hqp⟩ := hbelow s (Finset.mem_Icc.1 hsI).1 hsc
-    rw [abs_sub_same_sign hpq hqp hε.le (hαε s hsI)]
+    obtain ⟨hsMem, hsc⟩ := Finset.mem_filter.1 hs
+    obtain ⟨hpq, hqp⟩ := hbelow s (Finset.mem_Icc.1 hsMem).1 hsc
+    rw [abs_sub_same_sign hpq hqp hε.le (hαε s hsMem)]
     ring
   have e2 : ∑ s ∈ I.filter (c ≤ ·), |(1 + ε - ε * κ * s) * p s - ε * q s| * w s =
       (1 + ε) * ∑ s ∈ I.filter (c ≤ ·), |p s| * w s -
@@ -88,8 +88,8 @@ theorem opt_core_step {w p q : ℕ → ℝ} {κ : ℝ} (hκ : 0 < κ) {c D : ℕ
     simp only [Finset.mul_sum]
     rw [← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
     refine Finset.sum_congr rfl fun s hs => ?_
-    obtain ⟨hsI, hsc⟩ := Finset.mem_filter.1 hs
-    rw [abs_sub_opp_sign (habove s hsc) (hε.le.trans (hαε s hsI)) hε.le]
+    obtain ⟨hsMem, hsc⟩ := Finset.mem_filter.1 hs
+    rw [abs_sub_opp_sign (habove s hsc) (hε.le.trans (hαε s hsMem)) hε.le]
     ring
   have s1 : ∑ s ∈ I, |p s| * w s =
       ∑ s ∈ I.filter (· < c), |p s| * w s + ∑ s ∈ I.filter (c ≤ ·), |p s| * w s :=

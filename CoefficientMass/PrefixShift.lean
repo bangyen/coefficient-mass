@@ -47,7 +47,7 @@ theorem prefA_add_ge {r : ℝ} (hr : 1 < r) {i m n : ℕ} (hi : 1 ≤ i) (hm : 1
       exact_mod_cast hp
   have hν : 0 ≤ nuR r m n := (nuR_pos hr hm hn).le
   have hω : ∀ j s, 0 ≤ prefixWeight r j s := fun j s => (prefixWeight_le hr j s).1
-  have hsA := summable_weighted (hω i) (summable_weight_pow hr (prefixWeight_le hr i) (n - 1)) _
+  have hsumA := summable_weighted (hω i) (summable_weight_pow hr (prefixWeight_le hr i) (n - 1)) _
     fun s => abs_eval_le_pow hpn (Nat.cast_nonneg s)
   have hsB := summable_weighted (hω (i + m))
     (summable_weight_pow hr (prefixWeight_le hr (i + m)) (n - 1)) _
@@ -61,7 +61,7 @@ theorem prefA_add_ge {r : ℝ} (hr : 1 < r) {i m n : ℕ} (hi : 1 ≤ i) (hm : 1
   calc ENNReal.ofReal (nuR r m n * prefA r i p)
       = ∑' u : ℕ, ENNReal.ofReal (nuR r m n * (prefixWeight r i u * |p.eval (u : ℝ)|)) := by
         rw [prefA, ← tsum_mul_left, ENNReal.ofReal_tsum_of_nonneg
-          (fun u => mul_nonneg hν (mul_nonneg (hω i u) (abs_nonneg _))) (hsA.mul_left _)]
+          (fun u => mul_nonneg hν (mul_nonneg (hω i u) (abs_nonneg _))) (hsumA.mul_left _)]
     _ ≤ ∑' u : ℕ, ENNReal.ofReal (∑' t : ℕ,
           prefixWeight r i u * (prefixWeight r m t * |p.eval ((u + t : ℕ) : ℝ)|)) :=
         ENNReal.tsum_le_tsum fun u => ENNReal.ofReal_le_ofReal (by
