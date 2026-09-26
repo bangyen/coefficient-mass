@@ -80,6 +80,7 @@ REFERENCES = {
     ("coefficient-mass-rows", "6.12"): ("Theorem", "thm:secondrow"),
     ("coefficient-mass-rows", "6.15"): ("Lemma", "lem:rootmono"),
     ("coefficient-mass-rows", "6.18"): ("Lemma", "lem:farzeros"),
+    ("coefficient-mass-rows", "6.19"): ("Theorem", "thm:finiterows"),
 }
 
 #: Each headline theorem, ``theorem name : Statement``, as ``name ->
