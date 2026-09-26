@@ -87,21 +87,22 @@ theorem sum_le_confTail (Z : Finset ℕ) (D : ℕ) :
   (summable_confTail Z).sum_le_tsum _ fun _ _ => by positivity
 
 /-- The reflection `s = D - j` of the dual identity. -/
-theorem sum_reflect (ψ : ℝ[X]) (D : ℕ) :
-    ∑ j ∈ Finset.range D, |ψ.eval ((D : ℝ) - j)| * 2 ^ j =
-      2 ^ D * ∑ d ∈ Finset.range D, |ψ.eval ((d + 1 : ℕ) : ℝ)| * (1 / 2 : ℝ) ^ (d + 1) := by
+theorem sum_reflect {r : ℝ} (hr : r ≠ 0) (ψ : ℝ[X]) (D : ℕ) :
+    ∑ j ∈ Finset.range D, |ψ.eval ((D : ℝ) - j)| * r ^ j =
+      r ^ D * ∑ d ∈ Finset.range D, |ψ.eval ((d + 1 : ℕ) : ℝ)| * (1 / r) ^ (d + 1) := by
   rw [Finset.mul_sum, ← Finset.sum_range_reflect]
   refine Finset.sum_congr rfl fun d hd => ?_
   have hd := Finset.mem_range.1 hd
   have hc : ((D - 1 - d : ℕ) : ℝ) = D - 1 - d := by
     rw [Nat.cast_sub (by omega), Nat.cast_sub (by omega), Nat.cast_one]
-  have hp : (2 : ℝ) ^ D = 2 ^ (D - 1 - d) * 2 ^ (d + 1) := by
+  have hp : r ^ D = r ^ (D - 1 - d) * r ^ (d + 1) := by
     rw [← pow_add]
     congr 1
     omega
-  have h1 : (2 : ℝ) ^ (d + 1) * (1 / 2) ^ (d + 1) = 1 := by rw [← mul_pow]; norm_num
+  have h1 : r ^ (d + 1) * (1 / r) ^ (d + 1) = 1 := by
+    rw [← mul_pow, mul_one_div_cancel hr, one_pow]
   rw [hc, show (D : ℝ) - (D - 1 - d) = ((d + 1 : ℕ) : ℝ) by push_cast; ring, hp]
-  linear_combination (-(|ψ.eval ((d + 1 : ℕ) : ℝ)| * 2 ^ (D - 1 - d))) * h1
+  linear_combination (-(|ψ.eval ((d + 1 : ℕ) : ℝ)| * r ^ (D - 1 - d))) * h1
 
 /-- Lemma 4.5 (certificate for a row). -/
 theorem rowCertificate : RowCertificate := by
@@ -149,7 +150,7 @@ theorem rowCertificate : RowCertificate := by
     change (confPolyP Z).eval 0 = 1
     rw [confPolyP, eval_prod]
     exact Finset.prod_eq_one fun z _ => by rw [eval_add, eval_mul, eval_C, eval_C, eval_X]; ring
-  have hsum0 := sum_coeff_mul_eval_eq_zero L G q (D + 1) hqdeg (by rw [hFG]; omega)
+  have hsum0 := sum_coeff_mul_eval_eq_zero two_ne_zero L G q (D + 1) hqdeg (by rw [hFG]; omega)
   rw [hFG, Finset.sum_range_succ, hq, sub_self, hψ0,
     show F.coeff D = 1 from hF.coeff_natDegree] at hsum0
   have hsum : ∑ j ∈ Finset.range D, F.coeff j * q.eval (j : ℝ) * 2 ^ j + 2 ^ D = 0 := by
@@ -199,7 +200,7 @@ theorem rowCertificate : RowCertificate := by
       _ = n * ∑ j ∈ Finset.range D, |ψ.eval ((D : ℝ) - j)| * 2 ^ j := by
           rw [Finset.mul_sum]
           exact Finset.sum_congr rfl fun j _ => by ring
-  rw [sum_reflect] at hlt2
+  rw [sum_reflect two_ne_zero] at hlt2
   have hΦ : ∑ d ∈ Finset.range D, |ψ.eval ((d + 1 : ℕ) : ℝ)| * (1 / 2 : ℝ) ^ (d + 1) ≤
       1 / n := by
     refine le_trans (le_of_eq ?_) ((sum_le_confTail Z D).trans hZΦ)

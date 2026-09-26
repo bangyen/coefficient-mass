@@ -23,6 +23,7 @@ of the `L - k` largest; summing the logarithms over `k` gives
 * `sum_Ico_triangle`.
 * `abs_coeff_rootProduct_le`.
 * `logPlus_le_log`.
+* `mass_rootProduct_le_choose`.
 * `mass_rootProduct_le`.
 -/
 
@@ -95,17 +96,18 @@ theorem logPlus_le_log {x y : ℝ} (hx : 0 ≤ x) (hxy : x ≤ y) (hy : 1 ≤ y)
     exact Real.log_nonneg hy
   · exact Real.log_le_log h hxy
 
-/-- `Λ(P) ≤ (L + 1) L log 2 + ∑_{i < L} (i + 1) log r_i` for `P = ∏ (x - r_i)`. -/
-theorem mass_rootProduct_le {L : ℕ} (hL : 1 ≤ L) (r : Fin L → ℝ) (hmono : Monotone r)
+/-- `Λ(P) ≤ ∑_{k ≤ L} log C(L, k) + ∑_{i < L} (i + 1) log r_i` for `P = ∏ (x - r_i)`. -/
+theorem mass_rootProduct_le_choose {L : ℕ} (hL : 1 ≤ L) (r : Fin L → ℝ) (hmono : Monotone r)
     (hr : ∀ i, 2 ≤ r i) :
-    mass ((rootProduct ℝ r).map (algebraMap ℝ ℂ)) ≤ ((L : ℝ) + 1) * L * Real.log 2 +
+    mass ((rootProduct ℝ r).map (algebraMap ℝ ℂ)) ≤
+      ∑ k ∈ Finset.range (L + 1), Real.log (L.choose k) +
       ∑ i ∈ Finset.range L, ((i : ℝ) + 1) * Real.log (r ⟨min i (L - 1), by omega⟩) := by
   set g : ℕ → ℝ := fun n => r ⟨min n (L - 1), by omega⟩ with hg
   have hg2 : ∀ n, 2 ≤ g n := fun n => hr _
   rw [mass_eq_sum_range, natDegree_map, natDegree_rootProduct]
   have hk : ∀ k ∈ Finset.range (L + 1),
       logPlus ‖((rootProduct ℝ r).map (algebraMap ℝ ℂ)).coeff k‖ ≤
-        (L : ℝ) * Real.log 2 + ∑ i ∈ Finset.Ico k L, Real.log (g i) := fun k hk => by
+        Real.log (L.choose k) + ∑ i ∈ Finset.Ico k L, Real.log (g i) := fun k hk => by
     have hkL := Nat.lt_succ_iff.1 (Finset.mem_range.1 hk)
     have hPi : 0 < ∏ j ∈ Finset.range (L - k), g (L - 1 - j) :=
       Finset.prod_pos fun j _ => by linarith [hg2 (L - 1 - j)]
@@ -120,10 +122,7 @@ theorem mass_rootProduct_le {L : ℕ} (hL : 1 ≤ L) (r : Fin L → ℝ) (hmono 
       (fun i => by linarith [hr i]) hkL) (one_le_mul_of_one_le_of_one_le hC hPi1)).trans ?_
     rw [Real.log_mul (by positivity) hPi.ne',
       Real.log_prod fun j _ => by linarith [hg2 (L - 1 - j)]]
-    refine add_le_add ?_ (le_of_eq ?_)
-    · calc Real.log (L.choose k) ≤ Real.log ((2 : ℝ) ^ L) :=
-            Real.log_le_log (by positivity) (by exact_mod_cast Nat.choose_le_two_pow L k)
-        _ = L * Real.log 2 := Real.log_pow 2 L
+    refine add_le_add le_rfl (le_of_eq ?_)
     · rw [Finset.sum_Ico_eq_sum_range,
         ← Finset.sum_range_reflect (fun j => Real.log (g (k + j))) (L - k)]
       exact Finset.sum_congr rfl fun j hj => by
@@ -131,8 +130,24 @@ theorem mass_rootProduct_le {L : ℕ} (hL : 1 ≤ L) (r : Fin L → ℝ) (hmono 
         change Real.log (g (L - 1 - j)) = Real.log (g (k + (L - k - 1 - j)))
         rw [show k + (L - k - 1 - j) = L - 1 - j by omega]
   refine (Finset.sum_le_sum hk).trans (le_of_eq ?_)
-  rw [Finset.sum_add_distrib, sum_Ico_triangle, Finset.sum_const, Finset.card_range, nsmul_eq_mul]
-  push_cast
-  ring
+  rw [Finset.sum_add_distrib, sum_Ico_triangle]
+
+/-- `Λ(P) ≤ (L + 1) L log 2 + ∑_{i < L} (i + 1) log r_i` for `P = ∏ (x - r_i)`. -/
+theorem mass_rootProduct_le {L : ℕ} (hL : 1 ≤ L) (r : Fin L → ℝ) (hmono : Monotone r)
+    (hr : ∀ i, 2 ≤ r i) :
+    mass ((rootProduct ℝ r).map (algebraMap ℝ ℂ)) ≤ ((L : ℝ) + 1) * L * Real.log 2 +
+      ∑ i ∈ Finset.range L, ((i : ℝ) + 1) * Real.log (r ⟨min i (L - 1), by omega⟩) := by
+  refine (mass_rootProduct_le_choose hL r hmono hr).trans (add_le_add ?_ le_rfl)
+  calc ∑ k ∈ Finset.range (L + 1), Real.log (L.choose k)
+      ≤ ∑ _k ∈ Finset.range (L + 1), (L : ℝ) * Real.log 2 := Finset.sum_le_sum fun k hk => by
+        have hkL := Nat.lt_succ_iff.1 (Finset.mem_range.1 hk)
+        calc Real.log (L.choose k) ≤ Real.log ((2 : ℝ) ^ L) :=
+              Real.log_le_log (by exact_mod_cast Nat.choose_pos hkL)
+                (by exact_mod_cast Nat.choose_le_two_pow L k)
+          _ = L * Real.log 2 := Real.log_pow 2 L
+    _ = ((L : ℝ) + 1) * L * Real.log 2 := by
+        rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]
+        push_cast
+        ring
 
 end CoefficientMass

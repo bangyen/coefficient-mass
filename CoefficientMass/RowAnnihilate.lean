@@ -10,15 +10,16 @@ import CoefficientMass.RowDefs
 # The Annihilation Identity
 
 This module proves the step of Lemma 4.5 of `coefficient-mass.tex` that uses
-the root: a multiple of `(x - 2)^L` is annihilated by `∑_j f_j q(j) 2^j` for
+the root: a multiple of `(x - r)^L` is annihilated by `∑_j f_j q(j) r^j` for
 every polynomial `q` of degree below `L`, the operator form
-`ψ(D - θ) F (2) = 0` of the paper.  One factor `x - 2` turns `q` into its
-forward difference, which lowers the degree.
+`ψ(D - θ) F (r) = 0` of the paper (`r = 2` there, any `r ≠ 0` for the rows at a general
+root).  One factor `x - r` turns `q` into its forward difference,
+which lowers the degree.
 
 ## Theorems
 
 * `degree_forwardDiff_lt`.
-* `sum_mul_X_sub_two`.
+* `sum_mul_X_sub_C`.
 * `sum_coeff_mul_eval_eq_zero`.
 -/
 
@@ -46,44 +47,44 @@ theorem degree_forwardDiff_lt {q : ℝ[X]} (hq : q ≠ 0) (hdeg : 0 < q.natDegre
   · rw [leadingCoeff_comp (by rw [h1]; norm_num), hlc, one_pow, mul_one]
   · rw [degree_eq_natDegree hne, degree_eq_natDegree hq, hcomp]
 
-/-- One factor `x - 2`: the sum against `q` becomes the sum against
-`2 (q(x + 1) - q(x))`. -/
-theorem sum_mul_X_sub_two (H : ℝ[X]) (q : ℝ[X]) {N : ℕ} (hN : H.natDegree < N) :
-    ∑ j ∈ Finset.range (N + 1), (H * (X - C 2)).coeff j * q.eval (j : ℝ) * 2 ^ j =
+/-- One factor `x - r`: the sum against `q` becomes the sum against
+`r (q(x + 1) - q(x))`. -/
+theorem sum_mul_X_sub_C (r : ℝ) (H : ℝ[X]) (q : ℝ[X]) {N : ℕ} (hN : H.natDegree < N) :
+    ∑ j ∈ Finset.range (N + 1), (H * (X - C r)).coeff j * q.eval (j : ℝ) * r ^ j =
       ∑ j ∈ Finset.range N,
-        H.coeff j * (C 2 * (q.comp (X + 1) - q)).eval (j : ℝ) * 2 ^ j := by
+        H.coeff j * (C r * (q.comp (X + 1) - q)).eval (j : ℝ) * r ^ j := by
   have hHN : H.coeff N = 0 := coeff_eq_zero_of_natDegree_lt hN
   rw [Finset.sum_range_succ']
   simp only [coeff_mul_X_sub_C, mul_coeff_zero, coeff_sub, coeff_X_zero, coeff_C_zero,
     eval_mul, eval_sub, eval_comp, eval_add, eval_X, eval_one, eval_C]
   have hsplit : ∀ j : ℕ,
-      (H.coeff j - H.coeff (j + 1) * 2) * q.eval ((j + 1 : ℕ) : ℝ) * 2 ^ (j + 1) =
-        H.coeff j * q.eval ((j : ℝ) + 1) * 2 ^ (j + 1) -
-          H.coeff (j + 1) * q.eval ((j + 1 : ℕ) : ℝ) * 2 ^ (j + 1 + 1) := by
+      (H.coeff j - H.coeff (j + 1) * r) * q.eval ((j + 1 : ℕ) : ℝ) * r ^ (j + 1) =
+        H.coeff j * q.eval ((j : ℝ) + 1) * r ^ (j + 1) -
+          H.coeff (j + 1) * q.eval ((j + 1 : ℕ) : ℝ) * r ^ (j + 1 + 1) := by
     intro j
     push_cast
     ring
   simp only [hsplit, Finset.sum_sub_distrib]
-  have htel : ∑ j ∈ Finset.range N, H.coeff (j + 1) * q.eval ((j + 1 : ℕ) : ℝ) * 2 ^ (j + 1 + 1) +
-      H.coeff 0 * q.eval ((0 : ℕ) : ℝ) * 2 ^ 1 =
-        ∑ j ∈ Finset.range N, H.coeff j * q.eval (j : ℝ) * 2 ^ (j + 1) := by
-    rw [← Finset.sum_range_succ' (fun j => H.coeff j * q.eval (j : ℝ) * 2 ^ (j + 1)),
+  have htel : ∑ j ∈ Finset.range N, H.coeff (j + 1) * q.eval ((j + 1 : ℕ) : ℝ) * r ^ (j + 1 + 1) +
+      H.coeff 0 * q.eval ((0 : ℕ) : ℝ) * r ^ 1 =
+        ∑ j ∈ Finset.range N, H.coeff j * q.eval (j : ℝ) * r ^ (j + 1) := by
+    rw [← Finset.sum_range_succ' (fun j => H.coeff j * q.eval (j : ℝ) * r ^ (j + 1)),
       Finset.sum_range_succ, hHN, zero_mul, zero_mul, add_zero]
   have hsum : ∑ j ∈ Finset.range N,
-      H.coeff j * (2 * (q.eval ((j : ℝ) + 1) - q.eval (j : ℝ))) * 2 ^ j =
-        ∑ j ∈ Finset.range N, H.coeff j * q.eval ((j : ℝ) + 1) * 2 ^ (j + 1) -
-          ∑ j ∈ Finset.range N, H.coeff j * q.eval (j : ℝ) * 2 ^ (j + 1) := by
+      H.coeff j * (r * (q.eval ((j : ℝ) + 1) - q.eval (j : ℝ))) * r ^ j =
+        ∑ j ∈ Finset.range N, H.coeff j * q.eval ((j : ℝ) + 1) * r ^ (j + 1) -
+          ∑ j ∈ Finset.range N, H.coeff j * q.eval (j : ℝ) * r ^ (j + 1) := by
     rw [← Finset.sum_sub_distrib]
     exact Finset.sum_congr rfl fun j _ => by ring
   rw [hsum, ← htel]
   simp only [Nat.cast_zero, pow_one]
   ring
 
-/-- The operator identity `ψ(D - θ) F (2) = 0`: a multiple of `(x - 2)^L`
-is annihilated by `∑_j f_j q(j) 2^j` whenever `deg q < L`. -/
-theorem sum_coeff_mul_eval_eq_zero (L : ℕ) :
-    ∀ (G q : ℝ[X]) (N : ℕ), q.degree < L → (G * (X - C 2) ^ L).natDegree < N →
-      ∑ j ∈ Finset.range N, (G * (X - C 2) ^ L).coeff j * q.eval (j : ℝ) * 2 ^ j = 0 := by
+/-- The operator identity `ψ(D - θ) F (r) = 0`: a multiple of `(x - r)^L`
+is annihilated by `∑_j f_j q(j) r^j` whenever `deg q < L`. -/
+theorem sum_coeff_mul_eval_eq_zero {r : ℝ} (hr : r ≠ 0) (L : ℕ) :
+    ∀ (G q : ℝ[X]) (N : ℕ), q.degree < L → (G * (X - C r) ^ L).natDegree < N →
+      ∑ j ∈ Finset.range N, (G * (X - C r) ^ L).coeff j * q.eval (j : ℝ) * r ^ j = 0 := by
   induction L with
   | zero =>
     intro G q N hq _
@@ -98,14 +99,14 @@ theorem sum_coeff_mul_eval_eq_zero (L : ℕ) :
     by_cases hG : G = 0
     · rw [hG, zero_mul]
       simp only [coeff_zero, zero_mul, Finset.sum_const_zero]
-    set H := G * (X - C 2) ^ L with hH
-    have hF : G * (X - C 2) ^ (L + 1) = H * (X - C 2) := by rw [hH, pow_succ, mul_assoc]
-    have hHne : H ≠ 0 := mul_ne_zero hG (pow_ne_zero _ (X_sub_C_ne_zero 2))
-    have hdegF : (H * (X - C 2)).natDegree = H.natDegree + 1 := by
-      rw [natDegree_mul hHne (X_sub_C_ne_zero 2), natDegree_X_sub_C]
+    set H := G * (X - C r) ^ L with hH
+    have hF : G * (X - C r) ^ (L + 1) = H * (X - C r) := by rw [hH, pow_succ, mul_assoc]
+    have hHne : H ≠ 0 := mul_ne_zero hG (pow_ne_zero _ (X_sub_C_ne_zero r))
+    have hdegF : (H * (X - C r)).natDegree = H.natDegree + 1 := by
+      rw [natDegree_mul hHne (X_sub_C_ne_zero r), natDegree_X_sub_C]
     rw [hF] at hN ⊢
     obtain ⟨M, rfl⟩ : ∃ M, N = M + 1 := ⟨N - 1, by omega⟩
-    rw [sum_mul_X_sub_two H q (by omega)]
+    rw [sum_mul_X_sub_C r H q (by omega)]
     by_cases hq0 : q = 0
     · rw [hq0]
       simp only [zero_comp, sub_zero, mul_zero, eval_zero, zero_mul, Finset.sum_const_zero]
@@ -117,7 +118,7 @@ theorem sum_coeff_mul_eval_eq_zero (L : ℕ) :
     have hqL : q.degree ≤ L := by
       rw [degree_eq_natDegree hq0] at hq ⊢
       exact_mod_cast Nat.lt_succ_iff.1 (by exact_mod_cast hq)
-    rw [degree_C_mul (by norm_num : (2 : ℝ) ≠ 0)]
+    rw [degree_C_mul hr]
     exact lt_of_lt_of_le hlt hqL
 
 end CoefficientMass

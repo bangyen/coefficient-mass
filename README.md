@@ -61,7 +61,23 @@ Beyond the chain, `tailEquality` proves the equality case of Theorem 2.2,
 `unboundedLooseness`, `halfSum` and `looseRatio` (Proposition 4.1), `jensenRows` and
 `quadraticMass` (Proposition 4.2, through Jensen's formula for polynomials and the
 operators `T_z`), and `allRoots` (Corollary 4.3, with the constants `1/81` and `3`);
-`workedExamples` checks the examples after Theorem 2.2.
+`workedExamples` checks the examples after Theorem 2.2.  The last corollaries of Section 3
+are proved as well: `nearOptimal` (Corollary 3.7), and `primeRoots` and `primeInfimum`
+(Corollaries 3.5 and 3.6, with explicit `O(L^2)` error terms from Chebyshev's bounds on the
+`n`-th prime, proved in `PrimeCount` and `PrimeLower`).
+
+The companion paper `coefficient-mass-rows.tex` is formalized from its start.  Section 2
+is proved in full: `rowValueCert`, `rowValueDual` and `rowValueTop` (Proposition 2.1, the
+certificate at a root `r > 1`, `V_r(L, k) = inf 1/μ_r(S, L)` by Hahn–Banach separation and
+truncation, and `V_r(L, k) ≤ β_r(L - k + 1)`), `tailBoundGen` (Theorem 2.2),
+`confDeleteR` (Lemma 2.3) and `lastRow` (Corollary 2.4).  From Section 3, `intZerosInf`
+(Lemma 3.1), `rowPointwise` (Lemma 3.2) and `prefixRows` (Theorem 3.3); Section 4 in full,
+`crossing` (Lemma 4.1), `insFlip` (Lemma 4.2) and `crossRows` (Theorem 4.3); and Section 5
+in full, `truncVertex` (Lemma 5.1), `optIns` and `optInsMax` (Lemma 5.2), `allRowsTwo`
+(Theorem 5.3, with `V_r(L, k) = β_r(L - k + 1)` for `r ≥ 2`) and `prefixUp`
+(`ν_{i+1}(n) ≤ ν_i(n)/(r - 1)`).  From Section 6, `prefixPush` (Lemma 6.1), `onePoly`
+(Theorem 6.2), `prefixShift` (Lemma 6.3), `onePolyRows` (Theorem 6.4), `topNearOne`
+(Lemma 6.5), `farPrefix` (Lemma 6.6) and `longDiag` (Theorem 6.7).
 
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,

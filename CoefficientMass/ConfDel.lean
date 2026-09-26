@@ -114,7 +114,7 @@ theorem confTail_erase_max {Z : Finset ℕ} (hne : Z.Nonempty) (h0 : 0 ∉ Z) :
     field_simp
     ring
   have hT : ∑' t, g (t + (z - 1)) = -((1 / 2) ^ z / (z * ∏ x ∈ Z', (x : ℝ))) *
-      geomSum ((X - C (z : ℝ)) * R) := by
+      geomSum (1 / 2) ((X - C (z : ℝ)) * R) := by
     rw [tsum_congr htail, tsum_mul_left, geomSum]
   have hK : 0 < (1 / 2 : ℝ) ^ z / (z * ∏ x ∈ Z', (x : ℝ)) := by positivity
   have hfin : 0 ≤ ∑ d ∈ Finset.range (z - 1), g d := Finset.sum_nonneg fun d hd => by
@@ -127,23 +127,26 @@ theorem confTail_erase_max {Z : Finset ℕ} (hne : Z.Nonempty) (h0 : 0 ∉ Z) :
     rw [Nat.card_Ioo] at this
     omega
   have hZc : Z.card = Z'.card + 1 := (Finset.card_erase_add_one hz).symm
-  have key := geomSum_sub_mul_risingP_nonpos _ _ A hAcard rfl hA0 ((Z'.card : ℝ) + 1) le_rfl
-  have hRpos := geomSum_pos (p := R) (fun t => (eval_risingP_pos hA0 (Nat.cast_nonneg t)).le)
+  have key := geomSum_sub_mul_risingP_nonpos (x := 1 / 2) (by norm_num) (by norm_num) _ _ A
+    hAcard rfl hA0 ((Z'.card : ℝ) + 1) (le_of_eq (by ring))
+  have hRpos := geomSum_pos (x := 1 / 2) (by norm_num) (by norm_num) (p := R)
+    (fun t => (eval_risingP_pos hA0 (Nat.cast_nonneg t)).le)
     (eval_risingP_pos hA0 le_rfl)
-  have hGz : geomSum ((X - C (z : ℝ)) * R) = geomSum ((X - C ((Z'.card : ℝ) + 1)) * R) -
-      ((z : ℝ) - (Z'.card + 1)) * geomSum R := by
-    rw [← geomSum_C_mul, ← geomSum_sub, map_sub]
+  have hGz : geomSum (1 / 2) ((X - C (z : ℝ)) * R) =
+      geomSum (1 / 2) ((X - C ((Z'.card : ℝ) + 1)) * R) -
+        ((z : ℝ) - (Z'.card + 1)) * geomSum (1 / 2) R := by
+    rw [← geomSum_C_mul, ← geomSum_sub (by norm_num) (by norm_num), map_sub]
     congr 1
     ring
   have hkz : ((Z'.card : ℝ) + 1) ≤ z := by exact_mod_cast hk
   constructor
-  · have : geomSum ((X - C (z : ℝ)) * R) ≤ 0 := by rw [hGz]; nlinarith
+  · have : geomSum (1 / 2) ((X - C (z : ℝ)) * R) ≤ 0 := by rw [hGz]; nlinarith
     have := mul_nonneg_of_nonpos_of_nonpos (by linarith : -((1 / 2 : ℝ) ^ z /
       (z * ∏ x ∈ Z', (x : ℝ))) ≤ 0) this
     linarith
   · intro hc
     have hkz' : ((Z'.card : ℝ) + 1) < z := by exact_mod_cast (show Z'.card + 1 < z by omega)
-    have : geomSum ((X - C (z : ℝ)) * R) < 0 := by rw [hGz]; nlinarith
+    have : geomSum (1 / 2) ((X - C (z : ℝ)) * R) < 0 := by rw [hGz]; nlinarith
     have := mul_pos_of_neg_of_neg (by linarith : -((1 / 2 : ℝ) ^ z /
       (z * ∏ x ∈ Z', (x : ℝ))) < 0) this
     linarith
