@@ -134,6 +134,8 @@ import CoefficientMass.ValsMain
 import CoefficientMass.ValsMono
 import CoefficientMass.ValsSplit
 import CoefficientMass.ValsSum
+import CoefficientMass.VertexBasis
+import CoefficientMass.VertexOpt
 import CoefficientMass.ZeroBound
 
 /-!
