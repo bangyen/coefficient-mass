@@ -46,7 +46,7 @@ theorem exists_gap_below_max {Z : Finset ℕ} {n z : ℕ} (hcard : Z.card = n) (
   have hsub : Finset.Icc 1 z ⊆ Z := fun d hd => by
     obtain ⟨h1, h2⟩ := Finset.mem_Icc.1 hd
     rcases lt_or_eq_of_le h2 with h2 | rfl
-    · exact h 1 d h1 h2
+    · exact h d h1 h2
     · exact hz
   have := Finset.card_le_card hsub
   rw [Nat.card_Icc] at this
