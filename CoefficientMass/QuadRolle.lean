@@ -96,7 +96,8 @@ theorem card_rootsIn_le {z : ℕ} (hz : 1 ≤ z) {h : ℝ[X]} (h0 : h.eval 0 ≠
     rw [Multiset.mem_toFinset, rootsIn, Multiset.mem_filter]
   have hcount : ∀ (p : ℝ[X]) (x : ℝ), (0 < x ∧ x ≤ 1 / 2) →
       (rootsIn p).count x = p.rootMultiplicity x := fun p x hx => by
-    rw [rootsIn, Multiset.count_filter_of_pos hx, count_roots]
+    rw [rootsIn, Multiset.count_filter_of_pos (p := fun x => 0 < x ∧ x ≤ 1 / 2) hx,
+      count_roots]
   have hmult : ∀ x, h.rootMultiplicity x - 1 ≤ q.rootMultiplicity x := fun x => by
     rw [le_rootMultiplicity_iff hq]
     have h1 : (X - C x) ^ (h.rootMultiplicity x - 1) ∣ h :=
@@ -118,7 +119,7 @@ theorem card_rootsIn_le {z : ℕ} (hz : 1 ≤ z) {h : ℝ[X]} (h0 : h.eval 0 ≠
       (h.continuous.continuousOn.div (continuousOn_pow z) fun u hu =>
         pow_ne_zero z (by linarith [hu.1] : (0 : ℝ) < u).ne')
       (by simp only [hxh, hyh, zero_div])
-      fun u hu => (h.hasDerivAt u).div (hasDerivAt_pow z u)
+      fun u hu => HasDerivAt.div (h.hasDerivAt u) (hasDerivAt_pow z u)
         (pow_ne_zero z (by linarith [hu.1] : (0 : ℝ) < u).ne')
     have hcpos : 0 < c := by linarith [hc.1]
     have hcz : c ^ (z - 1) ≠ 0 := pow_ne_zero _ hcpos.ne'
@@ -150,7 +151,7 @@ theorem card_rootsIn_le {z : ℕ} (hz : 1 ≤ z) {h : ℝ[X]} (h0 : h.eval 0 ≠
     _ ≤ Multiset.card (rootsIn q) + 1 := Nat.add_le_add_right (sum_count_le_card _ _) 1
 
 theorem coeff_tOps (l : List ℕ) (h : ℝ[X]) (d : ℕ) :
-    (tOps l h).coeff d = h.coeff d * (l.map fun z => 1 - (d : ℝ) / z).prod := by
+    (tOps l h).coeff d = h.coeff d * (l.map fun z : ℕ => 1 - (d : ℝ) / z).prod := by
   induction l with
   | nil => rw [tOps, List.map_nil, List.prod_nil, mul_one]
   | cons z l ih =>
