@@ -103,8 +103,8 @@ theorem jensenRows : JensenRows := by
       have hnot : F.natDegree - (d + 1) ∉ S := fun h =>
         hdZ (Finset.mem_image.2 ⟨_, h, by omega⟩)
       have hlt' : |F.coeff (F.natDegree - (d + 1))| < Y := by
-        by_contra hge
-        push_neg at hge
+        by_contra hbig
+        push_neg at hbig
         exact hnot (Finset.mem_filter.2 ⟨hpos, by rwa [Real.norm_eq_abs]⟩)
       rw [hcoeff (d + 1) (by omega)]
       exact mul_le_mul hlt'.le hP (Finset.prod_nonneg fun _ _ => abs_nonneg _) hY0.le
