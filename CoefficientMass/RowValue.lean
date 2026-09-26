@@ -95,8 +95,8 @@ theorem one_le_mul_rowPhi {r : ℝ} (hr : 1 < r) {L : ℕ} {F q : ℝ[X]} (hF : 
     refine degree_le_natDegree.trans_lt ?_
     have h1 : (C (D : ℝ) - X).natDegree ≤ 1 :=
       (natDegree_sub_le _ _).trans (max_le ((natDegree_C _).trans_le zero_le_one) natDegree_X_le)
-    have := (natDegree_comp_le (p := q) (q := C (D : ℝ) - X)).trans
-      (Nat.mul_le_mul_left q.natDegree h1)
+    have hle : q'.natDegree ≤ q.natDegree * 1 :=
+      (natDegree_comp_le (p := q) (q := C (D : ℝ) - X)).trans (Nat.mul_le_mul_left _ h1)
     exact_mod_cast (show q'.natDegree < L by omega)
   obtain ⟨G, hG⟩ := hdvd
   have hFG : G * (X - C r) ^ L = F := by rw [hG, mul_comm]
@@ -173,7 +173,7 @@ theorem rowValueCert : RowValueCert := by
       linarith
     · have : B * rowPhi r q < 1 := by
         calc B * rowPhi r q < T * rowPhi r q := mul_lt_mul_of_pos_right hBT h0
-          _ = 1 := by rw [one_div, inv_mul_cancel₀ h0.ne']
+          _ = 1 := one_div_mul_cancel h0.ne'
       linarith
   refine ⟨main, fun Z hJZ hZc => main _ ?_ ?_ fun j hj => ?_⟩
   · refine degree_le_natDegree.trans_lt ?_
