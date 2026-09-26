@@ -122,6 +122,8 @@ theorem rowValueDual : RowValueDual := by
   rw [hb n 1 le_rfl hn]
   have hS : ∀ S : {S : Finset ℕ // 0 ∉ S ∧ S.card + 1 = 1}, S.1 = ∅ := fun S =>
     Finset.card_eq_zero.1 (by have := S.2.2; omega)
+  haveI : Nonempty {S : Finset ℕ // 0 ∉ S ∧ S.card + 1 = 1} :=
+    ⟨⟨∅, Finset.notMem_empty 0, rfl⟩⟩
   refine le_antisymm (ciInf_le ⟨0, ?_⟩
     (⟨∅, Finset.notMem_empty 0, rfl⟩ : {S : Finset ℕ // 0 ∉ S ∧ S.card + 1 = 1}))
     (le_ciInf fun S => by rw [hS S])
