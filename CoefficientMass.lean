@@ -23,6 +23,7 @@ import CoefficientMass.DisplacedGen
 import CoefficientMass.DisplacedTail
 import CoefficientMass.Examples
 import CoefficientMass.ExpSum
+import CoefficientMass.FarPrefix
 import CoefficientMass.FirstRow
 import CoefficientMass.GeomSum
 import CoefficientMass.HoleBeta
