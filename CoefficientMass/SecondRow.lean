@@ -76,7 +76,10 @@ theorem etaR_le {r : ℝ} (hr : 1 < r) {n : ℕ} {p : ℝ[X]} (hp : p.degree < n
   have hlin : (1 - C (1 / (σ : ℝ)) * X).natDegree ≤ 1 :=
     (natDegree_sub_le _ _).trans (max_le (by rw [natDegree_one]; omega)
       ((natDegree_C_mul_le _ _).trans natDegree_X_le))
-  refine ciInf_le ⟨0, ?_⟩ ⟨p * (1 - C (1 / (σ : ℝ)) * X), ?_, ?_, fun s hs => ?_⟩
+  unfold muR
+  refine ciInf_le ⟨0, ?_⟩ (⟨p * (1 - C (1 / (σ : ℝ)) * X), ?_, ?_, fun s hs => ?_⟩ :
+    {q : ℝ[X] // q.degree < ↑(n + 1) ∧ q.eval 0 = 1 ∧
+      ∀ s ∈ ({σ} : Finset ℕ), q.eval (s : ℝ) = 0})
   · rintro _ ⟨q, rfl⟩
     exact tsum_nonneg fun _ => by positivity
   · refine degree_le_natDegree.trans_lt ?_
@@ -132,7 +135,7 @@ theorem secondRow : SecondRow := by
     exact div_pos (by linarith) hσ0
   have hV : rowValue r (n + 1) 2 =
       (Finset.Ico 1 σs).fold min (1 / nuR r 1 n) (fun σ => 1 / muR r {σ} (n + 1)) := by
-    refine le_antisymm (Finset.le_fold_min.2 ⟨hVν, fun σ hσ => hVη σ (Finset.mem_Ico.1 hσ).1⟩) ?_
+    refine le_antisymm ((Finset.le_fold_min _).2 ⟨hVν, fun σ hσ => hVη σ (Finset.mem_Ico.1 hσ).1⟩) ?_
     rw [hVdual]
     haveI : Nonempty {S : Finset ℕ // 0 ∉ S ∧ S.card + 1 = 2} :=
       ⟨⟨{1}, by rw [Finset.mem_singleton]; omega, by rw [Finset.card_singleton]⟩⟩
@@ -144,8 +147,8 @@ theorem secondRow : SecondRow := by
       omega
     rw [hσS]
     rcases lt_or_ge σ σs with h | h
-    · exact Finset.fold_min_le.2 (Or.inr ⟨σ, Finset.mem_Ico.2 ⟨hσ1, h⟩, le_rfl⟩)
-    · exact Finset.fold_min_le.2 (Or.inl (one_div_le_one_div_of_le (hη σ hσ1) (hfar σ h)))
+    · exact (Finset.fold_min_le _).2 (Or.inr ⟨σ, Finset.mem_Ico.2 ⟨hσ1, h⟩, le_rfl⟩)
+    · exact (Finset.fold_min_le _).2 (Or.inl (one_div_le_one_div_of_le (hη σ hσ1) (hfar σ h)))
   refine ⟨σs, hσs1, hσsR, hbelow, hfar, hfar', hV, ?_⟩
   have hVν2 : rowValue r (n + 1) 2 ≤ 1 / nuR r 2 n := by
     rw [← muR_one_eq hr hn]
@@ -156,7 +159,7 @@ theorem secondRow : SecondRow := by
     push_neg at hno
     refine hne (le_antisymm (le_min hVν hVν2) ?_)
     rw [hV]
-    refine Finset.le_fold_min.2 ⟨min_le_left _ _, fun σ hσ => ?_⟩
+    refine (Finset.le_fold_min _).2 ⟨min_le_left _ _, fun σ hσ => ?_⟩
     obtain ⟨hσ1, hσlt⟩ := Finset.mem_Ico.1 hσ
     rcases Nat.lt_or_ge σ 2 with h2 | h2
     · rw [show σ = 1 by omega, muR_one_eq hr hn]
