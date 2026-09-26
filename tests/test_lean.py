@@ -76,6 +76,7 @@ REFERENCES = {
     ("coefficient-mass-rows", "6.8"): ("Proposition", "prop:longdiagexplicit"),
     ("coefficient-mass-rows", "6.9"): ("Corollary", "cor:longdiagfinite"),
     ("coefficient-mass-rows", "6.10"): ("Lemma", "lem:rowmono"),
+    ("coefficient-mass-rows", "6.12"): ("Theorem", "thm:secondrow"),
     ("coefficient-mass-rows", "6.15"): ("Lemma", "lem:rootmono"),
 }
 
@@ -143,6 +144,7 @@ HEADLINES = {
     "longDiagExplicit": ("LongDiagExplicit", "coefficient-mass-rows", "prop:longdiagexplicit"),
     "longDiagFinite": ("LongDiagFinite", "coefficient-mass-rows", "cor:longdiagfinite"),
     "rowMono": ("RowMono", "coefficient-mass-rows", "lem:rowmono"),
+    "secondRow": ("SecondRow", "coefficient-mass-rows", "thm:secondrow"),
     "rootMono": ("RootMono", "coefficient-mass-rows", "lem:rootmono"),
 }
 
