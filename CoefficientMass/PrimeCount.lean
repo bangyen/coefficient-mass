@@ -4,9 +4,9 @@ Released under MIT license as described in the file LICENSE.
 Authors: Bangyen Pham
 -/
 
+import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.NumberTheory.Bertrand
 import Mathlib.NumberTheory.PrimeCounting
-import Mathlib.Analysis.SpecialFunctions.Pow.Real
 
 /-!
 # Chebyshev's Upper Bound
@@ -106,7 +106,7 @@ theorem card_primesUpTo_le (n : ℕ) : ((primesUpTo n).card : ℝ) * Real.log n 
     have hle : ∑ p ∈ S.filter (fun p => ¬ p ≤ t), Real.log p ≤ n * Real.log 4 :=
       (Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _) fun p _ _ =>
         Real.log_natCast_nonneg p).trans (sum_log_primes_le n)
-    have hge : ∀ p ∈ S.filter (fun p => ¬ p ≤ t), Real.log n ≤ 2 * Real.log p := fun p hp => by
+    have hbig : ∀ p ∈ S.filter (fun p => ¬ p ≤ t), Real.log n ≤ 2 * Real.log p := fun p hp => by
       obtain ⟨hpS, hpt⟩ := Finset.mem_filter.1 hp
       have hp2 := (Finset.mem_filter.1 hpS).2.two_le
       have hsq : n < p * p := (Nat.lt_succ_sqrt n).trans_le
@@ -120,7 +120,7 @@ theorem card_primesUpTo_le (n : ℕ) : ((primesUpTo n).card : ℝ) * Real.log n 
         ring
       rw [← e]
       exact Real.log_le_log (by exact_mod_cast h0) (by rw [sq]; exact_mod_cast hsq.le)
-    have := Finset.sum_le_sum hge
+    have := Finset.sum_le_sum hbig
     rw [Finset.sum_const, nsmul_eq_mul, ← Finset.mul_sum] at this
     linarith
   have hsplit := Finset.filter_card_add_filter_neg_card_eq_card (s := S) (fun p => p ≤ t)
