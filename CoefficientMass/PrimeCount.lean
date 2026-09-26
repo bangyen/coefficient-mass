@@ -4,6 +4,7 @@ Released under MIT license as described in the file LICENSE.
 Authors: Bangyen Pham
 -/
 
+import Mathlib.Analysis.Complex.ExponentialBounds
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.NumberTheory.Bertrand
 import Mathlib.NumberTheory.PrimeCounting
@@ -40,14 +41,17 @@ theorem nth_prime_ge (i : ℕ) : i + 2 ≤ Nat.nth Nat.Prime i := by
   induction i with
   | zero => rw [Nat.nth_prime_zero_eq_two]
   | succ i ih =>
-    have := Nat.nth_strictMono Nat.infinite_setOf_prime (Nat.lt_succ_self i)
+    have : Nat.nth Nat.Prime i < Nat.nth Nat.Prime (i + 1) :=
+      Nat.nth_strictMono Nat.infinite_setOf_prime (Nat.lt_succ_self i)
     omega
 
 /-- There are `i + 1` primes up to the `(i + 1)`-th prime. -/
 theorem card_primesUpTo_nth (i : ℕ) : (primesUpTo (Nat.nth Nat.Prime i)).card = i + 1 := by
-  have h := Nat.count_nth_of_infinite Nat.infinite_setOf_prime (i + 1)
+  have hmono : StrictMono (Nat.nth Nat.Prime) := Nat.nth_strictMono Nat.infinite_setOf_prime
+  have h : Nat.count Nat.Prime (Nat.nth Nat.Prime (i + 1)) = i + 1 :=
+    Nat.count_nth_of_infinite Nat.infinite_setOf_prime (i + 1)
   rw [Nat.count_eq_card_filter_range] at h
-  have hlt := Nat.nth_strictMono Nat.infinite_setOf_prime (Nat.lt_succ_self i)
+  have hlt : Nat.nth Nat.Prime i < Nat.nth Nat.Prime (i + 1) := hmono (Nat.lt_succ_self i)
   have hsub : primesUpTo (Nat.nth Nat.Prime i) =
       (Finset.range (Nat.nth Nat.Prime (i + 1))).filter Nat.Prime := by
     ext p
@@ -59,15 +63,16 @@ theorem card_primesUpTo_nth (i : ℕ) : (primesUpTo (Nat.nth Nat.Prime i)).card 
       refine ⟨Nat.lt_succ_of_le (not_lt.1 fun h' => ?_), hpr⟩
       obtain ⟨j, hj⟩ : ∃ j, Nat.nth Nat.Prime j = p :=
         ⟨Nat.count Nat.Prime p, Nat.nth_count hpr⟩
-      have h1 := (Nat.nth_strictMono Nat.infinite_setOf_prime).lt_iff_lt.1 (hj ▸ h')
-      have h2 := (Nat.nth_strictMono Nat.infinite_setOf_prime).lt_iff_lt.1 (hj ▸ hp)
+      rw [← hj] at h' hp
+      have h1 := hmono.lt_iff_lt.1 h'
+      have h2 := hmono.lt_iff_lt.1 hp
       omega
   rw [hsub, h]
 
 /-- `∑_{p ≤ n} log p ≤ n log 4`. -/
 theorem sum_log_primes_le (n : ℕ) :
     ∑ p ∈ primesUpTo n, Real.log p ≤ n * Real.log 4 := by
-  have h := Nat.primorial_le_4_pow n
+  have h := primorial_le_4_pow n
   have hpos : (0 : ℝ) < primorial n := by exact_mod_cast primorial_pos n
   have hlog := Real.log_le_log hpos (show (primorial n : ℝ) ≤ 4 ^ n by exact_mod_cast h)
   rw [Real.log_pow, primorial, Nat.cast_prod, Real.log_prod fun p hp =>
@@ -123,7 +128,7 @@ theorem card_primesUpTo_le (n : ℕ) : ((primesUpTo n).card : ℝ) * Real.log n 
     have := Finset.sum_le_sum hbig
     rw [Finset.sum_const, nsmul_eq_mul, ← Finset.mul_sum] at this
     linarith
-  have hsplit := Finset.filter_card_add_filter_neg_card_eq_card (s := S) (fun p => p ≤ t)
+  have hsplit := Finset.card_filter_add_card_filter_not (s := S) (fun p => p ≤ t)
   have hsq := sqrt_mul_log_le n hn0
   have h4 : Real.log 4 < 1.39 := by
     rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
