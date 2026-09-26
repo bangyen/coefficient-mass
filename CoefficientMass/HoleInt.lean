@@ -12,7 +12,7 @@ import CoefficientMass.HoleProd
 This module proves Lemma 4.7 of `coefficient-mass.tex`.  For
 `Y = {1, …, N} \ C` and `ψ = r_Y`, `Φ(Y)` splits at `N`.  Below `N` only the
 holes `c ∈ C` contribute, with `|ψ(c)| = |π_c| ∫_0^1 v^{N - c} (1 - v)^{c - 1} dv`.
-Beyond `N`, `|ψ(s)| = C(s - 1, N) ∏_{c ∈ C} c / (s - c)`, and partial fractions
+Beyond `N`, `|ψ(s)| = C(s - 1, N) ∏_{c ∈ C} c / (s - c)`, and the Lagrange expansion
 turn the sum into `∑_{c ∈ C} π_c L(N, c)` with
 `L(N, c) = 2^{-c} ∫_0^1 v^{N - c} (1 + v)^{c - 1} dv`.
 

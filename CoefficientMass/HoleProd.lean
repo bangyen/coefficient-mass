@@ -12,7 +12,7 @@ import Mathlib.LinearAlgebra.Lagrange
 # The Products of the Hole Formula
 
 This module collects the finite identities behind Lemma 4.7 of
-`coefficient-mass.tex`: the partial fractions
+`coefficient-mass.tex`: the Lagrange expansion
 `∏_{c ∈ C} c / (x - c) = ∑_{c ∈ C} π_c / (x - c)` from Lagrange
 interpolation, the product `∏_{p ≤ N} (s - p) / p = C(s - 1, N)` for
 `s > N`, and the product `∏_{p ≤ N, p ≠ c} |p - c| / p = c (c - 1)! (N - c)! / N!`
@@ -43,7 +43,7 @@ noncomputable def holeWeight (C : Finset ℕ) (c : ℕ) : ℝ :=
 noncomputable def holeFactor (c p : ℕ) : ℝ :=
   if p = c then 1 else |(p : ℝ) - c| / p
 
-/-- Partial fractions: `∏_{c ∈ C} c / (x - c) = ∑_{c ∈ C} π_c / (x - c)`. -/
+/-- The Lagrange expansion `∏_{c ∈ C} c / (x - c) = ∑_{c ∈ C} π_c / (x - c)`. -/
 theorem prod_div_eq_sum {C : Finset ℕ} (hC : C.Nonempty) {x : ℝ} (hx : ∀ c ∈ C, x ≠ c) :
     ∏ c ∈ C, ((c : ℝ) / (x - c)) = ∑ c ∈ C, holeWeight C c / (x - c) := by
   have hinj : Set.InjOn (Nat.cast : ℕ → ℝ) C := fun a _ b _ h => Nat.cast_injective h
