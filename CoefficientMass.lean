@@ -44,6 +44,7 @@ import CoefficientMass.Interlace
 import CoefficientMass.Interp
 import CoefficientMass.LongDiag
 import CoefficientMass.LongDiagA
+import CoefficientMass.LongDiagB
 import CoefficientMass.LongDiagTau
 import CoefficientMass.LooseCert
 import CoefficientMass.LooseOrder
