@@ -150,6 +150,7 @@ theorem tsum_le_lt_of_displaced {n : ℕ} (y : Fin (n + 1) → ℝ) (hmono : Str
       rw [h', hss, htt, one_mul, one_mul] at this
       exact this.le
     have hGd : G d ≠ 0 := fun h => by
+      change 0 < t * G d at s2
       rw [h, mul_zero] at s2
       exact lt_irrefl 0 s2
     have hFz0 : F z ≠ 0 := fun h => by
