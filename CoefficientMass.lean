@@ -43,6 +43,7 @@ import CoefficientMass.TailJ
 import CoefficientMass.TailProd
 import CoefficientMass.TailSplit
 import CoefficientMass.TailSum
+import CoefficientMass.ValsBlock
 import CoefficientMass.ZeroBound
 
 /-!
