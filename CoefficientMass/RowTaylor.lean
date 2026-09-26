@@ -5,6 +5,7 @@ Authors: Bangyen Pham
 -/
 
 import CoefficientMass.RowDualLower
+import Mathlib.Algebra.Polynomial.Div
 import Mathlib.Algebra.Polynomial.HasseDeriv
 import Mathlib.Algebra.Polynomial.Taylor
 import Mathlib.RingTheory.Polynomial.Pochhammer

@@ -24,6 +24,8 @@ a sign vector violates the hypothesis.
 * `exists_bounded_solution`.
 -/
 
+open scoped Pointwise
+
 namespace CoefficientMass
 
 /-- A solution of `∑_j a_{ij} g_j = b_i` with `|g_j| ≤ t` for `j ∈ N`. -/
@@ -43,14 +45,16 @@ theorem exists_bounded_solution {D L : ℕ} (a : Fin L → Fin D → ℝ) (b : F
       zero_mem' := fun _ _ => rfl
       smul_mem' := fun c x hx j hj => by rw [Pi.smul_apply, hx j hj, smul_zero] }
   set K : Set (Fin L → ℝ) := Ψ '' box + (V.map Ψ : Set (Fin L → ℝ))
-  have hconv : Convex ℝ K :=
-    ((convex_pi fun j _ => by split_ifs; exacts [convex_Icc _ _, convex_singleton _]).linear_image
-      Ψ).add (Submodule.convex _)
+  have hbox : Convex ℝ box := convex_pi fun j _ => by
+    split_ifs
+    exacts [convex_Icc _ _, convex_singleton _]
+  have hboxc : IsCompact box := isCompact_univ_pi fun j => by
+    split_ifs
+    exacts [isCompact_Icc, isCompact_singleton]
+  have hconv : Convex ℝ K := (hbox.linear_image Ψ).add (Submodule.convex _)
   have hclosed : IsClosed K :=
     IsClosed.add_left_of_isCompact (Submodule.closed_of_finiteDimensional _)
-      ((isCompact_univ_pi fun j => by
-        split_ifs; exacts [isCompact_Icc, isCompact_singleton]).image
-        Ψ.continuous_of_finiteDimensional)
+      (hboxc.image Ψ.continuous_of_finiteDimensional)
   by_contra hne
   push_neg at hne
   have hb : b ∉ K := by
