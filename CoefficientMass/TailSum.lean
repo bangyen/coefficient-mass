@@ -54,7 +54,7 @@ theorem hasSum_tailTerm (ℓ q N : ℕ) {x : ℝ} (hx0 : 0 ≤ x) (hx1 : x ≤ 1
     norm_num
   convert h using 1
   · funext t
-    rw [tailTerm]
+    rw [tailTerm, div_pow (1 - x) 2 t]
     ring
   · rw [show (1 : ℝ) - (1 - x) / 2 = (1 + x) / 2 by ring, div_pow (1 + x) 2 (N + 1),
       one_div_div ((1 + x) ^ (N + 1)) (2 ^ (N + 1)),
