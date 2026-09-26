@@ -56,8 +56,11 @@ theorem hasSum_tailTerm (ℓ q N : ℕ) {x : ℝ} (hx0 : 0 ≤ x) (hx1 : x ≤ 1
   · funext t
     rw [tailTerm]
     ring
-  · rw [show (1 : ℝ) - (1 - x) / 2 = (1 + x) / 2 by ring]
-    linear_combination (x ^ ℓ * (1 - x) ^ q / (1 + x) ^ (N + 1)) * h3
+  · rw [show (1 : ℝ) - (1 - x) / 2 = (1 + x) / 2 by ring, div_pow (1 + x) 2 (N + 1),
+      one_div_div ((1 + x) ^ (N + 1)) (2 ^ (N + 1)),
+      show (1 / 2 : ℝ) ^ (N + 1) * x ^ ℓ * (1 - x) ^ q * (2 ^ (N + 1) / (1 + x) ^ (N + 1)) =
+        x ^ ℓ * (1 - x) ^ q * ((1 / 2) ^ (N + 1) * 2 ^ (N + 1)) / (1 + x) ^ (N + 1) by ring,
+      h3, mul_one]
 
 /-- `∑_t C(t + N, N) 2^{-(t + N + 1)} B(ℓ + 1, t + q + 1) = ∫_0^1 x^ℓ (1 - x)^q / (1 + x)^{N+1}`. -/
 theorem hasSum_tail_betaI (ℓ q N : ℕ) :
@@ -94,7 +97,7 @@ theorem hasSum_tail_betaI (ℓ q N : ℕ) :
     hmeas hbound hsumm hint hlim
   convert key using 1
   funext t
-  rw [betaI, ← integral_const_mul]
+  rw [betaI, ← intervalIntegral.integral_const_mul]
   rfl
 
 end CoefficientMass
