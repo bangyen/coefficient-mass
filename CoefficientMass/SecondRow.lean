@@ -135,7 +135,8 @@ theorem secondRow : SecondRow := by
     exact div_pos (by linarith) hσ0
   have hV : rowValue r (n + 1) 2 =
       (Finset.Ico 1 σs).fold min (1 / nuR r 1 n) (fun σ => 1 / muR r {σ} (n + 1)) := by
-    refine le_antisymm ((Finset.le_fold_min _).2 ⟨hVν, fun σ hσ => hVη σ (Finset.mem_Ico.1 hσ).1⟩) ?_
+    refine le_antisymm
+      ((Finset.le_fold_min _).2 ⟨hVν, fun σ hσ => hVη σ (Finset.mem_Ico.1 hσ).1⟩) ?_
     rw [hVdual]
     haveI : Nonempty {S : Finset ℕ // 0 ∉ S ∧ S.card + 1 = 2} :=
       ⟨⟨{1}, by rw [Finset.mem_singleton]; omega, by rw [Finset.card_singleton]⟩⟩

@@ -79,6 +79,7 @@ REFERENCES = {
     ("coefficient-mass-rows", "6.11"): ("Lemma", "lem:vertexopt"),
     ("coefficient-mass-rows", "6.12"): ("Theorem", "thm:secondrow"),
     ("coefficient-mass-rows", "6.15"): ("Lemma", "lem:rootmono"),
+    ("coefficient-mass-rows", "6.18"): ("Lemma", "lem:farzeros"),
 }
 
 #: Each headline theorem, ``theorem name : Statement``, as ``name ->
@@ -147,6 +148,7 @@ HEADLINES = {
     "rowMono": ("RowMono", "coefficient-mass-rows", "lem:rowmono"),
     "secondRow": ("SecondRow", "coefficient-mass-rows", "thm:secondrow"),
     "rootMono": ("RootMono", "coefficient-mass-rows", "lem:rootmono"),
+    "farZeros": ("FarZeros", "coefficient-mass-rows", "lem:farzeros"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)

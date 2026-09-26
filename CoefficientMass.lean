@@ -25,6 +25,8 @@ import CoefficientMass.DisplacedTail
 import CoefficientMass.Examples
 import CoefficientMass.ExpSum
 import CoefficientMass.FarPrefix
+import CoefficientMass.FarZeros
+import CoefficientMass.FarZerosPhi
 import CoefficientMass.FirstRow
 import CoefficientMass.GeomSum
 import CoefficientMass.HoleBeta
