@@ -61,7 +61,10 @@ Beyond the chain, `tailEquality` proves the equality case of Theorem 2.2,
 `unboundedLooseness`, `halfSum` and `looseRatio` (Proposition 4.1), `jensenRows` and
 `quadraticMass` (Proposition 4.2, through Jensen's formula for polynomials and the
 operators `T_z`), and `allRoots` (Corollary 4.3, with the constants `1/81` and `3`);
-`workedExamples` checks the examples after Theorem 2.2.
+`workedExamples` checks the examples after Theorem 2.2.  The last corollaries of Section 3
+are proved as well: `nearOptimal` (Corollary 3.7), and `primeRoots` and `primeInfimum`
+(Corollaries 3.5 and 3.6, with explicit `O(L^2)` error terms from Chebyshev's bounds on the
+`n`-th prime, proved in `PrimeCount` and `PrimeLower`).
 
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,
