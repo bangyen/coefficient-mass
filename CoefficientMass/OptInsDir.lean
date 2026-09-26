@@ -89,7 +89,7 @@ theorem degree_ins_dir_lt {W : Finset ℕ} {c : ℕ} (h0 : 0 ∉ W) (hc : c ∉ 
       ring
     · obtain ⟨m', rfl⟩ : ∃ m', m = m' + 1 := ⟨m - 1, by omega⟩
       rw [coeff_X_mul, coeff_eq_zero_of_natDegree_lt (hQ.trans_lt hm'),
-        coeff_eq_zero_of_natDegree_lt (hP.trans_lt (by omega)), mul_zero, add_zero]
+        coeff_eq_zero_of_natDegree_lt (show (confPolyP W).natDegree < m' by omega), mul_zero, add_zero]
   have hP' : (confPolyP W).degree < (W.card + 1 : ℕ) :=
     (degree_le_of_natDegree_le hP).trans_lt (WithBot.coe_lt_coe.2 (Nat.lt_succ_self _))
   rw [sub_sub]
