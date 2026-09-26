@@ -187,10 +187,9 @@ theorem tendsto_sharpT : Tendsto sharpT atTop (𝓝 2) := by
 /-- The row `k = 2` of Theorem 3.2 at `(2, 3)`. -/
 theorem rowTwo_ge_two (F : ℝ[X]) (hF : F.Monic) (hdvd : (X - C 2) * (X - C 3) ∣ F) :
     2 ≤ largeCount F 2 := by
-  have h := orderStatistics 2 ![2, 3] F (by
-      intro i j hij
-      fin_cases i <;> fin_cases j <;>
-        first | exact absurd (Fin.le_def.1 hij) (by norm_num) | norm_num)
+  have h := orderStatistics 2 ![2, 3] F (Fin.monotone_iff_le_succ.2 fun i => by
+      fin_cases i
+      norm_num)
     (by intro i; fin_cases i <;> norm_num) hF.ne_zero
     (by
       simpa only [rootProduct, Algebra.algebraMap_self, RingHom.id_apply, Fin.prod_univ_two,
