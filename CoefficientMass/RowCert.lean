@@ -15,12 +15,22 @@ degree below `L` (`sum_coeff_mul_eval_eq_zero`), the operator form
 `ψ(D - θ) F (2) = 0` of the paper; with `q(j) = r_Z(D - j)` this is the
 dual identity, and the large positions it leaves out bound `b_k`.
 
+## Definitions
+
+* `confPolyP`.
+
 ## Theorems
 
 * `degree_forwardDiff_lt`.
+* `sum_mul_X_sub_two`.
 * `sum_coeff_mul_eval_eq_zero`.
 * `confPoly_eq_eval`.
+* `natDegree_confPolyP`.
+* `confPolyP_eval_mem`.
+* `abs_eval_le`.
 * `summable_confTail`.
+* `sum_le_confTail`.
+* `sum_reflect`.
 * `rowCertificate`.
 * `everyRow_of_star`.
 -/
@@ -33,7 +43,8 @@ namespace CoefficientMass
 theorem degree_forwardDiff_lt {q : ℝ[X]} (hq : q ≠ 0) (hdeg : 0 < q.natDegree) :
     (q.comp (X + 1) - q).degree < q.degree := by
   have h1 : (X + 1 : ℝ[X]).natDegree = 1 := by
-    rw [natDegree_add_eq_left_of_natDegree_lt (by simp), natDegree_X]
+    rw [natDegree_add_eq_left_of_natDegree_lt (by rw [natDegree_one, natDegree_X]; exact one_pos),
+      natDegree_X]
   have hlc : (X + 1 : ℝ[X]).leadingCoeff = 1 := by
     rw [leadingCoeff, h1, coeff_add, coeff_X_one, coeff_one]
     norm_num
@@ -166,7 +177,7 @@ theorem summable_confTail (Z : Finset ℕ) :
         rw [Finset.sum_mul]
         exact Finset.sum_congr rfl fun i _ => by ring
 
-/-- The partial sums of `Φ(Z)`. -/
+/-- The finite sums below `Φ(Z)`. -/
 theorem sum_le_confTail (Z : Finset ℕ) (D : ℕ) :
     ∑ d ∈ Finset.range D, |confPoly Z (d + 1)| * (1 / 2 : ℝ) ^ (d + 1) ≤ confTail Z :=
   sum_le_tsum _ (fun _ _ => by positivity) (summable_confTail Z)
