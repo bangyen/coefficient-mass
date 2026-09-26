@@ -7,6 +7,7 @@ Authors: Bangyen Pham
 import CoefficientMass.AllRoots
 import CoefficientMass.AllRowsTwo
 import CoefficientMass.AllUpper
+import CoefficientMass.BelowTwo
 import CoefficientMass.Certificate
 import CoefficientMass.Chain
 import CoefficientMass.ConfDel
