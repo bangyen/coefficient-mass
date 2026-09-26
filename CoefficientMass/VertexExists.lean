@@ -4,9 +4,9 @@ Released under MIT license as described in the file LICENSE.
 Authors: Bangyen Pham
 -/
 
-import CoefficientMass.VertexStep
 import CoefficientMass.MuRMin
 import CoefficientMass.RowLast
+import CoefficientMass.VertexStep
 
 /-!
 # Certifying a Vertex

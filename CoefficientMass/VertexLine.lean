@@ -4,8 +4,8 @@ Released under MIT license as described in the file LICENSE.
 Authors: Bangyen Pham
 -/
 
-import CoefficientMass.VertexNec
 import CoefficientMass.SecondRowId
+import CoefficientMass.VertexNec
 
 /-!
 # `Φ_r` Along a Sign-Preserving Segment
