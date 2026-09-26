@@ -42,7 +42,7 @@ noncomputable def rhoR (r α : ℝ) : ℝ :=
 theorem one_add_div_rpow_le {b x y : ℝ} (hb : 0 ≤ b) (hx : 0 < x) (hxy : x ≤ y) :
     (1 + b / x) ^ x ≤ (1 + b / y) ^ y := by
   have hy : 0 < y := hx.trans_le hxy
-  have h := Real.one_add_mul_self_le_rpow_one_add (s := b / y)
+  have h := one_add_mul_self_le_rpow_one_add (s := b / y)
     (by have : 0 ≤ b / y := by positivity
         linarith) (p := y / x) (by rw [le_div_iff₀ hx]; linarith)
   rw [div_mul_div_comm, mul_comm y b, mul_div_mul_right _ _ hy.ne'] at h
@@ -61,10 +61,10 @@ theorem pow_choose_le {c K y : ℝ} (hc : 1 ≤ c) {M m : ℕ} (hm : 1 ≤ m) (h
     have := Nat.choose_le_pow_div (α := ℝ) m (M + m)
     push_cast at this
     exact this
-  have h2 : (m : ℝ) ^ m / m.factorial ≤ Real.exp m := Real.pow_div_factorial_le_exp hm0.le m
+  have h2 : (m : ℝ) ^ m / m.factorial ≤ Real.exp m := Real.pow_div_factorial_le_exp _ hm0.le m
   have h3 : ((M : ℝ) + m) ^ m / m.factorial =
       (1 + (M : ℝ) / m) ^ m * ((m : ℝ) ^ m / m.factorial) := by
-    rw [← mul_div_assoc, ← mul_pow, add_mul, one_mul, div_mul_cancel₀ _ hm0.ne']
+    rw [← mul_div_assoc, ← mul_pow, add_mul, one_mul, div_mul_cancel₀ _ hm0.ne', add_comm (m : ℝ)]
   have h4 : (1 + (M : ℝ) / m) ^ m ≤ (1 + K / m) ^ m :=
     pow_le_pow_left₀ (by positivity)
       (by have := div_le_div_of_nonneg_right hMK hm0.le; linarith) m
