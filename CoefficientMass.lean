@@ -4,6 +4,7 @@ Released under MIT license as described in the file LICENSE.
 Authors: Bangyen Pham
 -/
 
+import CoefficientMass.AllRoots
 import CoefficientMass.AllUpper
 import CoefficientMass.Certificate
 import CoefficientMass.Chain
