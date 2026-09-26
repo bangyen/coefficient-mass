@@ -55,6 +55,7 @@ REFERENCES = {
     ("coefficient-mass-rows", "2.2"): ("Theorem", "thm:tailgen"),
     ("coefficient-mass-rows", "2.3"): ("Lemma", "lem:confdelr"),
     ("coefficient-mass-rows", "2.4"): ("Corollary", "cor:lastrowr"),
+    ("coefficient-mass-rows", "3.1"): ("Lemma", "lem:intzeros"),
     ("coefficient-mass-rows", "3.2"): ("Lemma", "lem:rowpointwise"),
 }
 
@@ -101,6 +102,7 @@ HEADLINES = {
     "confDeleteR": ("ConfDeleteR", "coefficient-mass-rows", "lem:confdelr"),
     "lastRow": ("LastRow", "coefficient-mass-rows", "cor:lastrowr"),
     "rowPointwise": ("RowPointwise", "coefficient-mass-rows", "lem:rowpointwise"),
+    "intZerosInf": ("IntZerosInf", "coefficient-mass-rows", "lem:intzeros"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
