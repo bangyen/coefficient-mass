@@ -94,6 +94,7 @@ HEADLINES = {
     "workedExamples": ("WorkedExamples", "coefficient-mass", "thm:tail"),
     "tailBoundGen": ("TailBoundGen", "coefficient-mass-rows", "thm:tailgen"),
     "rowValueCert": ("RowValueCert", "coefficient-mass-rows", "prop:rowvalue"),
+    "rowValueDual": ("RowValueDual", "coefficient-mass-rows", "prop:rowvalue"),
     "confDeleteR": ("ConfDeleteR", "coefficient-mass-rows", "lem:confdelr"),
 }
 

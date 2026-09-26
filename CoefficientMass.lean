@@ -62,6 +62,7 @@ import CoefficientMass.RowStop
 import CoefficientMass.RowTaylor
 import CoefficientMass.RowTrunc
 import CoefficientMass.RowValue
+import CoefficientMass.RowValueDual
 import CoefficientMass.Sharp
 import CoefficientMass.Signs
 import CoefficientMass.Tail
