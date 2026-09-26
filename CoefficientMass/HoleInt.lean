@@ -77,7 +77,7 @@ theorem abs_confPoly_hole {N : ℕ} {C : Finset ℕ} (h0 : 0 ∉ C) (hle : ∀ c
     simp only [Nat.abs_cast]
     rw [← Finset.mul_prod_erase C _ hc]
     exact congrArg _ (Finset.prod_congr rfl fun p _ => abs_sub_comm _ _)
-  rw [hY, eq_div_of_mul_eq (div_ne_zero hPe.ne' hQe.ne') H, hw, betaI_eq,
+  rw [hY, eq_div_of_mul_eq (div_ne_zero hPe.ne' hQe.ne') H, div_div_eq_mul_div, hw, betaI_eq,
     show j + 1 + k - (j + 1) = k by omega, Nat.add_sub_cancel, show k + j + 1 = j + 1 + k by ring]
   push_cast
   ring
