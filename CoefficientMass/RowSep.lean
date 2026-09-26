@@ -93,17 +93,19 @@ theorem exists_bounded_solution {D L : ℕ} (a : Fin L → Fin D → ℝ) (b : F
     by_contra hA
     set lam := (u - 1) / A j
     set e : Fin D → ℝ := Pi.single j 1
+    have he_ne : ∀ k, k ≠ j → e k = 0 := fun k hk => Pi.single_eq_of_ne hk 1
+    have he_j : e j = 1 := Pi.single_eq_same j 1
     have hmem : Ψ (lam • e) ∈ K := by
       have hV : ∀ k ∈ N, (lam • e) k = 0 := fun k hk => by
-        rw [Pi.smul_apply, Pi.single_apply, if_neg (fun h => hj (h ▸ hk)), smul_zero]
+        rw [Pi.smul_apply, he_ne k (fun h => hj (h ▸ hk)), smul_zero]
       refine ⟨Ψ 0, ⟨0, h0box, rfl⟩, Ψ (lam • e), ⟨_, hV, rfl⟩, ?_⟩
       rw [map_zero, zero_add]
     have := hK _ hmem
     rw [hfΨ, Finset.sum_eq_single j (fun k _ hk => by
-      rw [Pi.smul_apply, Pi.single_apply, if_neg hk, smul_zero, zero_mul])
+      rw [Pi.smul_apply, he_ne k hk, smul_zero, zero_mul])
       (fun h => absurd (Finset.mem_univ j) h)] at this
     have hlam : lam * A j = u - 1 := div_mul_cancel₀ _ hA
-    rw [Pi.smul_apply, Pi.single_eq_same, smul_eq_mul, mul_one, hlam] at this
+    rw [Pi.smul_apply, he_j, smul_eq_mul, mul_one, hlam] at this
     linarith
   -- a sign vector
   set g₀ : Fin D → ℝ := fun j => if j ∈ N then (if 0 ≤ A j then -t else t) else 0
