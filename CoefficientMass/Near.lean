@@ -74,7 +74,7 @@ theorem sum_succ_eq : ∀ n : ℕ, ∑ i : Fin n, ((i : ℕ) + 1 : ℝ) = n * (n
   | zero => rw [Finset.univ_eq_empty, Finset.sum_empty]; push_cast; ring
   | succ n ih =>
     rw [Fin.sum_univ_castSucc]
-    simp only [Fin.coe_castSucc, Fin.val_last]
+    simp only [Fin.val_castSucc, Fin.val_last]
     rw [ih]
     push_cast
     ring
