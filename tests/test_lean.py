@@ -53,6 +53,7 @@ REFERENCES = {
     ("coefficient-mass", "4.13"): ("Theorem", "thm:everyrow"),
     ("coefficient-mass-rows", "2.1"): ("Proposition", "prop:rowvalue"),
     ("coefficient-mass-rows", "2.2"): ("Theorem", "thm:tailgen"),
+    ("coefficient-mass-rows", "2.3"): ("Lemma", "lem:confdelr"),
 }
 
 #: Each headline theorem, ``theorem name : Statement``, as ``name ->
@@ -93,6 +94,7 @@ HEADLINES = {
     "workedExamples": ("WorkedExamples", "coefficient-mass", "thm:tail"),
     "tailBoundGen": ("TailBoundGen", "coefficient-mass-rows", "thm:tailgen"),
     "rowValueCert": ("RowValueCert", "coefficient-mass-rows", "prop:rowvalue"),
+    "confDeleteR": ("ConfDeleteR", "coefficient-mass-rows", "lem:confdelr"),
 }
 
 _COMMENT = re.compile(r"/-.*?-/", re.DOTALL)
