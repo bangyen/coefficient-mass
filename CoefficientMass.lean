@@ -5,6 +5,7 @@ Authors: Bangyen Pham
 -/
 
 import CoefficientMass.AllRoots
+import CoefficientMass.AllRowsTwo
 import CoefficientMass.AllUpper
 import CoefficientMass.Certificate
 import CoefficientMass.Chain
@@ -12,6 +13,7 @@ import CoefficientMass.ConfDel
 import CoefficientMass.ConfDelR
 import CoefficientMass.ConfPrefix
 import CoefficientMass.Consecutive
+import CoefficientMass.CrossD
 import CoefficientMass.CrossRows
 import CoefficientMass.Crossing
 import CoefficientMass.Defs
