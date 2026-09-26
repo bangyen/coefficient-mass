@@ -143,8 +143,8 @@ theorem rowPhi_le_filter {r : ℝ} (hr : 2 ≤ r) (t : ℕ) :
     have h0' : 0 ∉ Z.erase (Z.max' hne) := fun h => h0 (Finset.mem_of_mem_erase h)
     have h2 := ih _ (by rw [Finset.card_erase_of_mem (Z.max'_mem hne), hZ, Nat.add_sub_cancel])
       h0'
-    rw [Finset.filter_erase, Finset.erase_eq_of_notMem fun h => hmax (Finset.mem_filter.1 h).2]
-      at h2
+    have hnot : Z.max' hne ∉ Z.filter (· ≤ t) := fun h => hmax (Finset.mem_filter.1 h).2
+    rw [Finset.filter_erase, Finset.erase_eq_of_notMem hnot] at h2
     exact h1.trans h2
 
 /-- For `1 < r ≤ 2`, `Φ_r(Z) ≤ a^{|Z| + 1}`. -/
