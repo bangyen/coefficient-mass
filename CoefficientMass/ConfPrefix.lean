@@ -138,7 +138,7 @@ theorem rowPhi_le_filter {r : ℝ} (hr : 2 ≤ r) (t : ℕ) :
     have hne : Z.Nonempty := Finset.card_pos.1 (by omega)
     by_cases hmax : Z.max' hne ≤ t
     · rw [Finset.filter_true_of_mem fun w hw => (Z.le_max' w hw).trans hmax]
-    have h1 := rowPhi_erase_max (by linarith) hne h0
+    have h1 := rowPhi_erase_max (r := r) (by linarith) hne h0
     rw [hm, one_mul] at h1
     have h0' : 0 ∉ Z.erase (Z.max' hne) := fun h => h0 (Finset.mem_of_mem_erase h)
     have h2 := ih _ (by rw [Finset.card_erase_of_mem (Z.max'_mem hne), hZ, Nat.add_sub_cancel])
