@@ -4,6 +4,7 @@ Released under MIT license as described in the file LICENSE.
 Authors: Bangyen Pham
 -/
 
+import CoefficientMass.AllUpper
 import CoefficientMass.Certificate
 import CoefficientMass.Chain
 import CoefficientMass.ConfDel
@@ -27,6 +28,7 @@ import CoefficientMass.Interlace
 import CoefficientMass.Interp
 import CoefficientMass.LooseCert
 import CoefficientMass.LooseOrder
+import CoefficientMass.LooseRatio
 import CoefficientMass.LooseRow
 import CoefficientMass.Mass
 import CoefficientMass.Order
