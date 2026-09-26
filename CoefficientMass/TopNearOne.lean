@@ -4,6 +4,7 @@ Released under MIT license as described in the file LICENSE.
 Authors: Bangyen Pham
 -/
 
+import CoefficientMass.AllRowsTwo
 import CoefficientMass.OnePolyRows
 
 /-!
@@ -72,7 +73,7 @@ theorem abs_basis_zero_le {n m : ℕ} (hm : 1 ≤ m) {x : ℕ → ℕ}
   refine Finset.prod_le_prod (fun _ _ => abs_nonneg _) fun i hi => ?_
   obtain ⟨hij, hi⟩ := Finset.mem_erase.1 hi
   rw [Lagrange.basisDivisor, eval_mul, eval_C, eval_sub, eval_X, eval_C, zero_sub, abs_mul,
-    abs_inv, abs_neg, abs_of_nonneg (Nat.cast_nonneg _), inv_mul_eq_div]
+    abs_inv, abs_neg, abs_of_nonneg (Nat.cast_nonneg (α := ℝ) (x i)), inv_mul_eq_div]
   have hxi := hx i hi
   have hxj := hx j hj
   have hsep : (m : ℝ) ≤ |(x j : ℝ) - x i| := by
@@ -120,7 +121,7 @@ theorem m_le_rowPhi {r : ℝ} (hr : 1 < r) (hr2 : r ≤ 2) {n : ℕ} {q : ℝ[X]
   classical
   set m := ⌈1 / (r - 1)⌉₊
   have hm : 1 ≤ m := Nat.one_le_iff_ne_zero.2 fun h => by
-    have := Nat.le_ceil (1 / (r - 1))
+    have : 1 / (r - 1) ≤ (m : ℝ) := Nat.le_ceil _
     rw [h, Nat.cast_zero] at this
     have : 0 < 1 / (r - 1) := one_div_pos.2 (by linarith)
     linarith
@@ -131,7 +132,8 @@ theorem m_le_rowPhi {r : ℝ} (hr : 1 < r) (hr2 : r ≤ 2) {n : ℕ} {q : ℝ[X]
   -- Lagrange interpolation at the chosen points
   have hinj : Set.InjOn (fun i => (x i : ℝ)) (Finset.Icc 1 n : Set ℕ) := fun i _ j _ h => by
     by_contra hij
-    have h' : x i = x j := by exact_mod_cast h
+    have h'' : (x i : ℝ) = x j := h
+    have h' : x i = x j := by exact_mod_cast h''
     rcases lt_or_gt_of_ne hij with hlt | hlt
     · have := block_sep hlt (hx i) (hx j)
       omega
@@ -215,7 +217,7 @@ theorem topNearOne : TopNearOne := by
     have := hceil.trans hm
     rw [div_le_iff₀ hr1] at this
     nlinarith
-    have hβ : rowValue r n 1 ≤ Real.exp (4 * n + 2) * cN n * (r - 1) := by
+  have hβ : rowValue r n 1 ≤ Real.exp (4 * n + 2) * cN n * (r - 1) := by
     rw [(rowValueDual r hr).2 n hn]
     have := one_div_le_one_div_of_le (one_div_pos.2 (mul_pos (mul_pos hE hC) hr1)) hμ
     rwa [one_div_one_div] at this
