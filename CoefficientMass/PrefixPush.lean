@@ -69,7 +69,8 @@ theorem prefixPush_aux {r : ℝ} (hr : 1 < r) (p : ℝ[X]) (n : ℕ) :
     | _ m ihm =>
       intro S hSn hSm h0
       by_cases hS : S = Finset.Icc 1 S.card
-      · refine ⟨S.card + 1, by omega, by omega, le_of_eq (rowPhi_prefix_mul r (i := S.card + 1) fun y => ?_)⟩
+      · refine ⟨S.card + 1, by omega, by omega,
+          le_of_eq (rowPhi_prefix_mul r (i := S.card + 1) fun y => ?_)⟩
         rw [eval_mul, Nat.add_sub_cancel, ← hS]
       obtain ⟨hg0, hgS, -⟩ := firstGap_spec 0 S
       set g := firstGap 0 S
