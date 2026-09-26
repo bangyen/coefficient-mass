@@ -52,8 +52,8 @@ theorem betaI_zero (a : ℕ) : betaI a 0 = 1 / (a + 1) := by
 
 theorem betaI_succ (a b : ℕ) : betaI a (b + 1) = betaI a b - betaI (a + 1) b := by
   rw [betaI, betaI, betaI, ← integral_sub (by fun_prop : Continuous fun v : ℝ =>
-    v ^ a * (1 - v) ^ b).intervalIntegrable (by fun_prop : Continuous fun v : ℝ =>
-    v ^ (a + 1) * (1 - v) ^ b).intervalIntegrable]
+    v ^ a * (1 - v) ^ b).intervalIntegrable 0 1 (by fun_prop : Continuous fun v : ℝ =>
+    v ^ (a + 1) * (1 - v) ^ b).intervalIntegrable 0 1]
   exact integral_congr fun v _ => by ring
 
 /-- The Beta integral `∫_0^1 v^a (1 - v)^b dv = a! b! / (a + b + 1)!`. -/
@@ -81,8 +81,8 @@ theorem plusI_zero (a : ℕ) : plusI a 0 = 1 / (a + 1) := by
 
 theorem plusI_succ (a b : ℕ) : plusI a (b + 1) = plusI a b + plusI (a + 1) b := by
   rw [plusI, plusI, plusI, ← integral_add (by fun_prop : Continuous fun v : ℝ =>
-    v ^ a * (1 + v) ^ b).intervalIntegrable (by fun_prop : Continuous fun v : ℝ =>
-    v ^ (a + 1) * (1 + v) ^ b).intervalIntegrable]
+    v ^ a * (1 + v) ^ b).intervalIntegrable 0 1 (by fun_prop : Continuous fun v : ℝ =>
+    v ^ (a + 1) * (1 + v) ^ b).intervalIntegrable 0 1]
   exact integral_congr fun v _ => by ring
 
 /-- `(a + b + 2) J(a + 1, b) + (a + 1) J(a, b) = 2^{b + 1}`. -/
