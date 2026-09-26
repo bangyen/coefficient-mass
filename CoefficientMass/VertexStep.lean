@@ -153,14 +153,19 @@ theorem vGood_step {r : ℝ} (hr : 1 < r) {S : Finset ℕ} {L : ℕ} {Z : Finset
   -- a small `ε > 0` keeping the signs of `u`
   have hev : ∀ᶠ ε in 𝓝[>] (0 : ℝ), 0 < ε ∧ ε * c < 1 ∧ ∀ k ∈ Finset.range (⌈N⌉₊ + 1),
       k + 1 ∈ Z ∨ ε * |d.eval ((k + 1 : ℕ) : ℝ)| < |u.eval ((k + 1 : ℕ) : ℝ)| := by
-    refine eventually_mem_nhdsWithin.and ((Filter.mem_of_superset
-      (Ioo_mem_nhdsGT (by positivity : (0 : ℝ) < 1 / c)) fun ε hε =>
-        (lt_div_iff₀ hc).1 hε.2).and ((Filter.eventually_all_finset _).2 fun k _ => ?_))
+    have hc1 : ∀ᶠ ε in 𝓝[>] (0 : ℝ), ε * c < 1 :=
+      Filter.mem_of_superset (Ioo_mem_nhdsGT (by positivity : (0 : ℝ) < 1 / c))
+        fun ε hε => (lt_div_iff₀ hc).1 hε.2
+    refine eventually_mem_nhdsWithin.and (hc1.and ((Filter.eventually_all_finset _).2
+      fun k _ => ?_))
     by_cases hk : k + 1 ∈ Z
     · exact Eventually.of_forall fun _ => Or.inl hk
     have hpos : 0 < |u.eval ((k + 1 : ℕ) : ℝ)| / (|d.eval ((k + 1 : ℕ) : ℝ)| + 1) :=
       div_pos (abs_pos.2 (hA k hk)) (by positivity)
-    refine Filter.mem_of_superset (Ioo_mem_nhdsGT hpos) fun ε hε => Or.inr ?_
+    have hIoo : ∀ᶠ ε in 𝓝[>] (0 : ℝ),
+        ε ∈ Set.Ioo 0 (|u.eval ((k + 1 : ℕ) : ℝ)| / (|d.eval ((k + 1 : ℕ) : ℝ)| + 1)) :=
+      Ioo_mem_nhdsGT hpos
+    refine hIoo.mono fun ε hε => Or.inr ?_
     have h2 := (lt_div_iff₀ (by positivity : (0 : ℝ) < |d.eval ((k + 1 : ℕ) : ℝ)| + 1)).1 hε.2
     nlinarith [hε.1, abs_nonneg (d.eval ((k + 1 : ℕ) : ℝ))]
   obtain ⟨ε, hε0, hεc, hεF⟩ := hev.exists
