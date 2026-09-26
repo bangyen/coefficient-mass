@@ -68,8 +68,10 @@ theorem prefix_mem_tree {m : ℕ} (𝒯 : Set (Finset ℕ)) (hT0 : ∅ ∈ 𝒯)
     refine hstep _ hPy ?_ y ?_ (hbefore y hy.1 hy.2)
     · have h1 : (S.filter (· < x)).card + 1 ≤ m := by
         rw [← hc]
-        exact Finset.card_lt_card (Finset.ssubset_iff_subset_ne.2 ⟨Finset.filter_subset _ _,
-          fun h => (lt_irrefl x) (Finset.mem_filter.1 (h ▸ hx)).2⟩)
+        refine Finset.card_lt_card (Finset.ssubset_iff_subset_ne.2 ⟨Finset.filter_subset _ _,
+          fun h => ?_⟩)
+        rw [← h] at hx
+        exact lt_irrefl x (Finset.mem_filter.1 hx).2
       have h2 := Finset.card_insert_of_notMem (s := S.filter (· < y)) (a := y)
         (fun h => lt_irrefl y (Finset.mem_filter.1 h).2)
       rw [← hPx] at h2
@@ -81,14 +83,14 @@ theorem prefix_mem_tree {m : ℕ} (𝒯 : Set (Finset ℕ)) (hT0 : ∅ ∈ 𝒯)
         rw [hws]
         exact (Finset.mem_filter.1 hw).2
 
-/-- Theorem 6.19(b) of `coefficient-mass-rows.tex`: let `B > 0` and let `𝒯 ∋ ∅` be a family of
+/-- Theorem 6.19(b) of `coefficient-mass-rows.tex`: let `B` be real and let `𝒯 ∋ ∅` be a family of
 finite sets of size `< m`, with `q_N` admissible for `μ_r(N, n + |N|)`, `Φ_r(q_N) ≤ B`, and
 integers `T_N ≥ 1` with `Δ_{q_N, m-|N|}(T_N) ≤ 0`.  If `N ∪ {σ} ∈ 𝒯` whenever `N ∈ 𝒯`,
 `|N| ≤ m - 2` and `max N < σ < T_N`, and `μ_r(N ∪ {σ}, n + m) ≤ B` whenever `N ∈ 𝒯`,
 `|N| = m - 1` and `max N < σ < T_N`, then `μ_r(S, n + m) ≤ B` for every `S ⊂ ℕ_{>0}` with
 `|S| = m`, and `V_r(n + m, m + 1) ≥ 1/B`. -/
 theorem finiteRowsB {r : ℝ} (hr : 1 < r) {n m : ℕ} (hn : 1 ≤ n) {B : ℝ}
-    (hB : 0 < B) (𝒯 : Set (Finset ℕ)) (hT0 : ∅ ∈ 𝒯) (hTc : ∀ N ∈ 𝒯, N.card < m)
+    (𝒯 : Set (Finset ℕ)) (hT0 : ∅ ∈ 𝒯) (hTc : ∀ N ∈ 𝒯, N.card < m)
     (qN : Finset ℕ → ℝ[X]) (TN : Finset ℕ → ℕ)
     (hq : ∀ N ∈ 𝒯, (qN N).degree < n + N.card ∧ (qN N).eval 0 = 1 ∧
       (∀ s ∈ N, (qN N).eval (s : ℝ) = 0) ∧ rowPhi r (qN N) ≤ B ∧ 1 ≤ TN N ∧
