@@ -65,6 +65,7 @@ import CoefficientMass.RowLast
 import CoefficientMass.RowOmega
 import CoefficientMass.RowPointwise
 import CoefficientMass.RowPrefix
+import CoefficientMass.RowPrefixRows
 import CoefficientMass.RowSep
 import CoefficientMass.RowStop
 import CoefficientMass.RowTaylor
