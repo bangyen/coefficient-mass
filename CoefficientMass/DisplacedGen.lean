@@ -187,12 +187,10 @@ theorem tsum_le_of_displaced_gen {n : ℕ} (y : Fin (n + 1) → ℝ) (hmono : St
     rw [one_div_mul_eq_div, le_div_iff₀ hyc1]
     linarith
   have hle : ∀ d, 1 ≤ d → d < z → |w d| ≤ |F d| := fun d h1 h2 => (hlow d h1 h2).1
-  have hκ : (1 : ℝ) ≤ 1 / (1 - y (Fin.last n)) :=
-    one_le_one_div hyc1 (by linarith)
   have hκ' : 1 / (1 - y (Fin.last n)) - 1 = y (Fin.last n) / (1 - y (Fin.last n)) := by
     rw [div_sub_one hyc1.ne']
     ring
-  have := tsum_abs_le_of_split_gen w F G hzpos hκ hle (hw2 z hz) (habsF z hμ) hGz hhigh hgamma
+  have := tsum_abs_le_of_split_gen w F G hzpos hle (hw2 z hz) (habsF z hμ) hGz hhigh hgamma
     hFs
   rwa [hκ'] at this
 
