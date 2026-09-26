@@ -63,6 +63,7 @@ theorem eval_confPolyP_ins {W : Finset ℕ} {c : ℕ} (hc : c ∉ W) (y : ℝ) :
   rw [eval_confPolyP, ins, Finset.prod_union hdisj, Finset.prod_insert hnot,
     Finset.prod_image fun a _ b _ h => by simpa only [add_left_inj] using h, mul_assoc]
   push_cast
+  congr
 
 /-- For `0 ≤ s` and integers `c ≥ s`, the factors `g(w) = 1 + s/((w - s)(w + 1))` over a
 set `U` of integers above `c` multiply to at most
