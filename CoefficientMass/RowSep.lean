@@ -99,7 +99,7 @@ theorem exists_bounded_solution {D L : ℕ} (a : Fin L → Fin D → ℝ) (b : F
       have hV : ∀ k ∈ N, (lam • e) k = 0 := fun k hk => by
         rw [Pi.smul_apply, he_ne k (fun h => hj (h ▸ hk)), smul_zero]
       refine ⟨Ψ 0, ⟨0, h0box, rfl⟩, Ψ (lam • e), ⟨_, hV, rfl⟩, ?_⟩
-      rw [map_zero, zero_add]
+      simp only [map_zero, zero_add]
     have := hK _ hmem
     rw [hfΨ, Finset.sum_eq_single j (fun k _ hk => by
       rw [Pi.smul_apply, he_ne k hk, smul_zero, zero_mul])
