@@ -74,13 +74,14 @@ theorem abs_sub_opp_sign {p q α ε : ℝ} (hpq : p * q ≤ 0) (hα : 0 ≤ α) 
 /-- `deg (P - Q - κ s P) < |W| + 1`. -/
 theorem degree_ins_dir_lt {W : Finset ℕ} {c : ℕ} (h0 : 0 ∉ W) (hc : c ∉ W) (hc1 : 1 ≤ c) :
     (confPolyP W - confPolyP (ins W c) - C (kappa W c) * X * confPolyP W).degree <
-      (W.card + 1 : ℕ) := by
+      ((W.card + 1 : ℕ) : WithBot ℕ) := by
   have hP := natDegree_confPolyP W
   have hQ : (confPolyP (ins W c)).natDegree ≤ W.card + 1 := by
     have := natDegree_confPolyP (ins W c)
     rwa [card_ins hc] at this
   have hsum :
-      (confPolyP (ins W c) + C (kappa W c) * X * confPolyP W).degree < (W.card + 1 : ℕ) := by
+      (confPolyP (ins W c) + C (kappa W c) * X * confPolyP W).degree <
+        ((W.card + 1 : ℕ) : WithBot ℕ) := by
     rw [degree_lt_iff_coeff_zero]
     intro m hm
     rw [coeff_add, mul_assoc, coeff_C_mul]
@@ -89,9 +90,10 @@ theorem degree_ins_dir_lt {W : Finset ℕ} {c : ℕ} (h0 : 0 ∉ W) (hc : c ∉ 
       ring
     · obtain ⟨m', rfl⟩ : ∃ m', m = m' + 1 := ⟨m - 1, by omega⟩
       rw [coeff_X_mul, coeff_eq_zero_of_natDegree_lt (hQ.trans_lt hm'),
-        coeff_eq_zero_of_natDegree_lt (show (confPolyP W).natDegree < m' by omega), mul_zero, add_zero]
-  have hP' : (confPolyP W).degree < (W.card + 1 : ℕ) :=
-    (degree_le_of_natDegree_le hP).trans_lt (WithBot.coe_lt_coe.2 (Nat.lt_succ_self _))
+        coeff_eq_zero_of_natDegree_lt (show (confPolyP W).natDegree < m' by omega), mul_zero,
+        add_zero]
+  have hP' : (confPolyP W).degree < ((W.card + 1 : ℕ) : WithBot ℕ) :=
+    (degree_le_of_natDegree_le hP).trans_lt (by exact_mod_cast Nat.lt_succ_self _)
   rw [sub_sub]
   exact (degree_sub_le _ _).trans_lt (max_lt hP' hsum)
 
