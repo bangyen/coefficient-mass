@@ -5,6 +5,7 @@ Authors: Bangyen Pham
 -/
 
 import CoefficientMass.Block
+import CoefficientMass.PrefixWeights
 
 /-!
 # The Block Bound `(1 + ν_k(n))/(kr)`
@@ -57,7 +58,7 @@ theorem rowPhi_block_eq {r : ℝ} (hr : 1 < r) {k n : ℕ} (hk : 1 ≤ k) {p : �
       field_simp
     · rw [if_neg (by omega), show d + 1 - 2 = d - 1 by omega] at hb
       have hR : R = ((d - 1).choose (k - 1) : ℝ) / k := by rw [eq_div_iff hk']; exact hb
-      rw [hR, if_neg hd0.ne', zero_add, prefixWeight, if_pos hd0, pow_succ]
+      rw [hR, if_neg hd0.ne', zero_add, prefixWeight, if_pos (show 1 ≤ d from hd0), pow_succ]
       field_simp
   unfold rowPhi
   rw [tsum_congr key, tsum_mul_left, (summable_of_ne_finset_zero (s := {0}) fun d hd => by
@@ -107,6 +108,7 @@ theorem muR_block_le {r : ℝ} (hr : 1 < r) {n k : ℕ} (hn : 2 ≤ n) (hk : 2 �
           rw [eval_add, eval_mul, eval_C, eval_X, eval_C, mul_zero, zero_add]
       rw [eval_mul, eval_mul, eval_C, eval_comp, eval_sub, eval_X, eval_C, h0, zero_sub, one_mul]
       field_simp
+      rfl
     · rw [eval_mul, eval_mul, confPolyP_eval_mem hs (by
         have := (Finset.mem_Icc.1 hs).1
         omega), zero_mul, zero_mul]
