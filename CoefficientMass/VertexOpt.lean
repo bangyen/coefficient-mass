@@ -27,6 +27,7 @@ This module proves the sufficiency part of Lemma 6.11 of `coefficient-mass-rows.
 * `summable_zero_mul`.
 * `rowPhi_sub_ge_sum`.
 * `rowPhi_le_of_cert`.
+* `rowPhi_lt_of_cert`.
 -/
 
 open Polynomial
@@ -154,5 +155,43 @@ theorem rowPhi_le_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆
   have h2 := neg_abs_le (c * gY r Z y)
   rw [abs_mul] at h2
   nlinarith
+
+/-- Lemma 6.11 of `coefficient-mass-rows.tex`, uniqueness: if `|G_y| < |e_y(y)| r^{-y}` for
+every `y ∈ Z \ S`, then `Φ_r(Z) < Φ_r(q)` for every admissible `q ≠ r_Z` of
+`μ_r(S, |Z| + 1)`. -/
+theorem rowPhi_lt_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆ Z) (h0 : 0 ∉ Z)
+    (hcert : ∀ y ∈ Z \ S, |gY r Z y| < |(eY Z y).eval (y : ℝ)| * (1 / r) ^ y)
+    {q : ℝ[X]} (hq : q.degree < ↑(Z.card + 1)) (hq0 : q.eval 0 = 1)
+    (hqS : ∀ s ∈ S, q.eval (s : ℝ) = 0) (hqZ : q ≠ confPolyP Z) :
+    rowPhi r (confPolyP Z) < rowPhi r q := by
+  have hterm : ∀ y ∈ Z \ S, ∀ c : ℝ,
+      0 ≤ c * gY r Z y + |c| * |(eY Z y).eval (y : ℝ)| * (1 / r) ^ y ∧
+      (c ≠ 0 → 0 < c * gY r Z y + |c| * |(eY Z y).eval (y : ℝ)| * (1 / r) ^ y) :=
+    fun y hy c => by
+    have h2 := neg_abs_le (c * gY r Z y)
+    rw [abs_mul] at h2
+    refine ⟨by nlinarith [mul_le_mul_of_nonneg_left (hcert y hy).le (abs_nonneg c)],
+      fun hc => ?_⟩
+    nlinarith [mul_lt_mul_of_pos_left (hcert y hy) (abs_pos.2 hc)]
+  -- some coefficient `c_y` is nonzero
+  have hex : ∃ y ∈ Z \ S,
+      (q - confPolyP Z).eval (y : ℝ) / (eY Z y).eval (y : ℝ) ≠ 0 := by
+    by_contra hall
+    push_neg at hall
+    obtain ⟨-, hp0, hpZ⟩ := confPolyP_admissible (L := Z.card + 1) h0 (by omega)
+    have hqne : q ≠ 0 := fun h => by rw [h, eval_zero] at hq0; exact zero_ne_one hq0
+    have hqn : q.natDegree ≤ Z.card := by
+      rw [degree_eq_natDegree hqne] at hq
+      exact Nat.lt_succ_iff.1 (by exact_mod_cast hq)
+    have hdec := eq_sum_eY (S := S) h0
+      ((natDegree_sub_le _ _).trans (max_le hqn (natDegree_confPolyP Z)))
+      (by rw [eval_sub, hq0, hp0, sub_self])
+      (fun s hs => by rw [eval_sub, hqS s hs, hpZ s (hSZ hs), sub_self])
+    rw [Finset.sum_eq_zero fun y hy => by rw [hall y hy, C_0, zero_mul]] at hdec
+    exact hqZ (sub_eq_zero.1 hdec)
+  refine sub_pos.1 (lt_of_lt_of_le (Finset.sum_pos' (fun y hy => (hterm y hy _).1) ?_)
+    (rowPhi_sub_ge_sum hr hSZ h0 hq hq0 hqS))
+  obtain ⟨y, hy, hc⟩ := hex
+  exact ⟨y, hy, (hterm y hy _).2 hc⟩
 
 end CoefficientMass
