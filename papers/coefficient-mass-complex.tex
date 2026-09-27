@@ -7,7 +7,7 @@
   pdfauthor={Bangyen Pham},
   pdftitle={Coefficient Mass of Polynomial Multiples at Complex Roots},
   pdfsubject={Lower bounds for the coefficient order statistics and logarithmic coefficient mass of polynomial multiples with prescribed complex roots},
-  pdfkeywords={polynomial multiples, coefficient mass, complex roots, Newton polygon, Gaussian integers},
+  pdfkeywords={polynomial multiples, coefficient mass, complex roots, Newton polygon, annuli},
   pdflang={en-US}
 }
 
@@ -42,13 +42,10 @@ separated by a factor $9$; with several roots per annulus, separation $81$
 gives a sharp mass bound charging each root once per annulus at or below
 it, and the real-root cross terms fail.  Real roots of both signs charge one root
 of each sign per excluded coefficient, with sharp mass constant $\frac14$.
-At distinct Gaussian integers of modulus at least $\rho>2$ above the
-axis, integer multiples split into blocks paying $\log(\rho/2)$ per unit of
-degree.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; complex
-roots; Newton polygon; Gaussian integers.
+roots; Newton polygon; annuli.
 
 \noindent\textbf{2020 Mathematics Subject Classification.} Primary 11C08; Secondary 30C15, 26C10.
 
@@ -90,9 +87,6 @@ each root once for every annulus at or below it, where the cross terms of
 Proposition~\ref{prop:annulisharp}).  Real roots of both signs give a mass
 bound with the sharp leading constant $\frac14$
 (Corollary~\ref{cor:bothsignsmass}, Proposition~\ref{prop:bothsignssharp}).
-At distinct Gaussian-integer roots of modulus at least $\rho>2$ above the
-axis, integer multiples split into blocks paying $\log(\rho/2)$ per unit of
-degree (Theorem~\ref{thm:gausscharge}).
 
 Reduced height and reduced length, the least height and length of a
 normalized multiple, have been studied for real and complex
@@ -128,47 +122,18 @@ bound charging each root once for every annulus at or below it
 (Theorem~\ref{thm:archnewton}).  In detail, for $K_s$ roots with moduli in $[T_s,U_s]$,
 $1\le s\le S$, where $T_1>3$ and $T_s>81U_{s-1}$, the central index charges a
 root once for every annulus at or below it,
-$\sum_ssK_s\log(T_s/2)-O(S)$ in all for multiples with $|f_D|\ge1$, attained for suitable roots as $\min_sT_s\to\infty$; the cross terms $K_uK_s\log T_s$ of \eqref{eq:order} fail
-(Theorem~\ref{thm:annuli},
+$\sum_ssK_s\log(T_s/2)-O(S)$ in all for multiples with $|f_D|\ge1$, attained
+for suitable roots as $\min_sT_s\to\infty$; the cross terms
+$K_uK_s\log T_s$ of \eqref{eq:order} fail (Theorem~\ref{thm:annuli},
 Corollary~\ref{cor:annuli}, Theorem~\ref{thm:fixedgap},
-Proposition~\ref{prop:annulisharp}).  A central index at radius $r$ has at
-least $n$ positions above it once $n$ roots have modulus above
-$\frac73nr$ (Lemma~\ref{lem:tropcount}), and the rows of
-Corollary~\ref{cor:annuli} need a separation growing with the number of
-roots above: at the separation $n_a$, $(x-q)(x+Kq)^K$ has $b_2$ below the
-row by a factor that tends to $0$ (Proposition~\ref{prop:rowsneedn}), while
-they hold at the separation $\min(n_a+9,3\rho_{n_a})$, where
-$3\rho_{n_a}<7n_a$ (Corollaries~\ref{cor:fewabove} and~\ref{cor:rowsall}).
-For two annuli the separation $n_2+1$ suffices, as a truncation of
-$\prod(1-x/\beta)^{-1}$ stays away from $0$ below $T/n$
-(Lemma~\ref{lem:trunc}, Theorem~\ref{thm:rowstwo},
-Corollary~\ref{cor:rowstwo}); for more annuli the truncation at a zero of
-the annulus below, together with central indices further down, gives
-$n_a+9$ (Theorem~\ref{thm:rowsk}), but the row $3$ needs both separations
-to grow with the number of roots above (Proposition~\ref{prop:rowslower}).
-Sharpening the constant, for two annuli the least separation for the
-rows exceeds $n_2$ by between $n_22^{-n_2-1}$ and $3n_22^{-n_2}$ once
-$n_2\ge4$, and is at most $4$ when $n_2\le3$ (Lemma~\ref{lem:twobelow},
-Corollary~\ref{cor:twofixed}); with one root above the gap it lies between
-$\frac43$ and $\frac43+\frac2{3T_1}$, as eliminating one position between a
-zero below the gap and one above costs no factor $\lambda$
-(Lemma~\ref{lem:twozeros}, Corollary~\ref{cor:twonear}).
-For more annuli, eliminating the coefficient charged below with a zero of
-the next annulus down gives $n_a+1$ once $n_a\ge10$, and for large $n_a$ the
-additive constant is exactly $\frac12$: $n_a+c$ suffices for every
-$c>\frac12$ and fails for every $c<\frac12$ (Theorem~\ref{thm:rowspair},
-Corollary~\ref{cor:rowsplusone}, Proposition~\ref{prop:rowslower}).  At a
-lower zero $\alpha$ the second row is at least
-$\frac12\lambda(1-1/|\alpha|)$ times its charge, $\lambda=1-n|\alpha|/T$,
-and at least $\lambda(1-1/|\alpha|)^2$ times it when $|\alpha|\ge2$, with
-the constant $1$ approached as $|\alpha|\to\infty$
-(Propositions~\ref{prop:rowstwolarge} and~\ref{prop:rowstwohalf}).  The mass bound fails with
-$T_2=(2+\frac1{18915})U_1$ (Proposition~\ref{prop:gaptwo}), with two roots
-above the gap, where the separation $2+\frac1{T_1}\le\frac73$ suffices,
-so that the least separation tends to $2$ as $T_1$ grows
-(Corollary~\ref{cor:twonear}); for two annuli with many roots above the
-gap, a fixed separation below $81$ would have to charge three nonleading
-positions.
+Proposition~\ref{prop:annulisharp}).  The rows need a separation growing
+with the number $n_a$ of roots above: they fail at the separation $n_a$
+(Proposition~\ref{prop:rowsneedn}) and hold at $n_a+O(1)$.
+Section~\ref{sec:separation} finds the least separations, for the rows
+and for the mass, up to small constants (Table~\ref{tab:sep}): for the
+rows the additive constant is exactly $\frac12$ for large $n_a$, and for
+the mass the least fixed separation lies between $2+\frac1{18915}$ and
+$81$.
 
 \paragraph{Both signs.}  For real roots of both signs, Rolle's theorem on
 each half-line charges one root of each sign per excluded coefficient
@@ -176,31 +141,18 @@ each half-line charges one root of each sign per excluded coefficient
 leading constant $\frac14$ (Corollary~\ref{cor:bothsignsmass},
 Proposition~\ref{prop:bothsignssharp}).
 
-\paragraph{Gaussian roots.}  At distinct Gaussian-integer roots in the upper
-half-plane, an integer multiple whose coefficients below a position are
-small has its part from that position on vanishing at the roots as well
-(Lemma~\ref{lem:gausscarry}).  So it splits into blocks
-(Lemma~\ref{lem:gaussblocks}), each paying $\log(\rho_{\min}/2)$ per unit of
-degree, whatever the degree (Theorem~\ref{thm:gausscharge}).  Roots in a
-sector, where the argument principle along a ray next to the sector gives
-many real zeros of a real polynomial dominated coefficientwise by the
-multiple, are treated in~\cite{coefficient-mass-sectors}, which uses
-Theorem~\ref{thm:gausscharge} for integer multiples of large degree.
+\paragraph{Gaussian roots and sectors.}  Roots in a sector, where the
+argument principle along a ray next to the sector gives many real zeros of
+a real polynomial dominated coefficientwise by the multiple, and integer
+multiples at Gaussian-integer roots, whose values there are Gaussian
+integers, are treated in~\cite{coefficient-mass-sectors}.
 
-\paragraph{Open questions.}  Two questions are left open.  First, what the
-least fixed separation of the annuli for the mass is: it lies between
-$2+\frac1{18915}$ and $81$ (and at most $\max(4,n_2+1)$ for two annuli
-with $n_2$ roots in the upper one, $\frac73$ if $n_2\le2$), and whether the separation $9$ of Corollary~\ref{cor:annuli},
-item~2, suffices is open (Section~\ref{sec:annuli}).  Second, whether
-$\Lambda(F)\ge cK^2\log R$ holds for every integer multiple $F$ at $K$
-distinct Gaussian-integer roots of modulus at least $R$ in the upper
-half-plane within a sector of fixed half-width $\delta<\pi/2$.  For real multiples it
-fails already at $x^{2M}+\rho^{2M}$ (Proposition~\ref{prop:noangle}); for
-integer multiples at Gaussian roots in such a sector the bound
-of~\cite{coefficient-mass-sectors} is $(\frac\pi\delta-o(1))K\log R$, linear
-in $K$, and root sets symmetric under $z\mapsto-\bar z$ or under the units
-show there that such a $c$ is at most $1$, and at most $\frac12$ when
-$\delta>\pi/4$.
+\paragraph{Open questions.}  The least fixed separation of the annuli
+for the mass lies between $2+\frac1{18915}$ and $81$ (and at most
+$\max(4,n_2+1)$ for two annuli with $n_2$ roots in the upper one,
+$\frac73$ if $n_2\le2$); whether the separation $9$ of
+Corollary~\ref{cor:annuli}, item~2, suffices is open
+(Section~\ref{sec:separation}).
 
 \paragraph{Conventions.}
 All logarithms are natural.  For $F\in\mathbb C[x]$ of degree $D$ we write
@@ -849,13 +801,8 @@ times in all, at the price of a separation that grows linearly with the
 number of roots above; by the remark after Lemma~\ref{lem:tropcount}, a
 central index at $r_a$ can have fewer than $n_a$ positions above it when
 $T_a/r_a<n_a$, and the rows themselves fail at $T_a=n_aU_{a-1}$
-(Proposition~\ref{prop:rowsneedn}); for $S=2$ they hold at
-$T_2>(n_2+1)U_1$ (Corollary~\ref{cor:rowstwo}), and even at
-$T_2>n_2(1+3\cdot2^{-n_2})U_1$ once $n_2\ge4$ (Corollary~\ref{cor:twofixed}), and for every $S$ at
-$T_a>\min(n_a+9,3\rho_{n_a})U_{a-1}$ (Corollaries~\ref{cor:fewabove}
-and~\ref{cor:rowsall}), and at $T_a>\sigma(n_a)U_{a-1}$, where
-$\sigma(n)=n+1$ for $n\ge10$ and $\sigma(n)\le12$ for $n\le9$
-(Corollary~\ref{cor:rowsplusone}).  Item~2 needs only the factor $9$, but past the first
+(Proposition~\ref{prop:rowsneedn}); Section~\ref{sec:separation} finds the
+separation they need (Table~\ref{tab:sep}).  Item~2 needs only the factor $9$, but past the first
 annulus it charges ratios $|\beta|/U_{a-1}$ instead of moduli.  With one root
 per annulus, $k_a=n_a=S-a+1$ at the separation $9$ of the theorem, which then
 gives Corollary~\ref{cor:separated}, item~1, when $\rho_1>3$ (the corollary
@@ -936,11 +883,8 @@ Theorem~\ref{thm:fixedgap} bounds the mass only: below the $a$-th annulus
 the charge of the roots in the $a$-th and higher annuli may fall on two
 coefficients rather than one, and the rows of Corollary~\ref{cor:annuli},
 item~1, fail at every fixed separation (Proposition~\ref{prop:rowsneedn}).
-The factor $81$ cannot be lowered below $2+\frac1{18915}$
-(Proposition~\ref{prop:gaptwo}), and for two annuli $\max(4,n_2+1)$
-suffices (Corollary~\ref{cor:twofixed}), and $\frac73$ when $n_2\le2$
-(Corollary~\ref{cor:twonear});
-the least admissible factor is open.  The mass bound is sharp to leading order, the
+The least admissible factor is open; Table~\ref{tab:sep} lists what is
+known.  The mass bound is sharp to leading order, the
 coefficient $s$ of each $K_s\log T_s$ being best possible, as
 $\min_sT_s\to\infty$ (Proposition~\ref{prop:annulisharp} has
 $\Lambda=\sum_ssN_s\log t_s$ against the bound
@@ -1019,12 +963,7 @@ linear in the number of roots above and independent of the number below.  For
 the mass it is proved at the fixed separation $81$
 (Theorem~\ref{thm:fixedgap}), and with ratios in place of moduli at the
 separation $9$ (Corollary~\ref{cor:annuli}, item~2); the rows of item~1 are
-proved at the separation $9n_a$, at $3\rho_{n_a}<7n_a$ by
-Corollary~\ref{cor:fewabove}, at $n_a+9$ by Corollary~\ref{cor:rowsall}, and
-at a separation that is $n_a+1$ where $n_a\ge10$ and at most $12$ below by
-Corollary~\ref{cor:rowsplusone}, and the
-factor $n_a$ cannot be dropped; for two annuli $n_2+1$ suffices
-(Corollary~\ref{cor:rowstwo}).
+proved at the separation $9n_a$, and the factor $n_a$ cannot be dropped.
 
 \begin{proposition}[Rows need the factor $n_a$]\label{prop:rowsneedn}
 Let $K\ge10$ and $q\ge4^K$ be integers and $F=(x-q)(x+Kq)^K$.  Then
@@ -1061,13 +1000,51 @@ the full charge of $A_2$ below the second annulus is left on $f_0$ alone,
 and every other nonleading coefficient carries fewer than $K$ zeros of
 $A_2$.  The cancellation needs $|\sum_{\beta\in A_2}1/\beta|=1/q$, hence
 $T_2\le n_2U_1$.  So the separation the rows of Corollary~\ref{cor:annuli},
-item~1, need grows linearly with $n_a$: it is at most
-$\min(n_a+9,3\rho_{n_a})$, where $3\rho_{n_a}<7n_a$
-(Corollaries~\ref{cor:fewabove} and~\ref{cor:rowsall}), and $n_a+1$ where
-$n_a\ge10$ and at most $12$ below (Corollary~\ref{cor:rowsplusone}), and
-not at most $n_a$.
+item~1, need grows linearly with $n_a$: a separation $n_a$ does not
+suffice.
 
-For two annuli this cancellation is the only obstruction, and the factor
+\section{The least separation}\label{sec:separation}
+
+This section finds the separation at which the rows of
+Corollary~\ref{cor:annuli}, item~1, and the mass bound of
+Theorem~\ref{thm:fixedgap} hold.  Table~\ref{tab:sep} collects the results;
+throughout, the separation $s$ at the $a$-th annulus means
+$T_a>sU_{a-1}$, and $n_a$ is the number of roots in and above it.
+
+\begin{table}[tp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}p{0.26\textwidth}p{0.36\textwidth}p{0.3\textwidth}@{}}
+\hline
+Setting & Suffices & Fails\\
+\hline
+Rows, every $S$ & $\min(n_a+9,3\rho_{n_a})$
+  (Corollaries~\ref{cor:fewabove}, \ref{cor:rowsall});
+  $n_a+1$ for $n_a\ge10$, row $3$ from $n_3\ge7$, and $\max(9,n_a+\frac32)$
+  for $3\le n_a\le9$ (Corollary~\ref{cor:rowsplusone})
+  & $n_a$ (Proposition~\ref{prop:rowsneedn});
+  $n_a+c$, $c<\frac12$, large $n_a$ (Proposition~\ref{prop:rowslower})\\
+Rows, $S=2$ & $n_2+1$ (Corollary~\ref{cor:rowstwo});
+  $n_2(1+3\cdot2^{-n_2})$ for $n_2\ge4$, $4$ for $n_2\le3$
+  (Corollary~\ref{cor:twofixed}); $\frac43+\frac2{3T_1}$ for $n_2=1$
+  (Corollary~\ref{cor:twonear})
+  & $n_2/(1-2^{-n_2-1})$ (Corollary~\ref{cor:twofixed});
+  $\frac43$ for $n_2=1$ (Corollary~\ref{cor:twonear})\\
+Mass, every $S$ & $81$ (Theorem~\ref{thm:fixedgap}); $9$ with ratios in
+  place of moduli (Corollary~\ref{cor:annuli}, item~2)
+  & $2+\frac1{18915}$ (Proposition~\ref{prop:gaptwo})\\
+Mass, $S=2$ & $\max(4,n_2+1)$ (Corollary~\ref{cor:twofixed});
+  $\frac73$ for $n_2\le2$, $2+\frac1{T_1}$ for $n_2=2$
+  (Corollary~\ref{cor:twonear})
+  & $2+\frac1{18915}$ for $n_2=2$ (Proposition~\ref{prop:gaptwo});
+  $\frac{32}{31}$ for $n_2=1$\\
+\hline
+\end{tabular}
+\caption{Separations for the rows and the mass at several annuli.}\label{tab:sep}
+\end{table}
+
+For two annuli the cancellation is the only obstruction, and the factor
 $7n_2$ drops to $n_2+1$.  Dividing out the zeros above leaves a quotient
 whose coefficients below the upper zeros are truncations of
 $\prod_\beta(1-x/\beta)^{-1}$, and at a lower zero such a truncation is
@@ -1924,13 +1901,7 @@ by Corollaries~\ref{cor:twofixed} and~\ref{cor:twonear} below even $4$ and
 $\frac73$; with one root in the upper annulus it is at
 least $\frac{32}{31}$, since $F=(x-q)(x+t)$ has
 $\Lambda(F)=\log(qt(t-q))$ against the bound $\log(qt^2/32)$ when
-$1\le t-q<t/32$, for instance at $q=100$, $t=103$.  For the rows,
-Proposition~\ref{prop:rowsneedn} and Corollaries~\ref{cor:fewabove}
-and~\ref{cor:rowsall} put the least separation between $n_a$ and
-$\min(n_a+9,3\rho_{n_a})$, which is $3\rho_1=6$ for $n_a=1$ and $n_a+9$ for
-$n_a\ge2$, and Corollary~\ref{cor:rowsplusone} gives instead, at all the
-gaps at once, $n_a+1$ where $n_a\ge10$, $\max(9,n_a+\frac32)$ where
-$3\le n_a\le9$, $12$ where $n_a=2$ and $6$ where $n_a=1$.
+$1\le t-q<t/32$, for instance at $q=100$, $t=103$.
 
 For two annuli the charge of $A_2$ needs one position besides the central
 index at $1$.  The truncation argument of Theorem~\ref{thm:rowstwo} can
@@ -2034,9 +2005,7 @@ Theorem~\ref{thm:fixedgap}, holds at the separation $4$ with at most three
 roots above the gap, and at $n_2+3n_22^{-n_2}$ otherwise, while the rows
 need $n_2/(1-2^{-n_2-1})>n_2+n_22^{-n_2-1}$ (item~2 with $K=n_2$): the
 least separation for the rows lies between these, and exceeds $n_2$ by an
-amount exponentially small in $n_2$.  For the mass with $K_2=1$ or $K_2=2$
-the least separation lies in $[\frac{32}{31},\frac{14}9]$ and
-$[2+\frac1{18915},\frac73]$ (Corollary~\ref{cor:twonear} below).  At a fixed separation $g$ and $n_2=K\ge g$ two
+amount exponentially small in $n_2$.  At a fixed separation $g$ and $n_2=K\ge g$ two
 nonleading positions no longer suffice: by the proof of item~2,
 $F=(x-q)(x+t)^K$ with $t=Kq/(1-2^{-2K-4})$ and $q\ge2^{3K+5}$ has
 $b_1(F)=qt^K$ and $b_2(F)\le2^{-2K-4}t^K$, so
@@ -2209,10 +2178,9 @@ tropical roots $\log(t/\sqrt{3+2\delta/q})$ and $\log(3q+2\delta)$, carries
 the charge of the two zeros $-t$, with one position above it.
 
 Open: the least fixed separation for the mass, between $2+\frac1{18915}$
-and $81$, in particular whether $9$ suffices; for two annuli it is at most
-$\max(4,n_2+1)$ (Corollary~\ref{cor:twofixed}), and $\frac73$ for
-$n_2\le2$ (Corollary~\ref{cor:twonear}), and whether a separation
-below $81$ independent of $n_2$ suffices there is open.
+and $81$ (Table~\ref{tab:sep}), in particular whether $9$ suffices, and
+whether a separation below $81$ independent of $n_2$ suffices for two
+annuli.
 
 \section{Real roots of both signs}\label{sec:bothsigns}
 
@@ -2369,127 +2337,6 @@ $\Lambda(P)\le\sum_j\log\binom mj+m(m+1)\log(\lambda R)$, and
 $m(m+1)=\lfloor(2m+1)^2/4\rfloor$, $\sum_j\log\binom mj\le m^2\log2$.
 \end{proof}
 
-\section{Gaussian-integer roots}\label{sec:gaussian}
-
-For roots in $\mathbb Z[i]$ and integer multiples there is one more piece of
-information: an integer polynomial takes Gaussian-integer values at them,
-and a nonzero Gaussian integer has modulus at least one.  This charges the
-degree of a multiple against its mass (Theorem~\ref{thm:gausscharge}): an
-integer multiple splits into blocks, and a block of large degree has large
-mass.
-
-Throughout, $\alpha_1,\ldots,\alpha_K\in\mathbb Z[i]$ are distinct, with
-$\alpha_j=a_j+ic_j$ and $c_j\ge1$; put $\rho_j=|\alpha_j|$,
-$\rho_{\min}=\min_j\rho_j$ and
-\[
-  P=\prod_{j=1}^K(x-\alpha_j)(x-\bar\alpha_j)
-   =\prod_{j=1}^K\bigl(x^2-2a_jx+a_j^2+c_j^2\bigr)\in\mathbb Z[x],
-\]
-a monic polynomial with $2K$ distinct roots and $P(0)\ne0$.  For
-$F=\sum_{i=0}^Df_ix^i$ and $0\le m\le D+1$ write
-\[
-  F_{<m}=\sum_{i<m}f_ix^i,\qquad G_m=\sum_{i\ge m}f_ix^{i-m},\qquad
-  F=F_{<m}+x^mG_m .
-\]
-We call $m\in\{1,\ldots,D\}$ a \emph{split} of $F$.  A split is \emph{clean
-at} $\alpha$ if $G_m(\alpha)=0$, and \emph{$P$-clean} if it is clean at every
-$\alpha_j$.  A polynomial $B\in\mathbb Z[x]$ is \emph{$P$-irreducible} if
-$B(0)\ne0$ and no split of $B$ is $P$-clean.
-
-\begin{lemma}[Gaussian carries]\label{lem:gausscarry}
-Let $F\in\mathbb Z[x]$ have degree $D$, let $\alpha\in\mathbb Z[i]$ with
-$F(\alpha)=0$, $\rho=|\alpha|$, and let $1\le m\le D$ (a split of $F$).  Write
-$F=F_{<m}+x^mG_m$ with $F_{<m}=\sum_{i<m}f_ix^i$ and
-$G_m=\sum_{i\ge m}f_ix^{i-m}$.  Then
-$G_m(\alpha)\in\mathbb Z[i]$ and $F_{<m}(\alpha)=-\alpha^mG_m(\alpha)$.  If the
-split $m$ is not clean at $\alpha$, that is, if $G_m(\alpha)\ne0$, then $|F_{<m}(\alpha)|\ge\rho^m$, and if
-moreover $\rho>2$, some $i<m$ has
-\[
-  |f_i|\ \ge\ (\rho/2)^{m-i}.
-\]
-\end{lemma}
-
-\begin{proof}
-$G_m$ has integer coefficients, so $G_m(\alpha)\in\mathbb Z[i]$, and
-$0=F(\alpha)=F_{<m}(\alpha)+\alpha^mG_m(\alpha)$.  If $G_m(\alpha)\ne0$ it is a
-nonzero Gaussian integer, so $|G_m(\alpha)|\ge1$ and
-$|F_{<m}(\alpha)|=\rho^m|G_m(\alpha)|\ge\rho^m$.  If every $i<m$ had
-$|f_i|<(\rho/2)^{m-i}$, then
-$|F_{<m}(\alpha)|\le\sum_{i<m}|f_i|\rho^i<\rho^m\sum_{i<m}2^{i-m}<\rho^m$, a
-contradiction.
-\end{proof}
-
-The lemma is a Gaussian analogue of the gap principle for lacunary
-polynomials~\cite{lenstra-lacunary}, by which a root of small degree of $F$
-is a root of both parts across a sufficiently long run of zero coefficients;
-here small coefficients below the split play the role of the gap.  Here it is used at every split,
-not only at long gaps.
-
-\begin{lemma}[Blocks]\label{lem:gaussblocks}
-In the setting of Section~\ref{sec:gaussian}, every nonzero
-$F\in\mathbb Z[x]$ divisible by $P$ can be written
-\[
-  F=\sum_{s=1}^rx^{e_s}B_s,\qquad e_s+\deg B_s<e_{s+1},
-\]
-with every $B_s\in\mathbb Z[x]$ divisible by $P$ and $P$-irreducible: $B_s(0)\ne0$
-and no split $m\in\{1,\ldots,\deg B_s\}$ of $B_s$ has $G_m(\alpha_j)=0$ for every $j$.
-Consequently $\Lambda(F)=\sum_s\Lambda(B_s)$, $|\operatorname{lead}B_s|\ge1$,
-and $b_k(F)\ge b_k(B_s)$ for every $s$ and $k$.
-\end{lemma}
-
-\begin{proof}
-Write $F=x^eF_0$ with $F_0(0)\ne0$; since $P(0)\ne0$, $P\mid F_0$.  Induct
-on $\deg F_0$.  If no split of $F_0$ is $P$-clean, $F_0$ itself is the only
-block.  Otherwise let $m$ be a $P$-clean split: $G_m(\alpha_j)=0$ for all
-$j$, hence $F_{<m}(\alpha_j)=F_0(\alpha_j)-\alpha_j^mG_m(\alpha_j)=0$, and by
-reality of the coefficients also $F_{<m}(\bar\alpha_j)=G_m(\bar\alpha_j)=0$.
-Since $P$ is monic in $\mathbb Z[x]$ with $2K$ distinct roots, division with
-remainder in $\mathbb Z[x]$ shows $P\mid F_{<m}$ and $P\mid G_m$ in
-$\mathbb Z[x]$.  Both are nonzero ($F_{<m}(0)=F_0(0)$, and $G_m$ has the leading
-coefficient of $F_0$) and of smaller degree than $F_0$; $F_{<m}(0)\ne0$, and
-$G_m$ is handled after removing a power of $x$.  Their supports lie in
-$[0,m-1]$ and $[m,\deg F_0]$, so the decompositions given by induction
-concatenate.  The supports of the $x^{e_s}B_s$ are disjoint and cover that of
-$F$, which gives the additivity of $\Lambda$ and the inclusion of the
-nonleading magnitudes of each $B_s$ among those of $F$ (the leading
-coefficient of $B_s$, $s<r$, is a nonleading coefficient of $F$).
-\end{proof}
-
-\begin{theorem}[Degree charging]\label{thm:gausscharge}
-In the setting of Section~\ref{sec:gaussian}, assume $\rho_{\min}>2$, and
-let $B\in\mathbb Z[x]$ be $P$-irreducible and
-divisible by $P$, of degree $d$.  Then
-\[
-  \sum_{i<d}\log^+|b_i|\ \ge\ d\log\frac{\rho_{\min}}2,
-  \qquad\text{so}\qquad
-  \Lambda(B)\ \ge\ \log|b_d|+d\log\frac{\rho_{\min}}2 .
-\]
-Hence every nonzero $F\in\mathbb Z[x]$ divisible by $P$ has
-$\Lambda(F)\ge\sum_s(\deg B_s)\log(\rho_{\min}/2)$ over the blocks $B_s$ of
-any decomposition of $F$ as in Lemma~\ref{lem:gaussblocks}.
-\end{theorem}
-
-\begin{proof}
-Every split $m\in\{1,\ldots,d\}$ of $B$ is unclean at some $\alpha_j$, with
-$\rho_j\ge\rho_{\min}$, so by Lemma~\ref{lem:gausscarry} there is $i<m$ with
-$|b_i|\ge(\rho_{\min}/2)^{m-i}$.  For a fixed $i$, the splits charged to it
-this way have distinct $m-i\ge1$ with
-$(m-i)\log(\rho_{\min}/2)\le\log|b_i|$, so there are at most
-$\log^+|b_i|/\log(\rho_{\min}/2)$ of them.  All $d$ splits are charged, which
-is the first inequality.  The rest follows from $\log^+|b_d|\ge\log|b_d|$ and
-Lemma~\ref{lem:gaussblocks}.
-\end{proof}
-
-Compare Proposition~\ref{prop:noangle}, which lies outside this setting: at
-most two roots of $x^{2M}+\rho^{2M}$ above the axis are Gaussian integers
-(none unless $\rho^{2M}\in\mathbb Z$).  Indeed, if $\alpha$ and $\alpha'$ are
-two of them, $\alpha'/\alpha$ is a root of unity in $\mathbb Q(i)$, so
-$\alpha'\in\{\pm\alpha,\pm i\alpha\}$, and at most two of these four points
-lie above the axis.  It
-pays $\Lambda=2M\log\rho$ for its degree $2M$, a charge of the form the
-theorem gives; what the theorem forbids, at Gaussian roots, is a block of
-large degree and small mass.
-
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.
 
@@ -2556,12 +2403,6 @@ W.~K. Hayman,
 \newblock The local growth of power series: a survey of the Wiman--Valiron
 method,
 \newblock \emph{Canadian Mathematical Bulletin} 17 (1974), 317--358.
-
-\bibitem{lenstra-lacunary}
-H.~W. Lenstra, Jr.,
-\newblock Finding small degree factors of lacunary polynomials,
-\newblock in \emph{Number Theory in Progress}, Vol.~1 (Zakopane, 1997),
-de Gruyter, 1999, 267--276.
 
 \bibitem{marden}
 M.~Marden,

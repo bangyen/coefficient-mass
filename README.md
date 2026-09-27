@@ -10,8 +10,8 @@ when its roots are prescribed, with executable checks.
 | [coefficient-mass-family](papers/coefficient-mass-family.tex) | The placement game along `(r,3,5,7)`: exact infima down to `r -> 1`, where every cost is explicit and the normalised excess oscillates log-periodically, with an explicit profile across the jumps |
 | [coefficient-mass-rows](papers/coefficient-mass-rows.tex) | Every row is a top row: order statistics of multiples of a power at roots `>= 2` |
 | [coefficient-mass-belowtwo](papers/coefficient-mass-belowtwo.tex) | The same rows below the root 2: where the prefix identity holds, and certified failures on intervals |
-| [coefficient-mass-complex](papers/coefficient-mass-complex.tex) | Complex roots: exact reductions, arbitrary angles, separated moduli and annuli, real roots of both signs, and degree charging at Gaussian roots |
-| [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex) | Roots in a sector: thin sectors, sectors of every width, and integer multiples at Gaussian roots |
+| [coefficient-mass-complex](papers/coefficient-mass-complex.tex) | Complex roots: exact reductions, arbitrary angles, separated moduli and annuli, and real roots of both signs |
+| [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex) | Roots in a sector: thin sectors, sectors of every width, degree charging and integer multiples at Gaussian roots |
 
 Open questions are in [ROADMAP](ROADMAP.md).
 

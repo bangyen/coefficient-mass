@@ -192,8 +192,9 @@ is open; an answer lands in the paper it extends, and the row leaves.
   every root set (`prop:rowone`).  Beyond that no bound can depend on the
   moduli and the angles alone (`prop:noangle`: `x**(2M) + rho**(2M)`).
   At distinct Gaussian-integer pairs (`Im alpha_j >= 1`), integer multiples split into blocks
-  (`lem:gausscarry`, `lem:gaussblocks`) each paying `log(rho_min/2)` per
-  degree (`thm:gausscharge`).  An Archimedean Newton polygon
+  each paying `log(rho_min/2)` per degree, now in
+  [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex)
+  (`lem:gausscarry`, `lem:gaussblocks`, `thm:gausscharge`).  An Archimedean Newton polygon
   (`thm:archnewton`) gives rows and mass `sum j log(rho_j/3)` for every
   complex multiple with `|f_D| >= 1` once moduli grow by a factor 9 (`cor:separated`), and
   at most `g` moduli per annulus `[R, 9R]` costs a factor `g**2`.  Real roots of both signs (`sec:bothsigns`):
@@ -396,8 +397,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
 
 - **Coefficient mass in sectors.**  The paper is
   [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), split out
-  of [coefficient-mass-complex](papers/coefficient-mass-complex.tex), whose
-  block charging at Gaussian roots (`thm:gausscharge`) it uses.  Crowded
+  of [coefficient-mass-complex](papers/coefficient-mass-complex.tex), and
+  proves the block charging at Gaussian roots (`thm:gausscharge`) it uses.  Crowded
   roots in a thin sector are Closed (`lem:sectorcount`, `thm:thinsector`,
   `thm:thingauss`: the argument principle forces a real crossing
   polynomial with `K/2` large roots unless the degree is `>> K/delta`,
@@ -436,7 +437,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   modulus at most `V < P(0)` in place of the gap, some multiple has
   `P(0) <= |f_0| <= P(0)**m / V**(m-1)` (Minkowski; `prop:gaussadic`, item
   3), e.g. `|f_0| = 18330 < 65**3` at the norms `5, 13`, `m = 3`, `V = 2`,
-  while the sizes alone (`lem:gausscarry` of the complex paper) give only
+  while the sizes alone (`lem:gausscarry`) give only
   `(rho_min/2)**m`.  If
   `rho_min > 2` and `b_2(F) < rho_min/2`, `F = x**e (v + H)` with every
   nonleading coefficient of `H` below `rho_min/2`, so all the roots lie in one

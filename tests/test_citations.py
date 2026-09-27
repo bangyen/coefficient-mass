@@ -179,18 +179,6 @@ CITATIONS = {
         "Theorem",
         "thm:archnewton",
     ),
-    ("coefficient-mass-sectors.tex", "coefficient-mass-complex", "6.1"): (
-        "Lemma",
-        "lem:gausscarry",
-    ),
-    ("coefficient-mass-sectors.tex", "coefficient-mass-complex", "6.2"): (
-        "Lemma",
-        "lem:gaussblocks",
-    ),
-    ("coefficient-mass-sectors.tex", "coefficient-mass-complex", "6.3"): (
-        "Theorem",
-        "thm:gausscharge",
-    ),
     ("coefficient-mass-rows.tex", "coefficient-mass", "2.1"): (
         "Lemma",
         "lem:consecutive",

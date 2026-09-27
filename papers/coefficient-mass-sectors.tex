@@ -104,7 +104,7 @@ $\delta<0.0134$ for real multiples, whose zeros off the axis come in
 conjugate pairs), so the theorem is for $\delta\to0$.  At distinct
 Gaussian-integer roots in the upper half-plane, where a carry argument
 charges degree against mass
-\cite[Theorem~6.3]{coefficient-mass-complex},
+Theorem~\ref{thm:gausscharge},
 every integer multiple pays the smaller of this and
 $\pi K\log(R/2)/(2E(2\delta))$ (Theorem~\ref{thm:thingauss}), which is of
 order $K^2\log R$ when $\delta K\log(e\pi/(2\delta))=O(1)$; the second
@@ -171,7 +171,7 @@ $b_k(\cdot)$ is always the $k$-th largest nonleading magnitude, so $b_k(B)$
 and the coefficient $b_k$ of $B$ differ.
 References of the form \cite[Theorem~3.2]{coefficient-mass} are to the
 first companion paper, and those of the form
-\cite[Theorem~6.3]{coefficient-mass-complex}
+Theorem~\ref{thm:gausscharge}
 to the second.
 
 \section{Thin sectors}\label{sec:thin}
@@ -328,7 +328,7 @@ the large-degree case is paid for by integrality, as the next section shows.
 For roots in $\mathbb Z[i]$ and integer multiples there is one more piece of
 information: an integer polynomial takes Gaussian-integer values at them,
 and a nonzero Gaussian integer has modulus at least one.  This charges the
-degree of a multiple against its mass~\cite{coefficient-mass-complex}, which
+degree of a multiple against its mass (Theorem~\ref{thm:gausscharge}), which
 replaces the degree hypothesis of Theorem~\ref{thm:thinsector} by the
 alternative bound $\pi K\log(R/2)/(2E(2\delta))$ (Theorem~\ref{thm:thingauss}).
 
@@ -350,28 +350,100 @@ at} $\alpha$ if $G_m(\alpha)=0$, and \emph{$P$-clean} if it is clean at every
 $\alpha_j$.  A polynomial $B\in\mathbb Z[x]$ is \emph{$P$-irreducible} if
 $B(0)\ne0$ and no split of $B$ is $P$-clean.
 
-We use three results of~\cite{coefficient-mass-complex} in this setting.
+\begin{lemma}[Gaussian carries]\label{lem:gausscarry}
 Let $F\in\mathbb Z[x]$ have degree $D$, let $\alpha\in\mathbb Z[i]$ with
-$F(\alpha)=0$ and $\rho=|\alpha|>2$, and let $m$ be a split of $F$ that is
-not clean at $\alpha$.  Then some $i<m$ has $|f_i|\ge(\rho/2)^{m-i}$
-\cite[Lemma~6.1]{coefficient-mass-complex}.
-Every nonzero $F\in\mathbb Z[x]$ divisible by $P$ can be written
+$F(\alpha)=0$, $\rho=|\alpha|$, and let $1\le m\le D$ (a split of $F$).  Write
+$F=F_{<m}+x^mG_m$ with $F_{<m}=\sum_{i<m}f_ix^i$ and
+$G_m=\sum_{i\ge m}f_ix^{i-m}$.  Then
+$G_m(\alpha)\in\mathbb Z[i]$ and $F_{<m}(\alpha)=-\alpha^mG_m(\alpha)$.  If the
+split $m$ is not clean at $\alpha$, that is, if $G_m(\alpha)\ne0$, then $|F_{<m}(\alpha)|\ge\rho^m$, and if
+moreover $\rho>2$, some $i<m$ has
+\[
+  |f_i|\ \ge\ (\rho/2)^{m-i}.
+\]
+\end{lemma}
+
+\begin{proof}
+$G_m$ has integer coefficients, so $G_m(\alpha)\in\mathbb Z[i]$, and
+$0=F(\alpha)=F_{<m}(\alpha)+\alpha^mG_m(\alpha)$.  If $G_m(\alpha)\ne0$ it is a
+nonzero Gaussian integer, so $|G_m(\alpha)|\ge1$ and
+$|F_{<m}(\alpha)|=\rho^m|G_m(\alpha)|\ge\rho^m$.  If every $i<m$ had
+$|f_i|<(\rho/2)^{m-i}$, then
+$|F_{<m}(\alpha)|\le\sum_{i<m}|f_i|\rho^i<\rho^m\sum_{i<m}2^{i-m}<\rho^m$, a
+contradiction.
+\end{proof}
+
+The lemma is a Gaussian analogue of the gap principle for lacunary
+polynomials~\cite{lenstra-lacunary}, by which a root of small degree of $F$
+is a root of both parts across a sufficiently long run of zero coefficients;
+here small coefficients below the split play the role of the gap.  Here it is used at every split,
+not only at long gaps.
+
+\begin{lemma}[Blocks]\label{lem:gaussblocks}
+In the setting of Section~\ref{sec:gaussian}, every nonzero
+$F\in\mathbb Z[x]$ divisible by $P$ can be written
 \[
   F=\sum_{s=1}^rx^{e_s}B_s,\qquad e_s+\deg B_s<e_{s+1},
 \]
-with every $B_s\in\mathbb Z[x]$ divisible by $P$ and $P$-irreducible; then
-$\Lambda(F)=\sum_s\Lambda(B_s)$, $|\operatorname{lead}B_s|\ge1$, and
-$b_k(F)\ge b_k(B_s)$ for every $s$ and $k$
-\cite[Lemma~6.2]{coefficient-mass-complex}.
-We call the $B_s$ the blocks of the decomposition.  Finally, if
-$\rho_{\min}>2$, every $P$-irreducible $B\in\mathbb Z[x]$ divisible by $P$,
-of degree $d$, has
+with every $B_s\in\mathbb Z[x]$ divisible by $P$ and $P$-irreducible: $B_s(0)\ne0$
+and no split $m\in\{1,\ldots,\deg B_s\}$ of $B_s$ has $G_m(\alpha_j)=0$ for every $j$.
+Consequently $\Lambda(F)=\sum_s\Lambda(B_s)$, $|\operatorname{lead}B_s|\ge1$,
+and $b_k(F)\ge b_k(B_s)$ for every $s$ and $k$.
+\end{lemma}
+
+\begin{proof}
+Write $F=x^eF_0$ with $F_0(0)\ne0$; since $P(0)\ne0$, $P\mid F_0$.  Induct
+on $\deg F_0$.  If no split of $F_0$ is $P$-clean, $F_0$ itself is the only
+block.  Otherwise let $m$ be a $P$-clean split: $G_m(\alpha_j)=0$ for all
+$j$, hence $F_{<m}(\alpha_j)=F_0(\alpha_j)-\alpha_j^mG_m(\alpha_j)=0$, and by
+reality of the coefficients also $F_{<m}(\bar\alpha_j)=G_m(\bar\alpha_j)=0$.
+Since $P$ is monic in $\mathbb Z[x]$ with $2K$ distinct roots, division with
+remainder in $\mathbb Z[x]$ shows $P\mid F_{<m}$ and $P\mid G_m$ in
+$\mathbb Z[x]$.  Both are nonzero ($F_{<m}(0)=F_0(0)$, and $G_m$ has the leading
+coefficient of $F_0$) and of smaller degree than $F_0$; $F_{<m}(0)\ne0$, and
+$G_m$ is handled after removing a power of $x$.  Their supports lie in
+$[0,m-1]$ and $[m,\deg F_0]$, so the decompositions given by induction
+concatenate.  The supports of the $x^{e_s}B_s$ are disjoint and cover that of
+$F$, which gives the additivity of $\Lambda$ and the inclusion of the
+nonleading magnitudes of each $B_s$ among those of $F$ (the leading
+coefficient of $B_s$, $s<r$, is a nonleading coefficient of $F$).
+\end{proof}
+
+\begin{theorem}[Degree charging]\label{thm:gausscharge}
+In the setting of Section~\ref{sec:gaussian}, assume $\rho_{\min}>2$, and
+let $B\in\mathbb Z[x]$ be $P$-irreducible and
+divisible by $P$, of degree $d$.  Then
 \[
   \sum_{i<d}\log^+|b_i|\ \ge\ d\log\frac{\rho_{\min}}2,
   \qquad\text{so}\qquad
-  \Lambda(B)\ \ge\ \log|b_d|+d\log\frac{\rho_{\min}}2
+  \Lambda(B)\ \ge\ \log|b_d|+d\log\frac{\rho_{\min}}2 .
 \]
-\cite[Theorem~6.3]{coefficient-mass-complex}.
+Hence every nonzero $F\in\mathbb Z[x]$ divisible by $P$ has
+$\Lambda(F)\ge\sum_s(\deg B_s)\log(\rho_{\min}/2)$ over the blocks $B_s$ of
+any decomposition of $F$ as in Lemma~\ref{lem:gaussblocks}.
+\end{theorem}
+
+\begin{proof}
+Every split $m\in\{1,\ldots,d\}$ of $B$ is unclean at some $\alpha_j$, with
+$\rho_j\ge\rho_{\min}$, so by Lemma~\ref{lem:gausscarry} there is $i<m$ with
+$|b_i|\ge(\rho_{\min}/2)^{m-i}$.  For a fixed $i$, the splits charged to it
+this way have distinct $m-i\ge1$ with
+$(m-i)\log(\rho_{\min}/2)\le\log|b_i|$, so there are at most
+$\log^+|b_i|/\log(\rho_{\min}/2)$ of them.  All $d$ splits are charged, which
+is the first inequality.  The rest follows from $\log^+|b_d|\ge\log|b_d|$ and
+Lemma~\ref{lem:gaussblocks}.
+\end{proof}
+
+Compare \cite[Proposition~3.2]{coefficient-mass-complex}, which lies outside this setting: at
+most two roots of $x^{2M}+\rho^{2M}$ above the axis are Gaussian integers
+(none unless $\rho^{2M}\in\mathbb Z$).  Indeed, if $\alpha$ and $\alpha'$ are
+two of them, $\alpha'/\alpha$ is a root of unity in $\mathbb Q(i)$, so
+$\alpha'\in\{\pm\alpha,\pm i\alpha\}$, and at most two of these four points
+lie above the axis.  It
+pays $\Lambda=2M\log\rho$ for its degree $2M$, a charge of the form the
+theorem gives; what the theorem forbids, at Gaussian roots, is a block of
+large degree and small mass.
+
 
 \begin{theorem}[Thin Gaussian clusters]\label{thm:thingauss}
 In the setting of Section~\ref{sec:gaussian}, let $\varphi\in\R$,
@@ -387,19 +459,19 @@ and
   \frac{\pi}{2E(2\delta)}\ \ge\ \frac{\pi\log2}{16\,\delta\log(e\pi/(2\delta))}.
 \]
 If moreover some block $B$ of some decomposition of $F$ as in
-\cite[Lemma~6.2]{coefficient-mass-complex} has
+Lemma~\ref{lem:gaussblocks} has
 $\deg B\cdot E(2\delta)\le\pi K/2$, then
 $b_k(F)\ge(R/2-1)^{m-k+1}$ for $1\le k\le m=\lceil K/2\rceil-1$.
 \end{theorem}
 
 \begin{proof}
 Let $B$ be a block, of degree $d$, of any decomposition of $F$ as in
-\cite[Lemma~6.2]{coefficient-mass-complex}; for the rows, take the block of the hypothesis.
+Lemma~\ref{lem:gaussblocks}; for the rows, take the block of the hypothesis.
 It is divisible by $P$, so it
 vanishes at the $K$ distinct $\alpha_j$; $B(0)\ne0$, $|b_d|\ge1$,
 $\Lambda(F)\ge\Lambda(B)$ and $b_k(F)\ge b_k(B)$.  If $dE(2\delta)\le\pi K/2$,
 Theorem~\ref{thm:thinsector} applies to $B$ and gives the first term, and the
-rows.  Otherwise $d>\pi K/(2E(2\delta))$, and \cite[Theorem~6.3]{coefficient-mass-complex},
+rows.  Otherwise $d>\pi K/(2E(2\delta))$, and Theorem~\ref{thm:gausscharge},
 with $\rho_{\min}\ge R>2$, gives
 $\Lambda(B)\ge d\log(\rho_{\min}/2)>\pi K\log(R/2)/(2E(2\delta))$.  Next,
 $B=PQ$ with $Q\in\mathbb Z[x]$ since $P$ is monic, so $B(0)=P(0)Q(0)$ is a
@@ -428,7 +500,7 @@ $m$ is the excess of $K$ over the share $\delta n/\pi$, or about $n\log R$
 through the Mahler measure, which gives the constant $\pi/\delta$
 (Theorem~\ref{thm:widesector}, Corollary~\ref{cor:wideconst},
 Proposition~\ref{prop:widesharp}).  At Gaussian roots and fixed $\delta$ the
-degree restriction is removed by \cite[Theorem~6.3]{coefficient-mass-complex}
+degree restriction is removed by Theorem~\ref{thm:gausscharge}
 (Corollary~\ref{cor:widegauss}), and every integer multiple pays
 $(\frac\pi{2\delta}-o(1))K\log K$ as $K\to\infty$, whatever $R$
 (Corollary~\ref{cor:gausscount}).
@@ -715,9 +787,9 @@ $R\to\infty$.
 
 \begin{proof}
 Let $B$ be a block of any decomposition of $F$ as in
-\cite[Lemma~6.2]{coefficient-mass-complex}, of degree $d$; it is
+Lemma~\ref{lem:gaussblocks}, of degree $d$; it is
 real, $|b_d|\ge1$, it vanishes at the $K$ distinct $\alpha_j$, and
-$\Lambda(F)\ge\Lambda(B)$.  If $d\ge\lambda K$, \cite[Theorem~6.3]{coefficient-mass-complex}
+$\Lambda(F)\ge\Lambda(B)$.  If $d\ge\lambda K$, Theorem~\ref{thm:gausscharge}
 with $\rho_{\min}\ge R>2$ gives $\Lambda(B)\ge\lambda K\log(R/2)$.  Otherwise
 $\kappa(\delta)d/\log T\le\omega$, and Theorem~\ref{thm:widesector} applies to $B$;
 its bound only improves when $\omega$ decreases, since $\nu_m$ then
@@ -1065,7 +1137,7 @@ in place of the zeros of Proposition~\ref{prop:gausslow}, item~2, may lower
 the exponent $m$ of $P(0)$ by $(m-1)\log V/\log P(0)$, which is less than
 $m-1$.  The sizes alone give much less: if $V<\rho_{\min}/2$ and the split
 $m$ of $F/x^e$ is unclean at some $\alpha_j$,
-\cite[Lemma~6.1]{coefficient-mass-complex} gives only
+Lemma~\ref{lem:gausscarry} gives only
 $|f_e|\ge(\rho_{\min}/2)^m$, since no $f_i$ with $e<i<e+m$ can be the large one.
 
 The lowest $m$ coefficients of the multiples are cut out by one congruence,
@@ -1262,7 +1334,7 @@ $F\in\mathbb Z[x]$ be nonzero and divisible by $P$, with lowest nonzero
 coefficient $v=f_e$.  Call a coefficient $f_i$ of $F$ \emph{heavy} if
 $|f_i|\ge\rho_{\min}/2$.
 \begin{enumerate}
-\item For any decomposition of $F$ as in \cite[Lemma~6.2]{coefficient-mass-complex}, the
+\item For any decomposition of $F$ as in Lemma~\ref{lem:gaussblocks}, the
 lowest coefficient of every block is heavy and nonleading, so there are at most
 as many blocks as heavy nonleading coefficients of $F$.
 \item If $b_2(F)<\rho_{\min}/2$, then $F=x^e(v+H)$ with $H\in\mathbb Z[x]$,
@@ -1279,13 +1351,13 @@ so its lowest coefficient is not the leading coefficient of $F$, and distinct
 blocks have distinct lowest positions.
 
 2.  At most one nonleading coefficient of $F$ is heavy, so by item~1 a
-decomposition of $F$ as in \cite[Lemma~6.2]{coefficient-mass-complex} has exactly one block,
+decomposition of $F$ as in Lemma~\ref{lem:gaussblocks} has exactly one block,
 $F=x^eB$, and $B(0)=v$ is the heavy one; every other
 nonleading coefficient of $F$ has modulus less than $\rho_{\min}/2$.  Write
 $B=v+H$; since $B(\alpha_j)=0$, $H(\alpha_j)=-v$.  Let
 $d=\deg H=\deg B$.  The split $d$ of the $P$-irreducible $B$ is unclean at
 some $\alpha_j$, and $\rho_j\ge\rho_{\min}>2$, so by
-\cite[Lemma~6.1]{coefficient-mass-complex} some $i<d$ has
+Lemma~\ref{lem:gausscarry} some $i<d$ has
 $|b_i|\ge(\rho_j/2)^{d-i}\ge\rho_{\min}/2$.  This $b_i$ is a heavy
 nonleading coefficient of $F$, so $i=0$ and $|v|\ge(\rho_{\min}/2)^d$.
 \end{proof}
@@ -1627,6 +1699,12 @@ P.~Erd\H{o}s and P.~Tur\'an,
 J.~Neukirch,
 \newblock \emph{Algebraic Number Theory},
 \newblock Grundlehren der mathematischen Wissenschaften 322, Springer, 1999.
+\bibitem{lenstra-lacunary}
+H.~W. Lenstra, Jr.,
+\newblock Finding small degree factors of lacunary polynomials,
+\newblock in \emph{Number Theory in Progress}, Vol.~1 (Zakopane, 1997),
+de Gruyter, 1999, 267--276.
+
 \end{thebibliography}
 
 \end{document}

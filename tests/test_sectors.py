@@ -8,8 +8,8 @@ power and symmetric root sets exactly; ``p``-adic Newton polygons at the primes
 over coprime norms on seeded multiples, and small coefficients after the
 lowest one by exhausting the cofactor.  Every group has
 a control that a false variant of its statement is caught.  The polynomial
-helpers and the block decomposition of ``lem:gaussblocks`` (a result of
-``coefficient-mass-complex.tex``) are those of ``tests/test_complex.py``.
+helpers and the block decomposition of ``lem:gaussblocks`` (``sec:gaussian``)
+are those of ``tests/test_complex.py``.
 """
 
 from __future__ import annotations

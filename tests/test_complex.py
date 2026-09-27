@@ -1895,7 +1895,8 @@ def test_first_row_at_the_optimum(a: int, b: int, rho: int) -> None:
     assert (rho - 1) ** 2 <= best < rho**2
 
 
-# Blocks at Gaussian roots (lem:gausscarry, lem:gaussblocks, thm:gausscharge).
+# Blocks at Gaussian roots (lem:gausscarry, lem:gaussblocks, thm:gausscharge,
+# now in coefficient-mass-sectors.tex).
 
 Gauss = tuple[int, int]  # a + bi
 
