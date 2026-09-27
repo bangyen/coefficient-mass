@@ -9,7 +9,7 @@ import CoefficientMass.FiniteRowsB
 /-!
 # Every Row Is a Finite Minimum: Statement
 
-This module states Theorem 6.19 of `coefficient-mass-rows.tex` in full, from its two parts
+This module states Theorem 5.2 of `coefficient-mass-belowtwo.tex` in full, from its two parts
 `finiteRowsA` and `finiteRowsB`.
 
 ## Definitions
@@ -25,7 +25,7 @@ open Polynomial
 
 namespace CoefficientMass
 
-/-- Theorem 6.19 of `coefficient-mass-rows.tex`: for `r > 1` and `n, m ≥ 1`, (a) with minimizers
+/-- Theorem 5.2 of `coefficient-mass-belowtwo.tex`: for `r > 1` and `n, m ≥ 1`, (a) with minimizers
 `q_N` of `μ_r(N, n + |N|)` and `T(N) = t_{m-|N|}(q_N)`, the good sets `𝒮` of size `m` form a
 finite family and `V_r(n + m, m + 1) = min(V_r(n + m - 1, m), min_{S ∈ 𝒮} 1/μ_r(S, n + m))`;
 (b) a finite tree `𝒯` of admissible `q_N` with `Φ_r(q_N) ≤ B` and thresholds `T_N` bounds every

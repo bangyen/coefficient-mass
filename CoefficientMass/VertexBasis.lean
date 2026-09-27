@@ -9,7 +9,7 @@ import CoefficientMass.OnePoly
 /-!
 # A Basis at a Vertex
 
-This module sets up Lemma 6.11 of `coefficient-mass-rows.tex`.  For `y ∈ Z` put
+This module sets up Lemma 4.2 of `coefficient-mass-belowtwo.tex`.  For `y ∈ Z` put
 `e_y(s) = s r_{Z \ {y}}(s)`.  Then `e_y(0) = 0`, `e_y` vanishes on `Z \ {y}`, `e_y(y) ≠ 0`, and
 `deg e_y ≤ |Z|`; so a real `d` with `deg d ≤ |Z|`, `d(0) = 0` and `d|_S = 0` is
 `∑_{y ∈ Z \ S} (d(y)/e_y(y)) e_y`, since the difference vanishes at the `|Z| + 1` points

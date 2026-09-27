@@ -10,10 +10,10 @@ import CoefficientMass.IntZerosInf
 /-!
 # Long Diagonals
 
-This module proves Theorem 6.7 of `coefficient-mass-rows.tex`.  If `N_k(r) ≤ τ_k(n)`, then for
-every `ε > 0` Lemma 3.1 gives `p = r_Y` with all zeros at least `k` and
-`A_k(p) ≤ ν_k(n) + ε`, and Lemma 6.6 makes `A_k(p)` the largest prefix sum; so
-`ν_i(n) ≤ ν_k(n)`, `Λ_k(n) = ν_k(n)`, and Theorem 6.2 gives `V_r(L, k) = 1/ν_k(n)`.
+This module proves Theorem 3.2 of `coefficient-mass-belowtwo.tex`.  If `N_k(r) ≤ τ_k(n)`, then for
+every `ε > 0` `intZerosInf` gives `p = r_Y` with all zeros at least `k` and
+`A_k(p) ≤ ν_k(n) + ε`, and Lemma 3.1 makes `A_k(p)` the largest prefix sum; so
+`ν_i(n) ≤ ν_k(n)`, `Λ_k(n) = ν_k(n)`, and Theorem 2.1 gives `V_r(L, k) = 1/ν_k(n)`.
 
 ## Definitions
 
@@ -29,7 +29,7 @@ open Polynomial
 
 namespace CoefficientMass
 
-/-- Theorem 6.7 of `coefficient-mass-rows.tex`: for `r > 1`, `n ≥ 1`, `k ≥ 2` and
+/-- Theorem 3.2 of `coefficient-mass-belowtwo.tex`: for `r > 1`, `n ≥ 1`, `k ≥ 2` and
 `L = n + k - 1`, if `N_k(r) ≤ τ_k(n)` then `ν_i(n) ≤ ν_k(n)` for `1 ≤ i ≤ k` and
 `V_r(L, k) = 1/ν_k(n) = min_{1 ≤ i ≤ k} 1/ν_i(n)`. -/
 def LongDiag : Prop :=

@@ -9,7 +9,7 @@ import CoefficientMass.OnePoly
 /-!
 # Far Zeros Keep the Last Prefix Sum Largest
 
-This module proves Lemma 6.6 of `coefficient-mass-rows.tex`.  With
+This module proves Lemma 3.1 of `coefficient-mass-belowtwo.tex`.  With
 `w_k(s) = ω_k(s) - ω_{k-1}(s)`, `τ_k(n) = inf_{p ∈ Q_n} ∑_{s ≥ 2k-2} w_k(s) |p(s)|` and
 `N_k(r) = max_{1 ≤ i < k} ∑_{s ≤ 2k-3} (ω_i(s) - ω_k(s))^+`, every `p = r_Y` with `Y` a set of
 `n - 1` integers at least `k` has `A_k(p) - A_i(p) ≥ τ_k(n) - N_k(r)` for `1 ≤ i < k`: below
@@ -48,7 +48,7 @@ noncomputable def nK (r : ℝ) (k : ℕ) : ℝ :=
   (Finset.Icc 1 (k - 1)).fold max 0 fun i =>
     ∑ s ∈ Finset.range (2 * k - 2), max (prefixWeight r i s - prefixWeight r k s) 0
 
-/-- Lemma 6.6 of `coefficient-mass-rows.tex`: for `r > 1`, `k ≥ 2`, `n ≥ 1` and a set `Y` of
+/-- Lemma 3.1 of `coefficient-mass-belowtwo.tex`: for `r > 1`, `k ≥ 2`, `n ≥ 1` and a set `Y` of
 `n - 1` integers at least `k`, `A_k(r_Y) - A_i(r_Y) ≥ τ_k(n) - N_k(r)` for `1 ≤ i < k`. -/
 def FarPrefix : Prop :=
   ∀ r : ℝ, 1 < r → ∀ k n : ℕ, 2 ≤ k → 1 ≤ n → ∀ Y : Finset ℕ, Y.card + 1 = n →

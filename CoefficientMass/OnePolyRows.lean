@@ -9,9 +9,9 @@ import CoefficientMass.PrefixShift
 /-!
 # All Rows When the Top Row Is at Most One
 
-This module proves Theorem 6.4 of `coefficient-mass-rows.tex`.  If `β_r(n) ≤ 1`, then
-`ν_1(n) = 1/β_r(n) ≥ 1`, and Lemma 6.3 with `m = 1` makes `A_i(p)` nondecreasing in `i`; so
-`max_{i ≤ k} A_i(p) = A_k(p)`, `Λ_k(n) = ν_k(n)`, and Theorem 6.2 gives
+This module proves Theorem 2.3 of `coefficient-mass-belowtwo.tex`.  If `β_r(n) ≤ 1`, then
+`ν_1(n) = 1/β_r(n) ≥ 1`, and Lemma 2.2 with `m = 1` makes `A_i(p)` nondecreasing in `i`; so
+`max_{i ≤ k} A_i(p) = A_k(p)`, `Λ_k(n) = ν_k(n)`, and Theorem 2.1 gives
 `V_r(L, k) = 1/ν_k(n) = min_{i ≤ k} 1/ν_i(n)` for `L = n + k - 1`.
 
 ## Definitions
@@ -29,7 +29,7 @@ open Polynomial
 
 namespace CoefficientMass
 
-/-- Theorem 6.4 of `coefficient-mass-rows.tex`: for `r > 1` and `n ≥ 1` with `β_r(n) ≤ 1`,
+/-- Theorem 2.3 of `coefficient-mass-belowtwo.tex`: for `r > 1` and `n ≥ 1` with `β_r(n) ≤ 1`,
 `1 ≤ ν_1(n) ≤ ν_2(n) ≤ ⋯`, and for every `k ≥ 1` and `L = n + k - 1`,
 `V_r(L, k) = 1/ν_k(n) = min_{1 ≤ i ≤ k} 1/ν_i(n)`. -/
 def OnePolyRows : Prop :=

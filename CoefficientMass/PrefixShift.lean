@@ -10,7 +10,7 @@ import Mathlib.Topology.Algebra.InfiniteSum.ENNReal
 /-!
 # Shifting the Prefix Index
 
-This module proves Lemma 6.3 of `coefficient-mass-rows.tex`.  By the convolution of the weights,
+This module proves Lemma 2.2 of `coefficient-mass-belowtwo.tex`.  By the convolution of the weights,
 `A_{i+m}(p) = ∑_u ω_i(u) ∑_t ω_m(t) |p(u + t)|`, a rearrangement of nonnegative terms done in
 `ℝ≥0∞`, and the inner sum is at least `ν_m(n) |p(u)|`.
 
@@ -28,7 +28,7 @@ open Polynomial
 
 namespace CoefficientMass
 
-/-- Lemma 6.3 of `coefficient-mass-rows.tex`: for `r > 1` and `n, i, m ≥ 1`,
+/-- Lemma 2.2 of `coefficient-mass-belowtwo.tex`: for `r > 1` and `n, i, m ≥ 1`,
 `A_{i+m}(p) ≥ ν_m(n) A_i(p)` for real `p` with `deg p ≤ n - 1`; consequently
 `ν_{i+m}(n) ≥ ν_i(n) ν_m(n)` and `ν_i(n) ≥ ν_1(n)^i`. -/
 def PrefixShift : Prop :=

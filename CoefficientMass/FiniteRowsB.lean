@@ -9,7 +9,7 @@ import CoefficientMass.FiniteRows
 /-!
 # A Finite Tree Bounds a Row
 
-This module proves Theorem 6.19(b) of `coefficient-mass-rows.tex`.  For `x ∈ S` let
+This module proves Theorem 5.2(b) of `coefficient-mass-belowtwo.tex`.  For `x ∈ S` let
 `P_x = {y ∈ S : y < x}`.  While every earlier `y` has `y < T_{P_y}`, the tree hypothesis keeps
 `P_x = P_y ∪ {y}` (`y = max P_x`) in `𝒯`.  At the least `x ∈ S` with `x ≥ T_{P_x}` the far step
 gives `μ_r(S, n + m) ≤ Φ_r(q_{P_x}) ≤ B`; if there is none, the leaf hypothesis at
@@ -83,7 +83,7 @@ theorem prefix_mem_tree {m : ℕ} (𝒯 : Set (Finset ℕ)) (hT0 : ∅ ∈ 𝒯)
         rw [hws]
         exact (Finset.mem_filter.1 hw).2
 
-/-- Theorem 6.19(b) of `coefficient-mass-rows.tex`: let `B` be real and let `𝒯 ∋ ∅` be a family of
+/-- Theorem 5.2(b) of `coefficient-mass-belowtwo.tex`: let `B` be real and let `𝒯 ∋ ∅` be a family of
 finite sets of size `< m`, with `q_N` admissible for `μ_r(N, n + |N|)`, `Φ_r(q_N) ≤ B`, and
 integers `T_N ≥ 1` with `Δ_{q_N, m-|N|}(T_N) ≤ 0`.  If `N ∪ {σ} ∈ 𝒯` whenever `N ∈ 𝒯`,
 `|N| ≤ m - 2` and `max N < σ < T_N`, and `μ_r(N ∪ {σ}, n + m) ≤ B` whenever `N ∈ 𝒯`,

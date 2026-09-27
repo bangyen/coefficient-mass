@@ -10,10 +10,10 @@ import CoefficientMass.RowMono
 /-!
 # The Far Step
 
-This module proves the far step in the proof of Theorem 6.19 of
-`coefficient-mass-rows.tex`.  If `q` is admissible for `μ_r(N, n + |N|)`, `N ⊂ S`, `|S| = m` and
-`Δ_{q,m-|N|}(t) ≤ 0` with `S \ N ⊂ [t, ∞)`, then Lemma 6.18(b) gives
-`μ_r(S, n + m) ≤ Φ_r(q r_{S \ N}) ≤ Φ_r(q)`.  Lemma 6.10 also gives
+This module proves the far step in the proof of Theorem 5.2 of
+`coefficient-mass-belowtwo.tex`.  If `q` is admissible for `μ_r(N, n + |N|)`, `N ⊂ S`, `|S| = m` and
+`Δ_{q,m-|N|}(t) ≤ 0` with `S \ N ⊂ [t, ∞)`, then Lemma 5.1(b) gives
+`μ_r(S, n + m) ≤ Φ_r(q r_{S \ N}) ≤ Φ_r(q)`.  Lemma 4.1 also gives
 `V_r(n + m - 1, m) ≤ V_r(n + j, j + 1) ≤ 1/μ_r(N, n + j)` for `|N| = j < m`.
 
 ## Theorems

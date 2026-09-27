@@ -11,7 +11,7 @@ import CoefficientMass.VertexStep
 /-!
 # Certifying a Vertex
 
-This module states and proves Lemma 6.11 of `coefficient-mass-rows.tex`.  The certificate
+This module states and proves Lemma 4.2 of `coefficient-mass-belowtwo.tex`.  The certificate
 test is `rowPhi_le_of_cert`, `cert_of_rowPhi_le` and `rowPhi_lt_of_cert`.  For the existence
 claim, start from a minimizer (`exists_muR_min`) and apply `vGood_step` until
 `deg q = |Z|`, so `q = r_Z`; then `|Z| = L - 1`, since otherwise a far zero
@@ -32,7 +32,7 @@ open Polynomial
 
 namespace CoefficientMass
 
-/-- Lemma 6.11 of `coefficient-mass-rows.tex`. -/
+/-- Lemma 4.2 of `coefficient-mass-belowtwo.tex`. -/
 def VertexOpt : Prop :=
   (∀ r : ℝ, 1 < r → ∀ S Z : Finset ℕ, S ⊆ Z → 0 ∉ Z →
     (rowPhi r (confPolyP Z) = muR r S (Z.card + 1) ↔

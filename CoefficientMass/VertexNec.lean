@@ -10,7 +10,7 @@ import Mathlib.Analysis.Normed.Group.Tannery
 /-!
 # The Vertex Certificate Is Necessary
 
-This module proves the necessity part of Lemma 6.11 of `coefficient-mass-rows.tex`.  The
+This module proves the necessity part of Lemma 4.2 of `coefficient-mass-belowtwo.tex`.  The
 one-sided derivative of `t ↦ Φ_r(r_Z + t d)` at `0⁺` is
 `∑_{s ≥ 1} sgn(r_Z(s)) d(s) r^{-s} + ∑_{r_Z(s) = 0} |d(s)| r^{-s}` by dominated convergence;
 if `r_Z` is optimal then it is nonnegative, and `d = ±e_y` gives `|G_y| ≤ |e_y(y)| r^{-y}`.
@@ -119,7 +119,7 @@ theorem tsum_zero_eY {r : ℝ} {Z : Finset ℕ} (h0 : 0 ∉ Z) {y : ℕ} (hy : y
       · rw [zero_mul],
     hy1, if_pos (confPolyP_eval_mem hy fun h : y = 0 => h0 (h ▸ hy)), hd]
 
-/-- Lemma 6.11 of `coefficient-mass-rows.tex`, necessity: if `Φ_r(Z) ≤ Φ_r(q)` for every
+/-- Lemma 4.2 of `coefficient-mass-belowtwo.tex`, necessity: if `Φ_r(Z) ≤ Φ_r(q)` for every
 admissible `q` of `μ_r(S, |Z| + 1)`, then `|G_y| ≤ |e_y(y)| r^{-y}` for every `y ∈ Z \ S`. -/
 theorem cert_of_rowPhi_le {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆ Z) (h0 : 0 ∉ Z)
     (hopt : ∀ q : ℝ[X], q.degree < ↑(Z.card + 1) → q.eval 0 = 1 →

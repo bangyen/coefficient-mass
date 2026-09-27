@@ -10,9 +10,9 @@ import CoefficientMass.RowPrefixRows
 /-!
 # One Polynomial for All Exempted Sets
 
-This module proves Theorem 6.2 of `coefficient-mass-rows.tex`.  For `p ∈ Q_n`
+This module proves Theorem 2.1 of `coefficient-mass-belowtwo.tex`.  For `p ∈ Q_n`
 (`deg p ≤ n - 1`, `p(0) = 1`) and an exempted set `S` with `|S| = k - 1`, the polynomial
-`r_S p` is admissible for `μ_r(S, L)`, and Lemma 6.1 bounds its sum by
+`r_S p` is admissible for `μ_r(S, L)`, and `prefixPush` bounds its sum by
 `max_{i ≤ k} A_i(p)`.  So `b_k(F) ≥ 1/max_{i ≤ k} A_i(p)`, and with
 `Λ_k(n) = inf_p max_{i ≤ k} A_i(p)`, `1/Ω_k(n) ≤ 1/Λ_k(n) ≤ V_r(L, k) ≤ min_i 1/ν_i(n)`.
 
@@ -47,7 +47,7 @@ noncomputable def maxA (r : ℝ) (k : ℕ) (p : ℝ[X]) : ℝ :=
 noncomputable def lambdaR (r : ℝ) (k n : ℕ) : ℝ :=
   ⨅ p : {p : ℝ[X] // p.degree < n ∧ p.eval 0 = 1}, maxA r k p.1
 
-/-- Theorem 6.2 of `coefficient-mass-rows.tex`: for `r > 1`, `1 ≤ k ≤ L`, `n = L - k + 1` and
+/-- Theorem 2.1 of `coefficient-mass-belowtwo.tex`: for `r > 1`, `1 ≤ k ≤ L`, `n = L - k + 1` and
 `p ∈ Q_n`, every monic multiple `F` of `(x - r)^L` has `b_k(F) ≥ 1/max_{i ≤ k} A_i(p)`; hence
 `1/Ω_k(n) ≤ 1/Λ_k(n) ≤ V_r(L, k) ≤ min_{i ≤ k} 1/ν_i(n)`. -/
 def OnePoly : Prop :=

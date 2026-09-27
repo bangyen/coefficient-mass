@@ -10,8 +10,8 @@ import CoefficientMass.NbNodes
 /-!
 # A Lower Bound for `τ_k(n)`
 
-This module proves the lower bound for `τ_k(n)` in Proposition 6.8(a) of
-`coefficient-mass-rows.tex`.  Past the mode, `w_k(s)/ω_k(s) = 1 - (k - 1)/(s - k + 1) > 2 - r`.
+This module proves the lower bound for `τ_k(n)` in Proposition 3.3(a) of
+`coefficient-mass-belowtwo.tex`.  Past the mode, `w_k(s)/ω_k(s) = 1 - (k - 1)/(s - k + 1) > 2 - r`.
 Lagrange interpolation at `t_l = M + l` has `|ℓ_l(0)| ≤ 2^{n-1} binom(M + n - 1, n - 1)` for
 `M ≥ 1`, so for `M > (k - 1)r/(r - 1)`, `p ∈ Q_n` and `r ≤ 2`,
 `(2 - r) ω_k(M) ≤ r^{n-1} 2^{n-1} binom(M + n - 1, n - 1) ∑_{s ≥ 2k-2} w_k(s) |p(s)|`.

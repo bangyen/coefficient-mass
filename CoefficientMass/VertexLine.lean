@@ -10,8 +10,8 @@ import CoefficientMass.VertexNec
 /-!
 # `Φ_r` Along a Sign-Preserving Segment
 
-This module collects the facts behind the existence claim of Lemma 6.11 of
-`coefficient-mass-rows.tex`.  If `q(s)(q(s) + t d(s)) ≥ 0` for every `s ≥ 1` and `d` vanishes
+This module collects the facts behind the existence claim of Lemma 4.2 of
+`coefficient-mass-belowtwo.tex`.  If `q(s)(q(s) + t d(s)) ≥ 0` for every `s ≥ 1` and `d` vanishes
 wherever `q` does, then `Φ_r(q + t d) = Φ_r(q) + t ∑_s sgn(q(s)) d(s) r^{-s}`; and
 `t Φ_r(d) ≤ Φ_r(q + t d) + Φ_r(q)` for `t ≥ 0`.
 

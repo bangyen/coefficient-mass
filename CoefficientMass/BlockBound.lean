@@ -10,8 +10,8 @@ import CoefficientMass.PrefixWeights
 /-!
 # The Block Bound `(1 + ν_k(n))/(kr)`
 
-This module proves the second bound of Lemma 6.21 of `coefficient-mass-rows.tex` and the
-lemma itself.  With `p = r_Y` from Lemma 3.1 and `c = p(-1) ≥ 1`, the polynomial
+This module proves the second bound of Lemma 5.4 of `coefficient-mass-belowtwo.tex` and the
+lemma itself.  With `p = r_Y` from `intZerosInf` and `c = p(-1) ≥ 1`, the polynomial
 `q(s) = r_{[2,k]}(s) p(s - 1)/c` is admissible for `μ_r([2, k], n + k - 1)`, and its `s`-th term
 is `(1/(krc))` times `1` at `s = 1` and `ω_k(s - 1)|p(s - 1)|` for `s ≥ 2`.
 

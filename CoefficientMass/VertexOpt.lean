@@ -10,7 +10,7 @@ import Mathlib.Data.Real.Sign
 /-!
 # Certifying a Vertex
 
-This module proves the sufficiency part of Lemma 6.11 of `coefficient-mass-rows.tex`.  With
+This module proves the sufficiency part of Lemma 4.2 of `coefficient-mass-belowtwo.tex`.  With
 `G_y = ∑_{s ∉ Z} sgn(r_Z(s)) e_y(s) r^{-s}`, if `|G_y| ≤ |e_y(y)| r^{-y}` for every
 `y ∈ Z \ S`, then every admissible `q = r_Z + ∑_y c_y e_y` has
 `Φ_r(q) - Φ_r(Z) ≥ ∑_y (c_y G_y + |c_y| |e_y(y)| r^{-y}) ≥ 0`, from
@@ -142,7 +142,7 @@ theorem rowPhi_sub_ge_sum {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆
   unfold rowPhi
   linarith
 
-/-- Lemma 6.11 of `coefficient-mass-rows.tex`, sufficiency: if `|G_y| ≤ |e_y(y)| r^{-y}` for
+/-- Lemma 4.2 of `coefficient-mass-belowtwo.tex`, sufficiency: if `|G_y| ≤ |e_y(y)| r^{-y}` for
 every `y ∈ Z \ S`, then `Φ_r(Z) ≤ Φ_r(q)` for every admissible `q` of `μ_r(S, |Z| + 1)`. -/
 theorem rowPhi_le_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆ Z) (h0 : 0 ∉ Z)
     (hcert : ∀ y ∈ Z \ S, |gY r Z y| ≤ |(eY Z y).eval (y : ℝ)| * (1 / r) ^ y)
@@ -156,7 +156,7 @@ theorem rowPhi_le_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆
   rw [abs_mul] at h2
   nlinarith
 
-/-- Lemma 6.11 of `coefficient-mass-rows.tex`, uniqueness: if `|G_y| < |e_y(y)| r^{-y}` for
+/-- Lemma 4.2 of `coefficient-mass-belowtwo.tex`, uniqueness: if `|G_y| < |e_y(y)| r^{-y}` for
 every `y ∈ Z \ S`, then `Φ_r(Z) < Φ_r(q)` for every admissible `q ≠ r_Z` of
 `μ_r(S, |Z| + 1)`. -/
 theorem rowPhi_lt_of_cert {r : ℝ} (hr : 1 < r) {S Z : Finset ℕ} (hSZ : S ⊆ Z) (h0 : 0 ∉ Z)

@@ -9,10 +9,10 @@ import CoefficientMass.RowFar
 /-!
 # Dropping a Far Exempted Position
 
-This module proves Lemma 6.10 of `coefficient-mass-rows.tex`: `V_r(L, k) ≤ V_r(L - 1, k - 1)`.
+This module proves Lemma 4.1 of `coefficient-mass-belowtwo.tex`: `V_r(L, k) ≤ V_r(L - 1, k - 1)`.
 For `|S'| = k - 2`, exempting `S'` and one far position gives
 `V_r(L, k) ≤ 1/μ_r(S', L - 1)` (`rowValue_le_base`), and the infimum over `S'` is
-`V_r(L - 1, k - 1)` by Proposition 2.1(b).
+`V_r(L - 1, k - 1)` by `rowValueDual`.
 
 ## Definitions
 
@@ -25,7 +25,7 @@ For `|S'| = k - 2`, exempting `S'` and one far position gives
 
 namespace CoefficientMass
 
-/-- Lemma 6.10 of `coefficient-mass-rows.tex`: for `r > 1` and `2 ≤ k ≤ L`,
+/-- Lemma 4.1 of `coefficient-mass-belowtwo.tex`: for `r > 1` and `2 ≤ k ≤ L`,
 `V_r(L, k) ≤ V_r(L - 1, k - 1)`; so `V_r(n + k - 1, k)` does not increase with `k`. -/
 def RowMono : Prop :=
   ∀ r : ℝ, 1 < r →

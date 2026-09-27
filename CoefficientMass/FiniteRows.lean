@@ -9,7 +9,7 @@ import CoefficientMass.FarStep
 /-!
 # Every Row Is a Finite Minimum
 
-This module proves Theorem 6.19(a) of `coefficient-mass-rows.tex`.  Fix minimizers `q_N` of
+This module proves Theorem 5.2(a) of `coefficient-mass-belowtwo.tex`.  Fix minimizers `q_N` of
 `μ_r(N, n + |N|)` for `|N| < m` and put `T(N) = t_{m-|N|}(q_N)`.  The sets
 `S = {σ_1 < ⋯ < σ_m}` with `σ_{j+1} < T({σ_1, …, σ_j})` form a finite family `𝒮`: removing the
 largest element maps a good set of size `j + 1` to a good set of size `j`.  Every `S ∉ 𝒮` has a
@@ -81,7 +81,7 @@ theorem goodSets_finite (T : Finset ℕ → ℕ) (j : ℕ) : (goodSets T j).Fini
     exact (ih.biUnion fun N _ => (Set.finite_Iio (T N)).biUnion fun σ _ =>
       Set.finite_singleton _).subset (goodSets_succ_subset T j)
 
-/-- Theorem 6.19(a) of `coefficient-mass-rows.tex`: for `r > 1` and `n, m ≥ 1`, with minimizers
+/-- Theorem 5.2(a) of `coefficient-mass-belowtwo.tex`: for `r > 1` and `n, m ≥ 1`, with minimizers
 `q_N` of `μ_r(N, n + |N|)` for `|N| < m` and `T(N) = t_{m-|N|}(q_N)`, the family `𝒮` of good
 sets of size `m` is finite, and `V_r(n + m, m + 1)` is the minimum of `V_r(n + m - 1, m)` and
 `1/μ_r(S, n + m)` over `S ∈ 𝒮`. -/

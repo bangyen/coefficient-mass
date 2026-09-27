@@ -9,7 +9,7 @@ import CoefficientMass.FarZerosPhi
 /-!
 # Several Far Zeros
 
-This module proves Lemma 6.18 of `coefficient-mass-rows.tex`.  Since `Δ_{q,m}(t) → -Ψ_r(q) < 0`,
+This module proves Lemma 5.1 of `coefficient-mass-belowtwo.tex`.  Since `Δ_{q,m}(t) → -Ψ_r(q) < 0`,
 some least integer `t_m(q) ≥ 1` has `Δ_{q,m}(t_m(q)) ≤ 0`, and `Δ_{q,m}` does not increase.  If
 `|U| ≤ m` and `U ⊂ [t, ∞)` with `Δ_{q,m}(t) ≤ 0`, then with `u = min U`,
 `|r_U(s)| ≤ |1 - s/u| max(1, s/u)^{m-1}`, so `u(|r_U(s)| - 1) ≤ φ_m(s, u)` and
@@ -38,7 +38,7 @@ namespace CoefficientMass
 noncomputable def tM (r : ℝ) (q : ℝ[X]) (m : ℕ) : ℕ :=
   sInf {t : ℕ | 1 ≤ t ∧ deltaQ r q m t ≤ 0}
 
-/-- Lemma 6.18 of `coefficient-mass-rows.tex`: for `r > 1`, `m ≥ 1` and `q ≠ 0`, (a)
+/-- Lemma 5.1 of `coefficient-mass-belowtwo.tex`: for `r > 1`, `m ≥ 1` and `q ≠ 0`, (a)
 `Δ_{q,m}` does not increase on `t > 0`, `Δ_{q,m} ≤ Δ_{q,m+1}`, `Δ_{q,m}(t) → -Ψ_r(q) < 0`; the
 least integer `t_m(q) ≥ 1` with `Δ_{q,m}(t_m(q)) ≤ 0` has `Δ_{q,m}(t) ≤ 0` for real
 `t ≥ t_m(q)`, and `t_m(q) ≤ t_{m+1}(q)`; (b) if `t > 0`, `Δ_{q,m}(t) ≤ 0`, `|U| ≤ m` and
@@ -124,7 +124,7 @@ theorem mul_abs_confPolyP_sub_le {U : Finset ℕ} (hne : U.Nonempty) (hu0 : (0 :
     rw [e2]
     linear_combination ((1 / (u : ℝ) * s) ^ (m - 1) * s) * e
 
-/-- Lemma 6.18(b) of `coefficient-mass-rows.tex`: `Φ_r(q r_U) ≤ Φ_r(q)` when
+/-- Lemma 5.1(b) of `coefficient-mass-belowtwo.tex`: `Φ_r(q r_U) ≤ Φ_r(q)` when
 `Δ_{q,m}(t) ≤ 0`, `|U| ≤ m` and `U ⊂ [t, ∞)`. -/
 theorem rowPhi_mul_confPolyP_le {r : ℝ} (hr : 1 < r) {m : ℕ} (hm : 1 ≤ m) (q : ℝ[X]) {t : ℝ}
     (ht : 0 < t) (hΔ : deltaQ r q m t ≤ 0) {U : Finset ℕ} (hU : U.card ≤ m)

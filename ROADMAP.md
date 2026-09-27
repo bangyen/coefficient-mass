@@ -36,15 +36,16 @@ is open; an answer lands in the paper it extends, and the row leaves.
   constant `c` in `b_2 >= c lambda (1 - 1/|alpha|) |f_D| prod |beta|` (in
   `[1/2, 1]`, `prop:rowstwohalf`; at least `1 - 1/a_0` over
   `|alpha| >= a_0 >= 2`, `prop:rowstwolarge`; numerically 1).
-- [rows](papers/coefficient-mass-rows.tex): a condition giving the prefix
+- [rows](papers/coefficient-mass-rows.tex): the growth of `beta_2(n)`, the
+  rows at `r = 2` (`thm:allrowstwo`).
+- [belowtwo](papers/coefficient-mass-belowtwo.tex): a condition giving the prefix
   identity at `k = 2` (`nu_2(n) >= nu_1(n)` does not, `prop:secondrowhyp`);
   whether the worst finite position is always small, and failures occur
   for every `1 < r < 2` (proved in some row for `21/20 <= r <= 19/10`,
   `thm:failinterval`, `thm:blockinterval`; open below `21/20` and above
   `19/10`), and whether the least failing row tends to infinity as
   `r -> 2`; closed forms or tree bounds for rows `k >= 3`
-  (`sec:finiterows`); the growth of `beta_2(n)`, the rows at `r = 2`
-  (`thm:allrowstwo`).
+  (`sec:finiterows`).
 - [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
   holds for integer multiples at Gaussian roots in a wide sector
   (`sec:widesectors`); whether one level set `H(y) = -v` holds a number of
@@ -580,7 +581,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
 
 - **Every row at other roots.**  The paper is
   [coefficient-mass-rows](papers/coefficient-mass-rows.tex), split out of
-  [coefficient-mass](papers/coefficient-mass.tex).  The last row is exact
+  [coefficient-mass](papers/coefficient-mass.tex), with the roots below 2 in
+  [coefficient-mass-belowtwo](papers/coefficient-mass-belowtwo.tex).  The last row is exact
   for every `r > 1` (`cor:lastrowr`), and `thm:tailgen` extends `thm:tail`
   to all roots above 1.  For `1 < r < 2` the rows are pinned up to a
   factor `1 + O(k**(n-1/2) theta**k)` (`thm:prefixrows`, `cor:belowtwo`).

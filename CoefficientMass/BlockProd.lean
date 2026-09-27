@@ -9,8 +9,8 @@ import CoefficientMass.FarStep
 /-!
 # The Block Polynomial `r_{[2,k]}`
 
-This module computes `|r_{[2,k]}(s)|` for the proof of Lemma 6.21 of
-`coefficient-mass-rows.tex`: `|r_{[2,k]}(1)| = 1/k` and
+This module computes `|r_{[2,k]}(s)|` for the proof of Lemma 5.4 of
+`coefficient-mass-belowtwo.tex`: `|r_{[2,k]}(1)| = 1/k` and
 `|r_{[2,k]}(s)| = binom(s - 2, k - 1)/k` for `s ≥ 2`, by induction on `k` with
 `(k + 1)|1 - s/(k + 1)| = |k + 1 - s|` and `binom(s - 2, k) k = binom(s - 2, k - 1)(s - k - 1)`.
 

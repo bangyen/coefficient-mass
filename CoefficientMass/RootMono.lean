@@ -9,7 +9,7 @@ import CoefficientMass.OnePoly
 /-!
 # Monotone in the Root
 
-This module proves Lemma 6.15 of `coefficient-mass-rows.tex`: for `1 < r ≤ r'`,
+This module proves Lemma 4.6 of `coefficient-mass-belowtwo.tex`: for `1 < r ≤ r'`,
 `Φ_{r'}(q) ≤ Φ_r(q)` term by term, and since the admissible set of `μ_r(S, L)` does not depend
 on `r`, `μ_{r'}(S, L) ≤ μ_r(S, L)`; in particular `ν_i(n)` and `η_σ(n) = μ_r({σ}, n + 1)` do not
 increase with `r`.
@@ -29,7 +29,7 @@ open Polynomial
 
 namespace CoefficientMass
 
-/-- Lemma 6.15 of `coefficient-mass-rows.tex`: for `1 < r ≤ r'`, `Φ_{r'}(q) ≤ Φ_r(q)` for every
+/-- Lemma 4.6 of `coefficient-mass-belowtwo.tex`: for `1 < r ≤ r'`, `Φ_{r'}(q) ≤ Φ_r(q)` for every
 real `q`, `μ_{r'}(S, L) ≤ μ_r(S, L)`, and so `ν_i(n)` and `η_σ(n)` do not increase with `r`. -/
 def RootMono : Prop :=
   ∀ r r' : ℝ, 1 < r → r ≤ r' →

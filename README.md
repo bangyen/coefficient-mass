@@ -1,13 +1,14 @@
 # coefficient-mass
 
-Five papers on how small the coefficients of a polynomial multiple can be
+Six papers on how small the coefficients of a polynomial multiple can be
 when its roots are prescribed, with executable checks.
 
 | Paper | Subject |
 | --- | --- |
 | [coefficient-mass](papers/coefficient-mass.tex) | Displaced-zero certificates; the order-statistic tail bound and logarithmic mass (Corollary 3.4) |
 | [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex) | Sharpness of the order-statistic bound; the partial-sum criterion, the confluent analogue, the infimum `1/tau*` when it fails at roots `>= 2`, and the placement game below 2, down to the limit `r -> 1` along `(r,3,5,7)`, where every cost is explicit and the normalised excess oscillates log-periodically, with an explicit profile across the jumps |
-| [coefficient-mass-rows](papers/coefficient-mass-rows.tex) | Every row is a top row: order statistics of multiples of a power |
+| [coefficient-mass-rows](papers/coefficient-mass-rows.tex) | Every row is a top row: order statistics of multiples of a power at roots `>= 2` |
+| [coefficient-mass-belowtwo](papers/coefficient-mass-belowtwo.tex) | The same rows below the root 2: where the prefix identity holds, and certified failures on intervals |
 | [coefficient-mass-complex](papers/coefficient-mass-complex.tex) | Complex roots: exact reductions, arbitrary angles, separated moduli and annuli, real roots of both signs, and degree charging at Gaussian roots |
 | [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex) | Roots in a sector: thin sectors, sectors of every width, and integer multiples at Gaussian roots |
 
@@ -75,16 +76,20 @@ truncation, and `V_r(L, k) ≤ β_r(L - k + 1)`), `tailBoundGen` (Theorem 2.2),
 (Lemma 3.4, with Chebyshev's inequality from the moments of the negative-binomial law) and
 `belowTwo` (Corollary 3.5);
 Section 4 in full,
-`crossing` (Lemma 4.1), `insFlip` (Lemma 4.2) and `crossRows` (Theorem 4.3); and Section 5
+`crossing` (Lemma 4.1), `insFlip` (Lemma 4.2), `crossRows` (Theorem 4.3) and `prefixPush`
+(Lemma 4.4); and Section 5
 in full, `truncVertex` (Lemma 5.1), `optIns` and `optInsMax` (Lemma 5.2), `allRowsTwo`
 (Theorem 5.3, with `V_r(L, k) = β_r(L - k + 1)` for `r ≥ 2`) and `prefixUp`
-(`ν_{i+1}(n) ≤ ν_i(n)/(r - 1)`).  From Section 6, `prefixPush` (Lemma 6.1), `onePoly`
-(Theorem 6.2), `prefixShift` (Lemma 6.3), `onePolyRows` (Theorem 6.4), `topNearOne`
-(Lemma 6.5), `farPrefix` (Lemma 6.6), `longDiag` (Theorem 6.7), `longDiagExplicit`
-(Proposition 6.8), `longDiagFinite` (Corollary 6.9), `rowMono` (Lemma 6.10), `vertexOpt`
-(Lemma 6.11), `secondRow`
-(Theorem 6.12, with `exists_muR_min`: every `μ_r(S, L)` is attained), `rootMono` (Lemma 6.15),
-`farZeros` (Lemma 6.18), `finiteRows` (Theorem 6.19), and `exemptBlock` (Lemma 6.21).
+(`ν_{i+1}(n) ≤ ν_i(n)/(r - 1)`).
+
+Its sequel `coefficient-mass-belowtwo.tex`, the rows below the root 2, is formalized
+through its hand-proved results: `onePoly`
+(Theorem 2.1), `prefixShift` (Lemma 2.2), `onePolyRows` (Theorem 2.3), `topNearOne`
+(Lemma 2.4), `farPrefix` (Lemma 3.1), `longDiag` (Theorem 3.2), `longDiagExplicit`
+(Proposition 3.3), `longDiagFinite` (Corollary 3.4), `rowMono` (Lemma 4.1), `vertexOpt`
+(Lemma 4.2), `secondRow`
+(Theorem 4.3, with `exists_muR_min`: every `μ_r(S, L)` is attained), `rootMono` (Lemma 4.6),
+`farZeros` (Lemma 5.1), `finiteRows` (Theorem 5.2), and `exemptBlock` (Lemma 5.4).
 
 Everything is proved: `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,

@@ -10,7 +10,7 @@ import Mathlib.Analysis.Normed.Group.Tannery
 /-!
 # The Far-Zero Weight `φ_m`
 
-This module sets up Lemma 6.18 of `coefficient-mass-rows.tex`.  For `t > 0` put
+This module sets up Lemma 5.1 of `coefficient-mass-belowtwo.tex`.  For `t > 0` put
 `φ_m(s, t) = -s` for `s ≤ t` and `(s - t)(s/t)^{m-1} - t` for `s > t`, and
 `Δ_{q,m}(t) = ∑_{s ≥ 1} φ_m(s, t) |q(s)| r^{-s}`.  Then `|φ_m(s, t)| ≤ 2c(1 + s)^m` with
 `c = max(1, 1/t)^{m-1}`, `φ_m(s, ·)` does not increase, `φ_m ≤ φ_{m+1}`, and `φ_m(s, t) = -s`

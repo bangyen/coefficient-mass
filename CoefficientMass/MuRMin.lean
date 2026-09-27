@@ -11,8 +11,8 @@ import Mathlib.Topology.Order.Compact
 /-!
 # Minimizers of `μ_r(S, L)`
 
-This module proves that `μ_r(S, L)` is attained, as used in Lemma 6.11 and Theorem 6.12 of
-`coefficient-mass-rows.tex`.  Write `q` through its coefficient vector `c ∈ ℝ^L`.  Lagrange
+This module proves that `μ_r(S, L)` is attained, as used in Lemma 4.2 and Theorem 4.3 of
+`coefficient-mass-belowtwo.tex`.  Write `q` through its coefficient vector `c ∈ ℝ^L`.  Lagrange
 interpolation at `0, …, L - 1` bounds every coefficient by `(1 + B r^L) K_L` once
 `q(0) = 1` and `Φ_r(q) ≤ B`, so a sublevel set lies in a ball; on the ball `Φ_r` is a uniform
 limit of continuous functions, and a continuous function on a compact set attains its minimum.

@@ -10,7 +10,7 @@ import Mathlib.Algebra.BigOperators.NatAntidiagonal
 /-!
 # Convolving Prefix Weights
 
-This module prepares Lemma 6.3 of `coefficient-mass-rows.tex`.  Counting subsets by their
+This module prepares Lemma 2.2 of `coefficient-mass-belowtwo.tex`.  Counting subsets by their
 `i`-th smallest element gives `ω_{i+m}(s) = ∑_{u + t = s} ω_i(u) ω_m(t)` for the weights
 `ω_i(s) = binom(s - 1, i - 1) r^{-s}`, and `ν_m(n) |p(u)| ≤ ∑_t ω_m(t) |p(u + t)|`, since
 `t ↦ p(u + t)/p(u)` lies in `Q_n`.

@@ -1,0 +1,1557 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdfauthor={Bangyen Pham},
+  pdftitle={Coefficient Order Statistics of Multiples of a Power Below the Root 2},
+  pdfsubject={The rows of polynomial multiples of (x-r)^L for 1<r<2: where the prefix description holds and where it fails},
+  pdfkeywords={polynomial multiples, coefficient order statistics, reduced height, linear programming duality, computer-assisted proof},
+  pdflang={en-US}
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{mainthm}{Main Theorem}
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\DeclareMathOperator{\sgn}{sgn}
+
+\title{Coefficient Order Statistics of Multiples of a Power Below the Root $2$}
+\author{\shortstack{Bangyen Pham\\
+\small Independent Researcher\\
+\small\href{mailto:bangyenp@gmail.com}{\texttt{bangyenp@gmail.com}}\\
+\small\href{https://orcid.org/0009-0006-9928-2088}{ORCID: 0009-0006-9928-2088}}}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For $r>1$ let $V_r(L,k)$ be the infimum, over monic real multiples $F$ of
+$(x-r)^L$, of the $k$-th largest magnitude of a nonleading coefficient of
+$F$.  At every root $r\ge2$ exempting the $k-1$ largest coefficients costs
+exactly $k-1$ roots, and the worst exempted positions are the top ones:
+$V_r(L,k)=\min_{i\le k}1/\nu_i(L-k+1)$, where $\nu_i(n)$ is a
+prefix-constrained $\ell^1$ problem.  We show that for $1<r<2$ this prefix
+identity holds on every diagonal $L-k=\mathrm{const}$ in all but finitely
+many rows, and in every row when the diagonal's top row is at most one,
+but fails in general: it fails in some row for every
+$r\in[\frac{21}{20},\frac{19}{10}]$, and in the second row for every
+$r\in[\frac{21}{20},\frac{139}{100}]$.  The tool is a finite reduction:
+every row $k\ge2$ is the minimum of the preceding row on its diagonal and
+finitely many terms, each attained by a polynomial with integer zeros whose
+optimality, for rational $r$, is a finite exact check.
+\end{abstract}
+
+\noindent\textbf{Keywords.} Polynomial multiples; coefficient order
+statistics; reduced height; linear programming duality; computer-assisted
+proof.
+
+\noindent\textbf{2020 Mathematics Subject Classification.} Primary 11C08; Secondary 26C05, 90C05.
+
+\section{Introduction}\label{sec:intro}
+
+For a nonzero real polynomial $F$ of degree $D$ let $b_k(F)$ be the
+$k$-th entry of its nonleading coefficient magnitudes $|f_j|$, $j<D$, in
+decreasing order with multiplicity.  Fix a real $r>1$ and put
+\[
+  V_r(L,k)=\inf\{b_k(F):\ F\text{ a monic real multiple of }(x-r)^L\},
+  \qquad \beta_r(n)=V_r(n,1),
+\]
+the row $k$ of $(x-r)^L$ and the top row of $(x-r)^n$.  Exempting the
+$k-1$ largest coefficients costs at least $k-1$ roots,
+$V_r(L,k)\le\beta_r(L-k+1)$, and the companion
+paper~\cite{coefficient-mass-rows} proves equality at every $r\ge2$
+\cite[Theorem~5.3]{coefficient-mass-rows}.  This paper asks what happens
+below the root $2$, where the last row
+$V_r(L,L)=(r-1)^L<\beta_r(1)$ already shows that the rows are not all top
+rows \cite[Corollary~2.4]{coefficient-mass-rows}.  The top row
+$\beta_r(n)$ is the reduced height of $(x-r)^n$ in the sense of Dubickas
+and Jankauskas~\cite{dj}, and the rows $k\ge2$ are the order-statistic
+variant of~\cite{coefficient-mass}.
+
+\paragraph{Setup.}
+We use the notation of~\cite{coefficient-mass-rows}.  Put $a=1/(r-1)$ and,
+for a finite $Z\subset\N_{>0}$, $r_Z(s)=\prod_{z\in Z}(1-s/z)$.  For real
+polynomials $q$ put $\Phi_r(q)=\sum_{s\ge1}|q(s)|r^{-s}$ and
+$\Phi_r(Z)=\Phi_r(r_Z)$, and for finite $S\subset\N_{>0}$ and $L>|S|$ let
+$\mu_r(S,L)$ be the infimum of $\Phi_r(q)$ over real $q$ with
+$\deg q\le L-1$, $q(0)=1$ and $q|_S=0$.  By linear-programming duality
+\cite[Proposition~2.1]{coefficient-mass-rows}, $V_r(L,k)$ is the infimum
+of $1/\mu_r(S,L)$ over exempted sets $|S|=k-1$ of backward distances, the
+infimum is attained, and $\beta_r(n)=1/\mu_r(\varnothing,n)$.  The prefix
+values are $\nu_i(n)=\mu_r([1,i-1],n+i-1)$, so $\nu_1(n)=1/\beta_r(n)$,
+and with $n=L-k+1$ they bracket every row
+\cite[Theorem~3.3]{coefficient-mass-rows}:
+\[
+  \frac1{\Omega_k(n)}\ \le\ V_r(L,k)\ \le\ \min_{1\le i\le k}\frac1{\nu_i(n)},
+\]
+where $\Omega_k(n)$ is the least value of $\sum_sW_k(s)r^{-s}|p(s)|$ over
+real $p$ with $\deg p<n$ and $p(0)=1$, and $W_k(s)=\max_{i\le k}\binom{s-1}{i-1}$;
+the loss $E_k(r)$ of that theorem comes from the first $2k-2$ positions.
+For finite $Z$ and $c\ge1$, $\mathrm{ins}(Z,c)$ is $Z$ with $c$ inserted
+and the elements from $c$ on moved up by one.
+They also satisfy \cite[Section~5]{coefficient-mass-rows}
+\begin{equation}\label{eq:prefixup}
+  \nu_{i+1}(n)\le a\,\nu_i(n)\qquad(r>1,\ i,n\ge1).
+\end{equation}
+We say that the \emph{prefix identity} holds at $(r,L,k)$ if the upper
+bound is attained:
+\begin{equation}\label{eq:prefixid}
+  V_r(L,k)=\min_{1\le i\le k}\frac1{\nu_i(n)}\qquad(n=L-k+1),
+\end{equation}
+so that the prefix $[1,i-1]$ is a worst exempted set for some $i\le k$.
+At $r\ge2$ it holds everywhere, with the minimum at $i=1$.
+
+\paragraph{Where the identity holds.}
+For $1<r<2$ the identity holds for every $k$ whenever $\beta_r(n)\le1$
+(Theorem~\ref{thm:onepolyrows}), and on every diagonal in all but finitely
+many rows (Corollary~\ref{cor:longdiagfinite}): it holds whenever
+$k\ge\max(K,\alpha(n-1))$, where $\alpha\ge1$ is any constant with
+$\rho(\alpha)<1$ for an explicit function $\rho$ depending on $r$, and $K$
+depends on $r$ and $\alpha$ (Theorem~\ref{thm:longdiag},
+Proposition~\ref{prop:longdiagexplicit}).  In both regimes the minimum is
+at $i=k$: the prefix $[1,k-1]$ is a worst exempted set.
+
+\paragraph{Where it fails.}
+The second row $V_r(n+1,2)$ is the minimum of the top row $\beta_r(n)$ and
+finitely many exempted-position terms (Theorem~\ref{thm:secondrow}), and
+every row $k\ge2$ is the minimum of $V_r(L-1,k-1)$ and finitely many
+exempted-set terms (Theorem~\ref{thm:finiterows}).  Each term is attained
+by a polynomial with integer zeros, and its optimality is a finite exact
+check (Lemma~\ref{lem:vertexopt}).  With these reductions:
+\begin{mainthm}
+For every $r\in[\frac{21}{20},\frac{19}{10}]$ the prefix identity fails
+in some row of some diagonal, and for every
+$r\in[\frac{21}{20},\frac{139}{100}]$ it fails in the second row
+(Theorems~\ref{thm:failinterval} and~\ref{thm:blockinterval}).
+\end{mainthm}
+Since the values $\mu_r(S,L)$ decrease with $r$
+(Lemma~\ref{lem:rootmono}), a certificate at one root and upper bounds at
+a smaller one give a failure at every root between them, and finitely many
+certificates cover each interval.  Above $\frac{139}{100}$ the failures are
+in higher rows: the term of the exempted block $[2,k]$ is at least a prefix
+value of a longer prefix and a smaller degree, with equality when its
+minimizer vanishes at $1$ (Lemma~\ref{lem:block}), and the certified rows
+grow as $r\to2$, up to $k=384$.  Exact examples at single roots show that
+the identity can fail in the second row even when $\nu_2(n)>\nu_1(n)$
+(Proposition~\ref{prop:secondrowhyp}), and can fail in the third row of a
+diagonal while holding in the second (Propositions~\ref{prop:secondrowexact}
+and~\ref{prop:thirdrowexact}).
+
+The proofs of these three propositions and of
+Theorems~\ref{thm:failinterval} and~\ref{thm:blockinterval} are
+computer-assisted: they list the certifying zero sets and reduce the
+claims to finitely many comparisons of explicit rationals, which the
+accompanying tests carry out in exact arithmetic.  Every other result is
+proved by hand.
+
+\paragraph{Open.}
+We do not know whether the identity fails for every $1<r<2$, that is,
+also below $\frac{21}{20}$ and above $\frac{19}{10}$, nor whether the
+least failing row tends to infinity as $r\to2$.
+
+\paragraph{Organization.}
+Section~\ref{sec:onepoly} proves the identity when $\beta_r(n)\le1$ by
+using one polynomial for all exempted sets, and Section~\ref{sec:longdiag}
+proves it on long diagonals.  Section~\ref{sec:secondrow} reduces the
+second row to finitely many terms and certifies its failures, and
+Section~\ref{sec:finiterows} does the same for every row.
+
+\paragraph{Conventions.}
+All logarithms are natural, $\N_{>0}=\{1,2,\ldots\}$, and $[u,v]$ denotes
+the integers in that range.  Results of the companion papers are cited by
+their numbers there.  Table~\ref{tab:notation} lists the notation used in
+more than one place.
+
+\begin{table}[tp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l p{0.47\textwidth} l@{}}
+\hline
+Symbol & Meaning & Defined in\\
+\hline
+$V_r(L,k)$, $\beta_r(n)$ & row $k$ of $(x-r)^L$; top row $V_r(n,1)$
+  & Section~\ref{sec:intro}\\
+$a$, $r_Z(s)$ & $1/(r-1)$; $\prod_{z\in Z}(1-s/z)$ & Section~\ref{sec:intro}\\
+$\Phi_r(q)$, $\mu_r(S,L)$ & $\sum_{s\ge1}|q(s)|r^{-s}$; its infimum over
+  $\deg q<L$, $q(0)=1$, $q|_S=0$ & Section~\ref{sec:intro}\\
+$\nu_i(n)$ & prefix value $\mu_r([1,i-1],n+i-1)$ & Section~\ref{sec:intro}\\
+prefix identity & $V_r(L,k)=\min_{i\le k}1/\nu_i(n)$ & \eqref{eq:prefixid}\\
+$\omega_i(s)$ & $\binom{s-1}{i-1}r^{-s}$ & Section~\ref{sec:onepoly}\\
+$\mathcal Q_n$ & real $p$ with $\deg p\le n-1$ and $p(0)=1$
+  & Section~\ref{sec:onepoly}\\
+$A_i(p)$ & $\sum_s\omega_i(s)|p(s)|=\Phi_r(r_{[1,i-1]}p)$
+  & Section~\ref{sec:onepoly}\\
+$\Lambda_k(n)$ & $\inf_{p\in\mathcal Q_n}\max_{i\le k}A_i(p)$
+  & Theorem~\ref{thm:onepoly}\\
+$w_k$ & $\omega_k-\omega_{k-1}$ & Section~\ref{sec:longdiag}\\
+$\tau_k(n)$ & $\inf_{p\in\mathcal Q_n}\sum_{s\ge2k-2}w_k(s)|p(s)|$
+  & Section~\ref{sec:longdiag}\\
+$N_k(r)$ & largest excess of an $\omega_i$, $i<k$, over $\omega_k$ on
+  $[1,2k-3]$ & Section~\ref{sec:longdiag}\\
+$\Xi(k)$, $\rho(\alpha)$ & explicit bounds for long diagonals
+  & Proposition~\ref{prop:longdiagexplicit}\\
+$\eta_\sigma(n)$ & $\mu_r(\{\sigma\},n+1)$, one exempted position
+  & Section~\ref{sec:secondrow}\\
+$\Psi_r(p)$, $R_p(\sigma)$ & $\sum_ss|p(s)|r^{-s}$;
+  $\sum_{s>\sigma}(s-\sigma)|p(s)|r^{-s}$ & Section~\ref{sec:secondrow}\\
+$e_y$, $G_y$ & the vertex test & Lemma~\ref{lem:vertexopt}\\
+$p_*$, $\sigma_*$ & a minimizer for $\nu_1(n)$; its tail threshold
+  & Theorem~\ref{thm:secondrow}\\
+$Y_n$, $Y'_n$, $Z_S(n)$ & named zero sets of the exact certificates
+  & Section~\ref{sec:secondrow}\\
+$\phi_m(s,t)$, $\Delta_{q,m}(t)$ & weight and gap for $m$ far zeros
+  & Section~\ref{sec:finiterows}\\
+$t_m(q)$ & least integer $t\ge1$ with $\Delta_{q,m}(t)\le0$
+  & Lemma~\ref{lem:farzeros}\\
+$T(N)$, $\mathcal S$ & thresholds and the finite tree of exempted sets
+  & Theorem~\ref{thm:finiterows}\\
+\hline
+\end{tabular}
+\caption{Notation.}\label{tab:notation}
+\end{table}
+
+\section{One polynomial for all exempted sets}\label{sec:onepoly}
+
+This section proves~\eqref{eq:prefixid} for $1<r<2$ whenever $\beta_r(n)\le1$,
+for every $k$ (Theorem~\ref{thm:onepolyrows}).  There the minimum is at
+$i=k$: the prefix $[1,k-1]$ is a worst exempted set.
+
+It rests on two facts: one polynomial $p$ serves all exempted sets at
+once, at the cost of the largest of its prefix sums
+(Theorem~\ref{thm:onepoly}); and these prefix sums grow at least by the
+factor $\nu_1(n)=1/\beta_r(n)$ from one index to the next
+(Lemma~\ref{lem:prefixshift}).  For the first,
+\cite[Lemma~4.1(b)]{coefficient-mass-rows} pushes every exempted position down into an
+initial block while the fixed factor $p$ rides along.  Nothing is inserted,
+and the only optimality used is that of $p$ for the last index.
+
+Put $\omega_i(s)=\binom{s-1}{i-1}r^{-s}$ for $i\ge1$ (zero for $s<i$),
+let $\mathcal Q_n$ be the set of real polynomials $p$ with
+$\deg p\le n-1$ and $p(0)=1$, and put
+\[
+  A_i(p)=\sum_{s\ge1}\omega_i(s)\,|p(s)|=\Phi_r\bigl(r_{[1,i-1]}\,p\bigr)
+  \qquad(i\ge1),
+\]
+for real polynomials $p$, so that $\nu_i(n)=\inf_{p\in\mathcal Q_n}A_i(p)$.
+The second expression holds because $|r_{[1,i-1]}(s)|=\binom{s-1}{i-1}$
+for $s\ge1$.  
+By \cite[Lemma~4.4]{coefficient-mass-rows}, which rests on the convexity
+of \cite[Lemma~4.1(b)]{coefficient-mass-rows}, every real polynomial $p$
+and finite $S\subset\N_{>0}$ satisfy
+\begin{equation}\label{eq:prefixpush}
+  \Phi_r(r_S\,p)\le\max_{1\le i\le|S|+1}A_i(p).
+\end{equation}
+
+\begin{theorem}[One polynomial for all exempted sets]\label{thm:onepoly}
+Let $r>1$, $1\le k\le L$, $n=L-k+1$ and $p\in\mathcal Q_n$.  Every monic
+multiple $F$ of $(x-r)^L$ has
+\[
+  b_k(F)\ \ge\ \frac1{\max_{1\le i\le k}A_i(p)} .
+\]
+Hence, with $\Lambda_k(n)=\inf_{p\in\mathcal Q_n}\max_{1\le i\le k}A_i(p)$,
+\[
+  \frac1{\Omega_k(n)}\ \le\ \frac1{\Lambda_k(n)}\ \le\ V_r(L,k)\ \le\
+  \min_{1\le i\le k}\frac1{\nu_i(n)} .
+\]
+\end{theorem}
+
+\begin{proof}
+Let $S$ be the exempted set of \cite[Proposition~2.1(a)]{coefficient-mass-rows}, so
+$|S|=k-1$.  The polynomial $q=r_Sp$ has $\deg q\le k-1+n-1=L-1$, $q(0)=1$
+and $q|_S=0$.  So $b_k(F)\,\Phi_r(q)\ge1$, and~\eqref{eq:prefixpush}
+bounds $\Phi_r(q)$.  The upper bound is \cite[Theorem~3.3]{coefficient-mass-rows}.  For
+the first inequality, $W_k(s)=\max_{1\le i\le k}\binom{s-1}{i-1}$ in the
+notation of \cite[Theorem~3.3]{coefficient-mass-rows}, so
+$\sum_sW_k(s)r^{-s}|p(s)|\ge\max_{i\le k}A_i(p)$ for every $p$.
+\end{proof}
+
+The theorem moves the maximum over $i$ out of the sum in
+\cite[Theorem~3.3]{coefficient-mass-rows}, and this loses nothing when one $p$ is nearly
+optimal for all prefix problems at once.  The prefix identity~\eqref{eq:prefixid} holds at $(r,L,k)$ whenever
+$\Lambda_k(n)=\max_{i\le k}\nu_i(n)$.  For $n=1$ we have
+$\mathcal Q_1=\{1\}$ and $A_i(1)=a^i$.  So the theorem gives
+$V_r(L,L)\ge r-1$ for $r\ge2$ and $V_r(L,L)\ge(r-1)^L$ for $r\le2$, the
+lower bounds of \cite[Corollary~2.4]{coefficient-mass-rows}; its proof is this argument,
+through \cite[Lemma~4.4]{coefficient-mass-rows} with $p=1$.
+
+\begin{lemma}[Shifting the prefix index]\label{lem:prefixshift}
+Let $r>1$, $n\ge1$, $i,m\ge1$, and let $p$ be real with $\deg p\le n-1$.
+Then
+\[
+  A_{i+m}(p)\ \ge\ \nu_m(n)\,A_i(p).
+\]
+Consequently $\nu_{i+m}(n)\ge\nu_i(n)\,\nu_m(n)$, and
+$\nu_i(n)\ge\nu_1(n)^i=\beta_r(n)^{-i}$.
+\end{lemma}
+
+\begin{proof}
+Counting the $(i+m-1)$-element subsets of $[1,s-1]$ by their $i$-th
+smallest element $u$ gives
+$\sum_{u=1}^{s-1}\binom{u-1}{i-1}\binom{s-u-1}{m-1}=\binom{s-1}{i+m-1}$, that is,
+$\omega_{i+m}(s)=\sum_{u+t=s,\ u,t\ge1}\omega_i(u)\,\omega_m(t)$.  All terms
+being nonnegative,
+\[
+  A_{i+m}(p)=\sum_{u\ge1}\omega_i(u)\sum_{t\ge1}\omega_m(t)\,|p(u+t)| .
+\]
+If $p(u)\ne0$, the polynomial $t\mapsto p(u+t)/p(u)$ lies in $\mathcal Q_n$,
+so the inner sum is at least $\nu_m(n)|p(u)|$; if $p(u)=0$ this is trivial.
+This proves the inequality.  Taking the infimum over $p\in\mathcal Q_n$
+gives $\nu_{i+m}(n)\ge\nu_m(n)\nu_i(n)$, and $\nu_1(n)=1/\beta_r(n)$.
+\end{proof}
+
+Together with~\eqref{eq:prefixup},
+$\nu_1(n)\,\nu_i(n)\le\nu_{i+1}(n)\le a\,\nu_i(n)$, and both inequalities are
+equalities at $n=1$, where $\nu_i(1)=a^i$.
+
+\begin{theorem}[All rows when the top row is at most one]\label{thm:onepolyrows}
+Let $r>1$ and $n\ge1$ with $\beta_r(n)\le1$.  Then
+$1\le\nu_1(n)\le\nu_2(n)\le\cdots$, and for every $k\ge1$ and $L=n+k-1$,
+\[
+  V_r(L,k)=\frac1{\nu_k(n)}=\min_{1\le i\le k}\frac1{\nu_i(n)} .
+\]
+So the prefix identity~\eqref{eq:prefixid} holds at $(r,n+k-1,k)$
+for every $k$, with the minimum at $i=k$.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:prefixshift} with $m=1$ and $\nu_1(n)=1/\beta_r(n)\ge1$,
+$A_{i+1}(p)\ge A_i(p)$ for every $p\in\mathcal Q_n$ and every $i$, and
+$\nu_{i+1}(n)\ge\nu_i(n)$.  Given $\varepsilon>0$ choose $p\in\mathcal Q_n$
+with $A_k(p)\le\nu_k(n)+\varepsilon$.  Then
+$\max_{i\le k}A_i(p)=A_k(p)$, and Theorem~\ref{thm:onepoly} gives
+$V_r(L,k)\ge1/(\nu_k(n)+\varepsilon)$.  The upper bound
+$V_r(L,k)\le\min_i1/\nu_i(n)\le1/\nu_k(n)$ is \cite[Theorem~3.3]{coefficient-mass-rows}.
+\end{proof}
+
+The hypothesis $\beta_r(n)\le1$ holds for $r$ in an interval with left end
+$1$, which is $(1,2]$ for $n=1$, shrinks as $n$ grows, and is nonempty for
+every $n$ (Lemma~\ref{lem:topnearone}).  Indeed, since
+$\nu_1(n+1)\le\nu_1(n)$, we have $\beta_r(n)\ge\beta_r(1)=r-1$.  So the
+hypothesis forces $r\le2$, and at $r=2$ it holds only for $n=1$, since
+$\beta_2(n)\ge n$ by \cite[Theorem~4.13]{coefficient-mass}.  For each
+$q\in\mathcal Q_n$ the sum $\Phi_r(q)$ decreases in $r$, term by term, so
+$\nu_1(n)$ does not increase with $r$, and the set
+$\{r>1:\beta_r(n)\le1\}$ is an interval with left end $1$.
+
+\begin{lemma}[The top row near the root $1$]\label{lem:topnearone}
+Let $n\ge1$, $1<r\le2$ and $C_n=\prod_{i=1}^n(2i+1)$.  Then
+$\beta_r(n)\le e^{4n+2}C_n\,(r-1)$.  In particular Theorem~\ref{thm:onepolyrows}
+applies whenever $r-1\le e^{-4n-2}/C_n$.
+\end{lemma}
+
+\begin{proof}
+Let $q\in\mathcal Q_n$ and $m=\lceil1/(r-1)\rceil$, so $1\le(r-1)m\le2$.
+For $1\le j\le n$ let $B_j$ be the $m$ integers in $[2jm,2jm+m)$.  Fix
+$s_j\in B_j$.  Lagrange interpolation at $s_1,\ldots,s_n$ gives
+$1=q(0)=\sum_j\lambda_jq(s_j)$ with
+$\lambda_j=\prod_{i\ne j}s_i/(s_i-s_j)$.  Here $s_i<(2i+1)m$ and
+$|s_i-s_j|>(2|i-j|-1)m\ge m$ for $i\ne j$, so $|\lambda_j|\le C_n$ and
+$1\le C_n\sum_j|q(s_j)|$.  Averaging over the $m^n$ choices of
+$(s_1,\ldots,s_n)$ gives $m\le C_n\sum_{s\in B}|q(s)|$, where
+$B=B_1\cup\cdots\cup B_n\subseteq[1,(2n+1)m]$.  For $s\le(2n+1)m$,
+$r^{-s}\ge e^{-(r-1)(2n+1)m}\ge e^{-4n-2}$, since $\log r\le r-1$.  Hence
+$\Phi_r(q)\ge e^{-4n-2}m/C_n\ge e^{-4n-2}/(C_n(r-1))$, and taking the
+infimum over $q$ gives $\nu_1(n)\ge e^{-4n-2}/(C_n(r-1))$, which is the
+claim since $\beta_r(n)=1/\nu_1(n)$.
+\end{proof}
+
+Beyond $\beta_r(n)\le1$, where the argument of Theorem~\ref{thm:onepolyrows}
+no longer shows that one polynomial serves all prefixes,
+we do not know in general when the prefix identity holds;
+Section~\ref{sec:secondrow} reduces the case $k=2$ to finitely many exempted
+positions, and Section~\ref{sec:finiterows} every $k$ to finitely many
+exempted sets.  Section~\ref{sec:longdiag} shows that a
+single polynomial does serve all prefixes once $k$ is large compared with
+$n$.
+
+\section{Long diagonals}\label{sec:longdiag}
+
+Theorem~\ref{thm:onepoly} gives the value $1/\nu_k(n)$ as soon
+as one polynomial that is nearly optimal for $\nu_k(n)$ has its $k$-th
+prefix sum $A_k$ at least as large as the earlier ones.
+Theorem~\ref{thm:onepolyrows} obtains this from $\beta_r(n)\le1$.  This
+section obtains it for every $1<r<2$, with no condition on $\beta_r(n)$,
+once $k$ is large compared with $n$ (Theorem~\ref{thm:longdiag} and
+Proposition~\ref{prop:longdiagexplicit}).  So on every diagonal
+$L-k=n-1$ the prefix identity can fail in at most finitely many rows
+(Corollary~\ref{cor:longdiagfinite}).
+
+The earlier weights $\omega_i$, $i<k$, can exceed $\omega_k$ only on
+$[1,2k-3]$, where a suitable polynomial for $\nu_k(n)$ is bounded by $1$;
+when this excess is small, the $k$-th prefix sum of that polynomial is the
+largest.  By
+\cite[Lemma~3.1]{coefficient-mass-rows} the polynomials for
+$\nu_k(n)$ may be taken with all zeros at least $k$, and such a polynomial is
+bounded by $1$ on $[1,2k-3]$.  There the weights $\omega_i$, $i<k$, exceed
+$\omega_k$ by an amount that is exponentially small compared with $\nu_k(n)$
+when $r<2$ and $k$ is large compared with $n$.  From $2k-2$ on, $\omega_k$ dominates every $\omega_i$, $i<k$,
+with a margin that is a fixed fraction of $\omega_k$ near the mode of
+$\omega_k$, where every polynomial in $\mathcal Q_n$ has some mass.
+
+For $k\ge2$ put
+\[
+  w_k(s)=\omega_k(s)-\omega_{k-1}(s),\qquad
+  \tau_k(n)=\inf_{p\in\mathcal Q_n}\sum_{s\ge2k-2}w_k(s)\,|p(s)|,
+\]
+\[
+  N_k(r)=\max_{1\le i<k}\sum_{s=1}^{2k-3}\bigl(\omega_i(s)-\omega_k(s)\bigr)^+,
+\]
+where $x^+=\max\{x,0\}$ and $\omega_i(s)=0$ for $s<i$.  For $s\ge k$ we have
+$\omega_{k-1}(s)/\omega_k(s)=(k-1)/(s-k+1)$, so
+\begin{equation}\label{eq:wkratio}
+  w_k(s)=\frac{s-2k+2}{s-k+1}\,\omega_k(s)\qquad(s\ge k).
+\end{equation}
+In particular $w_k\ge0$ on $[2k-2,\infty)$, and $\tau_k(n)\ge0$.
+
+\begin{lemma}[Far zeros keep the last prefix sum largest]\label{lem:farprefix}
+Let $r>1$, $k\ge2$ and $n\ge1$.  Let $Y$ be a set of $n-1$ integers, each at
+least $k$, and $p=r_Y$.  Then for $1\le i<k$,
+\[
+  A_k(p)-A_i(p)\ \ge\ \tau_k(n)-N_k(r).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $1\le s\le2k-3$.  Every $y\in Y$ has $2y\ge2k>s$, so $|1-s/y|\le1$ and
+$|p(s)|\le1$.  Hence
+$(\omega_k(s)-\omega_i(s))|p(s)|\ge-(\omega_i(s)-\omega_k(s))^+$, and the
+sum of these terms over $s\le2k-3$ is at least $-N_k(r)$.
+
+Let $s\ge2k-2$.  The coefficients $\binom{s-1}j$ increase in $j$ for
+$j\le(s-1)/2$, and $i-1\le k-2\le(s-1)/2$, so $\omega_i(s)\le\omega_{k-1}(s)$
+and $(\omega_k(s)-\omega_i(s))|p(s)|\ge w_k(s)|p(s)|$.  Since $p\in\mathcal Q_n$,
+the sum of these terms over $s\ge2k-2$ is at least $\tau_k(n)$.
+\end{proof}
+
+\begin{theorem}[Long diagonals]\label{thm:longdiag}
+Let $r>1$, $n\ge1$, $k\ge2$ and $L=n+k-1$.  If $N_k(r)\le\tau_k(n)$, then
+$\nu_i(n)\le\nu_k(n)$ for $1\le i\le k$, and
+\[
+  V_r(L,k)=\frac1{\nu_k(n)}=\min_{1\le i\le k}\frac1{\nu_i(n)} .
+\]
+So the prefix identity~\eqref{eq:prefixid} holds at
+$(r,L,k)$, with the minimum at $i=k$.
+\end{theorem}
+
+\begin{proof}
+Let $\varepsilon>0$.  \cite[Lemma~3.1]{coefficient-mass-rows} with $\omega=\omega_k$ gives a
+set $Y$ of $n-1$ integers, each at least $k$, such that $p=r_Y$ has
+$A_k(p)\le\nu_k(n)+\varepsilon$.  By Lemma~\ref{lem:farprefix} and the
+hypothesis, $A_i(p)\le A_k(p)$ for $i<k$.  Hence
+$\nu_i(n)\le A_i(p)\le\nu_k(n)+\varepsilon$ for $i\le k$, and
+$\max_{i\le k}A_i(p)=A_k(p)$.  Theorem~\ref{thm:onepoly} gives
+$V_r(L,k)\ge1/(\nu_k(n)+\varepsilon)$.  Let $\varepsilon\to0$.
+\cite[Theorem~3.3]{coefficient-mass-rows} gives
+$V_r(L,k)\le\min_i1/\nu_i(n)\le1/\nu_k(n)$.
+\end{proof}
+
+The hypothesis compares a quantity that is exponentially small relative to
+$a^k$ for $r<2$ with one that is not.  The next proposition makes this explicit.  It uses
+the mode of $\omega_k$ and Lagrange interpolation, as in
+\cite[Lemma~3.4]{coefficient-mass-rows}.
+
+\begin{proposition}[An explicit form]\label{prop:longdiagexplicit}
+Let $1<r<2$, $\theta=4(r-1)/r^2$ and $n\ge1$.  For $k\ge2$ put
+$M_k=\lfloor(k-1)r/(r-1)\rfloor+1$ and
+\[
+  \Xi(k)=\theta^k\,(2r)^{n-1}\binom{M_k+n-1}{n-1}
+  \Bigl(\frac{4\sqrt{kr}}{r-1}+1\Bigr).
+\]
+\begin{enumerate}
+\item[(a)] If $\Xi(k)\le3(2-r)^2/r^2$, then $N_k(r)\le\tau_k(n)$, so
+Theorem~\ref{thm:longdiag} applies.
+\item[(b)] Put $d=\lceil r/(r-1)\rceil$ and
+$\gamma_k=\theta\,(1+(n-1)/(M_k+1))^d\sqrt{1+1/k}$.  Then $\Xi(k+1)\le\gamma_k\Xi(k)$,
+and $\gamma_k$ does not increase with $k$.  So if $\Xi(k_1)\le3(2-r)^2/r^2$ and
+$\gamma_{k_1}\le1$, then (a) applies to every $k\ge k_1$.
+\item[(c)] Let $\alpha\ge1$ satisfy
+$\rho(\alpha):=\theta\,\bigl(2re(\alpha r/(r-1)+1)\bigr)^{1/\alpha}<1$.  If
+$n-1\le k/\alpha$, then
+$\Xi(k)\le\rho(\alpha)^k(4\sqrt{kr}/(r-1)+1)$.  Consequently there is $K$ such
+that $V_r(n+k-1,k)=1/\nu_k(n)$ for every $n\ge1$ and every
+$k\ge\max\{K,\alpha(n-1)\}$.
+\end{enumerate}
+Since $\bigl(2re(\alpha r/(r-1)+1)\bigr)^{1/\alpha}\to1$ as $\alpha\to\infty$
+and $\theta<1$, admissible $\alpha$ exist for every $1<r<2$.
+\end{proposition}
+
+\begin{proof}
+(a) First, $(\omega_i(s)-\omega_k(s))^+\le\omega_i(s)\le
+\binom{s-1}{\lfloor(s-1)/2\rfloor}r^{-s}$, so $N_k(r)\le E_k(r)$, and the
+proof of \cite[Corollary~3.5]{coefficient-mass-rows} gives
+$E_k(r)\le\frac{r^2}{4(2-r)}(4/r^2)^k=\frac{r^2}{4(2-r)}\,\theta^ka^k$.
+
+Next let $p\in\mathcal Q_n$.  The ratio $\omega_k(s+1)/\omega_k(s)=s/(r(s-k+1))$
+is at least $1/r$, and it is at least $1$ exactly when $s\le(k-1)r/(r-1)$.  So
+$M_k$ maximizes $\omega_k$: it is a mode of the law $P$ of
+\cite[Lemma~3.4]{coefficient-mass-rows}, where $\omega_k=a^kP$.  That lemma gives
+$\omega_k(M_k)\ge a^k\cdot3/(4(4\sqrt{kr}/(r-1)+1))$, and
+$\omega_k(M_k+l)\ge r^{-l}\omega_k(M_k)$ for $l\ge0$.  Since
+$M_k>(k-1)r/(r-1)\ge2k-2$, the nodes $t_l=M_k+l$, $0\le l<n$, lie in
+$[2k-2,\infty)$.  By~\eqref{eq:wkratio} the ratio $w_k(s)/\omega_k(s)=1-(k-1)/(s-k+1)$
+increases in $s$, and at $s=t_0>(k-1)r/(r-1)$ it exceeds $1-(r-1)=2-r$.  So
+$w_k(t_l)\ge(2-r)\,r^{-(n-1)}\omega_k(M_k)$ for every $l$.  Finally
+$1=p(0)=\sum_l\ell_lp(t_l)$ with the Lagrange coefficients
+$|\ell_l|=\prod_{l'\ne l}t_{l'}/|l-l'|\le\prod_{j=1}^{n-1}(M_k+j)/(l!\,(n-1-l)!)$,
+so $\sum_l|\ell_l|\le2^{n-1}\binom{M_k+n-1}{n-1}$ and
+$\max_l|p(t_l)|\ge1/(2^{n-1}\binom{M_k+n-1}{n-1})$.  Altogether
+\[
+  \sum_{s\ge2k-2}w_k(s)|p(s)|\ge\sum_lw_k(t_l)|p(t_l)|
+  \ge\frac{3(2-r)\,a^k}{4\,(4\sqrt{kr}/(r-1)+1)\,(2r)^{n-1}\binom{M_k+n-1}{n-1}} .
+\]
+This lower bound for $\tau_k(n)$ is at least the upper bound for $E_k(r)$
+exactly when $\Xi(k)\le3(2-r)^2/r^2$.
+
+(b) We have $M_{k+1}-M_k\le d$, so
+$\binom{M_{k+1}+n-1}{n-1}/\binom{M_k+n-1}{n-1}=\prod_{j=M_k+1}^{M_{k+1}}(j+n-1)/j
+\le(1+(n-1)/(M_k+1))^d$.  Also
+$(4\sqrt{(k+1)r}/(r-1)+1)/(4\sqrt{kr}/(r-1)+1)\le\sqrt{(k+1)/k}$.  This gives
+$\Xi(k+1)\le\gamma_k\Xi(k)$.  Since $M_k$ does not decrease, neither does
+$1/\gamma_k$, and induction on $k$ gives the rest.
+
+(c) For $n=1$ the claim is $\theta\le\rho(\alpha)$.  Let $m=n-1\ge1$.  Then
+$\binom{M_k+m}m\le(e(M_k+m)/m)^m$, and the right side increases with $m$,
+since the derivative of $m\log(e(M_k+m)/m)$ is $\log(1+M_k/m)+m/(M_k+m)>0$.
+With $m\le k/\alpha$ and $M_k\le(k-1)r/(r-1)+1\le kr/(r-1)$ this gives
+$\binom{M_k+m}m\le(e(\alpha r/(r-1)+1))^{k/\alpha}$.  Also
+$(2r)^m\le(2r)^{k/\alpha}$, which proves the bound on $\Xi(k)$.  Its right side
+tends to $0$ as $k\to\infty$ and decreases once $k\ge1/(2\log(1/\rho(\alpha)))$.
+So some $K$ has $\rho(\alpha)^k(4\sqrt{kr}/(r-1)+1)\le3(2-r)^2/r^2$ for all
+$k\ge K$, and (a) and Theorem~\ref{thm:longdiag} apply whenever also
+$k\ge\alpha(n-1)$.
+\end{proof}
+
+\begin{corollary}[Every diagonal is eventually determined]\label{cor:longdiagfinite}
+Let $1<r<2$ and $n\ge1$.  Then $V_r(L,L-n+1)=1/\nu_{L-n+1}(n)$ for all but
+finitely many $L\ge n$.  Moreover the sequence $\nu_k(n)$ is eventually
+nondecreasing in $k$, and $\nu_k(n)=\max_{i\le k}\nu_i(n)$ for all large $k$.
+\end{corollary}
+
+\begin{proof}
+Apply Proposition~\ref{prop:longdiagexplicit}(c) with $k=L-n+1\ge\max\{K,\alpha(n-1)\}$.
+Theorem~\ref{thm:longdiag} also gives $\nu_i(n)\le\nu_k(n)$ for all
+$i\le k$ and all such $k$.
+\end{proof}
+
+This sharpens \cite[Corollary~3.5]{coefficient-mass-rows}, which gives
+$V_r(L,k)=(1+o(1))/\nu_k(n)$ as $k\to\infty$ with $n$ fixed: the factor
+$1+o(1)$ is exactly $1$ once $k\ge\max\{K,\alpha(n-1)\}$, where $K$ does not
+depend on $n$.
+What remains open for $1<r<2$ are the rows with $\beta_r(n)>1$ and $k$
+below these thresholds.  The next section treats the first of them,
+$k=2$, and Section~\ref{sec:finiterows} reduces each of them to finitely
+many exempted sets.
+
+\section{The second row}\label{sec:secondrow}
+
+This section treats the second row, $k=2$, with no condition on
+$\beta_r(n)$, through the values $\eta_\sigma(n)=\mu_r(\{\sigma\},n+1)$ of
+single exempted positions $\sigma$.  A polynomial vanishing at $\sigma$ is
+$(1-s/\sigma)p$ with $p\in\mathcal Q_n$, so
+\[
+  \eta_\sigma(n)=\mu_r(\{\sigma\},n+1)
+  =\inf_{p\in\mathcal Q_n}\sum_{s\ge1}\Bigl|1-\frac s\sigma\Bigr||p(s)|\,r^{-s}
+  \qquad(\sigma\in\N_{>0}).
+\]
+Then $\eta_1(n)=\nu_2(n)$, and \cite[Proposition~2.1(b)]{coefficient-mass-rows} gives
+$V_r(n+1,2)=\inf_\sigma1/\eta_\sigma(n)$.  Far positions cost no more than
+the limit $\nu_1(n)$, so the second row is the minimum of $1/\nu_1(n)$ and
+finitely many position terms (Theorem~\ref{thm:secondrow}).  Each term is
+$1/\eta_\sigma(n)=1/\Phi_r(Z)$ for a set $Z\ni\sigma$ of $n$ integers, and
+such a $Z$ can be certified exactly
+(Lemma~\ref{lem:vertexopt}).  At $r=\frac54$ and $r=\frac43$
+this determines rows on both sides of the prefix identity
+(Proposition~\ref{prop:secondrowexact}), and at $r=\frac{177}{167}$ it
+shows that the identity can fail although $\nu_2(n)>\nu_1(n)$
+(Proposition~\ref{prop:secondrowhyp}).  Since $\eta_\sigma(n)$ and
+$\nu_i(n)$ decrease with $r$, one certificate covers an interval of roots,
+and $49$ of them show that the identity fails in the second row of some
+diagonal at every $r\in[\frac{21}{20},\frac{139}{100}]$
+(Theorem~\ref{thm:failinterval}).
+
+\begin{lemma}[Dropping a far exempted position]\label{lem:rowmono}
+Let $r>1$ and $2\le k\le L$.  Then $V_r(L,k)\le V_r(L-1,k-1)$.  So
+$V_r(n+k-1,k)$ does not increase with $k$, for each $n\ge1$.
+\end{lemma}
+
+\begin{proof}
+Let $S'\subset\N_{>0}$ with $|S'|=k-2$, let $N>\max(S'\cup\{0\})$ and
+$S_N=S'\cup\{N\}$.  A real $q$ admissible for $\mu_r(S_N,L)$ factors as
+$q=(1-s/N)q_0$ with $q_0$ admissible for $\mu_r(S',L-1)$.  For
+$1\le s\le M<N$ we have $1-s/N\ge1-M/N$, so
+$\Phi_r(q)\ge(1-M/N)\,\mu_{r,M}(S',L-1)$.  Hence
+$\liminf_N\mu_r(S_N,L)\ge\mu_{r,M}(S',L-1)$ for every $M$, and by the
+convergence in the proof of \cite[Proposition~2.1(b)]{coefficient-mass-rows} it is at
+least $\mu_r(S',L-1)$.  \cite[Proposition~2.1(b)]{coefficient-mass-rows} gives
+$V_r(L,k)\le\inf_N1/\mu_r(S_N,L)\le1/\mu_r(S',L-1)$, and the infimum over
+$S'$ is $V_r(L-1,k-1)$, again by \cite[Proposition~2.1(b)]{coefficient-mass-rows}.
+\end{proof}
+
+With $V_r(n+i-1,i)\le1/\mu_r([1,i-1],n+i-1)=1/\nu_i(n)$ this recovers the
+upper bound of \cite[Theorem~3.3]{coefficient-mass-rows}.  It also propagates failures
+along a diagonal: if $V_r(n+1,2)<\min_{i\le k}1/\nu_i(n)$, then the prefix
+identity fails at $(r,n+k-1,k)$.
+
+For a real polynomial $p$ and real $\sigma>0$ put
+\[
+  \Psi_r(p)=\sum_{s\ge1}s\,|p(s)|\,r^{-s},\qquad
+  R_p(\sigma)=\sum_{s>\sigma}(s-\sigma)\,|p(s)|\,r^{-s}.
+\]
+Since $|1-s/\sigma|=1-s/\sigma+2(s/\sigma-1)^+$, multiplying by
+$|p(s)|r^{-s}$ and summing (all three series converge absolutely) gives
+\[
+  \Phi_r\bigl((1-s/\sigma)p\bigr)=\Phi_r(p)-\frac{\Psi_r(p)-2R_p(\sigma)}\sigma .
+\]
+If $p\ne0$, then $\Psi_r(p)\ge\Phi_r(p)>0$ and
+$R_p(\sigma)\le\sum_{s>\sigma}s|p(s)|r^{-s}\to0$, so a zero far enough out
+lowers $\Phi_r$ strictly.
+
+\begin{lemma}[Certifying a vertex]\label{lem:vertexopt}
+Let $r>1$, let $S\subseteq Z$ be finite subsets of $\N_{>0}$ and
+$L=|Z|+1$.  For $y\in Z\setminus S$ put $e_y(s)=s\,r_{Z\setminus\{y\}}(s)$
+and
+\[
+  G_y=\sum_{s\ge1,\ s\notin Z}\sgn\bigl(r_Z(s)\bigr)\,e_y(s)\,r^{-s}.
+\]
+Then $\Phi_r(Z)=\mu_r(S,L)$ if and only if $|G_y|\le|e_y(y)|\,r^{-y}$ for
+every $y\in Z\setminus S$.  If $|G_y|<|e_y(y)|\,r^{-y}$ for every
+$y\in Z\setminus S$, then $r_Z$ is the unique minimizer: every other real
+$q$ with $\deg q\le L-1$, $q(0)=1$ and $q|_S=0$ has
+$\Phi_r(q)>\Phi_r(Z)$.  Moreover, for every finite
+$S\subset\N_{>0}$ and $L>|S|$ some $Z\supseteq S$ with $|Z|=L-1$ has
+$\Phi_r(Z)=\mu_r(S,L)$.
+\end{lemma}
+
+\begin{proof}
+The polynomials admissible for $\mu_r(S,L)$ form the affine space
+$r_Z+E$, where $E$ is the space of real $d$ with $\deg d\le L-1$, $d(0)=0$
+and $d|_S=0$, of dimension $L-1-|S|=|Z\setminus S|$.  Each $e_y$ lies in
+$E$, and $e_y(y')=0\ne e_y(y)$ for $y\ne y'$ in $Z\setminus S$, so the $e_y$
+form a basis and $d=\sum_yc_ye_y$ has $d(y)=c_ye_y(y)$.  The function
+$\Phi_r$ is convex and finite on $r_Z+E$, so $r_Z$ is a minimizer if and
+only if every one-sided derivative $\Phi_r'(r_Z;d)$ is nonnegative.  For
+$s\notin Z$ we have $r_Z(s)\ne0$ and
+$(|r_Z(s)+\varepsilon d(s)|-|r_Z(s)|)/\varepsilon\to\sgn(r_Z(s))\,d(s)$ as
+$\varepsilon\downarrow0$; for $s\in S$ both terms vanish; for
+$s=y\in Z\setminus S$ the quotient is $|d(y)|$.  The quotients are bounded
+by $|d(s)|$ and $\sum_s|d(s)|r^{-s}<\infty$, so by dominated convergence
+\[
+  \Phi_r'(r_Z;d)=\sum_{y\in Z\setminus S}\bigl(c_yG_y+|c_y|\,|e_y(y)|\,r^{-y}\bigr).
+\]
+This is nonnegative for all $c$ if and only if it is for each $c$
+supported on one $y$, with either sign, that is, if and only if
+$|G_y|\le|e_y(y)|r^{-y}$ for every $y$.
+
+If every inequality is strict and $d=\sum_yc_ye_y\ne0$, then some
+$c_y\ne0$, and each term of $\Phi_r'(r_Z;d)$ is at least
+$|c_y|(|e_y(y)|r^{-y}-|G_y|)\ge0$, with strict inequality when $c_y\ne0$;
+so $\Phi_r'(r_Z;d)>0$.  By convexity the quotient
+$(\Phi_r(r_Z+\varepsilon d)-\Phi_r(r_Z))/\varepsilon$ does not decrease in
+$\varepsilon\in(0,1]$, so
+$\Phi_r(r_Z+d)-\Phi_r(r_Z)\ge\Phi_r'(r_Z;d)>0$.  Every admissible
+$q\ne r_Z$ is $r_Z+d$ with such a $d$.
+
+For the last claim take integers $D_j\to\infty$ with
+$D_j\ge L+\max(S\cup\{0\})$ and $W_j$ as in \cite[Lemma~5.1]{coefficient-mass-rows} for
+$\mu_{r,D_j}(S,L)$.  Passing to a subsequence, for each $i$ the $i$-th
+smallest element of $W_j$ is eventually constant or tends to $\infty$.  A
+factor $1-s/w$ with $w\to\infty$ tends to $1$, so $r_{W_j}\to r_Z$
+coefficientwise, where $Z\supseteq S$, $|Z|\le L-1$, consists of the
+eventually constant elements.  For each $M$,
+$\sum_{s\le M}|r_Z(s)|r^{-s}=\lim_j\sum_{s\le M}|r_{W_j}(s)|r^{-s}$, and for
+$D_j\ge M$ each partial sum $\sum_{s\le M}|r_{W_j}(s)|r^{-s}$ is at most
+$\Phi_{r,D_j}(r_{W_j})=\mu_{r,D_j}(S,L)\le\mu_r(S,L)$.  So
+$\Phi_r(Z)\le\mu_r(S,L)$, with equality because $r_Z$ is admissible.  If
+$|Z|<L-1$, then $(1-s/\sigma)r_Z$ is admissible for $\mu_r(S,L)$ for every
+$\sigma>0$, and for large $\sigma$ the identity before the lemma gives
+$\Phi_r((1-s/\sigma)r_Z)<\Phi_r(Z)=\mu_r(S,L)$, a contradiction.  So
+$|Z|=L-1$.
+\end{proof}
+
+Beyond $\max Z$ the sign of $r_Z$ is $(-1)^{|Z|}$, and
+$\sum_{s\ge0}P(s)x^s=\sum_j(\Delta^jP)(0)\,x^j/(1-x)^{j+1}$ for a
+polynomial $P$, where $(\Delta P)(s)=P(s+1)-P(s)$ is the forward
+difference.  So for rational $r$ both $\Phi_r(Z)$ and the $G_y$ are
+rational numbers computable exactly, and for a given $Z$ the test of the
+lemma is finite.  By the last claim, every $\mu_r(S,L)$, in particular every
+$\eta_\sigma(n)$, is attained at some such $Z$; the lemma does not say how
+to find it.
+
+
+\begin{theorem}[The second row is a finite minimum]\label{thm:secondrow}
+Let $r>1$ and $n\ge1$, and put $\eta_\sigma(n)=\mu_r(\{\sigma\},n+1)$ for
+$\sigma\in\N_{>0}$.
+\begin{enumerate}
+\item[(a)] For every $p\in\mathcal Q_n$ and $\sigma\in\N_{>0}$,
+\[
+  \eta_\sigma(n)\le\Phi_r(p)-\frac{\Psi_r(p)-2R_p(\sigma)}\sigma .
+\]
+\item[(b)] Some $p_*\in\mathcal Q_n$ has $\Phi_r(p_*)=\nu_1(n)$.  Fix any
+such $p_*$, and let $\sigma_*$ be the least $\sigma\in\N_{>0}$ with
+$2R_{p_*}(\sigma)\le\Psi_r(p_*)$.  Then $\eta_\sigma(n)\le\nu_1(n)$ for
+$\sigma\ge\sigma_*$, with strict
+inequality for $\sigma>\sigma_*$, and
+\[
+  V_r(n+1,2)=\min\Bigl\{\frac1{\nu_1(n)},\
+  \min_{1\le\sigma<\sigma_*}\frac1{\eta_\sigma(n)}\Bigr\},
+\]
+where the inner minimum is omitted if $\sigma_*=1$.
+\item[(c)] The prefix identity~\eqref{eq:prefixid} fails at $(r,n+1,2)$
+if and only if $\eta_\sigma(n)>\max\{\nu_1(n),\nu_2(n)\}$ for some
+$2\le\sigma<\sigma_*$.
+\end{enumerate}
+Parts (b) and (c) hold for every choice of $p_*$.
+\end{theorem}
+
+\begin{proof}
+(a) The polynomial $(1-s/\sigma)p$ is admissible for $\eta_\sigma(n)$, and
+the identity before Lemma~\ref{lem:vertexopt} gives its value $\Phi_r$.
+
+(b) For $n=1$, $\mathcal Q_1=\{1\}$.  For $n\ge2$, the values
+$p(1),\ldots,p(n-1)$ are affine coordinates on $\mathcal Q_n$ and
+$\Phi_r(p)\ge r^{-(n-1)}\sum_{s<n}|p(s)|$, so the sublevel sets of $\Phi_r$ are
+bounded; $\Phi_r$ is convex and finite on $\mathcal Q_n$, hence continuous,
+and a minimizer exists.  Let $p_*$ be any minimizer.  As noted before
+Lemma~\ref{lem:vertexopt}, $\Psi_r(p_*)>0$ and $R_{p_*}(\sigma)\to0$, so $\sigma_*$ exists.  Moreover
+$R_{p_*}(\sigma)-R_{p_*}(\sigma+1)=\sum_{s>\sigma}|p_*(s)|r^{-s}>0$, since
+$p_*\ne0$ has finitely many zeros.  So $\Psi_r(p_*)-2R_{p_*}(\sigma)\ge0$ for
+$\sigma\ge\sigma_*$, strictly for $\sigma>\sigma_*$, and (a) with $p=p_*$
+gives the first claim.  By \cite[Proposition~2.1(b) and (c)]{coefficient-mass-rows},
+$V_r(n+1,2)=\inf_\sigma1/\eta_\sigma(n)$ and
+$V_r(n+1,2)\le\beta_r(n)=1/\nu_1(n)$, while the positions
+$\sigma\ge\sigma_*$ contribute terms at least $1/\nu_1(n)$.
+
+(c) The prefix identity at $k=2$ reads
+$V_r(n+1,2)=\min\{1/\nu_1(n),1/\nu_2(n)\}$.  If $\sigma_*>1$, then
+$1/\nu_2(n)=1/\eta_1(n)$ is one of the terms in (b); if $\sigma_*=1$, then
+$\nu_2(n)=\eta_1(n)\le\nu_1(n)$ by (b).  So by (b) the identity fails
+exactly when some term with $2\le\sigma<\sigma_*$ is smaller than both.
+\end{proof}
+
+Part (a) needs no optimality: any $p\in\mathcal Q_n$ and any $\sigma_0$
+with $2R_p(\sigma_0)\le\Psi_r(p)$ give $\eta_\sigma(n)\le\Phi_r(p)$ for all
+$\sigma\ge\sigma_0$, since $R_p$ decreases.  The next proposition handles
+the far positions this way.
+
+\paragraph{Names of zero sets.}
+In Propositions~\ref{prop:secondrowexact}, \ref{prop:secondrowhyp}
+and~\ref{prop:thirdrowexact} each part fixes a root $r$ and a top-row degree $n$, and a named set of integers
+records $n$ and the positions it must contain: $Y_n$ is a set of $n-1$
+integers (a candidate for $\nu_1(n)$), $Y'_n$ is a set of $n$ integers
+containing $1$, and, for a set $S$ of exempted positions, $Z_S(n)$ is a set
+of $n+|S|-1$ integers containing $S$ (a candidate for $\mu_r(S,n+|S|)$),
+written $Z_\sigma(n)$ and $Z_{\sigma,\sigma'}(n)$ for $S=\{\sigma\}$ and
+$S=\{\sigma,\sigma'\}$.  No name is used at two different roots.  The names
+fix only sizes and prescribed elements; every property of a named set is
+proved where it is used.
+
+\begin{proposition}[Second rows at the roots $\frac54$ and $\frac43$]\label{prop:secondrowexact}
+Let $r=\frac54$ in (a)--(c), and let
+\begin{align*}
+  Z_2(15)&=\{1,2,5,8,12,17,22,28,35,44,53,65,78,94,115\},\\
+  Y_{15}&=\{1,3,6,9,13,18,24,30,38,47,58,71,87,107\},\\
+  Y_{13}&=\{1,3,6,10,15,21,27,36,45,57,72,91\}.
+\end{align*}
+\begin{enumerate}
+\item[(a)] $V_r(16,2)=1/\Phi_r(Z_2(15))=1/\nu_3(14)=6.5694\ldots$, while
+$\min_{i\le2}1/\nu_i(15)=\beta_r(15)=1/\Phi_r(Y_{15})=7.6492\ldots$.
+\item[(b)] $V_r(17,3)\le1/\Phi_r(Z_2(15))<\beta_r(15)=\min_{i\le3}1/\nu_i(15)$.
+So the prefix identity fails at $(\frac54,16,2)$ and at $(\frac54,17,3)$.
+\item[(c)] $V_r(14,2)=\beta_r(13)=1/\Phi_r(Y_{13})=4.6297\ldots>1$ and
+$\nu_2(13)<\nu_1(13)$.  So the prefix identity holds at $(\frac54,14,2)$
+with its minimum at $i=1$: the second row is the top row of
+$(x-\frac54)^{13}$.
+\item[(d)] Let $r=\frac43$,
+$Z_3(18)=\{1,2,3,6,8,11,15,18,23,28,34,41,48,57,66,78,91,109\}$ and
+$Y_{18}=\{1,2,4,6,9,12,16,20,25,30,36,44,52,61,72,85,103\}$.  Then
+$V_r(19,2)=1/\eta_3(18)=1/\Phi_r(Z_3(18))=1/\nu_4(16)=41.38\ldots$, while
+$\eta_2(18)<\nu_1(18)$ and
+$\min_{i\le2}1/\nu_i(18)=\beta_r(18)=1/\Phi_r(Y_{18})=42.34\ldots$.  So the
+prefix identity fails at $(\frac43,19,2)$, and a worst exempted position
+is $\sigma=3$, while $\sigma=2$ is not one.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The proof is computer-assisted: every number below is an exact rational,
+computed as described after Lemma~\ref{lem:vertexopt}, and every comparison
+is verified by exact rational arithmetic in \texttt{tests/test\_rows.py}
+(\texttt{test\_second\_row\_at\_five\_fourths\_fails} for (a) and (b),
+\texttt{test\_second\_row\_at\_five\_fourths\_holds} for (c),
+\texttt{test\_second\_row\_at\_four\_thirds} for (d)).  No floating
+point is used, and the decimals in the statement are truncations of the
+exact values, checked by exact comparison with the stated digits.  The
+finite computation is this.  For a set $Z$ of integers, $\Phi_r(Z)$ is the
+finite sum over $s\le\max Z$ plus the closed form of the series past
+$\max Z$; the vertex test of Lemma~\ref{lem:vertexopt} for $Z$ and $S$
+evaluates $G_y$, a finite sum plus such a closed form, and
+$|e_y(y)|r^{-y}$ for each of the at most $|Z|$ elements $y\in Z\setminus
+S$; the tail condition at $\sigma_0$ is the sign of
+$2R_p(\sigma_0)-\Psi_r(p)$, evaluated in the same way; and for each
+$\sigma<\sigma_0$ the test evaluates $\Phi_r$ on the listed candidate
+sets through $\sigma$, at most $n+1$ for each $\sigma$, until one
+satisfies the bound.  In (a), (c) and (d) $p=r_{Y_n}$, and $\sigma_0$ is the least
+integer $\sigma\ge\max Y_n$ with $2R_p(\sigma)\le\Psi_r(p)$, found by
+evaluating this sign at $\sigma=\max Y_n,\max Y_n+1,\ldots$; in all three
+parts it is $\max Y_n$ itself.  Any $\sigma_0$ satisfying the tail condition
+would do, and none of the proofs uses the least one.  The named sets are the
+certificate: with them the statement can be rechecked by any exact
+evaluation of $\Phi_r$ and $G_y$.
+
+(a) Lemma~\ref{lem:vertexopt} with $S=\{2\}$ shows
+$\eta_2(15)=\Phi_r(Z_2(15))$, with every inequality strict, so
+$r_{Z_2(15)}$ is the unique minimizer, and with $S=\varnothing$ that
+$\nu_1(15)=\Phi_r(Y_{15})$, which is less than $\Phi_r(Z_2(15))$.  The tail
+condition $2R_p(\sigma_0)\le\Psi_r(p)$ holds for $p=r_{Y_{15}}$ at
+$\sigma_0=\max Y_{15}=107$, so $\eta_\sigma(15)\le\Phi_r(Y_{15})$ for
+$\sigma\ge107$ by the remark after Theorem~\ref{thm:secondrow}.  (Since
+$r_{Y_{15}}$ is a minimizer for $\nu_1(15)$, Theorem~\ref{thm:secondrow}(b)
+applies with $p_*=r_{Y_{15}}$, and its threshold $\sigma_*$, the least
+$\sigma\ge1$ with the tail condition, is $25$, as recorded in
+Section~\ref{sec:finiterows} and checked there by exact arithmetic.  The
+argument here uses only $\sigma_0=107$, which is larger than necessary,
+and not the value of $\sigma_*$.)  For every
+$\sigma<107$ other than $2$, one of the following sets $Z\ni\sigma$ of $15$ integers has
+$\Phi_r(Z)\le\Phi_r(Z_2(15))$:
+$Y'_{15}=\{1,3,5,8,12,17,22,28,36,44,54,65,78,94,115\}$ if
+$\sigma\in Y'_{15}$; $\mathrm{ins}(Y_{15},\sigma)$ if $\sigma\notin Y_{15}$;
+$Y'_{15}$ with some element replaced by $\sigma$ (all $15$ replacements are
+tried) if $\sigma\notin Y'_{15}$.
+For each $\sigma$, \texttt{tests/test\_rows.py} generates these candidates
+and checks that one of them satisfies the bound.  Hence
+$\sup_\sigma\eta_\sigma(15)=\Phi_r(Z_2(15))$, and
+\cite[Proposition~2.1(b)]{coefficient-mass-rows} gives $V_r(16,2)=1/\Phi_r(Z_2(15))$.  Since
+$[1,2]\subseteq Z_2(15)$,
+$\eta_2(15)\le\nu_3(14)=\mu_r([1,2],16)\le\Phi_r(Z_2(15))=\eta_2(15)$.  Finally
+$\nu_2(15)\le\Phi_r(Y'_{15})<\nu_1(15)$, as $1\in Y'_{15}$.
+
+(b) Lemma~\ref{lem:rowmono} and (a) give the first inequality.  With (a),
+the set $\{1,2,5,8,11,16,21,26,33,41,50,60,71,85,102,123\}\supseteq[1,2]$
+gives $\nu_3(15)<\nu_1(15)$, so
+$\min_{i\le3}1/\nu_i(15)=1/\nu_1(15)=\beta_r(15)$, which exceeds
+$1/\Phi_r(Z_2(15))$ by (a).
+
+(c) Lemma~\ref{lem:vertexopt} gives $\nu_1(13)=\Phi_r(Y_{13})<1$.  The
+tail condition holds for $p=r_{Y_{13}}$ at $\sigma_0=\max Y_{13}=91$, and every
+$\sigma<91$ lies in a set of $13$ integers with
+$\Phi_r\le\Phi_r(Y_{13})$, found among the candidates of (a) built from
+$Y_{13}$ and
+$Y'_{13}=\{1,3,6,9,14,19,25,33,41,52,64,79,99\}$.  So
+$\sup_\sigma\eta_\sigma(13)=\nu_1(13)$, and
+\cite[Proposition~2.1(b)]{coefficient-mass-rows} gives $V_r(14,2)=\beta_r(13)$.  Since
+$1\in Y'_{13}$, $\nu_2(13)\le\Phi_r(Y'_{13})<\nu_1(13)$.
+
+(d) As in (a): Lemma~\ref{lem:vertexopt} gives $\eta_3(18)=\Phi_r(Z_3(18))$,
+with every inequality strict, so $r_{Z_3(18)}$ is the unique minimizer,
+and $\nu_1(18)=\Phi_r(Y_{18})<\Phi_r(Z_3(18))$; the tail condition holds for
+$p=r_{Y_{18}}$ at $\sigma_0=\max Y_{18}=103$; and every $\sigma<103$ other than $3$
+lies in a set of $18$ integers with $\Phi_r\le\Phi_r(Z_3(18))$, found among
+the candidates of (a) built from $Y_{18}$ and
+$Y'_{18}=\{1,2,4,6,8,11,15,19,23,28,34,41,48,57,66,78,91,109\}$.  Since
+$\{1,2\}\subseteq Y'_{18}$, $\eta_2(18)$ and $\nu_2(18)$ are at most
+$\Phi_r(Y'_{18})<\nu_1(18)$, and $[1,3]\subseteq Z_3(18)$ gives
+$\eta_3(18)=\nu_4(16)=\mu_r([1,3],19)$ as in (a).
+\end{proof}
+
+In (a) and (d) the second row equals a prefix value of a longer prefix and
+a smaller degree than the prefix identity allows, $1/\nu_3(14)$ and
+$1/\nu_4(16)$, although only one position is exempted.  The reason is that
+the row is attained at a position $\sigma$ for which the unique minimizer
+$r_Z$ of $\eta_\sigma(n)$ has all of $[1,\sigma]$ among its zeros, so that
+$\eta_\sigma(n)\le\mu_r([1,\sigma],n+1)\le\Phi_r(Z)=\eta_\sigma(n)$ and the
+row is $1/\mu_r([1,\sigma],n+1)=1/\nu_{\sigma+1}(n+1-\sigma)$.  Neither
+Theorem~\ref{thm:onepolyrows} nor Theorem~\ref{thm:longdiag} reaches (c),
+since both place the minimum at $i=k$.
+
+\paragraph{The hypothesis $\nu_2(n)\ge\nu_1(n)$.}
+In Proposition~\ref{prop:secondrowexact}(a) and~(d) the identity fails
+with $\nu_2(n)<\nu_1(n)$.  When
+$\nu_2(n)>\nu_1(n)$ the position $\sigma=2$ cannot break it:
+$\eta_2(n)\le\nu_2(n)$.  Indeed, by Lemma~\ref{lem:vertexopt} some $Y$ with
+$|Y|=n-1$ has $\Phi_r(Y)=\nu_1(n)$, and some $Z\ni1$ with $|Z|=n$ has
+$\Phi_r(Z)=\nu_2(n)=\mu_r(\{1\},n+1)$.  If $1\in Y$, then $r_Y$ is
+admissible for $\mu_r(\{1\},n+1)$ and $\nu_2(n)\le\nu_1(n)$.  So
+$Y\subset[2,\infty)$ and $r_Y(2)\ge0$, while
+$r_Z(2)=-\prod_{z\in Z\setminus\{1\}}(1-2/z)\le0$, and
+\cite[Lemma~4.1(a)]{coefficient-mass-rows} with $T=\varnothing$, $\sigma=2$, $L=n+1$ and
+$\varphi=\nu_2(n)$ gives $\eta_2(n)=\mu_r(\{2\},n+1)\le\nu_2(n)$.  The same
+argument covers every $\sigma$ at which $r_Y$ and $r_Z$ take opposite
+signs, but not every $\sigma$, and the hypothesis $\nu_2(n)>\nu_1(n)$
+does not suffice for the identity at $(r,n+1,2)$.
+
+\begin{proposition}[A second-row failure with $\nu_2(n)>\nu_1(n)$]\label{prop:secondrowhyp}
+Let $r=\frac{177}{167}$ and
+\begin{align*}
+  Y_{50}&=\{2,4,7,10,15,20,27,34,42,51,61,71,83,95,109,123,138,155,172,190,\\
+  &\qquad210,230,252,275,299,324,350,378,407,437,469,502,537,574,613,654,696,\\
+  &\qquad741,789,839,893,950,1011,1076,1148,1226,1314,1416,1543\},\\
+  Y'_{50}&=\{1,4,6,10,15,20,26,33,41,50,59,70,81,93,107,121,136,152,169,187,\\
+  &\qquad205,225,247,269,292,316,342,369,397,427,458,490,524,560,597,637,678,\\
+  &\qquad721,767,815,866,920,978,1039,1105,1177,1256,1345,1448,1576\},\\
+  Z_5(50)&=\{2,4,5,10,14,20,26,33,41,50,59,70,81,93,106,121,136,152,168,186,\\
+  &\qquad205,225,246,269,292,316,342,369,397,427,458,490,524,560,597,637,678,\\
+  &\qquad721,767,815,866,920,978,1039,1105,1177,1256,1345,1448,1576\}.
+\end{align*}
+Then $\nu_1(50)=\Phi_r(Y_{50})<\nu_2(50)=\Phi_r(Y'_{50})<
+\eta_5(50)=\Phi_r(Z_5(50))$, the reciprocals being $4.2262\ldots$,
+$4.2221\ldots$ and $4.2112\ldots$.  So
+\[
+  V_r(51,2)\le\frac1{\eta_5(50)}<\frac1{\nu_2(50)}=\min_{i\le2}\frac1{\nu_i(50)},
+\]
+and the prefix identity fails at $(\frac{177}{167},51,2)$ although
+$\nu_2(50)>\nu_1(50)$.
+\end{proposition}
+
+\begin{proof}
+The proof is computer-assisted, by exact rational arithmetic as in
+Proposition~\ref{prop:secondrowexact}, in
+\texttt{test\_second\_row\_hypothesis\_fails} of
+\texttt{tests/test\_rows.py}, and again, with the series summed by a
+separate method, in \texttt{test\_second\_row\_hypothesis\_independently};
+no floating point is used, and the decimals
+are truncations of exact values.  Lemma~\ref{lem:vertexopt} with
+$S=\varnothing$, $\{1\}$ and $\{5\}$ gives the three equalities, recalling
+$\nu_2(50)=\mu_r(\{1\},51)$; for $Z_5(50)$ every inequality of the lemma is
+strict, so $r_{Z_5(50)}$ is the unique minimizer for $\eta_5(50)$.  The two
+inequalities between the values are exact comparisons.  Finally
+\cite[Proposition~2.1(b)]{coefficient-mass-rows} with $S=\{5\}$ gives
+$V_r(51,2)\le1/\mu_r(\{5\},51)=1/\eta_5(50)$.
+\end{proof}
+
+The unique minimizer for $\eta_5(50)$ vanishes at $2$, $4$ and $5$ but not
+at $1$ or $3$.  So the mechanism of Proposition~\ref{prop:secondrowexact}(a)
+and~(d), a minimizer for $\eta_\sigma(n)$ vanishing on all of $[1,\sigma]$,
+is absent here.  The margins are small: $\nu_2(50)$ exceeds $\nu_1(50)$ by less
+than $0.1$ percent, and $\eta_5(50)$ exceeds $\nu_2(50)$ by less than
+$0.3$ percent.  We have not determined $V_r(51,2)$.
+
+Floating-point experiments, not used in any proof, suggest that such
+failures need $r$ near $1$ and $n$ large.  On the rationals
+$r=p/q\in(1,2)$ with $q\le10$ and $n\le14$, and on those in $[\frac54,2)$
+with $q\le20$ for every $n$ up to the third consecutive one with
+$\nu_2(n)<\nu_1(n)$, every $n$ with $\nu_2(n)\ge\nu_1(n)$ gave
+$\max_{\sigma\ge2}\eta_\sigma(n)<0.92\,\nu_2(n)$.  At the root $r_n$ where
+$\nu_2(n)=\nu_1(n)$, which decreases from $1.52\ldots$ at $n=4$ to
+$1.05\ldots$ at $n=58$, the ratio $\max_{\sigma\ge2}\eta_\sigma(n)/\nu_1(n)$,
+computed for $4\le n\le28$ and $n=30,34,\ldots,58$, rises from $0.84$ at
+$n=4$ to $0.9998$ at $n=42$, $1.0017$ at $n=46$ and $1.0054$ at $n=58$,
+with the maximum at $\sigma=3$ for $n\le12$ and at $\sigma=5$ from $n=13$
+on; Proposition~\ref{prop:secondrowhyp} takes $r$ just below $r_{50}$.
+We do not know whether a worst exempted position, when one exists, is
+always small, or which condition on $r$ and $n$ gives the identity at
+$k=2$.
+
+\paragraph{Failures on an interval of roots.}
+The failures above are at single rational roots.  Since every $\mu_r(S,L)$
+decreases with $r$, a lower bound on $\eta_\sigma(n)$ certified at one root
+and upper bounds on $\nu_1(n)$ and $\nu_2(n)$ at a smaller root give a
+failure at every root between them (Proposition~\ref{prop:failinterval}), and finitely many such
+certificates show that the identity fails somewhere in the second row for
+every root in an interval (Theorem~\ref{thm:failinterval}).
+
+\begin{lemma}[Monotone in the root]\label{lem:rootmono}
+Let $1<r\le r'$, let $S\subset\N_{>0}$ be finite and $L>|S|$.  Then
+$\Phi_{r'}(q)\le\Phi_r(q)$ for every real polynomial $q$, and
+$\mu_{r'}(S,L)\le\mu_r(S,L)$.  In particular $\nu_i(n)$ and
+$\eta_\sigma(n)$ do not increase with $r$.
+\end{lemma}
+
+\begin{proof}
+Term by term, $|q(s)|r'^{-s}\le|q(s)|r^{-s}$ for $s\ge1$.  The admissible
+set of $\mu_r(S,L)$ does not depend on $r$, so the infima compare in the
+same way; $\nu_i(n)=\mu_r([1,i-1],n+i-1)$ and
+$\eta_\sigma(n)=\mu_r(\{\sigma\},n+1)$.
+\end{proof}
+
+\begin{proposition}[A failure certified on an interval]\label{prop:failinterval}
+Let $1<r_0<r_1$, $n\ge2$ and $\sigma\ge2$.  Let $Y$, $Y'$ and $Z$ be sets
+of $n-1$, $n$ and $n$ positive integers with $1\in Y'$ and $\sigma\in Z$.
+Suppose that $Z$ passes the test of Lemma~\ref{lem:vertexopt} for
+$S=\{\sigma\}$ at the root $r_1$, and that
+\[
+  \Phi_{r_1}(Z)>\max\bigl\{\Phi_{r_0}(Y),\ \Phi_{r_0}(Y')\bigr\}.
+\]
+Then for every $r\in[r_0,r_1]$, $\eta_\sigma(n)>\max\{\nu_1(n),\nu_2(n)\}$
+at the root $r$, so
+\[
+  V_r(n+1,2)\le\frac1{\eta_\sigma(n)}<\min_{i\le2}\frac1{\nu_i(n)},
+\]
+and the prefix identity~\eqref{eq:prefixid} fails at $(r,n+1,2)$.
+\end{proposition}
+
+\begin{proof}
+Write $\eta_\sigma(n;r)$ and $\nu_i(n;r)$ for the values at the root $r$.
+Lemma~\ref{lem:vertexopt} with $L=|Z|+1=n+1$ gives
+$\eta_\sigma(n;r_1)=\mu_{r_1}(\{\sigma\},n+1)=\Phi_{r_1}(Z)$, and
+Lemma~\ref{lem:rootmono} gives $\eta_\sigma(n;r)\ge\Phi_{r_1}(Z)$.  The
+polynomial $r_Y$ lies in $\mathcal Q_n$, and $r_{Y'}$ has degree $n$, takes
+the value $1$ at $0$ and vanishes at $1$, so it is admissible for
+$\nu_2(n;r)=\mu_r(\{1\},n+1)$.  By Lemma~\ref{lem:rootmono},
+$\nu_1(n;r)\le\Phi_r(Y)\le\Phi_{r_0}(Y)$ and
+$\nu_2(n;r)\le\Phi_r(Y')\le\Phi_{r_0}(Y')$.  So
+$\eta_\sigma(n;r)>\max\{\nu_1(n;r),\nu_2(n;r)\}$, and
+\cite[Proposition~2.1(b)]{coefficient-mass-rows} with $S=\{\sigma\}$ gives
+$V_r(n+1,2)\le1/\eta_\sigma(n;r)$.
+\end{proof}
+
+Only $Z$ needs an optimality certificate; $Y$ and $Y'$ only give upper
+bounds, and need not be optimal at either root.
+
+\begin{theorem}[Second-row failures on an interval]\label{thm:failinterval}
+For every $r\in[\frac{21}{20},\frac{139}{100}]$ there is an $n$ with
+$10\le n\le68$ such that $\eta_2(n)>\max\{\nu_1(n),\nu_2(n)\}$ at the root
+$r$; so $V_r(n+1,2)\le1/\eta_2(n)<\min_{i\le2}1/\nu_i(n)$, and the prefix
+identity~\eqref{eq:prefixid} fails at $(r,n+1,2)$.
+\end{theorem}
+
+\begin{proof}
+The proof is computer-assisted, by exact rational arithmetic as in
+Proposition~\ref{prop:secondrowexact}, in
+\texttt{test\_second\_row\_fails\_on\_an\_interval} of
+\texttt{tests/test\_rows.py}.  The file \texttt{tests/second\_row\_cover.json}
+lists $49$ tuples $(r_0,r_1,n,2,Y,Y',Z)$, with rational endpoints over
+denominators dividing $2\cdot10^4$ and $n$ nonincreasing from $68$ to $10$.  The
+test checks that each tuple satisfies the hypotheses of
+Proposition~\ref{prop:failinterval} with $\sigma=2$: the sizes, $1\in Y'$,
+$2\in Z$, the vertex test for $Z$ at $r_1$, and the strict comparison.  It
+also checks that the first interval starts at $\frac{21}{20}$, that each
+starts at or below the largest right end before it, and that the last one
+ends at or above $\frac{139}{100}$.  So the intervals $[r_0,r_1]$ cover
+$[\frac{21}{20},\frac{139}{100}]$, and Proposition~\ref{prop:failinterval}
+applies at every root there.
+\end{proof}
+
+So the failures of Proposition~\ref{prop:secondrowexact} at $\frac54$ and
+$\frac43$ are not isolated: the second row misses the prefix identity at
+every root of $[\frac{21}{20},\frac{139}{100}]$, each time certified at the
+position $2$ and a diagonal $n$ that moves with $r$.  By the argument before
+Proposition~\ref{prop:secondrowhyp}, $\eta_2(n)>\nu_2(n)$ forces
+$\nu_2(n)\le\nu_1(n)$, so none of these failures has
+$\nu_2(n)>\nu_1(n)$.  The certificates were found by
+floating-point search, which played no part in the proof.  The same
+search, also not used in any proof, finds no second-row failure with
+$n\le40$ at the roots $1.400$ and $1.432$, $1.436,\ldots,1.460$,
+$1.472,\ldots,1.5$ (step $0.004$), nor with $n\le30$ at $1.6$, $1.7$,
+$1.8$ and $1.9$; between these the failures continue in narrow windows
+of $r$ for single $n$, such as $n=9$ on $[1.403,1.429]$ and $n=8$ near
+$1.466$.  In higher rows the identity fails at every root of
+$[\frac{139}{100},\frac{19}{10}]$ (Theorem~\ref{thm:blockinterval} in
+Section~\ref{sec:finiterows}).  Whether every $1<r<2$ has a failure in some
+row, and whether there is one for every $1<r<\frac{21}{20}$, remain open.
+There a failure at $(r,n+k-1,k)$, in any row, needs $\beta_r(n)>1$
+(Theorem~\ref{thm:onepolyrows}), so by Lemma~\ref{lem:topnearone} its
+diagonal $n$ tends to infinity as $r\to1^+$.
+
+\section{Every row is a finite minimum}\label{sec:finiterows}
+
+Theorem~\ref{thm:secondrow} rests on one fact: a zero placed far enough out
+does not increase $\Phi_r$.  For $k\ge3$ several exempted positions can
+move out together, and a threshold for one far zero does not serve two.  At
+$r=\frac54$ and $p_*=r_{Y_{15}}$ of Proposition~\ref{prop:secondrowexact}
+the threshold of Theorem~\ref{thm:secondrow} is $\sigma_*=25$, while the
+zeros $25$ and $26$ together raise $\Phi_r(p_*)$ by more than half
+(exact rational arithmetic, \texttt{test\_far\_zeros} in
+\texttt{tests/test\_rows.py}).  Lemma~\ref{lem:farzeros} gives a threshold
+for up to $m$ far zeros at once.  It depends on the exempted positions below
+it, and the positions that stay below the thresholds form a finite tree.  So
+each row is the minimum of the row before it on its diagonal and finitely
+many exempted-set terms (Theorem~\ref{thm:finiterows}).
+
+For integers $m,s\ge1$, real $t>0$ and a real polynomial $q$ put
+\[
+  \phi_m(s,t)=\begin{cases}-s,&s\le t,\\(s-t)(s/t)^{m-1}-t,&s>t,\end{cases}
+  \qquad
+  \Delta_{q,m}(t)=\sum_{s\ge1}\phi_m(s,t)\,|q(s)|\,r^{-s}.
+\]
+Since $\phi_1(s,t)=-s+2(s-t)^+$, we have
+$\Delta_{q,1}(\sigma)=2R_q(\sigma)-\Psi_r(q)$.
+
+\begin{lemma}[Several far zeros]\label{lem:farzeros}
+Let $r>1$, $m\ge1$, and let $q$ be a nonzero real polynomial.
+\begin{enumerate}
+\item[(a)] $\Delta_{q,m}(t)$ does not increase in $t>0$,
+$\Delta_{q,m}\le\Delta_{q,m+1}$, and $\Delta_{q,m}(t)\to-\Psi_r(q)<0$ as
+$t\to\infty$.  So there is a least integer $t_m(q)\ge1$ with
+$\Delta_{q,m}(t_m(q))\le0$; moreover $\Delta_{q,m}(t)\le0$ for all real
+$t\ge t_m(q)$, and $t_m(q)\le t_{m+1}(q)$.
+\item[(b)] If $t>0$, $\Delta_{q,m}(t)\le0$, and $U\subset\N_{>0}$ is finite
+with $|U|\le m$ and all elements at least $t$, then
+$\Phi_r(q\,r_U)\le\Phi_r(q)$.
+\end{enumerate}
+For $m=1$, $t_1(p_*)$ is the threshold $\sigma_*$ of
+Theorem~\ref{thm:secondrow}.
+\end{lemma}
+
+\begin{proof}
+(a) Fix $s$.  For $t\ge s$, $\phi_m(s,t)=-s$.  For $0<t<s$, the product
+$(s-t)(s/t)^{m-1}$ of a positive decreasing and a positive nonincreasing
+function of $t$ decreases, so $\phi_m(s,t)$ decreases in $t$ there, and it
+tends to $-s$ as $t\uparrow s$.  So $\phi_m(s,\cdot)$ is nonincreasing.  For
+$s>t$, $(s/t)^{m-1}\le(s/t)^m$, so $\phi_m\le\phi_{m+1}$.  For fixed $t$,
+$|\phi_m(s,t)|$ is at most a polynomial in $s$, so every series here
+converges absolutely, and the first two claims follow term by term.  For
+$t\ge1$, $|\phi_m(s,t)|\le s^m+s$, and $\sum_s(s^m+s)|q(s)|r^{-s}<\infty$, so
+dominated convergence with $\phi_m(s,t)\to-s$ gives the limit.  Finally
+$\Psi_r(q)>0$, since $q$ has finitely many zeros.
+
+(b) Let $U\ne\varnothing$ and $u=\min U\ge t$, so $\Delta_{q,m}(u)\le0$ by
+(a).  Every $v\in U$ has $|1-s/v|\le\max\{1,s/v\}\le\max\{1,s/u\}$, so
+$|r_U(s)|\le|1-s/u|\max\{1,s/u\}^{m-1}$ for $s\ge1$.  Hence
+$u(|r_U(s)|-1)\le\phi_m(s,u)$: for $s\le u$ the left side is at most
+$(u-s)-u$, and for $s>u$ at most $(s-u)(s/u)^{m-1}-u$.  Multiplying by
+$|q(s)|r^{-s}$ and summing gives
+$u\bigl(\Phi_r(q\,r_U)-\Phi_r(q)\bigr)\le\Delta_{q,m}(u)\le0$.  For $m=1$,
+$\Delta_{p_*,1}(\sigma)\le0$ is the condition $2R_{p_*}(\sigma)\le\Psi_r(p_*)$
+defining $\sigma_*$.
+\end{proof}
+
+\begin{theorem}[Every row is a finite minimum]\label{thm:finiterows}
+Let $r>1$ and $n,m\ge1$.
+\begin{enumerate}
+\item[(a)] For each finite $N\subset\N_{>0}$ with $|N|<m$ fix a minimizer
+$q_N$ of $\mu_r(N,n+|N|)$ (Lemma~\ref{lem:vertexopt}) and put
+$T(N)=t_{m-|N|}(q_N)$.  Let $\mathcal S$ be the set of
+$S=\{\sigma_1<\cdots<\sigma_m\}\subset\N_{>0}$ with
+$\sigma_{j+1}<T(\{\sigma_1,\ldots,\sigma_j\})$ for $0\le j<m$.  Then
+$\mathcal S$ is finite, and
+\[
+  V_r(n+m,m+1)=\min\Bigl\{V_r(n+m-1,m),\
+  \min_{S\in\mathcal S}\frac1{\mu_r(S,n+m)}\Bigr\},
+\]
+where the inner minimum is omitted if $\mathcal S=\varnothing$.
+\item[(b)] Let $B>0$, and let $\mathcal T$ be a set of finite subsets of
+$\N_{>0}$ of size less than $m$, with $\varnothing\in\mathcal T$.  To each
+$N\in\mathcal T$ attach a real polynomial $q_N$ with $\deg q_N\le n+|N|-1$,
+$q_N(0)=1$, $q_N|_N=0$ and $\Phi_r(q_N)\le B$, and an integer $T_N\ge1$ with
+$\Delta_{q_N,m-|N|}(T_N)\le0$.  Suppose that $N\cup\{\sigma\}\in\mathcal T$
+whenever $N\in\mathcal T$, $|N|\le m-2$ and $\max N<\sigma<T_N$
+($\max\varnothing=0$), and that $\mu_r(N\cup\{\sigma\},n+m)\le B$ whenever
+$N\in\mathcal T$, $|N|=m-1$ and $\max N<\sigma<T_N$.  Then
+$\mu_r(S,n+m)\le B$ for every $S\subset\N_{>0}$ with $|S|=m$, and
+$V_r(n+m,m+1)\ge1/B$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Both parts rest on one step.  Let $S=\{\sigma_1<\cdots<\sigma_m\}$ and
+put $N_j=\{\sigma_1,\ldots,\sigma_j\}$ for $0\le j\le m$.  Fix $j<m$ and
+let $q$ be real with $\deg q\le n+j-1$, $q(0)=1$, $q|_{N_j}=0$ and
+$\Delta_{q,m-j}(\sigma_{j+1})\le0$.  The set
+$U=S\setminus N_j$ has $m-j$ elements, all at least $\sigma_{j+1}$, so
+Lemma~\ref{lem:farzeros}(b) gives $\Phi_r(q\,r_U)\le\Phi_r(q)$.  The
+polynomial $q\,r_U$ has degree at most $n+m-1$, takes the value $1$ at $0$
+and vanishes on $S$, so
+\begin{equation}\label{eq:farstep}
+  \mu_r(S,n+m)\le\Phi_r(q).
+\end{equation}
+
+(a) A set in $\mathcal S$ with given $\sigma_1,\ldots,\sigma_j$ has fewer
+than $T(N_j)$ choices of $\sigma_{j+1}$, so $\mathcal S$ is finite by
+induction on $j$.  \cite[Proposition~2.1(b)]{coefficient-mass-rows} gives
+$V_r(n+m,m+1)\le1/\mu_r(S,n+m)$ for each $S$, and Lemma~\ref{lem:rowmono}
+gives $V_r(n+m,m+1)\le V_r(n+m-1,m)$.  Conversely let $|S|=m$ with
+$S\notin\mathcal S$.  Then some $j<m$ has $\sigma_{j+1}\ge T(N_j)$, so
+$\Delta_{q_{N_j},m-j}(\sigma_{j+1})\le0$ by Lemma~\ref{lem:farzeros}(a),
+and~\eqref{eq:farstep} gives $\mu_r(S,n+m)\le\mu_r(N_j,n+j)$.  By
+\cite[Proposition~2.1(b)]{coefficient-mass-rows}, $1/\mu_r(N_j,n+j)\ge V_r(n+j,j+1)$ (for
+$j=0$ both sides are $\beta_r(n)$), and by Lemma~\ref{lem:rowmono},
+$V_r(n+j,j+1)\ge V_r(n+m-1,m)$ since $j\le m-1$.  So every $S$ has
+$1/\mu_r(S,n+m)$ at least the right side, and
+\cite[Proposition~2.1(b)]{coefficient-mass-rows} gives the reverse inequality.
+
+(b) Let $|S|=m$, and let $j<m$ be least with $\sigma_{j+1}\ge T_{N_j}$, if
+any; then $N_0,\ldots,N_j\in\mathcal T$ by induction, since
+$N_0=\varnothing\in\mathcal T$, and $N_i\in\mathcal T$,
+$\sigma_{i+1}<T_{N_i}$, $i\le m-2$ give $N_{i+1}\in\mathcal T$.  If there
+is none, then likewise $N_{m-1}\in\mathcal T$ and $\sigma_m<T_{N_{m-1}}$,
+so $\mu_r(S,n+m)\le B$ by the leaf hypothesis.  Otherwise
+$\Delta_{q_{N_j},m-j}(\sigma_{j+1})\le\Delta_{q_{N_j},m-j}(T_{N_j})\le0$ by
+Lemma~\ref{lem:farzeros}(a), and~\eqref{eq:farstep} gives
+$\mu_r(S,n+m)\le\Phi_r(q_{N_j})\le B$.  \cite[Proposition~2.1(b)]{coefficient-mass-rows}
+gives $V_r(n+m,m+1)\ge1/B$.
+\end{proof}
+
+For $m=1$ the set $\mathcal S$ is $\{\{\sigma\}:\sigma<\sigma_*\}$ and (a) is
+Theorem~\ref{thm:secondrow}(b).  Applying (a) to $V_r(n+m-1,m)$, and so on
+down to $V_r(n,1)=\beta_r(n)$, writes every row $V_r(n+m,m+1)$ as the
+minimum of finitely many values $1/\mu_r(S,n+|S|)$, $|S|\le m$, each equal
+to $1/\Phi_r(Z)$ for a set $Z\supseteq S$ of $n+|S|-1$ integers
+(Lemma~\ref{lem:vertexopt}).  The sets in $\mathcal S$ depend on the
+minimizers $q_N$, and the theorem does not say how to find them; part (b)
+needs only upper bounds.  If $V_r(n+m,m+1)<V_r(n+m-1,m)$, the infimum
+defining $V_r(n+m,m+1)$ is attained, at some $S\in\mathcal S$.  For rational
+$r$, $q=r_Z$ and an integer $t\ge1$, $\Delta_{q,m}(t)$ is a rational number
+computable exactly
+as $\Phi_r(Z)$ is, since past $\max(Z\cup\{t\})$ its summand is a polynomial
+times $r^{-s}$.  So for given zero sets every hypothesis of (b), with
+$\mu_r(N\cup\{\sigma\},n+m)\le B$ checked through some $\Phi_r(Z)\le B$,
+$Z\supseteq N\cup\{\sigma\}$, $|Z|\le n+m-1$, is a finite exact check.
+
+\begin{proposition}[Third rows at the roots $\frac43$ and $\frac32$]\label{prop:thirdrowexact}
+Let $r=\frac43$ in (a) and (b).
+\begin{enumerate}
+\item[(a)] Let
+\begin{align*}
+  Y_{12}&=\{1,3,6,9,13,17,23,30,39,50,64\},\\
+  Z_2(12)&=\{1,2,5,8,12,16,21,28,35,44,56,71\},\\
+  Z_{2,3}(12)&=\{2,3,4,7,10,15,19,25,32,40,49,61,77\}.
+\end{align*}
+Then $V_r(14,3)=1/\Phi_r(Z_{2,3}(12))=7.7168\ldots$,
+$V_r(13,2)=1/\Phi_r(Z_2(12))=1/\nu_3(11)=8.5482\ldots$ and
+$\beta_r(12)=1/\Phi_r(Y_{12})=8.8501\ldots$, and
+$\min_{i\le k}1/\nu_i(12)=\beta_r(12)$ for $k=2,3,4$.  So
+$V_r(14,3)<V_r(13,2)<\beta_r(12)$: the prefix identity fails at
+$(\frac43,13,2)$ and at $(\frac43,14,3)$, and the third row lies strictly
+below the second on this diagonal.  By Lemma~\ref{lem:rowmono} it also
+fails at $(\frac43,15,4)$.  The pair $S=\{2,3\}$ is the only
+exempted set with $1/\mu_r(S,14)=V_r(14,3)$.
+\item[(b)] Let
+\begin{align*}
+  Y_{14}&=\{1,3,5,8,11,15,20,26,32,40,50,62,77\},\\
+  Z_{2,3}(14)&=\{1,2,3,6,9,13,17,22,27,34,41,50,60,73,89\}.
+\end{align*}
+Then $V_r(15,2)=\beta_r(14)=1/\Phi_r(Y_{14})=15.0390\ldots=\min_{i\le4}1/\nu_i(14)$
+and $V_r(16,3)=1/\Phi_r(Z_{2,3}(14))=1/\nu_4(13)=14.6268\ldots$.  So the
+prefix identity holds at $(\frac43,15,2)$, with its minimum at $i=1$, and
+fails at $(\frac43,16,3)$ and, by Lemma~\ref{lem:rowmono}, at
+$(\frac43,17,4)$.  The pair $S=\{2,3\}$ is the only exempted set
+with $1/\mu_r(S,16)=V_r(16,3)$.
+\item[(c)] Let $r=\frac32$ and $Y_8=\{1,3,6,9,14,20,28\}$.  Then
+$V_r(10,3)=V_r(9,2)=\beta_r(8)=1/\Phi_r(Y_8)=8.0259\ldots=\min_{i\le3}1/\nu_i(8)$,
+and $\nu_2(8),\nu_3(8)<\nu_1(8)$.  So the prefix identity holds at
+$(\frac32,10,3)$ with its minimum at $i=1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The proof is computer-assisted, by exact rational arithmetic as in
+Proposition~\ref{prop:secondrowexact}, in \texttt{tests/test\_rows.py}
+(\texttt{test\_third\_row\_below\_second} for (a),
+\texttt{test\_third\_row\_fails\_alone} for (b),
+\texttt{test\_third\_row\_is\_top\_row} for (c)); no floating point is
+used, and the decimals are truncations of exact values.  Each lower bound for a row comes from
+Theorem~\ref{thm:finiterows}(b) with $q_\varnothing=r_Y$ for the set $Y$
+named in that part, $q_N=r_{K_N}$ for sets $K_N\supseteq N$ of at most
+$n+|N|-1$ integers, and $T_N$ the least integer with
+$\Delta_{q_N,m-|N|}(T_N)\le0$; a leaf $N\cup\{\sigma\}$ is checked through a
+set $Z\supseteq N\cup\{\sigma\}$ of at most $n+m-1$ integers with
+$\Phi_r(Z)\le B$.  The test builds the tree from the root
+$K_\varnothing=Y$.  For a child $N\cup\{\sigma\}$ of a node $N$ with kept
+set $K_N$ it forms these candidates: $K_N$ itself if $\sigma\in K_N$;
+otherwise $K_N$ with one of the three elements of $K_N\setminus N$ nearest
+to $\sigma$ replaced by $\sigma$, and $K_N\cup\{\sigma\}$; and in either
+case the fixed set of $n+|N|$ integers of that part, with each position of
+$N\cup\{\sigma\}$ that it misses, taken in increasing order, put in place of
+one of the two elements outside $N\cup\{\sigma\}$ nearest to it, in every
+combination.  The fixed sets are
+\begin{align*}
+  \text{(a)}\quad&\{1,3,5,8,12,16,21,28,35,44,56,71\},\
+  \{1,3,5,8,11,15,20,26,32,40,50,62,77\},\\
+  \text{(b)}\quad&\{1,3,5,7,10,14,18,24,30,37,45,55,67,83\},\
+  \{1,3,4,7,10,13,17,22,28,34,42,50,61,73,90\},\\
+  \text{(c)}\quad&\{1,3,5,8,12,17,24,33\},\ \{1,3,5,8,11,15,21,28,37\},
+\end{align*}
+of $n$ and $n+1$ integers, used for children of size one and two.  Among
+the candidates with at most $n+|N|$ elements the test keeps one with the
+least $\Phi_r$ (on ties, the first formed, and nearest elements are taken
+toward the smaller one), unless the child is given a named set.  Each
+threshold $T_N$ is found by evaluating the sign of $\Delta_{q_N,m-|N|}$ at
+integers (it does not increase, Lemma~\ref{lem:farzeros}(a)), and the test
+checks $\Delta_{q_N,m-|N|}(T_N)\le0$ exactly.  For the third rows the trees
+have $32$, $35$ and $15$ nodes of size one and $126$, $161$ and $33$ leaves
+in (a), (b) and (c); at each node and leaf the test checks $\Phi_r\le B$,
+or $\Phi_r<B$ where stated, for the set it keeps.  Theorem~\ref{thm:finiterows}(b)
+needs only that each node and each leaf have some set of the allowed size
+through it with $\Phi_r\le B$ (or $<B$); which one is kept, and so the
+tie-breaking above, changes the thresholds $T_N$ and the tree sizes but not
+the validity of the certificate.
+
+(a) Lemma~\ref{lem:vertexopt} with $S=\{2,3\}$, $\{2\}$ and $\varnothing$
+gives $\mu_r(\{2,3\},14)=\Phi_r(Z_{2,3}(12))$, $\eta_2(12)=\Phi_r(Z_2(12))$ and
+$\nu_1(12)=\Phi_r(Y_{12})$, and $\Phi_r(Y_{12})<\Phi_r(Z_2(12))<\Phi_r(Z_{2,3}(12))$.
+For $Z_{2,3}(12)$ every inequality of the lemma is strict, so
+$r_{Z_{2,3}(12)}$ is the unique minimizer for $\mu_r(\{2,3\},14)$.
+With $n=12$, $m=2$, $B=\Phi_r(Z_{2,3}(12))$, $Y=Y_{12}$ (so
+$T_\varnothing=33$) and the pair $\{2,3\}$ given $Z_{2,3}(12)$, the test checks
+the hypotheses of Theorem~\ref{thm:finiterows}(b), with $\Phi_r<B$ for every
+other set used.  So $\mu_r(S,14)\le B$ for all $|S|=2$, with equality only
+at $S=\{2,3\}$: a pair outside the tree has $\mu_r(S,14)\le\Phi_r(q_N)<B$
+by~\eqref{eq:farstep}.  \cite[Proposition~2.1(b)]{coefficient-mass-rows} gives
+$V_r(14,3)=1/B$.  With $m=1$, $B=\Phi_r(Z_2(12))$ and the position $2$ given
+$Z_2(12)$, the same check gives $V_r(13,2)\ge1/\Phi_r(Z_2(12))$, and $S=\{2\}$ gives
+equality.  Since $[1,2]\subseteq Z_2(12)$,
+$\eta_2(12)\le\nu_3(11)=\mu_r([1,2],13)\le\Phi_r(Z_2(12))=\eta_2(12)$.  Finally
+the sets $\{1,3,5,8,12,16,21,28,35,44,56,71\}\ni1$,
+$\{1,2,5,7,11,15,20,25,32,40,50,61,77\}\supseteq[1,2]$ and
+$\{1,2,3,7,10,14,18,23,29,37,45,55,67,83\}\supseteq[1,3]$ give
+$\nu_i(12)<\nu_1(12)$ for $i=2,3,4$, so
+$\min_{i\le4}1/\nu_i(12)=1/\nu_1(12)$, and Lemma~\ref{lem:rowmono} gives
+$V_r(15,4)\le V_r(14,3)$.
+
+(b) As in (a): Lemma~\ref{lem:vertexopt} gives
+$\mu_r(\{2,3\},16)=\Phi_r(Z_{2,3}(14))$, with every inequality strict, so
+$r_{Z_{2,3}(14)}$ is the unique minimizer, and $\nu_1(14)=\Phi_r(Y_{14})$, which is
+smaller.  Theorem~\ref{thm:finiterows}(b) with $n=14$, $m=2$,
+$B=\Phi_r(Z_{2,3}(14))$ and $Y=Y_{14}$ ($T_\varnothing=36$), with $\Phi_r<B$
+for every set used except $Z_{2,3}(14)$ at $\{2,3\}$, gives $V_r(16,3)=1/B$,
+attained only at $\{2,3\}$.  With $m=1$ and $B=\Phi_r(Y_{14})$ it gives
+$V_r(15,2)\ge\beta_r(14)$, and \cite[Proposition~2.1(c)]{coefficient-mass-rows} gives
+equality.  Since $[1,3]\subseteq Z_{2,3}(14)$,
+$\mu_r(\{2,3\},16)\le\mu_r([1,3],16)=\nu_4(13)\le\Phi_r(Z_{2,3}(14))$, so all
+three are equal.  The sets $\{1,3,5,7,10,14,18,24,30,37,45,55,67,83\}\ni1$,
+$\{1,2,4,7,10,13,17,22,28,34,42,50,61,73,90\}\supseteq[1,2]$ and
+$\{1,2,3,6,9,12,16,21,26,32,39,46,55,66,79,96\}\supseteq[1,3]$ give
+$\nu_i(14)<\nu_1(14)$ for $i=2,3,4$, and Lemma~\ref{lem:rowmono} gives
+$V_r(17,4)\le V_r(16,3)$.
+
+(c) Lemma~\ref{lem:vertexopt} gives $\nu_1(8)=\Phi_r(Y_8)$.
+Theorem~\ref{thm:finiterows}(b) with $n=8$, $m=2$, $B=\Phi_r(Y_8)$, $Y=Y_8$,
+and the pair $\{2,3\}$ given $\{2,3,4,7,10,15,20,27,37\}$, gives
+$V_r(10,3)\ge\beta_r(8)$.  Lemma~\ref{lem:rowmono} and
+\cite[Proposition~2.1(c)]{coefficient-mass-rows} give
+$V_r(10,3)\le V_r(9,2)\le\beta_r(8)$.  The sets
+$\{1,3,5,8,12,17,24,33\}\ni1$ and $\{1,2,5,7,11,15,21,28,37\}\supseteq[1,2]$
+give $\nu_2(8),\nu_3(8)<\nu_1(8)$.
+\end{proof}
+
+In (b) the prefix identity fails in the third row although it holds in the
+second, so this failure does not come from the second row through
+Lemma~\ref{lem:rowmono}.  In (a) the third row is strictly below the
+second.  In (b) the zero set $Z_{2,3}(14)$ of the unique minimizer for
+$\mu_r(\{2,3\},16)$ contains $[1,3]$, as the zero sets of the unique
+minimizers for $\eta_\sigma(n)$ in Proposition~\ref{prop:secondrowexact}(a)
+and~(d) contain $[1,\sigma]$; in (a) the zero set $Z_{2,3}(12)$ of the
+unique minimizer for $\mu_r(\{2,3\},14)$ omits $1$.  The identities at
+$(\frac43,15,2)$ and $(\frac32,10,3)$ are outside
+Theorems~\ref{thm:onepolyrows} and~\ref{thm:longdiag}, which give
+$\nu_1(n)\le\nu_k(n)$.
+
+\paragraph{Failures in higher rows on an interval of roots.}
+Above $r=\frac{139}{100}$ the second-row failures of
+Theorem~\ref{thm:failinterval} thin out (see the remark after it), but the
+identity keeps failing in higher rows, at the block $S=[2,k]$ of exempted
+positions; for $k=2$ this is the position $\sigma=2$ of
+Theorem~\ref{thm:failinterval}, and for $k=3$ the pair $\{2,3\}$ of
+Proposition~\ref{prop:thirdrowexact}.  The value $\mu_r([2,k],L)$ of the
+block is at most the prefix value of a longer prefix and a smaller degree,
+and at most $(1+\nu_k(n))/(kr)$ (Lemma~\ref{lem:block}).  As in Theorem~\ref{thm:failinterval}, one
+certificate covers an interval of roots (Proposition~\ref{prop:blockinterval}),
+and finitely many cover $[\frac{139}{100},\frac{19}{10}]$
+(Theorem~\ref{thm:blockinterval}).
+
+\begin{lemma}[The exempted block {$[2,k]$}]\label{lem:block}
+Let $r>1$, $n\ge2$, $k\ge2$ and $L=n+k-1$.  Then
+\[
+  \mu_r([2,k],L)\le\min\Bigl\{\nu_{k+1}(n-1),\ \frac{1+\nu_k(n)}{kr}\Bigr\},
+\]
+with equality in the first bound if some minimizer for $\mu_r([2,k],L)$
+vanishes at $1$.  Consequently, if $\mu_r([2,k],L)>\max_{i\le k}\nu_i(n)$,
+then $\nu_{k+1}(n-1)>\max_{i\le k}\nu_i(n)$ and $k<(\beta_r(n)+1)/r$.
+\end{lemma}
+
+\begin{proof}
+Every polynomial admissible for $\mu_r([1,k],L)=\nu_{k+1}(n-1)$ is
+admissible for $\mu_r([2,k],L)$, which gives the first bound; a minimizer
+for $\mu_r([2,k],L)$ that vanishes at $1$ is admissible for
+$\mu_r([1,k],L)$, which gives the equality.  For the second,
+Lemma~\ref{lem:vertexopt} gives a set $Z\supseteq[1,k-1]$ of $n+k-2$
+integers with $\Phi_r(Z)=\mu_r([1,k-1],L)=\nu_k(n)$.  Put
+$Y=Z\setminus[1,k-1]$ and $p=r_Y$, so $|Y|=n-1$, $Y\subset[k,\infty)$,
+$A_k(p)=\Phi_r(Z)=\nu_k(n)$ and $p(-1)=\prod_{y\in Y}(1+1/y)\ge1$.  The
+polynomial $q(s)=r_{[2,k]}(s)\,p(s-1)/p(-1)$ has degree $L-1$, $q(0)=1$
+and $q|_{[2,k]}=0$.  Here $|r_{[2,k]}(1)|=\prod_{j=2}^k(1-1/j)=1/k$, and
+for $s\ge k+1$, $|r_{[2,k]}(s)|=\prod_{j=2}^k(s-j)/j=\binom{s-2}{k-1}/k$,
+so that $|r_{[2,k]}(s)|\,r^{-s}=\omega_k(s-1)/(kr)$.  Hence, with $t=s-1$,
+\[
+  \Phi_r(q)=\frac1{kr\,p(-1)}\Bigl(|p(0)|+\sum_{t\ge k}\omega_k(t)|p(t)|\Bigr)
+  =\frac{1+A_k(p)}{kr\,p(-1)}\le\frac{1+\nu_k(n)}{kr}.
+\]
+Finally let $M=\max_{i\le k}\nu_i(n)$ and $\mu_r([2,k],L)>M$.  The first
+bound gives $\nu_{k+1}(n-1)>M$, and the second, with $\nu_k(n)\le M$, gives
+$krM<1+M$.  Since $kr>1$ and $M\ge\nu_1(n)=1/\beta_r(n)$, this is
+$kr-1<1/M\le\beta_r(n)$.
+\end{proof}
+
+So a failure at the block needs a prefix value of a longer prefix and a
+smaller degree, $\nu_{k+1}(n-1)$, exceeding every prefix value of the
+diagonal, and when a minimizer vanishes at $1$ the block term is that prefix
+value, as in Proposition~\ref{prop:secondrowexact}(a) and~(d).  It occurs
+only in rows $k<(\beta_r(n)+1)/r$, while
+Proposition~\ref{prop:longdiagexplicit}(c) excludes rows
+$k\ge\max\{K,\alpha(n-1)\}$.
+
+\begin{proposition}[A failure in row $k$ certified on an interval]\label{prop:blockinterval}
+Let $1<r_0<r_1$, $n\ge2$, $k\ge2$ and $a_0=1/(r_0-1)$.  Let
+$Z\supseteq[2,k]$ be a set of $n+k-2$ positive integers that passes the
+test of Lemma~\ref{lem:vertexopt} for $S=[2,k]$ at the root $r_1$.  Let
+$1=j_1<\cdots<j_m\le k$, and for each $l$ let $Y_l\supseteq[1,j_l-1]$ be a
+set of $n+j_l-2$ positive integers.  Suppose that for every $i\le k$, with
+$l$ the largest index such that $j_l\le i$,
+\[
+  a_0^{\,i-j_l}\,\Phi_{r_0}(Y_l)<\Phi_{r_1}(Z).
+\]
+Then for every $r\in[r_0,r_1]$, $\mu_r([2,k],n+k-1)>\max_{i\le k}\nu_i(n)$
+at the root $r$, so
+\[
+  V_r(n+k-1,k)\le\frac1{\mu_r([2,k],n+k-1)}<\min_{i\le k}\frac1{\nu_i(n)},
+\]
+and the prefix identity~\eqref{eq:prefixid} fails at $(r,n+k-1,k)$.
+\end{proposition}
+
+\begin{proof}
+Write $\nu_i(n;r)$ for the value at the root $r$, and $a=1/(r-1)\le a_0$.
+Lemma~\ref{lem:vertexopt} with $L=|Z|+1=n+k-1$ gives
+$\mu_{r_1}([2,k],n+k-1)=\Phi_{r_1}(Z)$, and Lemma~\ref{lem:rootmono} gives
+$\mu_r([2,k],n+k-1)\ge\Phi_{r_1}(Z)$.  The polynomial $r_{Y_l}$ has degree
+$n+j_l-2$ and vanishes on $[1,j_l-1]$, so it is admissible for
+$\nu_{j_l}(n;r)=\mu_r([1,j_l-1],n+j_l-1)$, and Lemma~\ref{lem:rootmono}
+gives $\nu_{j_l}(n;r)\le\Phi_{r_0}(Y_l)$.  By~\eqref{eq:prefixup} at the
+root $r$, $\nu_i(n;r)\le a^{i-j_l}\nu_{j_l}(n;r)\le
+a_0^{\,i-j_l}\Phi_{r_0}(Y_l)$ for $j_l\le i$.  So every $\nu_i(n;r)$,
+$i\le k$, is below $\mu_r([2,k],n+k-1)$, and
+\cite[Proposition~2.1(b)]{coefficient-mass-rows} with $S=[2,k]$ gives the bound on
+$V_r(n+k-1,k)$.
+\end{proof}
+
+For $k=2$ and $m=2$ this is Proposition~\ref{prop:failinterval} with
+$\sigma=2$.  The anchors $j_l$ save listing a zero set for every prefix
+value: a certificate needs one only where the previous anchor, raised by
+$a_0$ per step, no longer stays below $\Phi_{r_1}(Z)$.
+
+\begin{theorem}[Failures in higher rows on an interval]\label{thm:blockinterval}
+For every $r\in[\frac{139}{100},\frac{19}{10}]$ there are $n$ and $k$ with
+$13\le n\le22$ and $9\le k\le384$ such that
+$\mu_r([2,k],n+k-1)>\max_{i\le k}\nu_i(n)$ at the root $r$; so
+$V_r(n+k-1,k)<\min_{i\le k}1/\nu_i(n)$, and the prefix
+identity~\eqref{eq:prefixid} fails at $(r,n+k-1,k)$.  With
+Theorem~\ref{thm:failinterval}, for every $r\in[\frac{21}{20},\frac{19}{10}]$
+the prefix identity fails at some $(r,L,k)$.
+\end{theorem}
+
+\begin{proof}
+The proof is computer-assisted, by exact rational arithmetic as in
+Proposition~\ref{prop:secondrowexact}, in
+\texttt{test\_block\_rows\_fail\_on\_an\_interval} of
+\texttt{tests/test\_rows.py}.  The file \texttt{tests/block\_row\_cover.json}
+lists $27$ tuples $(r_0,r_1,n,k,Z\setminus[2,k],(j_l,Y_l\setminus[1,j_l-1])_l)$,
+with rational endpoints over denominators dividing $2\cdot10^4$.  The test
+checks that each tuple satisfies the hypotheses of
+Proposition~\ref{prop:blockinterval}: the sizes, the anchors
+$1=j_1<\cdots<j_m\le k$, the vertex test for $Z$ at
+$r_1$, and the strict comparison for every $i\le k$.  It also checks, as for
+Theorem~\ref{thm:failinterval}, that the intervals $[r_0,r_1]$ cover
+$[\frac{139}{100},\frac{19}{10}]$, and Proposition~\ref{prop:blockinterval}
+applies at every root there.
+\end{proof}
+
+In every certificate $1\in Z$, so by Lemma~\ref{lem:block} the value
+$\Phi_{r_1}(Z)$ is the prefix value $\nu_{k+1}(n-1)$ at $r_1$: the certified
+term comes from a block whose minimizer at $r_1$ vanishes on all of $[1,k]$.  The rows
+grow as $r$ approaches $2$, from $k=9$ at $\frac{139}{100}$ to
+$k=384$ near $\frac{19}{10}$, while $n$ stays between $13$ and
+$22$ and the intervals shrink roughly in proportion to $2-r$.  A
+floating-point search, not part of any proof, finds further block
+failures at $r=1.9$ for $n=14$ in the rows $210\le k\le254$ and for $n=17$ in
+the rows $267\le k\le330$.  We do not know whether the identity fails for
+every $r<2$, nor whether the failing rows must tend to infinity as
+$r\to2$; at $r=2$ it holds in every row (\cite[Theorem~5.3]{coefficient-mass-rows}).
+
+\paragraph{Data availability.}
+No datasets were generated or analyzed in this study.  The exact
+computations behind Propositions~\ref{prop:secondrowexact},
+\ref{prop:secondrowhyp} and~\ref{prop:thirdrowexact} and
+Theorems~\ref{thm:failinterval} and~\ref{thm:blockinterval} are in
+\texttt{tests/test\_rows.py}, with the certificates of
+Theorems~\ref{thm:failinterval} and~\ref{thm:blockinterval} in
+\texttt{tests/second\_row\_cover.json} and
+\texttt{tests/block\_row\_cover.json}, of the repository
+\href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass};
+they need Python~3.12 or later.
+
+\paragraph{Computer assistance.}
+Propositions~\ref{prop:secondrowexact}, \ref{prop:secondrowhyp}
+and~\ref{prop:thirdrowexact} and Theorems~\ref{thm:failinterval}
+and~\ref{thm:blockinterval} are the only computer-assisted results; every other result is proved by hand.  Their
+proofs reduce each claim, through Lemma~\ref{lem:vertexopt},
+Theorem~\ref{thm:secondrow}(a), Theorem~\ref{thm:finiterows}(b) and
+Propositions~\ref{prop:failinterval} and~\ref{prop:blockinterval}, to
+finitely many comparisons of explicit rational numbers: the vertex test of
+Lemma~\ref{lem:vertexopt} for each named zero set, the sign of
+$\Delta_{q,m}$ at each threshold, the bound $\Phi_r(Z)\le B$ (or $<B$) for
+a zero set through each exempted position or set below the thresholds,
+the comparisons with the stated decimals, and, for
+Theorems~\ref{thm:failinterval} and~\ref{thm:blockinterval}, the
+comparisons of Propositions~\ref{prop:failinterval}
+and~\ref{prop:blockinterval} for each listed tuple and the order of
+their endpoints.  The tests
+\texttt{test\_second\_row\_*} (including
+\texttt{test\_second\_row\_hypothesis\_fails} and
+\texttt{test\_second\_row\_fails\_on\_an\_interval}),
+\texttt{test\_third\_row\_*} and
+\texttt{test\_block\_rows\_fail\_on\_an\_interval} in
+\texttt{tests/test\_rows.py} carry out these comparisons in exact rational
+arithmetic (Python's \texttt{fractions} module), evaluating $\Phi_r$, $G_y$
+and $\Delta_{q,m}$ through the closed form described after
+Lemma~\ref{lem:vertexopt}, with no floating point; these computations are
+steps of the proofs.  The zero sets were found by search, and only their
+verification is part of the proofs.  The value $\sigma_*=25$ and the
+comparison for the zeros $25$ and $26$ quoted in
+Section~\ref{sec:finiterows} are computed in the same way
+(\texttt{test\_far\_zeros}) and are illustrations, not used in any proof.
+The floating-point experiments reported after
+Proposition~\ref{prop:secondrowhyp} and after
+Theorems~\ref{thm:failinterval} and~\ref{thm:blockinterval} are not part
+of any proof or test; they
+only guided the search for the zero sets and the intervals.
+The remaining tests are checks, not proof steps.
+\texttt{test\_prefix\_identity\_fails\_below\_two} builds from
+$Z_2(15)$, by complementary slackness, an explicit monic multiple of
+$(x-\frac54)^{16}$ of degree $300$ with rational coefficients, verifies the
+divisibility by $16$ exact synthetic divisions, and checks that its second
+largest nonleading coefficient magnitude is at most $6.5695$, an
+independent primal check of the upper bound in
+Proposition~\ref{prop:secondrowexact}(a).  Other tests check the closed
+form for $\Phi_r$ and the vertex test on known cases.  Each check
+is paired with a control that it must reject.  The whole file runs in under a
+minute.
+
+\paragraph{Use of AI tools.}
+Large language model assistants (Claude, Anthropic) were used in drafting
+and revising the text, the proofs and the verification code. The author has checked the mathematics and is responsible
+for the content.
+
+\paragraph{Funding and competing interests.}
+The author received no specific funding for this work and has no competing
+interests to declare.
+
+\begin{thebibliography}{9}
+
+\bibitem{dj}
+A.~Dubickas and J.~Jankauskas,
+\newblock On the reduced height of a polynomial,
+\newblock \emph{Publicationes Mathematicae Debrecen} 71 (2007), 325--348,
+\newblock \href{https://doi.org/10.5486/PMD.2007.3728}
+{doi:10.5486/PMD.2007.3728}.
+
+\bibitem{coefficient-mass}
+B.~Pham,
+\newblock Displaced-zero certificates and the coefficient mass of polynomial
+multiples,
+\newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
+
+\bibitem{coefficient-mass-rows}
+B.~Pham,
+\newblock Every row is a top row: coefficient order statistics of multiples
+of a power,
+\newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
+
+\end{thebibliography}
+
+\end{document}

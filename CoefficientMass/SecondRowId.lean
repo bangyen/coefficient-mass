@@ -9,7 +9,7 @@ import CoefficientMass.OnePoly
 /-!
 # One Far Zero
 
-This module proves the identity before Lemma 6.11 of `coefficient-mass-rows.tex`: with
+This module proves the identity before Lemma 4.2 of `coefficient-mass-belowtwo.tex`: with
 `Ψ_r(p) = ∑_{s ≥ 1} s |p(s)| r^{-s}` and `R_p(σ) = ∑_{s > σ} (s - σ) |p(s)| r^{-s}`,
 `|1 - s/σ| = 1 - s/σ + 2(s/σ - 1)^+` gives
 `Φ_r((1 - s/σ) p) = Φ_r(p) - (Ψ_r(p) - 2R_p(σ))/σ`.  For `p ≠ 0`, `Ψ_r(p) > 0`,

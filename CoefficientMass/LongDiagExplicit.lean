@@ -11,9 +11,9 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Continuity
 /-!
 # Every Diagonal Is Eventually Determined
 
-This module states Proposition 6.8 of `coefficient-mass-rows.tex` in full and proves
-Corollary 6.9.  Since `(2re(αr/(r - 1) + 1))^{1/α} → 1` as `α → ∞` and `θ < 1`, some `α ≥ 1`
-has `ρ(α) < 1`; Proposition 6.8(c) then determines `V_r(L, L - n + 1)` for all large `L`.
+This module states Proposition 3.3 of `coefficient-mass-belowtwo.tex` in full and proves
+Corollary 3.4.  Since `(2re(αr/(r - 1) + 1))^{1/α} → 1` as `α → ∞` and `θ < 1`, some `α ≥ 1`
+has `ρ(α) < 1`; Proposition 3.3(c) then determines `V_r(L, L - n + 1)` for all large `L`.
 
 ## Definitions
 
@@ -31,7 +31,7 @@ open Filter Topology
 
 namespace CoefficientMass
 
-/-- Proposition 6.8 of `coefficient-mass-rows.tex`: for `1 < r < 2`, (a) `Ξ(k) ≤ 3(2 - r)^2/r^2`
+/-- Proposition 3.3 of `coefficient-mass-belowtwo.tex`: for `1 < r < 2`, (a) `Ξ(k) ≤ 3(2 - r)^2/r^2`
 gives `N_k(r) ≤ τ_k(n)`; (b) `Ξ(k + 1) ≤ γ_k Ξ(k)` with `γ_k` nonincreasing, so (a) holds for
 every `k ≥ k_1` once `Ξ(k_1) ≤ 3(2 - r)^2/r^2` and `γ_{k_1} ≤ 1`; (c) if `ρ(α) < 1` then
 `Ξ(k) ≤ ρ(α)^k (4√(kr)/(r - 1) + 1)` for `n - 1 ≤ k/α`, and some `K` has
@@ -49,7 +49,7 @@ def LongDiagExplicit : Prop :=
       ∃ K : ℕ, ∀ n k : ℕ, 1 ≤ n → K ≤ k → α * ((n : ℝ) - 1) ≤ k →
         rowValue r (n + k - 1) k = 1 / nuR r k n
 
-/-- Corollary 6.9 of `coefficient-mass-rows.tex`: for `1 < r < 2` and `n ≥ 1`,
+/-- Corollary 3.4 of `coefficient-mass-belowtwo.tex`: for `1 < r < 2` and `n ≥ 1`,
 `V_r(L, L - n + 1) = 1/ν_{L-n+1}(n)` for all large `L`, and for all large `k`,
 `ν_k(n) ≤ ν_{k+1}(n)` and `ν_k(n) = max_{i ≤ k} ν_i(n)`. -/
 def LongDiagFinite : Prop :=

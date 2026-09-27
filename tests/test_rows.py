@@ -1,4 +1,4 @@
-"""Exact checks of ``coefficient-mass-rows.tex``.
+"""Exact checks of ``coefficient-mass-rows.tex`` and ``coefficient-mass-belowtwo.tex``.
 
 The paper reduces every row to the dual problem
 ``mu_r(S, L) = min Phi_r(q)`` over ``q`` of degree below ``L`` with

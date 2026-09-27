@@ -10,7 +10,7 @@ import CoefficientMass.RowPrefix
 /-!
 # Pushing Exempted Positions into the Prefix
 
-This module proves Lemma 6.1 of `coefficient-mass-rows.tex`.  With
+This module proves Lemma 4.4 of `coefficient-mass-rows.tex`.  With
 `A_i(p) = ∑_s binom(s - 1, i - 1) r^{-s} |p(s)| = Φ_r(r_{[1, i - 1]} p)`, every finite
 `S ⊂ ℕ_{>0}` has `Φ_r(r_S p) ≤ max_{i ≤ |S| + 1} A_i(p)`.  If `S` is not an initial block, its
 first gap `g` lies below `σ = max S`, and Lemma 4.1(b) with `y = g` bounds `Φ_r(r_S p)` by the
@@ -108,7 +108,7 @@ theorem prefixPush_aux {r : ℝ} (hr : 1 < r) (p : ℝ[X]) (n : ℕ) :
       · exact ⟨j, hj1, hjn, hcross.trans ((max_eq_right h).le.trans hj)⟩
       · exact ⟨i, hi1, by omega, hcross.trans ((max_eq_left h).le.trans hi)⟩
 
-/-- Lemma 6.1 of `coefficient-mass-rows.tex`: for `r > 1`, real `p` and finite
+/-- Lemma 4.4 of `coefficient-mass-rows.tex`: for `r > 1`, real `p` and finite
 `S ⊂ ℕ_{>0}`, `Φ_r(r_S p) ≤ A_i(p)` for some `1 ≤ i ≤ |S| + 1`. -/
 theorem prefixPush {r : ℝ} (hr : 1 < r) (p : ℝ[X]) {S : Finset ℕ} (h0 : 0 ∉ S) :
     ∃ i, 1 ≤ i ∧ i ≤ S.card + 1 ∧ rowPhi r (confPolyP S * p) ≤ prefA r i p :=

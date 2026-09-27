@@ -47,6 +47,50 @@ CITATIONS = {
         "Proposition",
         "prop:sharp23",
     ),
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass", "4.13"): (
+        "Theorem",
+        "thm:everyrow",
+    ),
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass-rows", "2.1"): (
+        "Proposition",
+        "prop:rowvalue",
+    ),
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass-rows", "2.4"): (
+        "Corollary",
+        "cor:lastrowr",
+    ),
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass-rows", "3.1"): (
+        "Lemma",
+        "lem:intzeros",
+    ),
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass-rows", "3.3"): (
+        "Theorem",
+        "thm:prefixrows",
+    ),
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass-rows", "3.4"): (
+        "Lemma",
+        "lem:nbmass",
+    ),
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass-rows", "3.5"): (
+        "Corollary",
+        "cor:belowtwo",
+    ),
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass-rows", "4.1"): (
+        "Lemma",
+        "lem:crossing",
+    ),
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass-rows", "4.4"): (
+        "Lemma",
+        "lem:prefixpush",
+    ),
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass-rows", "5.1"): (
+        "Lemma",
+        "lem:truncvertex",
+    ),
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass-rows", "5.3"): (
+        "Theorem",
+        "thm:allrowstwo",
+    ),
     ("coefficient-mass-complex.tex", "coefficient-mass", "3.2"): (
         "Theorem",
         "thm:order",
@@ -132,6 +176,7 @@ CITATIONS = {
 #: The files whose citations the table above has to cover.
 CITING = (
     "coefficient-mass-attainment.tex",
+    "coefficient-mass-belowtwo.tex",
     "coefficient-mass-complex.tex",
     "coefficient-mass-rows.tex",
     "coefficient-mass-sectors.tex",

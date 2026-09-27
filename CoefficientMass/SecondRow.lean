@@ -10,7 +10,7 @@ import CoefficientMass.SecondRowId
 /-!
 # The Second Row Is a Finite Minimum
 
-This module proves Theorem 6.12 of `coefficient-mass-rows.tex`.  With
+This module proves Theorem 4.3 of `coefficient-mass-belowtwo.tex`.  With
 `η_σ(n) = μ_r({σ}, n + 1)`, the polynomial `(1 - s/σ) p` is admissible for `η_σ(n)`, which gives
 (a).  A minimizer `p_*` of `ν_1(n)` exists, and the least `σ_* ≥ 1` with
 `2R_{p_*}(σ_*) ≤ Ψ_r(p_*)` makes every far position cost at most `ν_1(n)`; so
@@ -34,7 +34,7 @@ open Polynomial
 
 namespace CoefficientMass
 
-/-- Theorem 6.12 of `coefficient-mass-rows.tex`: for `r > 1` and `n ≥ 1`, (a)
+/-- Theorem 4.3 of `coefficient-mass-belowtwo.tex`: for `r > 1` and `n ≥ 1`, (a)
 `η_σ(n) ≤ Φ_r(p) - (Ψ_r(p) - 2R_p(σ))/σ` for `p ∈ Q_n`; (b) some `p_* ∈ Q_n` has
 `Φ_r(p_*) = ν_1(n)`, and for each such `p_*` and the least `σ_* ≥ 1` with
 `2R_{p_*}(σ_*) ≤ Ψ_r(p_*)`, `η_σ(n) ≤ ν_1(n)` for `σ ≥ σ_*` (strictly for `σ > σ_*`) and

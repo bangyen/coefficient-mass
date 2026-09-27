@@ -10,8 +10,8 @@ import Mathlib.Analysis.Polynomial.Basic
 /-!
 # One Step Toward a Vertex Minimizer
 
-This module proves the induction step for the existence claim of Lemma 6.11 of
-`coefficient-mass-rows.tex`.  Let `q` be a minimizer of `μ_r(S, L)` with `deg q ≤ m`
+This module proves the induction step for the existence claim of Lemma 4.2 of
+`coefficient-mass-belowtwo.tex`.  Let `q` be a minimizer of `μ_r(S, L)` with `deg q ≤ m`
 vanishing on `Z ⊇ S`, `|Z| < m`, and no zero at a positive integer outside `Z`.  With
 `d = ±s r_Z(s)` chosen so the slope `∑_s sgn(q(s)) d(s) r^{-s}` is `≤ 0`, `Φ_r(q + t d)` stays
 at `μ_r(S, L)` while `t ≥ 0` keeps the signs of `q`.  The largest such `t` exists, and there

@@ -11,7 +11,7 @@ import Mathlib.Analysis.Convex.SpecificFunctions.Basic
 /-!
 # Long Diagonals Past a Linear Threshold
 
-This module proves Proposition 6.8(c) of `coefficient-mass-rows.tex`.  With `m = n - 1`,
+This module proves Proposition 3.3(c) of `coefficient-mass-belowtwo.tex`.  With `m = n - 1`,
 `binom(M + m, m) ≤ (e(M + m)/m)^m`, and `(1 + b/x)^x` increases in `x` (Bernoulli's
 inequality); with `m ≤ k/α` and `M_k ≤ kr/(r - 1)` this gives
 `Ξ(k) ≤ ρ(α)^k (4√(kr)/(r - 1) + 1)`, where `ρ(α) = θ (2re(αr/(r - 1) + 1))^{1/α}`.  When
@@ -188,7 +188,7 @@ theorem exists_rho_small {r : ℝ} (hr : 1 < r) (hr2 : r < 2) {ρ : ℝ} (hρ0 :
         mul_le_mul_of_nonneg_left h1.le hc.le
     _ = 3 * (2 - r) ^ 2 / r ^ 2 := by field_simp
 
-/-- Proposition 6.8(c) of `coefficient-mass-rows.tex`: if `ρ(α) < 1`, there is `K` with
+/-- Proposition 3.3(c) of `coefficient-mass-belowtwo.tex`: if `ρ(α) < 1`, there is `K` with
 `V_r(n + k - 1, k) = 1/ν_k(n)` (and `ν_i(n) ≤ ν_k(n)` for `i ≤ k`) for every `n ≥ 1` and every
 `k ≥ max(K, α(n - 1))`. -/
 theorem longDiagC {r : ℝ} (hr : 1 < r) (hr2 : r < 2) {α : ℝ} (hα : 0 < α) (hρ : rhoR r α < 1) :

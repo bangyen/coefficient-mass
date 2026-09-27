@@ -9,7 +9,7 @@ import CoefficientMass.LongDiagA
 /-!
 # Propagating the Explicit Condition
 
-This module proves Proposition 6.8(b) of `coefficient-mass-rows.tex`.  With
+This module proves Proposition 3.3(b) of `coefficient-mass-belowtwo.tex`.  With
 `d = ⌈r/(r - 1)⌉`, `M_{k+1} - M_k ≤ d`, each step of the binomial gains at most
 `1 + (n - 1)/(M_k + 1)`, and `4√((k + 1)r)/(r - 1) + 1 ≤ √(1 + 1/k)(4√(kr)/(r - 1) + 1)`; so
 `Ξ(k + 1) ≤ γ_k Ξ(k)` with `γ_k = θ(1 + (n - 1)/(M_k + 1))^d √(1 + 1/k)` nonincreasing.
@@ -189,7 +189,7 @@ theorem gammaK_succ_le {r : ℝ} (hr : 1 < r) {n k : ℕ} (hn : 1 ≤ n) (hk : 1
   exact mul_le_mul (mul_le_mul_of_nonneg_left (pow_le_pow_left₀ hq0 hq _) hθ) hsq
     (Real.sqrt_nonneg _) (mul_nonneg hθ (pow_nonneg (by positivity) _))
 
-/-- Proposition 6.8(b) of `coefficient-mass-rows.tex`: if `γ_{k_1} ≤ 1`, then `Ξ(k) ≤ Ξ(k_1)`
+/-- Proposition 3.3(b) of `coefficient-mass-belowtwo.tex`: if `γ_{k_1} ≤ 1`, then `Ξ(k) ≤ Ξ(k_1)`
 and `γ_k ≤ 1` for every `k ≥ k_1`. -/
 theorem xiK_le_of_ge {r : ℝ} (hr : 1 < r) {n k₁ : ℕ} (hn : 1 ≤ n) (hk₁ : 1 ≤ k₁)
     (hγ : gammaK r n k₁ ≤ 1) : ∀ k, k₁ ≤ k → xiK r n k ≤ xiK r n k₁ ∧ gammaK r n k ≤ 1 := by

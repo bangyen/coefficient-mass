@@ -10,7 +10,7 @@ import CoefficientMass.OnePolyRows
 /-!
 # The Top Row Near the Root 1
 
-This module proves Lemma 6.5 of `coefficient-mass-rows.tex`: for `n ≥ 1` and `1 < r ≤ 2`,
+This module proves Lemma 2.4 of `coefficient-mass-belowtwo.tex`: for `n ≥ 1` and `1 < r ≤ 2`,
 `β_r(n) ≤ e^{4n+2} C_n (r - 1)` with `C_n = ∏_{i=1}^n (2i + 1)`.  Put `m = ⌈1/(r - 1)⌉` and
 `B_j = [2jm, 2jm + m)`.  For `q ∈ Q_n` pick `s_j ∈ B_j` where `|q|` is least on `B_j`; Lagrange
 interpolation at `s_1, …, s_n` (nodes `m` apart, `s_j < (2j + 1)m`) gives
@@ -45,8 +45,8 @@ noncomputable def cN (n : ℕ) : ℝ :=
 def block (m j : ℕ) : Finset ℕ :=
   Finset.Ico (2 * j * m) (2 * j * m + m)
 
-/-- Lemma 6.5 of `coefficient-mass-rows.tex`: for `n ≥ 1` and `1 < r ≤ 2`,
-`β_r(n) ≤ e^{4n+2} C_n (r - 1)`; in particular `β_r(n) ≤ 1` (so Theorem 6.4 applies) when
+/-- Lemma 2.4 of `coefficient-mass-belowtwo.tex`: for `n ≥ 1` and `1 < r ≤ 2`,
+`β_r(n) ≤ e^{4n+2} C_n (r - 1)`; in particular `β_r(n) ≤ 1` (so Theorem 2.3 applies) when
 `r - 1 ≤ e^{-4n-2}/C_n`. -/
 def TopNearOne : Prop :=
   ∀ n : ℕ, 1 ≤ n → ∀ r : ℝ, 1 < r → r ≤ 2 →

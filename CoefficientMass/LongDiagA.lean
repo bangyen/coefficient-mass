@@ -10,7 +10,7 @@ import CoefficientMass.LongDiagTau
 /-!
 # An Explicit Sufficient Condition for Long Diagonals
 
-This module proves Proposition 6.8(a) of `coefficient-mass-rows.tex`.  First
+This module proves Proposition 3.3(a) of `coefficient-mass-belowtwo.tex`.  First
 `N_k(r) ≤ E_k(r) ≤ r^2/(4(2 - r)) (4/r^2)^k`.  At the mode `M_k = ⌊(k - 1)r/(r - 1)⌋ + 1`,
 `ω_k(M_k) ≥ a^k · 3/(4(4√(kr)/(r - 1) + 1))` and the lower bound for `τ_k(n)` give
 `N_k(r) ≤ τ_k(n)` as soon as `Ξ(k) ≤ 3(2 - r)^2/r^2`.
@@ -66,7 +66,7 @@ theorem lt_mK (r : ℝ) (k : ℕ) : ((k : ℝ) - 1) * r / (r - 1) < mK r k := by
   push_cast
   exact Nat.lt_floor_add_one _
 
-/-- Proposition 6.8(a) of `coefficient-mass-rows.tex`: for `1 < r < 2`, `n ≥ 1` and `k ≥ 2`,
+/-- Proposition 3.3(a) of `coefficient-mass-belowtwo.tex`: for `1 < r < 2`, `n ≥ 1` and `k ≥ 2`,
 `Ξ(k) ≤ 3(2 - r)^2/r^2` gives `N_k(r) ≤ τ_k(n)`. -/
 theorem nK_le_tauR {r : ℝ} (hr : 1 < r) (hr2 : r < 2) {n k : ℕ} (hn : 1 ≤ n) (hk : 2 ≤ k)
     (hΞ : xiK r n k ≤ 3 * (2 - r) ^ 2 / r ^ 2) : nK r k ≤ tauR r k n := by

@@ -11,9 +11,9 @@ import CoefficientMass.SecondRow
 /-!
 # The Exempted Block `[2, k]`
 
-This module proves Lemma 6.21 of `coefficient-mass-rows.tex`.  Every polynomial admissible for
+This module proves Lemma 5.4 of `coefficient-mass-belowtwo.tex`.  Every polynomial admissible for
 `μ_r([1, k], L) = ν_{k+1}(n - 1)` is admissible for `μ_r([2, k], L)`.  For the second bound take
-`p = r_Y` from Lemma 3.1 with `A_k(p) < ν_k(n) + ε` and `q(s) = r_{[2,k]}(s) p(s - 1)/p(-1)`;
+`p = r_Y` from `intZerosInf` with `A_k(p) < ν_k(n) + ε` and `q(s) = r_{[2,k]}(s) p(s - 1)/p(-1)`;
 since `|r_{[2,k]}(s)| r^{-s} = ω_k(s - 1)/(kr)` for `s ≥ 2` and `|r_{[2,k]}(1)| = 1/k`,
 `Φ_r(q) = (1 + A_k(p))/(kr p(-1))` with `p(-1) ≥ 1`.
 
@@ -32,7 +32,7 @@ open Polynomial
 
 namespace CoefficientMass
 
-/-- Lemma 6.21 of `coefficient-mass-rows.tex`: for `r > 1`, `n, k ≥ 2` and `L = n + k - 1`,
+/-- Lemma 5.4 of `coefficient-mass-belowtwo.tex`: for `r > 1`, `n, k ≥ 2` and `L = n + k - 1`,
 `μ_r([2, k], L) ≤ min(ν_{k+1}(n - 1), (1 + ν_k(n))/(kr))`, with equality in the first bound if
 some minimizer vanishes at `1`; and if `μ_r([2, k], L) > M = max_{i ≤ k} ν_i(n)` then
 `ν_{k+1}(n - 1) > M` and `k < (β_r(n) + 1)/r`. -/
