@@ -1,4 +1,5 @@
-"""Exact checks of ``sec:extremal`` and ``sec:belowtwo`` of the attainment paper.
+"""Exact checks of ``sec:extremal`` and ``sec:belowtwo`` of the attainment paper,
+and of the family paper.
 
 At roots at least 2 the escaping placement is extremal (``thm:extremal``):
 the minimiser for the smaller placement is lifted by one node, directly when

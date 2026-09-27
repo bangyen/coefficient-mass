@@ -119,6 +119,42 @@ CITATIONS = {
         "Proposition",
         "prop:sharp23",
     ),
+    ("coefficient-mass-family.tex", "coefficient-mass-attainment", "3.1"): (
+        "Theorem",
+        "thm:value",
+    ),
+    ("coefficient-mass-family.tex", "coefficient-mass-attainment", "3.2"): (
+        "Proposition",
+        "prop:attain",
+    ),
+    ("coefficient-mass-family.tex", "coefficient-mass-attainment", "4.1"): (
+        "Lemma",
+        "lem:delete",
+    ),
+    ("coefficient-mass-family.tex", "coefficient-mass-attainment", "4.3"): (
+        "Theorem",
+        "thm:extremal",
+    ),
+    ("coefficient-mass-family.tex", "coefficient-mass-attainment", "5.1"): (
+        "Lemma",
+        "lem:exemptpair",
+    ),
+    ("coefficient-mass-family.tex", "coefficient-mass-attainment", "5.2"): (
+        "Proposition",
+        "prop:attainT",
+    ),
+    ("coefficient-mass-family.tex", "coefficient-mass-attainment", "5.3"): (
+        "Theorem",
+        "thm:halfmass",
+    ),
+    ("coefficient-mass-family.tex", "coefficient-mass-attainment", "5.4"): (
+        "Theorem",
+        "thm:elevenvalue",
+    ),
+    ("coefficient-mass-family.tex", "coefficient-mass-attainment", "5.5"): (
+        "Proposition",
+        "prop:cutoffsharp",
+    ),
     ("coefficient-mass-sectors.tex", "coefficient-mass", "3.2"): (
         "Theorem",
         "thm:order",
@@ -178,6 +214,7 @@ CITING = (
     "coefficient-mass-attainment.tex",
     "coefficient-mass-belowtwo.tex",
     "coefficient-mass-complex.tex",
+    "coefficient-mass-family.tex",
     "coefficient-mass-rows.tex",
     "coefficient-mass-sectors.tex",
 )

@@ -11,11 +11,11 @@ is open; an answer lands in the paper it extends, and the row leaves.
   the coefficient of `L**2` in the prime-root infimum (`cor:infimum`); the
   order of the mass when some roots lie in `(1, 2)`.
 - [attainment](papers/coefficient-mass-attainment.tex) (`sec:scope`): an a
-  priori bound on the zero set minimising one `tau({x})` at general roots
-  (along `(r,3,5,7)` it is `{1,x,z}` or `{1,z,x}`, `z` a half-mass point,
-  by `thm:familyzero`); a half-mass threshold like `thm:halfmass` for
-  `u >= 2`; which root sets below 2 keep the escaping placement extremal;
-  along `(r,3,5,7)` on `(1, 1.0745...)`, the order of the pieces (is the
+  priori bound on the zero set minimising one `tau({x})` at general roots;
+  a half-mass threshold like `thm:halfmass` for `u >= 2`; which root sets
+  below 2 keep the escaping placement extremal.
+- [family](papers/coefficient-mass-family.tex) (`sec:familyopen`): along
+  `(r,3,5,7)` on `(1, 1.0745...)`, the order of the pieces (is the
   worst placement monotone in `r`, does each boundary equation of
   `thm:familyzero` have one root), explicit constants and a rate in
   `thm:familyjump`, and whether the normalised excess is monotone across
@@ -83,7 +83,9 @@ is open; an answer lands in the paper it extends, and the row leaves.
   (single rows) bounds.
 
 - **Coefficient-mass sharpness, residue.**
-  [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex)
+  [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex),
+  with the family `(r,3,5,7)` in
+  [coefficient-mass-family](papers/coefficient-mass-family.tex),
   proves the partial-sum criterion at repeated roots (`thm:converse`,
   `cor:charrep`, Descartes at infinity) and non-attainment
   (`thm:noattain`).  When the criterion fails the infimum is `1/T` with

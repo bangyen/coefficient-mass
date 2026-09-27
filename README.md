@@ -1,12 +1,13 @@
 # coefficient-mass
 
-Six papers on how small the coefficients of a polynomial multiple can be
+Seven papers on how small the coefficients of a polynomial multiple can be
 when its roots are prescribed, with executable checks.
 
 | Paper | Subject |
 | --- | --- |
 | [coefficient-mass](papers/coefficient-mass.tex) | Displaced-zero certificates; the order-statistic tail bound and logarithmic mass (Corollary 3.4) |
-| [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex) | Sharpness of the order-statistic bound; the partial-sum criterion, the confluent analogue, the infimum `1/tau*` when it fails at roots `>= 2`, and the placement game below 2, down to the limit `r -> 1` along `(r,3,5,7)`, where every cost is explicit and the normalised excess oscillates log-periodically, with an explicit profile across the jumps |
+| [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex) | Sharpness of the order-statistic bound: the partial-sum criterion, the infimum `1/tau*` at roots `>= 2`, and the placement game below 2 |
+| [coefficient-mass-family](papers/coefficient-mass-family.tex) | The placement game along `(r,3,5,7)`: exact infima down to `r -> 1`, where every cost is explicit and the normalised excess oscillates log-periodically, with an explicit profile across the jumps |
 | [coefficient-mass-rows](papers/coefficient-mass-rows.tex) | Every row is a top row: order statistics of multiples of a power at roots `>= 2` |
 | [coefficient-mass-belowtwo](papers/coefficient-mass-belowtwo.tex) | The same rows below the root 2: where the prefix identity holds, and certified failures on intervals |
 | [coefficient-mass-complex](papers/coefficient-mass-complex.tex) | Complex roots: exact reductions, arbitrary angles, separated moduli and annuli, real roots of both signs, and degree charging at Gaussian roots |
