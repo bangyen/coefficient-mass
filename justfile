@@ -25,6 +25,10 @@ test:
 sweep:
     uv run python tests/sweep.py
 
+# the L^2 constant at (x-2)^L: summed Jensen rows, and Q beating the product
+masstwo:
+    uv run python tests/masstwo.py
+
 # compile the papers, failing on an undefined reference or citation
 pdf:
     #!/usr/bin/env bash
