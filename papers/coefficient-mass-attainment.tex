@@ -189,203 +189,24 @@ appendix.  Along $(r,5,7)$ the
 escaping placement is not the worst for any $1<r<2$, so the cutoff $2$
 cannot be lowered uniformly (Proposition~\ref{prop:cutoffsharp}).
 
-\emph{The tail comparison.}  \cite[Theorem~2.2]{coefficient-mass} extends
-to confluent nodes, strictly unless the zero set is consecutive
-(Proposition~\ref{prop:confluent}); the criterion needs this at repeated
-roots.
-
-\paragraph{Organisation.}  Section~\ref{sec:extend} proves the confluent
-tail comparison.  Section~\ref{sec:criterion} proves the partial-sum
-criterion: sufficiency by an explicit construction, necessity by a
-certificate argument built on a Descartes rule at infinity.
+\paragraph{Organisation.}  Section~\ref{sec:criterion} proves sufficiency
+of the partial-sum criterion by an explicit construction and sets up the
+certificates, with a Descartes rule at infinity for zeros far out.
 Section~\ref{sec:value} expresses the infimum as a placement game, proves
 that $\tau^*$ is a minimum, with a multiplier witness, completes the criterion
 at repeated roots, and shows that the infimum is never attained.
 Section~\ref{sec:extremal} proves that at roots at least $2$ the escaping
-placement is extremal, by lifting minimisers one node at a time, and shows
-that below $2$ it need not be.  Section~\ref{sec:belowtwo} drops the
+placement is extremal, by lifting minimisers one node at a time, which
+gives necessity of the criterion, and shows that below $2$ it need not be.  Section~\ref{sec:belowtwo} drops the
 cutoff: that $T$ is a maximum and the reduction for one exempt coefficient hold
 for all distinct roots above $1$, followed by exact examples below $2$.  Section~\ref{sec:scope} closes with a remark
 on what is left open and the relation to the literature.
 
-\section{The confluent tail comparison}\label{sec:extend}
-
-The necessity half of the criterion at repeated roots needs~\cite[Theorem~2.2]{coefficient-mass} at
-confluent nodes, where the exponential sums are replaced by elements of a
-Hermite space, together with its strict form.
-
-\begin{proposition}[Confluent analogue]\label{prop:confluent}
-Let $0<y_1<\cdots<y_c\le1/2$ and $m_1,\ldots,m_c\ge1$, put $m=m_1+\cdots+m_c$,
-and let $y_{(1)}\le\cdots\le y_{(m)}$ be the multiset with each $y_i$ repeated
-$m_i$ times.  Let
-\[
-  \xi_d=\sum_{i=1}^c p_i(d)y_i^d,\qquad \deg p_i<m_i,
-\]
-satisfy $\xi_0=1$ and $\xi|_Z=0$ for a set $Z$ of $m-1$ positive integers with
-leading run $\ell=\max\{0\le k\le m-1:\{1,\ldots,k\}\subseteq Z\}$.  Then
-\[
-  \Tail(\xi)=\sum_{d\ge1}|\xi_d|\le\prod_{j=1}^{\ell+1}\frac{y_{(j)}}{1-y_{(j)}}.
-\]
-\end{proposition}
-
-\begin{proof}
-The interpolation system is indexed by the Hermite basis, not by the
-ordinary exponentials, and the two must be kept apart.  For
-$\varepsilon>0$, $i=1,\ldots,c$ and $k=0,\ldots,m_i-1$ put
-\[
-  \phi_{i,k,\varepsilon}(d)
-  =y_i^d\Bigl(\frac{1-\exp(-\varepsilon d)}{\varepsilon}\Bigr)^k .
-\]
-For fixed $\varepsilon>0$, the binomial expansion gives
-\[
-  \phi_{i,k,\varepsilon}(d)
-  =\frac1{\varepsilon^k}\sum_{j=0}^{k}(-1)^j\binom{k}{j}
-    \bigl(y_i\exp(-j\varepsilon)\bigr)^d,
-\]
-so each $\phi_{i,k,\varepsilon}$ is a finite linear combination of the
-ordinary exponentials $d\mapsto z^d$ at the distinct nodes
-$\zeta_{i,j}=y_i\exp(-j\varepsilon)$.  For all sufficiently small $\varepsilon>0$ the $m$
-nodes $\zeta_{i,j}$ are distinct, lie in $(0,1/2]$, and stay separated between
-distinct $i$.  Within one group $i$ the change of basis from
-$\{\zeta_{i,j}^{d}\}_{j<m_i}$ to
-$\{\phi_{i,k,\varepsilon}\}_{k<m_i}$ is triangular with diagonal entries
-$(-1)^k\varepsilon^{-k}$, hence invertible for $\varepsilon>0$, and the same
-function space is spanned either way.
-
-For such an $\varepsilon$ let $\xi^{(\varepsilon)}$ be the unique exponential
-sum on the nodes $\zeta_{i,j}$ with $\xi^{(\varepsilon)}_0=1$ and
-$\xi^{(\varepsilon)}|_Z=0$; existence and uniqueness are the
-Vandermonde argument opening~\cite[Section~2]{coefficient-mass}.
-The comparison~\cite[Theorem~2.2]{coefficient-mass} applies with the same $\ell$ and gives
-\[
-  \Tail(\xi^{(\varepsilon)})
-  \le\prod_{j=1}^{\ell+1}\frac{y_{(j)}(\varepsilon)}{1-y_{(j)}(\varepsilon)},
-\]
-where $y_{(1)}(\varepsilon)\le\cdots\le y_{(m)}(\varepsilon)$ is the sorted
-perturbed multiset.
-
-It remains to pass to the limit.  Write
-$a^{(\varepsilon)}=(a^{(\varepsilon)}_{i,k})$ for the coefficients of
-$\xi^{(\varepsilon)}$ in the $\phi$-basis; they solve
-$M(\varepsilon)a^{(\varepsilon)}=\mathbf e_0$, where $M(\varepsilon)$ is the
-$m\times m$ matrix with rows indexed by $d\in\{0\}\cup Z$ and columns by
-$(i,k)$, with entry $\phi_{i,k,\varepsilon}(d)$, and $\mathbf e_0$ is the first
-standard basis vector.  Each entry
-$\phi_{i,k,\varepsilon}(d)=y_i^d\bigl((1-\exp(-\varepsilon d))/\varepsilon\bigr)^k$
-has a removable singularity at $\varepsilon=0$ and extends analytically there
-with limit $d^ky_i^d$, so $M(\varepsilon)\to M(0)$ as $\varepsilon\to0$, where
-$M(0)$ is the confluent matrix.  The functions
-$d\mapsto d^ky_i^d$ form an extended Chebyshev system on $\R$: a nonzero
-$\sum_ip_i(d)y_i^d$ with $\deg p_i<m_i$ has at most $m-1$ real
-zeros~\cite[Part~Five, Ch.~1]{polya-szego}.  The
-interpolation here is at the $m$ \emph{distinct} points $\{0\}\cup Z$---the
-confluence sits in the basis, not in the nodes---so $M(0)$ is invertible by
-ordinary unisolvence of a Chebyshev system at distinct
-points~\cite[Chapter~I, Theorem~4.1]{karlin-studden}.  Matrix inversion is
-continuous on the open set of invertible matrices, so
-$a^{(\varepsilon)}\to M(0)^{-1}\mathbf e_0$, and for every fixed $d$,
-\[
-  \xi^{(\varepsilon)}_d
-  =\sum_{i,k}a^{(\varepsilon)}_{i,k}\phi_{i,k,\varepsilon}(d)
-  \longrightarrow\sum_{i,k}a_{i,k}d^ky_i^d=\xi_d .
-\]
-Fatou's lemma for series, applied to the nonnegative terms
-$|\xi^{(\varepsilon)}_d|$, gives
-\[
-  \Tail(\xi)=\sum_{d\ge1}|\xi_d|
-  \le\liminf_{\varepsilon\to0}\Tail(\xi^{(\varepsilon)}).
-\]
-Finally the order statistics of a converging multiset converge, so the
-product $\prod_{j=1}^{\ell+1}y_{(j)}(\varepsilon)/(1-y_{(j)}(\varepsilon))$
-tends to $\prod_{j=1}^{\ell+1}y_{(j)}/(1-y_{(j)})$.
-\end{proof}
-
-\paragraph{The displaced step.}  Lemmas~\ref{lem:confstrict}
-and~\ref{lem:delete} below use one step of the proof
-of~\cite[Theorem~2.2]{coefficient-mass}, which we restate.  Let $c\ge2$ and
-$0<y_1<\cdots<y_c\le1/2$, let $Z\ne\{1,\ldots,c-1\}$ be a set of $c-1$
-positive integers, so that its leading run is below $c-1$ as that step
-assumes, $z=\max Z$ and $Z'=Z\setminus\{z\}$, and let $w$ be the sum on all $c$
-nodes with $w_0=1$ and $w|_Z=0$.  Let $V$ be the sum on
-$y_1,\ldots,y_{c-1}$, all nodes but the largest, with $V_0=1$ and
-$V|_{Z'}=0$, and $G$ the sum on all $c$ nodes with
-$G|_{\{0\}\cup Z'}=0$ and $G_z=1$; then $w=V-V_zG$, and $V_z\ne0$ by the
-zero bound.  Put $\mu=|V_z|$ and, for $X\in\{V,G\}$,
-\[
-  \Gamma_X(z)=\frac{\sum_{d\ge z}|X_d|}{|X_z|},
-  \qquad \Sigma_G=\sum_{1\le d<z}|G_d| .
-\]
-The displaced step of the proof of~\cite[Theorem~2.2]{coefficient-mass}
-proves the splitting identity and the correction-ratio bound
-\[
-  \Tail(V)-\Tail(w)=\mu\bigl(2\Gamma_V(z)-\Gamma_G(z)+\Sigma_G\bigr),
-  \qquad
-  \Gamma_G(z)\le\frac{\Gamma_V(z)}{1-y_c}\le2\Gamma_V(z),
-\]
-the identity from the zero bound and the distinctness of the nodes, and the
-bound from~\cite[Lemma~2.3]{coefficient-mass}, proved by weak alternation,
-and, in its last inequality, $y_c\le1/2$; neither uses the induction
-hypothesis of that proof.
-Together they give
-\[
-  \Tail(w)\le\Tail(V)-\mu\Sigma_G ,
-\]
-and the same step shows $\Sigma_G>0$.
-
-\begin{lemma}[Strictness at confluent nodes]\label{lem:confstrict}
-In Proposition~\ref{prop:confluent} the inequality is strict unless
-$Z=\{1,\ldots,m-1\}$.
-\end{lemma}
-
-\begin{proof}
-Suppose $Z\ne\{1,\ldots,m-1\}$.  Then $\ell\le m-2$, the largest element
-$z=\max Z$ satisfies $z\ge m$, and $Z'=Z\setminus\{z\}$ has the same leading
-run $\ell$.  Keep the perturbed nodes $\zeta_{i,j}=y_i\exp(-j\varepsilon)$ of the
-proof of Proposition~\ref{prop:confluent}; the largest of them is
-$y_c$ itself ($j=0$), and it is strictly larger than all the others.  Run the
-displaced step above once at these $m$ distinct nodes, all at most $1/2$:
-$V^{(\varepsilon)}$ is the sum on the perturbed nodes other than $y_c$ with
-$V^{(\varepsilon)}_0=1$ and $V^{(\varepsilon)}|_{Z'}=0$, $G^{(\varepsilon)}$
-the sum on all of them with $G^{(\varepsilon)}|_{\{0\}\cup Z'}=0$ and
-$G^{(\varepsilon)}_z=1$, and $\mu_\varepsilon=|V^{(\varepsilon)}_z|$, so
-\[
-  \Tail(\xi^{(\varepsilon)})
-  \le\Tail(V^{(\varepsilon)})-\mu_\varepsilon \Sigma_{G^{(\varepsilon)}},
-  \qquad
-  \Sigma_{G^{(\varepsilon)}}=\sum_{1\le d<z}|G^{(\varepsilon)}_d| .
-\]
-The comparison~\cite[Theorem~2.2]{coefficient-mass} on the $m-1$ nodes of $V^{(\varepsilon)}$ bounds
-$\Tail(V^{(\varepsilon)})$ by the product over their $\ell+1\le m-1$ smallest
-members, which are the $\ell+1$ smallest of all $m$ perturbed nodes because the
-one removed is the largest.  So
-$\Tail(\xi^{(\varepsilon)})\le\prod_{j\le \ell+1}y_{(j)}(\varepsilon)/(1-y_{(j)}(\varepsilon))
--\mu_\varepsilon \Sigma_{G^{(\varepsilon)}}$.
-
-Now let $\varepsilon\to0$.  The sums $V^{(\varepsilon)}$ and
-$G^{(\varepsilon)}$ are interpolants at the distinct points $\{0\}\cup Z'$
-and $\{0\}\cup Z$ in spaces spanned by functions of the form
-$\phi_{i,k,\varepsilon}$ (for the group of $y_c$, which has lost its top
-member, with $y_c$ replaced by $y_c\exp(-\varepsilon)$), so exactly as in the
-proof of Proposition~\ref{prop:confluent} they converge pointwise to the
-confluent interpolants: $V^{(0)}$ in the Hermite space of the multiset with one
-copy of $y_c$ removed, with $V^{(0)}_0=1$ and $V^{(0)}|_{Z'}=0$, and $G^{(0)}$
-in the full Hermite space, with $G^{(0)}|_{\{0\}\cup Z'}=0$ and $G^{(0)}_z=1$.
-By the P\'olya--Szeg\H o zero bound $V^{(0)}$, a nonzero element of an
-$(m-1)$-dimensional Hermite space with the $m-2$ zeros $Z'$, has no other real
-zero, so $V^{(0)}_z\ne0$; likewise $G^{(0)}$ vanishes only on
-$\{0\}\cup Z'$, and since $|Z'|=m-2<z-1$ some $1\le d<z$ avoids $Z'$, so
-$\Sigma_{G^{(0)}}>0$.  By Fatou's lemma, as in Proposition~\ref{prop:confluent},
-\[
-  \Tail(\xi)\le\liminf_{\varepsilon\to0}\Tail(\xi^{(\varepsilon)})
-  \le\prod_{j=1}^{\ell+1}\frac{y_{(j)}}{1-y_{(j)}}-|V^{(0)}_z|\,\Sigma_{G^{(0)}}
-  <\prod_{j=1}^{\ell+1}\frac{y_{(j)}}{1-y_{(j)}} .
-\]
-\end{proof}
-
 \section{The partial-sum criterion}\label{sec:criterion}
 
-This section proves that \eqref{eq:order} is the infimum exactly when the
-partial-sum condition \eqref{eq:partial} below holds.  At roots $(2,3)$ the
+This section proves that \eqref{eq:order} is the infimum when the
+partial-sum condition \eqref{eq:partial} below holds, and sets up the
+certificates behind the converse (Theorem~\ref{thm:converse}).  At roots $(2,3)$ the
 companion paper already exhibits monic multiples of $(x-2)(x-3)$ whose
 $b_2$ decreases to $2$~\cite[Proposition~4.4]{coefficient-mass}, so the $u=1$
 bound is an infimum there.  The general construction writes the multiple
@@ -482,14 +303,14 @@ block---and $r_u<r_{u+1}$ (for $u\ge1$) is what kills the cross terms.
 
 The conclusion does not need distinct roots (Corollary~\ref{cor:charrep}).
 
-\subsection*{Necessity}
+\subsection*{Certificates}
 
 With $y_i=1/r_i$, an exponential sum $v_d=\sum_i\lambda_iy_i^d$ on some of
 these nodes is a \emph{certificate for} $X\subset\N_{>0}$ if $v_0=1$ and
-$v_w=0$ for $w\in X$; certificates show that the criterion is also
-necessary, repeated roots included.  The argument runs
-on the dual side of~\cite[Lemma~3.1]{coefficient-mass}; we set it up for distinct roots, and the proof
-of Theorem~\ref{thm:converse} carries it to repeated roots.  Here
+$v_w=0$ for $w\in X$; certificates bound the infimum below, and
+Section~\ref{sec:value} shows that they determine it.  The argument runs
+on the dual side of~\cite[Lemma~3.1]{coefficient-mass}; we set it up for distinct roots, and
+\eqref{eq:weakrep} below carries it to repeated roots.  Here
 $1/2\ge y_1>\cdots>y_L>0$, the reverse of the order in~\cite[Theorem~2.2]{coefficient-mass}.  If $F$ is a monic
 multiple of $\prod_{i=1}^L(x-r_i)$ of degree $D$ and $X$ is the set of
 distances $D-j$ of $u$ positions $j$ carrying its $u$ largest nonleading
@@ -499,43 +320,12 @@ $|f_j|$ is at most $b_{u+1}(F)$, so
 \begin{equation}\label{eq:weak}
   1\le b_{u+1}(F)\,\Tail(v)
 \end{equation}
-for every certificate $v$ for $X$ (this uses only $r_i>1$).  Write
-$B=\prod_{i=u+1}^L(r_i-1)^{-1}$.  So, to show that the infimum exceeds $1/B$ when \eqref{eq:partial}
-fails, it suffices to find a $\delta>0$ such that every $X$ of size $u$ has a certificate with
-$\Tail(v)\le B-\delta$.  Three ingredients supply the pieces: the partial
-sums alternate in sign (Lemma~\ref{lem:signs}), a failing partial sum
-improves the consecutive certificate (Lemma~\ref{lem:improve}), and zeros far
-from the origin cost only the largest nodes
-(Proposition~\ref{prop:farrep}).
-
-\begin{lemma}[Signs of the partial sums]\label{lem:signs}
-Let $r_1,\ldots,r_m>1$, let $S_0,\ldots,S_m$ be the partial sums of the
-coefficients of $\prod_{i=1}^m(x-r_i)$ read down from the leading one, and put
-$s_i=r_i-1$.  Then
-\[
-  (-1)^jS_j=\sum_{k=0}^{j}e_k(s)\binom{m-1-k}{j-k}>0\quad(0\le j\le m-1),
-  \qquad (-1)^mS_m=e_m(s),
-\]
-where $e_k$ is the elementary symmetric polynomial.
-\end{lemma}
-
-\begin{proof}
-By \eqref{eq:wgen}, $S_j$ is the coefficient of $y^j$ in
-$\prod_i(1-r_iy)/(1-y)$, so $(-1)^jS_j$ is the coefficient of $y^j$ in
-$\prod_i(1+r_iy)/(1+y)$.  Writing $1+r_iy=(1+y)+s_iy$ and grouping the
-expansion by the number of factors $s_iy$ chosen,
-\[
-  \frac{\prod_i(1+r_iy)}{1+y}
-  =\sum_{k=0}^{m-1}e_k(s)\,y^k(1+y)^{m-1-k}+e_m(s)\frac{y^m}{1+y}.
-\]
-The terms with $k<m$ are polynomials of degree $m-1$ and contribute
-$e_k(s)\binom{m-1-k}{j-k}$ to $y^j$; the last contributes nothing below $y^m$
-and $e_m(s)$ at $y^m$.  The $k=0$ term alone gives $\binom{m-1}{j}\ge1$.
-\end{proof}
-
-In particular \eqref{eq:partial} reads
-$\sum_{k\le j}e_k(s)\binom{m-1-k}{j-k}\le e_m(s)$ for $1\le j<m$, with
-$s_i=r_i-1$ over the surviving roots.
+for every certificate $v$ for $X$ (this uses only $r_i>1$).  Two tools
+follow: a failing partial sum improves the consecutive certificate
+(Lemma~\ref{lem:improve}), which gives necessity of the criterion once
+Section~\ref{sec:extremal} has the exact infimum, and zeros far from the
+origin cost only the largest nodes (Proposition~\ref{prop:farrep}), which
+the placement game of Section~\ref{sec:value} needs.
 
 \begin{lemma}[Improving the consecutive certificate]\label{lem:improve}
 Let $\rho_1,\ldots,\rho_n>1$ be distinct and $R=\prod_{i=1}^n(x-\rho_i)$ with
@@ -813,74 +603,21 @@ of $v^\infty$, that is, of $v^\infty$.  Hence $c^{(\nu)}\to c^\infty$, and
 \]
 \end{proof}
 
-\begin{theorem}[Necessity of the partial-sum criterion]\label{thm:converse}
-Let $2\le r_1\le\cdots\le r_L$, repetitions allowed, $0\le u\le L-1$ and
-$m=L-u$.  If $|S_j(P_u)|>|P_u(1)|$ for some $1\le j<m$, that is, if
-\eqref{eq:partial} fails, then
-\[
-  \inf_Qb_{u+1}\Bigl(Q\prod_{i=1}^L(x-r_i)\Bigr)>\prod_{i=u+1}^L(r_i-1)
-\]
-over monic $Q\in\R[x]$.  With Corollary~\ref{cor:charrep},
-\eqref{eq:order} is the infimum exactly when \eqref{eq:partial} holds.
-\end{theorem}
-
-\begin{proof}
-Use the notation of Proposition~\ref{prop:farrep}.  If $F$ is a monic
+\paragraph{Repeated roots.}  If $F$ is a monic
 multiple of $P=\prod_i(x-r_i)$ of degree $D$ and $v\in\mathcal H_0$, then
 $\sum_{j\le D}f_jv_{D-j}=0$: for $\psi=d^az^d$ with $z=1/r$, expanding
 $(D-j)^a$ in powers of $j$ writes $\sum_jf_j(D-j)^ar^{j-D}$ as a combination
 of the values $\bigl((x\,d/dx)^bF\bigr)(r)$, $b\le a$, which vanish because
-$r$ is a root of multiplicity greater than $a$.  So \eqref{eq:weak} holds
-for every certificate on $\mathcal H_0$, and, as in the distinct case, it
-suffices to find $\delta>0$ such that every $X\subset\N_{>0}$ of size $u$ has
-a certificate on $\mathcal H_0$ with $\Tail\le B-\delta$.  Suppose not, and
-take $X_\nu$ whose certificates on $\mathcal H_0$ all have
-$\Tail\ge B-1/\nu$.  Passing to a subsequence, $X_\nu=X_0\cup E_\nu$ with
-$X_0$ fixed, $|E_\nu|=k$ and, if $k\ge1$, $\min E_\nu\to\infty$.  If
-$k\ge1$, by Proposition~\ref{prop:farrep}(c) a certificate $v^\infty$ for $X_0$ on
-$\mathcal H_k$ with $\Tail(v^\infty)<B$ yields certificates for $X_\nu$
-with tails tending to $\Tail(v^\infty)$, a contradiction; if $k=0$, then
-$E_\nu=\varnothing$, $X_\nu=X_0$, and $v^\infty$ itself is a certificate for
-$X_\nu$ on $\mathcal H_0$ with tail below $B-1/\nu$ for large $\nu$, again a
-contradiction.  So it suffices to produce one.  Put
-$n=L-k$ and $m=L-u$, so $|X_0|=u-k$; recall that $\mathcal H_k$ is the
-Hermite space of $r_{k+1},\ldots,r_L$.
-
-If $X_0=\varnothing$, then $k=u$, so $\mathcal H_k=\mathcal H_u$ is the Hermite space of the roots of $P_u$, and
-since \eqref{eq:partial} fails, Lemma~\ref{lem:improve} (with repetitions)
-for $R=P_u$ and $X_0=\varnothing$ gives $\Tail(v^\infty)<1/|P_u(1)|=B$.
-
-If $X_0\ne\varnothing$, take the certificate of the proof of~\cite[Lemma~3.1]{coefficient-mass}
-on $\mathcal H_k$:
-zero set $Z$ consisting of $X_0$ and the first $m-1$ positive integers
-outside it, so $|Z|=n-1$ and its leading run is $\ell\ge m-1$.
-Proposition~\ref{prop:confluent}, with nodes at most $1/2$, bounds $\Tail$ by
-the product of $1/(r_i-1)$ over the $\ell+1$ largest of $r_{k+1},\ldots,r_L$,
-strictly unless $Z=\{1,\ldots,n-1\}$ by Lemma~\ref{lem:confstrict}.  Every
-factor is at most $1$ and $\ell+1\ge m$, so $\Tail\le B$, strictly unless
-$Z=\{1,\ldots,n-1\}$ and $r_{k+1}=\cdots=r_u=2$.  In that case
-$X_0\subseteq\{1,\ldots,n-1\}$ and $P_k=\prod_{i>k}(x-r_i)=(x-2)^{u-k}P_u$
-has $|P_k(1)|=|P_u(1)|=1/B$, so Lemma~\ref{lem:improve} (with repetitions) for
-$R=P_k$ and $X_0$ finishes the proof once some $j\in\{1,\ldots,n-1\}\setminus X_0$
-has $|S_j(P_k)|>|P_k(1)|$.
-
-For a monic $R$ with all roots above $1$ let
-$\mathcal A(R)=\{1\le j\le\deg R-1:|S_j(R)|>|R(1)|\}$.  If $R$ has
-coefficient $\zeta_l$ at $x^{\deg R-l}$ ($\zeta_0=1$, $\zeta_{-1}=0$), then
-$(x-2)R$ has $\zeta_l-2\zeta_{l-1}$ at $x^{\deg R+1-l}$, so
-$S_j((x-2)R)=S_j(R)-2S_{j-1}(R)$, and by Lemma~\ref{lem:signs}
-$(-1)^jS_j(R)>0$ for $0\le j\le\deg R$; hence
-$|S_j((x-2)R)|=|S_j(R)|+2|S_{j-1}(R)|$ for $1\le j\le\deg R$, while
-$|((x-2)R)(1)|=|R(1)|$.  Thus $j\in\mathcal A(R)$ puts both $j$ and $j+1$ in
-$\mathcal A((x-2)R)$.  Since \eqref{eq:partial} fails, $\mathcal A(P_u)$
-contains some $i\le m-1$, and $u-k$ applications give
-$\{i,i+1,\ldots,i+u-k\}\subseteq\mathcal A(P_k)\subseteq\{1,\ldots,n-1\}$.
-These are $u-k+1$ integers and $X_0$ has only $u-k$ elements.
-\end{proof}
+$r$ is a root of multiplicity greater than $a$.
+So \eqref{eq:weak} holds for every certificate $v$ for $X$ on
+$\mathcal H_0$:
+\begin{equation}\label{eq:weakrep}
+  1\le b_{u+1}(F)\,\Tail(v)\qquad(v\in\mathcal H_0,\ v_0=1,\ v|_X=0).
+\end{equation}
 
 \section{The placement game and attainment}\label{sec:value}
 
-Keep the notation of the necessity argument in
+Keep the notation of the certificates in
 Section~\ref{sec:criterion}, except that only $r_1>1$ is assumed: $1<r_1<\cdots<r_L$
 are distinct, $y_i=1/r_i\in(0,1)$, and $m=L-u$.  For finite $X\subset\N_{>0}$ and
 $0\le k<L$ put
@@ -1126,9 +863,7 @@ $Z$ contains $X_0$, which exists by unisolvence of $\mathcal H_p$ at the
 $L-p$ distinct points $\{0\}\cup Z$, and Proposition~\ref{prop:farrep}(c),
 which is stated for repeated roots.
 
-The lower bound is \eqref{eq:weak}, which holds for every certificate on
-$\mathcal H_0$ by the first paragraph of the proof of
-Theorem~\ref{thm:converse}.
+The lower bound is \eqref{eq:weakrep}.
 
 For the upper bound fix $X$ with $|X|=u$ and $D\ge\max(L,\max X)$, and let
 $\tau_D(X)$ be the least $\sum_{d=1}^D|v_d|$ over certificates $v$ for $X$
@@ -1269,8 +1004,8 @@ bound \eqref{eq:order}, whenever it is the infimum, is not attained.
 Let $F$ have degree $D$ and let $X=X_F$ hold the distances $D-j$ of $u$
 positions $j<D$ carrying its $u$ largest nonleading magnitudes.  The identity
 behind \eqref{eq:weak} involves only $v_1,\ldots,v_D$: for a certificate $v$
-for $X$ on $\mathcal H_0$, $0=\sum_{j\le D}f_jv_{D-j}$ (first paragraph of
-the proof of Theorem~\ref{thm:converse}) gives
+for $X$ on $\mathcal H_0$, $0=\sum_{j\le D}f_jv_{D-j}$ (the identity
+behind~\eqref{eq:weakrep}) gives
 \[
   1\le b_{u+1}(F)\sum_{d=1}^{D}|v_d| .
 \]
@@ -1294,6 +1029,38 @@ $y_{k+1},\ldots,y_L$.  The
 proof inserts the exempt coefficients one at a time, each paid for by one
 node, and the payment is the deletion step of~\cite[Theorem~2.2]{coefficient-mass} read backwards.
 
+\paragraph{The displaced step.}  Lemma~\ref{lem:delete}
+below uses one step of the proof
+of~\cite[Theorem~2.2]{coefficient-mass}, which we restate.  Let $c\ge2$ and
+$0<y_1<\cdots<y_c\le1/2$, let $Z\ne\{1,\ldots,c-1\}$ be a set of $c-1$
+positive integers, so that its leading run is below $c-1$ as that step
+assumes, $z=\max Z$ and $Z'=Z\setminus\{z\}$, and let $w$ be the sum on all $c$
+nodes with $w_0=1$ and $w|_Z=0$.  Let $V$ be the sum on
+$y_1,\ldots,y_{c-1}$, all nodes but the largest, with $V_0=1$ and
+$V|_{Z'}=0$, and $G$ the sum on all $c$ nodes with
+$G|_{\{0\}\cup Z'}=0$ and $G_z=1$; then $w=V-V_zG$, and $V_z\ne0$ by the
+zero bound.  Put $\mu=|V_z|$ and, for $X\in\{V,G\}$,
+\[
+  \Gamma_X(z)=\frac{\sum_{d\ge z}|X_d|}{|X_z|},
+  \qquad \Sigma_G=\sum_{1\le d<z}|G_d| .
+\]
+The displaced step of the proof of~\cite[Theorem~2.2]{coefficient-mass}
+proves the splitting identity and the correction-ratio bound
+\[
+  \Tail(V)-\Tail(w)=\mu\bigl(2\Gamma_V(z)-\Gamma_G(z)+\Sigma_G\bigr),
+  \qquad
+  \Gamma_G(z)\le\frac{\Gamma_V(z)}{1-y_c}\le2\Gamma_V(z),
+\]
+the identity from the zero bound and the distinctness of the nodes, and the
+bound from~\cite[Lemma~2.3]{coefficient-mass}, proved by weak alternation,
+and, in its last inequality, $y_c\le1/2$; neither uses the induction
+hypothesis of that proof.
+Together they give
+\[
+  \Tail(w)\le\Tail(V)-\mu\Sigma_G ,
+\]
+and the same step shows $\Sigma_G>0$.
+
 \begin{lemma}[The deletion step]\label{lem:delete}
 Let $c\ge2$, let $\tfrac12\ge y_1>y_2>\cdots>y_c>0$ be any nodes, let $Z$ be a set of $c-1$
 positive integers with $z=\max Z$, let $w$ be the full certificate on
@@ -1305,8 +1072,8 @@ $\Tail(w)\le\Tail(V)$.
 \begin{proof}
 If $Z=\{1,\ldots,c-1\}$, the evaluation~\cite[Lemma~2.1]{coefficient-mass} gives both tails as products, which
 differ by the factor $y_1/(1-y_1)\le1$.  Otherwise
-$Z\ne\{1,\ldots,c-1\}$, and the displaced step of
-Section~\ref{sec:extend}, with the nodes listed in increasing order, deletes
+$Z\ne\{1,\ldots,c-1\}$, and the displaced step
+above, with the nodes listed in increasing order, deletes
 the largest prescribed zero $z$ together with the largest node $y_1$: its $V$
 is the present one, and it gives
 $\Tail(w)\le\Tail(V)-|V_z|\Sigma_G<\Tail(V)$.
@@ -1581,7 +1348,9 @@ $z_{\rho,\varepsilon}=\rho^{-1}\exp\bigl(-(m_\rho-m'_\rho)\varepsilon\bigr)$.  P
   v^\varepsilon_d=\sum_\rho\sum_{a<m'_\rho}c_{\rho,a}\,
   z_{\rho,\varepsilon}^{\,d}\Bigl(\frac{1-\exp(-\varepsilon d)}{\varepsilon}\Bigr)^a .
 \]
-By the binomial expansion in the proof of Proposition~\ref{prop:confluent},
+By the binomial expansion
+$\bigl((1-e^{-\varepsilon d})/\varepsilon\bigr)^a
+=\varepsilon^{-a}\sum_{j\le a}(-1)^j\binom aj e^{-j\varepsilon d}$,
 $v^\varepsilon$ is an exponential sum on the surviving perturbed nodes, and
 $v^\varepsilon_0=\sum_\rho c_{\rho,0}=v_0=1$, so
 $\tau^*_\varepsilon\le\Tail(v^\varepsilon)$.  As $\varepsilon\to0$,
@@ -1592,6 +1361,27 @@ at most $\sum_{\rho,a}|c_{\rho,a}|d^a\rho^{-d}$, which is summable; by
 dominated convergence $\Tail(v^\varepsilon)\to\Tail(v)=\tau^*$.  Hence
 $b_{u+1}(F)=\lim_\varepsilon b_{u+1}(F_\varepsilon)
 \ge\limsup_\varepsilon1/\Tail(v^\varepsilon)=1/\tau^*$.
+\end{proof}
+
+The exact infimum gives necessity of the partial-sum criterion.
+
+\begin{theorem}[Necessity of the partial-sum criterion]\label{thm:converse}
+Let $2\le r_1\le\cdots\le r_L$, repetitions allowed, $0\le u\le L-1$ and
+$m=L-u$.  If $|S_j(P_u)|>|P_u(1)|$ for some $1\le j<m$, that is, if
+\eqref{eq:partial} fails, then
+\[
+  \inf_Qb_{u+1}\Bigl(Q\prod_{i=1}^L(x-r_i)\Bigr)>\prod_{i=u+1}^L(r_i-1)
+\]
+over monic $Q\in\R[x]$.  With Corollary~\ref{cor:charrep},
+\eqref{eq:order} is the infimum exactly when \eqref{eq:partial} holds.
+\end{theorem}
+
+\begin{proof}
+The Hermite space of the roots of $P_u$ is $\mathcal H_u$.  Lemma~\ref{lem:improve}
+with repetitions, for $R=P_u$ and $X_0=\varnothing$, gives $v\in\mathcal H_u$
+with $v_0=1$ and $\Tail(v)<1/|P_u(1)|$, so $\tau^*<1/|P_u(1)|$.
+Corollary~\ref{cor:extremalrep} makes the infimum
+$1/\tau^*>|P_u(1)|=\prod_{i>u}(r_i-1)$.
 \end{proof}
 
 Below $2$ the deletion step fails, and so can the conclusion.
@@ -2199,8 +1989,7 @@ the largest $x$ with $3^x(r-1)<18$, with zero set $\{1,x,z\}$
 \paragraph{The family near $r=1$.}  As $r\to1^+$ the node $\tfrac1r$ tends
 to $1$, where $\lambda y^d$ is constant and has infinite tail, so a cheap
 certificate gives it little weight, and the costs approach those at the
-roots $3,5,7$.  No two nodes coalesce, so this is not the confluent
-situation of Proposition~\ref{prop:confluent}; the limit $24$ is the
+roots $3,5,7$.  The limit $24$ is the
 infimum at $(3,5,7)$ with $u=1$, where the surviving roots $5,7$ have
 $\tau^*=\tfrac1{24}$ (Theorem~\ref{thm:extremal}, and the proof of
 Proposition~\ref{prop:cutoffsharp}).  The placements at $(3,5,7)$ have
@@ -3761,11 +3550,6 @@ $-$ to $+$.  Besides the ties after Theorem~\ref{thm:familylow},
 
 \begin{thebibliography}{9}
 \small
-\bibitem{karlin-studden}
-S.~Karlin and W.~J. Studden,
-\newblock \emph{Tchebycheff Systems: With Applications in Analysis and Statistics},
-\newblock Interscience, New York, 1966.
-
 \bibitem{polya-szego}
 G.~P\'olya and G.~Szeg\H{o},
 \newblock \emph{Problems and Theorems in Analysis II},

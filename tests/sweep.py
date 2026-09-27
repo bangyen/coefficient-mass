@@ -484,11 +484,11 @@ def _elementary(values: list[Fraction]) -> list[Fraction]:
 def _check_converse(failures: list[str]) -> int:
     """The necessity half of the partial-sum criterion, ``thm:converse``.
 
-    Exact checks of its three lemmas and its worked numbers: the signed
-    partial-sum formula (``lem:signs``), the directional identity
-    ``sum_{d>=n} eta_d = -S_j/Q(1)`` (``lem:improve``), the two failing
-    indices of ``(x-2)P_1`` the ``u = 1, r_1 = 2`` case needs, and the
-    ``(2,3,5,7)`` certificate whose tail ``31/1704`` beats ``1/48``.
+    Exact checks of the directional identity ``sum_{d>=n} eta_d = -S_j/Q(1)``
+    (``lem:improve``) its proof rests on and of the ``(2,3,5,7)`` certificate
+    whose tail ``31/1704`` beats ``1/48``, with two controls on the partial
+    sums: their alternating signs, ``(-1)^j S_j = sum_k e_k(r-1) C(m-1-k,
+    j-k)``, and the two failing indices a factor ``x - 2`` adds.
     """
     from math import comb
 
@@ -504,9 +504,9 @@ def _check_converse(failures: list[str]) -> int:
         for j in range(m):
             formula = sum(e[k] * comb(m - 1 - k, j - k) for k in range(j + 1))
             if (-1) ** j * sums[j] != formula or formula <= 0:
-                failures.append(f"lem:signs formula at {roots}, j={j}")
+                failures.append(f"partial-sum signs at {roots}, j={j}")
         if (-1) ** m * sums[m] != e[m]:
-            failures.append(f"lem:signs top sum at {roots}")
+            failures.append(f"partial-sum top at {roots}")
         checks += 1
         a = sums
         if any(abs(a[j]) > abs(a[m]) for j in range(1, m)):
