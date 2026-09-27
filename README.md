@@ -1,5 +1,7 @@
 # coefficient-mass
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22998725.svg)](https://doi.org/10.5281/zenodo.22998725)
+
 Eight papers on how small the coefficients of a polynomial multiple can be
 when its roots are prescribed, with executable checks.
 
@@ -122,9 +124,9 @@ just pin coefficient-mass:3.4 coefficient-mass-complex:2.1
 Pushing a tag `vN` (or `vN.M.K`) runs the release workflow: it checks the tag
 against the version in `pyproject.toml`, runs the checks, and attaches the
 compiled papers to a GitHub release, so a cited version keeps its PDFs.
-With the repository's Zenodo integration switched on, each release is also
-archived under a DOI (metadata in `.zenodo.json`); cite that DOI from the
-papers' data availability statements.
+The `v1.0.0` release is archived at
+[doi:10.5281/zenodo.22998725](https://doi.org/10.5281/zenodo.22998725).
+Zenodo metadata for future releases is in `.zenodo.json`.
 
 ## License
 
