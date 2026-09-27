@@ -5,6 +5,11 @@ is open; an answer lands in the paper it extends, and the row leaves.
 
 ## Open at a glance
 
+- [coefficient-mass](papers/coefficient-mass.tex): the constant in
+  `M(P) ~ L**2 + sum i log(r_i - 1)` (`cor:allroots`), in particular
+  whether `M((x-2)**L)/L**2` converges (between `1/80` and about `0.85`);
+  the coefficient of `L**2` in the prime-root infimum (`cor:infimum`); the
+  order of the mass when some roots lie in `(1, 2)`.
 - [attainment](papers/coefficient-mass-attainment.tex) (`sec:scope`): an a
   priori bound on the zero set minimising one `tau({x})` at general roots
   (along `(r,3,5,7)` it is `{1,x,z}` or `{1,z,x}`, `z` a half-mass point,
@@ -38,7 +43,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `thm:failinterval`, `thm:blockinterval`; open below `21/20` and above
   `19/10`), and whether the least failing row tends to infinity as
   `r -> 2`; closed forms or tree bounds for rows `k >= 3`
-  (`sec:finiterows`).
+  (`sec:finiterows`); the growth of `beta_2(n)`, the rows at `r = 2`
+  (`thm:allrowstwo`).
 - [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
   holds for integer multiples at Gaussian roots in a wide sector
   (`sec:widesectors`); whether one level set `H(y) = -v` holds a number of
@@ -54,6 +60,26 @@ is open; an answer lands in the paper it extends, and the row leaves.
   coefficients they need not, `prop:gausscong`).
 
 ## Status
+
+- **Coefficient mass, main paper.**
+  [coefficient-mass](papers/coefficient-mass.tex) is closed and formalized;
+  what it leaves open is quantitative.  At roots `>= 2` the least mass of a
+  monic multiple is `M(P) ~ L**2 + sum i log(r_i - 1)` with absolute
+  constants (`cor:allroots`): below by Jensen (`prop:quadratic`, `L**2/80`
+  for `L >= 8`) and by the rows (`cor:mass`), above by `Q = 1`
+  (`cor:near`).  At `(x-2)**L` these give `L**2/80 <= M <= Lambda((x-2)**L)
+  ~ (1 + log 2) L**2/2`.  Open: whether `M((x-2)**L)/L**2` converges and
+  its limit, and whether `Q = 1` is near optimal there.  At the first `L`
+  primes `M_L = L**2 (log L + log log L)/2 + O(L**2)` (`cor:infimum`); the
+  `O(L**2)` spans the binomial loss `sum log C(L,k) ~ L**2/2` of
+  `cor:near`.  Open: its coefficient.  Every mass bound needs `r_1 >= 2`
+  (`cor:mass`, `prop:quadratic`); at `r = 1`, `x**N - 1` has mass 0, so the
+  `L**2` term cannot survive as the roots approach 1.  Open: the order of
+  `M(P)` for roots in `(1, 2)`, which neither
+  [coefficient-mass-rows](papers/coefficient-mass-rows.tex) (rows at one
+  root, `cor:belowtwo`) nor
+  [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex)
+  (single rows) bounds.
 
 - **Coefficient-mass sharpness, residue.**
   [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex)
@@ -651,4 +677,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   continuity in `r` is not uniform in `n`); closed forms, or bounds on the trees, for the
   rows `k >= 3` with `beta_r(n) > 1` -- `thm:finiterows` does not say how to
   find the minimizers `q_N` it branches on, and its thresholds do not
-  decrease with `m`.
+  decrease with `m`.  Open at `r = 2` too: `thm:allrowstwo` gives the rows
+  as `beta_2(L - k + 1)`, but `beta_2(n)` has no closed form and no bound
+  beyond `beta_2(n) >= n` (`coefficient-mass`, Theorem 4.13) and
+  `beta_2(3) >= 40/11`; whether `beta_2(n)**(1/n)` converges, and to what.
