@@ -83,8 +83,8 @@ theorem prefix_mem_tree {m : ℕ} (𝒯 : Set (Finset ℕ)) (hT0 : ∅ ∈ 𝒯)
         rw [hws]
         exact (Finset.mem_filter.1 hw).2
 
-/-- Theorem 5.2(b) of `coefficient-mass-belowtwo.tex`: let `B` be real and let `𝒯 ∋ ∅` be a family of
-finite sets of size `< m`, with `q_N` admissible for `μ_r(N, n + |N|)`, `Φ_r(q_N) ≤ B`, and
+/-- Theorem 5.2(b) of `coefficient-mass-belowtwo.tex`: let `B` be real and let `𝒯 ∋ ∅` be a family
+of finite sets of size `< m`, with `q_N` admissible for `μ_r(N, n + |N|)`, `Φ_r(q_N) ≤ B`, and
 integers `T_N ≥ 1` with `Δ_{q_N, m-|N|}(T_N) ≤ 0`.  If `N ∪ {σ} ∈ 𝒯` whenever `N ∈ 𝒯`,
 `|N| ≤ m - 2` and `max N < σ < T_N`, and `μ_r(N ∪ {σ}, n + m) ≤ B` whenever `N ∈ 𝒯`,
 `|N| = m - 1` and `max N < σ < T_N`, then `μ_r(S, n + m) ≤ B` for every `S ⊂ ℕ_{>0}` with
