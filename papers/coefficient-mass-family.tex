@@ -223,8 +223,7 @@ bound, and solving the $3\times3$ system for $H$
 with $c_5(r)=206070r^3-67123r^2-161312r-238560$, which has the sign of
 $c_5(r)$ there.  The two tails and this identity are identities between
 rational functions of $r$, verified by exact polynomial arithmetic over
-$\mathbb Q$ in \texttt{test\_family\_threshold}
-(\texttt{tests/test\_attainment.py}): with $r$ an indeterminate the test
+$\mathbb Q$: with $r$ an indeterminate the computation
 solves the three linear systems over $\mathbb Q(r)$, forms each tail and
 the left side above from the sign pattern of the zero bound and the
 geometric sums past the largest zero, and compares reduced numerators and
@@ -267,8 +266,7 @@ $d_2'(r)=317487r^2-263112r+14850\ge54375r^2+14850>0$ and $d_2(1)=31114$, while
 $d_5'(r)=-5010r^2-46334r+30517\le-20827$ and
 $d_5(\tfrac32)=\tfrac{44187}2$; so $t_2(r)<1/\beta(r)$ and
 $t_5(r)<1/\beta(r)$ on $[1,\tfrac32]$.  These three identities are checked
-over $\mathbb Q(r)$ in \texttt{test\_family\_window}
-(\texttt{tests/test\_attainment.py}), as those above.  By
+over $\mathbb Q(r)$ as above.  By
 \cite[Theorem~5.3]{coefficient-mass-attainment}, as $\{1,3\}=Z^*$,
 $T=\max(\tau^*,\tau(\{2\}),\tau(\{4\}),\tau(\{5\}))
 \le\max(\tau^*,t_2(r),1/\beta(r),t_5(r))=1/\beta(r)$, since $\tau^*<1/\beta(r)$
@@ -429,9 +427,7 @@ $\{5\}$ costs less than $\max(\tau(\{4\}),\tau(\{5\}))$, and by
 \cite[Theorem~5.3(c)]{coefficient-mass-attainment} $T$ is that maximum, which the two previous
 steps evaluate as displayed.  \cite[Theorem~3.1]{coefficient-mass-attainment} gives the infimum.
 
-The computation is in \texttt{test\_family\_below}
-(\texttt{tests/test\_attainment.py}), in the arithmetic of $\mathbb Q(r)$ of
-\texttt{test\_family\_threshold}.  It solves the linear systems for the
+The exact computation over $\mathbb Q(r)$ solves the linear systems for the
 certificates and for the witnesses with $r$ an indeterminate, checks the
 closed forms of the $\theta_z$, the identities displayed above and in
 Appendix~\ref{sec:familydata}, and that the series of each witness vanishes
@@ -719,8 +715,7 @@ as $\log_3\tfrac{125}{36}<\tfrac65$ and $\alpha>\tfrac25$
 The closed forms and inequalities of Lemma~\ref{lem:threenode}, the
 constants $13,146,405$, the bound $(1+3^{3-x})/t(x)\le24+121(\tfrac35)^x$
 for $6\le x\le60$, and the witness itself at $r=\tfrac{101}{100}$ and
-$x=x_r=6$, where $F$ vanishes at $z=41$, are checked exactly in
-\texttt{test\_family\_near\_one} (\texttt{tests/test\_attainment.py}).  The
+$x=x_r=6$, where $F$ vanishes at $z=41$, are checked exactly.  The
 witness needs $3^x$ of order at most $1/\varepsilon$: the entry $s_x$,
 about $3^x/18$, must be balanced at the node $y$ by the flip, whose weight
 there is at most $y^{x+1}/(1-y)$.  Beyond that the node $\tfrac1r$ makes
@@ -1029,8 +1024,7 @@ cost at most $t(x)<\tau(\{10\})$, those $x\le3$ at most $\tfrac1{48}$, and
 Lemma~\ref{lem:eighteen}(b) with $c=4$ at $x=11$ bounds every $x\ge11$ by
 $0.03593<\tau(\{10\})=0.04085\ldots$.  So $T=\tau(\{10\})$ and
 $\inf_Qb_2(QP_r)=24.47884\ldots$, with $\Delta(r)=26.70\ldots$ against
-$\Phi(\omega)=26.97\ldots$; this is checked exactly in
-\texttt{test\_family\_oscillation} (\texttt{tests/test\_attainment.py}).
+$\Phi(\omega)=26.97\ldots$; this is checked exactly.
 There $t(11)>t(10)$, so the placement $11$ is beaten only through the node
 $\tfrac1r$, while Lemma~\ref{lem:eighteen}(b) at $x=10$ beats $t(10)$ for no
 $c$, as $3^{10}\varepsilon<18$; the test checks both as controls, and that
@@ -1568,7 +1562,7 @@ $4\le x\le9$, while Lemma~\ref{lem:eighteen}(b) with $c=3$ at $x=12$ bounds
 every $x\ge12$ by $0.0288$.  So $T=\tau(\{11\})$,
 $\inf_Qb_2(QP_r)=24.3009\ldots$, and $\Delta(r)=21.63\ldots$, near
 $\Phi(\omega-1)=20.86\ldots$ rather than $\Phi(\omega)=34.77\ldots$.  Both are
-checked exactly in \texttt{test\_family\_jumps}.
+checked exactly.
 
 Theorem~\ref{thm:familyosc}(a) holds on an explicit range.
 
@@ -1691,86 +1685,20 @@ a witness whose corrections at $1$ and $x$ keep their signs.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.  The exact
-computations quoted in the paper are in \texttt{tests/test\_attainment.py},
-with helpers in \texttt{tests/sweep.py}, of the repository
-\href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass},
-and run with \texttt{uv run pytest tests/test\_attainment.py}.
+computations, certificates and reproduction instructions are available in
+the accompanying versioned source archive.
 
 \paragraph{Computer assistance.}
-Five computations are computer-assisted: steps of the proofs of
-Theorems~\ref{thm:family} and~\ref{thm:familylow},
-the example at $r=\tfrac{5701}{5700}$ after Theorem~\ref{thm:familyosc},
-and the two examples at $r=\tfrac{101}{100}$ and $\tfrac{9842}{9841}$ after
-Theorem~\ref{thm:familyjump}.  In
-Theorem~\ref{thm:family}, the tails of the full certificates with zero sets
-$\{1,3,4\}$, $\{1,2,5\}$ and $\{1,3,5\}$ and the closed forms of
-$2\sum_{d\le n}|H_d|-\Tail(H)$ for $n=5,6$ are identities in $\mathbb Q(r)$,
-verified with $r$ an indeterminate in \texttt{test\_family\_threshold} and
-\texttt{test\_family\_window};
-Appendix~\ref{sec:familydata} lists the solutions of the linear systems, from
-which they can also be checked by hand.  In Theorem~\ref{thm:familylow}, the
-tails $\theta_z$, the witnesses and their identities, the ties between
-pieces, the closed forms of $2\sum_{d\le n}|H_d|-\Tail(H)$ for
-$n=6,\ldots,13$ and the tails of the full certificates $\{1,3,x\}$
-($6\le x\le12$), $\{1,2,13\}$ and $\{1,2,10\}$ are computed over
-$\mathbb Q(r)$ in \texttt{test\_family\_below}, and every sign of a rational
-function on an interval that its proof uses is decided by Sturm sequences
-over $\mathbb Q$ between rational endpoints; Appendix~\ref{sec:familydata}
-lists the tails, the breakpoint polynomials and one witness.  At
-$r=\tfrac{5701}{5700}$, \texttt{test\_family\_oscillation} solves the
-$4\times4$ system for the witness of the zero set $\{1,10,1335\}$ and the
-certificate itself over $\mathbb Q$, forms its tail from the sign pattern
-as a combination of geometric sums, and compares it with $t(x)$ for
-$4\le x\le9$ and with the bound of Lemma~\ref{lem:eighteen}(b) for
-$11\le x\le20$.  At $r=\tfrac{101}{100}$ and $\tfrac{9842}{9841}$,
-\texttt{test\_family\_jumps} finds the half-mass points of
-Theorem~\ref{thm:familyzero}(c) over $\mathbb Q$, checks that the tails of
-the resulting full certificates $\{1,6,41\}$, $\{1,4,7\}$ and
-$\{1,7,11\}$ equal the costs given there, and compares them with $t(x)$
-and with the bound of Lemma~\ref{lem:eighteen}(b), decreasing in $x$, at
-$x=8$ and $x=12$.  All arithmetic is exact:
-rationals are Python \texttt{fractions.Fraction}, and $\mathbb Q(r)$ is
-represented by quotients of polynomials with \texttt{Fraction}
-coefficients, a small class defined in the test file; no floating point and
-no computer algebra system is used, and every decimal in the paper is a
-truncation of an exact rational, of a zero of an explicit polynomial, or
-of an explicit constant such as $\alpha$ or $80\cdot18^{-\alpha}$.  The
-floating-point searches reported after Theorems~\ref{thm:familylow}
-and~\ref{thm:familyosc} are exploration,
-used in no proof and not part of the tests.  The other computations only check steps
-proved by hand: the partial sums, quadratics and
-cubics of the proof of Theorem~\ref{thm:family}
-(\texttt{test\_family\_threshold} and \texttt{test\_family\_window}); and,
-in \texttt{test\_family\_near\_one}, Lemma~\ref{lem:threenode} and
-Theorem~\ref{thm:familyone}, where the closed forms are checked as
-identities of rational functions of $A,B,C$ (multiplied by $D$, each side
-is a polynomial of degree at most $2$ in each variable, so agreement on a
-$4\times4\times4$ grid proves it), together with the rational inequalities
-behind Lemma~\ref{lem:threenode}(c) and the witness at
-$r=\tfrac{101}{100}$.  The estimates with logarithms in the proof of
-Theorem~\ref{thm:familyone}, and those with powers $\alpha$ and
-$1/\alpha$ in the proofs of Theorem~\ref{thm:familyjump}(b) and
-Proposition~\ref{prop:familyrdelta}, reduce to comparisons of integer
-powers, with $e$ bounded by its series and $\alpha$ bracketed as
-$0.4649<\alpha<0.465$; \texttt{test\_family\_hand\_estimates} checks them.  In
-\texttt{test\_family\_oscillation} the solution for $p,q,\theta'$, the
-constants $15,6,14$, the identity at the start of the path in
-Lemma~\ref{lem:eighteen}(a), the closed forms in (c) with $K_c>18$ for
-$c\le60$, and the sum $g$ of (b) are checked in the same way; the limits
-in the proof of Theorem~\ref{thm:familyosc} are by hand.  In
-\texttt{test\_family\_zero\_sets}, the weights of $V$ and $V'$, the
-identity \eqref{eq:threebasis}, the identities of
-Theorem~\ref{thm:familyzero}(a) and the polynomial $p$ of its proof are
-checked for $x\le15$, and at several $r$ and $x$ the witness of part (c)
-is built and checked to vanish at the four nodes with entries in
-$[-1,1]$, against all zero sets in $\{1,\ldots,16\}$; the costs at
-$r=\tfrac54$ and $\tfrac{11}{10}$ quoted after the theorem and the zero set
-$\{1,10,1335\}$ at $r=\tfrac{5701}{5700}$ are recovered.  In
-\texttt{test\_family\_jumps} the identities \eqref{eq:profileid} are
-checked on a grid as above, the $k_c$ and $M_c$ for $c\le40$, and the
-rational constants in the proofs of Theorems~\ref{thm:familylimit}
-and~\ref{thm:familyjump} and Proposition~\ref{prop:familyrdelta} for
-$c\le60$ or $x\le60$; the limits are by hand.
+Five computations enter the arguments: exact symbolic identities and sign
+checks in the proofs of Theorems~\ref{thm:family} and
+\ref{thm:familylow}, and the three rational examples following
+Theorems~\ref{thm:familyosc} and~\ref{thm:familyjump}.  The symbolic
+identities are verified over $\mathbb Q(r)$, interval signs are certified by
+Sturm sequences over $\mathbb Q$, and the examples use exact rational
+linear algebra and finite comparisons.  Appendix~\ref{sec:familydata}
+records the certificate data needed to inspect the two theorem proofs; the
+versioned source archive contains the complete exact computations.  No
+floating-point calculation is used as a proof premise.
 
 \paragraph{Use of AI tools.}
 Large language model assistants (Claude, Anthropic) were used in drafting
@@ -1811,10 +1739,12 @@ is displayed after \cite[Theorem~4.3]{coefficient-mass-attainment}.
 
 \paragraph{The certificate with zero set $\{1,3,4\}$.}  Its weights are
 \[
-  \lambda_1=-\frac{15r^4}{p(r)(15r+71)},\quad
-  \lambda_3=\frac{81(r+12)}{8(3-r)(15r+71)},\quad
-  \lambda_5=-\frac{625(r+10)}{4(5-r)(15r+71)},\quad
-  \lambda_7=\frac{2401(r+8)}{8(7-r)(15r+71)},
+  \begin{aligned}
+  \lambda_1&=-\frac{15r^4}{p(r)(15r+71)},&
+  \lambda_3&=\frac{81(r+12)}{8(3-r)(15r+71)},\\
+  \lambda_5&=-\frac{625(r+10)}{4(5-r)(15r+71)},&
+  \lambda_7&=\frac{2401(r+8)}{8(7-r)(15r+71)}.
+  \end{aligned}
 \]
 and $v_0=1$, $v_1=v_3=v_4=0$,
 \[
@@ -1868,10 +1798,12 @@ with $v_2<0$, $v_4>0$ and $v_d<0$ for $d\ge6$, so
 \paragraph{The sum $H$ of \cite[Theorem~5.3]{coefficient-mass-attainment}.}  With weight $1$ on
 $\tfrac1r$, $H_0=0$ and $H|_{Z^*}=0$, its weights are
 \[
-  \lambda_1=1,\quad
-  \lambda_3=-\frac{27(5-r)(7-r)(12r+35)}{568r^3},\quad
-  \lambda_5=\frac{125(3-r)(7-r)(10r+21)}{284r^3},\quad
-  \lambda_7=-\frac{343(3-r)(5-r)(8r+15)}{568r^3},
+  \begin{aligned}
+  \lambda_1&=1,&
+  \lambda_3&=-\frac{27(5-r)(7-r)(12r+35)}{568r^3},\\
+  \lambda_5&=\frac{125(3-r)(7-r)(10r+21)}{284r^3},&
+  \lambda_7&=-\frac{343(3-r)(5-r)(8r+15)}{568r^3}.
+  \end{aligned}
 \]
 and $H_0=H_1=H_3=0$,
 \begin{gather*}

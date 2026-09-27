@@ -14,8 +14,10 @@ Corresponding author: Bangyen Pham
 - Code and materials: https://doi.org/10.5281/zenodo.22998724
 - Author contributions: Bangyen Pham is the sole author and is responsible
   for the conception, proofs, software, formalization, verification, and text.
-- AI-assisted tools: Claude by Anthropic and Codex by OpenAI assisted with
-  drafting and revision of text, proofs, verification code, and Lean
-  formalization. Their output was treated as untrusted draft material; the
-  author checked the mathematical arguments, executable examples, citations,
-  and formal statements and accepts responsibility for the final work.
+- Declaration of generative AI and AI-assisted technologies in the manuscript
+  preparation process: During the preparation of this work, the author used
+  Claude by Anthropic and Codex by OpenAI to assist with drafting and revising
+  text, proofs, verification code, and Lean formalization. The author reviewed
+  and edited the output as needed, checked the mathematical arguments,
+  executable examples, citations, and formal statements, and takes full
+  responsibility for the content of the published article.

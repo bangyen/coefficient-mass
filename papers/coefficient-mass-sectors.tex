@@ -372,10 +372,13 @@ $F\in\mathbb Z[x]$ divisible by $P$ can be written
 \[
   F=\sum_{s=1}^rx^{e_s}B_s,\qquad e_s+\deg B_s<e_{s+1},
 \]
-with every $B_s\in\mathbb Z[x]$ divisible by $P$ and $P$-irreducible: $B_s(0)\ne0$
-and no split $m\in\{1,\ldots,\deg B_s\}$ of $B_s$ has $G_m(\alpha_j)=0$ for every $j$.
-Consequently $\Lambda(F)=\sum_s\Lambda(B_s)$, $|\operatorname{lead}B_s|\ge1$,
-and $b_k(F)\ge b_k(B_s)$ for every $s$ and $k$.
+with every $B_s\in\mathbb Z[x]$ divisible by $P$ and $P$-irreducible.  Thus
+$B_s(0)\ne0$, and no split $m\in\{1,\ldots,\deg B_s\}$ has
+$G_m(\alpha_j)=0$ for every $j$.
+Consequently $\Lambda(F)=\sum_s\Lambda(B_s)$ and, for every $s$ and $k$,
+\[
+  |\operatorname{lead}B_s|\ge1,\qquad b_k(F)\ge b_k(B_s).
+\]
 \end{lemma}
 
 \begin{proof}
@@ -1140,15 +1143,8 @@ No datasets were generated or analyzed in this study.
 \paragraph{Computer assistance.}
 No proof in this paper relies on computation.  The numerical thresholds after
 Theorem~\ref{thm:thinsector} describe its range and are not used elsewhere.
-The file \texttt{tests/test\_sectors.py} in the
-repository of~\cite{coefficient-mass} checks the statements, on seeded
-random Gaussian and integer multiples and on the extremal examples, each
-group with a control showing that a false variant is caught; these checks
-test the statements and are not used in any proof.  Polynomial products,
-divisibility, $p$-adic valuations and Newton polygons, coefficient
-magnitudes and Sturm counts of real zeros are computed in exact integer and
-rational arithmetic; floating point enters only in evaluating logarithms,
-in the right-hand sides of mass bounds and the constants $E$ and $\kappa$.
+Exact computations in the accompanying source check the statements and
+extremal examples; these checks are not used in any proof.
 
 \paragraph{Use of AI tools.}
 Large language model assistants (Claude, Anthropic) were used in drafting and

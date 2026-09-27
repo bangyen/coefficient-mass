@@ -629,9 +629,17 @@ formula on $|z|=2r$ and the choice of $y$ give
 \]
 Each of the $D-|A|$ factors $\max(2r,|\beta_l|)$ with $\beta_l\notin A$ is at
 least $2r$, so
-$|f_y|>|f_D|2^{-D-1}r^{-y}(2r)^{D-|A|}\prod_{\beta\in A}\max(2r,|\beta|)$,
-which is the claim.  For $r\ge1$, $r^{D-y-|A|}\prod_A\max(r,|\beta|/2)\ge
-r^{D-y}\prod_A|\beta|/(2r)\ge\prod_A|\beta|/(2r)$; if $D-y\ge|A|$, then
+\[
+  |f_y|>|f_D|2^{-D-1}r^{-y}(2r)^{D-|A|}
+  \prod_{\beta\in A}\max(2r,|\beta|),
+\]
+which is the claim.  For $r\ge1$,
+\[
+ r^{D-y-|A|}\prod_A\max(r,|\beta|/2)
+ \ge r^{D-y}\prod_A\frac{|\beta|}{2r}
+ \ge\prod_A\frac{|\beta|}{2r};
+\]
+if $D-y\ge|A|$, then
 $r^{D-y-|A|}\ge1$ and $\max(r,|\beta|/2)\ge|\beta|/2$.
 \end{proof}
 
@@ -760,11 +768,19 @@ For $a=1$ the power of $r_1=1$ is $1$; for $a\ge2$ it is at least
 $r_a^{k_a-n_a}$, since $D-y_a\ge k_a$; and $\max(r_a,|\beta|/2)\ge|\beta|/2$.
 This is $|f_{y_a}|>B_a$.
 
-The positions $y_1,\ldots,y_k$ are $k$ distinct nonleading positions with
-magnitudes above $\min_{a\le k}B_a$, which bounds $b_k(F)$.  For the mass,
-$\Lambda(F)\ge\log^+|f_D|+\sum_a\log^+|f_{y_a}|\ge\log|f_D|+\sum_a\log B_a$,
+\begingroup
+\emergencystretch=1em
+The positions $y_1,\ldots,y_k$ are $k$ distinct nonleading positions.  Their
+magnitudes exceed $\min_{a\le k}B_a$, which therefore bounds $b_k(F)$.  For
+the mass,
+\[
+  \Lambda(F)\ge\log^+|f_D|+\sum_a\log^+|f_{y_a}|
+  \ge\log|f_D|+\sum_a\log B_a,
+\]
 and $\sum_a\sum_{\beta\in A_{\ge a}}=\sum_ss\sum_{\beta\in A_s}$; the term
 $a=1$ has no power of $r_1$.
+\par
+\endgroup
 \end{proof}
 
 \begin{corollary}[Annuli]\label{cor:annuli}
@@ -866,16 +882,26 @@ them, so $D-y\ge n_a$ and $\log|f_y|>\log(|f_D|/2)+Z_a$.  Otherwise $Y_a$
 has two positions, active at $u_a^+\le\log(T_a/3)$ and at
 $u_a^-<\log(T_a/27)$, and their logarithms add up to more than
 \[
-  2\log\frac{|f_D|}2+2Z_a-n_a\Bigl(0.82\log\frac{T_a}3+0.13\log\frac{T_a}{27}\Bigr)
-  \ \ge\ 2\log\frac{|f_D|}2+Z_a+n_a\bigl(0.05\log T_a+1.21\log3-\log2\bigr),
+  \begin{aligned}
+  &2\log\frac{|f_D|}2+2Z_a
+    -n_a\Bigl(0.82\log\frac{T_a}3+0.13\log\frac{T_a}{27}\Bigr)\\
+  &\qquad\ge 2\log\frac{|f_D|}2+Z_a
+    +n_a\bigl(0.05\log T_a+1.21\log3-\log2\bigr),
+  \end{aligned}
 \]
 as $Z_a\ge n_a\log(T_a/2)$.  Since $T_a>81U_{a-1}\ge81T_1>3^5$, the last
 bracket exceeds $1.46\log3-\log2>\log2$, and as $\log|f_D|\ge0$ the sum
 exceeds $\log(|f_D|/2)+Z_a$.  In both cases
-$\sum_{y\in Y_a}\log^+|f_y|\ge\log|f_D|+Z_a-\log2$, and
 \[
-  \Lambda(F)\ \ge\ \log^+|f_D|+\log^+|f_{y_1}|+\sum_{a=2}^S\sum_{y\in Y_a}\log^+|f_y|
-  \ \ge\ (S+1)\log|f_D|+\sum_{a=1}^SZ_a-S\log2 .
+  \sum_{y\in Y_a}\log^+|f_y|\ge\log|f_D|+Z_a-\log2,
+\]
+and
+\[
+  \begin{aligned}
+  \Lambda(F)&\ge \log^+|f_D|+\log^+|f_{y_1}|
+    +\sum_{a=2}^S\sum_{y\in Y_a}\log^+|f_y|\\
+  &\ge (S+1)\log|f_D|+\sum_{a=1}^SZ_a-S\log2 .
+  \end{aligned}
 \]
 \end{proof}
 
@@ -971,12 +997,17 @@ Theorem~\ref{thm:annuli} applies to the monic $F\in\mathbb Z[x]$ with
 $S=2$, $A_1=\{q\}$ and $A_2$ the $K$-fold zero $-Kq$, so that
 $T_2=U_2=Kq=n_2U_1$, and
 \[
-  f_1=0,\qquad b_2(F)\ <\ 2^K(Kq)^{K-1}\ \le\ \frac12\prod_{\beta\in A_2}\frac{|\beta|}2 .
+  f_1=0,\qquad b_2(F)<2^K(Kq)^{K-1},\qquad
+  2^K(Kq)^{K-1}\le\frac12\prod_{\beta\in A_2}\frac{|\beta|}2 .
 \]
 So the row $k=2$ of Corollary~\ref{cor:annuli}, item~1, fails at $T_2=n_2U_1$.
-Moreover $b_2(F)<2^K(Kq)^{-1}\prod_{\beta\in A_2}|\beta|$, so for no $g$ and
-$\varepsilon>0$ does $b_2(F)\ge\varepsilon|f_D|\prod_{\beta\in A_2}|\beta|$
-hold for all $F$ with $T_1>3$ and $T_2>gU_1$: take $K>g$ and $q\to\infty$.
+Moreover
+\[
+  b_2(F)<2^K(Kq)^{-1}\prod_{\beta\in A_2}|\beta|.
+\]
+Thus, for no $g$ and $\varepsilon>0$ does
+$b_2(F)\ge\varepsilon|f_D|\prod_{\beta\in A_2}|\beta|$ hold for every $F$
+with $T_1>3$ and $T_2>gU_1$: take $K>g$ and $q\to\infty$.
 \end{proposition}
 
 \begin{proof}
@@ -1029,8 +1060,8 @@ Rows, $S=2$ & $n_2+1$ (Corollary~\ref{cor:rowstwo});
   $n_2(1+3\cdot2^{-n_2})$ for $n_2\ge4$, $4$ for $n_2\le3$
   (Corollary~\ref{cor:twofixed}); $\frac43+\frac2{3T_1}$ for $n_2=1$
   (Corollary~\ref{cor:twonear})
-  & $n_2/(1-2^{-n_2-1})$ (Corollary~\ref{cor:twofixed});
-  $\frac43$ for $n_2=1$ (Corollary~\ref{cor:twonear})\\
+  & \raggedright $n_2/(1-2^{-n_2-1})$ (Corollary~\ref{cor:twofixed});
+  $\frac43$ for $n_2=1$ (Corollary~\ref{cor:twonear})\tabularnewline
 Mass, every $S$ & $81$ (Theorem~\ref{thm:fixedgap}); $9$ with ratios in
   place of moduli (Corollary~\ref{cor:annuli}, item~2)
   & $2+\frac1{18915}$ (Proposition~\ref{prop:gaptwo})\\
@@ -1123,9 +1154,14 @@ $\gamma=(1-|\alpha|/T)^n$ if $n\ge2$.  Then
 \[
   b_2(F)\ \ge\ \frac{\lambda\gamma}2\Bigl(1-\frac1{|\alpha|}\Bigr)|f_D|\prod_{\beta\in A}|\beta| ,
 \]
-and $\gamma\ge\max(\lambda,\frac14)$, so $b_2(F)$ is at least
-$\frac\lambda8(1-\frac1{|\alpha|})|f_D|\prod_{\beta\in A}|\beta|$ and at least
-$\frac{\lambda^2}2(1-\frac1{|\alpha|})|f_D|\prod_{\beta\in A}|\beta|$.
+and $\gamma\ge\max(\lambda,\frac14)$.  Consequently
+\[
+  b_2(F)\ge\frac\lambda8\Bigl(1-\frac1{|\alpha|}\Bigr)|f_D|
+  \prod_{\beta\in A}|\beta|,
+  \qquad
+  b_2(F)\ge\frac{\lambda^2}2\Bigl(1-\frac1{|\alpha|}\Bigr)|f_D|
+  \prod_{\beta\in A}|\beta|.
+\]
 \end{theorem}
 
 \begin{proof}
@@ -1289,9 +1325,12 @@ $\Pi\le|f_j||w_M|+mG\le m(1-\lambda)(a-1+\lambda+R)/(\lambda(a-1))+mG$.
 Multiplying by $\lambda(1-\frac1a)$, in the three cases
 $\lambda(1-\frac1a)\Pi\le mQ$ with $Q$ one of
 \[
-  Q_2=\lambda\Bigl(1-\frac1a\Bigr)G,\qquad
-  Q_0=\frac{\lambda g}a+\lambda\Bigl(1-\frac1a\Bigr)(G-1),\qquad
-  Q_1=\frac{(1-\lambda)(a-1+\lambda+R)}a+\lambda\Bigl(1-\frac1a\Bigr)G ,
+  \begin{aligned}
+  Q_2&=\lambda\Bigl(1-\frac1a\Bigr)G,\\
+  Q_0&=\frac{\lambda g}a+\lambda\Bigl(1-\frac1a\Bigr)(G-1),\\
+  Q_1&=\frac{(1-\lambda)(a-1+\lambda+R)}a
+       +\lambda\Bigl(1-\frac1a\Bigr)G,
+  \end{aligned}
 \]
 and it remains that each is at most $2$.
 
@@ -1750,9 +1789,7 @@ for $a<k$, so the above applies with $g_0=n+1$, $g_1=n+2$ and $g_2=n+3$, as
 $n\ge7$; and $x_0<3n/((n+1)(n+2))\le\frac1{10}$ for $n\ge27$.  For
 $n\le29$, in the range of the statement, the side conditions hold and the
 three values of $\Phi$ are positive at the bounds, a finite computation in
-rational arithmetic
-(\texttt{test\_rows\_at\_separation\_n\_plus\_one} in
-\texttt{tests/test\_complex.py}).  Let $n\ge30$.  Then $\rho<\frac1{n+1}$,
+rational arithmetic.  Let $n\ge30$.  Then $\rho<\frac1{n+1}$,
 $\lambda>\frac1{n+1}$, $s<\frac1{n+2}$, $x_0<\frac1{10}$ and
 $q<\frac3{n+3}$.  Now
 $\gamma\ge(\frac n{n+1})^n>\frac13$, so $\frac1\gamma<3$ and $\theta<\gamma$;
@@ -2344,17 +2381,10 @@ No datasets were generated or analyzed in this study.
 One step relies on computation: in the proof of
 Corollary~\ref{cor:rowsplusone}, items~1 and~3, the positivity of the three
 values of $\Phi$ of Theorem~\ref{thm:rowspair} at the stated rational
-bounds, for $3\le n_k\le29$, is checked in exact rational arithmetic by
-\texttt{test\_rows\_at\_separation\_n\_plus\_one}; no other proof relies on
-computation.  The file \texttt{tests/test\_complex.py} in the
-repository of~\cite{coefficient-mass} checks the statements, on seeded
-random integer multiples and on the extremal examples, each group with a
-control showing that a false variant is caught; apart from that step,
-these checks test the statements and are not used in any proof.  Polynomial products,
-divisibility, coefficient magnitudes, central indices and Rouch\'e
-comparisons are computed in exact integer and rational arithmetic; floating
-point enters only in evaluating logarithms, in the right-hand sides of mass
-bounds and the tropical roots.
+bounds, for $3\le n_k\le29$, is checked in exact rational arithmetic.  No
+other proof relies on computation.  The accompanying source contains this
+finite verification and additional checks of the statements and extremal
+examples; the latter are not proof steps.
 
 \paragraph{Use of AI tools.}
 Large language model assistants (Claude, Anthropic) were used in drafting and

@@ -21,7 +21,7 @@ caches.
 ```bash
 git clone --recurse-submodules https://github.com/bangyen/coefficient-mass.git
 cd coefficient-mass
-git checkout v1.0.1
+git checkout v1.0.2
 uv sync --locked
 just check
 lake exe cache get
@@ -59,8 +59,8 @@ The source supplement already contains the recursively pinned `scripts/`
 submodule. It can be built without a Git checkout:
 
 ```bash
-tar -xzf coefficient-mass-1.0.1-source.tar.gz
-cd coefficient-mass-1.0.1
+tar -xzf coefficient-mass-1.0.2-source.tar.gz
+cd coefficient-mass-1.0.2
 uv sync --locked
 just check
 lake exe cache get

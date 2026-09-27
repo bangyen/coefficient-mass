@@ -768,9 +768,12 @@ So the prefix identity fails at $(\frac54,16,2)$ and at $(\frac54,17,3)$.
 $\nu_2(13)<\nu_1(13)$.  So the prefix identity holds at $(\frac54,14,2)$
 with its minimum at $i=1$: the second row is the top row of
 $(x-\frac54)^{13}$.
-\item[(d)] Let $r=\frac43$,
-$Z_3(18)=\{1,2,3,6,8,11,15,18,23,28,34,41,48,57,66,78,91,109\}$ and
-$Y_{18}=\{1,2,4,6,9,12,16,20,25,30,36,44,52,61,72,85,103\}$.  Then
+\item[(d)] Let $r=\frac43$ and
+\begin{align*}
+Z_3(18)&=\{1,2,3,6,8,11,15,18,23,28,34,41,48,57,66,78,91,109\},\\
+Y_{18}&=\{1,2,4,6,9,12,16,20,25,30,36,44,52,61,72,85,103\}.
+\end{align*}
+Then
 $V_r(19,2)=1/\eta_3(18)=1/\Phi_r(Z_3(18))=1/\nu_4(16)=41.38\ldots$, while
 $\eta_2(18)<\nu_1(18)$ and
 $\min_{i\le2}1/\nu_i(18)=\beta_r(18)=1/\Phi_r(Y_{18})=42.34\ldots$.  So the
@@ -782,10 +785,7 @@ is $\sigma=3$, while $\sigma=2$ is not one.
 \begin{proof}
 The proof is computer-assisted: every number below is an exact rational,
 computed as described after Lemma~\ref{lem:vertexopt}, and every comparison
-is verified by exact rational arithmetic in \texttt{tests/test\_rows.py}
-(\texttt{test\_second\_row\_at\_five\_fourths\_fails} for (a) and (b),
-\texttt{test\_second\_row\_at\_five\_fourths\_holds} for (c),
-\texttt{test\_second\_row\_at\_four\_thirds} for (d)).  No floating
+is verified by exact rational arithmetic.  No floating
 point is used, and the decimals in the statement are truncations of the
 exact values, checked by exact comparison with the stated digits.  The
 finite computation is this.  For a set $Z$ of integers, $\Phi_r(Z)$ is the
@@ -824,16 +824,18 @@ $Y'_{15}=\{1,3,5,8,12,17,22,28,36,44,54,65,78,94,115\}$ if
 $\sigma\in Y'_{15}$; $\mathrm{ins}(Y_{15},\sigma)$ if $\sigma\notin Y_{15}$;
 $Y'_{15}$ with some element replaced by $\sigma$ (all $15$ replacements are
 tried) if $\sigma\notin Y'_{15}$.
-For each $\sigma$, \texttt{tests/test\_rows.py} generates these candidates
-and checks that one of them satisfies the bound.  Hence
+For each $\sigma$, an exact finite computation checks that one of these
+candidates satisfies the bound.  Hence
 $\sup_\sigma\eta_\sigma(15)=\Phi_r(Z_2(15))$, and
 \cite[Proposition~2.1(b)]{coefficient-mass-rows} gives $V_r(16,2)=1/\Phi_r(Z_2(15))$.  Since
 $[1,2]\subseteq Z_2(15)$,
 $\eta_2(15)\le\nu_3(14)=\mu_r([1,2],16)\le\Phi_r(Z_2(15))=\eta_2(15)$.  Finally
 $\nu_2(15)\le\Phi_r(Y'_{15})<\nu_1(15)$, as $1\in Y'_{15}$.
 
-(b) Lemma~\ref{lem:rowmono} and (a) give the first inequality.  With (a),
-the set $\{1,2,5,8,11,16,21,26,33,41,50,60,71,85,102,123\}\supseteq[1,2]$
+(b) Lemma~\ref{lem:rowmono} and (a) give the first inequality.  With (a), the set
+\[
+  \{1,2,5,8,11,16,21,26,33,41,50,60,71,85,102,123\}\supseteq[1,2]
+\]
 gives $\nu_3(15)<\nu_1(15)$, so
 $\min_{i\le3}1/\nu_i(15)=1/\nu_1(15)=\beta_r(15)$, which exceeds
 $1/\Phi_r(Z_2(15))$ by (a).
@@ -910,18 +912,17 @@ $\nu_2(50)>\nu_1(50)$.
 \end{proposition}
 
 \begin{proof}
+\emergencystretch=2em
 The proof is computer-assisted, by exact rational arithmetic as in
-Proposition~\ref{prop:secondrowexact}, in
-\texttt{test\_second\_row\_hypothesis\_fails} of
-\texttt{tests/test\_rows.py}, and again, with the series summed by a
-separate method, in \texttt{test\_second\_row\_hypothesis\_independently};
+Proposition~\ref{prop:secondrowexact}, with an independent check in which
+the series are summed by a separate method;
 no floating point is used, and the decimals
 are truncations of exact values.  Lemma~\ref{lem:vertexopt} with
 $S=\varnothing$, $\{1\}$ and $\{5\}$ gives the three equalities, recalling
 $\nu_2(50)=\mu_r(\{1\},51)$; for $Z_5(50)$ every inequality of the lemma is
 strict, so $r_{Z_5(50)}$ is the unique minimizer for $\eta_5(50)$.  The two
-inequalities between the values are exact comparisons.  Finally
-\cite[Proposition~2.1(b)]{coefficient-mass-rows} with $S=\{5\}$ gives
+inequalities between the values are exact comparisons.  Finally,
+Proposition~2.1(b) of~\cite{coefficient-mass-rows}, with $S=\{5\}$, gives
 $V_r(51,2)\le1/\mu_r(\{5\},51)=1/\eta_5(50)$.
 \end{proof}
 
@@ -1013,10 +1014,8 @@ identity~\eqref{eq:prefixid} fails at $(r,n+1,2)$.
 
 \begin{proof}
 The proof is computer-assisted, by exact rational arithmetic as in
-Proposition~\ref{prop:secondrowexact}, in
-\texttt{test\_second\_row\_fails\_on\_an\_interval} of
-\texttt{tests/test\_rows.py}.  The file \texttt{tests/second\_row\_cover.json}
-lists $49$ tuples $(r_0,r_1,n,2,Y,Y',Z)$, with rational endpoints over
+Proposition~\ref{prop:secondrowexact}.  The certificate consists of
+$49$ tuples $(r_0,r_1,n,2,Y,Y',Z)$, with rational endpoints over
 denominators dividing $2\cdot10^4$ and $n$ nonincreasing from $68$ to $10$.  The
 test checks that each tuple satisfies the hypotheses of
 Proposition~\ref{prop:failinterval} with $\sigma=2$: the sizes, $1\in Y'$,
@@ -1057,8 +1056,7 @@ move out together, and a threshold for one far zero does not serve two.  At
 $r=\frac54$ and $p_*=r_{Y_{15}}$ of Proposition~\ref{prop:secondrowexact}
 the threshold of Theorem~\ref{thm:secondrow} is $\sigma_*=25$, while the
 zeros $25$ and $26$ together raise $\Phi_r(p_*)$ by more than half
-(exact rational arithmetic, \texttt{test\_far\_zeros} in
-\texttt{tests/test\_rows.py}).  Lemma~\ref{lem:farzeros} gives a threshold
+(verified by exact rational arithmetic).  Lemma~\ref{lem:farzeros} gives a threshold
 for up to $m$ far zeros at once.  It depends on the exempted positions below
 it, and the positions that stay below the thresholds form a finite tree.  So
 each row is the minimum of the row before it on its diagonal and finitely
@@ -1232,10 +1230,7 @@ $(\frac32,10,3)$ with its minimum at $i=1$.
 
 \begin{proof}
 The proof is computer-assisted, by exact rational arithmetic as in
-Proposition~\ref{prop:secondrowexact}, in \texttt{tests/test\_rows.py}
-(\texttt{test\_third\_row\_below\_second} for (a),
-\texttt{test\_third\_row\_fails\_alone} for (b),
-\texttt{test\_third\_row\_is\_top\_row} for (c)); no floating point is
+Proposition~\ref{prop:secondrowexact}; no floating point is
 used, and the decimals are truncations of exact values.  Each lower bound for a row comes from
 Theorem~\ref{thm:finiterows}(b) with $q_\varnothing=r_Y$ for the set $Y$
 named in that part, $q_N=r_{K_N}$ for sets $K_N\supseteq N$ of at most
@@ -1252,11 +1247,12 @@ $N\cup\{\sigma\}$ that it misses, taken in increasing order, put in place of
 one of the two elements outside $N\cup\{\sigma\}$ nearest to it, in every
 combination.  The fixed sets are
 \begin{align*}
-  \text{(a)}\quad&\{1,3,5,8,12,16,21,28,35,44,56,71\},\
-  \{1,3,5,8,11,15,20,26,32,40,50,62,77\},\\
-  \text{(b)}\quad&\{1,3,5,7,10,14,18,24,30,37,45,55,67,83\},\
-  \{1,3,4,7,10,13,17,22,28,34,42,50,61,73,90\},\\
-  \text{(c)}\quad&\{1,3,5,8,12,17,24,33\},\ \{1,3,5,8,11,15,21,28,37\},
+  \text{(a)}\quad&\{1,3,5,8,12,16,21,28,35,44,56,71\},\\
+  &\{1,3,5,8,11,15,20,26,32,40,50,62,77\},\\
+  \text{(b)}\quad&\{1,3,5,7,10,14,18,24,30,37,45,55,67,83\},\\
+  &\{1,3,4,7,10,13,17,22,28,34,42,50,61,73,90\},\\
+  \text{(c)}\quad&\{1,3,5,8,12,17,24,33\},\\
+  &\{1,3,5,8,11,15,21,28,37\},
 \end{align*}
 of $n$ and $n+1$ integers, used for children of size one and two.  Among
 the candidates with at most $n+|N|$ elements the test keeps one with the
@@ -1288,9 +1284,13 @@ $V_r(14,3)=1/B$.  With $m=1$, $B=\Phi_r(Z_2(12))$ and the position $2$ given
 $Z_2(12)$, the same check gives $V_r(13,2)\ge1/\Phi_r(Z_2(12))$, and $S=\{2\}$ gives
 equality.  Since $[1,2]\subseteq Z_2(12)$,
 $\eta_2(12)\le\nu_3(11)=\mu_r([1,2],13)\le\Phi_r(Z_2(12))=\eta_2(12)$.  Finally
-the sets $\{1,3,5,8,12,16,21,28,35,44,56,71\}\ni1$,
-$\{1,2,5,7,11,15,20,25,32,40,50,61,77\}\supseteq[1,2]$ and
-$\{1,2,3,7,10,14,18,23,29,37,45,55,67,83\}\supseteq[1,3]$ give
+the sets
+\begin{align*}
+\{1,3,5,8,12,16,21,28,35,44,56,71\}&\ni1,\\
+\{1,2,5,7,11,15,20,25,32,40,50,61,77\}&\supseteq[1,2],\\
+\{1,2,3,7,10,14,18,23,29,37,45,55,67,83\}&\supseteq[1,3]
+\end{align*}
+and give
 $\nu_i(12)<\nu_1(12)$ for $i=2,3,4$, so
 $\min_{i\le4}1/\nu_i(12)=1/\nu_1(12)$, and Lemma~\ref{lem:rowmono} gives
 $V_r(15,4)\le V_r(14,3)$.
@@ -1305,9 +1305,13 @@ attained only at $\{2,3\}$.  With $m=1$ and $B=\Phi_r(Y_{14})$ it gives
 $V_r(15,2)\ge\beta_r(14)$, and \cite[Proposition~2.1(c)]{coefficient-mass-rows} gives
 equality.  Since $[1,3]\subseteq Z_{2,3}(14)$,
 $\mu_r(\{2,3\},16)\le\mu_r([1,3],16)=\nu_4(13)\le\Phi_r(Z_{2,3}(14))$, so all
-three are equal.  The sets $\{1,3,5,7,10,14,18,24,30,37,45,55,67,83\}\ni1$,
-$\{1,2,4,7,10,13,17,22,28,34,42,50,61,73,90\}\supseteq[1,2]$ and
-$\{1,2,3,6,9,12,16,21,26,32,39,46,55,66,79,96\}\supseteq[1,3]$ give
+three are equal.  The sets
+\begin{align*}
+\{1,3,5,7,10,14,18,24,30,37,45,55,67,83\}&\ni1,\\
+\{1,2,4,7,10,13,17,22,28,34,42,50,61,73,90\}&\supseteq[1,2],\\
+\{1,2,3,6,9,12,16,21,26,32,39,46,55,66,79,96\}&\supseteq[1,3]
+\end{align*}
+and give
 $\nu_i(14)<\nu_1(14)$ for $i=2,3,4$, and Lemma~\ref{lem:rowmono} gives
 $V_r(17,4)\le V_r(16,3)$.
 
@@ -1437,10 +1441,8 @@ the prefix identity fails at some $(r,L,k)$.
 
 \begin{proof}
 The proof is computer-assisted, by exact rational arithmetic as in
-Proposition~\ref{prop:secondrowexact}, in
-\texttt{test\_block\_rows\_fail\_on\_an\_interval} of
-\texttt{tests/test\_rows.py}.  The file \texttt{tests/block\_row\_cover.json}
-lists $27$ tuples $(r_0,r_1,n,k,Z\setminus[2,k],(j_l,Y_l\setminus[1,j_l-1])_l)$,
+Proposition~\ref{prop:secondrowexact}.  The certificate consists of
+$27$ tuples $(r_0,r_1,n,k,Z\setminus[2,k],(j_l,Y_l\setminus[1,j_l-1])_l)$,
 with rational endpoints over denominators dividing $2\cdot10^4$.  The test
 checks that each tuple satisfies the hypotheses of
 Proposition~\ref{prop:blockinterval}: the sizes, the anchors
@@ -1468,18 +1470,15 @@ No datasets were generated or analyzed in this study.  The exact
 computations behind Propositions~\ref{prop:secondrowexact},
 \ref{prop:secondrowhyp} and~\ref{prop:thirdrowexact} and
 Theorems~\ref{thm:failinterval} and~\ref{thm:blockinterval} are in
-\texttt{tests/test\_rows.py}, with the certificates of
-Theorems~\ref{thm:failinterval} and~\ref{thm:blockinterval} in
-\texttt{tests/second\_row\_cover.json} and
-\texttt{tests/block\_row\_cover.json}, of the repository
-\href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass};
-they need Python~3.12 or later.
+the accompanying versioned source archive, together with the rational
+certificates and reproduction instructions.
 
 \paragraph{Computer assistance.}
 Propositions~\ref{prop:secondrowexact}, \ref{prop:secondrowhyp}
 and~\ref{prop:thirdrowexact} and Theorems~\ref{thm:failinterval}
-and~\ref{thm:blockinterval} are the only computer-assisted results; every other result is proved by hand.  Their
-proofs reduce each claim, through Lemma~\ref{lem:vertexopt},
+and~\ref{thm:blockinterval} are the only computer-assisted results.  Every
+other result is proved by hand.  Their proofs reduce each claim, through
+Lemma~\ref{lem:vertexopt},
 Theorem~\ref{thm:secondrow}(a), Theorem~\ref{thm:finiterows}(b) and
 Propositions~\ref{prop:failinterval} and~\ref{prop:blockinterval}, to
 finitely many comparisons of explicit rational numbers: the vertex test of
@@ -1490,37 +1489,14 @@ the comparisons with the stated decimals, and, for
 Theorems~\ref{thm:failinterval} and~\ref{thm:blockinterval}, the
 comparisons of Propositions~\ref{prop:failinterval}
 and~\ref{prop:blockinterval} for each listed tuple and the order of
-their endpoints.  The tests
-\texttt{test\_second\_row\_*} (including
-\texttt{test\_second\_row\_hypothesis\_fails} and
-\texttt{test\_second\_row\_fails\_on\_an\_interval}),
-\texttt{test\_third\_row\_*} and
-\texttt{test\_block\_rows\_fail\_on\_an\_interval} in
-\texttt{tests/test\_rows.py} carry out these comparisons in exact rational
-arithmetic (Python's \texttt{fractions} module), evaluating $\Phi_r$, $G_y$
-and $\Delta_{q,m}$ through the closed form described after
-Lemma~\ref{lem:vertexopt}, with no floating point; these computations are
-steps of the proofs.  The zero sets were found by search, and only their
-verification is part of the proofs.  The value $\sigma_*=25$ and the
-comparison for the zeros $25$ and $26$ quoted in
-Section~\ref{sec:finiterows} are computed in the same way
-(\texttt{test\_far\_zeros}) and are illustrations, not used in any proof.
-The floating-point experiments reported after
-Proposition~\ref{prop:secondrowhyp} and after
-Theorems~\ref{thm:failinterval} and~\ref{thm:blockinterval} are not part
-of any proof or test; they
-only guided the search for the zero sets and the intervals.
-The remaining tests are checks, not proof steps.
-\texttt{test\_prefix\_identity\_fails\_below\_two} builds from
-$Z_2(15)$, by complementary slackness, an explicit monic multiple of
-$(x-\frac54)^{16}$ of degree $300$ with rational coefficients, verifies the
-divisibility by $16$ exact synthetic divisions, and checks that its second
-largest nonleading coefficient magnitude is at most $6.5695$, an
-independent primal check of the upper bound in
-Proposition~\ref{prop:secondrowexact}(a).  Other tests check the closed
-form for $\Phi_r$ and the vertex test on known cases.  Each check
-is paired with a control that it must reject.  The whole file runs in under a
-minute.
+their endpoints.  These comparisons evaluate $\Phi_r$, $G_y$ and
+$\Delta_{q,m}$ from the closed form following
+Lemma~\ref{lem:vertexopt}, entirely in exact rational arithmetic.  The zero
+sets were found by search, but only their finite exact verification is part
+of the proofs.  The reported floating-point experiments only guided that
+search.  The archive also contains an independent rational primal check of
+Proposition~\ref{prop:secondrowexact}(a) and further consistency checks;
+these are not proof steps.
 
 \paragraph{Use of AI tools.}
 Large language model assistants (Claude, Anthropic) were used in drafting

@@ -1,6 +1,6 @@
 [project]
 name = "coefficient-mass"
-version = "1.0.1"
+version = "1.0.2"
 description = "Papers and executable checks on the coefficient mass of polynomial multiples"
 requires-python = ">=3.12"
 

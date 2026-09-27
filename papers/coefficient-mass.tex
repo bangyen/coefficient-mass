@@ -227,16 +227,9 @@ classify the root sets that make a row an infimum and does not determine the
 exact rows at a single root; these remain outside its scope.
 
 \paragraph{Formalization.}
-Every theorem, lemma, proposition and corollary in this paper has a
-corresponding proved Lean~4 statement in the accompanying source tree.  The
-formalization runs from the zero bound through
-Theorem~\ref{thm:order} and Corollary~\ref{cor:mass} to the end of
-Section~\ref{sec:sharp}.  It includes the equality case of
-Theorem~\ref{thm:tail}, the relaxation of $r_1\ge2$ to $r_1>1$ in the first
-row of Lemma~\ref{lem:slack} and Theorem~\ref{thm:order}, and the worked
-examples after Theorem~\ref{thm:tail}.  The closing formal-verification record
-states the precise correspondence, pins and reproduction commands; the Lean
-kernel, rather than the regression tests, verifies the formal proofs.
+Every result in this paper has a corresponding proved Lean~4 statement in the
+accompanying source.  The formalization follows the arguments given here and
+is supporting verification; the mathematical proofs are self-contained.
 
 \paragraph{Conventions.}
 All logarithms are natural, $\N_{>0}=\{1,2,\ldots\}$, and every asymptotic
@@ -1086,10 +1079,10 @@ $b_k(F)$.
 \end{proof}
 
 For $n\ge1$ consider the statement
-\begin{equation}\tag{$\ast_n$}\label{eq:starn}
+\[\tag{$\ast_n$}\label{eq:starn}
   \text{for every finite $A\subset\N_{>0}$ there is a finite $Z\supseteq A$
   with $|Z|\le|A|+n-1$ and $\Phi(Z)\le1/n$.}
-\end{equation}
+\]
 By Lemma~\ref{lem:rowcert} with $A=S$, row $k$ at $L$ follows, for every
 $D$, from \eqref{eq:starn} with $n=L-k+1$.  Two tools evaluate $\Phi$.
 
@@ -1420,55 +1413,28 @@ not close; that is why Proposition~\ref{prop:rowsfree} keeps different
 holes there.
 
 \paragraph{Formal-verification record.}
-Corollaries~\ref{cor:prime} and~\ref{cor:infimum} are formalized with
-explicit error terms.  The formal proofs use Chebyshev's bounds
-$\frac15 i\log i\le p_i\le 8i(\lfloor\log_2i\rfloor+1)$ in place
-of~\cite{rosser-schoenfeld}, prove Corollary~\ref{cor:allroots} with the
-explicit constants $\frac1{81}$ and $3$, and replace the asymptotic
-$S/(B+1)\sim L$ of Proposition~\ref{prop:unbounded} by the lower bound
-$S/(B+1)\ge L/2$.  The formal proofs are in the
-\path{CoefficientMass} directory of the source distribution and follow
-the proofs given here.  The principal correspondence is explicit:
-\path{ZeroBound.lean} contains the zero bound,
-\path{Consecutive.lean} and \path{Tail.lean} Theorem~\ref{thm:tail},
-\path{Certificate.lean} Lemma~\ref{lem:slack},
-\path{Order.lean} and \path{Chain.lean} the order-statistic and mass
-chain, \path{QuadJensen.lean} and \path{QuadMass.lean}
-Proposition~\ref{prop:quadratic}, and \path{RowStop.lean}
-Theorem~\ref{thm:everyrow}.  Module docstrings give the paper labels for the
-remaining results, and \path{tests/test_lean.py} checks that this label
-map and the advertised headline theorem names remain synchronized.
-
-Reproduction uses the Lean version pinned in \path{lean-toolchain} and
-the exact Mathlib commit pinned in \path{lake-manifest.json};
-\texttt{just lean} builds with warnings as errors and runs the pinned proof
-guards against unfinished proofs and added axioms.  The formal proof of
-Corollary~\ref{cor:mass} reports only propositional extensionality, choice and
-quotient soundness.  The zero bound is formalized for distinct zeros, with
-the sign changes at prescribed zeros derived from weak alternation.  The
-verification claim refers to the tagged source state and its recursively
-pinned dependencies, not to a mutable branch head.
+The accompanying Lean~4 development covers every stated result, including the
+equality case of Theorem~\ref{thm:tail}, the repeated-root arguments and the
+explicit estimates behind the asymptotic corollaries.  The formal proof of
+Corollary~\ref{cor:mass} uses only the standard axioms reported by Lean:
+propositional extensionality, choice and quotient soundness.  A versioned
+source archive supplies the full theorem correspondence and reproduction
+instructions.
 
 \paragraph{Code and materials availability.}
-No empirical dataset is used.  The
-\href{https://doi.org/10.5281/zenodo.22998724}{stable Zenodo archive series}
-resolves to the latest release.  The repository and accompanying release
-supplement contain the LaTeX sources, Lean
-formalization, pinned dependency manifests and executable checks; the proof
-guards are pinned as a Git submodule and included recursively in the
-self-contained release supplement.
-The script \texttt{tests/sweep.py} verifies the displayed rational
-examples and finite sharpness checks; \texttt{tests/masstwo.py} independently
-checks finite instances of the optimized Jensen rows in exact rational
-arithmetic.  These computations are regression checks, not premises of the
-proofs.
+No empirical dataset is used.  The LaTeX source, Lean formalization,
+reproduction instructions and exact-arithmetic checks are available in the
+\href{https://doi.org/10.5281/zenodo.22998724}{versioned Zenodo archive}.
+The computations check the displayed examples and finite instances; they are
+not premises of the proofs.
 
-\paragraph{Use of AI tools.}
-Large language model assistants (Claude by Anthropic and Codex by OpenAI)
-were used in drafting and revising the text, proofs, verification code and
-Lean formalization.  Their output was treated as untrusted draft material:
-the author checked the mathematical arguments, executable examples and
-formal statements and is responsible for the content.
+\paragraph{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process.}
+During the preparation of this work, the author used Claude by Anthropic and
+Codex by OpenAI to assist with drafting and revising text, proofs,
+verification code and Lean formalization.  The author reviewed and edited the
+output as needed, checked the mathematical arguments, executable examples,
+citations and formal statements, and takes full responsibility for the
+content of the published article.
 
 \paragraph{Funding and competing interests.}
 The author received no specific funding for this work and has no competing
@@ -1556,7 +1522,7 @@ A.~Pinkus,
 \newblock \emph{Totally Positive Matrices},
 \newblock Cambridge University Press, 2009,
 \newblock \href{https://doi.org/10.1017/CBO9780511691713}
-{doi:10.1017/CBO9780511691713}.
+{doi:10.1017/\allowbreak CBO9780511\allowbreak 691713}.
 
 \bibitem{polya-szego}
 G.~P\'olya and G.~Szeg\H{o},

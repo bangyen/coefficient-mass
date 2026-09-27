@@ -355,11 +355,14 @@ $d_1,\ldots,d_n\ge0$ the linear map $v\mapsto(v_{d_1},\ldots,v_{d_n})$ from
 $\mathcal H(R)$ to $\R^n$ is injective, hence bijective: any $n$ values at
 $d_1,\ldots,d_n$ are taken by exactly one element of $\mathcal H(R)$.
 
-(ii) \emph{Generating functions.}  $\mathcal H(R)$ is the set of sequences
-whose generating function is $N(x)/\Pi(x)$ with $\deg N\le n-1$.  By
-induction on $a$,
-$\sum_{d\ge0}d^az^dx^d=(x\,d/dx)^a(1-zx)^{-1}=A_a(x)/(1-zx)^{a+1}$ with
-$\deg A_a\le a$, since $x\,d/dx$ sends $A/(1-zx)^{a+1}$ to
+(ii) \emph{Generating functions.}  The space $\mathcal H(R)$ consists of sequences
+whose generating function is $N(x)/\Pi(x)$ with $\deg N\le n-1$.  Induction
+on $a$ gives
+\[
+  \sum_{d\ge0}d^az^dx^d=(x\,d/dx)^a(1-zx)^{-1}
+  =\frac{A_a(x)}{(1-zx)^{a+1}},\qquad \deg A_a\le a,
+\]
+since $x\,d/dx$ sends $A/(1-zx)^{a+1}$ to
 $\bigl(xA'(1-zx)+(a+1)zxA\bigr)/(1-zx)^{a+2}$.  For $z=z_l$ and $a<m_l$ the
 factor $(1-z_lx)^{a+1}$ divides $\Pi$, so this is $N/\Pi$ with
 $\deg N\le a+n-(a+1)=n-1$.  So $\mathcal H(R)$ lies in the space of such
@@ -862,9 +865,9 @@ $\Tail(v)\le\tau^*-\varepsilon/2$, against the definition of $\tau^*$.
 
 \begin{proposition}[The minimum $\tau^*$ at repeated roots]\label{prop:attainrep}
 In the setting of Theorem~\ref{thm:valuerep}, $\tau^*$ is a minimum, achieved
-by a full certificate on $\mathcal H_u$, and some monic $M\in\R[x]$ has
-$\max_{j\ge1}|S_j(P_uM)|=1/\tau^*$; moreover
-$\max_{j\ge1}|S_j(P_uM)|\ge1/\tau^*$ for every monic $M$.
+by a full certificate on $\mathcal H_u$.  Some monic $M\in\R[x]$ has
+$\max_{j\ge1}|S_j(P_uM)|=1/\tau^*$.  Moreover this maximum is at least
+$1/\tau^*$ for every monic $M$.
 \end{proposition}
 
 \begin{proof}
@@ -1133,9 +1136,11 @@ $\varphi(d)\ne\varphi(d-1)$ only when $d-1\in Z$, where $G$ vanishes,
 $\sum_{d\ge1}\varphi(d)G(d)=\sum_{d\ge1}\varphi(d)G(d-1)$.  With
 \eqref{eq:runsigns} and \eqref{eq:runG} this gives
 \begin{equation}\label{eq:runsplit}
+  \begin{aligned}
   \Tail(V)-\sum_j\lambda_j\Tail(V_j)-\mu\Tail(w)
-  =\sum_{d=1}^{g}|G(d-1)|+\sum_{d>g}\varphi(d)E(d),
-  \qquad E(d)=G(d-1)+2\mu\,w(d),
+    &=\sum_{d=1}^{g}|G(d-1)|+\sum_{d>g}\varphi(d)E(d),\\
+  E(d)&=G(d-1)+2\mu\,w(d).
+  \end{aligned}
 \end{equation}
 and it remains to show $\varphi(d)E(d)\ge0$ for every integer $d>g$.
 
@@ -1197,9 +1202,7 @@ and $A=\{7\}$,
 \end{align*}
 computed by exact rational arithmetic (the finite part up to the largest
 zero, then geometric series, the sign past it fixed by the zero bound, as in
-the proof of Theorem~\ref{thm:elevenvalue}) in
-\texttt{test\_run\_chord\_control\_above\_cutoff}
-(\texttt{tests/test\_attainment.py}).
+the proof of Theorem~\ref{thm:elevenvalue}).
 
 \begin{theorem}[The escaping placement is extremal]\label{thm:extremal}
 Let $2\le r_1<\cdots<r_L$ and $0\le u\le L-1$.  For every $0\le k<u$ and every
@@ -1384,9 +1387,8 @@ gives the full certificate on all four nodes with zero set $\{1,3,5\}$,
 and tail $|w_2|+|w_4|+\bigl|\sum_{d\ge6}w_d\bigr|
 =\tfrac{96935}{3398808}=0.02852\ldots>\tfrac{31}{1704}$ (by the zero bound
 $w_d$ has one sign for $d\ge6$, so the last term is a sum of four
-geometric series).  These weights are checked, with the tail, by exact
-rational arithmetic in \texttt{test\_below\_two}
-(\texttt{tests/test\_attainment.py}).
+geometric series).  These weights and the tail are checked by exact rational
+arithmetic.
 Section~\ref{sec:belowtwo} shows that $\{5\}$ is the worst placement there,
 so the infimum is $\tfrac{3398808}{96935}$ (Theorem~\ref{thm:elevenvalue}).
 
@@ -1412,8 +1414,14 @@ satisfies
 \[
   1\le\max_{j\ge1,\,j\notin X}\bigl|S_j(PM)\bigr|\cdot\Tail(v),
 \]
-so $\tau(X)\ge1/\max_{j\ge1,\,j\notin X}|S_j(PM)|$.  If $|X|=u\le L-1$, then
-$\inf_Qb_{u+1}(QP)\le\max_{j\ge1,\,j\notin X}|S_j(PM)|$ over monic $Q$.
+so
+\[
+  \tau(X)\ge\frac1{\max_{j\ge1,\,j\notin X}|S_j(PM)|}.
+\]
+If $|X|=u\le L-1$, then, over monic $Q$,
+\[
+  \inf_Qb_{u+1}(QP)\le\max_{j\ge1,\,j\notin X}|S_j(PM)|.
+\]
 \end{lemma}
 
 \begin{proof}
@@ -1595,8 +1603,7 @@ all below $\theta=0.02852\ldots$.  So $T=\theta$, achieved
 only at $\{5\}$, and Theorem~\ref{thm:value} gives the infimum.
 
 The facts about $H$ and the seven tails are a computer-assisted
-verification by exact rational arithmetic, in \texttt{test\_value\_eleven\_tenths}
-(\texttt{tests/test\_attainment.py}); no step uses floating point, and the
+verification by exact rational arithmetic; no step uses floating point, and the
 decimals above are truncations of exact rationals.  The test solves the
 $3\times3$ system for $H$ over $\mathbb Q$ and compares it with the display;
 forms $\Tail(H)=\sum_{d\le3}|H_d|+\sum_{d\ge4}H_d$, the last sum a
@@ -1619,8 +1626,7 @@ $\{1,3,x\}$, has tail $\tfrac{199}{4200}$ at $x=4$, $\theta$ at $x=5$, and
 the values displayed in the proof at $x=6,\ldots,10$; against
 $\tau^*=\tfrac{31}{1704}=0.018192\ldots$, it costs more than $\tau^*$ at
 $x=4,\ldots,9$ and less at $x=10$, where its tail is $0.018189\ldots$.
-These comparisons are also checked exactly in
-\texttt{test\_value\_eleven\_tenths}.  By Theorem~\ref{thm:noattain} no
+These comparisons are also checked exactly.  By Theorem~\ref{thm:noattain} no
 multiple attains the infimum.
 
 \begin{proposition}[The cutoff is sharp]\label{prop:cutoffsharp}
@@ -1664,6 +1670,8 @@ placement stays extremal, which depends on more than $r_1$
 of~\cite{coefficient-mass-family}, extremal exactly for $r\ge1.4658\ldots$).
 \end{itemize}
 
+\begingroup
+\emergencystretch=2em
 \paragraph{Relation to the literature.}  The nearest work is the reduced
 height of Dubickas and Jankauskas~\cite{dj}, which is our infimum at $u=0$;
 its relatives, Schinzel's reduced length~\cite{schinzel} and the minimal
@@ -1676,53 +1684,38 @@ of $F$ and over all additional real or complex roots.  In the opposite
 direction, the degree of an integer polynomial of height $H\ge2$ all of whose
 roots are nonzero rationals is at most a constant times $\log H$~\cite{htv},
 and the minimal height of a degree-$n$ polynomial over a fixed number
-field $\mathbb K$ with all roots in $\mathbb K^\times$ grows exponentially in $n$~\cite{tromp}.  At
-$u=0$ the infimum of $b_1(QP)$ over monic $Q$ is the reduced height of $P$,
+field $\mathbb K$ with all roots in $\mathbb K^\times$ grows exponentially in
+$n$~\cite{tromp}.  At $u=0$ the infimum of $b_1(QP)$ over monic $Q$ is the reduced height of $P$,
 the $\ell^\infty$ member of a family
 of extremal problems over normalized multiples: reduced length minimizes
 $\ell^1$~\cite{schinzel}, and the integer-polynomial $\ell^2$ analogue, the
 minimal Euclidean norm of an algebraic number, is effectively
 computable~\cite{frw}.  For $u\ge1$ the infimum of $b_{u+1}$, which ignores
 the $u$ largest nonleading coefficient magnitudes, is an order-statistic
-variant of the reduced height.  Dubickas and Jankauskas evaluate the tail
-of the certificate with a consecutive zero set under a sign
-condition~\cite[p.~333]{dj}, which
-\cite[Lemma~2.1]{coefficient-mass} removes, and the case $u=0$ of the
-construction of Section~\ref{sec:criterion} is their
-Corollary~7~\cite{dj}.
+variant of the reduced height.  Dubickas and Jankauskas evaluate the tail of
+the certificate with a consecutive zero set under a sign
+condition~\cite[p.~333]{dj}.  That condition is removed by
+\cite[Lemma~2.1]{coefficient-mass}.  The case $u=0$ of the construction in
+Section~\ref{sec:criterion} is their Corollary~7~\cite{dj}.
+\par
+\endgroup
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.  The exact
-computations quoted in the paper are in \texttt{tests/test\_attainment.py},
-with helpers in \texttt{tests/sweep.py}, of the repository
-\href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass},
-and run with \texttt{uv run pytest tests/test\_attainment.py}.
+computations and reproduction instructions are available in the accompanying
+versioned source archive.
 
 \paragraph{Computer assistance.}
 Two computations are computer-assisted: a step of the proof of
 Theorem~\ref{thm:elevenvalue}, and the failure of \eqref{eq:runchord} above
-the cutoff.  In Theorem~\ref{thm:elevenvalue}, the sum $H$, its tail, the
-threshold $N=11$ and the tails of the seven full certificates for the
-placements $x=2,4,6,7,8,9,10$, with their comparisons with $\theta$, are
-computed over $\mathbb Q$ in \texttt{test\_value\_eleven\_tenths}.  The
-statement after Proposition~\ref{prop:runchord} that \eqref{eq:runchord}
-can fail above the cutoff rests on the two rationals computed in
-\texttt{test\_run\_chord\_control\_above\_cutoff}.  All arithmetic is exact,
-with Python \texttt{fractions.Fraction} and no floating point, and every
-decimal in the paper is a truncation of an exact rational.  The other
-computations only check steps proved by hand: the example after
-Theorem~\ref{thm:extremal} (\texttt{test\_extremal\_example\_2357}); the
-multiple $F$ of Proposition~\ref{prop:belowtwo} and the certificate with
-zero set $\{1,3,5\}$ after it (\texttt{test\_below\_two}); the partial sums
-of $PM$ in Theorem~\ref{thm:elevenvalue} and the comparisons in the remark
-after it (\texttt{test\_value\_eleven\_tenths}); and
-Proposition~\ref{prop:cutoffsharp} (\texttt{test\_cutoff\_sharp}).  The
-file also holds tests used in no proof: seeded random exact checks of
-Proposition~\ref{prop:runchord} and of the identity in
-Theorem~\ref{thm:halfmass}(b), and exact linear programs over monic
-multiples of bounded degree, which confirm the value $\tfrac{1704}{31}$ at
-$(2,3,5,7)$ and serve as controls that no multiple found undercuts a stated
-infimum.
+the cutoff.  For Theorem~\ref{thm:elevenvalue}, exact rational arithmetic
+computes the sum $H$, its tail, the threshold $N=11$, and the tails of the
+seven full certificates for $x=2,4,6,7,8,9,10$, and verifies their stated
+comparisons with $\theta$.  The assertion after
+Proposition~\ref{prop:runchord} is likewise certified by an exact comparison
+of two rational numbers.  No floating-point calculation enters either
+argument.  All other computations are independent checks of steps proved in
+the text and are not used as proof premises.
 
 \paragraph{Use of AI tools.}
 Large language model assistants (Claude, Anthropic) were used in drafting
