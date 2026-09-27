@@ -1,0 +1,23 @@
+title: "Displaced-Zero Certificates and the Coefficient Mass of Polynomial Multiples"
+article_type: "Research paper"
+corresponding_author:
+  name: "Bangyen Pham"
+  affiliation: "Independent Researcher"
+  email: "bangyenp@gmail.com"
+  orcid: "0009-0006-9928-2088"
+msc_2020:
+  primary: ["11C08"]
+  secondary: ["15B48", "26C05", "41A50"]
+keywords:
+  - "polynomial multiples"
+  - "coefficient mass"
+  - "reduced height"
+  - "Chebyshev systems"
+  - "exponential sums"
+artifact:
+  concept_doi: "10.5281/zenodo.22998724"
+  version_1_0_0_doi: "10.5281/zenodo.22998725"
+classifications:
+  - "Number theory"
+  - "Polynomial height"
+  - "Approximation and inequalities"

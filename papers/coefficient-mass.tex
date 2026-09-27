@@ -40,9 +40,10 @@ mass $\Lambda(F)=\sum_j\log^+|f_j|$ of a monic multiple from below by
 $\sum_ii\log(r_i-1)$.  At the first $L$ primes, the infimum over real monic
 multiples is
 $\frac12L^2\log L+\frac12L^2\log\log L+O(L^2)$.
-With a Jensen-formula bound of order $L^2$, this gives
-$\inf\Lambda\asymp L^2+\sum_ii\log(r_i-1)$ over real monic multiples at every
-root set with $L\ge2$.  The key tool is a tail theorem for normalized
+With a Jensen-formula bound of order $L^2$, this gives the infimum over real
+monic multipliers asymptotic order
+$L^2+\sum_ii\log(r_i-1)$ at every root set with $L\ge2$.  The key tool is a
+tail theorem for normalized
 exponential sums in the reciprocal roots with
 prescribed positive-integer zeros: deleting a displaced largest zero
 together with the largest node strictly increases the $\ell^1$ tail, which
@@ -52,7 +53,8 @@ yields a product bound over the initial run of consecutive zeros.
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; reduced
 height; Chebyshev systems; exponential sums.
 
-\noindent\textbf{2020 Mathematics Subject Classification.} Primary 11C08; Secondary 26C05, 41A50.
+\noindent\textbf{2020 Mathematics Subject Classification.} Primary 11C08;
+Secondary 15B48, 26C05, 41A50.
 
 \section{Introduction}
 
@@ -232,41 +234,9 @@ Theorem~\ref{thm:order} and Corollary~\ref{cor:mass} to the end of
 Section~\ref{sec:sharp}.  It includes the equality case of
 Theorem~\ref{thm:tail}, the relaxation of $r_1\ge2$ to $r_1>1$ in the first
 row of Lemma~\ref{lem:slack} and Theorem~\ref{thm:order}, and the worked
-examples after Theorem~\ref{thm:tail}.
-
-Corollaries~\ref{cor:prime} and~\ref{cor:infimum} are formalized with
-explicit error terms.  The formal proofs use Chebyshev's bounds
-$\frac15 i\log i\le p_i\le 8i(\lfloor\log_2i\rfloor+1)$ in place
-of~\cite{rosser-schoenfeld}, prove Corollary~\ref{cor:allroots} with the
-explicit constants $\frac1{81}$ and $3$, and replace the asymptotic
-$S/(B+1)\sim L$ of Proposition~\ref{prop:unbounded} by the lower bound
-$S/(B+1)\ge L/2$.  The formal proofs are in the
-\texttt{CoefficientMass} directory of the source distribution accompanying
-this manuscript and follow the proofs given here.  The principal
-correspondence is explicit:
-\texttt{ZeroBound.lean} contains the zero bound,
-\texttt{Consecutive.lean} and \texttt{Tail.lean} Theorem~\ref{thm:tail},
-\texttt{Certificate.lean} Lemma~\ref{lem:slack},
-\texttt{Order.lean} and \texttt{Chain.lean} the order-statistic and mass
-chain, \texttt{QuadJensen.lean} and \texttt{QuadMass.lean}
-Proposition~\ref{prop:quadratic}, and \texttt{RowStop.lean}
-Theorem~\ref{thm:everyrow}.  Module docstrings give the paper labels for the
-remaining results, and \texttt{tests/test\_lean.py} checks that this label
-map and the advertised headline theorem names remain synchronized.  That
-test checks correspondence metadata; the Lean kernel, rather than the
-Python test, verifies the formal proofs.
-
-Reproduction uses the Lean version pinned in \texttt{lean-toolchain} and
-the exact Mathlib commit pinned in \texttt{lake-manifest.json};
-\texttt{just lean} builds with
-warnings as errors and runs guards against unfinished proofs and added
-axioms.  The formal proof of Corollary~\ref{cor:mass} reports only
-propositional extensionality, choice and quotient soundness.  The zero bound
-is formalized for distinct zeros, with the sign changes at prescribed zeros
-derived from weak alternation.  The manuscript, Lean sources, dependency
-manifest and checks are intended to be archived as one submission artifact;
-the verification claim refers to that accompanying source state, not to a
-mutable branch head.
+examples after Theorem~\ref{thm:tail}.  The closing formal-verification record
+states the precise correspondence, pins and reproduction commands; the Lean
+kernel, rather than the regression tests, verifies the formal proofs.
 
 \paragraph{Conventions.}
 All logarithms are natural, $\N_{>0}=\{1,2,\ldots\}$, and every asymptotic
@@ -1170,7 +1140,10 @@ For every $N\ge m$, with $\Phi$ as in \eqref{eq:phi},
 \[
   \Phi\bigl(\{1,\ldots,N\}\setminus C\bigr)=\int_0^1v^{N-m}M_C(v)\,dv,
   \qquad
-  M_C(v)=\sum_{c\in C}2^{-c}v^{m-c}\bigl(\pi_c(1+v)^{c-1}+|\pi_c|(1-v)^{c-1}\bigr).
+  \begin{aligned}
+  M_C(v)=\sum_{c\in C}2^{-c}v^{m-c}\bigl(&\pi_c(1+v)^{c-1}\\
+    &+|\pi_c|(1-v)^{c-1}\bigr).
+  \end{aligned}
 \]
 \end{lemma}
 
@@ -1446,11 +1419,44 @@ exceeds $\frac12$ and the argument of Proposition~\ref{prop:rowstop} does
 not close; that is why Proposition~\ref{prop:rowsfree} keeps different
 holes there.
 
+\paragraph{Formal-verification record.}
+Corollaries~\ref{cor:prime} and~\ref{cor:infimum} are formalized with
+explicit error terms.  The formal proofs use Chebyshev's bounds
+$\frac15 i\log i\le p_i\le 8i(\lfloor\log_2i\rfloor+1)$ in place
+of~\cite{rosser-schoenfeld}, prove Corollary~\ref{cor:allroots} with the
+explicit constants $\frac1{81}$ and $3$, and replace the asymptotic
+$S/(B+1)\sim L$ of Proposition~\ref{prop:unbounded} by the lower bound
+$S/(B+1)\ge L/2$.  The formal proofs are in the
+\path{CoefficientMass} directory of the source distribution and follow
+the proofs given here.  The principal correspondence is explicit:
+\path{ZeroBound.lean} contains the zero bound,
+\path{Consecutive.lean} and \path{Tail.lean} Theorem~\ref{thm:tail},
+\path{Certificate.lean} Lemma~\ref{lem:slack},
+\path{Order.lean} and \path{Chain.lean} the order-statistic and mass
+chain, \path{QuadJensen.lean} and \path{QuadMass.lean}
+Proposition~\ref{prop:quadratic}, and \path{RowStop.lean}
+Theorem~\ref{thm:everyrow}.  Module docstrings give the paper labels for the
+remaining results, and \path{tests/test_lean.py} checks that this label
+map and the advertised headline theorem names remain synchronized.
+
+Reproduction uses the Lean version pinned in \path{lean-toolchain} and
+the exact Mathlib commit pinned in \path{lake-manifest.json};
+\texttt{just lean} builds with warnings as errors and runs the pinned proof
+guards against unfinished proofs and added axioms.  The formal proof of
+Corollary~\ref{cor:mass} reports only propositional extensionality, choice and
+quotient soundness.  The zero bound is formalized for distinct zeros, with
+the sign changes at prescribed zeros derived from weak alternation.  The
+verification claim refers to the tagged source state and its recursively
+pinned dependencies, not to a mutable branch head.
+
 \paragraph{Code and materials availability.}
-No empirical dataset is used.  The archived release cited below contains the
-LaTeX sources, Lean formalization, pinned dependency manifest and executable
-checks; release v1.0.0 is permanently archived at
-\href{https://doi.org/10.5281/zenodo.22998725}{doi:10.5281/zenodo.22998725}.
+No empirical dataset is used.  The
+\href{https://doi.org/10.5281/zenodo.22998724}{stable Zenodo archive series}
+resolves to the latest release.  The repository and accompanying release
+supplement contain the LaTeX sources, Lean
+formalization, pinned dependency manifests and executable checks; the proof
+guards are pinned as a Git submodule and included recursively in the
+self-contained release supplement.
 The script \texttt{tests/sweep.py} verifies the displayed rational
 examples and finite sharpness checks; \texttt{tests/masstwo.py} independently
 checks finite instances of the optimized Jensen rows in exact rational

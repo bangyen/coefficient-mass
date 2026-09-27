@@ -1,0 +1,10 @@
+title: "Displaced-Zero Certificates and the Coefficient Mass of Polynomial Multiples"
+authors: ["Bangyen Pham"]
+primary_category: "math.NT"
+cross_list: ["math.CA"]
+license: "CC BY 4.0"
+doi: "10.5281/zenodo.22998724"
+comments: >-
+  Main paper, including complete proofs; 2020 MSC 11C08 (primary), 15B48,
+  26C05, 41A50 (secondary). Accompanying Lean 4 formalization and executable
+  checks at the stable artifact DOI.

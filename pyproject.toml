@@ -1,6 +1,6 @@
 [project]
 name = "coefficient-mass"
-version = "1.0.0"
+version = "1.0.1"
 description = "Papers and executable checks on the coefficient mass of polynomial multiples"
 requires-python = ">=3.12"
 
@@ -16,4 +16,4 @@ select = ["E", "F", "I", "UP", "B"]
 [tool.codespell]
 # Lean's `numer` and hypothesis names, and the label `lem:optins`.
 ignore-words-list = "numer,hda,optins"
-skip = "*.lock,./.lake,./scripts"
+skip = "*.lock,*.pdf,*.build.log,./.lake,./scripts,./dist"

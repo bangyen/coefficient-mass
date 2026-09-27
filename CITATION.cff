@@ -6,13 +6,24 @@ authors:
   - family-names: Pham
     given-names: Bangyen
     orcid: "https://orcid.org/0009-0006-9928-2088"
+    affiliation: "Independent Researcher"
+    email: "bangyenp@gmail.com"
 repository-code: "https://github.com/bangyen/coefficient-mass"
-doi: "10.5281/zenodo.22998725"
-url: "https://doi.org/10.5281/zenodo.22998725"
+doi: "10.5281/zenodo.22998724"
+url: "https://doi.org/10.5281/zenodo.22998724"
 license: [CC-BY-4.0, MIT]
-version: 1.0.0
+version: 1.0.1
 date-released: 2026-09-27
 keywords:
   - polynomial multiples
   - coefficient mass
   - reduced height
+preferred-citation:
+  type: article
+  title: "Displaced-Zero Certificates and the Coefficient Mass of Polynomial Multiples"
+  authors:
+    - family-names: Pham
+      given-names: Bangyen
+      orcid: "https://orcid.org/0009-0006-9928-2088"
+      affiliation: "Independent Researcher"
+  year: 2026

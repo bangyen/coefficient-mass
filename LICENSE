@@ -1,8 +1,11 @@
-The papers (*.tex) are licensed under the Creative Commons Attribution 4.0
-International License (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+The paper sources (papers/*.tex), their rendered PDFs, and submission-facing
+prose are licensed under the Creative Commons Attribution 4.0 International
+License (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
 
-The code (tests/, tools/, justfile, and the Lean sources CoefficientMass/ and
-CoefficientMass.lean) is licensed under the MIT License:
+All other software and build configuration in this repository, including
+tests/, tools/, justfile, workflows, and the Lean sources CoefficientMass/
+and CoefficientMass.lean, is licensed under the MIT License unless a file or
+vendored dependency states a separate license:
 
 MIT License
 

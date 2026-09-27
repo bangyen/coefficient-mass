@@ -7,7 +7,7 @@ check: lint test
 lint:
     uv run ruff format --check tests tools
     uv run ruff check tests tools
-    uv run codespell papers tests tools CoefficientMass README.md ROADMAP.md
+    uv run codespell papers tests tools CoefficientMass README.md ROADMAP.md ARTIFACT.md SUBMISSION.md submission
 
 # chktex on the papers; the disabled warnings are ones the house style
 # contradicts (`~` before references, dashes in DOIs, `{}` around brackets)
@@ -44,6 +44,10 @@ pdf:
             exit 1
         fi
     done
+
+# assemble the main-paper journal files and a source archive with submodules
+submission:
+    bash tools/build_submission.sh
 
 # print pinned numbering for a citing repo, e.g. `just pin coefficient-mass:3.4`
 pin +refs:

@@ -43,10 +43,12 @@ jobs:
           curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net | sh
           sudo mv tectonic /usr/local/bin/
       - run: just pdf
+      - name: Build self-contained source and submission bundles
+        run: just submission
       - name: Publish the release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" papers/*.pdf \
+          gh release create "$GITHUB_REF_NAME" papers/*.pdf dist/release/* \
             --title "$GITHUB_REF_NAME" --generate-notes --verify-tag \
-            || gh release upload "$GITHUB_REF_NAME" papers/*.pdf --clobber
+            || gh release upload "$GITHUB_REF_NAME" papers/*.pdf dist/release/* --clobber

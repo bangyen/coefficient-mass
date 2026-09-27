@@ -1,6 +1,6 @@
 # coefficient-mass
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22998725.svg)](https://doi.org/10.5281/zenodo.22998725)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22998724.svg)](https://doi.org/10.5281/zenodo.22998724)
 
 Eight papers on how small the coefficients of a polynomial multiple can be
 when its roots are prescribed, with executable checks.
@@ -17,16 +17,20 @@ when its roots are prescribed, with executable checks.
 | [coefficient-mass-levelsets](papers/coefficient-mass-levelsets.tex) | Light integer multiples at Gaussian roots: one congruence for the lowest coefficients, level sets of a small polynomial, and Pell points |
 
 Open questions are in [ROADMAP](ROADMAP.md).
+Cold-machine reproduction instructions are in [ARTIFACT](ARTIFACT.md), and
+the main-paper journal package is specified in [SUBMISSION](SUBMISSION.md).
 
 ## Checks
 
 ```bash
+git submodule update --init # fetch the pinned proof guards
 uv sync      # pinned dev tools (pytest, ruff)
 just check   # lint, spelling and every test (~40s)
 just tex     # chktex on the papers (needs chktex)
 just sweep   # the coefficient-mass sweep with its printed tallies
 just masstwo # the L^2 constant at (x-2)^L, with its tables
 just pdf     # build the papers, failing on undefined references (needs tectonic)
+just submission # build the self-contained release and JNT submission bundles
 ```
 
 | Test | Checks |
@@ -124,7 +128,9 @@ just pin coefficient-mass:3.4 coefficient-mass-complex:2.1
 Pushing a tag `vN` (or `vN.M.K`) runs the release workflow: it checks the tag
 against the version in `pyproject.toml`, runs the checks, and attaches the
 compiled papers to a GitHub release, so a cited version keeps its PDFs.
-The `v1.0.0` release is archived at
+The stable archive-series DOI is
+[doi:10.5281/zenodo.22998724](https://doi.org/10.5281/zenodo.22998724); the
+`v1.0.0` release is archived at
 [doi:10.5281/zenodo.22998725](https://doi.org/10.5281/zenodo.22998725).
 Zenodo metadata for future releases is in `.zenodo.json`.
 
