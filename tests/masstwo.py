@@ -3,10 +3,11 @@
 Run:  just masstwo   (or python tests/masstwo.py); ``just test`` runs each
 check as a pytest test.
 
-``coefficient-mass.tex`` brackets the mass infimum at ``r_i = 2`` between
-``L**2/80`` (``prop:quadratic``) and ``Lambda((x-2)**L) ~ (1 + log 2)L**2/2``
-(``cor:near``, at ``Q = 1``).  The lower end is not the best that the same
-Jensen inequality gives, and the slack sits in two different places.
+``coefficient-mass.tex`` gives the elementary uniform bound ``L**2/80``
+(``prop:quadratic``) and the asymptotic Jensen constant below at ``r_i = 2``;
+``Lambda((x-2)**L) ~ (1 + log 2)L**2/2`` is the upper bound from ``Q = 1``.
+The checks here quantify where the improvement over the elementary constant
+comes from.
 ``eq:jensen`` holds for *every* ``1/2 < R < 1`` and *every* row ``k``, and
 ``prop:quadratic`` spends it once: it fixes ``R = 9/10`` and keeps only the
 rows ``k <= L/8``.
@@ -16,7 +17,8 @@ Evaluated exactly, ``R = 9/10`` over ``k <= L/8`` is already worth
 ``0.0509 L**2`` in the limit -- four times the constant it is rounded down to,
 and the ``paper /L^2`` column below climbs towards it.  Choosing ``R`` per row
 and keeping every row raises that to ``0.0647 L**2``, which is what this
-method is worth.  So ``1/80`` improves by a factor of ``5.2``, of which
+method is worth.  Thus optimizing the elementary ``1/80`` proof improves
+its constant by a factor of ``5.2``, of which
 ``1.27`` is the better ``R`` and the rest is arithmetic the paper did not
 need.
 
@@ -27,8 +29,8 @@ Put ``R_k = 1 - k/L``, which the density below singles out and which keeps
     Lambda(F) >= sum_k log+ beta_k,
 
 the rows sitting at ``L`` distinct positions and ``f_D = 1`` contributing
-nothing.  The sum is at least ``L**2/16`` for ``L >= 97`` and at least
-``L**2/20`` for ``L >= 14``, against ``L**2/80`` for ``L >= 8``.
+nothing.  The finite checks show that the sum exceeds ``L**2/16`` at
+``L = 97`` but not ``L = 96``, and exceeds ``L**2/20`` at ``L = 14``.
 
 Its density explains the limit.  With ``alpha = k/L`` the summand is
 ``L phi(alpha) + O(1)``, where
@@ -41,16 +43,18 @@ is exactly what ``R = 1 - alpha`` maximises, so the sum is
     a0 = 0.2270921952...,   c = 0.0647068486...  >  1/16.
 
 So ``liminf Lambda(F)/L**2 >= c`` over monic multiples, five times the
-published ``1/80``.  Nothing is assumed beyond ``eq:jensen`` itself; only the
-choice of ``R`` and the range of ``k`` change.
+elementary ``1/80`` constant.  Nothing is assumed beyond ``eq:jensen``
+itself; only the choice of ``R`` and the range of ``k`` change.
 
 The upper end does not move the same way.  ``Q = 1`` is *not* optimal --
 :func:`_check_witness` exhibits rational ``Q`` with
 ``Lambda((x-2)**L Q) < Lambda((x-2)**L)`` for every ``2 <= L <= 12``, verified
-as an inequality between two integers -- but nothing tried lowers the
-*constant*: over ``Q = (x+1)**m`` the best ``m`` saves ``O(L)``, not
-``O(L**2)``, so ``Lambda((x-2)**L Q)/L**2`` still tends to
-``(1 + log 2)/2 = 0.8465735...``.  The bracket is therefore
+as an inequality between two integers.  In the finite search over
+``Q = (x+1)**m`` at ``L = 20, 40, 80`` and ``m <= 2L``, the best tested
+choice saves at most ``L``.  This is evidence about that tested family, not
+a proof of its asymptotic behavior.  Independently, ``Q = 1`` gives the
+rigorous upper constant ``(1 + log 2)/2 = 0.8465735...``.  The bracket is
+therefore
 
     0.0647068... <= liminf M((x-2)**L)/L**2 <= limsup <= 0.8465735...,
 
@@ -74,7 +78,7 @@ _PROBES: tuple[tuple[int, ...], ...] = ((1,), (1, 1), (-1, 1), (0, 0, 1), (2, 3,
 #: Degrees at which the summed rows are tabulated.  The largest is the
 #: exactness ceiling, not a mathematical one: ``beta_k`` at ``L = 512`` is a
 #: ratio of integers with about 4600 bits.
-_ROW_L: tuple[int, ...] = (8, 16, 32, 64, 97, 128, 256, 512)
+_ROW_L: tuple[int, ...] = (8, 13, 14, 16, 32, 64, 96, 97, 128, 256, 512)
 
 #: ``(L, denominator bound, Q as coefficients low-to-high, monic)``: the
 #: multipliers beating ``Q = 1``, found by local search on ``Lambda`` over
@@ -189,8 +193,10 @@ def _check_rows(failures: list[str]) -> int:
 
     Three things at once: the rows really do bound the order statistics of
     actual multiples (the control -- a misread of ``eq:jensen`` dies here),
-    the summed bound clears ``L**2/16`` from ``L = 97`` and ``L**2/20`` from
-    ``L = 14``, and it beats what ``prop:quadratic`` spends at the same ``L``.
+    the summed bound clears ``L**2/16`` at ``L = 97`` but not ``96``, clears
+    ``L**2/20`` at ``L = 14`` but not ``13``, and clears the stated bounds
+    at the listed larger sample degrees.  It also beats what
+    ``prop:quadratic`` spends at the same sampled ``L``.
     """
     checks = 0
     for L in _ROW_L:
@@ -201,8 +207,12 @@ def _check_rows(failures: list[str]) -> int:
         total = _log(prod)
         if L >= 97 and total < L**2 / 16:
             failures.append(f"L={L}: summed rows {total:.3f} < L^2/16")
+        if L == 96 and total >= L**2 / 16:
+            failures.append(f"L={L}: control unexpectedly clears L^2/16")
         if L >= 14 and total < L**2 / 20:
             failures.append(f"L={L}: summed rows {total:.3f} < L^2/20")
+        if L == 13 and total >= L**2 / 20:
+            failures.append(f"L={L}: control unexpectedly clears L^2/20")
         if total < L**2 / 80:
             failures.append(f"L={L}: summed rows {total:.3f} below the paper's L^2/80")
         if prod <= _paper_row_sum(L):
@@ -259,12 +269,11 @@ def _check_witness(failures: list[str]) -> int:
 
 
 def _check_family(failures: list[str]) -> int:
-    """``Q = (x+1)**m`` saves ``O(L)``, never a share of the ``L**2``.
+    """Check bounded searches over ``Q = (x+1)**m`` at three values of ``L``.
 
-    The upper constant ``(1 + log 2)/2`` survives this family: the best ``m``
-    leaves the normalised mass within ``1/L`` of ``Q = 1``.  A family that did
-    lower the constant would fail the second test here, which is the point of
-    running it.
+    For ``L = 20, 40, 80`` and ``m <= 2L``, the best tested multiplier must
+    leave the normalized mass within ``1/L`` of ``Q = 1``.  This is a finite
+    regression check, not an asymptotic theorem about the whole family.
     """
     checks = 0
     for L in (20, 40, 80):
@@ -323,7 +332,7 @@ def main() -> int:
             print(f"  FAIL: {line}")
         return 1
     print()
-    print("  rows give L^2/16 from L=97; Q=1 is beaten but the constant holds")
+    print("  rows give L^2/16 at L=97 but not 96; Q=1 is beaten")
     return 0
 
 

@@ -36,19 +36,17 @@ nonzero real or complex polynomial $F=\sum_jf_jx^j$ of degree $D$ divisible by
 $\prod_{i=1}^L(x-r_i)$, the $k$-th largest nonleading coefficient
 magnitude $b_k$ is at least $|f_D|\prod_{i=k}^L(r_i-1)$ for $1\le k\le L$,
 uniformly in $D$.  Summing these rows bounds the logarithmic coefficient
-mass $\Lambda(F)=\sum_j\log^+|f_j|$ of a monic multiple below by
-$\sum_ii\log(r_i-1)$, which is sharp in order at the first $L$ primes.
+mass $\Lambda(F)=\sum_j\log^+|f_j|$ of a monic multiple from below by
+$\sum_ii\log(r_i-1)$.  At the first $L$ primes, the infimum over real monic
+multiples is
+$\frac12L^2\log L+\frac12L^2\log\log L+O(L^2)$.
 With a Jensen-formula bound of order $L^2$, this gives
 $\inf\Lambda\asymp L^2+\sum_ii\log(r_i-1)$ over real monic multiples at every
-root set with $L\ge2$.  The row $k=2$ is sharp at $(2,3)$, and every monic
-multiple of $(x-2)^L$ has $b_k\ge L-k+1$ for $1\le k\le L$.  The key tool is a
-tail theorem for normalized exponential sums in the reciprocal roots with
+root set with $L\ge2$.  The key tool is a tail theorem for normalized
+exponential sums in the reciprocal roots with
 prescribed positive-integer zeros: deleting a displaced largest zero
 together with the largest node strictly increases the $\ell^1$ tail, which
-yields a product bound over the initial run of consecutive zeros.  As a
-by-product, the reduced-height bound $H(P)\ge|P(1)|$ of Dubickas and
-Jankauskas holds unconditionally for real roots greater than one,
-repetitions allowed.
+yields a product bound over the initial run of consecutive zeros.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; reduced
@@ -65,6 +63,15 @@ coefficient mass by
   \qquad \log^+x=\max(0,\log x),
 \]
 the logarithm of the multiplicative height $\prod_{j:f_j\ne0}\max(1,|f_j|)$.
+The term ``mass'' is only shorthand for this coordinatewise multiplicative
+height; no claim is made that the quantity is a norm or a new height in the
+Diophantine sense.  Its usefulness here is that an order-statistic lower
+bound on each of several distinct coefficients adds after taking logarithms.
+Inserting zero coefficients leaves $\Lambda$ unchanged, and
+$\Lambda(F)\ge\log^+\max_j|f_j|$.  On the other hand it is not homogeneous:
+rescaling can move coefficients across the threshold $1$.  This is why all
+minimization statements below fix the leading coefficient, normally by
+requiring the multiplier to be monic.
 The height $\max_j|f_j|$ sees only one coefficient, and the length
 $\sum_j|f_j|$ can be spread over many comparable terms, so neither norm
 forces many coefficients to be large at once.  The mass does: it is additive
@@ -91,19 +98,25 @@ Corollary~\ref{cor:mass} give
   \Lambda(F)\ge(L+1)\log|f_D|+\sum_{i=1}^{L}i\log(r_i-1).
 \]
 We call the first inequality at a given $k$ the row $k$.  Both bounds are
-uniform in the degree and in any further roots of the multiple, and they
+uniform in the degree and over arbitrary polynomial multipliers, and they
 extend to complex multiples (Corollaries~\ref{cor:complex} and~\ref{cor:mass}).  The row $k=1$
 holds for all $r_1>1$.  For the first $L$ primes and $|f_D|\ge1$ the mass bound is
 $\Lambda(F)\ge(\frac12+o(1))L^2\log L$ (Corollary~\ref{cor:prime}), and the
-infimum over monic multiples is
+infimum over real monic multiples is
 $\frac12L^2\log L+\frac12L^2\log\log L+O(L^2)$ (Corollary~\ref{cor:infimum}).
 For every root set the product $P$ itself comes within $O(L^2)$ of the
-infimum of $\Lambda$ over monic multiples (Corollary~\ref{cor:near}).  As
+infimum of $\Lambda$ over real monic multiples (Corollary~\ref{cor:near}).
+The lower row and mass bounds hold equally for complex multipliers, but the
+infima and Jensen estimates stated here are over real multipliers; no
+equality of the real and complex infima is asserted.  As
 the roots approach $2$ the mass bound degenerates; a separate argument by
 Jensen's formula gives $\Lambda(F)\ge L^2/80$ for monic multiples when
-$L\ge8$ (Proposition~\ref{prop:quadratic}), and together
+$L\ge8$ (Proposition~\ref{prop:quadratic}); optimizing its radius row by
+row gives the stronger asymptotic constant $0.0647068\ldots$ at
+$(x-2)^L$.  Together the two methods give
 \[
-  \inf_{Q\text{ monic}}\Lambda(PQ)\ \asymp\ L^2+\sum_{i=1}^Li\log(r_i-1)
+  \inf_{\substack{Q\in\R[x]\\Q\text{ monic}}}\Lambda(PQ)
+  \ \asymp\ L^2+\sum_{i=1}^Li\log(r_i-1)
   \qquad(L\ge2),
 \]
 with absolute constants (Corollary~\ref{cor:allroots}).
@@ -148,67 +161,112 @@ increases the tail.  Section~\ref{sec:sharp} uses two further tools:
 Jensen's formula for the first rows near the root $2$, and confluent limits
 of the certificates at the single root $2$ of multiplicity $L$.
 
-\paragraph{Relation to earlier work.}
-Lemma~\ref{lem:consecutive} and Theorem~\ref{thm:tail} remove the
-same-sign hypothesis under which Dubickas and Jankauskas~\cite{dj} evaluate
-their dual bound for the reduced height, and extend their consecutive-zero
-evaluation to a tail bound for arbitrary integer zero sets, which gives the
-rows $k\ge2$.  Reduced length and reduced height minimize the two classical
-coefficient
-norms over normalized multiples~\cite{dubickas,schinzel,schinzel-ii,schinzel-complex,dj};
+\paragraph{Relation to earlier work and novelty.}
+The functions $d\mapsto e^{\lambda_i d}$ form a classical extended
+Chebyshev system, and their collocation matrices belong to the theory of
+strictly totally positive generalized Vandermonde matrices; see
+Karlin--Studden~\cite[Ch.~I]{karlin-studden} and
+Pinkus~\cite[Chs.~1--3]{pinkus}.  Those
+theories supply the zero bound, sign alternation and nonsingularity used
+below.  Among the results cited here, the closest construction is the
+consecutive-zero evaluation of Dubickas and Jankauskas described below.
+The new point here is narrower: for a certificate normalized at
+$d=0$ and vanishing at an arbitrary set of positive integers,
+Theorem~\ref{thm:tail} compares its infinite $\ell^1$ tail with the tail for
+the initial consecutive zero set.  The additional features needed here are the arbitrary
+positive-integer zero set, the leading-run extremizer, the infinite
+$\ell^1$ objective and the strict deletion step.  The cited classical results
+supply sign information and nonsingularity but not this tail inequality;
+the latter is the step that makes the coefficient bounds independent of the
+multiplier's degree.
+
+Lemma~\ref{lem:consecutive} verifies, for the present positive-node regime,
+the sufficient same-sign hypothesis under which Dubickas and
+Jankauskas~\cite[p.~333]{dj} evaluate their dual bound for the reduced
+height.  Theorem~\ref{thm:tail} then extends the
+consecutive-zero evaluation to a tail bound for arbitrary integer zero sets,
+which gives the rows $k\ge2$.  Reduced length and reduced height minimize the
+two classical coefficient norms over normalized
+multiples~\cite{dubickas,schinzel,schinzel-ii,schinzel-complex,dj};
 the Euclidean analogue is effectively computable~\cite{frw}.  Integer,
 bounded-height and sparse multiples, and power series with restricted
 coefficients and a root of prescribed multiplicity, form related
 lines~\cite{mignotte,bombieri-vaaler,bbbp-multiple,bbbp-ray,grt}.  Closest to
 this paper, Dubickas and Jankauskas~\cite{dj} associate to reciprocal roots
 and a prescribed zero set $J$ a normalized determinant sequence $S_n(J)$,
-which is the exponential sum $w$ below; the reciprocal of its tail is their
-dual lower bound for the reduced height, their inequality~(8).  They
+which is the exponential sum $w$ below.  The reciprocal of its tail is their
+dual lower bound for the reduced height, namely their inequality~(8).  They
 evaluate the consecutive case $J=\{1,\ldots,c-1\}$ on the condition that
 all $S_n$ with $n$ large have the same sign~\cite[p.~333]{dj}, a hypothesis
 kept through their Corollary~7~\cite[Section~2]{dj} and checked case by
-case~\cite[Sections~3--4]{dj}.  Here $H(P)$ is the reduced height, the infimum of the
-heights of the multiples $PQ$ with $Q$ monic.  Lemma~\ref{lem:consecutive}
-proves the same-sign condition for all distinct nodes in $(0,1)$, so their
-bound $H(P)\ge|P(1)|$, which follows from the row $k=1$ of Theorem~\ref{thm:order},
-holds unconditionally for real roots greater than one, repetitions
-allowed.
+case~\cite[Sections~3--4]{dj}.  Here $H(P)$ is the reduced height: the
+infimum of the heights of the multiples $PQ$ with $Q$ monic.
+Lemma~\ref{lem:consecutive} proves the same-sign condition for all distinct
+nodes in $(0,1)$.  It therefore makes the resulting estimate
+$H(P)\ge|P(1)|$ unconditional for real roots greater than one; the
+perturbation argument also permits repeated roots.  The same estimate is
+the row $k=1$ of Theorem~\ref{thm:order}.
 
 \paragraph{Sharpness.}
-Section~\ref{sec:sharp} asks how close the rows are to optimal.  The loss
+Section~\ref{sec:sharp} records what is and is not sharp.  The loss
 in the row $k=1$ is unbounded: if $r_1\ge2$, every monic
 multiple has $b_1\ge(r_1+\cdots+r_L)/2$, which exceeds $|P(1)|$ by a factor of order $L$
 at suitable distinct roots (Proposition~\ref{prop:unbounded}), and the
 Jensen bound of Proposition~\ref{prop:quadratic} gives
 $b_1\ge2^L/(eL)-1/(L-1)$ once $L\ge3$, so near the root $2$ the loss is
-exponential in $L$.  The row
-$k=2$ is an infimum at $(2,3)$ (Proposition~\ref{prop:sharp23}), so no constant
-factor improves the rows $k\ge2$ as a family.
+exponential in $L$.  The row $k=2$ is an infimum at the particular root set
+$(2,3)$ (Proposition~\ref{prop:sharp23}), so no universal constant factor
+improves all rows $k\ge2$.  This isolated example does not assert
+simultaneous sharpness of the rows or of the mass bound.
 Every monic multiple of $(x-2)^L$ has $b_k\ge L-k+1$ for every row
 $1\le k\le L$ (Theorem~\ref{thm:everyrow}); its proof removes the degree
-from the problem (Section~\ref{sec:dfree}).  Which root sets make a row an
-infimum, the exact rows at a single root, and complex roots are treated in
-companion papers~\cite{coefficient-mass-attainment,coefficient-mass-rows,coefficient-mass-complex}.
+from the problem (Section~\ref{sec:dfree}).  The present paper does not
+classify the root sets that make a row an infimum and does not determine the
+exact rows at a single root; these remain outside its scope.
 
 \paragraph{Formalization.}
-Every numbered result of the paper is formally verified in Lean~4 with
-Mathlib, from the zero bound through Theorem~\ref{thm:order} and
-Corollary~\ref{cor:mass} to the end of Section~\ref{sec:sharp}, including the equality case of Theorem~\ref{thm:tail} and the
-relaxation of $r_1\ge2$ to $r_1>1$ in the first row of Lemma~\ref{lem:slack}
-and Theorem~\ref{thm:order}, and the worked examples after
-Theorem~\ref{thm:tail}.  Corollaries~\ref{cor:prime} and~\ref{cor:infimum} are
-formalized with explicit error terms, using Chebyshev's bounds
-$\frac15 i\log i\le p_i\le 8i(\lfloor\log_2i\rfloor+1)$ in place of~\cite{rosser-schoenfeld},
-Corollary~\ref{cor:allroots} with the explicit constants $\frac1{81}$ and $3$
-and the growth $S/(B+1)\sim L$ of Proposition~\ref{prop:unbounded} as the
-lower bound $S/(B+1)\ge L/2$.  The formal proofs, in the
-directory \texttt{CoefficientMass} of the repository
-\href{https://github.com/bangyen/coefficient-mass}{bangyen/coefficient-mass},
-follow the ones given here, and the formal proof of
-Corollary~\ref{cor:mass} depends only on the standard axioms of Lean
-(propositional extensionality, choice and quotient soundness).  The zero
-bound is formalized for distinct zeros, the sign changes at prescribed
-zeros being derived there from weak alternation.
+Every theorem, lemma, proposition and corollary in this paper has a
+corresponding proved Lean~4 statement in the accompanying source tree.  The
+formalization runs from the zero bound through
+Theorem~\ref{thm:order} and Corollary~\ref{cor:mass} to the end of
+Section~\ref{sec:sharp}.  It includes the equality case of
+Theorem~\ref{thm:tail}, the relaxation of $r_1\ge2$ to $r_1>1$ in the first
+row of Lemma~\ref{lem:slack} and Theorem~\ref{thm:order}, and the worked
+examples after Theorem~\ref{thm:tail}.
+
+Corollaries~\ref{cor:prime} and~\ref{cor:infimum} are formalized with
+explicit error terms.  The formal proofs use Chebyshev's bounds
+$\frac15 i\log i\le p_i\le 8i(\lfloor\log_2i\rfloor+1)$ in place
+of~\cite{rosser-schoenfeld}, prove Corollary~\ref{cor:allroots} with the
+explicit constants $\frac1{81}$ and $3$, and replace the asymptotic
+$S/(B+1)\sim L$ of Proposition~\ref{prop:unbounded} by the lower bound
+$S/(B+1)\ge L/2$.  The formal proofs are in the
+\texttt{CoefficientMass} directory of the source distribution accompanying
+this manuscript and follow the proofs given here.  The principal
+correspondence is explicit:
+\texttt{ZeroBound.lean} contains the zero bound,
+\texttt{Consecutive.lean} and \texttt{Tail.lean} Theorem~\ref{thm:tail},
+\texttt{Certificate.lean} Lemma~\ref{lem:slack},
+\texttt{Order.lean} and \texttt{Chain.lean} the order-statistic and mass
+chain, \texttt{QuadJensen.lean} and \texttt{QuadMass.lean}
+Proposition~\ref{prop:quadratic}, and \texttt{RowStop.lean}
+Theorem~\ref{thm:everyrow}.  Module docstrings give the paper labels for the
+remaining results, and \texttt{tests/test\_lean.py} checks that this label
+map and the advertised headline theorem names remain synchronized.  That
+test checks correspondence metadata; the Lean kernel, rather than the
+Python test, verifies the formal proofs.
+
+Reproduction uses the Lean version pinned in \texttt{lean-toolchain} and
+the exact Mathlib commit pinned in \texttt{lake-manifest.json};
+\texttt{just lean} builds with
+warnings as errors and runs guards against unfinished proofs and added
+axioms.  The formal proof of Corollary~\ref{cor:mass} reports only
+propositional extensionality, choice and quotient soundness.  The zero bound
+is formalized for distinct zeros, with the sign changes at prescribed zeros
+derived from weak alternation.  The manuscript, Lean sources, dependency
+manifest and checks are intended to be archived as one submission artifact;
+the verification claim refers to that accompanying source state, not to a
+mutable branch head.
 
 \paragraph{Conventions.}
 All logarithms are natural, $\N_{>0}=\{1,2,\ldots\}$, and every asymptotic
@@ -363,8 +421,9 @@ Suppose $\Delta_d<0$ for some $d>m+1$.  List the $c$ points
 $Z'\cup\{m+1,d\}$ in increasing order and let $k(p)$ be the position of $p$,
 counted from $0$; thus $k(p)=|\{\alpha\in Z':\alpha<p\}|=c-2-a(p)$ for
 $p\in Z'$, $k(m+1)=c-2$ and $k(d)=c-1$.  Then
-$(-1)^c(-1)^{k(p)}\Delta_p\ge0$ at every listed point: at $p\in Z'$ by the
-sign of $\Delta_p$, at $m+1$ because $\Delta_{m+1}=0$, and at $d$ because
+$(-1)^c(-1)^{k(p)}\Delta_p\ge0$ at every listed point.  At $p\in Z'$ this
+follows from the sign of $\Delta_p$; at $m+1$ it follows from
+$\Delta_{m+1}=0$; and at $d$ it follows because
 $(-1)^c(-1)^{c-1}\Delta_d=-\Delta_d>0$.  So $\Delta$, which is not
 identically zero since $\Delta_d\ne0$, weakly alternates at $c$ points
 while having at most $c-1$ nodes, contradicting weak alternation.  Hence
@@ -395,7 +454,22 @@ $w_d=\eta\sgn(G_d)\bigl(|V_d|-\mu|G_d|\bigr)$ for $d>0$.  The sign of
 $\varphi(d)=|V_d|-\mu|G_d|$ is thus that of $\eta\sgn(G_d)w_d$, which does
 not change across $Z'$, where $w$ and $G$ both flip, and does change at $z$,
 where only $w$ flips.  As $\varphi(0)=1$ and $\varphi$ has no zero in
-$(0,\min Z)$, we get
+$(0,\min Z)$, its sign table is
+\[
+\begin{array}{c|ccc}
+ d & (0,z)\setminus Z' & Z'\cup\{z\} & (z,\infty)\\ \hline
+ \varphi(d) & + & 0\text{ at the common or prescribed zeros} & - .
+\end{array}
+\]
+Here the entries at $Z'$ are common zeros of $V$ and $G$, while the entry at
+$z$ is the equality $|V_z|=\mu|G_z|$.  On crossing a point of $Z'$, both
+$w$ and $G$ change sign, so the product $\sgn(G_d)w_d$ and hence the sign of
+$\varphi$ are unchanged.  At $z$, only $w$ changes sign.  Away from $Z'$,
+one has $\varphi(d)=0$ if and only if $w_d=0$.  The zero bound therefore
+excludes any additional zero of $\varphi$, including a touching zero at
+which its sign would not change, because it would be an additional zero of
+$w=V-\eta\mu G$ besides $Z$.
+Consequently
 \[
   |V_d|>\mu|G_d|\quad(1\le d<z,\ d\notin Z'),
   \qquad
@@ -458,8 +532,17 @@ Induction in $G_d=y_cG_{d-1}+E_d$, with $G_z=1$ and
   \le\sum_{j=0}^t y_c^{t-j}
        \frac{\widehat V_{z+j}}{\widehat V_z}.
 \]
-Summing over $t$ (a geometric series in $y_c$) proves the first inequality
-in \eqref{eq:gamma}; the second uses $y_c\le1/2$.
+All terms $G_{z+t}$ and $\widehat V_{z+j}$ here are positive.  Tonelli's
+theorem for the nonnegative double series, followed by reindexing, gives
+\[
+ \sum_{t\ge0}\sum_{j=0}^t y_c^{t-j}
+       \frac{\widehat V_{z+j}}{\widehat V_z}
+ =\sum_{j\ge0}\frac{\widehat V_{z+j}}{\widehat V_z}
+       \sum_{t\ge j}y_c^{t-j}
+ =\frac{\Gamma_V(z)}{1-y_c}.
+\]
+Thus summing over $t$ proves the first inequality in \eqref{eq:gamma}; the
+second uses $y_c\le1/2$.
 
 \emph{Strictness.}  It remains to see that $\Sigma_G>0$.  If $z>m+1$, then
 $G_{m+1}\ne0$.  If $z=m+1$, then $|Z'|=c-2<z-1$, so some $1\le d<z$ avoids
@@ -562,7 +645,9 @@ For repetitions, put $r_{i,\varepsilon}=r_i+i\varepsilon$ with
 $\varepsilon>0$, so that $2\le r_{1,\varepsilon}<\cdots<r_{L,\varepsilon}$ and
 $r_{i,\varepsilon}\to r_i$, and write $F=Q\prod_{i=1}^L(x-r_i)$ and
 $F_\varepsilon=Q\prod_{i=1}^L(x-r_{i,\varepsilon})$ with the same $Q$.  Then
-$\deg F_\varepsilon=D$, the leading coefficient is still $f_D$, and each
+$\deg F_\varepsilon=D$: both factors remain monic of degree $L$, so replacing
+the root product cannot cancel the leading term of the fixed nonzero
+multiplier $Q$.  The leading coefficient is still $f_D$, and each
 coefficient of $F_\varepsilon$ is a polynomial in $\varepsilon$, so the
 coefficient vector of $F_\varepsilon$ tends to that of $F$; an order statistic of a converging tuple is continuous, so
 $b_{u+1}(F_\varepsilon)\to b_{u+1}(F)$.  The distinct case gives
@@ -579,7 +664,9 @@ divisible by $\prod_{i=1}^L(x-r_i)$.
 \end{corollary}
 
 \begin{proof}
-Write $g=F/f_D=PQ$ with $Q\in\mathbb C[x]$ monic.  Since $P$ is real,
+Write $g=F/f_D=PQ$ with $Q\in\mathbb C[x]$ monic.  This normalization is
+essential: $g$ has the real leading coefficient $1$, so $\operatorname{Re}g$
+has the same degree and is monic.  Since $P$ is real,
 $\operatorname{Re}g=P\operatorname{Re}Q$ is a monic real multiple of $P$ of
 the same degree $D$, and $|\operatorname{Re}g_j|\le|g_j|$ for every $j$.
 Coefficientwise domination passes to order statistics, so
@@ -646,7 +733,7 @@ sums $e_k(p_1,\ldots,p_L)\le\binom{L}{k}p_L^k$, so
 which is $(\tfrac12+o(1))L^2\log L$ because $\log p_L\sim\log L$.
 \end{proof}
 
-\begin{corollary}[Sharp prime-root infimum]\label{cor:infimum}
+\begin{corollary}[Prime-root infimum asymptotics]\label{cor:infimum}
 Let $P_L=\prod_{i=1}^L(x-p_i)$ and
 \[
   M_L=\inf_{\substack{Q\in\R[x]\\ Q\text{ monic}}}\Lambda(QP_L).
@@ -684,11 +771,11 @@ Corollary~\ref{cor:mass} determines the infimum up to $O(L^2)$.
 Let $2\le r_1\le\cdots\le r_L$, repetitions allowed,
 $P=\prod_{i=1}^L(x-r_i)$, and
 \[
-  M(P)=\inf_{\substack{Q\in\R[x]\\ Q\text{ monic}}}\Lambda(PQ).
+  \mathcal I_\Lambda(P)=\inf_{\substack{Q\in\R[x]\\ Q\text{ monic}}}\Lambda(PQ).
 \]
 Then
 \begin{equation}\label{eq:near}
-  0\le\Lambda(P)-M(P)
+  0\le\Lambda(P)-\mathcal I_\Lambda(P)
   \le\sum_{k=1}^L\log\binom Lk
     +\sum_{i=1}^L i\log\frac{r_i}{r_i-1}
   =O(L^2),
@@ -697,8 +784,10 @@ with an absolute implied constant.
 \end{corollary}
 
 \begin{proof}
-Taking $Q=1$ gives $M(P)\le\Lambda(P)$, while Corollary~\ref{cor:mass} gives
-$M(P)\ge\sum_{i=1}^L i\log(r_i-1)$, because a monic multiple has $|f_D|=1$.
+Taking $Q=1$ gives $\mathcal I_\Lambda(P)\le\Lambda(P)$, while
+Corollary~\ref{cor:mass} gives
+$\mathcal I_\Lambda(P)\ge\sum_{i=1}^L i\log(r_i-1)$, because a monic multiple
+has $|f_D|=1$.
 In the other direction the nonleading coefficients of $P$ are the elementary
 symmetric sums, and each $k$-fold product of roots is at most the product of
 the $k$ largest, so
@@ -717,7 +806,7 @@ $\binom Lk\le2^L$ and $r_i/(r_i-1)\le2$ because $r_i\ge2$, so the right side
 is at most $(L^2+\frac{L(L+1)}2)\log2=O(L^2)$.
 \end{proof}
 
-\section{Sharpness}\label{sec:sharp}
+\section{Bounds, limitations and examples}\label{sec:sharp}
 
 How close is Theorem~\ref{thm:order} to optimal?  We treat the first row,
 the bottom of the root range, the rows $k\ge2$, and finally, at the root
@@ -797,7 +886,7 @@ of~\cite{bbbp-multiple,bbbp-ray} and of the zero counting at $1$ for
 polynomials with bounded coefficients in~\cite{bek}, with $k-1$ coefficients exempted rather
 than all being bounded.
 
-\begin{proposition}[Quadratic mass at every root set]
+\begin{proposition}[Quadratic mass for real roots at least $2$]
 \label{prop:quadratic}
 Let $2\le r_1\le\cdots\le r_L$, repetitions allowed.  Every monic real
 multiple $F$ of $\prod_{i=1}^L(x-r_i)$ satisfies, for every
@@ -864,24 +953,63 @@ magnitudes sit at distinct positions and exceed $1$, and
 $\lfloor L/8\rfloor\ge L/16$, so $\Lambda(F)\ge(L/16)(L/5)=L^2/80$.
 \end{proof}
 
-Combining this with the certificate bound closes the mass problem to within
-absolute constants over the whole root range.
-
-\begin{corollary}[The mass infimum at every root set]\label{cor:allroots}
-Let $L\ge2$, let $2\le r_1\le\cdots\le r_L$, put $P=\prod_{i=1}^L(x-r_i)$ and
-$M(P)=\inf\{\Lambda(PQ):Q\in\R[x]\text{ monic}\}$.  Then
+\paragraph{Optimizing the Jensen rows.}
+The constant $1/80$ is a convenient elementary bound, not the limit of the
+method.  At $r_1=\cdots=r_L=2$, choose $R_k=1-k/L$ in~\eqref{eq:jensen}.
+For $a=k/L<1/2$, put
 \[
-  M(P)\ \asymp\ L^2+\sum_{i=1}^Li\log(r_i-1),
+  \phi(a)=(1-a)\log(2-2a)+a\log a.
+\]
+On every compact subinterval of $(0,1/2)$ on which $\phi>0$, the logarithm
+of the right side of~\eqref{eq:jensen} is
+\[
+  L\phi(k/L)+O(1),
+\]
+uniformly in $k$.  Indeed, the numerator and denominator are respectively
+$(2-2a)^{L(1-a)+1}-1$ and $a^{-aL}-1$, and the subtracted ones contribute
+only a uniformly bounded error away from the endpoints of the positive
+range.  The function $\phi$ is strictly decreasing on $(0,1/2)$ because
+$\phi'(a)=\log(a/(2-2a))$.  It therefore has a unique zero
+$a_0=0.2270921\ldots$ there.  Fix $\delta>0$ and sum only over
+$\delta L\le k\le(a_0-\delta)L$; the uniform estimate above turns this sum,
+after division by $L^2$, into a Riemann sum for
+$\int_\delta^{a_0-\delta}\phi(a)\,da$.  The omitted rows contribute
+nonnegatively because $\log^+b_k\ge0$.  Taking the lower limit in $L$ and
+then letting $\delta\downarrow0$ gives
+\[
+  \liminf_{L\to\infty}\ \inf_{\substack{F\in\R[x]\text{ monic}\\(x-2)^L\mid F}}
+  \frac{\Lambda(F)}{L^2}
+  \ \ge\ c_2:=\int_0^{a_0}\phi(a)\,da
+  =0.0647068\ldots.
+\]
+Thus the explicit $L^2/80$ estimate is useful uniformly from $L=8$, while
+the last display records the optimized asymptotic constant supplied by
+these chosen Jensen radii.  Neither estimate identifies the limiting mass
+infimum: taking $F=(x-2)^L$ gives the upper constant
+$(1+\log2)/2=0.8465735\ldots$, and it remains open whether the normalized
+infimum converges.
+
+Combining this with the certificate bound determines the order of magnitude
+of the mass infimum over the stated root range.  It does not determine the
+leading constant or an optimal multiplier.
+
+\begin{corollary}[Mass infimum for real roots at least $2$]\label{cor:allroots}
+Let $L\ge2$, let $2\le r_1\le\cdots\le r_L$, put $P=\prod_{i=1}^L(x-r_i)$ and
+$\mathcal I_\Lambda(P)=\inf\{\Lambda(PQ):Q\in\R[x]\text{ monic}\}$.  Then
+\[
+  \mathcal I_\Lambda(P)\ \asymp\ L^2+\sum_{i=1}^Li\log(r_i-1),
 \]
 with absolute implied constants.
 \end{corollary}
 
 \begin{proof}
 For the lower bound, Proposition~\ref{prop:quadratic} gives
-$M(P)\ge L^2/80$ when $L\ge8$, and \eqref{eq:halfsum} gives
-$b_1\ge L\ge2$, hence $M(P)\ge\log2\ge L^2\log2/49$, when $2\le L\le7$.
+$\mathcal I_\Lambda(P)\ge L^2/80$ when $L\ge8$, and \eqref{eq:halfsum}
+gives $b_1\ge L\ge2$, hence
+$\mathcal I_\Lambda(P)\ge\log2\ge L^2\log2/49$, when $2\le L\le7$.
 Corollary~\ref{cor:mass} with $|f_D|=1$ gives
-$M(P)\ge\sum_ii\log(r_i-1)$, so $M(P)$ is at least a constant multiple of
+$\mathcal I_\Lambda(P)\ge\sum_ii\log(r_i-1)$, so
+$\mathcal I_\Lambda(P)$ is at least a constant multiple of
 the sum of the two terms.
 For the upper bound take $Q=1$: as in Corollary~\ref{cor:near},
 $\Lambda(P)\le\sum_k\log\binom Lk+\sum_ii\log r_i$, and
@@ -913,7 +1041,8 @@ content is the last rows, where \eqref{eq:jensen} is empty.
 For $u\ge1$ the excluded set $U$ in Lemma~\ref{lem:slack} is arbitrary, and
 Lemma~\ref{lem:slack} places the remaining $L-u-1$ zeros of the certificate
 at the first available distances; that choice is convenient, not optimal.
-Still, the rows are infima at some root sets.
+The following example shows only that the second-row bound is an unattained
+infimum at the single root set $(2,3)$.
 
 \begin{proposition}[Sharpness of the row $k=2$ at $(2,3)$]
 \label{prop:sharp23}
@@ -1317,31 +1446,21 @@ exceeds $\frac12$ and the argument of Proposition~\ref{prop:rowstop} does
 not close; that is why Proposition~\ref{prop:rowsfree} keeps different
 holes there.
 
-\paragraph{Data availability.}
-No datasets were generated or analyzed in this study.
-
-\paragraph{Computer assistance.}
-No proof in this paper relies on a computation.  The script
-\texttt{tests/sweep.py} of the repository, run as a test suite by
-\texttt{tests/test\_sweep.py}, checks the following in exact rational
-arithmetic with Python's \texttt{fractions} module: the tails
-$\frac12$, $\frac3{10}$, $\frac18$ and $\frac9{64}$ of the examples after
-Theorem~\ref{thm:tail} and the cutoff example $\Tail(w)=\frac{52}{405}$; the
-formula of Lemma~\ref{lem:consecutive} at four rational nodes; that each
-$F_n$ of Proposition~\ref{prop:sharp23}, $2\le n\le29$, vanishes at $2$ and
-$3$ and has $b_2(F_n)=t_n>2$; and, by an exact linear program, that the least
-$b_2$ over monic multiples of $(x-2)(x-3)$ of degree at most $8$ is $t_7$.
-It also computes the exact tails of seeded random certificates with two to
-four nodes and zeros in $\{1,\ldots,8\}$: in $150$ draws with nodes $1/\rho$,
-$\rho\in\{2,\ldots,11\}$, \eqref{eq:tail} and the deletion step in the proof
-of Theorem~\ref{thm:tail} always hold, and in $300$ draws that allow nodes
-above $\frac12$ both fail for some draws.  The comparison
-of~\eqref{eq:jensen} with Theorem~\ref{thm:everyrow} at $L=20$ and $L=40$ in
-Section~\ref{sec:bottom} is a floating-point evaluation.  These computations
-are checks, not steps of any proof.
+\paragraph{Code and materials availability.}
+No empirical dataset is used.  The repository cited above contains the
+LaTeX sources, Lean formalization, pinned dependency manifest and executable
+checks.  The script \texttt{tests/sweep.py} verifies the displayed rational
+examples and finite sharpness checks; \texttt{tests/masstwo.py} independently
+checks finite instances of the optimized Jensen rows in exact rational
+arithmetic.  These computations are regression checks, not premises of the
+proofs.
 
 \paragraph{Use of AI tools.}
-Large language model assistants (Claude, Anthropic) were used in drafting and revising the text, the proofs, the verification code and the Lean formalization. The author has checked the mathematics and is responsible for the content.
+Large language model assistants (Claude by Anthropic and Codex by OpenAI)
+were used in drafting and revising the text, proofs, verification code and
+Lean formalization.  Their output was treated as untrusted draft material:
+the author checked the mathematical arguments, executable examples and
+formal statements and is responsible for the content.
 
 \paragraph{Funding and competing interests.}
 The author received no specific funding for this work and has no competing
@@ -1412,27 +1531,24 @@ S.~Karlin,
 \newblock \emph{Total Positivity, Volume I},
 \newblock Stanford University Press, 1968.
 
+\bibitem{karlin-studden}
+S.~Karlin and W.~J. Studden,
+\newblock \emph{Tchebycheff Systems: With Applications in Analysis and
+Statistics},
+\newblock Interscience, New York, 1966.
+
 \bibitem{mignotte}
 M.~Mignotte,
 \newblock Sur les multiples des polyn\^omes irr\'eductibles,
 \newblock \emph{Bulletin de la Soci\'et\'e Math\'ematique de Belgique} 27
 (1975), 225--229.
 
-\bibitem{coefficient-mass-complex}
-B.~Pham,
-\newblock Coefficient mass of polynomial multiples at complex roots,
-\newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
-
-\bibitem{coefficient-mass-rows}
-B.~Pham,
-\newblock Every row is a top row: coefficient order statistics of multiples
-of a power,
-\newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
-
-\bibitem{coefficient-mass-attainment}
-B.~Pham,
-\newblock Sharpness of the coefficient order-statistic bound,
-\newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
+\bibitem{pinkus}
+A.~Pinkus,
+\newblock \emph{Totally Positive Matrices},
+\newblock Cambridge University Press, 2009,
+\newblock \href{https://doi.org/10.1017/CBO9780511691713}
+{doi:10.1017/CBO9780511691713}.
 
 \bibitem{polya-szego}
 G.~P\'olya and G.~Szeg\H{o},

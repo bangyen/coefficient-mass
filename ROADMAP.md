@@ -6,8 +6,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
 ## Open at a glance
 
 - [coefficient-mass](papers/coefficient-mass.tex): the constant in
-  `M(P) ~ L**2 + sum i log(r_i - 1)` (`cor:allroots`), in particular
-  whether `M((x-2)**L)/L**2` converges (between `0.0647...` and `0.8465...`,
+  `I_Lambda(P) ~ L**2 + sum i log(r_i - 1)` (`cor:allroots`), in particular
+  whether `I_Lambda((x-2)**L)/L**2` converges (between `0.0647...` and `0.8465...`,
   narrowed from `1/80` in [masstwo](tests/masstwo.py));
   the coefficient of `L**2` in the prime-root infimum (`cor:infimum`); the
   order of the mass when some roots lie in `(1, 2)`.
@@ -67,20 +67,23 @@ is open; an answer lands in the paper it extends, and the row leaves.
 - **Coefficient mass, main paper.**
   [coefficient-mass](papers/coefficient-mass.tex) is closed and formalized;
   what it leaves open is quantitative.  At roots `>= 2` the least mass of a
-  monic multiple is `M(P) ~ L**2 + sum i log(r_i - 1)` with absolute
+  monic multiple is `I_Lambda(P) ~ L**2 + sum i log(r_i - 1)` with absolute
   constants (`cor:allroots`): below by Jensen (`prop:quadratic`, `L**2/80`
   for `L >= 8`) and by the rows (`cor:mass`), above by `Q = 1`
-  (`cor:near`).  At `(x-2)**L` these give `L**2/80 <= M <= Lambda((x-2)**L)
+  (`cor:near`).  At `(x-2)**L` these give
+  `L**2/80 <= I_Lambda((x-2)**L) <= Lambda((x-2)**L)`
   ~ (1 + log 2) L**2/2`.  The lower end is loose.  `eq:jensen` holds for
   every `1/2 < R < 1` and every row, and `prop:quadratic` fixes `R = 9/10`
   over `k <= L/8`; taking `R_k = 1 - k/L` instead, which keeps `beta_k`
-  rational, and summing *every* row gives `M >= (c - o(1)) L**2`, where
+  rational, and summing *every* row gives
+  `I_Lambda((x-2)**L) >= (c - o(1)) L**2`, where
   `phi(a) = (1 - a) log(2 - 2a) + a log a` is the density that `R = 1 - a`
   maximises and `c = int_0^a0 phi = 0.0647068...` over the range
   `phi >= 0`, so `phi(a0) = 0` and `a0 = 0.2270921...`; exactly, the sum
-  clears `L**2/16` from `L = 97` (not from 96) and `L**2/20` from `L = 14`
-  ([masstwo](tests/masstwo.py)).  That is `5.18x` the published `1/80`, of
-  which only `1.27x` is the better `R`: the paper's own spend is already
+  clears `L**2/16` at `L = 97` (not at 96) and `L**2/20` at `L = 14`
+  ([masstwo](tests/masstwo.py)).  That is `5.18x` the elementary uniform
+  bound `1/80`, of which only `1.27x` is the better `R`: the fixed-radius
+  spend is already
   worth `0.0509 L**2`, and the rest was slack in the closing estimate it did
   not need.  So the bracket is `0.0647... <= liminf <= limsup <= 0.8465...`.
   `Q = 1` is **not** optimal: rational `Q` with
@@ -88,7 +91,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   decided as an inequality between two integers, the cleanest being `x + 1`
   at `L = 11` (ratio `0.9485`).  But it is near optimal in the constant --
   over `Q = (x+1)**m` the best `m` saves `O(L)`, not `O(L**2)` -- so the
-  upper end stands.  Open: whether `M((x-2)**L)/L**2` converges and
+  upper end stands.  Open: whether `I_Lambda((x-2)**L)/L**2` converges and
   its limit, and a multiplier family that lowers the upper constant, both
   ends now being a factor `13` apart.  At the first `L`
   primes `M_L = L**2 (log L + log log L)/2 + O(L**2)` (`cor:infimum`); the
@@ -96,7 +99,7 @@ is open; an answer lands in the paper it extends, and the row leaves.
   `cor:near`.  Open: its coefficient.  Every mass bound needs `r_1 >= 2`
   (`cor:mass`, `prop:quadratic`); at `r = 1`, `x**N - 1` has mass 0, so the
   `L**2` term cannot survive as the roots approach 1.  Open: the order of
-  `M(P)` for roots in `(1, 2)`, which neither
+  `I_Lambda(P)` for roots in `(1, 2)`, which neither
   [coefficient-mass-rows](papers/coefficient-mass-rows.tex) (rows at one
   root, `cor:belowtwo`) nor
   [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex)

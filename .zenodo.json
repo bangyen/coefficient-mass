@@ -1,7 +1,7 @@
 {
   "title": "coefficient-mass: papers and executable checks on the coefficient mass of polynomial multiples",
   "upload_type": "software",
-  "description": "Five papers on the coefficient order statistics and logarithmic coefficient mass of polynomial multiples with prescribed roots, with exact-arithmetic checks in Python and a Lean 4 formalization of the main chain.",
+  "description": "Eight CC BY 4.0 papers on coefficient order statistics and logarithmic coefficient mass of polynomial multiples with prescribed roots, with MIT-licensed exact-arithmetic checks in Python and Lean 4 formalizations.",
   "creators": [
     {
       "name": "Pham, Bangyen",
@@ -9,7 +9,8 @@
       "orcid": "0009-0006-9928-2088"
     }
   ],
-  "license": "MIT",
+  "license": "other-open",
+  "notes": "Dual licensing: paper sources and PDFs are CC BY 4.0; software, tests and Lean sources are MIT licensed.",
   "keywords": [
     "polynomial multiples",
     "coefficient mass",
