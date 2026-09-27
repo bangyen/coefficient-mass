@@ -155,6 +155,26 @@ CITATIONS = {
         "Proposition",
         "prop:cutoffsharp",
     ),
+    ("coefficient-mass-levelsets.tex", "coefficient-mass-sectors", "3.1"): (
+        "Lemma",
+        "lem:gausscarry",
+    ),
+    ("coefficient-mass-levelsets.tex", "coefficient-mass-sectors", "3.2"): (
+        "Lemma",
+        "lem:gaussblocks",
+    ),
+    ("coefficient-mass-levelsets.tex", "coefficient-mass-sectors", "5.1"): (
+        "Lemma",
+        "lem:gaussbinom",
+    ),
+    ("coefficient-mass-levelsets.tex", "coefficient-mass-sectors", "5.3"): (
+        "Proposition",
+        "prop:gausslow",
+    ),
+    ("coefficient-mass-levelsets.tex", "coefficient-mass-sectors", "5.4"): (
+        "Proposition",
+        "prop:gaussadic",
+    ),
     ("coefficient-mass-sectors.tex", "coefficient-mass", "3.2"): (
         "Theorem",
         "thm:order",
@@ -203,6 +223,7 @@ CITING = (
     "coefficient-mass-belowtwo.tex",
     "coefficient-mass-complex.tex",
     "coefficient-mass-family.tex",
+    "coefficient-mass-levelsets.tex",
     "coefficient-mass-rows.tex",
     "coefficient-mass-sectors.tex",
 )

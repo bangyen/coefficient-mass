@@ -48,7 +48,8 @@ is open; an answer lands in the paper it extends, and the row leaves.
   (`sec:finiterows`).
 - [sectors](papers/coefficient-mass-sectors.tex): whether `c K**2 log R`
   holds for integer multiples at Gaussian roots in a wide sector
-  (`sec:widesectors`); whether one level set `H(y) = -v` holds a number of
+  (`sec:widesectors`).
+- [levelsets](papers/coefficient-mass-levelsets.tex): whether one level set `H(y) = -v` holds a number of
   Gaussian points above the axis bounded independently of `rho_min` (fewer
   than `6 rho_min` by `prop:gausscircle`, at most `ord_0 H` per norm by
   `prop:gaussprimes`; `ord_0 H` itself is unbounded), and whether one norm
@@ -396,7 +397,9 @@ is open; an answer lands in the paper it extends, and the row leaves.
   1.
 
 - **Coefficient mass in sectors.**  The paper is
-  [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), split out
+  [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex), with the
+  light multiples and level sets in
+  [coefficient-mass-levelsets](papers/coefficient-mass-levelsets.tex), split out
   of [coefficient-mass-complex](papers/coefficient-mass-complex.tex), and
   proves the block charging at Gaussian roots (`thm:gausscharge`) it uses.  Crowded
   roots in a thin sector are Closed (`lem:sectorcount`, `thm:thinsector`,

@@ -1,4 +1,4 @@
-"""Exact checks of ``coefficient-mass-sectors.tex``.
+"""Exact checks of ``coefficient-mass-sectors.tex`` and its level-set sequel.
 
 Thin sectors and sectors of every width are checked on seeded random
 Gaussian-integer multiples, with real zeros along the rays counted exactly by

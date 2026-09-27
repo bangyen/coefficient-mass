@@ -46,9 +46,7 @@ charging removes the degree restriction: integer multiples of every degree
 pay $(\frac\pi\delta-o(1))K\log\max(R,\sqrt K)$ as $K\to\infty$.  Integer imitations of
 $x^N-\rho^N$ are limited, symmetric root sets show that a bound
 $\Lambda\ge cK^2\log R$ for all integer multiples would need $c\le\frac12$
-in sectors wider than a right angle, and a small second row confines the roots to one
-level set of a polynomial with small nonleading coefficients and near one
-circle, so there are fewer than six times their least modulus.
+in sectors wider than a right angle.
 \end{abstract}
 
 \noindent\textbf{Keywords.} Polynomial multiples; coefficient mass; complex
@@ -149,18 +147,9 @@ this (Proposition~\ref{prop:gaussadic}): there a polynomial in $x^N$ pays
 $2N\sum_j\log|\alpha_j|$, but the valuations alone give a bound linear in $K$
 at $P=\prod_j(x-\alpha_j)(x-\bar\alpha_j)$ itself, and coefficients of
 modulus at most $V$ in place of the gap may lower the exponent $m$ of
-$P(0)$ in the cost by $(m-1)\log V/\log P(0)$.  If
-$\min_j|\alpha_j|>2$ and an integer multiple $F$ has
-$b_2(F)<\min_j|\alpha_j|/2$, all the $\alpha_j$ lie in one level set
-$\{y:H(y)=-v\}$, $v$ the lowest nonzero coefficient of $F$, of a polynomial
-$H$ with small nonleading coefficients (Proposition~\ref{prop:gaussheavy}).
-The $\alpha_j$ then lie near one circle, so $K<6\min_j|\alpha_j|$
-(Proposition~\ref{prop:gausscircle}), and three Gaussian points above the
-axis share such a level set at arbitrarily large $\min_j|\alpha_j|$.  At
-each prime the lowest term $h_\ell y^\ell$ of $H$ controls the roots, and at
-most $\ell$ of them share a norm (Proposition~\ref{prop:gaussprimes}).
-Whether the number of points is bounded independently of
-$\min_j|\alpha_j|$ is open.
+$P(0)$ in the cost by $(m-1)\log V/\log P(0)$.  What a small second row
+forces on the roots, one level set of a polynomial with small nonleading
+coefficients, is studied in~\cite{coefficient-mass-levelsets}.
 
 \paragraph{Conventions.}
 All logarithms are natural.  For $F\in\mathbb C[x]$ of degree $D$ we write
@@ -170,9 +159,7 @@ lowercase letter: $F=\sum_jf_jx^j$, $B=\sum_ib_ix^i$.  With an argument,
 $b_k(\cdot)$ is always the $k$-th largest nonleading magnitude, so $b_k(B)$
 and the coefficient $b_k$ of $B$ differ.
 References of the form \cite[Theorem~3.2]{coefficient-mass} are to the
-first companion paper, and those of the form
-Theorem~\ref{thm:gausscharge}
-to the second.
+companion papers.
 
 \section{Thin sectors}\label{sec:thin}
 
@@ -511,8 +498,8 @@ limits on integer imitations of $x^N-\rho^N$ (Lemma~\ref{lem:gaussbinom},
 Propositions~\ref{prop:gausspower}, \ref{prop:gausslow}
 and~\ref{prop:gaussadic}), shows that such a
 $c$ is at most $1$, and at most $\frac12$ when $\delta>\pi/4$
-(Proposition~\ref{prop:gausspower}), and reduces the second row to level
-sets (Propositions~\ref{prop:gaussheavy} and~\ref{prop:gausscircle}).
+(Proposition~\ref{prop:gausspower}); the second row reduces to level
+sets~\cite{coefficient-mass-levelsets}.
 
 For $0<\delta\le\pi/2$ put
 \[
@@ -1140,533 +1127,28 @@ $m$ of $F/x^e$ is unclean at some $\alpha_j$,
 Lemma~\ref{lem:gausscarry} gives only
 $|f_e|\ge(\rho_{\min}/2)^m$, since no $f_i$ with $e<i<e+m$ can be the large one.
 
-The lowest $m$ coefficients of the multiples are cut out by one congruence,
-modulo $P(0)^m$, at a root of $P$ found by Newton's method from $0$; this
-holds for every monic $P$ with $\gcd(P(0),P'(0))=1$, and so recovers
-Proposition~\ref{prop:gausslow}, item~2.
-
-\begin{proposition}[One congruence]\label{prop:gausscong}
-Let $P\in\mathbb Z[x]$ be monic with $D=P(0)\ne0$, and let $m\ge1$.
-\begin{enumerate}
-\item If $\gcd(D,P'(0))=1$, there is $t\in\mathbb Z$ with $D\mid t$ and
-$P(t)\equiv0\pmod{D^m}$, and for $(f_0,\ldots,f_{m-1})\in\mathbb Z^m$ some
-$F\in\mathbb Z[x]$ divisible by $P$ has $F\equiv\sum_{i<m}f_ix^i\pmod{x^m}$
-if and only if
-\[
-  \sum_{i<m}f_it^i\ \equiv\ 0\pmod{D^m}.
-\]
-In particular $d_m=D^m$ in the notation of Proposition~\ref{prop:gausslow}.
-In the setting of Section~\ref{sec:gaussian} with odd pairwise coprime norms
-$n_j$ and $\gcd(a_j,c_j)=1$, $\gcd(D,P'(0))=1$.
-\item Some $F\in\mathbb Z[x]$ divisible by $P$ has $F\equiv f_0+f_1x\pmod{x^2}$
-if and only if $D\mid f_0$ and $f_1\equiv P'(0)f_0/D\pmod D$.
-\item In the setting of Section~\ref{sec:gaussian}, if
-$|P'(0)|<\rho_{\min}/2$, then $F=P$ has $|p_1|<\rho_{\min}/2$ and
-$\log|p_0|=\log P(0)$, so a constant $C$ with
-$\log|f_e|\ge2\log P(0)-2C\log\rho_{\max}$ for every integer multiple with
-$|f_{e+1}|<\rho_{\min}/2$ has $C\ge\log P(0)/(2\log\rho_{\max})$.  At the
-four points $-26+35i$, $-1+60i$, $29+62i$, $47+62i$, of norms $1901$,
-$3601=13\cdot277$, $4685=5\cdot937$, $6053$, which are odd and pairwise
-coprime, with $\gcd(a_j,c_j)=1$ and $43<\rho_j<78$, $P'(0)=6$, and so
-$C>3.77$.
-\end{enumerate}
-\end{proposition}
-
-\begin{proof}
-1.  Put $t_1=0$, and given $t_k$ with $D\mid t_k$ and $D^k\mid P(t_k)$, note
-$P'(t_k)\equiv P'(0)\pmod D$, so there is $w\in\mathbb Z$ with
-$wP'(t_k)\equiv1\pmod{D^m}$; put $h=-wP(t_k)$ and $t_{k+1}=t_k+h$.  Then
-$D\mid t_{k+1}$, and $P(t_k+h)=P(t_k)+P'(t_k)h+h^2Q$ with $Q\in\mathbb Z$,
-so $P(t_{k+1})\equiv P(t_k)(1-wP'(t_k))\equiv0\pmod{D^{k+1}}$, as
-$D^k\mid P(t_k)$ and $D^k\mid h$.  Take $t=t_m$.  If $F=PS$ with
-$S\in\mathbb Z[x]$ and $F=\sum_{i<m}f_ix^i+x^mG$, then
-$\sum_{i<m}f_it^i=P(t)S(t)-t^mG(t)\equiv0\pmod{D^m}$, as $D^m\mid t^m$.  So
-the lattice $L_m$ of the proof of Proposition~\ref{prop:gaussadic}, item~3,
-lies in the kernel of $f\mapsto\sum_{i<m}f_it^i\bmod D^m$, a homomorphism
-$\mathbb Z^m\to\mathbb Z/D^m$ that is onto, as $f=(r,0,\ldots,0)$ maps to
-$r$.  Both have index $D^m$, so they are equal, and $(f,0,\ldots,0)$ lies in
-$L_m$ exactly when $D^m\mid f$.  In the setting of Section~\ref{sec:gaussian},
-$P=\prod_j(x^2-2a_jx+n_j)$ gives $P'(0)=-\sum_j2a_jD/n_j$, and a prime $p$
-dividing $D$ divides exactly one $n_j$, is odd and divides neither $a_j$
-(otherwise $p\mid\gcd(a_j,c_j)$) nor $D/n_j$, so
-$P'(0)\equiv-2a_jD/n_j\not\equiv0\pmod p$.
-
-2.  In the notation of the proof of Proposition~\ref{prop:gaussadic}, item~3,
-$L_2$ is spanned by $\mathbf p_0=(D,P'(0))$ and $\mathbf p_1=(0,D)$, so its
-vectors are $(sD,sP'(0)+s'D)$ with $s,s'\in\mathbb Z$.
-
-3.  $P$ is divisible by $P$, with $p_0=P(0)$ and $p_1=P'(0)$; the inequality
-at $F=P$, $e=0$, reads $\log P(0)\ge2\log P(0)-2C\log\rho_{\max}$.  For the
-example, $P'(0)=-2\sum_ja_jD/n_j=6<\rho_{\min}/2$, as $\rho_{\min}^2=1901$,
-and $\log D/(2\log\rho_{\max})>3.77$ with $D=194126805235805$ and
-$\rho_{\max}^2=6053$.
-\end{proof}
-
-So at $m=2$ the divisibility $P(0)\mid f_e$ is, at such root sets, all that
-holds: a bound $\log|f_e|\ge m\log P(0)-Cm\log\rho_{\max}$ for all
-integer multiples with $|f_i|<\rho_{\min}/2$ for $e<i<e+m$ needs, at $m=2$,
-$C\ge\log P(0)/(2\log\rho_{\max})$, which is nearly $K$ for points in one
-annulus, whenever the multiple $P$ itself has $|P'(0)|<\rho_{\min}/2$, that
-is, whenever $\bigl|\sum_ja_j/n_j\bigr|<\rho_{\min}/(4P(0))$.  For $K\le3$
-this happens at infinitely many root sets in one annulus, along lines on
-which $P'(0)$ does not move (Proposition~\ref{prop:gaussline}); whether it
-happens for every $K$ is open.  The multiples of
-Proposition~\ref{prop:gaussheavy}, item~2, need the step only at
-$m=\deg H\ge2K$, where the congruence of item~1 involves $m-1\ge2K-1$ small
+Whether $\Lambda(F)\ge cK^2\log R$ holds for all integer multiples at
+Gaussian roots in a wide sector remains open.  The companion
+paper~\cite{coefficient-mass-levelsets} cuts the lowest coefficients out by
+one congruence and studies the multiples with a small second row, whose
+roots lie on one level set of a polynomial with small nonleading
 coefficients.
-
-\begin{proposition}[A constant derivative along lines]\label{prop:gaussline}
-\begin{enumerate}
-\item Let $\lambda_j,\mu_j\in\mathbb Z[i]$, $\lambda_j\ne0$, be such that the
-$2K$ numbers $w_j=-\mu_j/\lambda_j$ and $\bar w_j$ are distinct, and for real
-$s$ let $P_s=\prod_j(x-\alpha_j)(x-\bar\alpha_j)$ with
-$\alpha_j=\lambda_js+\mu_j$.  Put $\Lambda=\prod_j|\lambda_j|^2$ and
-$Q(s)=\prod_j(s-w_j)(s-\bar w_j)$.  Then $P_s(0)=\Lambda Q(s)$, and $P_s'(0)$
-is a polynomial in $s$ with integer coefficients and degree less than $2K$,
-equal to a constant $-N$, $N\in\mathbb R$, if and only if $N\lambda_j=\Lambda Q'(w_j)$ for
-every $j$.
-\item In the setting of Section~\ref{sec:gaussian}, at $\alpha_1=-(s+3)+(s+2)i$
-and $\alpha_2=(s+1)+(s+2)i$,
-$P'(0)=4$ for every $s$, and for every integer $s\ge-1$ the norms are odd and
-coprime and $\gcd(a_j,c_j)=1$.
-\item At $\alpha_1=-(s+3)+(s+2)i$, $\alpha_2=-1+(s+1)i$ and
-$\alpha_3=(s-1)+si$, $P'(0)=90$ for every $s$, and for every odd integer
-$s\ge1$ with $s\equiv0$ or $3\pmod5$ the norms are odd and pairwise coprime and
-$\gcd(a_j,c_j)=1$.
-\end{enumerate}
-\end{proposition}
-
-\begin{proof}
-1.  As polynomials in $s$, $\bar\alpha_j=\bar\lambda_js+\bar\mu_j$ and
-$\alpha_j\bar\alpha_j=|\lambda_j|^2(s-w_j)(s-\bar w_j)$, so
-$P_s(0)=\prod_j\alpha_j\bar\alpha_j=\Lambda Q(s)$, and
-$\Phi(s)=P_s'(0)=-\sum_j(\alpha_j+\bar\alpha_j)\prod_{l\ne j}\alpha_l\bar\alpha_l$
-has integer coefficients and degree at most $2K-1$.  As rational functions,
-\[
-  \frac{\Phi(s)}{\Lambda Q(s)}=-\sum_j\Bigl(\frac1{\lambda_j(s-w_j)}
-  +\frac1{\bar\lambda_j(s-\bar w_j)}\Bigr),
-\]
-and the $2K$ poles are simple, so the residues at $w_j$ give
-$\Phi(w_j)=-\Lambda Q'(w_j)/\lambda_j$, and $\Phi(\bar w_j)$ is its conjugate,
-$\Phi$ and $Q$ having real coefficients.  A polynomial of degree less than
-$2K$ is the constant $-N$ if and only if it takes the value $-N$ at the $2K$
-distinct points $w_j,\bar w_j$, that is, for real $N$, if and only if
-$\Lambda Q'(w_j)=N\lambda_j$ for every $j$.
-
-2.  Here $a_1=-(s+3)$, $a_2=s+1$, $n_1=2s^2+10s+13$ and $n_2=2s^2+6s+5$, and
-expanding, $a_1n_2+a_2n_1=-2$, so $P'(0)=-2(a_1n_2+a_2n_1)=4$.  Both norms
-are odd; $n_1-n_2=4(s+2)$ and $n_2=2(s+2)^2-2(s+2)+1\equiv1\pmod{s+2}$, so
-$\gcd(n_1,n_2)=1$; and $\gcd(s+3,s+2)=\gcd(s+1,s+2)=1$.
-
-3.  Here $n_1=2s^2+10s+13$, $n_2=s^2+2s+2$, $n_3=2s^2-2s+1$, and expanding,
-$P'(0)=-2(a_1n_2n_3+a_2n_1n_3+a_3n_1n_2)=90$.  The real and imaginary parts
-of each $\alpha_j$ are coprime, being $1$ or consecutive integers, so no
-prime $p\equiv3\pmod4$ divides a norm; $n_1$ and $n_3$ are odd, and $n_2$ is
-odd as $s$ is.  Next
-\[
-  n_1-n_3=12(s+1),\qquad n_1-2n_2=3(2s+3),\qquad 2n_2-n_3=3(2s+1),
-\]
-while $n_3=2(s+1)^2-6(s+1)+5$ and $4n_2=(2s+1)(2s+3)+5$.  So each
-$\gcd(n_j,n_l)$ divides $5$, and $5$ divides one only if $5$ divides $s+1$,
-$2s+3$ or $2s+1$, that is, $s\equiv4$, $1$ or $2\pmod5$.
-\end{proof}
-
-Along items~2 and~3, $|P'(0)|<\rho_{\min}/2$ once $\rho_{\min}>8$, respectively
-$\rho_{\min}>180$, and $\rho_{\max}/\rho_{\min}$ tends to $1$, respectively
-$\sqrt2$, so for large $s$ the points lie in one annulus $[R,2R]$, and
-$\log P(0)/(2\log\rho_{\max})$ tends to $K=2$, respectively $3$; so a
-constant $C$ as in Proposition~\ref{prop:gausscong}, item~3, valid along
-them is at least $K$.  More generally, lines as in item~1 with a constant
-$P'(0)=-N$ that meet the hypotheses of Proposition~\ref{prop:gausslow},
-item~2, at infinitely many integers $s$ (with $\bar\alpha_j$ in place of
-$\alpha_j$ where $\operatorname{Im}\alpha_j<0$) force $C\ge K$, since
-$\rho_j=|\lambda_j||s-w_j|$ and $P(0)=\Lambda Q(s)$, in one annulus when the
-$|\lambda_j|$ are within a factor less than $2$ of each other.  In item~3,
-$w_1=-\frac{5+i}2$, $w_2=-1-i$, $w_3=\frac{1-i}2$, and $\lambda_j$ is the
-denominator of $w_j$ up to a unit, $\Lambda=4$ and $N=-90$.
-
-The step at $m\ge2K$ contains a question about level sets.  Call a nonzero
-integer multiple $F$ of $P$ \emph{light} if every coefficient of $F$ other than
-its lowest nonzero one has modulus less than $\rho_{\min}/2$.
-
-\begin{proposition}[Light multiples]\label{prop:gausslight}
-In the setting of Section~\ref{sec:gaussian}, assume $\rho_{\min}\ge2$, and
-let $F$ be a light multiple of $P$, of degree $e+d$ with lowest nonzero
-coefficient $f_e$.  Then $d\ge2K$ and $|f_e|<\rho_{\min}^{d+1}$.  So a constant
-$C$ with $\log|f_e|\ge m\log P(0)-Cm\log\rho_{\max}$ at $m=d+1$ satisfies
-\[
-  C\log\rho_{\max}\ >\ \log P(0)-\log\rho_{\min}\ \ge\ (2K-1)\log\rho_{\min}.
-\]
-\end{proposition}
-
-\begin{proof}
-As $P(0)\ne0$, $P$ divides $F/x^e$, a nonzero polynomial of degree $d$, so
-$d\ge2K$.  Take $j$ with $\rho_j=\rho_{\min}=\rho$.  From
-$F(\alpha_j)=0$, $f_e=-\sum_{i=1}^df_{e+i}\alpha_j^i$, so
-\[
-  |f_e|\ <\ \frac\rho2\sum_{i=1}^d\rho^i\ <\ \frac\rho2\cdot\frac{\rho^{d+1}}{\rho-1}
-  \ \le\ \rho^{d+1},
-\]
-as $\rho\ge2$.  The coefficients $f_i$, $e<i<e+d+1$, have modulus less than
-$\rho/2$, so the bound at $m=d+1$ applies, and
-$(d+1)(\log P(0)-C\log\rho_{\max})\le\log|f_e|<(d+1)\log\rho$.  Finally
-$P(0)=\prod_j\rho_j^2\ge\rho^{2K}$.
-\end{proof}
-
-A light multiple is a multiple of Proposition~\ref{prop:gaussheavy}, item~2,
-whose leading coefficient $h_d$ is also below $\rho_{\min}/2$; the three-point
-level sets after that proposition, with $h_d=1$, are light, at a shared norm.
-So an affirmative answer to the step at every $m\ge2K$, with a constant $C$,
-at odd pairwise coprime norms with $\gcd(a_j,c_j)=1$, bounds the number of
-points of such level sets:
-$K<\frac12(C\log\rho_{\max}/\log\rho_{\min}+1)$, which in one annulus
-$[R,2R]$ is $\frac12(C+1)+O(C/\log R)$.  Whether that number is bounded is
-open (see the end of this section), here for light multiples at coprime
-norms, and no proof of the step at $m\ge2K$ can avoid it.
-
-At Gaussian roots a small second row confines an integer multiple to one
-level set of a polynomial with small nonleading coefficients, whereas over
-the reals $x^N-\rho^N$ has $b_2=0$.
-
-\begin{proposition}[One heavy coefficient]\label{prop:gaussheavy}
-In the setting of Section~\ref{sec:gaussian}, assume $\rho_{\min}>2$, and let
-$F\in\mathbb Z[x]$ be nonzero and divisible by $P$, with lowest nonzero
-coefficient $v=f_e$.  Call a coefficient $f_i$ of $F$ \emph{heavy} if
-$|f_i|\ge\rho_{\min}/2$.
-\begin{enumerate}
-\item For any decomposition of $F$ as in Lemma~\ref{lem:gaussblocks}, the
-lowest coefficient of every block is heavy and nonleading, so there are at most
-as many blocks as heavy nonleading coefficients of $F$.
-\item If $b_2(F)<\rho_{\min}/2$, then $F=x^e(v+H)$ with $H\in\mathbb Z[x]$,
-$H(0)=0$ and every nonleading coefficient of $H$ of modulus less than
-$\rho_{\min}/2$; moreover $H(\alpha_j)=-v$ for every $j$, and
-$(\rho_{\min}/2)^{\deg H}\le|v|$.
-\end{enumerate}
-\end{proposition}
-
-\begin{proof}
-1.  A block $B$ is $PQ$ with $Q\in\mathbb Z[x]$, and $B(0)\ne0$, so
-$|B(0)|\ge P(0)\ge\rho_{\min}^2>\rho_{\min}/2$.  Its degree is at least $2K\ge2$,
-so its lowest coefficient is not the leading coefficient of $F$, and distinct
-blocks have distinct lowest positions.
-
-2.  At most one nonleading coefficient of $F$ is heavy, so by item~1 a
-decomposition of $F$ as in Lemma~\ref{lem:gaussblocks} has exactly one block,
-$F=x^eB$, and $B(0)=v$ is the heavy one; every other
-nonleading coefficient of $F$ has modulus less than $\rho_{\min}/2$.  Write
-$B=v+H$; since $B(\alpha_j)=0$, $H(\alpha_j)=-v$.  Let
-$d=\deg H=\deg B$.  The split $d$ of the $P$-irreducible $B$ is unclean at
-some $\alpha_j$, and $\rho_j\ge\rho_{\min}>2$, so by
-Lemma~\ref{lem:gausscarry} some $i<d$ has
-$|b_i|\ge(\rho_j/2)^{d-i}\ge\rho_{\min}/2$.  This $b_i$ is a heavy
-nonleading coefficient of $F$, so $i=0$ and $|v|\ge(\rho_{\min}/2)^d$.
-\end{proof}
-
-So, when $\rho_{\min}>2$, $b_2(F)\ge\rho_{\min}/2$ unless every $\alpha_j$
-lies in one level set $\{y:H(y)=-v\}$ of such an $H$.  Three Gaussian points
-above the axis can share such a level set, at arbitrarily large
-$\rho_{\min}$.  Let $a^2-3c^2=1$ with $a>0$ and $c\ge4$; these solutions are
-$a+c\sqrt3=(2+\sqrt3)^n$, $n\ge2$, so $c=4,15,56,\ldots$.  Then
-\[
-  y^3-y-(8c^3+2c)i=(y+2ci)\bigl(y^2-2ciy-(4c^2+1)\bigr)
-  =(y+2ci)(y-a-ci)(y+a-ci),
-\]
-so $y^3-y$ is $(8c^3+2c)i$ at $\pm a+ci$ and $-(8c^3+2c)i$ at $2ci$, and
-$(y^3-y)^2$, with nonleading coefficients $-2$ and $1$, takes the value
-$-(8c^3+2c)^2$ at the three points $\pm a+ci$, $2ci$, which have
-$\rho_{\min}=2c>4$.  At $c=4$ these are $\pm7+4i$, $8i$ and the value is
-$-270400$.  In the other direction, the $\alpha_j$ lie near one circle, so
-there are fewer than $6\rho_{\min}$ of them.
-
-\begin{proposition}[Near one circle]\label{prop:gausscircle}
-In the setting of Proposition~\ref{prop:gaussheavy}, item~2, let
-$d=\deg H$ and $Q=(3\rho_{\min}-2)/(\rho_{\min}-2)$.  Then
-$\rho_{\min}\le\rho_j<\rho_{\min}Q^{1/d}$ for every $j$, and
-$K<6\rho_{\min}$.  Consequently
-$\Lambda(F)\ge2K\log(\rho_{\min}/2)>2K\log(K/12)$.
-\end{proposition}
-
-\begin{proof}
-Write $\rho=\rho_{\min}$, $H=\sum_{i=1}^dh_iy^i$ and
-$B=\max_{0<i<d}|h_i|<\rho/2$, and put $\kappa=\rho/(2(\rho-1))$, so
-$\kappa<1$ as $\rho>2$, and $(1+\kappa)/(1-\kappa)=Q$.  For each $j$, with
-$r=\rho_j\ge\rho$, $H(\alpha_j)=-v$ gives
-\[
-  |h_d\alpha_j^d+v|=\Bigl|\sum_{0<i<d}h_i\alpha_j^i\Bigr|
-  \le B\,\frac{r^d-r}{r-1}<\frac{\rho}{2(\rho-1)}\,r^d\le\kappa|h_d|r^d,
-\]
-so $(1-\kappa)|h_d|\rho_j^d<|v|<(1+\kappa)|h_d|\rho_j^d$.  The upper bound at a
-$j$ with $\rho_j=\rho$ and the lower bound at any $j$ give
-$(\rho_j/\rho)^d<Q$.
-
-Since $\rho^2$ is an integer above $4$, $\rho\ge\sqrt5$, so
-$Q=3+4/(\rho-2)\le11+4\sqrt5<20$ and $\log Q<3<\frac32\rho$.  Suppose
-$K\ge6\rho$.  The $2K$ distinct roots $\alpha_j,\bar\alpha_j$ of $v+H$ give
-$d\ge2K\ge12\rho$, so $t=(\log Q)/d$ satisfies $t<\frac18$ and
-$t<\frac3{12\rho}$.  Put $\rho'=\rho Q^{1/d}=\rho e^t$.  The unit squares
-centred at the $\alpha_j$ are disjoint and lie in the upper half of the
-annulus $\rho-1/\sqrt2\le|w|\le\rho'+1/\sqrt2$, so
-\[
-  K\ \le\ \frac\pi2\Bigl(\rho'^2-\rho^2+\sqrt2(\rho+\rho')\Bigr)
-  =\frac\pi2\rho\Bigl(\rho(e^{2t}-1)+\sqrt2(1+e^t)\Bigr).
-\]
-Here $e^{2t}-1\le2te^{2t}<2.6\,t$ and $e^t<1.14$, so
-$\rho(e^{2t}-1)<2.6\cdot\frac3{12}<0.66$ and
-$K<\frac\pi2\rho(0.66+3.03)<5.8\rho$, a contradiction.  Finally
-$\Lambda(F)\ge\log|v|\ge d\log(\rho/2)\ge2K\log(\rho/2)$ by
-Proposition~\ref{prop:gaussheavy}, and $\rho/2>K/12$.
-\end{proof}
-
-The count uses only the annulus, whose width is of order $\rho_{\min}/d$,
-and not the integrality of $H$; when $d\ge8\rho_{\min}^2$ it gives
-$\rho_j^2<\rho_{\min}^2+1$, so all the $\alpha_j$ share one norm.  The
-integrality of $H$ acts at each prime, through the lowest term of $H$.  For
-a prime $p$ let $\operatorname{ord}_p$ be the valuation of $\mathbb C_p$ with
-$\operatorname{ord}_p(p)=1$, and fix an embedding of $\mathbb Q(i)$ in
-$\mathbb C_p$.
-
-\begin{proposition}[Primes of a level set]\label{prop:gaussprimes}
-In the setting of Proposition~\ref{prop:gaussheavy}, item~2, write
-$H=\sum_{i=1}^dh_iy^i$ with $h_d\ne0$, let $\ell$ be the least $i\ge1$ with
-$h_i\ne0$, put $n_j=\rho_j^2$, and for a prime $p$ put
-$t_p=\operatorname{ord}_p(h_\ell)$ and
-$s_p=(\operatorname{ord}_p(v)-t_p)/\ell$.
-\begin{enumerate}
-\item For every prime $p$, at most $\ell$ roots of $v+H$ in $\mathbb C_p$,
-counted with multiplicity, have valuation greater than $t_p$, and each of
-them has valuation $s_p$.
-\item Let $\ell<d$.  For every prime $p$, at most $\ell$ of the $\alpha_j$ have
-$\operatorname{ord}_p(n_j)>2t_p$, and at most $\ell/2$ if $p=2$ or
-$p\equiv3\pmod4$; each of them has $\operatorname{ord}_p(n_j)=2s_p$ or
-$s_p\le\operatorname{ord}_p(n_j)\le s_p+t_p$.  Every $n_j$ has such a prime,
-so at most $\ell$ of the $\alpha_j$ share one norm, and $K\le\ell N$ if the
-$n_j$ take $N$ values.
-\item If all the $\alpha_j$ share one norm, in particular if
-$d\ge8\rho_{\min}^2$, then $K\le\ell$ when $\ell<d$, and $K\le2$ when $\ell=d$.
-\end{enumerate}
-\end{proposition}
-
-\begin{proof}
-1.  Let $V=\operatorname{ord}_p(v)$.  The Newton polygon of $v+H$ over
-$\mathbb Q_p$ is the lower convex hull of $(0,V)$ and the points
-$(i,\operatorname{ord}_p(h_i))$ with $h_i\ne0$; none has $0<i<\ell$, and all
-have ordinate at least $0$, the coefficients being integers.  For each edge
-of slope $-\sigma$ and horizontal length $\lambda$, exactly $\lambda$ roots
-in $\mathbb C_p$, counted with multiplicity, have valuation $\sigma$
-\cite[Chapter~II, Proposition~6.3]{neukirch}.  Let the first edge run from
-$(0,V)$ to $(i_1,y_1)$ with slope $-\sigma_1$, so $i_1\ge\ell$ and $y_1\ge0$.
-If $i_1>\ell$, the point $(\ell,t_p)$ lies on or above this edge, so
-$t_p\ge y_1+\sigma_1(i_1-\ell)\ge\sigma_1$, and by convexity no root has
-valuation above $\sigma_1\le t_p$.  If $i_1=\ell$, the first edge carries
-$\ell$ roots of valuation $(V-t_p)/\ell=s_p$.  Every later edge of negative
-slope starts at an abscissa at least $\ell$, where the polygon, decreasing
-from $(\ell,t_p)$, has ordinate at most $t_p$; it has horizontal length at
-least $1$ and ends at ordinate at least $0$, so its roots have valuation at
-most $t_p$.
-
-2.  Fix $p$ and $j$ with $e=\operatorname{ord}_p(n_j)>2t_p$.  The Gaussian
-integers $\alpha_j$ and $\bar\alpha_j$ have nonnegative valuations with sum
-$\operatorname{ord}_p(\alpha_j\bar\alpha_j)=e$, so one of them exceeds
-$t_p$.  If $p=2$ or $p\equiv3\pmod4$, $-1$ is not a square in $\mathbb Q_p$,
-the nontrivial automorphism of the quadratic extension $\mathbb Q_p(i)$
-restricts to complex conjugation on $\mathbb Q(i)$, and the valuation, being
-unique on $\mathbb Q_p(i)$, is invariant under it; so
-$\operatorname{ord}_p(\alpha_j)=\operatorname{ord}_p(\bar\alpha_j)=e/2>t_p$.
-The $2K$ numbers $\alpha_j,\bar\alpha_j$ are distinct roots of $v+H$, so
-item~1 gives the two counts.  By item~1 again each of
-$\alpha_j,\bar\alpha_j$ of valuation above $t_p$ has valuation $s_p$: if
-both do, $e=2s_p$, and otherwise one has valuation $s_p$ and the other at
-most $t_p$, so $s_p\le e\le s_p+t_p$.  Since $\ell<d$, $h_\ell$ is a
-nonleading coefficient of $F$, so $0<|h_\ell|<\rho_{\min}/2$ and
-$\prod_pp^{2t_p}=h_\ell^2<\rho_{\min}^2\le n_j$; hence some $p$ has
-$\operatorname{ord}_p(n_j)>2t_p$.  Taking the least such $p$, which depends
-only on $n_j$, the $\alpha_j$ of one norm are counted at one prime.
-
-3.  The first case is item~2 with $N=1$, and $d\ge8\rho_{\min}^2$ gives one
-norm by the remark before the proposition.  If $\ell=d$, then
-$v+H=A(y^d)$ with $A(z)=h_dz+v$, and Lemma~\ref{lem:gaussbinom} with $t=0$
-leaves at most two roots above the axis.
-\end{proof}
-
-In the Pell family after Proposition~\ref{prop:gaussheavy}, $\ell=2$, and
-the three points have norms $4c^2+1$, twice, and $4c^2$: item~2 is attained,
-and the bound $K\le\ell$ of item~3 fails on two norms.  Item~3 is attained
-at every scale: for $w=a+ci$ on the Pell equation, $y=i\bar w=c+ai$ gives
-$y^3+y=-i\,\overline{(w^3-w)}=-(8c^3+2c)$, so $(y^3+y)^2$, with nonleading
-coefficients $2$ and $1$, takes the value $(8c^3+2c)^2$ at the two points
-$\pm c+ai$ of one norm.  So three points of one norm need $h_1=h_2=0$, and
-if $h_1\ne0$ the $\alpha_j$ have distinct norms.  The bound $K\le\ell$ is
-not a constant, as $\ell$ is unbounded on one norm: if $k\ge1$ and
-$a^2-3c^2=1$ with $c>\binom{2k}k$, then $(y^3+y)^{2k}=\sum_j\binom{2k}jy^{2k+2j}$, with
-$\ell=2k$, is $(8c^3+2c)^{2k}$ at $\pm c+ai$, and $(y^3-y)^{2k}$, with
-$\ell=2k$, is $(-1)^k(8c^3+2c)^{2k}$ at $\pm a+ci$, $2ci$; the nonleading
-coefficients of both are below $c\le\rho_{\min}/2$.  In both the points of one
-norm are $\alpha$ and $-\bar\alpha$, and $H$ is even.  This is forced: a
-symmetry of $\mathbb Z[i]$ relating two points of a level set is a symmetry
-of $H$.
-
-\begin{proposition}[Symmetries of a level set]\label{prop:gausssym}
-In the setting of Proposition~\ref{prop:gaussheavy}, item~2, write
-$H=\sum_{k=1}^dh_ky^k$ with $h_d\ne0$, and call the eight numbers
-$u\alpha_j$, $u\bar\alpha_j$ with $u^4=1$ the \emph{class} of $\alpha_j$.
-\begin{enumerate}
-\item If $\alpha\in\mathbb Z[i]$ has $|\alpha|\ge\rho_{\min}$ and
-$H(\alpha)=H(u\alpha)=-v$ for a unit $u\ne1$, then $H(uy)=H(y)$: $H$ is
-even if $u=-1$, and $H\in\mathbb Z[y^4]$ if $u=\pm i$.
-\item A class contains at most one of the $\alpha_j$ if $H$ is not even, at
-most two if $H\notin\mathbb Z[y^4]$, and at most four.
-\item Let every $\alpha_j$ have norm $n$; with $t_p$, $s_p$ as in
-Proposition~\ref{prop:gaussprimes}, let every prime $p\equiv1\pmod4$
-dividing $n$ have $\operatorname{ord}_p(n)>2t_p$, and let $m$ of them have
-$\operatorname{ord}_p(n)\ne2s_p$.  Then the $\alpha_j$ lie in at most
-$\max(2^{m-1},1)$ classes.  In particular, if $n$ has at most one prime
-factor $p\equiv1\pmod4$, then $K=1$ unless $H$ is even, and $K\le2$ unless
-$H\in\mathbb Z[y^4]$.
-\end{enumerate}
-\end{proposition}
-
-\begin{proof}
-1.  Put $\rho=|\alpha|$, $x=1/\rho$ and $b=\max_{0<k<d}|h_k|$, so
-$b<\rho_{\min}/2\le\rho/2$.  The polynomial
-$W(y)=H(y)-H(uy)=\sum_k(1-u^k)h_ky^k$ has Gaussian-integer coefficients and
-$W(\alpha)=0$.  Suppose $W\ne0$, of degree $M$.  Every $h_k$ with $k<M$ is
-nonleading, so
-\[
-  |1-u^M|\rho^M\le|(1-u^M)h_M\alpha^M|
-  =\Bigl|\sum_{k<M}(1-u^k)h_k\alpha^k\Bigr|
-  \le b\sum_{k<M}|1-u^k|\rho^k.
-\]
-If $u=-1$, $|1-u^k|$ is $2$ for odd $k$ and $0$ for even $k$, so $M$ is
-odd and the right side is at most
-$2b\rho^M(x^2+x^4+\cdots)<\rho^{M+1}/(\rho^2-1)<2\rho^M$, as $\rho>2$.  If $u=\pm i$, $|1-u^k|$ is
-$0,\sqrt2,2,\sqrt2$ for $k\equiv0,1,2,3\pmod4$, so $4\nmid M$, and grouping
-the $k<M$ by $M-k\bmod4$ bounds the right side by
-$|1-u^M|\,b\rho^M\sigma$, $\sigma=(\sqrt2x+x^2+x^4)/(1-x^4)$: this is the
-case $M\equiv3$, and for $M\equiv1,2$ the weights of $x,x^2,x^3,x^4$ are
-$(0,1,\sqrt2,1)$ and $(1/\sqrt2,0,1/\sqrt2,1)$, where $x^3\le x$.  Norms of
-Gaussian integers above $4$ are $5$ or at least $8$.  If $\rho^2\ge8$,
-$b\sigma<(\sqrt2+x+x^3)/(2(1-x^4))<0.93$; if $\rho^2=5$, then
-$\rho_{\min}^2=5$, so $b\le1$ and $b\sigma<0.91$.  Either way the right side
-is below $|1-u^M|\rho^M$, a contradiction.  So $W=0$.
-
-2.  The units $u$ with $H(uy)=H(y)$ form a group $U$ of order $1$, $2$ or
-$4$ as $H$ is not even, is even but not in $\mathbb Z[y^4]$, or is in
-$\mathbb Z[y^4]$.  Fix $j$ and let $S$ be the set of units $u$ with
-$H(u\alpha_j)=-v$.  Then $1\in S$, $U\subseteq S$, and if $u,u'\in S$,
-item~1 at $u\alpha_j$, of modulus $\rho_j\ge\rho_{\min}$, gives $u'/u\in U$;
-so $S=U$.  As $v+H$ has real coefficients, $u\bar\alpha_j$ is a root of it
-if and only if $\bar u\alpha_j$ is, so its roots in the class of $\alpha_j$
-are the $w$ and $\bar w$ with $w\in U\alpha_j$, and at most $|U|$ of them
-lie above the axis.
-
-3.  Let $p\equiv1\pmod4$ divide $n$, $e=\operatorname{ord}_p(n)$, and
-$p=\pi\bar\pi$ with $\operatorname{ord}_p(\pi)>0$ under the embedding of
-Proposition~\ref{prop:gaussprimes}; as $\pi$ and $\bar\pi$ are coprime,
-$\operatorname{ord}_p(\bar\pi)=0$ and $\operatorname{ord}_p(\pi)=1$, so $\operatorname{ord}_p(\alpha_j)$ and $\operatorname{ord}_p(\bar\alpha_j)$
-are the exponents of $\pi$ and $\bar\pi$ in $\alpha_j$.  As in the proof of
-Proposition~\ref{prop:gaussprimes}, item~2, since $e>2t_p$ one of them
-exceeds $t_p$ and so equals $s_p$, and they sum to $e$; so the exponent of
-$\pi$ in $\alpha_j$ is $s_p$ or $e-s_p$.  The exponents of $1+i$ and of each
-prime $q\equiv3\pmod4$ in $\alpha_j$ are $\operatorname{ord}_2(n)$ and
-$\operatorname{ord}_q(n)/2$.  So $\alpha_j$ is determined up to a unit by a
-choice between $s_p$ and $e-s_p$ at each of the $m$ primes with
-$e\ne2s_p$, and $\bar\alpha_j$, in the same class, by the opposite choices.
-Hence there are at most $\max(2^{m-1},1)$ classes, one if $m\le1$, and
-item~2 gives the last statement.
-\end{proof}
-
-The pairs above attain item~2 with $H$ even, at every scale.  So three
-points of one norm need, besides $h_1=h_2=0$, that $H\in\mathbb Z[y^4]$
-(and then $\deg H\ge16$, Proposition~\ref{prop:gaussfour} below), or
-that $n$ has two primes $p\equiv1\pmod4$ with
-$\operatorname{ord}_p(n)\ne2s_p$ (three if $H$ is not even), or one with
-$\operatorname{ord}_p(n)\le2t_p$.  Item~1 needs
-the small coefficients: $H=y^5+y^4+6y^3+6y^2+25y$ is $-25$ at $\pm(1+2i)$
-and is not even.
-
-A class meeting an axis or a diagonal holds at most two points above the
-axis, so by item~2 a class holds three or four of the $\alpha_j$ only if
-$H=A(y^4)$ with $A\in\mathbb Z[z]$ and the class meets neither; then
-$z=\alpha_j^4$ is a Gaussian integer off the real axis with $A(z)=-v$ real,
-and the nonleading coefficients of $A$ lie below $|z|^{1/4}/2$.  If $H\in\mathbb
-Z[y^4]$ and the $\alpha_j$ of one norm are three, one of them lies on neither
-an axis nor a diagonal, since at most two Gaussian integers above the axis of one norm lie on the
-axes and diagonals.
-
-\begin{proposition}[Four points of one class]\label{prop:gaussfour}
-In the setting of Proposition~\ref{prop:gaussheavy}, item~2, let
-$H\in\mathbb Z[y^4]$ and let some $\alpha_j$ lie on neither axis nor
-diagonal.  Then $\deg H\ge16$.
-\end{proposition}
-
-\begin{proof}
-Write $H=A(y^4)$ with $A=\sum_{k=1}^Da_kz^k$ and $a_D\ne0$, so
-$\deg H=4D$, and put $b=\max_{0<k<D}|a_k|$ ($b=0$ if $D=1$), $\alpha=\alpha_j=a+ic$,
-$\rho=|\alpha|$ and $n=\rho^2$; then $b<\rho_{\min}/2\le\rho/2$.  Let
-$\beta=\alpha^2=\mu+i\nu$ and $z=\alpha^4=\beta^2=X+iY$, so
-$X=\mu^2-\nu^2$, $Y=2\mu\nu$ and $N=|z|=\mu^2+\nu^2=n^2$.  If $Y=0$ then
-$(\alpha/\bar\alpha)^4=z/\bar z=1$, so $\alpha/\bar\alpha\in\{\pm1,\pm i\}$
-and $\alpha$ lies on an axis or a diagonal; so $Y\ne0$.  The integers
-$\mu\pm\nu=a^2\pm2ac-c^2$ are nonzero, as $c\ge1$ and $t^2\pm2t-1$ has no
-rational root, and $(\mu+\nu)^2+(\mu-\nu)^2=2n^2$, so
-\begin{equation}\label{eq:gaussfourX}
-  |X|=|\mu+\nu|\,|\mu-\nu|\ \ge\ \max(|\mu+\nu|,|\mu-\nu|)\ \ge\ n .
-\end{equation}
-Suppose $D\le3$ and set $a_k=0$ for $k>D$.  As $v$ is real,
-$\operatorname{Im}A(z)=0$; here $\operatorname{Im}z^2=2XY$ and
-$\operatorname{Im}z^3=Y(3X^2-Y^2)=Y(4X^2-N^2)$, so dividing by $Y$,
-\[
-  a_1+2a_2X+a_3(4X^2-N^2)=0 .
-\]
-If $D=1$ this says $a_1=0$, against $a_D\ne0$.  If $D=2$ it gives $2|X|\le|a_1|\le b<\rho/2<n$,
-against \eqref{eq:gaussfourX}.  Let $D=3$, put $j=2|X|-N$ and
-$\sigma=X/|X|$, so $2X=\sigma(N+j)$ and
-$4X^2-N^2=j(2|X|+N)=j(2N+j)$.  Then
-$|a_3j|(2|X|+N)=|a_1+2a_2X|\le b(1+2|X|)$, so $|j|\le|a_3j|\le b$, and
-\[
-  N(2a_3j+\sigma a_2)=-(a_3j^2+\sigma a_2j+a_1),
-\]
-where the right side has modulus at most $2b^2+b<N$, as $b<\rho/2=N^{1/4}/2$.
-So both sides vanish: $\sigma a_2=-2a_3j$ and $a_1=a_3j^2$.  If $j=0$ then
-$4X^2=N^2$ and $4Y^2=3N^2$, which is impossible; so $1\le|j|\le|a_1|\le
-b<\rho/2$.  But $j$ is $\mu^2-3\nu^2=n^2-4\nu^2$ if $X>0$ and
-$\nu^2-3\mu^2=n^2-4\mu^2$ if $X<0$, so $j=(n-2w)(n+2w)$ with $w\ge0$ an
-integer, and $j\ne0$ gives $|j|\ge n+2w\ge n>\rho/2$, a contradiction.  So
-$D\ge4$.
-\end{proof}
-
-The last step is where $z$ being a fourth power, and not only a square,
-enters: it makes $N=|\beta|^2$ a square.  If $\beta=a+ci$ with $a^2-3c^2=1$,
-then $\beta^2-1=2c^2+2aci=2ci\bar\beta$, so $A(z)=z(z-1)^2=z^3-2z^2+z$ is
-$-4c^2(a^2+c^2)^2$ at $z=\beta^2$, real, with nonleading coefficients $-2$,
-$1$ below $|z|^{1/4}/2$ once $|z|=a^2+c^2>256$; here $A(y^2)=(y^3-y)^2$ and
-the $\beta$ are the Pell points after Proposition~\ref{prop:gaussheavy}.  So
-the sizes of the coefficients against $|z|$ do not bound $\deg A$ by
-themselves.  Whether the number of Gaussian points above the axis in
-one level set of a polynomial with small nonleading coefficients is bounded
-independently of $\rho_{\min}$, whether one norm carries at most two of
-them, and whether $\Lambda(F)\ge cK^2\log R$ holds for all integer
-multiples at Gaussian roots in a wide sector, remain open.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.
 
 \paragraph{Computer assistance.}
 No proof in this paper relies on computation.  The numerical thresholds after
-Theorem~\ref{thm:thinsector} describe its range and are not used elsewhere,
-and the value $-270400$ after Proposition~\ref{prop:gaussheavy} is a direct
-evaluation, as are the values $P'(0)=6$ and $P(0)$ in
-Proposition~\ref{prop:gausscong}, item~3, and the expansions of $P'(0)$ in
-Proposition~\ref{prop:gaussline}, items~2 and~3.  The file \texttt{tests/test\_sectors.py} in the
+Theorem~\ref{thm:thinsector} describe its range and are not used elsewhere.
+The file \texttt{tests/test\_sectors.py} in the
 repository of~\cite{coefficient-mass} checks the statements, on seeded
 random Gaussian and integer multiples and on the extremal examples, each
 group with a control showing that a false variant is caught; these checks
 test the statements and are not used in any proof.  Polynomial products,
 divisibility, $p$-adic valuations and Newton polygons, coefficient
-magnitudes, power-series coefficients, lattice vectors and Sturm
-counts of real zeros are computed in exact integer and rational arithmetic;
-floating point enters only in evaluating logarithms, in the right-hand sides
-of mass bounds and the constants $E$ and $\kappa$.
+magnitudes and Sturm counts of real zeros are computed in exact integer and
+rational arithmetic; floating point enters only in evaluating logarithms,
+in the right-hand sides of mass bounds and the constants $E$ and $\kappa$.
 
 \paragraph{Use of AI tools.}
 Large language model assistants (Claude, Anthropic) were used in drafting and
@@ -1688,6 +1170,12 @@ multiples,
 \bibitem{coefficient-mass-complex}
 B.~Pham,
 \newblock Coefficient mass of polynomial multiples at complex roots,
+\newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
+
+\bibitem{coefficient-mass-levelsets}
+B.~Pham,
+\newblock Light integer multiples at Gaussian roots: congruences, level
+sets and Pell points,
 \newblock preprint, 2026, \url{https://github.com/bangyen/coefficient-mass}.
 
 \bibitem{erdos-turan}

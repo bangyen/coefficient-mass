@@ -1,4 +1,4 @@
-PAPERS := "coefficient-mass coefficient-mass-attainment coefficient-mass-belowtwo coefficient-mass-complex coefficient-mass-family coefficient-mass-rows coefficient-mass-sectors"
+PAPERS := "coefficient-mass coefficient-mass-attainment coefficient-mass-belowtwo coefficient-mass-complex coefficient-mass-family coefficient-mass-levelsets coefficient-mass-rows coefficient-mass-sectors"
 CHKTEX_OFF := "-n1 -n2 -n3 -n8 -n9 -n12 -n17 -n24 -n25 -n36 -n40 -n44"
 
 # lint, then every test: citations, roadmap labels, certificate sweeps

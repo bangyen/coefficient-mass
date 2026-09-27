@@ -1,6 +1,6 @@
 # coefficient-mass
 
-Seven papers on how small the coefficients of a polynomial multiple can be
+Eight papers on how small the coefficients of a polynomial multiple can be
 when its roots are prescribed, with executable checks.
 
 | Paper | Subject |
@@ -12,6 +12,7 @@ when its roots are prescribed, with executable checks.
 | [coefficient-mass-belowtwo](papers/coefficient-mass-belowtwo.tex) | The same rows below the root 2: where the prefix identity holds, and certified failures on intervals |
 | [coefficient-mass-complex](papers/coefficient-mass-complex.tex) | Complex roots: exact reductions, arbitrary angles, separated moduli and annuli, and real roots of both signs |
 | [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex) | Roots in a sector: thin sectors, sectors of every width, degree charging and integer multiples at Gaussian roots |
+| [coefficient-mass-levelsets](papers/coefficient-mass-levelsets.tex) | Light integer multiples at Gaussian roots: one congruence for the lowest coefficients, level sets of a small polynomial, and Pell points |
 
 Open questions are in [ROADMAP](ROADMAP.md).
 
