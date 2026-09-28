@@ -7,7 +7,7 @@ check: lint test
 lint:
     uv run ruff format --check tests tools
     uv run ruff check tests tools
-    uv run codespell papers tests tools CoefficientMass README.md ROADMAP.md ARTIFACT.md SUBMISSION.md THEOREM_CORRESPONDENCE.md submission
+    uv run codespell papers tests tools CoefficientMass README.md ROADMAP.md ARTIFACT.md SUBMISSION.md THEOREM_CORRESPONDENCE.md LEAN.md submission
 
 # chktex on the papers; the disabled warnings are ones the house style
 # contradicts (`~` before references, dashes in DOIs, `{}` around brackets)

@@ -5,11 +5,18 @@
 Eight papers on how small the coefficients of a polynomial multiple can be
 when its roots are prescribed, with executable checks.
 
+If a polynomial `F` is divisible by `(x - r_1) ... (x - r_L)`, its coefficients
+cannot all be small: each of the `L` largest nonleading magnitudes is bounded
+below, and the bound does not weaken as the multiplier's degree grows.  For
+roots at least 2 the `k`-th largest is at least `|f_D| prod_{i>=k} (r_i - 1)`.
+The papers prove these bounds, show where they are sharp, and work out what
+happens as the roots approach 1 or move off the real line.
+
 | Paper | Subject |
 | --- | --- |
 | [coefficient-mass](papers/coefficient-mass.tex) | Displaced-zero certificates; the order-statistic tail bound and logarithmic mass (Corollary 3.4) |
 | [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex) | Sharpness of the order-statistic bound: the partial-sum criterion, the infimum `1/tau*` at roots `>= 2`, and the placement game below 2 |
-| [coefficient-mass-family](papers/coefficient-mass-family.tex) | The placement game along `(r,3,5,7)`: exact infima down to `r -> 1`, where every cost is explicit and the normalised excess oscillates log-periodically, with an explicit profile across the jumps |
+| [coefficient-mass-family](papers/coefficient-mass-family.tex) | The placement game along `(r,3,5,7)`: exact infima down to `r -> 1`, where every cost is explicit and the normalised excess oscillates log-periodically |
 | [coefficient-mass-rows](papers/coefficient-mass-rows.tex) | Every row is a top row: order statistics of multiples of a power at roots `>= 2` |
 | [coefficient-mass-belowtwo](papers/coefficient-mass-belowtwo.tex) | The same rows below the root 2: where the prefix identity holds, and certified failures on intervals |
 | [coefficient-mass-complex](papers/coefficient-mass-complex.tex) | Complex roots: exact reductions, arbitrary angles, separated moduli and annuli, and real roots of both signs |
@@ -40,14 +47,15 @@ just submission # build the self-contained release and JNT submission bundles
 | `tests/test_lean.py` | every result number a Lean docstring cites names the label it means, and each headline Lean theorem proves the statement of the result it is listed against |
 | `tests/test_metadata.py` | `CITATION.cff` and `pyproject.toml` carry the same version |
 | `tests/test_sweep.py` | the seeded certificate sweep and exact worked numbers of `coefficient-mass` and `-attainment` (`tests/sweep.py`) |
-| `tests/test_masstwo.py` | finite checks around the paper's asymptotic Jensen density at `(x-2)^L`: the rows at `R_k = 1-k/L` are validated against actual multiples, with `L^2/16` verified at `L = 97` but not `96`, and `L^2/20` at `L = 14`; rational `Q` beats `Q = 1` for every `2 <= L <= 12` (`x + 1` at `L = 11`), while `Q = (x+1)^m` saves only `O(L)` in the tested family |
-| `tests/test_attainment.py` | the infimum `1704/31` at `(2,3,5,7)` approached by exact optima up to degree 30, with the constant term the best exempt position, the run chord behind the extremal escaping placement at roots `>= 2` (failing above the cutoff), the exact infimum `1704/31` at `(2,3,5,7)`, the multiple beating `1/tau*` at `(11/10,3,5,7)`, the aligned-lift identity at any roots above 1, the exact infimum `3398808/96935` at `(11/10,3,5,7)`, the threshold `r_c` along `(r,3,5,7)`, the infimum `beta(r)` there on `[13/10, r_c]` and in seven pieces on `[1.0745..., 13/10]` (Sturm counts over Q), the closed forms at `(3,5,7)` and the flipped witness behind `inf b_2 - 24 ~ (r-1)^alpha` near `r = 1`, the two sides of `3^x (r-1) = 18` behind its oscillation and the exact infimum at `r = 5701/5700` (zero set `{1,10,1335}`), every cost along the family from the half-mass point of the flip kernel (witnesses checked at four nodes, against all zero sets up to 16), the limit profile's breakpoints `k_c` and identities, the worst placement `x* + 1` at `r = 101/100` (zero set `{1,4,7}`) and `9842/9841` (`{1,7,11}`), the hand estimates with logarithms and powers of `alpha` as comparisons of integer powers, and the failure along `(r,5,7)` for every `r < 2` |
-| `tests/test_rows.py` | last rows, every row a top row at `r >= 2` on a window, the exact `r = 5/4` counterexample to the prefix identity, exact second rows at `r = 5/4` and `4/3` from vertex certificates, the exact `r = 177/167` failure of the prefix identity although `nu_2(50) > nu_1(50)`, second-row failures at every `r` in `[21/20, 139/100]` from 49 interval certificates (`tests/second_row_cover.json`), far-zero thresholds, exact third rows at `r = 4/3` and `3/2` from certified trees, and failures in some row `k` at every `r` in `[139/100, 19/10]` from 27 block certificates (`tests/block_row_cover.json`) |
-| `tests/test_complex.py` | multisection transfer, imaginary pairs, first row at Gaussian roots, Newton-polygon dominance and separated moduli, several annuli (with the rows failing at separation `n_a` and the mass bound just above separation 2, and both holding at `3 rho_(n_a)` with few roots above a gap), truncations of `prod (1 - x/beta)^(-1)` bounded below and the second row at separation `n_2 + 1` (linear in `lambda`, constant at least 1/2 and tending to 1 as `|alpha|` grows), a second position below the gap and the rows and mass for two annuli at `max(4, n_2 + 1)` (failing just above `n_2`), a position excluded between a zero below the gap and one above, with the second row at `4/3 + 2/(3 T_1)` for one root above the gap (failing below `4/3`) and the mass at `2 + 1/T_1` for two, every row at separation `n_a + 9`, and at `n_a + 1` from 10 roots (the row 3 from 7) and `max(9, n_a + 3/2)` below by eliminating at two lower zeros (with the exact finite check the proof uses), with the row 3 failing when only the top separation grows or both are below `n_a + 1/2`, both signs, and Gaussian blocks, on seeded integer multiples and exact optima |
-| `tests/test_sectors.py` | real crossings next to a sector (Sturm counts), thin and wide sectors, the sharp constant at `x^N - rho^N`, integer imitations of `x^N - rho^N`, polynomials in a power and symmetric root sets, heavy coefficients and level sets at Gaussian roots, `p`-adic Newton polygons at the primes over coprime norms and small coefficients after the lowest one and the one congruence cutting out the lowest coefficients, lines of root sets with a constant `P'(0)` and the light multiples behind the step at `m >= 2K`, the three-point level sets from a Pell equation and the circle they lie near (with the constants closing its proof in rationals), the Newton polygon at each prime of a level set (at most `ord_0 H` points per norm), symmetries of a level set (a unit relating two of its points is a symmetry of `H`) and the classes of one norm, four points of one class (no `A` of degree at most 3 with small coefficients is real at a fourth power, while `z(z - 1)**2` is real at the Pell squares), and Gaussian integers in a disc and a half-annulus |
+| `tests/test_masstwo.py` | finite checks around the asymptotic Jensen density at `(x-2)^L`, against actual multiples (`tests/masstwo.py`) |
+| `tests/test_attainment.py` | exact optima, infima and thresholds along the family `(r,3,5,7)`, and the extremal placement at roots `>= 2` |
+| `tests/test_rows.py` | rows and their certified failures below the root 2, from vertex certificates, trees and interval covers (`tests/second_row_cover.json`, `tests/block_row_cover.json`) |
+| `tests/test_complex.py` | rows and mass at complex roots: multisection transfer, separated moduli, annuli and Gaussian blocks |
+| `tests/test_sectors.py` | sectors of every width, level sets at Gaussian roots, `p`-adic Newton polygons and Pell points |
 
-Each negative result carries a control: a false variant the same check must
-catch.
+Each test module's docstring states what that file checks and how, result by
+result; the table above is only an index.  Every negative result carries a
+control: a false variant the same check must catch.
 
 ## Lean
 
@@ -60,48 +68,12 @@ a theorem of that type; nothing is assumed.  The guards in `scripts/` (the
 unfinished proofs and new axioms, so every commit builds without `sorry` or
 extra axioms.
 
-Beyond the chain, `tailEquality` proves the equality case of Theorem 2.2,
-`firstRowOrderStatistics` the first row of Theorem 3.2 for roots above 1,
-`complexFirstRowOrderStatistics` the same clause of Corollary 3.3 for complex
-multiples,
-`sharpRowTwo : SharpRowTwo` proves Proposition 4.4 (the row
-`k = 2` is an infimum at `(2, 3)`), `rowCertificate : RowCertificate` Lemma 5.1,
-`everyRow_of_star` reduces Theorem 5.9 (`EveryRow`) to the statement
-`Star n` of Section 5, and `everyRow : EveryRow` proves it, through
-`deleteLargest` (Lemma 5.2), `holeIntegral` (Lemma 5.3), `rowsFree`
-(Proposition 5.5), `holeVals` (Lemma 5.6), `holeTail`
-(Lemma 5.7) and `rowsTop` (Proposition 5.8).  The rest of Sections 4 and 5 is proved too:
-`unboundedLooseness`, `halfSum` and `looseRatio` (Proposition 4.1), `jensenRows` and
-`quadraticMass` (Proposition 4.2, through Jensen's formula for polynomials and the
-operators `T_z`), and `allRoots` (Corollary 4.3, with the constants `1/81` and `3`);
-`workedExamples` checks the examples after Theorem 2.2.  The last corollaries of Section 3
-are proved as well: `nearOptimal` (Corollary 3.7), and `primeRoots` and `primeInfimum`
-(Corollaries 3.5 and 3.6, with explicit `O(L^2)` error terms from Chebyshev's bounds on the
-`n`-th prime, proved in `PrimeCount` and `PrimeLower`).
-
-The companion paper `coefficient-mass-rows.tex` is formalized from its start.  Section 2
-is proved in full: `rowValueCert`, `rowValueDual` and `rowValueTop` (Proposition 2.1, the
-certificate at a root `r > 1`, `V_r(L, k) = inf 1/μ_r(S, L)` by Hahn–Banach separation and
-truncation, and `V_r(L, k) ≤ β_r(L - k + 1)`), `tailBoundGen` (Theorem 2.2),
-`confDeleteR` (Lemma 2.3) and `lastRow` (Corollary 2.4).  From Section 3, `intZerosInf`
-(Lemma 3.1), `rowPointwise` (Lemma 3.2), `prefixRows` (Theorem 3.3) and `nbMass`
-(Lemma 3.4, with Chebyshev's inequality from the moments of the negative-binomial law) and
-`belowTwo` (Corollary 3.5);
-Section 4 in full,
-`crossing` (Lemma 4.1), `insFlip` (Lemma 4.2), `crossRows` (Theorem 4.3) and `prefixPush`
-(Lemma 4.4); and Section 5
-in full, `truncVertex` (Lemma 5.1), `optIns` and `optInsMax` (Lemma 5.2), `allRowsTwo`
-(Theorem 5.3, with `V_r(L, k) = β_r(L - k + 1)` for `r ≥ 2`) and `prefixUp`
-(`ν_{i+1}(n) ≤ ν_i(n)/(r - 1)`).
-
-Its sequel `coefficient-mass-belowtwo.tex`, the rows below the root 2, is formalized
-through its hand-proved results: `onePoly`
-(Theorem 2.1), `prefixShift` (Lemma 2.2), `onePolyRows` (Theorem 2.3), `topNearOne`
-(Lemma 2.4), `farPrefix` (Lemma 3.1), `longDiag` (Theorem 3.2), `longDiagExplicit`
-(Proposition 3.3), `longDiagFinite` (Corollary 3.4), `rowMono` (Lemma 4.1), `vertexOpt`
-(Lemma 4.2), `secondRow`
-(Theorem 4.3, with `exists_muR_min`: every `μ_r(S, L)` is attained), `rootMono` (Lemma 4.6),
-`farZeros` (Lemma 5.1), `finiteRows` (Theorem 5.2), and `exemptBlock` (Lemma 5.4).
+All 23 numbered results of the main paper are proved, along with the equality
+case of Theorem 2.2 and the worked examples after it.
+[THEOREM_CORRESPONDENCE](THEOREM_CORRESPONDENCE.md) maps each result to its
+declaration and file.  The companion papers `coefficient-mass-rows.tex` and
+`coefficient-mass-belowtwo.tex` are formalized too, and indexed the same way in
+[LEAN](LEAN.md).
 
 For the main chain, `CoefficientMass.logarithmicMass : LogarithmicMass`
 depends only on the standard axioms (`propext`, `Classical.choice`,
