@@ -114,8 +114,8 @@ parts after normalizing the leading coefficient.  Finally, as
 the roots approach $2$ the displayed mass bound degenerates; a separate argument by
 Jensen's formula gives $\Lambda(F)\ge L^2/80$ for monic multiples when
 $L\ge8$ (Proposition~\ref{prop:quadratic}); optimizing its radius row by
-row gives the asymptotic lower bound $\Lambda(F)\ge(c_2+o(1))L^2$ with
-$c_2=0.0647068\ldots$, uniformly over root sets with all $r_i\ge2$ (an
+row gives the asymptotic lower bound $\Lambda(F)\ge(\kappa_J+o(1))L^2$ with
+$\kappa_J=0.0647068\ldots$, uniformly over root sets with all $r_i\ge2$ (an
 unnumbered remark in Section~\ref{sec:bottom}, not formalized).  Together the two methods give
 \[
   \inf_{\substack{Q\in\R[x]\\Q\text{ monic}}}\Lambda(PQ)
@@ -797,7 +797,7 @@ $S/(B+1)$.  If moreover $r_i\ge2$ for every $i$, then $B\ge1$ and hence
 \begin{equation}\label{eq:halfsum}
   b_1(F)\ \ge\ \frac S2=\frac{r_1+\cdots+r_L}2 .
 \end{equation}
-At $r_1=\cdots=r_L=2$ the ratio $S/(B+1)$ equals $L$, so the ratio
+Even for distinct roots $r_i=2+iL^{-3}$ the ratio $S/(B+1)$ is $\sim L$, so the ratio
 between a certificate bound and $|P(1)|$ is unbounded in $L$.
 \end{proposition}
 
@@ -834,8 +834,9 @@ computation used only $0<y_i<1$, that is $r_i>1$.
 Repetitions follow by the perturbation in the proof of
 Theorem~\ref{thm:order}, as $B$ and $S$ are continuous in the roots.  If
 every $r_i\ge2$ then $B\ge1$, so $B/(B+1)\ge\tfrac12$, which is
-\eqref{eq:halfsum}.  Finally, at $r_i=2$ one has $B=1$ and $S=2L$, so
-$S/(B+1)=L$.
+\eqref{eq:halfsum}.  Finally, for $r_i=2+iL^{-3}$ one has
+$\log B=\sum_i\log(1+iL^{-3})=O(L^{-1})$, so $B\to1$, while
+$S=2L+O(L^{-1})$; hence $S/(B+1)\sim L$ (at $r_i=2$ it equals $L$).
 \end{proof}
 
 \subsection{The bottom of the range}\label{sec:bottom}
@@ -954,7 +955,7 @@ $\phi$ bounded on $(0,a_0]$, gives
 \[
   \liminf_{L\to\infty}\ \inf_{\substack{F\in\R[x]\text{ monic}\\(x-2)^L\mid F}}
   \frac{\Lambda(F)}{L^2}
-  \ \ge\ c_2:=\int_0^{a_0}\phi(a)\,da
+  \ \ge\ \kappa_J:=\int_0^{a_0}\phi(a)\,da
   =0.0647068\ldots.
 \]
 Thus the explicit $L^2/80$ estimate is useful uniformly from $L=8$, while
@@ -1459,8 +1460,13 @@ behind the asymptotic corollaries.  The formal proof of
 Corollary~\ref{cor:mass} uses only the standard axioms reported by Lean:
 propositional extensionality, choice and quotient soundness.  Numerical
 examples are checked separately and are not premises of the formal proofs.
-The unnumbered remarks giving the constant $c_2$ and the non-attainment of
-the row-two infimum at $(2,3)$ are proved in the text but not formalized.
+Unnumbered remarks are proved in the text but not formalized; these include
+the constant $\kappa_J$ and its uniformity over root sets, the bound on $b_1$
+after Corollary~\ref{cor:allroots}, the equality of the real and complex
+monic infima, the upper constant $(1+\log2)/2$, and the non-attainment of the
+row-two infimum at $(2,3)$.  The complex case of Corollary~\ref{cor:prime}
+follows from Corollary~\ref{cor:mass} as in the text but is formalized for
+real $F$ only.
 
 \paragraph{Code and materials availability.}
 No empirical dataset is used.  The LaTeX source, Lean formalization,
@@ -1572,7 +1578,7 @@ A.~Pinkus,
 B.~Pham,
 \newblock Reproducibility archive for \emph{Displaced-Zero Certificates and
 the Coefficient Mass of Polynomial Multiples},
-\newblock Zenodo, 2026, version 1.0.2,
+\newblock Zenodo, 2026 (concept DOI, resolving to the latest version),
 \newblock \href{https://doi.org/10.5281/zenodo.22998724}
 {doi:10.5281/zenodo.22998724}.
 
