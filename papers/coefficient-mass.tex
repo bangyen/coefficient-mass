@@ -33,7 +33,7 @@
 \begin{abstract}
 We study how small the coefficients of a polynomial multiple can be when its
 real roots are prescribed but the multiplier may have arbitrary degree.  If
-$2\le r_1\le\cdots\le r_L$ and $F$ is divisible by
+$2\le r_1\le\cdots\le r_L$ and $F$, with leading coefficient $f_D$, is divisible by
 $\prod_{i=1}^L(x-r_i)$, we prove degree-independent lower bounds for each of
 the $L$ largest nonleading coefficient magnitudes.  In particular, the
 $k$-th largest is at least
@@ -185,8 +185,8 @@ Reduced length, height and Euclidean norm, as well as integer, sparse and
 bounded-coefficient multiples, belong to the surrounding literature~\cite{dubickas,schinzel,schinzel-ii,schinzel-complex,frw,mignotte,
 bombieri-vaaler,bbbp-multiple,bbbp-ray,grt}.
 
-This article is self-contained.  The public repository also contains
-companion manuscripts; one starts from Theorem~\ref{thm:everyrow} and
+This article is self-contained.  The source archive~\cite{archive} also
+contains companion manuscripts, not submitted with this one; one starts from Theorem~\ref{thm:everyrow} and
 determines exact extremal row values for a repeated root, so it overlaps in
 subject but not in theorem content, Section~\ref{sec:dfree} supplying its
 prerequisite.  The others study the below-$2$ regime, attainment, complex and
@@ -354,13 +354,13 @@ $\Delta_{m+1}=0$, because $G_m=0$ gives $E_{m+1}=G_{m+1}=\sigma\widehat
 V_{m+1}$.  Next let $p\in Z'$.  Then $\widehat V_p=G_p=0$, so
 $\Delta_p=-E_p=y_cG_{p-1}$.  By the zero bound $G$ has exactly the simple
 zeros $\{0\}\cup Z'$ and is positive past $m$, so on the component of
-$(0,\infty)\setminus Z'$ just below $p$ it has the sign $(-1)^{a(p)}$, where
-$a(p)=|\{\alpha\in Z':\alpha\ge p\}|$.  Hence $\Delta_p$ is zero, when $p-1$
-is marked, or has the sign $(-1)^{a(p)}$.
+$(0,\infty)\setminus Z'$ just below $p$ it has the sign $(-1)^{\nu(p)}$, where
+$\nu(p)=|\{\alpha\in Z':\alpha\ge p\}|$.  Hence $\Delta_p$ is zero, when $p-1$
+is marked, or has the sign $(-1)^{\nu(p)}$.
 
 Suppose $\Delta_d<0$ for some $d>m+1$.  List the $c$ points
 $Z'\cup\{m+1,d\}$ in increasing order and let $k(p)$ be the position of $p$,
-counted from $0$; thus $k(p)=|\{\alpha\in Z':\alpha<p\}|=c-2-a(p)$ for
+counted from $0$; thus $k(p)=|\{\alpha\in Z':\alpha<p\}|=c-2-\nu(p)$ for
 $p\in Z'$, $k(m+1)=c-2$ and $k(d)=c-1$.  Then
 $(-1)^c(-1)^{k(p)}\Delta_p\ge0$ at every listed point.  At $p\in Z'$ this
 follows from the sign of $\Delta_p$; at $m+1$ it follows from
@@ -1160,7 +1160,7 @@ $\Tail(V^\varepsilon)\to\Phi(Z')$, which proves the inequality.
 Finally $|r_{\{1,\ldots,\ell\}}(s)|=\binom{s-1}\ell$ for $s>\ell$ and $0$ for
 $1\le s\le\ell$, and $\sum_{s>\ell}\binom{s-1}\ell2^{-s}=1$.  Deleting the
 largest element repeatedly from any $Z$ stops at its leading block
-$\{1,\ldots,\ell\}$, never passing through an initial segment before, so
+$\{1,\ldots,\ell(Z)\}$, never passing through an initial segment before, so
 $\Phi(Z)\le1$.
 \end{proof}
 
@@ -1454,12 +1454,16 @@ not close; that is why Proposition~\ref{prop:rowsfree} keeps different
 holes there.
 
 \paragraph{Formal-verification record.}
-Every numbered lemma, proposition, theorem and corollary has a corresponding
-Lean~4 declaration, itemized with source files and statement-level scope in
-\texttt{THEOREM\_CORRESPONDENCE.md} in the source archive.  The table also
-records the axioms reported for the public headline declarations.  This includes the equality case of
-Theorem~\ref{thm:tail}, the repeated-root arguments and the explicit estimates
-behind the asymptotic corollaries.  The formal proof of
+Every numbered lemma, proposition, theorem and corollary except
+Lemma~\ref{lem:interlace} has a corresponding Lean~4 declaration, itemized
+with source files and statement-level scope in
+\texttt{THEOREM\_CORRESPONDENCE.md} in the source archive;
+Lemma~\ref{lem:interlace} is formalized as an internal step of the
+declaration for \eqref{eq:drive}, in the configuration used in the proof of
+Theorem~\ref{thm:tail}.  The formalization includes the equality case of
+Theorem~\ref{thm:tail}, the repeated-root arguments and the explicit
+estimates behind the asymptotic corollaries.  The table also records the
+axioms reported for the public headline declarations.  The formal proof of
 Corollary~\ref{cor:mass} uses only the standard axioms reported by Lean:
 propositional extensionality, choice and quotient soundness.  Numerical
 examples are checked separately and are not premises of the formal proofs.
