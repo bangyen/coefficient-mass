@@ -66,7 +66,12 @@ this quantity records when several distinct coefficients are large: lower
 bounds for their ordered magnitudes add after taking logarithms.  Because
 $\Lambda$ is not homogeneous, all minimization statements fix the leading
 coefficient, normally by requiring the multiplier to be monic.
-A small example shows what this normalization buys.  Take
+
+Multiplication makes this an unexpectedly slippery question.  It introduces
+new coefficients that can cancel the old ones, and the multiplier may place
+those cancellations arbitrarily far from the leading term.  A bound that
+depends on the final degree therefore misses the point: the multiplier is
+allowed to keep increasing it.  Take, for example,
 $P=(x-2)(x-3)=x^2-5x+6$.  A monic multiple $F=PQ$ may have arbitrarily high
 degree, and its largest coefficients may occur anywhere, but the results
 below force at least two nonleading coefficients of $F$ to have magnitude
@@ -133,17 +138,26 @@ The proof builds a linear functional on the coefficient vector that ignores
 any chosen $k-1$ positions, takes the leading coefficient to $1$, and has
 small total absolute weight elsewhere.  Applied after excluding the largest
 $k-1$ coefficients, it gives $1\le b_k$ times that total weight.  For
-$P=(x-2)(x-3)$ and $k=2$, the weight is at most $1/2$, hence $b_2\ge2$.
+$P=(x-2)(x-3)$, the simplest certificate is visible without any machinery:
+reading backward from the leading coefficient, use
+\[
+  w_d=3^{1-d}-2^{1-d}.
+\]
+Then $w_0=1$, $w_1=0$, and
+$w_2=-1/6,w_3=-5/36,\ldots$ are all negative, with
+$\sum_{d\ge1}|w_d|=1/2$.  Thus the functional keeps the leading coefficient,
+erases the next position, and spends total weight only $1/2$ on everything
+else.  The same idea, with a prescribed zero at whichever position is being
+ignored, gives $b_2\ge2$.  Higher rows ask for several prescribed zeros at
+arbitrary positions; controlling what those displacements do to the tail is
+the heart of the paper.
 
-The functional is a normalized exponential sum in the reciprocal roots,
-called a certificate; its prescribed zeros encode the ignored coefficient
-positions.  Theorem~\ref{thm:tail} bounds its $\ell^1$ tail uniformly in the
-multiplier's degree.  Its engine is a comparison that changes both data
-sets: removing the largest displaced zero and the largest reciprocal-root
-node produces a certificate on the remaining nodes with a larger tail.
-Section~\ref{sec:sharp} uses Jensen's formula for the
-first rows near $2$, while Section~\ref{sec:dfree} uses confluent certificates
-at the repeated root $2$.
+In general the certificate is a normalized exponential sum in the reciprocal
+roots, and its prescribed zeros encode the ignored coefficient positions.
+Theorem~\ref{thm:tail} bounds its $\ell^1$ tail uniformly in the multiplier's
+degree.  Its engine is a comparison that changes both data sets: remove the
+largest displaced zero and the largest reciprocal-root node, and the tail
+increases.  Iterating leaves the explicit consecutive certificate seen above.
 
 \paragraph{Relation to earlier work and novelty.}
 The exponential sums $d\mapsto\sum_i a_i e^{\lambda_i d}$ form a classical
@@ -750,9 +764,8 @@ is at most $(L^2+\frac{L(L+1)}2)\log2=O(L^2)$.
 
 \section{Sharpness and bounds near the root \texorpdfstring{$2$}{2}}\label{sec:sharp}
 
-How close is Theorem~\ref{thm:order} to optimal?  We treat the first row,
-the bottom of the root range, the rows $k\ge2$, and finally, at the root
-$2$, a degree-free form of the rows.
+We now ask how close Theorem~\ref{thm:order} is to optimal, beginning with
+the first row and then moving toward the root $2$ where its bound degenerates.
 
 \subsection{The first row}
 
@@ -1421,11 +1434,6 @@ individual rows.  For $\ell\in\{1,2\}$ the tail bound of Lemma~\ref{lem:holetail
 exceeds $\frac12$ and the argument of Proposition~\ref{prop:rowstop} does
 not close; that is why Proposition~\ref{prop:rowsfree} keeps different
 holes there.
-
-Thus the certificate method controls every row uniformly in the multiplier's
-degree, while the Jensen argument supplies the stronger estimates near the
-top of the coefficient range at the root $2$.  Together they explain both the
-global mass growth and the individual-row behavior established above.
 
 \paragraph{Formal-verification record.}
 Every numbered lemma, proposition, theorem and corollary has a corresponding
