@@ -9,7 +9,7 @@ import CoefficientMass.RowCert
 /-!
 # Polynomial Sums Against `x^t`
 
-This module collects the discrete tool behind Lemma 4.6 of
+This module collects the discrete tool behind Lemma 5.2 of
 `coefficient-mass.tex`, at `x = 1/2`, and behind its extension to `0 ≤ x < 1`.
 For a real polynomial `p` put `S[p] = ∑_{t ≥ 0} p(t) x^t` and `a = x / (1 - x)`.
 Shifting the argument gives `x S[p(· + 1)] = S[p] - p(0)`, which evaluates

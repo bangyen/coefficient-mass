@@ -10,7 +10,7 @@ import CoefficientMass.ValsSplit
 /-!
 # Counting and Product Bounds for the Kept Holes
 
-This module prepares Lemma 4.10 of `coefficient-mass.tex`.  The `r`-th kept hole `c`
+This module prepares Lemma 5.6 of `coefficient-mass.tex`.  The `r`-th kept hole `c`
 (from `0`) has `r` holes below it and `ℓ - r` above it, all in `[ℓ + 1, m]`, so
 `c ≥ ℓ + 1 + r` and `m ≥ c + ℓ - r`; the products of `abs_confPoly_split` are at most
 `C(c - 1, |D|)` and `C(c + |D|, |D|)` by their extreme placements.

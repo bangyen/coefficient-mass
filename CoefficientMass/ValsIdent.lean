@@ -9,7 +9,7 @@ import CoefficientMass.ValsMono
 /-!
 # The Block Values
 
-This module identifies the bound of Lemma 4.10 of `coefficient-mass.tex` at the block
+This module identifies the bound of Lemma 5.6 of `coefficient-mass.tex` at the block
 position `c = ℓ + 1 + r`: there `W_r(c)` is the value of the block
 `{ℓ + 1, …, 2ℓ + 1}` at its `r`-th hole, `2^{-(ℓ+1+r)} (2ℓ+1)! / (ℓ! r! (ℓ-r)!)
 B(ℓ - r + q + 1, ℓ + r + 1)`, using `C(c - 1, k) k! (c - 1 - k)! = (c - 1)!` and

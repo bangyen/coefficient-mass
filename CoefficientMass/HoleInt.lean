@@ -9,7 +9,7 @@ import CoefficientMass.HoleProd
 /-!
 # The Hole Integral
 
-This module proves Lemma 4.7 of `coefficient-mass.tex`.  For
+This module proves Lemma 5.3 of `coefficient-mass.tex`.  For
 `Y = {1, …, N} \ C` and `ψ = r_Y`, `Φ(Y)` splits at `N`.  Below `N` only the
 holes `c ∈ C` contribute, with `|ψ(c)| = |π_c| ∫_0^1 v^{N - c} (1 - v)^{c - 1} dv`.
 Beyond `N`, `|ψ(s)| = C(s - 1, N) ∏_{c ∈ C} c / (s - c)`, and the Lagrange expansion
@@ -32,7 +32,7 @@ open Polynomial intervalIntegral
 
 namespace CoefficientMass
 
-/-- Lemma 4.7 (hole integral): for nonempty `C ⊆ {1, …, N}`,
+/-- Lemma 5.3 (hole integral): for nonempty `C ⊆ {1, …, N}`,
 `Φ({1, …, N} \ C) = ∫_0^1 ∑_{c ∈ C} 2^{-c} v^{N - c}
 (π_c (1 + v)^{c - 1} + |π_c| (1 - v)^{c - 1}) dv`. -/
 def HoleIntegral : Prop :=
@@ -108,7 +108,7 @@ theorem holeL_eq' {N c : ℕ} (h1 : 1 ≤ c) (hc : c ≤ N) :
   have h := holeL_eq (c - 1) (N - c)
   rwa [show N - c + (c - 1) + 1 = N by omega, show c - 1 + 1 = c by omega] at h
 
-/-- Lemma 4.7 (hole integral). -/
+/-- Lemma 5.3 (hole integral). -/
 theorem holeIntegral : HoleIntegral := by
   intro N C hne h0 hle
   have hsub : C ⊆ Finset.Icc 1 N := fun p hp =>

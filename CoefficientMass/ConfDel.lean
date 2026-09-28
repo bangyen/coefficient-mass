@@ -9,7 +9,7 @@ import CoefficientMass.GeomSum
 /-!
 # Deleting the Largest Zero
 
-This module proves Lemma 4.6 of `coefficient-mass.tex` directly, without the
+This module proves Lemma 5.2 of `coefficient-mass.tex` directly, without the
 limit of merging nodes.  With `z = max Z` and `Z' = Z \ {z}`,
 `r_Z(s) = (1 - s/z) r_{Z'}(s)`, so `Φ(Z') - Φ(Z)` is the sum of
 `|r_{Z'}(s)| 2^{-s} (1 - |1 - s/z|)`.  The terms with `s < z` are
@@ -35,7 +35,7 @@ open Polynomial
 
 namespace CoefficientMass
 
-/-- Lemma 4.6 (deleting the largest zero): for nonempty `Z ⊂ ℕ_{>0}`,
+/-- Lemma 5.2 (deleting the largest zero): for nonempty `Z ⊂ ℕ_{>0}`,
 `Φ(Z) ≤ Φ(Z \ {max Z})`, strictly unless `Z = {1, …, |Z|}`, and `Φ(Z) ≤ 1`. -/
 def DeleteLargest : Prop :=
   ∀ (Z : Finset ℕ) (hne : Z.Nonempty), 0 ∉ Z →
@@ -165,7 +165,7 @@ theorem confTail_le_one : ∀ (n : ℕ) (Z : Finset ℕ), Z.card = n → 0 ∉ Z
       rw [Finset.card_erase_of_mem (Z.max'_mem hne), hZ, Nat.add_sub_cancel])
       fun h => h0 (Finset.mem_of_mem_erase h))
 
-/-- Lemma 4.6 (deleting the largest zero). -/
+/-- Lemma 5.2 (deleting the largest zero). -/
 theorem deleteLargest : DeleteLargest := fun Z hne h0 =>
   ⟨(confTail_erase_max hne h0).1, (confTail_erase_max hne h0).2, confTail_le_one _ Z rfl h0⟩
 

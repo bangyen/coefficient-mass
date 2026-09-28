@@ -9,7 +9,7 @@ import CoefficientMass.RowDefs
 /-!
 # The Annihilation Identity
 
-This module proves the step of Lemma 4.5 of `coefficient-mass.tex` that uses
+This module proves the step of Lemma 5.1 of `coefficient-mass.tex` that uses
 the root: a multiple of `(x - r)^L` is annihilated by `∑_j f_j q(j) r^j` for
 every polynomial `q` of degree below `L`, the operator form
 `ψ(D - θ) F (r) = 0` of the paper (`r = 2` there, any `r ≠ 0` for the rows at a general

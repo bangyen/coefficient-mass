@@ -44,7 +44,7 @@ cp submission/jnt/cover-letter.md dist/jnt/
 cp submission/jnt/title-page.md dist/jnt/
 cp submission/jnt/metadata.yml dist/jnt/
 cp submission/suggested-reviewers.md dist/jnt/
-cp SUBMISSION.md ARTIFACT.md dist/jnt/
+cp SUBMISSION.md ARTIFACT.md THEOREM_CORRESPONDENCE.md dist/jnt/
 cp "dist/release/coefficient-mass-$version-source.tar.gz" dist/jnt/
 
 if command -v sha256sum >/dev/null 2>&1; then

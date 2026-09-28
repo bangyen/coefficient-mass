@@ -709,5 +709,5 @@ is open; an answer lands in the paper it extends, and the row leaves.
   find the minimizers `q_N` it branches on, and its thresholds do not
   decrease with `m`.  Open at `r = 2` too: `thm:allrowstwo` gives the rows
   as `beta_2(L - k + 1)`, but `beta_2(n)` has no closed form and no bound
-  beyond `beta_2(n) >= n` (`coefficient-mass`, Theorem 4.13) and
+  beyond `beta_2(n) >= n` (`coefficient-mass`, Theorem 5.9) and
   `beta_2(3) >= 40/11`; whether `beta_2(n)**(1/n)` converges, and to what.

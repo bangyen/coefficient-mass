@@ -10,10 +10,10 @@ import Mathlib.Algebra.Polynomial.BigOperators
 /-!
 # The Certificate for a Row
 
-This module proves Lemma 4.5 of `coefficient-mass.tex`.  With
+This module proves Lemma 5.1 of `coefficient-mass.tex`.  With
 `q(j) = r_Z(D - j)` the annihilation identity is the dual identity
 `∑_j f_j r_Z(D - j) 2^{j - D} = 0`; the positions it does not exempt carry
-weight at most `Φ(Z)`, which bounds `b_k`.  Theorem 4.13 follows from `(∗_n)`.
+weight at most `Φ(Z)`, which bounds `b_k`.  Theorem 5.9 follows from `(∗_n)`.
 
 ## Definitions
 
@@ -104,7 +104,7 @@ theorem sum_reflect {r : ℝ} (hr : r ≠ 0) (ψ : ℝ[X]) (D : ℕ) :
   rw [hc, show (D : ℝ) - (D - 1 - d) = ((d + 1 : ℕ) : ℝ) by push_cast; ring, hp]
   linear_combination (-(|ψ.eval ((d + 1 : ℕ) : ℝ)| * r ^ (D - 1 - d))) * h1
 
-/-- Lemma 4.5 (certificate for a row). -/
+/-- Lemma 5.1 (certificate for a row). -/
 theorem rowCertificate : RowCertificate := by
   classical
   intro L k F hF hdvd hk hkL hS
@@ -212,7 +212,7 @@ theorem rowCertificate : RowCertificate := by
       _ = 2 ^ D := by field_simp
   linarith
 
-/-- Theorem 4.13 from `(∗_n)` for every `n ≥ 1`. -/
+/-- Theorem 5.9 from `(∗_n)` for every `n ≥ 1`. -/
 theorem everyRow_of_star (h : ∀ n, 1 ≤ n → Star n) : EveryRow := by
   intro L k F hF hdvd hk hkL
   refine rowCertificate L k F hF hdvd hk hkL fun S hS0 hSc => ?_

@@ -10,7 +10,7 @@ import CoefficientMass.TailProd
 /-!
 # The Value at One Kept Hole
 
-This module prepares Lemma 4.10 of `coefficient-mass.tex`.  At a kept hole `c` with
+This module prepares Lemma 5.6 of `coefficient-mass.tex`.  At a kept hole `c` with
 the holes `L` below and `U` above it, `|ψ(c)| = c B(N - c + 1, c) ∏_{c' ∈ L} c' / (c - c')
 ∏_{c' ∈ U} c' / (c' - c)`.  The factor `c' / (c - c')` increases and `c' / (c' - c)`
 decreases in `c'`, so the products are largest when `L \ {ℓ + 1}` sits just below `c` and

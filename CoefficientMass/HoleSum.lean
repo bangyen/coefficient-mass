@@ -10,7 +10,7 @@ import Mathlib.Analysis.SpecificLimits.Normed
 /-!
 # The Tail Sums of the Hole Formula
 
-This module evaluates the series behind Lemma 4.7 of `coefficient-mass.tex`,
+This module evaluates the series behind Lemma 5.3 of `coefficient-mass.tex`,
 `L(N, c) = ∑_{s > N} C(s - 1, N) 2^{-s} / (s - c)` for `1 ≤ c ≤ N`.  The
 identity `(N + 1) C(s - 1, N + 1) = (s - 1 - N) C(s - 1, N)` and
 `∑_{s > N} C(s - 1, N) 2^{-s} = 1` give
@@ -166,7 +166,7 @@ theorem holeL_rec {N c : ℕ} (hc : c ≤ N) :
   rw [hL, hsumT, mul_add, hk]
   linarith
 
-/-- Lemma 4.7, tail part: `L(N, c) = 2^{-c} ∫_0^1 v^{N - c} (1 + v)^{c - 1} dv`. -/
+/-- Lemma 5.3, tail part: `L(N, c) = 2^{-c} ∫_0^1 v^{N - c} (1 + v)^{c - 1} dv`. -/
 theorem holeL_eq (j k : ℕ) : holeL (k + j + 1) (j + 1) = (1 / 2) ^ (j + 1) * plusI k j := by
   induction k with
   | zero =>

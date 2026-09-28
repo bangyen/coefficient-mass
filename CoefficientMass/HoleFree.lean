@@ -11,11 +11,11 @@ import CoefficientMass.HoleTwo
 /-!
 # Rows Away from the Top Three Positions
 
-This module proves the first part of Proposition 4.9 of `coefficient-mass.tex`:
+This module proves the first part of Proposition 5.5 of `coefficient-mass.tex`:
 `(∗_n)` for every `A` with `{1, 2, 3} ⊄ A`.  With `c_1 < c_2 < ⋯` the holes of `A`,
 `c_1 ≤ 3`.  For `c_1 = 1` and `c_1 = 2` keep the hole `c_1`; the one-hole values give
 `Φ(Y) = 1 / N ≤ 1 / n` and `Φ(Y) = 1 / (N - 1) ≤ 1 / n`.  For `c_1 = 3` keep `{3, c_2}`;
-deleting down to `N = c_2 + n - 1` and Lemma 4.8 give `Φ(Y) ≤ 1 / n`.
+deleting down to `N = c_2 + n - 1` and Lemma 5.4 give `Φ(Y) ≤ 1 / n`.
 
 ## Definitions
 
@@ -31,7 +31,7 @@ deleting down to `N = c_2 + n - 1` and Lemma 4.8 give `Φ(Y) ≤ 1 / n`.
 
 namespace CoefficientMass
 
-/-- Proposition 4.9 (rows away from the top three positions): for `n ≥ 1` and finite
+/-- Proposition 5.5 (rows away from the top three positions): for `n ≥ 1` and finite
 `A ⊂ ℕ_{>0}` with `{1, 2, 3} ⊄ A`, some finite `Z ⊇ A` has `|Z| ≤ |A| + n - 1` and
 `Φ(Z) ≤ 1 / n`. -/
 def RowsFree : Prop :=
@@ -45,7 +45,7 @@ theorem mem_of_lt_hole {A : Finset ℕ} {x : ℕ} (hx : 0 < x) (hlt : x < hole A
   obtain rfl : i = 0 := by omega
   omega
 
-/-- `(∗_1)`: `Z = A`, by Lemma 4.6. -/
+/-- `(∗_1)`: `Z = A`, by Lemma 5.2. -/
 theorem star_one {A : Finset ℕ} (h0 : 0 ∉ A) :
     ∃ Z : Finset ℕ, A ⊆ Z ∧ 0 ∉ Z ∧ Z.card + 1 ≤ A.card + 1 ∧ confTail Z ≤ 1 / ((1 : ℕ) : ℝ) :=
   ⟨A, subset_rfl, h0, le_rfl, by rw [Nat.cast_one, div_one]; exact confTail_le_one _ A rfl h0⟩
@@ -54,7 +54,7 @@ theorem one_div_le_one_div_nat {a b : ℕ} (ha : 1 ≤ a) (hab : a ≤ b) :
     1 / (b : ℝ) ≤ 1 / (a : ℝ) :=
   one_div_le_one_div_of_le (by exact_mod_cast ha) (by exact_mod_cast hab)
 
-/-- Proposition 4.9. -/
+/-- Proposition 5.5. -/
 theorem rowsFree : RowsFree := by
   intro n hn A h0 hA
   rcases Nat.lt_or_ge n 2 with hn1 | hn2

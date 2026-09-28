@@ -9,8 +9,8 @@ import CoefficientMass.HoleInt
 /-!
 # One Hole
 
-This module evaluates the one-hole case of Lemma 4.7 of `coefficient-mass.tex`:
-for `C = {1}` and `C = {2}` the weight of Lemma 4.7 is `M_C ≡ 1`, so
+This module evaluates the one-hole case of Lemma 5.3 of `coefficient-mass.tex`:
+for `C = {1}` and `C = {2}` the weight of Lemma 5.3 is `M_C ≡ 1`, so
 `Φ({2, …, N}) = 1 / N` and `Φ({1, …, N} \ {2}) = 1 / (N - 1)`.
 
 ## Theorems

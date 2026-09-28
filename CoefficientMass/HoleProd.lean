@@ -11,7 +11,7 @@ import Mathlib.LinearAlgebra.Lagrange
 /-!
 # The Products of the Hole Formula
 
-This module collects the finite identities behind Lemma 4.7 of
+This module collects the finite identities behind Lemma 5.3 of
 `coefficient-mass.tex`: the Lagrange expansion
 `∏_{c ∈ C} c / (x - c) = ∑_{c ∈ C} π_c / (x - c)` from Lagrange
 interpolation, the product `∏_{p ≤ N} (s - p) / p = C(s - 1, N)` for

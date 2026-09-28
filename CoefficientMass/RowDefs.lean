@@ -10,7 +10,7 @@ import Mathlib.Topology.Algebra.InfiniteSum.Real
 /-!
 # Rows at the Root Two
 
-This module states Section 4.4 of `coefficient-mass.tex`, the `D`-free form
+This module states Section 5 of `coefficient-mass.tex`, the `D`-free form
 of the rows, as propositions.  At a single root `2` of multiplicity `L` the
 certificates of Section 3 are replaced by their confluent limits
 `r_Z(s) 2^{-s}` with `r_Z(s) = ∏_{z ∈ Z} (1 - s / z)`, and the row
@@ -44,7 +44,7 @@ def Star (n : ℕ) : Prop :=
   ∀ A : Finset ℕ, 0 ∉ A →
     ∃ Z : Finset ℕ, A ⊆ Z ∧ 0 ∉ Z ∧ Z.card + 1 ≤ A.card + n ∧ confTail Z ≤ 1 / n
 
-/-- Lemma 4.5 (certificate for a row): for a monic multiple `F` of `(x - 2)^L`
+/-- Lemma 5.1 (certificate for a row): for a monic multiple `F` of `(x - 2)^L`
 and `1 ≤ k ≤ L`, if every set `S` of `k - 1` backward distances lies in a
 `Z ⊂ ℕ_{>0}` with `|Z| ≤ L - 1` and `Φ(Z) ≤ 1 / n`, `n = L - k + 1`, then
 `b_k(F) ≥ n`. -/
@@ -54,7 +54,7 @@ def RowCertificate : Prop :=
       ∃ Z : Finset ℕ, S ⊆ Z ∧ 0 ∉ Z ∧ Z.card + 1 ≤ L ∧ confTail Z ≤ 1 / (L - k + 1 : ℕ)) →
       k ≤ largeCount F (L - k + 1 : ℕ)
 
-/-- Theorem 4.13 (every row at the root `2`): every monic multiple `F` of
+/-- Theorem 5.9 (every row at the root `2`): every monic multiple `F` of
 `(x - 2)^L` has `b_k(F) ≥ L - k + 1` for `1 ≤ k ≤ L`. -/
 def EveryRow : Prop :=
   ∀ (L k : ℕ) (F : ℝ[X]), F.Monic → (X - C 2) ^ L ∣ F → 1 ≤ k → k ≤ L →

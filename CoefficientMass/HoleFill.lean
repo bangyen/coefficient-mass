@@ -10,12 +10,12 @@ import Mathlib.Data.Nat.Nth
 /-!
 # Filling Holes
 
-This module builds the sets of Propositions 4.9 and 4.12 of `coefficient-mass.tex`.
+This module builds the sets of Propositions 5.5 and 5.8 of `coefficient-mass.tex`.
 The holes of a finite `A ⊂ ℕ_{>0}` are the positive integers outside `A`, listed
 increasingly as `c_1 < c_2 < ⋯`.  Keeping the first `r` holes `K`, filling the next
 `n - 1` and putting `N = c_{r + n - 1}`, `Y = {1, …, N} \ K` and `Z = Y ∪ A` gives
 `Z ⊇ A`, `|Z| ≤ |A| + n - 1` and `Φ(Z) ≤ Φ(Y)`: the elements of `Z` above `N` are
-deleted one at a time, largest first, by Lemma 4.6.
+deleted one at a time, largest first, by Lemma 5.2.
 
 ## Definitions
 

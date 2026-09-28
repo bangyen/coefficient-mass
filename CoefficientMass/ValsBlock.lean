@@ -10,7 +10,7 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Real
 /-!
 # The Block of Kept Holes
 
-This module proves the last step of Lemma 4.10 of `coefficient-mass.tex`.  For the
+This module proves the last step of Lemma 5.6 of `coefficient-mass.tex`.  For the
 block `C° = {ℓ + 1, …, 2ℓ + 1}` the values at the holes sum to `∫_0^1 v^q G(v) dv`
 with `G = ∑_r 2^{-(ℓ+1+r)} (2ℓ+1)! / (ℓ! r! (ℓ-r)!) v^{ℓ-r} (1 - v)^{ℓ+r}`, and the
 binomial theorem gives `G = (2ℓ+1)! / (ℓ!^2 2^{2ℓ+1}) (1 - v^2)^ℓ`.  With Wallis'
@@ -142,7 +142,7 @@ theorem blockCoef_sum_eq (ℓ : ℕ) (v : ℝ) :
   field_simp
   ring
 
-/-- Lemma 4.10 for the block: `∑_r blockCoef ℓ r · B(ℓ - r + q + 1, ℓ + r + 1) ≤ 1 / (2(q + 1))`. -/
+/-- Lemma 5.6 for the block: `∑_r blockCoef ℓ r · B(ℓ - r + q + 1, ℓ + r + 1) ≤ 1 / (2(q + 1))`. -/
 theorem block_le (ℓ q : ℕ) :
     ∑ r ∈ Finset.range (ℓ + 1), blockCoef ℓ r * betaI (ℓ - r + q) (ℓ + r) ≤
       1 / (2 * ((q : ℝ) + 1)) := by

@@ -9,7 +9,7 @@ import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
 /-!
 # A Beta Bound on `[0, 1]`
 
-This module bounds the last integral of Lemma 4.11 of `coefficient-mass.tex`:
+This module bounds the last integral of Lemma 5.7 of `coefficient-mass.tex`:
 `J(a, b) = ∫_0^1 t^a (1 + t)^{-b} dt ≤ B(a + 1, b - a - 1) = a! (b - a - 2)! / (b - 1)!`.
 The derivative of `t^{a+1} (1 + t)^{-b}` gives
 `b J(a + 1, b + 1) + 2^{-b} = (a + 1) J(a, b)`, and `J(0, b + 1) ≤ 1 / b`; the boundary

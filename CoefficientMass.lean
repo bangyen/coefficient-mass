@@ -13,6 +13,7 @@ import CoefficientMass.BlockBound
 import CoefficientMass.BlockProd
 import CoefficientMass.Certificate
 import CoefficientMass.Chain
+import CoefficientMass.ComplexFirstRow
 import CoefficientMass.ConfDel
 import CoefficientMass.ConfDelR
 import CoefficientMass.ConfPrefix
@@ -145,8 +146,9 @@ import CoefficientMass.ZeroBound
 /-!
 # CoefficientMass
 
-The root module, importing the whole library: the statements of
-`coefficient-mass.tex` from the zero bound for exponential sums through
-Corollary 3.4, the logarithmic mass bound, and from Section 4 Proposition 4.4,
-Lemma 4.5 and the reduction of Theorem 4.13 to `(∗_n)`.
+The root module importing the complete formalization library for the main
+paper and its companion manuscripts.  For `coefficient-mass.tex` this includes
+every numbered result, from the exponential-sum zero bound and displaced-zero
+tail theorem through the order-statistic, mass, sharpness and repeated-root
+results of Sections 3--5.
 -/

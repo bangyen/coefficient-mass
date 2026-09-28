@@ -9,7 +9,7 @@ import CoefficientMass.HoleBeta
 /-!
 # The Product Beyond the Kept Holes
 
-This module proves the first step of Lemma 4.11 of `coefficient-mass.tex`.  Let
+This module proves the first step of Lemma 5.7 of `coefficient-mass.tex`.  Let
 `C ⊂ ℕ_{>0}` have `ℓ + 1` elements, all at most `m`, with `ℓ + 1 ∈ C` and
 `m ≥ 2ℓ + 1`.  For `s > m`, `c / (s - c)` increases with `c`, so the `ℓ` elements of
 `C \ {ℓ + 1}` contribute at most the values at `m, m - 1, …, m - ℓ + 1`, and

@@ -64,7 +64,7 @@ $\prod_i(x-r_i)$ has
 \]
 \cite[Theorem~3.2]{coefficient-mass}, and that at the root $2$ every monic
 multiple of $(x-2)^L$ has $b_k(F)\ge L-k+1$
-\cite[Theorem~4.13]{coefficient-mass}.  We call the infimum of
+\cite[Theorem~5.9]{coefficient-mass}.  We call the infimum of
 $b_k(F)$ over monic multiples $F$ of $\prod_i(x-r_i)$ the row $k$; the bounds
 above are lower bounds for it.  This paper determines the rows when all
 roots are equal.
@@ -225,13 +225,13 @@ finite $Z\subset\N_{>0}$ we put
 and for finite $S\subset\N_{>0}$ and integers $L>|S|$ we let
 $\mu_r(S,L)$ be the infimum of $\Phi_r(q)$ over real $q$ with $\deg q\le L-1$,
 $q(0)=1$ and $q|_S=0$.  So $\Phi_2$ is the sum $\Phi$ of
-\cite[Section~4.4]{coefficient-mass} and $\Phi_r(\varnothing)=a$.  For
+\cite[Section~5]{coefficient-mass} and $\Phi_r(\varnothing)=a$.  For
 $1\le k\le L$ put $n=L-k+1$ and
 \[
   V_r(L,k)=\inf\{b_k(F): F\text{ a monic real multiple of }(x-r)^L\},
 \]
 the exact value of the row, and recall $\beta_r(n)=V_r(n,1)$.  At
-$r=2$, \cite[Theorem~4.13]{coefficient-mass} says $V_2(L,k)\ge n$.
+$r=2$, \cite[Theorem~5.9]{coefficient-mass} says $V_2(L,k)\ge n$.
 
 \begin{proposition}[The row values]\label{prop:rowvalue}
 Let $r>1$ and $1\le k\le L$.
@@ -251,7 +251,7 @@ $S\subset\N_{>0}$.
 \end{proposition}
 
 \begin{proof}
-(a) This is the proof of \cite[Lemma~4.5]{coefficient-mass} with $2$ replaced by $r$:
+(a) This is the proof of \cite[Lemma~5.1]{coefficient-mass} with $2$ replaced by $r$:
 $(q(D-\delta)F)(r)=0$ with $\delta=x\,d/dx$ gives
 $\sum_{j\le D}f_jq(D-j)r^{j-D}=0$, so
 $1\le\sum_{s\ge1,\,s\notin S}|f_{D-s}||q(s)|r^{-s}\le b_k(F)\Phi_r(q)$.
@@ -470,7 +470,7 @@ $|Z|$ steps from $Z$ to $\varnothing$ costs at most the factor $a$, with
 $\Phi_r(\varnothing)=a$.
 \end{proof}
 
-At $r=2$, where $a=1$, this is \cite[Lemma~4.6]{coefficient-mass}.
+At $r=2$, where $a=1$, this is \cite[Lemma~5.2]{coefficient-mass}.
 
 \begin{corollary}[The last row]\label{cor:lastrowr}
 $V_r(L,L)=r-1$ for $r\ge2$, and $V_r(L,L)=(r-1)^L$ for $1<r\le2$.
@@ -1072,7 +1072,7 @@ root $r\ge2$ are
   V_r(L,k)=\beta_r(L-k+1)\qquad(1\le k\le L),
 \]
 the top row of a multiple of $(x-r)^{L-k+1}$.  At $r=2$ this sharpens
-\cite[Theorem~4.13]{coefficient-mass} to $b_k(F)\ge\beta_2(L-k+1)$.
+\cite[Theorem~5.9]{coefficient-mass} to $b_k(F)\ge\beta_2(L-k+1)$.
 
 What remains open at a single root $r\ge2$ is the value of $\beta_r(n)$
 itself.

@@ -9,7 +9,7 @@ import CoefficientMass.ValsBlock
 /-!
 # Moving a Kept Hole Down
 
-This module proves the middle step of Lemma 4.10 of `coefficient-mass.tex`.  For the
+This module proves the middle step of Lemma 5.6 of `coefficient-mass.tex`.  For the
 `r`-th kept hole (from `0`) at `c`, the bound on `2^{-c} |ψ(c)|` is
 `W_r(c) = 2^{-c} c B(ℓ - r + q + 1, c) · (ℓ + 1) / (c - ℓ - 1) · C(c - 1, r - 1) ·
 C(c + ℓ - r, ℓ - r)`.  For `c ≥ ℓ + 1 + r`, `W_r(c + 1) / W_r(c) ≤ c / (2(c - r + 1)) ≤ 1`,

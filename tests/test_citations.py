@@ -47,7 +47,7 @@ CITATIONS = {
         "Proposition",
         "prop:sharp23",
     ),
-    ("coefficient-mass-belowtwo.tex", "coefficient-mass", "4.13"): (
+    ("coefficient-mass-belowtwo.tex", "coefficient-mass", "5.9"): (
         "Theorem",
         "thm:everyrow",
     ),
@@ -209,9 +209,9 @@ CITATIONS = {
         "lem:interlace",
     ),
     ("coefficient-mass-rows.tex", "coefficient-mass", "3.2"): ("Theorem", "thm:order"),
-    ("coefficient-mass-rows.tex", "coefficient-mass", "4.5"): ("Lemma", "lem:rowcert"),
-    ("coefficient-mass-rows.tex", "coefficient-mass", "4.6"): ("Lemma", "lem:confdel"),
-    ("coefficient-mass-rows.tex", "coefficient-mass", "4.13"): (
+    ("coefficient-mass-rows.tex", "coefficient-mass", "5.1"): ("Lemma", "lem:rowcert"),
+    ("coefficient-mass-rows.tex", "coefficient-mass", "5.2"): ("Lemma", "lem:confdel"),
+    ("coefficient-mass-rows.tex", "coefficient-mass", "5.9"): (
         "Theorem",
         "thm:everyrow",
     ),

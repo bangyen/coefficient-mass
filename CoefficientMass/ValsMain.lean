@@ -9,7 +9,7 @@ import CoefficientMass.ValsSum
 /-!
 # The Values at the Kept Holes
 
-This module proves Lemma 4.10 of `coefficient-mass.tex`.  At the `r`-th kept
+This module proves Lemma 5.6 of `coefficient-mass.tex`.  At the `r`-th kept
 hole `c` (from `0`), `abs_confPoly_split` and the product bounds give
 `2^{-c} |ψ(c)| ≤ W_r(c)`, which is at most the block value at `ℓ + 1 + r`; the rank
 `c ↦ r` is a bijection onto `{0, …, ℓ}`, so the sum is at most `1 / (2(q + 1))`.
@@ -27,7 +27,7 @@ hole `c` (from `0`), `abs_confPoly_split` and the product bounds give
 
 namespace CoefficientMass
 
-/-- Lemma 4.10: for `C = {c_1 < ⋯ < c_{ℓ+1}}` with `c_1 = ℓ + 1`, `C ⊆ [ℓ + 1, m]`,
+/-- Lemma 5.6: for `C = {c_1 < ⋯ < c_{ℓ+1}}` with `c_1 = ℓ + 1`, `C ⊆ [ℓ + 1, m]`,
 `N = m + q` and `Y = {1, …, N} \ C`, `∑_{c ∈ C} |r_Y(c)| 2^{-c} ≤ 1 / (2(q + 1))`. -/
 def HoleVals : Prop :=
   ∀ (ℓ q m : ℕ) (C : Finset ℕ), C.card = ℓ + 1 → ℓ + 1 ∈ C →

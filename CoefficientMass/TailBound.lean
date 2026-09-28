@@ -13,7 +13,7 @@ import CoefficientMass.TailSum
 /-!
 # The Tail Beyond the Kept Holes
 
-This module proves Lemma 4.11 of `coefficient-mass.tex`.  For `s > N`,
+This module proves Lemma 5.7 of `coefficient-mass.tex`.  For `s > N`,
 `|ψ(s)| = C(s - 1, N) ∏_{c ∈ C} c / (s - c)`, and the product is at most
 `(ℓ + 1) C(m, ℓ) ∫_0^1 t^ℓ (1 - t)^{s - m - 1} dt`.  Summing over `s`,
 `Φ_tail ≤ (ℓ + 1) C(m, ℓ) ∫_0^1 t^ℓ (1 - t)^q (1 + t)^{-(N + 1)} dt`; the bound
@@ -35,7 +35,7 @@ open intervalIntegral
 
 namespace CoefficientMass
 
-/-- Lemma 4.11 (the tail beyond the kept holes): for `C = {c_1 < ⋯ < c_{ℓ+1}}` with
+/-- Lemma 5.7 (the tail beyond the kept holes): for `C = {c_1 < ⋯ < c_{ℓ+1}}` with
 `c_1 = ℓ + 1`, `m = c_{ℓ+1}`, `N = m + q`, `ℓ ≥ 1` and `q ≥ 1`,
 `∑_{s > N} |r_Y(s)| 2^{-s} ≤ (ℓ + 1) / (e ℓ (q + 1))` for `Y = {1, …, N} \ C`. -/
 def HoleTail : Prop :=
@@ -82,7 +82,7 @@ theorem tail_integral_le {l q m : ℕ} (hq : 1 ≤ q) (hlm : l + 1 ≤ m) :
     show m - 1 + 1 = m by omega] at hj
   exact hmono.trans (mul_le_mul_of_nonneg_left hj (Real.exp_pos _).le)
 
-/-- Lemma 4.11 (the tail beyond the kept holes). -/
+/-- Lemma 5.7 (the tail beyond the kept holes). -/
 theorem holeTail : HoleTail := by
   intro ℓ q m C hℓ hq hC h1 hmC hCm
   obtain ⟨l, rfl⟩ : ∃ l, ℓ = l + 1 := ⟨ℓ - 1, by omega⟩

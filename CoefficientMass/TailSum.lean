@@ -11,7 +11,7 @@ import Mathlib.MeasureTheory.Integral.DominatedConvergence
 /-!
 # The Tail Sum as an Integral
 
-This module proves the second step of Lemma 4.11 of `coefficient-mass.tex`:
+This module proves the second step of Lemma 5.7 of `coefficient-mass.tex`:
 `∑_{s > N} C(s - 1, N) 2^{-s} ∫_0^1 t^ℓ (1 - t)^{s - m - 1} dt
 = ∫_0^1 t^ℓ (1 - t)^q (1 + t)^{-(N + 1)} dt` for `N = m + q`.  The terms are
 nonnegative and continuous on `[0, 1]`, the inner sum is

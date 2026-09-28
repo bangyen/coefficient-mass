@@ -12,12 +12,12 @@ import Mathlib.Analysis.Complex.ExponentialBounds
 /-!
 # Every Row at the Root Two
 
-This module proves Proposition 4.12 and Theorem 4.13 of `coefficient-mass.tex`.  For
+This module proves Proposition 5.8 and Theorem 5.9 of `coefficient-mass.tex`.  For
 `{1, 2, 3} ⊆ A` with leading run `ℓ ≥ 3`, keep the first `ℓ + 1` holes, fill the next
 `n - 1`, and put `N = c_{ℓ+n}`, `m = c_{ℓ+1}`, `q = N - m ≥ n - 1`.  Splitting `Φ(Y)` at
-`N`, Lemmas 4.10 and 4.11 give
+`N`, Lemmas 5.6 and 5.7 give
 `Φ(Y) ≤ (1/2 + (ℓ + 1) / (e ℓ)) / (q + 1) ≤ 1 / (q + 1) ≤ 1 / n`.  Together with
-Proposition 4.9 this is `(∗_n)` for every `n ≥ 1`, and Lemma 4.5 gives every row.
+Proposition 5.5 this is `(∗_n)` for every `n ≥ 1`, and Lemma 5.1 gives every row.
 
 ## Definitions
 
@@ -34,7 +34,7 @@ Proposition 4.9 this is `(∗_n)` for every `n ≥ 1`, and Lemma 4.5 gives every
 
 namespace CoefficientMass
 
-/-- Proposition 4.12 (rows at the top three positions): for `n ≥ 1` and finite
+/-- Proposition 5.8 (rows at the top three positions): for `n ≥ 1` and finite
 `A ⊂ ℕ_{>0}` with `{1, 2, 3} ⊆ A`, some finite `Z ⊇ A` has `|Z| ≤ |A| + n - 1` and
 `Φ(Z) ≤ 1 / n`. -/
 def RowsTop : Prop :=
@@ -70,7 +70,7 @@ theorem tail_le_half {ℓ q : ℕ} (hℓ : 3 ≤ ℓ) :
   rw [div_le_div_iff₀ (mul_pos (mul_pos (Real.exp_pos 1) (by linarith)) hQ) (by positivity)]
   nlinarith
 
-/-- Proposition 4.12 (rows at the top three positions). -/
+/-- Proposition 5.8 (rows at the top three positions). -/
 theorem rowsTop : RowsTop := by
   intro n hn A h0 hA
   rcases Nat.lt_or_ge n 2 with hn1 | hn2
@@ -125,7 +125,7 @@ theorem star (n : ℕ) (hn : 1 ≤ n) : Star n := by
   · exact rowsTop n hn A h0 hA
   · exact rowsFree n hn A h0 hA
 
-/-- Theorem 4.13 (every row at the root `2`). -/
+/-- Theorem 5.9 (every row at the root `2`). -/
 theorem everyRow : EveryRow :=
   everyRow_of_star star
 

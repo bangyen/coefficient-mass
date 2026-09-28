@@ -9,7 +9,7 @@ import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 /-!
 # The Exponential Bound in the Tail
 
-This module proves the pointwise bound of Lemma 4.11 of `coefficient-mass.tex`:
+This module proves the pointwise bound of Lemma 5.7 of `coefficient-mass.tex`:
 `(q + 1) t (1 - t)^q ≤ e^{-1} (1 + t)^q` for `0 ≤ t ≤ 1` and `q ≥ 1`.  The series of
 `log (1 + t) - log (1 - t)` gives `(1 - t) / (1 + t) ≤ e^{-2t}`, and
 `(q + 1) t e^{-2qt} ≤ 2qt e^{-2qt} ≤ 1/e` since `y e^{-y} ≤ 1/e`.

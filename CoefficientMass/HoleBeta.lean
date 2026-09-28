@@ -9,7 +9,7 @@ import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
 /-!
 # The Integrals of the Hole Formula
 
-This module evaluates the two families of integrals in Lemma 4.7 of
+This module evaluates the two families of integrals in Lemma 5.3 of
 `coefficient-mass.tex`: the Beta integral
 `∫_0^1 v^a (1 - v)^b dv = a! b! / (a + b + 1)!`, and the integral
 `J(a, b) = ∫_0^1 v^a (1 + v)^b dv` through the relation

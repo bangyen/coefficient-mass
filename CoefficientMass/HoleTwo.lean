@@ -9,8 +9,8 @@ import CoefficientMass.HoleInt
 /-!
 # Two Holes
 
-This module proves Lemma 4.8 of `coefficient-mass.tex`:
-`Φ({1, …, b + q} \ {3, b}) ≤ 1 / (q + 1)` for `b ≥ 4`.  By Lemma 4.7 the left
+This module proves Lemma 5.4 of `coefficient-mass.tex`:
+`Φ({1, …, b + q} \ {3, b}) ≤ 1 / (q + 1)` for `b ≥ 4`.  By Lemma 5.3 the left
 side is `∫_0^1 v^q M(v) dv` with
 `M = (3b / (b - 3)) (2^{-b} ((1 + v)^{b - 1} + (1 - v)^{b - 1}) - v^{b - 2} / 2)`.
 For `b = 4`, `M = (3/2)(1 - v^2)`.  For `b ≥ 5`, the Bernstein expansion of
@@ -119,7 +119,7 @@ theorem twoHole_integrand {b : ℕ} (hb : 4 ≤ b) :
   · rw [holeWeight, Finset.prod_pair h3b, Finset.erase_insert_of_ne h3b, Finset.erase_singleton,
       Finset.insert_empty, Finset.prod_singleton, Nat.cast_ofNat]
 
-/-- Lemma 4.8 (two holes). -/
+/-- Lemma 5.4 (two holes). -/
 theorem confTail_two_holes {b q : ℕ} (hb : 4 ≤ b) :
     confTail (Finset.Icc 1 (b + q) \ {3, b}) ≤ 1 / ((q : ℝ) + 1) := by
   have h3b : (3 : ℕ) ≠ b := by omega
