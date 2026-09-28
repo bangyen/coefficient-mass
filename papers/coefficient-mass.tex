@@ -114,8 +114,9 @@ parts after normalizing the leading coefficient.  Finally, as
 the roots approach $2$ the displayed mass bound degenerates; a separate argument by
 Jensen's formula gives $\Lambda(F)\ge L^2/80$ for monic multiples when
 $L\ge8$ (Proposition~\ref{prop:quadratic}); optimizing its radius row by
-row gives the stronger asymptotic constant $0.0647068\ldots$, uniformly
-over root sets with all $r_i\ge2$.  Together the two methods give
+row gives the asymptotic lower bound $\Lambda(F)\ge(c_2+o(1))L^2$ with
+$c_2=0.0647068\ldots$, uniformly over root sets with all $r_i\ge2$ (an
+unnumbered remark in Section~\ref{sec:bottom}, not formalized).  Together the two methods give
 \[
   \inf_{\substack{Q\in\R[x]\\Q\text{ monic}}}\Lambda(PQ)
   \ \asymp\ L^2+\sum_{i=1}^Li\log(r_i-1)
@@ -198,7 +199,7 @@ $\N_{>0}=\{1,2,\ldots\}$, and every asymptotic
 statement is for $L\to\infty$ with absolute implied constants unless
 parameters are named.
 
-\section{A displaced-zero tail theorem}
+\section{A displaced-zero tail theorem}\label{sec:tail}
 
 Let $\rho_1>\cdots>\rho_c\ge2$ and $y_i=\rho_i^{-1}$, so that
 $0<y_1<y_2<\cdots<y_c\le1/2$.  For any $Z\subset\N_{>0}$ of size $c-1$, the
@@ -225,7 +226,8 @@ until only the leading run remains.
 
 \paragraph{Zero bound.}
 A nonzero exponential sum on $n$ distinct positive nodes has at most $n-1$
-real zeros, counted with multiplicity: write it as $\sum_ia_ie^{\lambda_id}$
+real zeros, counted with multiplicity, a case of Laguerre's extension of
+Descartes' rule of signs to exponential sums: write it as $\sum_ia_ie^{\lambda_id}$
 with distinct $\lambda_i$, factor out one exponential, and induct on $n$ by
 Rolle's theorem, the derivative being a sum on one fewer
 node~\cite[Part~Five, Ch.~1]{polya-szego}; equivalently, the $e^{\lambda d}$
@@ -668,7 +670,7 @@ $b_k\ge L-k+1$.
 
 \begin{corollary}[Prime roots]\label{cor:prime}
 Let $r_1\le\cdots\le r_L$ with $r_i\ge p_i$, the $i$th prime, and let $F$ be
-a nonzero real multiple of $\prod_{i=1}^L(x-r_i)$ with $|f_D|\ge1$.  Then
+a nonzero real or complex multiple of $\prod_{i=1}^L(x-r_i)$ with $|f_D|\ge1$.  Then
 \[
  \Lambda(F)\ge\Bigl(\frac12+o(1)\Bigr)L^2\log L .
 \]
@@ -924,22 +926,31 @@ For $a=k/L<1/2$, put
 \[
   \phi(a)=(1-a)\log(2-2a)+a\log a.
 \]
-On every compact subinterval of $(0,1/2)$ on which $\phi>0$, the logarithm
-of the right side of~\eqref{eq:jensen} is
+The function $\phi$ is strictly decreasing on $(0,1/2)$ because
+$\phi'(a)=\log(a/(2-2a))<0$, and $\phi(0^+)=\log2>0>\phi(\tfrac12^-)=-\tfrac12\log2$,
+so it has a unique zero $a_0=0.2270921\ldots$ there.  Fix
+$0<\delta<a_0/2$.  For $\delta\le a=k/L\le a_0-\delta$ the numerator and
+denominator in~\eqref{eq:jensen} are $(2-2a)^{L(1-a)+1}-1$ and
+$a^{-k}-1$, so the logarithm of the right side is
 \[
-  L\phi(k/L)+O(1),
+  L\phi(a)+\log(2-2a)+\log\bigl(1-(2-2a)^{-L(1-a)-1}\bigr)
+  -\log\bigl(1-a^{k}\bigr).
 \]
-uniformly in $k$.  Indeed, the numerator and denominator are respectively
-$(2-2a)^{L(1-a)+1}-1$ and $a^{-aL}-1$, and the subtracted ones contribute
-only a uniformly bounded error away from the endpoints of the positive
-range.  The function $\phi$ is strictly decreasing on $(0,1/2)$ because
-$\phi'(a)=\log(a/(2-2a))$.  It therefore has a unique zero
-$a_0=0.2270921\ldots$ there.  Fix $\delta>0$ and sum only over
-$\delta L\le k\le(a_0-\delta)L$; the uniform estimate above turns this sum,
-after division by $L^2$, into a Riemann sum for
-$\int_\delta^{a_0-\delta}\phi(a)\,da$.  The omitted rows contribute
-nonnegatively because $\log^+b_k\ge0$.  Taking the lower limit in $L$ and
-then letting $\delta\downarrow0$ gives
+Here $2-2a\ge2-2a_0>\tfrac32$ and $a^k\le a\le a_0<\tfrac14$, so the last
+three terms lie in $[-\log3,\log2+\log\tfrac43]$: the error is $O(1)$
+uniformly in $L$, $k$ and the admissible $a$.  Since
+$\phi\ge\phi(a_0-\delta)>0$ on $[\delta,a_0-\delta]$, the right side
+of~\eqref{eq:jensen} exceeds $1$ for $L\ge L_0(\delta)$, so $b_k>1$ and
+$\log^+b_k=\log b_k\ge L\phi(k/L)-\log3$.  The magnitudes $b_k$ sit at
+distinct positions, and all other positions contribute $\log^+\ge0$, so
+\[
+  \frac{\Lambda(F)}{L^2}\ \ge\ \frac1L\sum_{\delta L\le k\le(a_0-\delta)L}
+  \phi(k/L)\ -\ \frac{\log3}{L},
+\]
+uniformly in $F$.  As $\phi$ is continuous on $[\delta,a_0-\delta]$, the
+sum is a Riemann sum converging to $\int_\delta^{a_0-\delta}\phi(a)\,da$.
+Taking the lower limit in $L$ and then letting $\delta\downarrow0$, with
+$\phi$ bounded on $(0,a_0]$, gives
 \[
   \liminf_{L\to\infty}\ \inf_{\substack{F\in\R[x]\text{ monic}\\(x-2)^L\mid F}}
   \frac{\Lambda(F)}{L^2}
@@ -1061,7 +1072,7 @@ so $b_2(F)>2$.
 
 For $(x-2)^L$, Jensen's formula leaves the last rows uncontrolled; we prove
 $b_k\ge L-k+1$ for every row by a confluent certificate.  At a
-single root of multiplicity $L$ the certificates of Section~3 are replaced
+single root of multiplicity $L$ the certificates of Section~\ref{sec:tail}, applied in Section~\ref{sec:order}, are replaced
 by their confluent limits, polynomials in $s$ times $2^{-s}$, and the
 degree $D$ drops out of the problem.
 
@@ -1448,6 +1459,8 @@ behind the asymptotic corollaries.  The formal proof of
 Corollary~\ref{cor:mass} uses only the standard axioms reported by Lean:
 propositional extensionality, choice and quotient soundness.  Numerical
 examples are checked separately and are not premises of the formal proofs.
+The unnumbered remarks giving the constant $c_2$ and the non-attainment of
+the row-two infimum at $(2,3)$ are proved in the text but not formalized.
 
 \paragraph{Code and materials availability.}
 No empirical dataset is used.  The LaTeX source, Lean formalization,
@@ -1488,7 +1501,9 @@ F.~Beaucoup, P.~Borwein, D.~W. Boyd and C.~Pinner,
 P.~Borwein, T.~Erd\'elyi and G.~K\'os,
 \newblock Littlewood-type problems on $[0,1]$,
 \newblock \emph{Proceedings of the London Mathematical Society} (3) 79
-(1999), 22--46.
+(1999), 22--46,
+\newblock \href{https://doi.org/10.1112/S0024611599011831}
+{doi:10.1112/S0024611599011831}.
 
 \bibitem{bombieri-vaaler}
 E.~Bombieri and J.~D. Vaaler,
@@ -1548,7 +1563,8 @@ M.~Mignotte,
 \bibitem{pinkus}
 A.~Pinkus,
 \newblock \emph{Totally Positive Matrices},
-\newblock Cambridge University Press, 2009,
+\newblock Cambridge Tracts in Mathematics 181, Cambridge University Press,
+2009,
 \newblock \href{https://doi.org/10.1017/CBO9780511691713}
 {doi:10.1017/\allowbreak CBO9780511\allowbreak 691713}.
 
@@ -1556,7 +1572,7 @@ A.~Pinkus,
 B.~Pham,
 \newblock Reproducibility archive for \emph{Displaced-Zero Certificates and
 the Coefficient Mass of Polynomial Multiples},
-\newblock Zenodo,
+\newblock Zenodo, 2026, version 1.0.2,
 \newblock \href{https://doi.org/10.5281/zenodo.22998724}
 {doi:10.5281/zenodo.22998724}.
 

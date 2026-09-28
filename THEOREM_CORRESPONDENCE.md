@@ -14,7 +14,7 @@ reject unfinished proofs and unauthorized axioms.
 | Theorem 3.2 | `orderStatistics`, `firstRowOrderStatistics` | `CoefficientMass/Chain.lean`, `CoefficientMass/FirstRow.lean` | All rows at roots at least 2; first row above 1 |
 | Corollary 3.3 | `complexOrderStatistics_of_orderStatistics`, `complexFirstRowOrderStatistics` | `CoefficientMass/RealPart.lean`, `CoefficientMass/ComplexFirstRow.lean` | All rows when every root is at least 2; first row when every root is greater than 1 |
 | Corollary 3.4 | `logarithmicMass` | `CoefficientMass/Chain.lean` | Logarithmic mass bound |
-| Corollary 3.5 | `primeRoots` | `CoefficientMass/PrimeCor.lean` | Prime-root lower bound |
+| Corollary 3.5 | `primeRoots` | `CoefficientMass/PrimeCor.lean` | Prime-root lower bound (real `F`; the paper's complex case follows from `logarithmicMass` in the same way) |
 | Corollary 3.6 | `primeInfimum` | `CoefficientMass/PrimeCor.lean` | Prime-root infimum with explicit errors |
 | Corollary 3.7 | `nearOptimal` | `CoefficientMass/Near.lean` | Comparison with the root product |
 | Proposition 4.1 | `unboundedLooseness`, `halfSum`, `looseRatio` | `CoefficientMass/LooseOrder.lean`, `CoefficientMass/LooseRatio.lean` | First-row refinement and ratio |
