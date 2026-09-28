@@ -6,10 +6,19 @@ Authors: Bangyen Pham
 
 import CoefficientMass.FirstRow
 
-/-! # The Complex First Row Above One
+/-!
+# The Complex First Row Above One
 
 This module completes Corollary 3.3 of `coefficient-mass.tex` by transferring
 the extra first-row clause of Theorem 3.2 from real to complex multiples.
+
+## Definitions
+
+* `ComplexFirstRowOrderStatistics`.
+
+## Theorems
+
+* `complexFirstRowOrderStatistics`.
 -/
 
 open Polynomial
