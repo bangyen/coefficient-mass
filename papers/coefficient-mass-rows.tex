@@ -86,7 +86,7 @@ $V_r(L,k)=\beta_r(L-k+1)$ (Theorem~\ref{thm:allrowstwo}).
 \end{mainthm}
 
 At $r=2$ this sharpens $b_k\ge L-k+1$ to $b_k\ge\beta_2(L-k+1)$; for instance
-$q(s)=(1-\frac s2)(1-\frac s5)$ is admissible for $\beta_2(3)$ and has
+$q(s)=(1-\frac s2)(1-\frac s5)$ is admissible for $\mu_2(\varnothing,3)$ and has
 $\sum_{s\ge1}|q(s)|2^{-s}=\frac{11}{40}$, so
 $\beta_2(3)\ge\frac{40}{11}>3$.
 
@@ -103,8 +103,9 @@ with an explicit loss $E_k(r)$ from the first $2k-2$ positions
 (Theorem~\ref{thm:prefixrows}), and for fixed $n$ (indeed
 $n=o(k/\log k)$), $E_k(r)/\nu_k(n)\to0$ as $k\to\infty$
 (Corollary~\ref{cor:belowtwo}).  When the upper bound is attained, the
-prefix identity~\eqref{eq:prefixid}, the exempted prefix $[1,i-1]$ is a
-worst exempted set.  At $r\ge2$ the prefix identity is the main theorem.
+prefix identity~\eqref{eq:prefixid}, the sets $[1,i-1]$ completed by $k-i$
+far positions, for a minimizing $i$, are asymptotically worst exempted
+sets.  At $r\ge2$ the prefix identity is the main theorem.
 Below $2$ it holds in some regimes and fails in others; that is the
 subject of the companion paper~\cite{coefficient-mass-belowtwo}.
 
@@ -117,9 +118,10 @@ $q$ of degree less than $L$ with $q(0)=1$: minimize
   \Phi_r(q)=\sum_{s\ge1}|q(s)|\,r^{-s}
 \]
 subject to $q$ vanishing on the set $S$ of backward distances of the
-exempted positions (Proposition~\ref{prop:rowvalue}).  Minimizers exist
-and can be taken with integer zeros, $q(s)=\prod_{z\in Z}(1-s/z)$
-(Lemmas~\ref{lem:intzeros} and~\ref{lem:truncvertex}).  Two facts then settle $r\ge2$.
+exempted positions (Proposition~\ref{prop:rowvalue}).  Products with
+integer zeros, $q(s)=\prod_{z\in Z}(1-s/z)$, give the same prefix infima
+(Lemma~\ref{lem:intzeros}) and minimize the problems truncated at $s\le D$
+(Lemma~\ref{lem:truncvertex}).  Two facts then settle $r\ge2$.
 \begin{itemize}
 \item A convexity argument, crossing, shows that one insertion at the
 first gap of a minimizer handles the last exempted position, wherever it lies
@@ -135,9 +137,11 @@ more than one root.
 The rows $k\ge2$, which exempt the largest coefficients, are an
 order-statistic variant, introduced in the companion
 paper~\cite{coefficient-mass}, of the reduced height.  The top row
-$\beta_r(n)=V_r(n,1)$ is the reduced height of $(x-r)^n$ in the sense of
-Dubickas and Jankauskas~\cite{dj}, the infimum of the heights of its monic
-multiples; the reduced length~\cite{schinzel} is the $\ell^1$ analogue.
+$\beta_r(n)=V_r(n,1)$ is the nonleading-coefficient variant of the reduced
+height of $(x-r)^n$ in the sense of Dubickas and Jankauskas~\cite{dj}, the
+infimum of the heights of its monic multiples: that reduced height is
+$\max\{1,\beta_r(n)\}$, which is $\beta_r(n)$ when $\beta_r(n)\ge1$, in
+particular for $r\ge2$; the reduced length~\cite{schinzel} is the $\ell^1$ analogue.
 Lower bounds for the coefficients of polynomials with a root of high
 multiplicity go back to the work of Beaucoup, Borwein, Boyd and Pinner on
 multiple roots of power series with bounded
@@ -160,7 +164,8 @@ Table~\ref{tab:notation} lists this and the other notation used in more
 than one place, with the section or result where it is defined, and
 symbols used only inside one proof are defined there.  All logarithms are
 natural, $\N_{>0}=\{1,2,\ldots\}$, and $[u,v]$ denotes the integers in that
-range.  Results of the companion paper are cited by their numbers there.
+range.  Results of~\cite{coefficient-mass}
+and~\cite{coefficient-mass-belowtwo} are cited by their numbers there.
 
 \begin{table}[tp]
 \centering
@@ -201,9 +206,11 @@ $\mathrm{ins}(Z,c)$ & $Z$ with $c$ inserted and the elements from $c$ on
   moved up by one & Section~\ref{sec:crossing}\\
 $h_t(W)$ & least integer above $t$ not in $W$ & Section~\ref{sec:crossing}\\
 $\Phi_{r,D}$, $\mu_{r,D}$ & $\Phi_r$ and $\mu_r$ with the sum cut at $s\le D$
-  & Section~\ref{sec:allrowstwo}\\
+  & Proposition~\ref{prop:rowvalue}(b)\\
 $\Phi_{r,D}^{<c}$, $\Phi_{r,D}^{>c}$ & the parts of $\Phi_{r,D}$ with
   $s<c$ and $s>c$ & Section~\ref{sec:allrowstwo}\\
+$A_c$, $B_c$ & $r_{W\cap[1,c-1]}$, $r_{W\cap(c,\infty)}$ for $c\notin W$
+  & Section~\ref{sec:allrowstwo}\\
 $\omega_i(s)$, $A_i(p)$ & $\binom{s-1}{i-1}r^{-s}$;
   $\sum_s\omega_i(s)|p(s)|=\Phi_r(r_{[1,i-1]}p)$ & Section~\ref{sec:crossing}\\
 $\theta$ & $4(r-1)/r^2$ & Corollary~\ref{cor:belowtwo}\\
@@ -307,9 +314,9 @@ We next extend the displaced-zero tail bound
 $y_i\le\frac12$, to all nodes in $(0,1)$ (Theorem~\ref{thm:tailgen}), and
 at the root $r$ we deduce that deleting the largest zero costs at most the
 factor $\max(1,a)$ (Lemma~\ref{lem:confdelr}).  Such certificates give
-lower bounds; Lemma~\ref{lem:confdelr} is used in the remark after
-Theorem~\ref{thm:crossing}, while the last row
-(Corollary~\ref{cor:lastrowr}) needs only convexity.
+lower bounds; Lemma~\ref{lem:confdelr} gives the last row
+(Corollary~\ref{cor:lastrowr}) and is used in the remark after
+Theorem~\ref{thm:crossing}.
 
 As in \cite[Section~2]{coefficient-mass}, for distinct nodes
 $y_1,\ldots,y_c\in(0,1)$ and $Z\subset\N_{>0}$ with $|Z|=c-1$, the
@@ -477,12 +484,10 @@ $V_r(L,L)=r-1$ for $r\ge2$, and $V_r(L,L)=(r-1)^L$ for $1<r\le2$.
 \end{corollary}
 
 \begin{proof}
-Lower bounds: Proposition~\ref{prop:rowvalue}(a) with $Z=S$, $|S|=L-1$, and
-Lemma~\ref{lem:prefixpush} with $p=1$, whose
-proof uses only the convexity of Lemma~\ref{lem:crossing}(b).  It gives
-$\Phi_r(S)\le\max_{1\le i\le L}\Phi_r([1,i-1])=\max_{1\le i\le L}a^i$, by
-the first claim of Lemma~\ref{lem:confdelr} (a direct computation), and
-this maximum is $a$ for $r\ge2$ and $a^L$ for $r\le2$.  Upper bounds: for $r\ge2$,
+Lower bounds: Proposition~\ref{prop:rowvalue}(a) with $Z=S$, $|S|=L-1$,
+and the consequences in Lemma~\ref{lem:confdelr}: $\Phi_r(S)\le
+\Phi_r(\varnothing)=a$ for $r\ge2$ (take $t=0$), and
+$\Phi_r(S)\le a^{|S|+1}=a^L$ for $r\le2$.  Upper bounds: for $r\ge2$,
 Proposition~\ref{prop:rowvalue}(c) with $n=1$ and
 $\beta_r(1)=1/\Phi_r(\varnothing)=r-1$; for $r\le2$, Proposition~\ref{prop:rowvalue}(b)
 with $S=[1,L-1]$, where $q=r_S$ is forced and $\mu_r(S,L)=a^L$.
@@ -717,7 +722,7 @@ For finite $Z\subset\N_{>0}$ and an integer $c\ge1$ let
 
 For a finite $W\subset\N_{>0}$ and an integer $t\ge0$ put
 \[
-  h_t(W)=\min\{x\in\N:\ x>t,\ x\notin W\},
+  h_t(W)=\min\{x\in\N_{>0}:\ x>t,\ x\notin W\},
 \]
 the first gap of $W$ above $t$.  Every integer in $(t,h_t(W))$ lies in $W$.
 If $h>\max W$ then $\mathrm{ins}(W,h)=W\cup\{h\}$.
@@ -824,8 +829,8 @@ $W$ without gaps in $(t,\max W]$ handles every later position for free.
 
 \paragraph{One polynomial for several exempted sets.}
 Part~(b) of Lemma~\ref{lem:crossing} also pushes exempted positions down
-into an initial block while a fixed factor rides along.  This gives the
-lower bounds of Corollary~\ref{cor:lastrowr}, and it is the starting point
+into an initial block while a fixed factor rides along.  With $p=1$ it
+reproves the lower bounds of Corollary~\ref{cor:lastrowr}, and it is the starting point
 for the rows below the root $2$~\cite{coefficient-mass-belowtwo}.
 
 Put $\omega_i(s)=\binom{s-1}{i-1}r^{-s}$ for $i\ge1$ (zero for $s<i$) and
@@ -1041,7 +1046,7 @@ is admissible for $T$ as well.  By Lemma~\ref{lem:truncvertex}, some $W$ with
 $T\subseteq W\subseteq[1,D]$ and $|W|=|T|+n-1$ has
 $\Phi_{r,D}(r_W)=\mu_{r,D}(T,|T|+n)$.  Let $h=h_t(W)$ and
 $W'=\mathrm{ins}(W,h)$.  The proof of Theorem~\ref{thm:crossing} uses only
-the pointwise inequality $|q(s)|\le\lambda'|q_1(s)|+(1-\lambda')|q_2(s)|$ of
+the pointwise bound on the convex combination $q$ of $q_1,q_2$ in
 Lemma~\ref{lem:crossing}(a).  So it applies to the truncated sums, and gives
 \[
   \mu_{r,D}\bigl(T\cup\{\sigma\},|W|+2\bigr)\le
@@ -1095,6 +1100,15 @@ $\mathrm{ins}(W,c)\supseteq[1,i]$.  The lemma gives
 $\mu_{r,D}([1,i],i+n)\le a\,\mu_{r,D}([1,i-1],i-1+n)$, and letting
 $D\to\infty$ gives~\eqref{eq:prefixup}.
 
+
+\paragraph{Formal verification.}
+Every numbered lemma, proposition, theorem and corollary has a
+corresponding Lean~4 declaration, as does~\eqref{eq:prefixup}; they are
+listed in the Lean section of \texttt{README.md} in the source archive,
+whose \texttt{THEOREM\_CORRESPONDENCE.md} itemizes only the results
+of~\cite{coefficient-mass}.  The repository guards reject unfinished
+proofs and unauthorized axioms.  Other unnumbered remarks are not listed
+there.
 
 \paragraph{Data availability.}
 No datasets were generated or analyzed in this study.
