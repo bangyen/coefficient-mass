@@ -932,33 +932,33 @@ For $a=k/L<1/2$, put
 \]
 The function $\phi$ is strictly decreasing on $(0,1/2)$ because
 $\phi'(a)=\log(a/(2-2a))<0$, and $\phi(0^+)=\log2>0>\phi(\tfrac12^-)=-\tfrac12\log2$,
-so it has a unique zero $a_0=0.2270921\ldots$ there.  Fix
-$0<\delta<a_0/2$.  For $\delta\le a=k/L\le a_0-\delta$ the numerator and
+so it has a unique zero $a_\ast=0.2270921\ldots$ there.  Fix
+$0<\delta<a_\ast/2$.  For $\delta\le a=k/L\le a_\ast-\delta$ the numerator and
 denominator in~\eqref{eq:jensen} are $(2-2a)^{L(1-a)+1}-1$ and
 $a^{-k}-1$, so the logarithm of the right side is
 \[
   L\phi(a)+\log(2-2a)+\log\bigl(1-(2-2a)^{-L(1-a)-1}\bigr)
   -\log\bigl(1-a^{k}\bigr).
 \]
-Here $2-2a\ge2-2a_0>\tfrac32$ and $a^k\le a\le a_0<\tfrac14$, so the last
+Here $2-2a\ge2-2a_\ast>\tfrac32$ and $a^k\le a\le a_\ast<\tfrac14$, so the last
 three terms lie in $[-\log3,\log2+\log\tfrac43]$: the error is $O(1)$
 uniformly in $L$, $k$ and the admissible $a$.  Since
-$\phi\ge\phi(a_0-\delta)>0$ on $[\delta,a_0-\delta]$, the right side
+$\phi\ge\phi(a_\ast-\delta)>0$ on $[\delta,a_\ast-\delta]$, the right side
 of~\eqref{eq:jensen} exceeds $1$ for $L\ge L_0(\delta)$, so $b_k>1$ and
 $\log^+b_k=\log b_k\ge L\phi(k/L)-\log3$.  The magnitudes $b_k$ sit at
 distinct positions, and all other positions contribute $\log^+\ge0$, so
 \[
-  \frac{\Lambda(F)}{L^2}\ \ge\ \frac1L\sum_{\delta L\le k\le(a_0-\delta)L}
+  \frac{\Lambda(F)}{L^2}\ \ge\ \frac1L\sum_{\delta L\le k\le(a_\ast-\delta)L}
   \phi(k/L)\ -\ \frac{\log3}{L},
 \]
-uniformly in $F$.  As $\phi$ is continuous on $[\delta,a_0-\delta]$, the
-sum is a Riemann sum converging to $\int_\delta^{a_0-\delta}\phi(a)\,da$.
+uniformly in $F$.  As $\phi$ is continuous on $[\delta,a_\ast-\delta]$, the
+sum is a Riemann sum converging to $\int_\delta^{a_\ast-\delta}\phi(a)\,da$.
 Taking the lower limit in $L$ and then letting $\delta\downarrow0$, with
-$\phi$ bounded on $(0,a_0]$, gives
+$\phi$ bounded on $(0,a_\ast]$, gives
 \[
   \liminf_{L\to\infty}\ \inf_{\substack{F\in\R[x]\text{ monic}\\(x-2)^L\mid F}}
   \frac{\Lambda(F)}{L^2}
-  \ \ge\ \kappa_J:=\int_0^{a_0}\phi(a)\,da
+  \ \ge\ \kappa_J:=\int_0^{a_\ast}\phi(a)\,da
   =0.0647068\ldots.
 \]
 Thus the explicit $L^2/80$ estimate is useful uniformly from $L=8$, while
@@ -1152,7 +1152,7 @@ $\binom d{i-1}$, $i\le c$, is a basis of the polynomials of degree below
 $c$ and such a polynomial vanishing at the $c$ points $\{0\}\cup Z$ is zero.
 Hence $\alpha$ stays bounded and converges, and since
 $0\le h_{d-i+1}(y_1,\ldots,y_i)\le\binom d{i-1}2^{-(d-i+1)}$, the terms
-$|w^\varepsilon_d|$ are dominated by $Cd^{\,c}2^{-d}$.  The limit
+$|w^\varepsilon_d|$ are dominated by $Kd^{\,c}2^{-d}$.  The limit
 $w^0_d=p(d)2^{-d}$ has $\deg p<c$, $p(0)=1$ and $p|_Z=0$, so $p=r_Z$, and by
 dominated convergence $\Tail(w^\varepsilon)\to\Phi(Z)$.  Likewise
 $\Tail(V^\varepsilon)\to\Phi(Z')$, which proves the inequality.
@@ -1471,7 +1471,7 @@ Unnumbered remarks are proved in the text but not formalized; these include
 the constant $\kappa_J$ and its uniformity over root sets, the bound on $b_1$
 after Corollary~\ref{cor:allroots}, the equality of the real and complex
 monic infima, the upper constant $(1+\log2)/2$, and the non-attainment of the
-row-two infimum at $(2,3)$.  Where a Lean statement is narrower than the
+row-two infimum at $(2,3)$ after Proposition~\ref{prop:sharp23}.  Where a Lean statement is narrower than the
 numbered result, the table records it; for instance, the Lean form of
 Lemma~\ref{lem:rowcert} assumes the zero set for every $S$ of size $k-1$,
 so the consequence clause of Proposition~\ref{prop:rowsfree} is proved in
