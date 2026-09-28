@@ -38,11 +38,12 @@ $\prod_{i=1}^L(x-r_i)$, we prove degree-independent lower bounds for each of
 the $L$ largest nonleading coefficient magnitudes.  In particular, the
 $k$-th largest is at least
 $|f_D|\prod_{i=k}^L(r_i-1)$.  Summing these bounds gives lower estimates for
-the logarithmic coefficient mass of $F$.  For the first $L$ prime roots, it
-determines the infimum over real monic multiples up to an $O(L^2)$ error.
+the logarithmic coefficient mass of $F$.  For the first $L$ prime roots, the
+resulting lower estimate determines the infimum over real monic multiples up to an $O(L^2)$ error.
 The main tool is a comparison theorem for exponential-sum certificates with
-prescribed integer zeros: their infinite tail is controlled solely by the
-initial consecutive run of zeros.  This makes the coefficient bounds
+prescribed integer zeros: when every node is at most $\frac12$ (every root at
+least $2$), their infinite tail is controlled solely by the initial
+consecutive run of zeros.  This makes the coefficient bounds
 independent of the multiplier's degree.
 \end{abstract}
 
@@ -171,8 +172,8 @@ dual lower bound for reduced height for any admissible zero set $J$, and
 their Corollary~7 gives equality under additional determinant conditions.
 For the consecutive set $J=\{1,\ldots,c-1\}$, an eventual same-sign
 hypothesis evaluates the tail as $|P(1)|^{-1}$.
-Lemma~\ref{lem:consecutive} verifies that hypothesis for positive distinct
-nodes.  What is additional here is not degree independence by itself, which
+Lemma~\ref{lem:consecutive} verifies that hypothesis for distinct nodes in
+$(0,1)$.  What is additional here is not degree independence by itself, which
 is already built into reduced height, but Theorem~\ref{thm:tail}: for
 arbitrary positive-integer zero sets and nodes at most $1/2$, it bounds the
 entire tail by the initial consecutive run.  The simultaneous deletion of a
@@ -216,13 +217,15 @@ $w_0,w_1,\ldots$ as the restriction to $d\in\{0,1,2,\ldots\}$ of the
 real-analytic function $d\mapsto\sum_ia_iy_i^d$; all statements about zeros
 and signs of an exponential sum refer to this function of the real variable.
 
-The terminology is concrete.  If $Z=\{1,3,5\}$, then its leading run is
-$\{1\}$ and $3,5$ are displaced zeros.  Theorem~\ref{thm:tail} says that
+The terminology is concrete.  For finite $Z\subset\N_{>0}$ the leading run
+is $\ell(Z)=\max\{k\ge0:\{1,\ldots,k\}\subseteq Z\}$, its leading block is
+$\{1,\ldots,\ell(Z)\}$, and the other elements of $Z$ are displaced zeros.
+If $Z=\{1,3,5\}$, then $\ell(Z)=1$ and $3,5$ are displaced zeros.  Theorem~\ref{thm:tail} says that
 moving zeros away from the initial positions cannot enlarge the certificate
 tail beyond the value determined by that leading run.  Its proof has three
 steps: establish sign alternation from the zero bound, compare the correction
 created by deleting the largest displaced zero, and iterate that deletion
-until only the leading run remains.
+until only the leading block remains.
 
 \paragraph{Zero bound.}
 A nonzero exponential sum on $n$ distinct positive nodes has at most $n-1$
@@ -293,8 +296,8 @@ formula for $w_d$ follows, and summing the one-signed terms gives
 Let $\rho_1>\cdots>\rho_c\ge2$, $y_i=\rho_i^{-1}$, $Z\subset\N_{>0}$ with
 $|Z|=c-1$, and let $w_d=\sum_{i=1}^ca_iy_i^d$ be the exponential sum
 with $w_0=1$ and $w_z=0$ for $z\in Z$.  Put
-$\ell=\max\{0\le k\le c-1:\{1,\ldots,k\}\subseteq Z\}$, the leading run of
-$Z$; the elements of $Z$ outside $\{1,\ldots,\ell\}$ are its displaced zeros.
+$\ell=\ell(Z)=\max\{k\ge0:\{1,\ldots,k\}\subseteq Z\}$, the leading run of
+$Z$, so $\ell\le|Z|=c-1$; the elements of $Z$ outside $\{1,\ldots,\ell\}$ are its displaced zeros.
 Then
 \begin{equation}\label{eq:tail}
   \Tail(w)=\sum_{d\ge1}|w_d|
@@ -1156,7 +1159,7 @@ $\Tail(V^\varepsilon)\to\Phi(Z')$, which proves the inequality.
 
 Finally $|r_{\{1,\ldots,\ell\}}(s)|=\binom{s-1}\ell$ for $s>\ell$ and $0$ for
 $1\le s\le\ell$, and $\sum_{s>\ell}\binom{s-1}\ell2^{-s}=1$.  Deleting the
-largest element repeatedly from any $Z$ stops at its leading run
+largest element repeatedly from any $Z$ stops at its leading block
 $\{1,\ldots,\ell\}$, never passing through an initial segment before, so
 $\Phi(Z)\le1$.
 \end{proof}
@@ -1249,7 +1252,7 @@ three of $D-1,D-2,D-3$, then $b_k(F)\ge L-k+1$.
 
 \begin{proof}
 For $n=1$ take $Z=A$ and use Lemma~\ref{lem:confdel}.  Let $n\ge2$, let $\ell$
-be the leading run of $A$ (as in Theorem~\ref{thm:tail}; so $\ell\le2$), and let $c_1=\ell+1<c_2<\cdots$ be the
+be the leading run $\ell(A)$ of Section~\ref{sec:tail} (so $\ell\le2$), and let $c_1=\ell+1<c_2<\cdots$ be the
 positive integers outside $A$.  Keep the holes
 $K=\{1\}$, $\{2\}$, $\{3,c_2\}$ for $\ell=0,1,2$, fill the next $n-1$ holes
 after $K$, and put
@@ -1464,7 +1467,11 @@ Unnumbered remarks are proved in the text but not formalized; these include
 the constant $\kappa_J$ and its uniformity over root sets, the bound on $b_1$
 after Corollary~\ref{cor:allroots}, the equality of the real and complex
 monic infima, the upper constant $(1+\log2)/2$, and the non-attainment of the
-row-two infimum at $(2,3)$.  The complex case of Corollary~\ref{cor:prime}
+row-two infimum at $(2,3)$.  Where a Lean statement is narrower than the
+numbered result, the table records it; for instance, the Lean form of
+Lemma~\ref{lem:rowcert} assumes the zero set for every $S$ of size $k-1$,
+so the consequence clause of Proposition~\ref{prop:rowsfree} is proved in
+the text only.  The complex case of Corollary~\ref{cor:prime}
 follows from Corollary~\ref{cor:mass} as in the text but is formalized for
 real $F$ only.
 

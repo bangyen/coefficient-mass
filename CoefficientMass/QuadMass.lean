@@ -13,7 +13,7 @@ import Mathlib.Analysis.Complex.ExponentialBounds
 
 This module finishes Proposition 4.2 of `coefficient-mass.tex`: `Λ(F) ≥ L^2 / 80` for a
 monic multiple `F` of `∏ (x - r_i)` with `r_i ≥ 2` and `L ≥ 8`.  With `R = 9/10` and
-`k = ⌊L/8⌋`, the bound (4.4) exceeds `e^{L/5}`, because `(9/5)^7 > 61` and
+`k = ⌊L/8⌋`, the bound `eq:jensen` exceeds `e^{L/5}`, because `(9/5)^7 > 61` and
 `e^{8/5} < 5`; so at least `⌊L/8⌋ ≥ L/16` coefficients have `log |f_j| ≥ L/5`.
 
 ## Definitions

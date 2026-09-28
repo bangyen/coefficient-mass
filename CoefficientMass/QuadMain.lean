@@ -11,7 +11,7 @@ import CoefficientMass.QuadRev
 /-!
 # Jensen's Bound on the Rows
 
-This module proves the bound (4.4) of Proposition 4.2 of `coefficient-mass.tex`: for a
+This module proves the bound `eq:jensen` of Proposition 4.2 of `coefficient-mass.tex`: for a
 monic multiple `F` of `∏ (x - r_i)` with `r_i ≥ 2`, `1 ≤ k ≤ L` and `1/2 < R < 1`,
 `b_k(F) ≥ ((2R)^{L-k+1} - 1) / ((1 - R)^{-k} - 1)`.  If fewer than `k` nonleading
 coefficients reach the bound `Y`, apply `T_z` at their backward distances `z` to the
@@ -32,14 +32,14 @@ open Polynomial
 
 namespace CoefficientMass
 
-/-- The bound (4.4) of Proposition 4.2: `b_k(F) ≥ ((2R)^{L-k+1} - 1) / ((1 - R)^{-k} - 1)`
+/-- The bound `eq:jensen` of Proposition 4.2: `b_k(F) ≥ ((2R)^{L-k+1} - 1) / ((1 - R)^{-k} - 1)`
 for a monic multiple `F` of `∏ (x - r_i)`, `r_i ≥ 2`, `1 ≤ k ≤ L` and `1/2 < R < 1`. -/
 def JensenRows : Prop :=
   ∀ (L k : ℕ) (r : Fin L → ℝ) (F : ℝ[X]), F.Monic → (∀ i, 2 ≤ r i) → rootProduct ℝ r ∣ F →
     1 ≤ k → k ≤ L → ∀ R : ℝ, 1 / 2 < R → R < 1 →
       k ≤ largeCount F (((2 * R) ^ (L - k + 1) - 1) / (1 / (1 - R) ^ k - 1))
 
-/-- Proposition 4.2, the bound (4.4). -/
+/-- Proposition 4.2, the bound `eq:jensen`. -/
 theorem jensenRows : JensenRows := by
   intro L k r F hF hr hdvd hk hkL R hR1 hR2
   have hR0 : 0 < R := by linarith

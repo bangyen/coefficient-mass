@@ -12,7 +12,7 @@ import CoefficientMass.LooseRow
 This module proves Proposition 4.1 of `coefficient-mass.tex`: for real roots
 `1 < r_1 ≤ ⋯ ≤ r_L`, repetitions allowed, every nonzero multiple `F` of `∏ (x - r_i)` has
 `b_1(F) ≥ |f_D| S B / (B + 1)` with `S = ∑ r_i` and `B = ∏ (r_i - 1)`; repeated roots are
-moved apart as in Theorem 3.2.  For `r_i ≥ 2`, `B ≥ 1` gives the bound (4.3),
+moved apart as in Theorem 3.2.  For `r_i ≥ 2`, `B ≥ 1` gives the bound `eq:halfsum`,
 `b_1(F) ≥ S / 2` for monic `F`.
 
 ## Definitions
@@ -37,7 +37,7 @@ def UnboundedLooseness : Prop :=
     rootProduct ℝ r ∣ F → 1 ≤ largeCount F (‖F.leadingCoeff‖ *
       ((∑ i, r i) * (∏ i, (r i - 1)) / (∏ i, (r i - 1) + 1)))
 
-/-- The bound (4.3) of Proposition 4.1: `b_1(F) ≥ (r_1 + ⋯ + r_L) / 2` for a monic
+/-- The bound `eq:halfsum` of Proposition 4.1: `b_1(F) ≥ (r_1 + ⋯ + r_L) / 2` for a monic
 multiple `F` of `∏ (x - r_i)` with `2 ≤ r_1 ≤ ⋯ ≤ r_L`. -/
 def HalfSum : Prop :=
   ∀ (L : ℕ) (r : Fin L → ℝ) (F : ℝ[X]), 0 < L → Monotone r → (∀ i, 2 ≤ r i) → F.Monic →
@@ -101,7 +101,7 @@ theorem unboundedLooseness : UnboundedLooseness := by
   refine ⟨hj.1, not_lt.1 fun hlt => ?_⟩
   exact absurd hj.2 (not_le.2 (hεS j (Finset.mem_filter.2 ⟨hj.1, hlt⟩)))
 
-/-- The bound (4.3): `B ≥ 1` for `r_i ≥ 2`, so `S B / (B + 1) ≥ S / 2`. -/
+/-- The bound `eq:halfsum`: `B ≥ 1` for `r_i ≥ 2`, so `S B / (B + 1) ≥ S / 2`. -/
 theorem halfSum : HalfSum := by
   intro L r F hL hmono hr hF hdvd
   have h := unboundedLooseness L r F hL hmono (fun i => by linarith [hr i]) hF.ne_zero hdvd

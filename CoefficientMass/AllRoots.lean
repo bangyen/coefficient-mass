@@ -15,7 +15,7 @@ import CoefficientMass.QuadMass
 This module proves Corollary 4.3 of `coefficient-mass.tex`: for `L ≥ 2`,
 `2 ≤ r_1 ≤ ⋯ ≤ r_L` and `P = ∏ (x - r_i)`, the infimum `M(P)` of `Λ(PQ)` over monic real
 `Q` is `≍ L^2 + ∑_i i log (r_i - 1)`.  Every monic multiple has mass at least
-`(L^2 + ∑_i i log (r_i - 1)) / 81`, by Proposition 4.2 for `L ≥ 8`, by (4.3) for
+`(L^2 + ∑_i i log (r_i - 1)) / 81`, by Proposition 4.2 for `L ≥ 8`, by `eq:halfsum` for
 `L ≤ 7`, and by Corollary 3.4; and `Q = 1` has mass at most three times it.
 
 ## Definitions
