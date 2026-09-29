@@ -12,8 +12,8 @@ repository-code: "https://github.com/bangyen/coefficient-mass"
 doi: "10.5281/zenodo.22998724"
 url: "https://doi.org/10.5281/zenodo.22998724"
 license: [CC-BY-4.0, MIT]
-version: 1.0.2
-date-released: 2026-09-27
+version: 1.0.3
+date-released: 2026-09-29
 keywords:
   - polynomial multiples
   - coefficient mass
