@@ -61,12 +61,31 @@ coefficient mass by
   \Lambda(F)=\sum_{j:f_j\ne0}\log^+|f_j|,
   \qquad \log^+x=\max(0,\log x),
 \]
-the logarithm of the coordinatewise multiplicative height
-$\prod_{j:f_j\ne0}\max(1,|f_j|)$.  Unlike the usual height $\max_j|f_j|$,
-this quantity records when several distinct coefficients are large: lower
-bounds for their ordered magnitudes add after taking logarithms.  Because
-$\Lambda$ is not homogeneous, all minimization statements fix the leading
-coefficient, normally by requiring the multiplier to be monic.
+the logarithm of the product
+$\prod_{j:f_j\ne0}\max(1,|f_j|)$.  Our question is whether prescribed roots
+force many coefficients of every monic multiple to be large, even when the
+degree of the multiplier is unrestricted.  The usual height
+$\max_j|f_j|$ records only the largest coefficient, and the coefficient length
+$\sum_j|f_j|$ adds their magnitudes.  The quantity $\Lambda$ instead adds
+their logarithmic magnitudes above the fixed threshold $1$: $m$ coefficients
+of magnitude at least $A>1$ contribute at least $m\log A$.  It therefore
+measures both the number and the size of coefficients forced above that
+threshold.  For example, coefficient vectors $(A,1,\ldots,1)$ and
+$(A,\ldots,A)$ of length $m$ have the same height $A$, but logarithmic
+coefficient masses $\log A$ and $m\log A$.
+
+The threshold $1$ is tied to the monic normalization; $\Lambda$ is not
+homogeneous, and arbitrary rescaling could make it zero.  For a monic real
+polynomial $P$ we accordingly define its \emph{reduced logarithmic
+coefficient mass} by
+\[
+  \mathcal I_\Lambda(P)=
+  \inf_{\substack{Q\in\R[x]\\Q\text{ monic}}}\Lambda(PQ).
+\]
+This follows the monic-multiplier convention for reduced height and reduced
+length, with $\Lambda$ as the coefficient functional being minimized.  The
+ordered-coefficient bounds below provide lower bounds for this infimum by
+adding the logarithmic contribution of each forced large coefficient.
 
 Multiplication makes this an unexpectedly slippery question.  It introduces
 new coefficients that can cancel the old ones, and the multiplier may place
@@ -79,15 +98,18 @@ below force at least two nonleading coefficients of $F$ to have magnitude
 at least $2$.  Thus they control how many coefficients must be large, not
 merely the height of one coefficient.  The case of interest is monic, or
 more generally $|f_D|\ge1$; this is also the normalization used for reduced
-height~\cite{dj} and costs nothing for integer multiples.
+height~\cite{dj}.  Every nonzero polynomial with integer coefficients has
+$|f_D|\ge1$, so such multiples also satisfy this leading-coefficient
+condition without rescaling; their multipliers need not be monic.
 
 \paragraph{Main results.}
 Write $b_k(F)$ for the $k$-th largest of the $D$ nonleading coefficient
 magnitudes $|f_j|$, $j<D$, of $F$, counted with repetition, zeros included.
 Let $2\le r_1\le\cdots\le r_L$ be real, repetitions allowed, let
 $P=\prod_{i=1}^L(x-r_i)$, and let $F$ be a nonzero real multiple of $P$.
-The central result gives degree-uniform bounds for the coefficient rows;
-summing them yields mass and prime-root consequences.  Two refinements cover
+The central result gives degree-uniform bounds for the ordered coefficient
+magnitudes; summing them yields mass bounds and consequences for prime roots.
+Two refinements cover
 the bottom of the root range: Jensen's formula strengthens the early rows
 near $2$, and confluent certificates control every row at the repeated root
 $2$.  Theorem~\ref{thm:order} gives the central bound:
@@ -157,9 +179,20 @@ the heart of the paper.
 In general the certificate is a normalized exponential sum in the reciprocal
 roots, and its prescribed zeros encode the ignored coefficient positions.
 Theorem~\ref{thm:tail} bounds its $\ell^1$ tail uniformly in the multiplier's
-degree.  Its engine is a comparison that changes both data sets: remove the
-largest displaced zero and the largest reciprocal-root node, and the tail
-increases.  Iterating leaves the explicit consecutive certificate seen above.
+degree.  The key comparison changes both the prescribed zero set and the
+reciprocal-root node set: removing the largest displaced zero and the largest
+node increases the tail.  Iterating leaves a certificate with consecutive
+zeros, whose tail has an explicit formula.
+
+The passage from that comparison to the main results is as follows.  The
+root equations give
+$0=f_D+\sum_{j<D}f_jw_{D-j}$.  Prescribing zeros at the backward distances of
+the $k-1$ largest nonleading coefficients removes their terms.  Every
+remaining coefficient has magnitude at most $b_k(F)$, so the triangle
+inequality gives $|f_D|\le b_k(F)\Tail(w)$.  The tail theorem bounds
+$\Tail(w)$ from above and hence $b_k(F)$ from below.  Summing the logarithms
+of these bounds gives the estimate for $\Lambda(F)$, and specializing the
+roots to primes gives Corollaries~\ref{cor:prime} and~\ref{cor:infimum}.
 
 \paragraph{Relation to earlier work and novelty.}
 The exponential sums $d\mapsto\sum_i a_i e^{\lambda_i d}$ form a classical
@@ -184,6 +217,15 @@ coefficient row, rather than only a largest-coefficient bound.
 Reduced length, height and Euclidean norm, as well as integer, sparse and
 bounded-coefficient multiples, belong to the surrounding literature~\cite{dubickas,schinzel,schinzel-ii,schinzel-complex,frw,mignotte,
 bombieri-vaaler,bbbp-multiple,bbbp-ray,grt}.
+In this reduced-length literature, Dobrowolski~\cite{dobrowolski} settled
+Schinzel's question by proving that the coefficient length
+$\mathcal L(A)=\sum_j|a_j|$ satisfies $\mathcal L(A)\ge2M(A)$ for every
+complex polynomial $A$ having a zero on the unit circle, where $M(A)$ is
+its Mahler measure.  This result concerns a different coefficient
+functional and a different root condition from those studied here, but is
+part of the context for minimizing coefficient quantities over monic
+multiples.  Our bounds concern each ordered coefficient magnitude and the
+sum of their truncated logarithms for prescribed real roots at least $2$.
 
 This article is self-contained.  The source archive~\cite{archive} also
 contains companion manuscripts; one starts from Theorem~\ref{thm:everyrow} and
@@ -199,6 +241,11 @@ Throughout, all logarithms are natural, $\N=\{0,1,2,\ldots\}$,
 $\N_{>0}=\{1,2,\ldots\}$, and every asymptotic
 statement is for $L\to\infty$ with absolute implied constants unless
 parameters are named.
+The roots $r_i$ and reciprocal nodes $y_i$ are real numbers and need not be
+integers.  In contrast, coefficient positions and their backward distances
+$D-j$ are integers; the prescribed zeros of the certificates are chosen at
+these distances.  The certificate itself is also considered as a function
+of a real variable when applying zero-counting and sign arguments.
 
 \section{A displaced-zero tail theorem}\label{sec:tail}
 
@@ -923,7 +970,7 @@ magnitudes sit at distinct positions and exceed $1$, and
 $\lfloor L/8\rfloor\ge L/16$, so $\Lambda(F)\ge(L/16)(L/5)=L^2/80$.
 \end{proof}
 
-\paragraph{Optimizing the Jensen rows.}
+\paragraph{Optimizing the coefficient bounds from Jensen's formula.}
 The constant $1/80$ is a convenient elementary bound, not the limit of the
 method.  At $r_1=\cdots=r_L=2$, choose $R_k=1-k/L$ in~\eqref{eq:jensen}.
 For $a=k/L<1/2$, put
@@ -1537,6 +1584,14 @@ A.~Dubickas,
 \newblock \emph{Bulletin of the London Mathematical Society} 38 (2006), 70--80,
 \newblock \href{https://doi.org/10.1112/S0024609305017728}
 {doi:10.1112/S0024609305017728}.
+
+\bibitem{dobrowolski}
+E.~Dobrowolski,
+\newblock On a question of Schinzel about the length and Mahler's measure of
+polynomials that have a zero on the unit circle,
+\newblock \emph{Acta Arithmetica} 155 (2012), 453--463,
+\newblock \href{https://doi.org/10.4064/aa155-4-8}
+{doi:10.4064/aa155-4-8}.
 
 \bibitem{dj}
 A.~Dubickas and J.~Jankauskas,
