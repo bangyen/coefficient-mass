@@ -12,16 +12,18 @@ roots at least 2 the `k`-th largest is at least `|f_D| prod_{i>=k} (r_i - 1)`.
 The papers prove these bounds, show where they are sharp, and work out what
 happens as the roots approach 1 or move off the real line.
 
+Compiled PDFs below are from [release v1.0.3](https://github.com/bangyen/coefficient-mass/releases/tag/v1.0.3); the TeX links track the current source.
+
 | Paper | Subject |
 | --- | --- |
-| [coefficient-mass](papers/coefficient-mass.tex) | Displaced-zero certificates; the order-statistic tail bound and logarithmic mass (Corollary 3.4) |
-| [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex) | Sharpness of the order-statistic bound: the partial-sum criterion, the infimum `1/tau*` at roots `>= 2`, and the placement game below 2 |
-| [coefficient-mass-family](papers/coefficient-mass-family.tex) | The placement game along `(r,3,5,7)`: exact infima down to `r -> 1`, where every cost is explicit and the normalised excess oscillates log-periodically |
-| [coefficient-mass-rows](papers/coefficient-mass-rows.tex) | Every row is a top row: order statistics of multiples of a power at roots `>= 2` |
-| [coefficient-mass-belowtwo](papers/coefficient-mass-belowtwo.tex) | The same rows below the root 2: where the prefix identity holds, and certified failures on intervals |
-| [coefficient-mass-complex](papers/coefficient-mass-complex.tex) | Complex roots: exact reductions, arbitrary angles, separated moduli and annuli, and real roots of both signs |
-| [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex) | Roots in a sector: thin sectors, sectors of every width, degree charging and integer multiples at Gaussian roots |
-| [coefficient-mass-levelsets](papers/coefficient-mass-levelsets.tex) | Light integer multiples at Gaussian roots: one congruence for the lowest coefficients, level sets of a small polynomial, and Pell points |
+| [coefficient-mass](papers/coefficient-mass.tex) · [PDF](https://github.com/bangyen/coefficient-mass/releases/download/v1.0.3/coefficient-mass.pdf) | Displaced-zero certificates; the order-statistic tail bound and logarithmic mass (Corollary 3.4) |
+| [coefficient-mass-attainment](papers/coefficient-mass-attainment.tex) · [PDF](https://github.com/bangyen/coefficient-mass/releases/download/v1.0.3/coefficient-mass-attainment.pdf) | Sharpness of the order-statistic bound: the partial-sum criterion, the infimum `1/tau*` at roots `>= 2`, and the placement game below 2 |
+| [coefficient-mass-family](papers/coefficient-mass-family.tex) · [PDF](https://github.com/bangyen/coefficient-mass/releases/download/v1.0.3/coefficient-mass-family.pdf) | The placement game along `(r,3,5,7)`: exact infima down to `r -> 1`, where every cost is explicit and the normalised excess oscillates log-periodically |
+| [coefficient-mass-rows](papers/coefficient-mass-rows.tex) · [PDF](https://github.com/bangyen/coefficient-mass/releases/download/v1.0.3/coefficient-mass-rows.pdf) | Every row is a top row: order statistics of multiples of a power at roots `>= 2` |
+| [coefficient-mass-belowtwo](papers/coefficient-mass-belowtwo.tex) · [PDF](https://github.com/bangyen/coefficient-mass/releases/download/v1.0.3/coefficient-mass-belowtwo.pdf) | The same rows below the root 2: where the prefix identity holds, and certified failures on intervals |
+| [coefficient-mass-complex](papers/coefficient-mass-complex.tex) · [PDF](https://github.com/bangyen/coefficient-mass/releases/download/v1.0.3/coefficient-mass-complex.pdf) | Complex roots: exact reductions, arbitrary angles, separated moduli and annuli, and real roots of both signs |
+| [coefficient-mass-sectors](papers/coefficient-mass-sectors.tex) · [PDF](https://github.com/bangyen/coefficient-mass/releases/download/v1.0.3/coefficient-mass-sectors.pdf) | Roots in a sector: thin sectors, sectors of every width, degree charging and integer multiples at Gaussian roots |
+| [coefficient-mass-levelsets](papers/coefficient-mass-levelsets.tex) · [PDF](https://github.com/bangyen/coefficient-mass/releases/download/v1.0.3/coefficient-mass-levelsets.pdf) | Light integer multiples at Gaussian roots: one congruence for the lowest coefficients, level sets of a small polynomial, and Pell points |
 
 Open questions are in [ROADMAP](ROADMAP.md).
 Cold-machine reproduction instructions are in [ARTIFACT](ARTIFACT.md), and
