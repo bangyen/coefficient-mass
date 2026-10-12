@@ -29,7 +29,7 @@ just lean
 just pdf
 ```
 
-Expected success signals are `505 passed` from `just check`, a warning-free
+Expected success signals are `506 passed` from `just check`, a warning-free
 Lean build followed by successful proof guards from `just lean`, and eight
 PDFs in `papers/` from `just pdf`. On the reference release runner, the Python
 checks take about 1–2 minutes; the first Lean and TeX builds take longer while
