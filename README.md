@@ -112,5 +112,5 @@ Zenodo metadata for future releases is in `.zenodo.json`.
 
 ## License
 
-Papers CC BY 4.0, code MIT; see [LICENSE](LICENSE).  Citation metadata is in
-[CITATION.cff](CITATION.cff).
+Papers CC BY 4.0 (see [LICENSE-CC-BY-4.0](LICENSE-CC-BY-4.0)), code MIT (see
+[LICENSE](LICENSE)).  Citation metadata is in [CITATION.cff](CITATION.cff).
