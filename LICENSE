@@ -5,5 +5,7 @@ files so automated license detectors can read them:
   see LICENSE-CC-BY-4.0.
 - All other software and build configuration (including tests/, tools/,
   justfile, workflows, and the Lean sources CoefficientMass/ and
-  CoefficientMass.lean): MIT, see LICENSE-MIT, unless a file or vendored
-  dependency states a separate license.
+  CoefficientMass.lean): MIT License, see LICENSE-MIT, unless a file or
+  vendored dependency states a separate license.
+
+Copyright (c) 2026 Bangyen Pham
